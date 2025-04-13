@@ -5,9 +5,50 @@ import theme from "./theme";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Meu Projeto MUI com Next.js 15",
+  title: "Calculadora Online BR",
   description:
-    "Um exemplo de como usar a fonte IBM Plex Mono com MUI e Next.js 15",
+    "Realize cálculos online de forma rápida com a Calculadora Online BR. Diversas ferramentas para suas necessidades matemáticas, financeiras e muito mais.",
+  keywords: [
+    "calculadora online",
+    "calculadora",
+    "ferramentas online",
+    "matemática",
+    "financeira",
+    "conversão",
+    "simples",
+    "fácil",
+    "gratuita",
+    "Brasil",
+    "grátis",
+  ],
+  icons: {
+    icon: [
+      { url: "images/favicon.ico", sizes: "any", type: "image/x-icon" },
+      { url: "images/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "images/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "images/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: [
+      {
+        url: "images/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+    shortcut: [
+      {
+        url: "images/apple-touch-icon.png",
+        sizes: "196x196",
+        type: "image/png",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
+  manifest: "/site.webmanifest",
 };
 
 interface RootLayoutProps {
@@ -20,7 +61,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {children}
+          <main
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
+            }}
+          >
+            <div style={{ flexGrow: 1 }}>{children}</div>
+          </main>
         </ThemeProvider>
       </body>
     </html>
