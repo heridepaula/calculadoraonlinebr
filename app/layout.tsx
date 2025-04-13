@@ -3,8 +3,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import { Metadata } from "next";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Meu Projeto MUI com Next.js 15",
@@ -23,10 +21,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {children}
-          <Analytics />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-4FB8PBLZ68" />
     </html>
   );
 }

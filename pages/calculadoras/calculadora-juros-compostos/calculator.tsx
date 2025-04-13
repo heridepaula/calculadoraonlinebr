@@ -27,7 +27,7 @@ const Calculator = () => {
             decimalScale={2}
             valueIsNumericString={true}
             allowNegative={false}
-            prefix="R$"
+            prefix="R$ "
             variant="standard"
             label="Capital Inicial (R$)"
             fullWidth
@@ -61,7 +61,7 @@ const Calculator = () => {
             decimalScale={2}
             valueIsNumericString={true}
             allowNegative={false}
-            prefix="R$"
+            prefix="R$ "
             variant="standard"
             label="Aporte Mensal (R$)"
             fullWidth
