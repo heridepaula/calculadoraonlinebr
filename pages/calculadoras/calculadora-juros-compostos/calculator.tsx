@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { NumericFormat } from "react-number-format";
 
 const Calculator = () => {
   const [initialValue, setInitialValue] = React.useState(0);
@@ -17,11 +18,18 @@ const Calculator = () => {
       </Typography>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            label="Capital Inicial (R$)"
-            variant="standard"
-            onChange={(e) => setInitialValue(Number(e.target.value))}
+          <NumericFormat
             value={initialValue}
+            onChange={(e) => setInitialValue(Number(e.target.value.replace(/\./g, "").replace(/,/g, ".").replace("R$", "").trim()))}
+            customInput={TextField}
+            thousandSeparator="."
+            decimalSeparator=","
+            decimalScale={2}
+            valueIsNumericString={true}
+            allowNegative={false}
+            prefix="R$"
+            variant="standard"
+            label="Capital Inicial (R$)"
             fullWidth
           />
         </Grid>
@@ -35,19 +43,27 @@ const Calculator = () => {
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <TextField 
-            label="Período (meses)" 
-            variant="standard" 
+          <TextField
+            label="Período (meses)"
+            variant="standard"
             onChange={(e) => setPeriod(Number(e.target.value))}
             value={period}
-            fullWidth />
+            fullWidth
+          />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            label="Aporte Mensal (R$)"
-            variant="standard"
-            onChange={(e) => setMonthlyContribution(Number(e.target.value))}
+        <NumericFormat
             value={monthlyContribution}
+            onChange={(e) => setMonthlyContribution(Number(e.target.value.replace(/\./g, "").replace(/,/g, ".").replace("R$", "").trim()))}
+            customInput={TextField}
+            thousandSeparator="."
+            decimalSeparator=","
+            decimalScale={2}
+            valueIsNumericString={true}
+            allowNegative={false}
+            prefix="R$"
+            variant="standard"
+            label="Aporte Mensal (R$)"
             fullWidth
           />
         </Grid>
@@ -61,7 +77,7 @@ const Calculator = () => {
             }}
           >
             <Typography variant="h6" color="primary">
-              Montante Final: R$ {finalAmount.toFixed(2)}
+              Montante Final: R$ {finalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </Typography>
           </Box>
         </Grid>
@@ -71,10 +87,17 @@ const Calculator = () => {
             color="primary"
             sx={{ paddingY: 1.5, fontSize: "1rem" }}
             onClick={() => {
-                console.log(initialValue, interestRate, period, monthlyContribution);
+              console.log(
+                initialValue,
+                interestRate,
+                period,
+                monthlyContribution
+              );
               const montanteFinal =
                 initialValue * Math.pow(1 + interestRate / 100, period) +
-                monthlyContribution * ((Math.pow(1 + interestRate / 100, period) - 1) / (interestRate / 100));
+                monthlyContribution *
+                  ((Math.pow(1 + interestRate / 100, period) - 1) /
+                    (interestRate / 100));
               setFinalAmount(montanteFinal);
             }}
             fullWidth
