@@ -10,6 +10,41 @@ const Calculator = () => {
   const [period, setPeriod] = useState(0);
   const [monthlyContribution, setMonthlyContribution] = useState("0,00");
   const [finalAmount, setFinalAmount] = useState(0);
+  const [totalInvested, setTotalInvested] = useState(0);
+  const [totalInterest, setTotalInterest] = useState(0);
+
+  const calculateCompoundInterest = () => {
+    const parseBRL = (value: string) => {
+      return parseFloat(value.replace(/\./g, "").replace(",", "."));
+    };
+
+    const principal = parseBRL(initialValue);
+    const interest = parseBRL(interestRate) / 100;
+    const monthly = parseBRL(monthlyContribution);
+
+    let calculatedAmount = 0;
+    if (interest === 0) {
+      calculatedAmount = principal + monthly * period;
+    } else {
+      calculatedAmount =
+        principal * Math.pow(1 + interest, period) +
+        monthly * ((Math.pow(1 + interest, period) - 1) / interest);
+    }
+
+    setFinalAmount(calculatedAmount);
+    setTotalInvested(principal + monthly * period);
+    setTotalInterest(calculatedAmount - (principal + monthly * period));
+  };
+
+  const clearFields = () => {
+    setInitialValue("0,00");
+    setInterestRate("0,00");
+    setPeriod(0);
+    setMonthlyContribution("0,00");
+    setFinalAmount(0);
+    setTotalInvested(0);
+    setTotalInterest(0);
+  };
 
   return (
     <>
@@ -17,7 +52,7 @@ const Calculator = () => {
         Calculadora de Juros Compostos
       </Typography>
       <Typography variant="body2" align="center" sx={{ mb: 3 }}>
-        Insira os valores abaixo para calcular o montante final.
+        Insira os valores abaixo para calcular o resultado final do seu investimento.
       </Typography>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -57,21 +92,47 @@ const Calculator = () => {
               textAlign: "center",
               backgroundColor: "#f5f5f5",
               borderRadius: 2,
+              ...(finalAmount === null && { display: 'none' }),
             }}
           >
-            <Typography
-              variant="h6"
-              sx={{
-                color: "#1a1a1a", // Preto mais forte
-                fontWeight: "bold",
-              }}
-            >
-              Montante Final:{" "}
-              {finalAmount.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              })}
-            </Typography>
+            {finalAmount !== null && (
+              <>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "#1a1a1a",
+                    fontWeight: "bold",
+                    marginBottom: 1,
+                  }}
+                >
+                  Valor Final:{" "}
+                  {finalAmount.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Total Investido:{" "}
+                  {totalInvested !== null && totalInvested.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: "bold",
+                    color: '#4c814f',
+                  }}
+                >
+                  Total em Juros:{" "}
+                  {totalInterest !== null && totalInterest.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </Typography>
+              </>
+            )}
           </Box>
         </Grid>
         <Grid size={{ xs: 6 }}>
@@ -90,27 +151,7 @@ const Calculator = () => {
                 boxShadow: "0px 6px 16px rgba(21, 101, 192, 0.5)",
               },
             }}
-            onClick={() => {
-              const parseBRL = (value: string) => {
-                return parseFloat(value.replace(/\./g, "").replace(",", "."));
-              };
-
-              const principal = parseBRL(initialValue);
-              const interest = parseBRL(interestRate) / 100;
-              const monthly = parseBRL(monthlyContribution);
-
-              if (interest === 0) {
-                const calculatedAmount = principal + monthly * period;
-                setFinalAmount(calculatedAmount);
-                return;
-              }
-
-              const calculatedAmount =
-                principal * Math.pow(1 + interest, period) +
-                monthly * ((Math.pow(1 + interest, period) - 1) / interest);
-
-              setFinalAmount(calculatedAmount);
-            }}
+            onClick={calculateCompoundInterest}
             fullWidth
           >
             Calcular
@@ -132,13 +173,7 @@ const Calculator = () => {
                 color: "#b71c1c",
               },
             }}
-            onClick={() => {
-              setInitialValue("0,00");
-              setInterestRate("0,00");
-              setPeriod(0);
-              setMonthlyContribution("0,00");
-              setFinalAmount(0);
-            }}
+            onClick={clearFields}
             fullWidth
           >
             Limpar

@@ -52,7 +52,6 @@ import {
             </Typography>
           </Paper>
   
-          {/* Seção de Cálculo */}
           <Box>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
               Como Calcular Juros Compostos
