@@ -7,6 +7,20 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Política de Privacidade",
+  description:
+    "Saiba como a Calculadora Online BR coleta, usa e protege suas informações.",
+  openGraph: {
+    title: "Política de Privacidade",
+    description:
+      "Saiba como a Calculadora Online BR coleta, usa e protege suas informações.",
+    url: "/privacidade",
+    siteName: "Calculadora Online BR",
+  },
+};
 
 function PrivacyPolicy() {
   return (

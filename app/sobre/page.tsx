@@ -17,24 +17,27 @@ import {
   Code,
 } from "@mui/icons-material";
 import Image from "next/image";
+import { Metadata } from "next";
 
-import profileImage from "../../public/images/profile.jpg"; // Certifique-se do caminho correto
+import profileImage from "../../public/images/profile.jpg";
+
+export const metadata: Metadata = {
+  title: "Sobre Nós",
+  description: "Conheça mais sobre nossa história, missão e valores. Descubra o que nos impulsiona e como podemos te ajudar.",
+};
 
 function Sobre() {
   return (
     <Container maxWidth="md" sx={{ mt: 6, mb: 6 }}>
       {" "}
-      {/* Maior margem para respiro */}
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           {" "}
-          {/* Centralizando o título */}
           Sobre a Calculadora Online BR
         </Typography>
-        <Divider sx={{ mb: 3 }} /> {/* Separador visual */}
+        <Divider sx={{ mb: 3 }} />
         <Grid container spacing={4} alignItems="center" sx={{ mb: 4 }}>
           {" "}
-          {/* Margem abaixo da seção */}
           <Grid size={{ xs: 12, md: 4 }} sx={{ textAlign: "center" }}>
             <Image
               src={profileImage}
@@ -42,7 +45,7 @@ function Sobre() {
               width={120}
               height={120}
               style={{ borderRadius: "50%", objectFit: "cover" }}
-              priority // Se a imagem for importante para o carregamento inicial
+              priority
             />
           </Grid>
           <Grid size={{ xs: 12, md: 8 }}>
@@ -65,18 +68,15 @@ function Sobre() {
             </Typography>
           </Grid>
         </Grid>
-        <Divider sx={{ mb: 3 }} /> {/* Separador visual */}
+        <Divider sx={{ mb: 3 }} />
         <Box sx={{ mb: 4 }}>
           {" "}
-          {/* Margem abaixo da seção */}
           <Typography variant="h6" gutterBottom align="center">
             {" "}
-            {/* Centralizando o subtítulo */}
             Minha Missão
           </Typography>
           <Typography variant="body1" paragraph align="center">
             {" "}
-            {/* Centralizando o parágrafo */}
             Minha missão é clara: **tornar os cálculos mais acessíveis e
             compreensíveis através de interfaces intuitivas e código bem
             estruturado.** Quero oferecer ferramentas que ajudem as pessoas a
@@ -85,13 +85,12 @@ function Sobre() {
             programação.
           </Typography>
         </Box>
-        <Divider sx={{ mb: 3 }} /> {/* Separador visual */}
+        <Divider sx={{ mb: 3 }} />
         <Box sx={{ mb: 4 }}>
           {" "}
-          {/* Margem abaixo da seção */}
           <Typography variant="h6" gutterBottom align="center">
             {" "}
-            {/* Centralizando o subtítulo */}O Que Me Guia
+            O Que Me Guia
           </Typography>
           <List>
             <ListItem>
@@ -120,7 +119,7 @@ function Sobre() {
             </ListItem>
           </List>
         </Box>
-        <Divider sx={{ mb: 3 }} /> {/* Separador visual */}
+        <Divider sx={{ mb: 3 }} />
         <Typography
           variant="body2"
           color="textSecondary"
@@ -128,7 +127,6 @@ function Sobre() {
           sx={{ mt: 3 }}
         >
           {" "}
-          {/* Centralizando o texto final */}
           Agradeço por explorar a Calculadora Online BR. Sinta-se à vontade para
           entrar em contato com sugestões, feedback ou qualquer dúvida. Como um
           projeto pessoal, cada interação é muito valiosa!

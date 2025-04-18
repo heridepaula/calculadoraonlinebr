@@ -6,7 +6,10 @@ import { Metadata } from "next";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Calculadora Online BR",
+  title: {
+    template: "%s | Calculadora Online BR",
+    default: "Calculadora Online BR",
+  },
   description:
     "Realize cálculos online de forma rápida com a Calculadora Online BR. Diversas ferramentas para suas necessidades matemáticas, financeiras e muito mais.",
   keywords: [
