@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import CurrencyInput from "../../../components/CurrencyInput";
+import ReinvestedProps from "@/models/interfaces/ReinvestedProps";
+import MonthlyResult from "@/models/interfaces/MonthlyResult";
 
-const Calculator = () => {
+const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
   const [initialValue, setInitialValue] = useState("0,00");
   const [interestRate, setInterestRate] = useState("0,00");
   const [period, setPeriod] = useState(0);
@@ -14,26 +16,51 @@ const Calculator = () => {
   const [totalInterest, setTotalInterest] = useState(0);
 
   const calculateCompoundInterest = () => {
+    const results: MonthlyResult[] = [];
+
     const parseBRL = (value: string) => {
       return parseFloat(value.replace(/\./g, "").replace(",", "."));
     };
 
-    const principal = parseBRL(initialValue);
-    const interest = parseBRL(interestRate) / 100;
-    const monthly = parseBRL(monthlyContribution);
+    const principalInicial = parseBRL(initialValue);
+    const taxaMensal = parseBRL(interestRate) / 100;
+    const aporteMensal = parseBRL(monthlyContribution);
+    const numMeses = period;
 
-    let calculatedAmount = 0;
-    if (interest === 0) {
-      calculatedAmount = principal + monthly * period;
-    } else {
-      calculatedAmount =
-        principal * Math.pow(1 + interest, period) +
-        monthly * ((Math.pow(1 + interest, period) - 1) / interest);
+    let principalAtual = principalInicial;
+
+    for (let mes = 1; mes <= numMeses; mes++) {
+      const jurosNoMes = principalAtual * taxaMensal;
+      const divisor = mes / 12;
+      const rest = mes % 12;
+      let month = "";
+
+      if (Math.floor(divisor) === 0) {
+        month = `${rest} meses`;
+      } else {
+        if (rest === 0) {
+          month = `${Math.floor(divisor)} anos`;
+        } else {
+          month = `${Math.floor(divisor)} anos e ${rest} meses`;
+        }
+      }
+
+      principalAtual += jurosNoMes + aporteMensal;
+
+      results.push({
+        month,
+        income: jurosNoMes,
+        invested: aporteMensal,
+        outcome: principalAtual,
+      });
     }
 
-    setFinalAmount(calculatedAmount);
-    setTotalInvested(principal + monthly * period);
-    setTotalInterest(calculatedAmount - (principal + monthly * period));
+    setMonthlyResults && setMonthlyResults(results);
+    setFinalAmount(principalAtual);
+    setTotalInvested(principalInicial + aporteMensal * numMeses);
+    setTotalInterest(
+      principalAtual - (principalInicial + aporteMensal * numMeses)
+    );
   };
 
   const clearFields = () => {
@@ -52,7 +79,8 @@ const Calculator = () => {
         Calculadora de Juros Compostos
       </Typography>
       <Typography variant="body2" align="center" sx={{ mb: 3 }}>
-        Insira os valores abaixo para calcular o resultado final do seu investimento.
+        Insira os valores abaixo para calcular o resultado final do seu
+        investimento.
       </Typography>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -93,7 +121,7 @@ const Calculator = () => {
               textAlign: "center",
               backgroundColor: "#f5f5f5",
               borderRadius: 2,
-              ...(finalAmount === null && { display: 'none' }),
+              ...(finalAmount === null && { display: "none" }),
             }}
           >
             {finalAmount !== null && (
@@ -114,23 +142,25 @@ const Calculator = () => {
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Total Investido:{" "}
-                  {totalInvested !== null && totalInvested.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
+                  {totalInvested !== null &&
+                    totalInvested.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
                 </Typography>
                 <Typography
                   variant="body2"
                   sx={{
                     fontWeight: "bold",
-                    color: '#4c814f',
+                    color: "#4c814f",
                   }}
                 >
                   Total em Juros:{" "}
-                  {totalInterest !== null && totalInterest.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
+                  {totalInterest !== null &&
+                    totalInterest.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
                 </Typography>
               </>
             )}
