@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import { Metadata } from "next";
+import AppBar from "../components/AppBar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               minHeight: "100vh",
             }}
           >
+            <AppBar />
             <div style={{ flexGrow: 1 }}>{children}</div>
             <Footer />
           </main>
