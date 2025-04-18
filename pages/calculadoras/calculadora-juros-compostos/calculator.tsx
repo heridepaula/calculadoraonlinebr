@@ -1,13 +1,16 @@
-import React from "react";
+"use server";
+
+import React, { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { NumericFormat } from "react-number-format";
+import CurrencyInput from "../../../components/CurrencyInput";
 
 const Calculator = () => {
-  const [initialValue, setInitialValue] = React.useState(0);
-  const [interestRate, setInterestRate] = React.useState(0);
-  const [period, setPeriod] = React.useState(0);
-  const [monthlyContribution, setMonthlyContribution] = React.useState(0);
-  const [finalAmount, setFinalAmount] = React.useState(0);
+  const [initialValue, setInitialValue] = useState("0,00");
+  const [interestRate, setInterestRate] = useState("0,00");
+  const [period, setPeriod] = useState(0);
+  const [monthlyContribution, setMonthlyContribution] = useState("0,00");
+  const [finalAmount, setFinalAmount] = useState(0);
+
   return (
     <>
       <Typography variant="h5" align="center" gutterBottom>
@@ -18,28 +21,17 @@ const Calculator = () => {
       </Typography>
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <NumericFormat
-            value={initialValue}
-            onChange={(e) => setInitialValue(Number(e.target.value.replace(/\./g, "").replace(/,/g, ".").replace("R$", "").trim()))}
-            customInput={TextField}
-            thousandSeparator="."
-            decimalSeparator=","
-            decimalScale={2}
-            valueIsNumericString={true}
-            allowNegative={false}
-            prefix="R$ "
-            variant="standard"
-            label="Capital Inicial (R$)"
-            fullWidth
+          <CurrencyInput
+            initialValue={initialValue}
+            handleChange={setInitialValue}
+            label="Valor Inicial (R$)"
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            label="Taxa de Juros (% ao mês)"
-            variant="standard"
-            onChange={(e) => setInterestRate(Number(e.target.value))}
-            value={interestRate}
-            fullWidth
+          <CurrencyInput
+            initialValue={interestRate}
+            handleChange={setInterestRate}
+            label="Taxa de Juros (%)"
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -52,19 +44,10 @@ const Calculator = () => {
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-        <NumericFormat
-            value={monthlyContribution}
-            onChange={(e) => setMonthlyContribution(Number(e.target.value.replace(/\./g, "").replace(/,/g, ".").replace("R$", "").trim()))}
-            customInput={TextField}
-            thousandSeparator="."
-            decimalSeparator=","
-            decimalScale={2}
-            valueIsNumericString={true}
-            allowNegative={false}
-            prefix="R$ "
-            variant="standard"
-            label="Aporte Mensal (R$)"
-            fullWidth
+          <CurrencyInput
+            initialValue={monthlyContribution}
+            handleChange={setMonthlyContribution}
+            label="Aporte mensal (R$)"
           />
         </Grid>
         <Grid size={{ xs: 12 }} sx={{ width: "100%" }}>
@@ -76,8 +59,18 @@ const Calculator = () => {
               borderRadius: 2,
             }}
           >
-            <Typography variant="h6" color="primary">
-              Montante Final: R$ {finalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            <Typography
+              variant="h6"
+              sx={{
+                color: "#1a1a1a", // Preto mais forte
+                fontWeight: "bold",
+              }}
+            >
+              Montante Final:{" "}
+              {finalAmount.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
             </Typography>
           </Box>
         </Grid>
@@ -85,20 +78,38 @@ const Calculator = () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{ paddingY: 1.5, fontSize: "1rem" }}
+            sx={{
+              paddingY: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+              backgroundColor: "#1976d2", // azul mais escuro
+              color: "#fff",
+              boxShadow: "0px 4px 12px rgba(25, 118, 210, 0.4)",
+              "&:hover": {
+                backgroundColor: "#1565c0",
+                boxShadow: "0px 6px 16px rgba(21, 101, 192, 0.5)",
+              },
+            }}
             onClick={() => {
-              console.log(
-                initialValue,
-                interestRate,
-                period,
-                monthlyContribution
-              );
-              const montanteFinal =
-                initialValue * Math.pow(1 + interestRate / 100, period) +
-                monthlyContribution *
-                  ((Math.pow(1 + interestRate / 100, period) - 1) /
-                    (interestRate / 100));
-              setFinalAmount(montanteFinal);
+              const parseBRL = (value: string) => {
+                return parseFloat(value.replace(/\./g, "").replace(",", "."));
+              };
+
+              const principal = parseBRL(initialValue);
+              const interest = parseBRL(interestRate) / 100;
+              const monthly = parseBRL(monthlyContribution);
+
+              if (interest === 0) {
+                const calculatedAmount = principal + monthly * period;
+                setFinalAmount(calculatedAmount);
+                return;
+              }
+
+              const calculatedAmount =
+                principal * Math.pow(1 + interest, period) +
+                monthly * ((Math.pow(1 + interest, period) - 1) / interest);
+
+              setFinalAmount(calculatedAmount);
             }}
             fullWidth
           >
@@ -109,12 +120,23 @@ const Calculator = () => {
           <Button
             variant="outlined"
             color="error"
-            sx={{ paddingY: 1.5, fontSize: "1rem" }}
+            sx={{
+              paddingY: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+              borderColor: "#d32f2f",
+              color: "#d32f2f",
+              "&:hover": {
+                backgroundColor: "#ffe6e6",
+                borderColor: "#b71c1c",
+                color: "#b71c1c",
+              },
+            }}
             onClick={() => {
-              setInitialValue(0);
-              setInterestRate(0);
+              setInitialValue("0,00");
+              setInterestRate("0,00");
               setPeriod(0);
-              setMonthlyContribution(0);
+              setMonthlyContribution("0,00");
               setFinalAmount(0);
             }}
             fullWidth
