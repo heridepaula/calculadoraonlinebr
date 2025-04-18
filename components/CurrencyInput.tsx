@@ -40,6 +40,7 @@ const CurrencyInput: React.FC<Props> = ({ label, initialValue, handleChange }) =
       value={initialValue}
       onChange={handleInputChange}
       variant="standard"
+      slotProps={{ input: { type: "numeric" } }}
       fullWidth
     />
   );

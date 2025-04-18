@@ -75,6 +75,7 @@ const Calculator = () => {
             variant="standard"
             onChange={(e) => setPeriod(Number(e.target.value))}
             value={period}
+            slotProps={{ input: { type: "numeric" } }}
             fullWidth
           />
         </Grid>
