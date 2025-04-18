@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import React, { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
@@ -82,7 +82,7 @@ const Calculator = () => {
               paddingY: 1.5,
               fontSize: "1rem",
               fontWeight: "bold",
-              backgroundColor: "#1976d2", // azul mais escuro
+              backgroundColor: "#1976d2",
               color: "#fff",
               boxShadow: "0px 4px 12px rgba(25, 118, 210, 0.4)",
               "&:hover": {

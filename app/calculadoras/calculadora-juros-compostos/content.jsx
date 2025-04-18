@@ -4,17 +4,13 @@ import {
     Stack,
     Paper,
     Divider,
-    Alert
   } from "@mui/material";
-  import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-  import WarningIcon from "@mui/icons-material/Warning";
   import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
   
   const Content = () => {
     return (
       <Box mt={4} mx="auto" maxWidth="md">
         <Stack spacing={4}>
-          {/* Seção Educativa */}
           <Paper elevation={0} sx={{ p: 3, backgroundColor: "#fafafa" }}>
             <Box display="flex" alignItems="center" mb={1}>
               <InfoOutlinedIcon color="primary" sx={{ mr: 1 }} />

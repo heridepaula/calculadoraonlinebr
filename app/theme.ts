@@ -1,4 +1,5 @@
-// src/app/theme/theme.ts
+'use client';
+
 import { createTheme } from '@mui/material/styles';
 import { ptBR } from '@mui/material/locale';
 
