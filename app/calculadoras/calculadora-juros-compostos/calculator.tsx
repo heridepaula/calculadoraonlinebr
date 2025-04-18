@@ -66,7 +66,7 @@ const Calculator = () => {
           <CurrencyInput
             initialValue={interestRate}
             handleChange={setInterestRate}
-            label="Taxa de Juros (%)"
+            label="Taxa de Juros % (a.m.)"
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
