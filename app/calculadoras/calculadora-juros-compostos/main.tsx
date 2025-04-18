@@ -14,19 +14,19 @@ const Main = () => {
     <>
       <Container maxWidth="sm" sx={{ mt: 4, px: 2 }}>
         <Paper elevation={4} sx={{ padding: 3, borderRadius: 2 }}>
-          <Calculator setMonthlyResults={setMonthlyResults} />
+          <Calculator  monthlyResults={monthlyResults} setMonthlyResults={setMonthlyResults} />
         </Paper>
       </Container>
       {monthlyResults?.length > 0 && (
         <>
           <Container maxWidth="sm" sx={{ mt: 4, px: 2 }}>
             <Paper elevation={4} sx={{ padding: 3, borderRadius: 2 }}>
-              <Reinvested monthlyResults={monthlyResults} />
+              <Reinvested monthlyResults={monthlyResults} setMonthlyResults={setMonthlyResults} />
             </Paper>
           </Container>
           <Container maxWidth="sm" sx={{ mt: 4, px: 2 }}>
             <Paper elevation={4} sx={{ padding: 3, borderRadius: 2 }}>
-              <OutcomeEvolution monthlyResults={monthlyResults} />
+              <OutcomeEvolution monthlyResults={monthlyResults} setMonthlyResults={setMonthlyResults} />
             </Paper>
           </Container>
         </>

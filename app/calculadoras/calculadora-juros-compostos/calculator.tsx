@@ -55,7 +55,7 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
       });
     }
 
-    setMonthlyResults && setMonthlyResults(results);
+    setMonthlyResults(results);
     setFinalAmount(principalAtual);
     setTotalInvested(principalInicial + aporteMensal * numMeses);
     setTotalInterest(

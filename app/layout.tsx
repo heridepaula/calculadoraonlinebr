@@ -5,6 +5,8 @@ import theme from "./theme";
 import { Metadata } from "next";
 import AppBar from "../components/AppBar";
 import Footer from "../components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: {
@@ -61,9 +63,13 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const isProduction = process.env.NODE_ENV === "production";
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="pt-BR">
       <body>
+        {isProduction && gaId && <GoogleAnalytics gaId={gaId} />}
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <main
@@ -78,6 +84,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Footer />
           </main>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
