@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${url}/calculadoras/calculadora-juros-compostos`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 1,
     },
     {
@@ -26,6 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.1,
+    },
+    {
+      url: `${url}/calculadoras/regra-de-tres-simples`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 1,
     },
   ];
 }

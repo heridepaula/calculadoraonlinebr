@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { Container, Paper } from "@mui/material";
 import Calculator from "./calculator";
-import Reinvested from "./income-evolution";
+import Reinvested from "./graphics/income-evolution";
 import MonthlyResult from "@/models/interfaces/MonthlyResult";
-import OutcomeEvolution from "./outcome-evolution";
+import OutcomeEvolution from "./graphics/outcome-evolution";
 
 const Main = () => {
   const [monthlyResults, setMonthlyResults] = useState<MonthlyResult[]>([]);

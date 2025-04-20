@@ -39,7 +39,7 @@ const categories = [
         title: "Regra de Três",
         description: "Resolva proporções com facilidade e precisão.",
         image: "/images/cards/regra-de-tres.png",
-        href: "/calculadoras/regra-de-tres",
+        href: "/calculadoras/regra-de-tres-simples",
       },
     ],
   },
@@ -82,10 +82,7 @@ export default function HomePage() {
             >
               {category.icon}
             </Avatar>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: 600, }}
-            >
+            <Typography variant="h5" sx={{ fontWeight: 600 }}>
               {category.title}
             </Typography>
           </Box>
@@ -133,7 +130,6 @@ export default function HomePage() {
                         alt={tool.title}
                         fill
                         style={{ objectFit: "cover" }}
-                        
                       />
                     </CardMedia>
                     <CardContent sx={{ flexGrow: 1, p: 3 }}>
