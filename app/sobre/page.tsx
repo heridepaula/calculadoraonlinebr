@@ -19,7 +19,7 @@ import {
 import Image from "next/image";
 import { Metadata } from "next";
 
-import profileImage from "../../public/images/profile.jpg";
+import profileImage from "../../public/images/profile.webp";
 
 export const metadata: Metadata = {
   title: "Sobre Nós",

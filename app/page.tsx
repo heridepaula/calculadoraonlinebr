@@ -25,7 +25,7 @@ const categories = [
         title: "Juros Compostos",
         description:
           "Calcule o crescimento do seu investimento ao longo do tempo.",
-        image: "/images/cards/juros-compostos.png",
+        image: "/images/cards/juros-compostos.webp",
         href: "/calculadoras/calculadora-juros-compostos",
       },
     ],
@@ -38,7 +38,7 @@ const categories = [
       {
         title: "Regra de Três",
         description: "Resolva proporções com facilidade e precisão.",
-        image: "/images/cards/regra-de-tres.png",
+        image: "/images/cards/regra-de-tres.webp",
         href: "/calculadoras/regra-de-tres-simples",
       },
     ],
@@ -51,7 +51,7 @@ const categories = [
       {
         title: "IMC (Índice de Massa Corporal)",
         description: "Verifique se seu peso está dentro do ideal.",
-        image: "/images/cards/imc.png",
+        image: "/images/cards/imc.webp",
         href: "/calculadoras/calculadora-imc",
       },
     ],

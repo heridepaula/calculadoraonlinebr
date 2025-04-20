@@ -15,7 +15,7 @@ export default function Custom404() {
     >
       <Box sx={{ mb: 3 }}>
         <Image
-          src="/images/404.png"
+          src="/images/404.webp"
           alt="Página não encontrada"
           width={300}
           height={300}

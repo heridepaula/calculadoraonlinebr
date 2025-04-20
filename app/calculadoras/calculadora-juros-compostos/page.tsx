@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         title: "Calculadora de Juros Compostos Online Grátis e Fácil de Usar",
         description:
             "Calcule juros compostos online de forma rápida e fácil! Nossa calculadora gratuita exibe o crescimento do seu investimento ao longo do tempo. Simule agora!",
-        images: ["/images/cards/juros-compostos.png"],
+        images: ["/images/cards/juros-compostos.webp"],
     },
 };
 

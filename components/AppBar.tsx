@@ -49,7 +49,7 @@ export default function Header({ reduced }: HeaderProps) {
               }}
             >
               <Image
-                src="/images/logo-header.png"
+                src="/images/logo-header.webp"
                 alt="Logo Calculadora Online BR"
                 width={40}
                 height={40}
