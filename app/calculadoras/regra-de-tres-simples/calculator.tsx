@@ -7,48 +7,57 @@ import EastIcon from "@mui/icons-material/East";
 interface CalculatorProps {}
 
 const Calculator: React.FC<CalculatorProps> = () => {
-  const [valueA, setValueA] = useState<number | undefined>(undefined);
-  const [valueB, setValueB] = useState<number | undefined>(undefined);
-  const [valueC, setValueC] = useState<number | undefined>(undefined);
-  const [valueX, setValueX] = useState<number | string>("?");
+  const [valueA, setValueA] = useState<string>("");
+  const [valueB, setValueB] = useState<string>("");
+  const [valueC, setValueC] = useState<string>("");
+  const [valueX, setValueX] = useState<string>("?");
   const [resultSymbol, setResultSymbol] = useState<string>("=");
 
   useEffect(() => {
-    if (valueA !== undefined && valueB !== undefined && valueC !== undefined) {
-      calculateCompoundInterest();
+    if (valueA !== "" && valueB !== "" && valueC !== "") {
+      calculate();
     } else {
       setValueX("?");
+      setResultSymbol("=");
     }
   }, [valueA, valueB, valueC]);
 
-  const calculateCompoundInterest = () => {
-    if (valueA !== undefined && valueB !== undefined && valueC !== undefined) {
-      const result = (valueB * valueC) / valueA;
+  const calculate = () => {
+    const numA = Number(valueA?.replace(",", "."));
+    const numB = Number(valueB?.replace(",", "."));
+    const numC = Number(valueC?.replace(",", "."));
+
+    if (!isNaN(numA) && !isNaN(numB) && !isNaN(numC)) {
+      const result = Number((numB * numC) / numA);
       if (result % 1 !== 0) {
-        setResultSymbol("≅");
+        setResultSymbol("≈");
         setValueX(result.toFixed(3));
       } else {
         setResultSymbol("=");
-        setValueX(result);
+        setValueX(result.toString());
       }
     } else {
       setValueX("?");
+      setResultSymbol("=");
     }
   };
 
   const clearFields = () => {
-    setValueA(undefined);
-    setValueB(undefined);
-    setValueC(undefined);
+    setValueA("");
+    setValueB("");
+    setValueC("");
     setValueX("?");
+    setResultSymbol("=");
   };
 
   const handleChange =
-    (setValue: React.Dispatch<React.SetStateAction<number | undefined>>) =>
+    (setValue: React.Dispatch<React.SetStateAction<string>>) =>
     (event: ChangeEvent<HTMLInputElement>) => {
-      setValue(
-        event.target.value === "" ? undefined : Number(event.target.value)
-      );
+      const input = event.target.value;
+      const valid = /^[0-9.,]*$/.test(input);
+      if (valid) {
+        setValue(input.replace(".", ","));
+      }
     };
 
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
@@ -83,12 +92,11 @@ const Calculator: React.FC<CalculatorProps> = () => {
             label="A"
             variant="standard"
             onChange={handleChange(setValueA)}
-            value={valueA === undefined ? "" : valueA}
-            slotProps={{ input: { type: "numeric" } }}
+            value={valueA}
             fullWidth
             onFocus={handleFocus}
             sx={{
-              "& .MuiInputLabel-root": labelStyle,
+              "& .MuiInputLabel-root": labelStyle, inputStyle,
               "& .MuiInputLabel-shrink": {
                 textAlign: "left",
                 display: "block",
@@ -110,12 +118,11 @@ const Calculator: React.FC<CalculatorProps> = () => {
             label="B"
             variant="standard"
             onChange={handleChange(setValueB)}
-            value={valueB === undefined ? "" : valueB}
-            slotProps={{ input: { type: "numeric" } }}
+            value={valueB}
             fullWidth
             onFocus={handleFocus}
             sx={{
-              "& .MuiInputLabel-root": labelStyle,
+              "& .MuiInputLabel-root": labelStyle, inputStyle,
               "& .MuiInputLabel-shrink": {
                 textAlign: "left",
                 display: "block",
@@ -128,12 +135,11 @@ const Calculator: React.FC<CalculatorProps> = () => {
             label="C"
             variant="standard"
             onChange={handleChange(setValueC)}
-            value={valueC === undefined ? "" : valueC}
-            slotProps={{ input: { type: "numeric" } }}
+            value={valueC}
             fullWidth
             onFocus={handleFocus}
             sx={{
-              "& .MuiInputLabel-root": labelStyle,
+              "& .MuiInputLabel-root": labelStyle, inputStyle,
               "& .MuiInputLabel-shrink": {
                 textAlign: "left",
                 display: "block",
@@ -154,8 +160,7 @@ const Calculator: React.FC<CalculatorProps> = () => {
           <TextField
             label="X"
             variant="standard"
-            value={valueX}
-            slotProps={{ input: { type: "numeric" } }}
+            value={`${resultSymbol} ${valueX}`}
             fullWidth
             disabled
             sx={{
@@ -190,7 +195,7 @@ const Calculator: React.FC<CalculatorProps> = () => {
                   X {resultSymbol} {valueX}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  A está para B assim como C está para X
+                  A está para B, assim como C está para X
                 </Typography>
                 <Typography
                   variant="body1"
@@ -199,7 +204,7 @@ const Calculator: React.FC<CalculatorProps> = () => {
                     color: "#4c814f",
                   }}
                 >
-                  {`${valueA || "A"} está para ${valueB || "B"} assim como ${
+                  {`${valueA || "A"} está para ${valueB || "B"}, assim como ${
                     valueC || "C"
                   } está para ${valueX || "?"}`}
                 </Typography>
