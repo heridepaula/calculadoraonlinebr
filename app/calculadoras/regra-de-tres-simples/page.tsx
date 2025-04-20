@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Calculadora de Regra de Três Online Grátis e Fácil de Usar",
     description:
       "Resolva problemas de regra de três online de forma rápida e fácil! Nossa calculadora gratuita ajuda você a encontrar o valor desconhecido em proporções.",
-    images: ["/images/cards/regra-de-tres.png"],
+    images: ["/images/cards/regra-de-tres.webp"],
   },
 };
 

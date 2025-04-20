@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "Calculadora de IMC Online Grátis e Fácil de Usar",
     description:
       "Calcule seu Índice de Massa Corporal (IMC) online de forma rápida e fácil! Descubra em qual faixa de peso você se encontra com nossa calculadora gratuita.",
-    images: ["/images/cards/imc.png"],
+    images: ["/images/cards/imc.webp"],
   },
 };
 
