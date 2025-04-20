@@ -52,7 +52,7 @@ const categories = [
         title: "IMC (Índice de Massa Corporal)",
         description: "Verifique se seu peso está dentro do ideal.",
         image: "/images/cards/imc.png",
-        href: "/calculadoras/imc",
+        href: "/calculadoras/calculadora-imc",
       },
     ],
   },

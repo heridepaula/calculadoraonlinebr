@@ -15,7 +15,6 @@ interface HeaderProps {
 }
 
 export default function Header({ reduced }: HeaderProps) {
-
   return (
     <AppBar
       position="sticky"
@@ -33,14 +32,20 @@ export default function Header({ reduced }: HeaderProps) {
             alignItems: "center",
           }}
         >
-          <Link href="/" passHref legacyBehavior>
+          <Link
+            href="/"
+            style={{ textDecoration: "none" }}
+            aria-label="Ir para a página inicial"
+          >
             <MuiLink
+              component="div"
               underline="none"
               color="inherit"
-              aria-label="Ir para a página inicial"
               sx={{
                 display: "flex",
                 alignItems: "center",
+                cursor: "pointer",
+                color: "inherit", // Mantém a cor herdada do pai (AppBar)
               }}
             >
               <Image
@@ -56,6 +61,7 @@ export default function Header({ reduced }: HeaderProps) {
                   fontWeight: 700,
                   ml: 2,
                   display: "inline-block",
+                  color: "#333333",
                 }}
               >
                 Calculadora Online BR

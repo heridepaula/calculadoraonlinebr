@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Paper } from "@mui/material";
 import { Metadata } from "next";
 
