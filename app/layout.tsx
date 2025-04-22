@@ -7,6 +7,7 @@ import AppBar from "../components/AppBar";
 import Footer from "../components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: {
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </main>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights/>
       </body>
     </html>
   );
