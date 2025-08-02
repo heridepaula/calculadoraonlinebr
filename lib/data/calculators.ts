@@ -10,8 +10,8 @@ export interface CalculatorConfig extends CalculatorMetadata {
 export const CALCULATORS: CalculatorConfig[] = [
   {
     id: 'compound-interest',
-    title: 'Calculadora de Juros Compostos Online Grátis e Fácil de Usar',
-    description: 'Calcule juros compostos online de forma rápida e fácil! Nossa calculadora gratuita exibe o crescimento do seu investimento ao longo do tempo com gráficos interativos. Simule agora!',
+    title: 'Calculadora de Juros Compostos',
+    description: 'Simule o crescimento do seu investimento com juros compostos e visualize gráficos de evolução patrimonial.',
     keywords: [
       'calculadora juros compostos',
       'calculadora de juros compostos',
@@ -35,8 +35,8 @@ export const CALCULATORS: CalculatorConfig[] = [
   },
   {
     id: 'bmi',
-    title: 'Calculadora de IMC Online Grátis e Fácil de Usar',
-    description: 'Calcule seu Índice de Massa Corporal (IMC) online de forma rápida e fácil! Descubra em qual faixa de peso você se encontra com nossa calculadora gratuita.',
+    title: 'Calculadora de IMC',
+    description: 'Calcule seu Índice de Massa Corporal e descubra sua faixa de peso ideal para a saúde.',
     keywords: [
       'calculadora imc',
       'imc',
@@ -58,8 +58,8 @@ export const CALCULATORS: CalculatorConfig[] = [
   },
   {
     id: 'rule-of-three',
-    title: 'Calculadora de Regra de Três Simples Online Grátis e Fácil de Usar',
-    description: 'Resolva problemas de regra de três online de forma rápida e fácil! Nossa calculadora gratuita ajuda você a encontrar o valor desconhecido em proporções.',
+    title: 'Calculadora de Regra de Três',
+    description: 'Resolva proporções e problemas matemáticos com regra de três simples de forma rápida.',
     keywords: [
       'calculadora regra de três',
       'regra de três',
@@ -80,8 +80,8 @@ export const CALCULATORS: CalculatorConfig[] = [
   },
   {
     id: 'labor-termination',
-    title: 'Calculadora de Rescisão Trabalhista Online - CLT 2024',
-    description: 'Calcule sua rescisão trabalhista de acordo com a CLT. Ferramenta gratuita para calcular saldo de salário, férias, 13º salário, aviso prévio, salário família e multa do FGTS.',
+    title: 'Calculadora de Rescisão Trabalhista',
+    description: 'Calcule verbas rescisórias conforme CLT: salário, férias, 13º, FGTS e demais direitos trabalhistas.',
     keywords: [
       'calculadora rescisão trabalhista',
       'rescisão CLT',

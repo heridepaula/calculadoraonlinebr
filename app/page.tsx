@@ -98,7 +98,7 @@ export default function HomePage() {
             </Typography>
           </Box>
 
-          <Grid container spacing={2}>
+          <Grid container spacing={2} id={category.title.toLowerCase()}>
             {category.tools.map((tool) => (
               <Grid key={tool.title} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                 <Card sx={componentStyles.homepage.toolCard}>

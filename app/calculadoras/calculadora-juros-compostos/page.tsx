@@ -2,6 +2,9 @@ import React from "react";
 import { Metadata } from "next";
 import { createCalculatorMetadata } from "@/lib/utils/calculator";
 import CalculatorPage from "@/components/ui/CalculatorPage";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import { Container } from "@mui/material";
 
 import Content from "./content";
 import Main from "./main";
@@ -34,9 +37,19 @@ export const metadata: Metadata = createCalculatorMetadata(calculatorMetadata);
 const CalculadoraJurosCompostos = () => {
     return (
         <>
+            <Container maxWidth="lg">
+                <Breadcrumbs />
+            </Container>
             <Main />
             <CalculatorPage metadata={calculatorMetadata}>
                 <Content />
+                <Container maxWidth="lg">
+                    <RelatedCalculators 
+                        currentCalculatorId="compound-interest" 
+                        category="financial"
+                        maxItems={3}
+                    />
+                </Container>
             </CalculatorPage>
         </>
     );

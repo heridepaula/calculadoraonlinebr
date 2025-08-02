@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { createCalculatorMetadata } from "@/lib/utils/calculator";
 import CalculatorPage from "@/components/ui/CalculatorPage";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import { Container } from "@mui/material";
 
 import Content from "./content";
 import Main from "./main";
@@ -30,9 +33,19 @@ export const metadata: Metadata = createCalculatorMetadata(calculatorMetadata);
 const CalculadoraRegraDeTres = () => {
   return (
     <>
+      <Container maxWidth="lg">
+        <Breadcrumbs />
+      </Container>
       <Main />
       <CalculatorPage metadata={calculatorMetadata}>
         <Content />
+        <Container maxWidth="lg">
+          <RelatedCalculators 
+            currentCalculatorId="rule-of-three" 
+            category="math"
+            maxItems={3}
+          />
+        </Container>
       </CalculatorPage>
     </>
   );

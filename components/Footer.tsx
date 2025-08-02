@@ -22,6 +22,10 @@ import {
   
   const footerLinks: FooterLink[] = [
     { label: "Início", href: "/" },
+    { label: "Calculadoras Financeiras", href: "/#financeira" },
+    { label: "Calculadoras Matemáticas", href: "/#matemática" },
+    { label: "Calculadoras de Saúde", href: "/#saúde" },
+    { label: "Calculadoras Trabalhistas", href: "/#trabalhista" },
     { label: "Sobre", href: "/sobre" },
     { label: "Política de Privacidade", href: "/privacidade" },
   ];
@@ -51,25 +55,57 @@ import {
           <Box
             sx={{
               display: "flex",
-              flexDirection: reduced ? "column" : "row", // Stack links on mobile
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: reduced ? theme.spacing(1) : theme.spacing(2), // Smaller gap on mobile
-              mb: reduced ? 1 : 2, // Smaller margin bottom on mobile
+              gap: theme.spacing(1),
+              mb: reduced ? 1 : 2,
             }}
           >
-            {footerLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                color="inherit"
-                underline="hover"
-                aria-label={`Link para a página de ${link.label}`}
-                sx={{ fontSize: "inherit" }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: reduced ? theme.spacing(1) : theme.spacing(2),
+              }}
+            >
+              {footerLinks.slice(0, 3).map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  color="inherit"
+                  underline="hover"
+                  aria-label={`Link para a página de ${link.label}`}
+                  sx={{ fontSize: "inherit" }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: reduced ? theme.spacing(1) : theme.spacing(2),
+              }}
+            >
+              {footerLinks.slice(3).map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  color="inherit"
+                  underline="hover"
+                  aria-label={`Link para a página de ${link.label}`}
+                  sx={{ fontSize: "inherit" }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </Box>
           </Box>
   
           <Box
