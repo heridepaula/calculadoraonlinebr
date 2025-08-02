@@ -1,52 +1,52 @@
 "use client";
 
-import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, FocusEvent, useEffect, useCallback } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 
 interface CalculatorProps {}
 
 const Calculator: React.FC<CalculatorProps> = () => {
-  const [valueA, setValueA] = useState<string>("");
-  const [valueB, setValueB] = useState<string>("");
-  const [valueC, setValueC] = useState<string>("");
-  const [valueX, setValueX] = useState<string>("?");
+  const [firstValue, setFirstValue] = useState<string>("");
+  const [secondValue, setSecondValue] = useState<string>("");
+  const [thirdValue, setThirdValue] = useState<string>("");
+  const [resultValue, setResultValue] = useState<string>("?");
   const [resultSymbol, setResultSymbol] = useState<string>("=");
 
-  useEffect(() => {
-    if (valueA !== "" && valueB !== "" && valueC !== "") {
-      calculate();
-    } else {
-      setValueX("?");
-      setResultSymbol("=");
-    }
-  }, [valueA, valueB, valueC]);
+  const calculate = useCallback(() => {
+    const firstNumber = Number(firstValue?.replace(",", "."));
+    const secondNumber = Number(secondValue?.replace(",", "."));
+    const thirdNumber = Number(thirdValue?.replace(",", "."));
 
-  const calculate = () => {
-    const numA = Number(valueA?.replace(",", "."));
-    const numB = Number(valueB?.replace(",", "."));
-    const numC = Number(valueC?.replace(",", "."));
-
-    if (!isNaN(numA) && !isNaN(numB) && !isNaN(numC)) {
-      const result = Number((numB * numC) / numA);
+    if (!isNaN(firstNumber) && !isNaN(secondNumber) && !isNaN(thirdNumber)) {
+      const result = Number((secondNumber * thirdNumber) / firstNumber);
       if (result % 1 !== 0) {
         setResultSymbol("≈");
-        setValueX(result.toFixed(3));
+        setResultValue(result.toFixed(3));
       } else {
         setResultSymbol("=");
-        setValueX(result.toString());
+        setResultValue(result.toString());
       }
     } else {
-      setValueX("?");
+      setResultValue("?");
       setResultSymbol("=");
     }
-  };
+  }, [firstValue, secondValue, thirdValue]);
+
+  useEffect(() => {
+    if (firstValue !== "" && secondValue !== "" && thirdValue !== "") {
+      calculate();
+    } else {
+      setResultValue("?");
+      setResultSymbol("=");
+    }
+  }, [firstValue, secondValue, thirdValue, calculate]);
 
   const clearFields = () => {
-    setValueA("");
-    setValueB("");
-    setValueC("");
-    setValueX("?");
+    setFirstValue("");
+    setSecondValue("");
+    setThirdValue("");
+    setResultValue("?");
     setResultSymbol("=");
   };
 
@@ -91,8 +91,8 @@ const Calculator: React.FC<CalculatorProps> = () => {
           <TextField
             label="A"
             variant="standard"
-            onChange={handleChange(setValueA)}
-            value={valueA}
+            onChange={handleChange(setFirstValue)}
+            value={firstValue}
             fullWidth
             onFocus={handleFocus}
             sx={{
@@ -117,8 +117,8 @@ const Calculator: React.FC<CalculatorProps> = () => {
           <TextField
             label="B"
             variant="standard"
-            onChange={handleChange(setValueB)}
-            value={valueB}
+            onChange={handleChange(setSecondValue)}
+            value={secondValue}
             fullWidth
             onFocus={handleFocus}
             sx={{
@@ -134,8 +134,8 @@ const Calculator: React.FC<CalculatorProps> = () => {
           <TextField
             label="C"
             variant="standard"
-            onChange={handleChange(setValueC)}
-            value={valueC}
+            onChange={handleChange(setThirdValue)}
+            value={thirdValue}
             fullWidth
             onFocus={handleFocus}
             sx={{
@@ -160,7 +160,7 @@ const Calculator: React.FC<CalculatorProps> = () => {
           <TextField
             label="X"
             variant="standard"
-            value={`${resultSymbol} ${valueX}`}
+            value={`${resultSymbol} ${resultValue}`}
             fullWidth
             disabled
             sx={{
@@ -179,10 +179,10 @@ const Calculator: React.FC<CalculatorProps> = () => {
               textAlign: "center",
               backgroundColor: "#f5f5f5",
               borderRadius: 2,
-              ...(valueX === null && { display: "none" }),
+              ...(resultValue === null && { display: "none" }),
             }}
           >
-            {valueX !== null && (
+            {resultValue !== null && (
               <>
                 <Typography
                   variant="h5"
@@ -192,7 +192,7 @@ const Calculator: React.FC<CalculatorProps> = () => {
                     marginBottom: 1,
                   }}
                 >
-                  X {resultSymbol} {valueX}
+                  X {resultSymbol} {resultValue}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   A está para B, assim como C está para X
@@ -204,9 +204,9 @@ const Calculator: React.FC<CalculatorProps> = () => {
                     color: "#4c814f",
                   }}
                 >
-                  {`${valueA || "A"} está para ${valueB || "B"}, assim como ${
-                    valueC || "C"
-                  } está para ${valueX || "?"}`}
+                  {`${firstValue || "A"} está para ${secondValue || "B"}, assim como ${
+                    thirdValue || "C"
+                  } está para ${resultValue || "?"}`}
                 </Typography>
               </>
             )}

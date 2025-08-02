@@ -7,13 +7,13 @@ import ReinvestedProps from "@/models/interfaces/ReinvestedProps";
 import MonthlyResult from "@/models/interfaces/MonthlyResult";
 
 const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
-  const [initialValue, setInitialValue] = useState("0,00");
-  const [interestRate, setInterestRate] = useState("0,00");
+  const [initialAmount, setInitialAmount] = useState("0,00");
+  const [monthlyRate, setMonthlyRate] = useState("0,00");
   const [period, setPeriod] = useState(0);
-  const [monthlyContribution, setMonthlyContribution] = useState("0,00");
-  const [finalAmount, setFinalAmount] = useState(0);
-  const [totalInvested, setTotalInvested] = useState(0);
-  const [totalInterest, setTotalInterest] = useState(0);
+  const [monthlyDeposit, setMonthlyDeposit] = useState("0,00");
+  const [finalValue, setFinalValue] = useState(0);
+  const [totalContributed, setTotalContributed] = useState(0);
+  const [totalEarnings, setTotalEarnings] = useState(0);
 
   const calculateCompoundInterest = () => {
     const results: MonthlyResult[] = [];
@@ -22,55 +22,55 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
       return parseFloat(value.replace(/\./g, "").replace(",", "."));
     };
 
-    const principalInicial = parseBRL(initialValue);
-    const taxaMensal = parseBRL(interestRate) / 100;
-    const aporteMensal = parseBRL(monthlyContribution);
-    const numMeses = period;
+    const initialPrincipal = parseBRL(initialAmount);
+    const monthlyInterestRate = parseBRL(monthlyRate) / 100;
+    const monthlyContribution = parseBRL(monthlyDeposit);
+    const numberOfMonths = period;
 
-    let principalAtual = principalInicial;
+    let currentPrincipal = initialPrincipal;
 
-    for (let mes = 1; mes <= numMeses; mes++) {
-      const jurosNoMes = principalAtual * taxaMensal;
-      const divisor = mes / 12;
-      const rest = mes % 12;
-      let month = "";
+    for (let month = 1; month <= numberOfMonths; month++) {
+      const monthlyInterest = currentPrincipal * monthlyInterestRate;
+      const yearsDivisor = month / 12;
+      const remainingMonths = month % 12;
+      let periodLabel = "";
 
-      if (Math.floor(divisor) === 0) {
-        month = `${rest} meses`;
+      if (Math.floor(yearsDivisor) === 0) {
+        periodLabel = `${remainingMonths} meses`;
       } else {
-        if (rest === 0) {
-          month = `${Math.floor(divisor)} anos`;
+        if (remainingMonths === 0) {
+          periodLabel = `${Math.floor(yearsDivisor)} anos`;
         } else {
-          month = `${Math.floor(divisor)} anos e ${rest} meses`;
+          periodLabel = `${Math.floor(yearsDivisor)} anos e ${remainingMonths} meses`;
         }
       }
 
-      principalAtual += jurosNoMes + aporteMensal;
+      currentPrincipal += monthlyInterest + monthlyContribution;
 
       results.push({
-        month,
-        income: jurosNoMes,
-        invested: aporteMensal,
-        outcome: principalAtual,
+        month: periodLabel,
+        income: monthlyInterest,
+        invested: monthlyContribution,
+        outcome: currentPrincipal,
       });
     }
 
     setMonthlyResults(results);
-    setFinalAmount(principalAtual);
-    setTotalInvested(principalInicial + aporteMensal * numMeses);
-    setTotalInterest(
-      principalAtual - (principalInicial + aporteMensal * numMeses)
+    setFinalValue(currentPrincipal);
+    setTotalContributed(initialPrincipal + monthlyContribution * numberOfMonths);
+    setTotalEarnings(
+      currentPrincipal - (initialPrincipal + monthlyContribution * numberOfMonths)
     );
   };
 
   const clearFields = () => {
-    setInitialValue("0,00");
-    setInterestRate("0,00");
+    setInitialAmount("0,00");
+    setMonthlyRate("0,00");
     setPeriod(0);
-    setMonthlyContribution("0,00");
-    setFinalAmount(0);
-    setTotalInvested(0);
-    setTotalInterest(0);
+    setMonthlyDeposit("0,00");
+    setFinalValue(0);
+    setTotalContributed(0);
+    setTotalEarnings(0);
   };
 
   return (
@@ -85,15 +85,15 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>
           <CurrencyInput
-            initialValue={initialValue}
-            handleChange={setInitialValue}
+            initialValue={initialAmount}
+            handleChange={setInitialAmount}
             label="Valor Inicial (R$)"
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <CurrencyInput
-            initialValue={interestRate}
-            handleChange={setInterestRate}
+            initialValue={monthlyRate}
+            handleChange={setMonthlyRate}
             label="Taxa de Juros % (a.m.)"
           />
         </Grid>
@@ -109,8 +109,8 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <CurrencyInput
-            initialValue={monthlyContribution}
-            handleChange={setMonthlyContribution}
+            initialValue={monthlyDeposit}
+            handleChange={setMonthlyDeposit}
             label="Aporte mensal (R$)"
           />
         </Grid>
@@ -121,10 +121,10 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
               textAlign: "center",
               backgroundColor: "#f5f5f5",
               borderRadius: 2,
-              ...(finalAmount === null && { display: "none" }),
+              ...(finalValue === null && { display: "none" }),
             }}
           >
-            {finalAmount !== null && (
+            {finalValue !== null && (
               <>
                 <Typography
                   variant="h6"
@@ -135,15 +135,15 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
                   }}
                 >
                   Valor Final:{" "}
-                  {finalAmount.toLocaleString("pt-BR", {
+                  {finalValue.toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Total Investido:{" "}
-                  {totalInvested !== null &&
-                    totalInvested.toLocaleString("pt-BR", {
+                  {totalContributed !== null &&
+                    totalContributed.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
@@ -156,8 +156,8 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
                   }}
                 >
                   Total em Juros:{" "}
-                  {totalInterest !== null &&
-                    totalInterest.toLocaleString("pt-BR", {
+                  {totalEarnings !== null &&
+                    totalEarnings.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
