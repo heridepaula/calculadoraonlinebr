@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${url}/calculadoras/calculadora-rescisao`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${url}/sobre`,
       lastModified: currentDate,
       changeFrequency: "monthly",

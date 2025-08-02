@@ -35,6 +35,11 @@ export const CALCULATOR_CATEGORIES = {
     color: '#f44336',
     icon: 'Favorite',
   },
+  labor: {
+    name: 'Trabalhista',
+    color: '#380202ff',
+    icon: 'Work',
+  },
 } as const;
 
 export const BMI_CLASSIFICATIONS = [

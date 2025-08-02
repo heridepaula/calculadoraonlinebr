@@ -14,6 +14,7 @@ import Image from "next/image";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import FunctionsIcon from "@mui/icons-material/Functions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import WorkIcon from '@mui/icons-material/Work';
 
 import { componentStyles } from '@/src/styles/components';
 
@@ -55,6 +56,19 @@ const categories = [
         description: "Verifique se seu peso está dentro do ideal.",
         image: "/images/cards/imc.webp",
         href: "/calculadoras/calculadora-imc",
+      },
+    ],
+  },
+    {
+    title: "Trabalhista",
+    icon: <WorkIcon />,
+    color: "#380202ff",
+    tools: [
+      {
+        title: "Rescisão Trabalhista",
+        description: "Calcule o valor da rescisão do seu contrato de trabalho.",
+        image: "/images/cards/rescisao-trabalhista.webp",
+        href: "/calculadoras/calculadora-rescisao",
       },
     ],
   },

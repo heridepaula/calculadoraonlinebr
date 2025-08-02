@@ -5,9 +5,11 @@ type Props = {
   label: string;
   initialValue: string;
   handleChange: (value: string) => void;
+  error?: boolean;
+  helperText?: string;
 };
 
-const CurrencyInput: React.FC<Props> = ({ label, initialValue, handleChange }) => {
+const CurrencyInput: React.FC<Props> = ({ label, initialValue, handleChange, error, helperText }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const formatToBRL = (numberString: string) => {
@@ -42,6 +44,8 @@ const CurrencyInput: React.FC<Props> = ({ label, initialValue, handleChange }) =
       variant="standard"
       slotProps={{ input: { type: "numeric" } }}
       fullWidth
+      error={error}
+      helperText={helperText}
     />
   );
 };
