@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import CurrencyInput from "../../../components/CurrencyInput";
 import ReinvestedProps from "@/models/interfaces/ReinvestedProps";
@@ -15,12 +15,12 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
   const [totalContributed, setTotalContributed] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
 
-  const calculateCompoundInterest = () => {
-    const results: MonthlyResult[] = [];
+  const parseBRL = useCallback((value: string) => {
+    return parseFloat(value.replace(/\./g, "").replace(",", "."));
+  }, []);
 
-    const parseBRL = (value: string) => {
-      return parseFloat(value.replace(/\./g, "").replace(",", "."));
-    };
+  const calculateCompoundInterest = useCallback(() => {
+    const results: MonthlyResult[] = [];
 
     const initialPrincipal = parseBRL(initialAmount);
     const monthlyInterestRate = parseBRL(monthlyRate) / 100;
@@ -61,9 +61,9 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
     setTotalEarnings(
       currentPrincipal - (initialPrincipal + monthlyContribution * numberOfMonths)
     );
-  };
+  }, [initialAmount, monthlyRate, period, monthlyDeposit, parseBRL, setMonthlyResults]);
 
-  const clearFields = () => {
+  const clearFields = useCallback(() => {
     setInitialAmount("0,00");
     setMonthlyRate("0,00");
     setPeriod(0);
@@ -71,7 +71,7 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
     setFinalValue(0);
     setTotalContributed(0);
     setTotalEarnings(0);
-  };
+  }, []);
 
   return (
     <>
@@ -114,58 +114,60 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
             label="Aporte mensal (R$)"
           />
         </Grid>
-        <Grid size={{ xs: 12 }} sx={{ width: "100%" }}>
-          <Box
-            sx={{
-              padding: 2,
-              textAlign: "center",
-              backgroundColor: "#f5f5f5",
-              borderRadius: 2,
-              ...(finalValue === null && { display: "none" }),
-            }}
-          >
-            {finalValue !== null && (
-              <>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    color: "#1a1a1a",
-                    fontWeight: "bold",
-                    marginBottom: 1,
-                  }}
-                >
-                  Valor Final:{" "}
-                  {finalValue.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Total Investido:{" "}
-                  {totalContributed !== null &&
-                    totalContributed.toLocaleString("pt-BR", {
+        {useMemo(() => (
+          <Grid size={{ xs: 12 }} sx={{ width: "100%" }}>
+            <Box
+              sx={{
+                padding: 2,
+                textAlign: "center",
+                backgroundColor: "#f5f5f5",
+                borderRadius: 2,
+                ...(finalValue === 0 && { display: "none" }),
+              }}
+            >
+              {finalValue > 0 && (
+                <>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "#1a1a1a",
+                      fontWeight: "bold",
+                      marginBottom: 1,
+                    }}
+                  >
+                    Valor Final:{" "}
+                    {finalValue.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: "bold",
-                    color: "#4c814f",
-                  }}
-                >
-                  Total em Juros:{" "}
-                  {totalEarnings !== null &&
-                    totalEarnings.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                </Typography>
-              </>
-            )}
-          </Box>
-        </Grid>
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Total Investido:{" "}
+                    {totalContributed > 0 &&
+                      totalContributed.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "#4c814f",
+                    }}
+                  >
+                    Total em Juros:{" "}
+                    {totalEarnings > 0 &&
+                      totalEarnings.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                  </Typography>
+                </>
+              )}
+            </Box>
+          </Grid>
+        ), [finalValue, totalContributed, totalEarnings])}
         <Grid size={{ xs: 6 }}>
           <Button
             variant="contained"
