@@ -109,6 +109,22 @@ export const classes = {
       padding: designTokens.spacing.lg,
     },
 
+    paper: {
+      elevation: 4,
+      padding: designTokens.spacing.xs,
+      borderRadius: designTokens.borderRadius.xs,
+    },
+
+    grid: {
+      container: {
+        spacing: 3,
+      },
+      item: {
+        xs: 12,
+        md: 6,
+      },
+    },
+
     header: {
       fontSize: designTokens.typography.fontSizes['2xl'],
       marginBottom: designTokens.spacing.sm,
@@ -204,6 +220,25 @@ export const classes = {
       backgroundColor: 'rgba(76, 175, 80, 0.05)',
       borderRadius: designTokens.borderRadius.md,
       border: `1px solid rgba(76, 175, 80, 0.2)`,
+    },
+  },
+
+  // Layout styles
+  layout: {
+    main: {
+      display: 'flex',
+      flexDirection: 'column' as const,
+      minHeight: '100vh',
+    },
+    
+    container: {
+      mt: 4,
+      px: 2,
+    },
+
+    pageContainer: {
+      flexGrow: 1,
+      py: { xs: 2, md: 4 },
     },
   },
 

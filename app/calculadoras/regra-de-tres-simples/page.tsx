@@ -1,13 +1,13 @@
-import { Container, Paper } from "@mui/material";
 import { Metadata } from "next";
+import { createCalculatorMetadata } from "@/lib/utils/calculator";
+import CalculatorPage from "@/components/ui/CalculatorPage";
 
 import Content from "./content";
 import Main from "./main";
 
-export const metadata: Metadata = {
+const calculatorMetadata = {
   title: "Calculadora de Regra de Três Simples Online Grátis e Fácil de Usar",
-  description:
-    "Resolva problemas de regra de três online de forma rápida e fácil! Nossa calculadora gratuita ajuda você a encontrar o valor desconhecido em proporções.",
+  description: "Resolva problemas de regra de três online de forma rápida e fácil! Nossa calculadora gratuita ajuda você a encontrar o valor desconhecido em proporções.",
   keywords: [
     "calculadora regra de três",
     "regra de três",
@@ -20,31 +20,20 @@ export const metadata: Metadata = {
     "ferramenta matemática",
     "proporcionalidade",
   ],
-  openGraph: {
-    title: "Calculadora de Regra de Três Online Grátis e Fácil de Usar",
-    description:
-      "Resolva problemas de regra de três online de forma rápida e fácil! Nossa calculadora gratuita ajuda você a encontrar o valor desconhecido em proporções.",
-    url: "/calculadoras/calculadora-regra-de-tres",
-    siteName: "Calculadora de Regra de Três Online Grátis",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Calculadora de Regra de Três Online Grátis e Fácil de Usar",
-    description:
-      "Resolva problemas de regra de três online de forma rápida e fácil! Nossa calculadora gratuita ajuda você a encontrar o valor desconhecido em proporções.",
-    images: ["/images/cards/regra-de-tres.webp"],
-  },
+  image: "/images/cards/regra-de-tres.webp",
+  url: "/calculadoras/regra-de-tres-simples",
+  structuredDataType: "calculator" as const,
 };
+
+export const metadata: Metadata = createCalculatorMetadata(calculatorMetadata);
 
 const CalculadoraRegraDeTres = () => {
   return (
     <>
       <Main />
-      <Container maxWidth="md" sx={{ mt: 4, px: 2 }}>
-        <Paper elevation={4} sx={{ padding: 3, borderRadius: 2 }}>
-          <Content />
-        </Paper>
-      </Container>
+      <CalculatorPage metadata={calculatorMetadata}>
+        <Content />
+      </CalculatorPage>
     </>
   );
 };

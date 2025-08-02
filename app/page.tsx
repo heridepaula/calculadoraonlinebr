@@ -15,6 +15,8 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import FunctionsIcon from "@mui/icons-material/Functions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+import { componentStyles } from '@/src/styles/components';
+
 const categories = [
   {
     title: "Financeira",
@@ -60,29 +62,24 @@ const categories = [
 
 export default function HomePage() {
   return (
-    <Container sx={{ py: { xs: 4, md: 6 } }}>
+    <Container sx={componentStyles.homepage.container}>
       {categories.map((category) => (
-        <Box key={category.title} sx={{ mb: 8 }}>
+        <Box key={category.title} sx={componentStyles.homepage.categoryContainer}>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              mb: 2,
+              ...componentStyles.homepage.categoryHeader,
               borderBottom: `2px solid ${category.color}`,
-              pb: 1,
             }}
           >
             <Avatar
               sx={{
+                ...componentStyles.homepage.categoryAvatar,
                 bgcolor: category.color,
-                mr: 1,
-                width: 40,
-                height: 40,
               }}
             >
               {category.icon}
             </Avatar>
-            <Typography variant="h5" sx={{ fontWeight: 600 }}>
+            <Typography variant="h5" sx={componentStyles.homepage.categoryTitle}>
               {category.title}
             </Typography>
           </Box>
@@ -90,41 +87,12 @@ export default function HomePage() {
           <Grid container spacing={3}>
             {category.tools.map((tool) => (
               <Grid key={tool.title} size={{ xs: 12, sm: 6, md: 4 }}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    borderRadius: 3,
-                    overflow: "hidden",
-                    transition: "transform 0.2s ease, box-shadow 0.3s ease",
-                    boxShadow: 2,
-                    "&:hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: 6,
-                    },
-                    "&:active": {
-                      transform: "translateY(0)",
-                      boxShadow: 2,
-                    },
-                  }}
-                >
+                <Card sx={componentStyles.homepage.toolCard}>
                   <CardActionArea
                     href={tool.href}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "100%",
-                    }}
+                    sx={componentStyles.homepage.toolCardAction}
                   >
-                    <CardMedia
-                      sx={{
-                        height: 160,
-                        width: "100%",
-                        position: "relative",
-                        filter: "brightness(0.95)",
-                      }}
-                    >
+                    <CardMedia sx={componentStyles.homepage.toolCardMedia}>
                       <Image
                         src={tool.image}
                         alt={tool.title}
@@ -132,18 +100,18 @@ export default function HomePage() {
                         style={{ objectFit: "cover" }}
                       />
                     </CardMedia>
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                    <CardContent sx={componentStyles.homepage.toolCardContent}>
                       <Typography
                         variant="h6"
                         component="div"
-                        sx={{ fontWeight: 600, mb: 1 }}
+                        sx={componentStyles.homepage.toolCardTitle}
                       >
                         {tool.title}
                       </Typography>
                       <Typography
                         variant="body2"
                         color="text.secondary"
-                        sx={{ lineHeight: 1.6 }}
+                        sx={componentStyles.homepage.toolCardDescription}
                       >
                         {tool.description}
                       </Typography>
