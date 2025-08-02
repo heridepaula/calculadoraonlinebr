@@ -182,10 +182,10 @@ export const componentStyles = {
   // Homepage
   homepage: {
     container: {
-      py: { xs: 4, md: 6 },
+      py: { xs: 3, md: 4 },
     },
     categoryContainer: {
-      mb: 8,
+      mb: 5,
     },
     categoryHeader: {
       display: 'flex',
@@ -205,17 +205,18 @@ export const componentStyles = {
       height: '100%',
       display: 'flex',
       flexDirection: 'column' as const,
-      borderRadius: 3,
+      borderRadius: 2,
       overflow: 'hidden',
       transition: 'transform 0.2s ease, box-shadow 0.3s ease',
-      boxShadow: 2,
+      boxShadow: 1,
+      maxHeight: 280,
       '&:hover': {
-        transform: 'translateY(-5px)',
-        boxShadow: 6,
+        transform: 'translateY(-3px)',
+        boxShadow: 4,
       },
       '&:active': {
         transform: 'translateY(0)',
-        boxShadow: 2,
+        boxShadow: 1,
       },
     },
     toolCardAction: {
@@ -224,21 +225,32 @@ export const componentStyles = {
       height: '100%',
     },
     toolCardMedia: {
-      height: 160,
+      height: 120,
       width: '100%',
       position: 'relative' as const,
       filter: 'brightness(0.95)',
+      '& img': {
+        objectFit: 'contain' as const,
+        objectPosition: 'center',
+      },
     },
     toolCardContent: {
       flexGrow: 1,
-      p: 3,
+      p: 2,
+      display: 'flex',
+      flexDirection: 'column' as const,
     },
     toolCardTitle: {
       fontWeight: 600,
-      mb: 1,
+      mb: 0.5,
+      fontSize: '1rem',
+      lineHeight: 1.3,
     },
     toolCardDescription: {
-      lineHeight: 1.6,
+      lineHeight: 1.4,
+      fontSize: '0.875rem',
+      color: 'text.secondary',
+      flexGrow: 1,
     },
   },
 

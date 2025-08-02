@@ -98,9 +98,9 @@ export default function HomePage() {
             </Typography>
           </Box>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {category.tools.map((tool) => (
-              <Grid key={tool.title} size={{ xs: 12, sm: 6, md: 4 }}>
+              <Grid key={tool.title} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                 <Card sx={componentStyles.homepage.toolCard}>
                   <CardActionArea
                     href={tool.href}
@@ -111,7 +111,11 @@ export default function HomePage() {
                         src={tool.image}
                         alt={tool.title}
                         fill
-                        style={{ objectFit: "cover" }}
+                        style={{ 
+                          objectFit: "contain",
+                          objectPosition: "center",
+                          padding: "8px"
+                        }}
                       />
                     </CardMedia>
                     <CardContent sx={componentStyles.homepage.toolCardContent}>
