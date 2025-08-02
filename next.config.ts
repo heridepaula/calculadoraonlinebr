@@ -28,6 +28,10 @@ const nextConfig: NextConfig = {
     },
   }),
 
+  // Melhorias específicas para SEO no Next.js 15
+  trailingSlash: false,
+  poweredByHeader: false,
+
   // Configurações de imagem para otimização
   images: {
     formats: ['image/avif', 'image/webp'],

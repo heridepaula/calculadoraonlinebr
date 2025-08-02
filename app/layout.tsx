@@ -5,30 +5,63 @@ import theme from "./theme";
 import { Metadata } from "next";
 import AppBar from "../components/AppBar";
 import Footer from "../components/Footer";
+import StructuredData from "../components/StructuredData";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://calculadoraonlinebr.com.br'),
   title: {
     template: "%s | Calculadora Online BR",
-    default: "Calculadora Online BR",
+    default: "Calculadora Online BR - Ferramentas de Cálculo Gratuitas",
   },
   description:
-    "Realize cálculos online de forma rápida com a Calculadora Online BR. Diversas ferramentas para suas necessidades matemáticas, financeiras e muito mais.",
+    "Realize cálculos online de forma rápida e precisa com a Calculadora Online BR. Ferramentas gratuitas para juros compostos, IMC, regra de três e muito mais. Acesse já!",
   keywords: [
     "calculadora online",
-    "calculadora",
+    "calculadora gratuita",
     "ferramentas online",
-    "matemática",
-    "financeira",
-    "conversão",
+    "cálculo matemático",
+    "calculadora financeira",
+    "juros compostos",
+    "calculadora IMC",
+    "regra de três",
     "simples",
     "fácil",
     "gratuita",
     "Brasil",
     "grátis",
+    "online",
   ],
+  authors: [{ name: "Calculadora Online BR" }],
+  creator: "Calculadora Online BR",
+  publisher: "Calculadora Online BR",
+  category: "Ferramentas",
+  classification: "Ferramentas de Cálculo Online",
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    url: 'https://calculadoraonlinebr.com.br',
+    siteName: 'Calculadora Online BR',
+    title: 'Calculadora Online BR - Ferramentas de Cálculo Gratuitas',
+    description: 'Realize cálculos online de forma rápida e precisa. Ferramentas gratuitas para juros compostos, IMC, regra de três e muito mais.',
+    images: [
+      {
+        url: '/images/logo-header.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Calculadora Online BR - Ferramentas de Cálculo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Calculadora Online BR - Ferramentas de Cálculo Gratuitas',
+    description: 'Realize cálculos online de forma rápida e precisa. Ferramentas gratuitas para juros compostos, IMC, regra de três e muito mais.',
+    images: ['/images/logo-header.webp'],
+    creator: '@calculadoraonlinebr',
+  },
   icons: {
     icon: [
       { url: "/images/favicon.ico", sizes: "any", type: "image/x-icon" },
@@ -55,8 +88,22 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   manifest: "/site.webmanifest",
+  alternates: {
+    canonical: 'https://calculadoraonlinebr.com.br',
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
+  },
 };
 
 interface RootLayoutProps {
@@ -85,6 +132,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Footer />
           </main>
         </ThemeProvider>
+        <StructuredData type="website" />
         <Analytics />
         <SpeedInsights/>
       </body>
