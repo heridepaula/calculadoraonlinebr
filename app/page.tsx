@@ -32,6 +32,12 @@ const categories = [
         image: "/images/cards/lci-lca.webp",
         href: "/calculadoras/calculadora-lci-lca",
       },
+      {
+        title: "Primeiro Milhão",
+        description: "Descubra quanto tempo ou aporte necessário para alcançar R$ 1 milhão.",
+        image: "/images/cards/primeiro-milhao.webp",
+        href: "/calculadoras/calculadora-primeiro-milhao",
+      },
     ],
   },
   {
