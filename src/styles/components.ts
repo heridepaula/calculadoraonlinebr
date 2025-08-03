@@ -203,13 +203,13 @@ export const componentStyles = {
     },
     toolCard: {
       height: '100%',
+      minHeight: 300,
       display: 'flex',
       flexDirection: 'column' as const,
       borderRadius: 2,
       overflow: 'hidden',
       transition: 'transform 0.2s ease, box-shadow 0.3s ease',
       boxShadow: 1,
-      maxHeight: 280,
       '&:hover': {
         transform: 'translateY(-3px)',
         boxShadow: 4,
@@ -225,13 +225,16 @@ export const componentStyles = {
       height: '100%',
     },
     toolCardMedia: {
-      height: 120,
+      height: 160,
       width: '100%',
       position: 'relative' as const,
       filter: 'brightness(0.95)',
+      overflow: 'hidden',
       '& img': {
-        objectFit: 'contain' as const,
+        objectFit: 'cover' as const,
         objectPosition: 'center',
+        width: '100%',
+        height: '100%',
       },
     },
     toolCardContent: {

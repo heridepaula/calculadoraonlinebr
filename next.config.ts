@@ -6,10 +6,56 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
 
-  // Otimizações modernas do Next.js 15 - Simplificadas para estabilidade
+  // Otimizações modernas do Next.js 15 - Melhoradas para performance JS
   experimental: {
-    // Apenas optimizeCss que é mais estável
+    // Otimizações de CSS e JS
     optimizeCss: process.env.NODE_ENV === "production",
+  },
+
+  // Webpack optimizations for better JS performance
+  webpack: (config, { isServer }) => {
+    // Optimize bundle splitting
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // MUI bundle
+          mui: {
+            name: 'mui',
+            test: /[\\/]node_modules[\\/]@mui[\\/]/,
+            chunks: 'all',
+            priority: 10,
+          },
+          // React bundle
+          react: {
+            name: 'react',
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            chunks: 'all',
+            priority: 20,
+          },
+          // Recharts bundle (heavy library)
+          recharts: {
+            name: 'recharts',
+            test: /[\\/]node_modules[\\/]recharts[\\/]/,
+            chunks: 'all',
+            priority: 15,
+          },
+          // Common vendor libraries
+          vendor: {
+            name: 'vendor',
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'all',
+            priority: 5,
+          },
+        },
+      };
+    }
+
+    // Keep original aliases without problematic MUI override
+
+    return config;
   },
 
   // Bundle analyzer

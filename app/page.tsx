@@ -2,7 +2,20 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import FunctionsIcon from "@mui/icons-material/Functions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WorkIcon from '@mui/icons-material/Work';
-import HomePageClient from '@/components/HomePageClient';
+import dynamic from 'next/dynamic';
+import CriticalResourceLoader from '@/components/CriticalResourceLoader';
+
+// Lazy load only the heavy HomePageClient component with better performance
+const HomePageClient = dynamic(() => import('@/components/HomePageClient'), { 
+  loading: () => <div style={{ 
+    height: '200px', 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    fontSize: '14px',
+    color: '#666'
+  }}>Carregando calculadoras...</div>
+});
 
 const categories = [
   {
@@ -91,5 +104,10 @@ const categories = [
 ];
 
 export default function HomePage() {
-  return <HomePageClient categories={categories} />;
+  return (
+    <>
+      <CriticalResourceLoader />
+      <HomePageClient categories={categories} />
+    </>
+  );
 }

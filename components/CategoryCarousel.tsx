@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useMemo, useEffect, memo } from 'react';
 import {
   Box,
   IconButton,
@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import Image from 'next/image';
+import OptimizedImage from './OptimizedImage';
 import { componentStyles } from '@/src/styles/components';
 
 interface Tool {
@@ -27,7 +27,7 @@ interface CategoryCarouselProps {
   tools: Tool[];
 }
 
-const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ tools }) => {
+const CategoryCarousel: React.FC<CategoryCarouselProps> = memo(({ tools }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
@@ -249,19 +249,12 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ tools }) => {
                   sx={componentStyles.homepage.toolCardAction}
                 >
                   <CardMedia sx={componentStyles.homepage.toolCardMedia}>
-                    <Image
+                    <OptimizedImage
                       src={tool.image}
                       alt={tool.title}
-                      fill
+                      width={300}
+                      height={200}
                       priority={index === 0} // Priorizar primeira imagem
-                      loading={index === 0 ? "eager" : "lazy"}
-                      quality={index === 0 ? 85 : 75} // Maior qualidade para primeira imagem
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      style={{
-                        objectFit: "contain",
-                        objectPosition: "center",
-                        padding: "8px"
-                      }}
                     />
                   </CardMedia>
                   <CardContent sx={componentStyles.homepage.toolCardContent}>
@@ -366,6 +359,8 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ tools }) => {
       )}
     </Box>
   );
-};
+});
+
+CategoryCarousel.displayName = 'CategoryCarousel';
 
 export default CategoryCarousel;
