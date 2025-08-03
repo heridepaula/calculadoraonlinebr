@@ -31,6 +31,12 @@ const categories = [
         image: "/images/cards/juros-compostos.webp",
         href: "/calculadoras/calculadora-juros-compostos",
       },
+      {
+        title: "LCI e LCA",
+        description: "Simule investimentos isentos de IR com garantia FGC.",
+        image: "/images/cards/lci-lca.webp",
+        href: "/calculadoras/calculadora-lci-lca",
+      },
     ],
   },
   {
