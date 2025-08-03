@@ -1,15 +1,9 @@
 import {
   Box,
   Container,
-  Grid,
   Typography,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
   Avatar,
 } from "@mui/material";
-import Image from "next/image";
 
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import FunctionsIcon from "@mui/icons-material/Functions";
@@ -17,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import WorkIcon from '@mui/icons-material/Work';
 
 import { componentStyles } from '@/src/styles/components';
+import CategoryCarousel from '@/components/CategoryCarousel';
 
 const categories = [
   {
@@ -104,47 +99,7 @@ export default function HomePage() {
             </Typography>
           </Box>
 
-          <Grid container spacing={2} id={category.title.toLowerCase()}>
-            {category.tools.map((tool) => (
-              <Grid key={tool.title} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-                <Card sx={componentStyles.homepage.toolCard}>
-                  <CardActionArea
-                    href={tool.href}
-                    sx={componentStyles.homepage.toolCardAction}
-                  >
-                    <CardMedia sx={componentStyles.homepage.toolCardMedia}>
-                      <Image
-                        src={tool.image}
-                        alt={tool.title}
-                        fill
-                        style={{ 
-                          objectFit: "contain",
-                          objectPosition: "center",
-                          padding: "8px"
-                        }}
-                      />
-                    </CardMedia>
-                    <CardContent sx={componentStyles.homepage.toolCardContent}>
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        sx={componentStyles.homepage.toolCardTitle}
-                      >
-                        {tool.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={componentStyles.homepage.toolCardDescription}
-                      >
-                        {tool.description}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <CategoryCarousel tools={category.tools} />
         </Box>
       ))}
     </Container>
