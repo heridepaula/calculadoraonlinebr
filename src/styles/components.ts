@@ -359,6 +359,154 @@ export const componentStyles = {
       color: '#4c814f',
     },
   },
+
+  // Body fat calculator
+  bodyFatCalculator: {
+    container: {
+      maxWidth: 900,
+      mx: 'auto',
+      p: { xs: 2, md: 3 },
+    },
+    headerContainer: {
+      mb: 4,
+      textAlign: 'center' as const,
+    },
+    headerTitle: {
+      fontSize: { xs: '1.5rem', md: '2rem' },
+      fontWeight: 600,
+      mb: 2,
+      color: 'primary.main',
+    },
+    headerDescription: {
+      maxWidth: 700,
+      mx: 'auto',
+      color: 'text.secondary',
+      lineHeight: 1.6,
+    },
+    formContainer: {
+      mb: 3,
+    },
+    genderSelect: {
+      '& .MuiInputLabel-root': {
+        fontSize: '1rem',
+      },
+      '& .MuiSelect-select': {
+        fontSize: '1rem',
+        py: 1.5,
+      },
+    },
+    measurementInput: {
+      '& .MuiInputLabel-root': {
+        fontSize: '1rem',
+      },
+      '& .MuiInputBase-input': {
+        fontSize: '1rem',
+        py: 1.5,
+      },
+    },
+    measurementHelperText: {
+      fontSize: '0.875rem',
+      color: 'text.secondary',
+      mt: 0.5,
+    },
+    resultContainer: {
+      p: { xs: 2, md: 3 },
+      borderRadius: 3,
+      transition: 'all 0.3s ease',
+      boxShadow: 2,
+      mt: 3,
+    },
+    resultHeader: {
+      textAlign: 'center' as const,
+      mb: 3,
+    },
+    resultTitle: {
+      fontSize: { xs: '1.25rem', md: '1.5rem' },
+      fontWeight: 600,
+      mb: 1,
+    },
+    resultValueContainer: {
+      textAlign: 'center' as const,
+      mb: 3,
+    },
+    resultValue: {
+      fontSize: { xs: '2.5rem', md: '3rem' },
+      fontWeight: 700,
+      lineHeight: 1,
+    },
+    resultUnit: {
+      fontSize: { xs: '1rem', md: '1.25rem' },
+      fontWeight: 400,
+      color: 'text.secondary',
+    },
+    resultCategory: {
+      fontSize: { xs: '1.1rem', md: '1.25rem' },
+      fontWeight: 600,
+      mb: 2,
+      textAlign: 'center' as const,
+    },
+    resultMessage: {
+      fontSize: '1rem',
+      textAlign: 'center' as const,
+      mb: 3,
+      lineHeight: 1.5,
+    },
+    resultInfo: {
+      backgroundColor: 'background.default',
+      borderRadius: 2,
+      p: 2,
+      mt: 2,
+    },
+    resultInfoItem: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      py: 0.5,
+      fontSize: '0.95rem',
+    },
+    resultInfoLabel: {
+      fontWeight: 500,
+      color: 'text.secondary',
+    },
+    resultInfoValue: {
+      fontWeight: 600,
+    },
+    actionsContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      mt: 4,
+    },
+    clearButton: {
+      px: 4,
+      py: 1.5,
+      fontSize: '1rem',
+      fontWeight: 600,
+      minWidth: 200,
+      borderRadius: 2,
+    },
+    // Mobile-first responsive styles
+    mobileInputGrid: {
+      '@media (max-width: 599px)': {
+        mb: 2,
+      },
+    },
+    mobileResultContainer: {
+      '@media (max-width: 599px)': {
+        p: 2,
+        mx: 1,
+      },
+    },
+    tabletInputs: {
+      '@media (min-width: 600px) and (max-width: 959px)': {
+        fontSize: '1.1rem',
+      },
+    },
+    desktopLayout: {
+      '@media (min-width: 960px)': {
+        maxWidth: 1000,
+      },
+    },
+  },
 } as const;
 
 // Helper para criar estilos com cores dinâmicas

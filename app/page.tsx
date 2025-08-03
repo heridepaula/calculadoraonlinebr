@@ -61,6 +61,12 @@ const categories = [
         image: "/images/cards/imc.webp",
         href: "/calculadoras/calculadora-imc",
       },
+      {
+        title: "Percentual de Gordura Corporal",
+        description: "Calcule seu percentual de gordura usando o método US Navy.",
+        image: "/images/cards/gordura-corporal.webp",
+        href: "/calculadoras/calculadora-gordura-corporal",
+      },
     ],
   },
     {

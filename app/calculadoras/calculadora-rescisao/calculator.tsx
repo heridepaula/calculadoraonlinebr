@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { Grid, MenuItem, TextField, FormControlLabel, Checkbox, Box, Typography, Paper, Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useCalculator } from '@/lib/hooks/useCalculator';
@@ -465,6 +465,7 @@ const RescisaoResultDisplay: React.FC<{ result: RescisaoResult }> = ({ result })
 
 const RescisaoCalculator: React.FC = () => {
   const theme = useTheme();
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const initialState: RescisaoState = {
     salary: '',
@@ -479,11 +480,12 @@ const RescisaoCalculator: React.FC = () => {
   };
 
   const validate = (state: RescisaoState): ValidationResult => {
-    const salaryValid = validateNumberInput(state.salary, 1, 1000000);
-
-    if (!salaryValid.valid) {
-      return { valid: false, error: salaryValid.error };
+    // Só valida se o usuário já interagiu
+    if (!hasInteracted) {
+      return { valid: true };
     }
+
+    // Verificar se todos os campos obrigatórios estão preenchidos
     if (!state.salary) {
       return { valid: false, error: 'Informe o salário' };
     }
@@ -494,6 +496,13 @@ const RescisaoCalculator: React.FC = () => {
       return { valid: false, error: 'Informe a data de demissão' };
     }
 
+    // Validar valores numéricos
+    const salaryValid = validateNumberInput(state.salary, 1, 1000000);
+    if (!salaryValid.valid) {
+      return { valid: false, error: salaryValid.error };
+    }
+
+    // Validar datas
     const startDate = new Date(state.startDate);
     const endDate = new Date(state.endDate);
     
@@ -514,6 +523,18 @@ const RescisaoCalculator: React.FC = () => {
     calculate,
   });
 
+  const handleFieldUpdate = useCallback((field: keyof RescisaoState, value: string | boolean) => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
+    updateField(field, value);
+  }, [hasInteracted, updateField]);
+
+  const handleClearWithReset = useCallback(() => {
+    handleClear();
+    setHasInteracted(false);
+  }, [handleClear]);
+
   return (
     <>
       <CalculatorHeader
@@ -525,10 +546,10 @@ const RescisaoCalculator: React.FC = () => {
         <Grid size={{ xs: 12, md: 6 }}>
           <CurrencyInput
             initialValue={state.salary}
-            handleChange={(value) => updateField('salary', value)}
+            handleChange={(value) => handleFieldUpdate('salary', value)}
             label="Salário (R$)"
-            error={!!validation.error}
-            helperText={validation.error || 'Informe o salário atual'}
+            error={hasInteracted && !!validation.error}
+            helperText={hasInteracted && validation.error ? validation.error : 'Informe o salário atual'}
           />
         </Grid>
 
@@ -536,7 +557,7 @@ const RescisaoCalculator: React.FC = () => {
           <TextField
             label="Tipo de Demissão"
             value={state.dismissalType}
-            onChange={(e) => updateField('dismissalType', e.target.value)}
+            onChange={(e) => handleFieldUpdate('dismissalType', e.target.value)}
             select
             fullWidth
             variant="standard"
@@ -553,7 +574,7 @@ const RescisaoCalculator: React.FC = () => {
           <TextField
             label="Data de Admissão"
             value={state.startDate}
-            onChange={(e) => updateField('startDate', e.target.value)}
+            onChange={(e) => handleFieldUpdate('startDate', e.target.value)}
             type="date"
             fullWidth
             variant="standard"
@@ -568,7 +589,7 @@ const RescisaoCalculator: React.FC = () => {
           <TextField
             label="Data de Demissão"
             value={state.endDate}
-            onChange={(e) => updateField('endDate', e.target.value)}
+            onChange={(e) => handleFieldUpdate('endDate', e.target.value)}
             type="date"
             fullWidth
             variant="standard"
@@ -583,7 +604,7 @@ const RescisaoCalculator: React.FC = () => {
           <TextField
             label="Aviso Prévio"
             value={state.noticeType}
-            onChange={(e) => updateField('noticeType', e.target.value)}
+            onChange={(e) => handleFieldUpdate('noticeType', e.target.value)}
             select
             fullWidth
             variant="standard"
@@ -599,7 +620,7 @@ const RescisaoCalculator: React.FC = () => {
           <CalculatorInput
             label="Número de Dependentes"
             value={state.dependents}
-            onChange={(value) => updateField('dependents', value)}
+            onChange={(value) => handleFieldUpdate('dependents', value)}
             type="number"
             helperText="Filhos menores de 14 anos ou com deficiência"
           />
@@ -610,7 +631,7 @@ const RescisaoCalculator: React.FC = () => {
             control={
               <Checkbox
                 checked={state.hasVacationAcquired}
-                onChange={(e) => updateField('hasVacationAcquired', e.target.checked)}
+                onChange={(e) => handleFieldUpdate('hasVacationAcquired', e.target.checked)}
               />
             }
             label="Possui férias vencidas (não gozadas de períodos anteriores)"
@@ -622,7 +643,7 @@ const RescisaoCalculator: React.FC = () => {
             <CalculatorInput
               label="Dias de Férias Vencidas"
               value={state.vacationDaysVested}
-              onChange={(value) => updateField('vacationDaysVested', value)}
+              onChange={(value) => handleFieldUpdate('vacationDaysVested', value)}
               type="number"
               helperText="Quantidade de dias de férias não gozadas"
             />
@@ -637,7 +658,7 @@ const RescisaoCalculator: React.FC = () => {
 
         <Grid size={{ xs: 12 }}>
           <CalculatorActions
-            onClear={handleClear}
+            onClear={handleClearWithReset}
             layout="clear-only"
           />
         </Grid>

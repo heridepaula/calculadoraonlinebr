@@ -6,21 +6,10 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
 
-  // Otimizações modernas do Next.js 15
+  // Otimizações modernas do Next.js 15 - Simplificadas para estabilidade
   experimental: {
-    optimizePackageImports: ['@mui/material', '@mui/icons-material', 'recharts'],
-    // Otimizações para Core Web Vitals
-    optimizeCss: true,
-  },
-
-  // Configuração do Turbopack
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
+    // Apenas optimizeCss que é mais estável
+    optimizeCss: process.env.NODE_ENV === "production",
   },
 
   // Bundle analyzer
