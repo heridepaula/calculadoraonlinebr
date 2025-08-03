@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useCalculator } from '@/lib/hooks/useCalculator';
@@ -10,6 +10,7 @@ import CalculatorInput from '@/components/ui/CalculatorInput';
 import CalculatorActions from '@/components/ui/CalculatorActions';
 import CalculatorResult from '@/components/ui/CalculatorResult';
 import { CalculatorResult as CalculatorResultType, ValidationResult } from '@/lib/types/calculator';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 interface IMCState {
   weight: string;
@@ -96,6 +97,7 @@ const getBMIClassification = (imc: number, theme: any): BMIResult => {
 
 const IMCCalculator: React.FC = () => {
   const theme = useTheme();
+  const analytics = useAnalytics();
 
   const initialState: IMCState = {
     weight: '',
@@ -120,6 +122,7 @@ const IMCCalculator: React.FC = () => {
   };
 
   const calculate = (state: IMCState): BMIResult | null => {
+    const startTime = performance.now();
     const weightNum = parseBRLNumber(state.weight);
     const heightNum = parseBRLNumber(state.height);
     
@@ -130,6 +133,18 @@ const IMCCalculator: React.FC = () => {
     
     const idealMin = +(18.5 * heightNum ** 2).toFixed(1);
     const idealMax = +(24.9 * heightNum ** 2).toFixed(1);
+
+    // Track successful calculation
+    const endTime = performance.now();
+    analytics.trackCalculation("imc", {
+      peso: weightNum,
+      altura: heightNum,
+      imc_value: Number(imcValue.toFixed(1)),
+      categoria: classification.category,
+      peso_ideal_min: idealMin,
+      peso_ideal_max: idealMax
+    });
+    analytics.trackPerformance("imc", endTime - startTime);
 
     return {
       ...classification,
@@ -146,6 +161,19 @@ const IMCCalculator: React.FC = () => {
     validate,
     calculate,
   });
+
+  // Enhanced clear function with analytics
+  const handleClearWithAnalytics = () => {
+    handleClear();
+    analytics.trackClear("imc");
+  };
+
+  // Track quando resultado é visualizado
+  useEffect(() => {
+    if (result) {
+      analytics.trackResultView("imc");
+    }
+  }, [result, analytics]);
 
   return (
     <>
@@ -188,7 +216,7 @@ const IMCCalculator: React.FC = () => {
 
         <Grid size={{ xs: 12 }}>
           <CalculatorActions
-            onClear={handleClear}
+            onClear={handleClearWithAnalytics}
             layout="clear-only"
           />
         </Grid>

@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import CurrencyInput from "../../../components/CurrencyInput";
 import ReinvestedProps from "@/models/interfaces/ReinvestedProps";
 import MonthlyResult from "@/models/interfaces/MonthlyResult";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
   const [initialAmount, setInitialAmount] = useState("0,00");
@@ -15,11 +16,14 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
   const [totalContributed, setTotalContributed] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
 
+  const analytics = useAnalytics();
+
   const parseBRL = useCallback((value: string) => {
     return parseFloat(value.replace(/\./g, "").replace(",", "."));
   }, []);
 
   const calculateCompoundInterest = useCallback(() => {
+    const startTime = performance.now();
     const results: MonthlyResult[] = [];
 
     const initialPrincipal = parseBRL(initialAmount);
@@ -57,11 +61,24 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
 
     setMonthlyResults(results);
     setFinalValue(currentPrincipal);
-    setTotalContributed(initialPrincipal + monthlyContribution * numberOfMonths);
-    setTotalEarnings(
-      currentPrincipal - (initialPrincipal + monthlyContribution * numberOfMonths)
-    );
-  }, [initialAmount, monthlyRate, period, monthlyDeposit, parseBRL, setMonthlyResults]);
+    const totalContrib = initialPrincipal + monthlyContribution * numberOfMonths;
+    const totalEarn = currentPrincipal - totalContrib;
+    setTotalContributed(totalContrib);
+    setTotalEarnings(totalEarn);
+
+    // Track successful calculation
+    const endTime = performance.now();
+    analytics.trackCalculation("juros-compostos", {
+      valor_inicial: initialPrincipal,
+      taxa_mensal: monthlyInterestRate * 100,
+      periodo_meses: numberOfMonths,
+      aporte_mensal: monthlyContribution,
+      valor_final: currentPrincipal,
+      total_investido: totalContrib,
+      rendimento_total: totalEarn
+    });
+    analytics.trackPerformance("juros-compostos", endTime - startTime);
+  }, [initialAmount, monthlyRate, period, monthlyDeposit, parseBRL, setMonthlyResults, analytics]);
 
   const clearFields = useCallback(() => {
     setInitialAmount("0,00");
@@ -71,7 +88,15 @@ const Calculator: React.FC<ReinvestedProps> = ({ setMonthlyResults }) => {
     setFinalValue(0);
     setTotalContributed(0);
     setTotalEarnings(0);
-  }, []);
+    analytics.trackClear("juros-compostos");
+  }, [analytics]);
+
+  // Track quando resultado é visualizado
+  useEffect(() => {
+    if (finalValue > 0) {
+      analytics.trackResultView("juros-compostos");
+    }
+  }, [finalValue, analytics]);
 
   return (
     <>

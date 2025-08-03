@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -17,6 +17,7 @@ import {
 import { Calculate, TrendingUp } from "@mui/icons-material";
 import { componentStyles } from "@/src/styles/components";
 import CurrencyInput from "@/components/CurrencyInput";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 interface LciLcaResult {
   totalInvestido: number;
@@ -39,11 +40,14 @@ const LciLcaCalculator: React.FC = () => {
   const [result, setResult] = useState<LciLcaResult | null>(null);
   const [error, setError] = useState<string>("");
 
+  const analytics = useAnalytics();
+
   const parseCurrency = (value: string): number => {
     return parseFloat(value.replace(/\./g, "").replace(",", ".")) || 0;
   };
 
   const handleCalculate = () => {
+    const startTime = performance.now();
     setError("");
 
     const valorInicialNum = parseCurrency(valorInicial);
@@ -99,14 +103,32 @@ const LciLcaCalculator: React.FC = () => {
     const rentabilidadeTotal = ((valorFinal / totalInvestido) - 1) * 100;
     const rentabilidadeAnual = (Math.pow(valorFinal / totalInvestido, 12 / mesesTotal) - 1) * 100;
 
-    setResult({
+    const resultData = {
       totalInvestido,
       totalRendimento,
       valorFinal,
       rendimentoMensal,
       rentabilidadeTotal,
       rentabilidadeAnual,
+    };
+
+    setResult(resultData);
+
+    // Track successful calculation
+    const endTime = performance.now();
+    analytics.trackCalculation("lci-lca", {
+      valor_inicial: valorInicialNum,
+      valor_mensal: valorMensalNum,
+      periodo_meses: mesesTotal,
+      taxa_selic: taxaSelic,
+      tipo_rendimento: tipoRendimento,
+      taxa_aplicada: tipoRendimento === "pos" ? taxaCdi : taxaPre,
+      valor_final: valorFinal,
+      total_investido: totalInvestido,
+      rendimento_total: totalRendimento,
+      rentabilidade_total: rentabilidadeTotal
     });
+    analytics.trackPerformance("lci-lca", endTime - startTime);
   };
 
   const handleClear = () => {
@@ -120,7 +142,15 @@ const LciLcaCalculator: React.FC = () => {
     setTaxaSelic(15);
     setResult(null);
     setError("");
+    analytics.trackClear("lci-lca");
   };
+
+  // Track quando resultado é visualizado
+  useEffect(() => {
+    if (result) {
+      analytics.trackResultView("lci-lca");
+    }
+  }, [result, analytics]);
 
   const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat("pt-BR", {

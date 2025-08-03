@@ -42,3 +42,4 @@ next-env.d.ts
 .claude/settings.local.json
 STYLE_OPTIMIZATION_SUMMARY.md
 STYLES_GUIDE.md
+scripts/apply-analytics.md

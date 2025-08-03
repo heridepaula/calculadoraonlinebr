@@ -3,15 +3,13 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import { Metadata } from "next";
-import dynamic from 'next/dynamic';
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Importações diretas - componentes críticos para layout
 import AppBar from "../components/AppBar";
 import Footer from "../components/Footer";
 import StructuredData from "../components/StructuredData";
+import Analytics from "../components/Analytics";
+import ConsentBanner from "../components/ConsentBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://calculadoraonlinebr.com.br'),
@@ -114,13 +112,11 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const isProduction = process.env.NODE_ENV === "production";
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang="pt-BR">
       <body>
-        {isProduction && gaId && <GoogleAnalytics gaId={gaId} />}
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <main
@@ -136,8 +132,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </main>
         </ThemeProvider>
         <StructuredData type="website" />
-        <Analytics />
-        <SpeedInsights/>
+        <Analytics gaId={gaId} />
+        <ConsentBanner />
       </body>
     </html>
   );

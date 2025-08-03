@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -18,6 +18,7 @@ import {
 import { Calculate, TrendingUp, EmojiEvents } from "@mui/icons-material";
 import { componentStyles } from "@/src/styles/components";
 import CurrencyInput from "@/components/CurrencyInput";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 interface PrimeiroMilhaoResult {
   tempoNecessario: number;
@@ -37,6 +38,8 @@ const PrimeiroMilhaoCalculator: React.FC = () => {
   const [unidadeTempo, setUnidadeTempo] = useState<string>("anos");
   const [result, setResult] = useState<PrimeiroMilhaoResult | null>(null);
   const [error, setError] = useState<string>("");
+
+  const analytics = useAnalytics();
 
   const parseCurrency = (value: string): number => {
     return parseFloat(value.replace(/\./g, "").replace(",", ".")) || 0;
@@ -96,6 +99,7 @@ const PrimeiroMilhaoCalculator: React.FC = () => {
   };
 
   const handleCalculate = () => {
+    const startTime = performance.now();
     setError("");
 
     const valorInicialNum = parseCurrency(valorInicial);
@@ -103,16 +107,19 @@ const PrimeiroMilhaoCalculator: React.FC = () => {
 
     if (valorInicialNum < 0 || valorMensalNum < 0) {
       setError("Os valores não podem ser negativos.");
+      analytics.trackError("primeiro-milhao", "negative_values");
       return;
     }
 
     if (taxaJuros <= 0 || taxaJuros > 50) {
       setError("A taxa de juros deve estar entre 0% e 50% ao ano.");
+      analytics.trackError("primeiro-milhao", "invalid_interest_rate", `Taxa: ${taxaJuros}%`);
       return;
     }
 
     if (valorInicialNum >= 1000000) {
       setError("Parabéns! Você já possui mais de R$ 1.000.000,00!");
+      analytics.trackCalculation("primeiro-milhao", { already_millionaire: true });
       return;
     }
 
@@ -132,14 +139,29 @@ const PrimeiroMilhaoCalculator: React.FC = () => {
       const totalInvestido = valorInicialNum + (valorMensalNum * mesesNecessarios);
       const rendimentoTotal = 1000000 - totalInvestido;
 
-      setResult({
+      const result = {
         tempoNecessario: mesesNecessarios,
         aporteNecessario: valorMensalNum,
         totalInvestido,
         rendimentoTotal,
-        tipoCalculo: 'tempo',
+        tipoCalculo: 'tempo' as const,
         detalhesTemporais: formatarTempo(mesesNecessarios)
+      };
+
+      setResult(result);
+
+      // Track successful calculation
+      const endTime = performance.now();
+      analytics.trackCalculation("primeiro-milhao", {
+        calculation_type: 'tempo',
+        valor_inicial: valorInicialNum,
+        valor_mensal: valorMensalNum,
+        taxa_juros: taxaJuros,
+        meses_necessarios: mesesNecessarios,
+        total_investido: totalInvestido,
+        rendimento_total: rendimentoTotal
       });
+      analytics.trackPerformance("primeiro-milhao", endTime - startTime);
     } else {
       const mesesMeta = unidadeTempo === "anos" ? tempoMeta * 12 : tempoMeta;
       
@@ -178,7 +200,15 @@ const PrimeiroMilhaoCalculator: React.FC = () => {
     setUnidadeTempo("anos");
     setResult(null);
     setError("");
+    analytics.trackClear("primeiro-milhao");
   };
+
+  // Track quando resultado é visualizado
+  useEffect(() => {
+    if (result) {
+      analytics.trackResultView("primeiro-milhao");
+    }
+  }, [result, analytics]);
 
   return (
     <Box sx={componentStyles.page.container}>
