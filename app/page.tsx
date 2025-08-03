@@ -29,6 +29,12 @@ const categories = [
         image: "/images/cards/primeiro-milhao.webp",
         href: "/calculadoras/calculadora-primeiro-milhao",
       },
+      {
+        title: "Preço Médio",
+        description: "Calcule o preço médio das suas ações com aportes regulares.",
+        image: "/images/cards/preco-medio.webp",
+        href: "/calculadoras/calculadora-preco-medio",
+      },
     ],
   },
   {
