@@ -35,6 +35,12 @@ const categories = [
         image: "/images/cards/preco-medio.webp",
         href: "/calculadoras/calculadora-preco-medio",
       },
+      {
+        title: "CDB",
+        description: "Simule a rentabilidade do seu Certificado de Depósito Bancário.",
+        image: "/images/cards/cdb.webp",
+        href: "/calculadoras/calculadora-cdb",
+      },
     ],
   },
   {
