@@ -294,7 +294,7 @@ const BodyFatCalculator: React.FC = () => {
 
     return {
       ...classification,
-      value: Number(bodyFatPercentage.toFixed(1)),
+      value: `${bodyFatPercentage.toFixed(1)}%`,
       additionalInfo: {
         'Faixa saudável': `${classification.healthyRange[0]}% - ${classification.healthyRange[1]}%`,
       },
