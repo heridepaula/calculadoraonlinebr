@@ -1,14 +1,17 @@
-import "@fontsource/ibm-plex-mono";
+import "@fontsource/ibm-plex-mono/400.css"; // Carrega apenas peso específico
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import { Metadata } from "next";
-import AppBar from "../components/AppBar";
-import Footer from "../components/Footer";
-import StructuredData from "../components/StructuredData";
+import dynamic from 'next/dynamic';
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+// Importações diretas - componentes críticos para layout
+import AppBar from "../components/AppBar";
+import Footer from "../components/Footer";
+import StructuredData from "../components/StructuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://calculadoraonlinebr.com.br'),

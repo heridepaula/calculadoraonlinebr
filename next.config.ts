@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   // Otimizações modernas do Next.js 15
   experimental: {
     optimizePackageImports: ['@mui/material', '@mui/icons-material', 'recharts'],
+    // Otimizações para Core Web Vitals
+    optimizeCss: true,
   },
 
   // Configuração do Turbopack
@@ -32,19 +34,20 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   poweredByHeader: false,
 
-  // Configurações de imagem para otimização
+  // Configurações de imagem para otimização mobile
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000, // 1 ano
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    deviceSizes: [360, 414, 640, 750, 828, 1080, 1200, 1920], // Adicionados tamanhos mobile
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     dangerouslyAllowSVG: false,
+    // A qualidade é controlada através do componente Image, não aqui
   },
 
   // Configurações de compressão
   compress: true,
 
-  // Headers de performance básicos
+  // Headers de performance otimizados para mobile
   async headers() {
     return [
       {
@@ -61,6 +64,28 @@ const nextConfig: NextConfig = {
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

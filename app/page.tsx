@@ -1,17 +1,8 @@
-import {
-  Box,
-  Container,
-  Typography,
-  Avatar,
-} from "@mui/material";
-
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import FunctionsIcon from "@mui/icons-material/Functions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WorkIcon from '@mui/icons-material/Work';
-
-import { componentStyles } from '@/src/styles/components';
-import CategoryCarousel from '@/components/CategoryCarousel';
+import HomePageClient from '@/components/HomePageClient';
 
 const categories = [
   {
@@ -82,32 +73,5 @@ const categories = [
 ];
 
 export default function HomePage() {
-  return (
-    <Container sx={componentStyles.homepage.container}>
-      {categories.map((category) => (
-        <Box key={category.title} sx={componentStyles.homepage.categoryContainer}>
-          <Box
-            sx={{
-              ...componentStyles.homepage.categoryHeader,
-              borderBottom: `2px solid ${category.color}`,
-            }}
-          >
-            <Avatar
-              sx={{
-                ...componentStyles.homepage.categoryAvatar,
-                bgcolor: category.color,
-              }}
-            >
-              {category.icon}
-            </Avatar>
-            <Typography variant="h5" sx={componentStyles.homepage.categoryTitle}>
-              {category.title}
-            </Typography>
-          </Box>
-
-          <CategoryCarousel tools={category.tools} />
-        </Box>
-      ))}
-    </Container>
-  );
+  return <HomePageClient categories={categories} />;
 }

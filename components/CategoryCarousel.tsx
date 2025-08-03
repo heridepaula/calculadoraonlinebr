@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import {
   Box,
   IconButton,
@@ -36,38 +36,37 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ tools }) => {
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
   
-  // Definir largura fixa baseada no breakpoint original
-  const getCardWidth = () => {
+  // Memoizar cálculos de largura
+  const cardWidth = useMemo(() => {
     if (isMobile) return '100%';     // xs: 12 = 100%
     if (isTablet) return '50%';      // sm: 6 = 50%
     if (isLarge) return '25%';       // lg: 3 = 25%
     return '33.333%';                // md: 4 = 33.333%
-  };
-
-  const cardWidth = getCardWidth();
+  }, [isMobile, isTablet, isLarge]);
   
-  // Calcular quantos cards cabem na tela
-  const getCardsPerView = () => {
+  // Memoizar cálculo de cards por view
+  const cardsPerView = useMemo(() => {
     if (isMobile) return 1;
     if (isTablet) return 2;
     if (isLarge) return 4;
     return 3;
-  };
+  }, [isMobile, isTablet, isLarge]);
 
-  const cardsPerView = getCardsPerView();
-  const maxIndex = Math.max(0, tools.length - cardsPerView);
+  const maxIndex = useMemo(() => Math.max(0, tools.length - cardsPerView), [tools.length, cardsPerView]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setCurrentIndex(prev => Math.max(0, prev - 1));
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex(prev => Math.min(maxIndex, prev + 1));
-  };
+  }, [maxIndex]);
 
-  // Calcular deslocamento baseado na largura do card
-  const cardWidthPercent = parseFloat(cardWidth.replace('%', ''));
-  const translateX = `translateX(-${currentIndex * cardWidthPercent}%)`;
+  // Memoizar cálculo de translateX
+  const translateX = useMemo(() => {
+    const cardWidthPercent = parseFloat(cardWidth.replace('%', ''));
+    return `translateX(-${currentIndex * cardWidthPercent}%)`;
+  }, [currentIndex, cardWidth]);
 
   return (
     <Box sx={{ position: 'relative', width: '100%' }}>
@@ -126,6 +125,10 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = ({ tools }) => {
                       src={tool.image}
                       alt={tool.title}
                       fill
+                      priority={index === 0} // Priorizar primeira imagem
+                      loading={index === 0 ? "eager" : "lazy"}
+                      quality={index === 0 ? 85 : 75} // Maior qualidade para primeira imagem
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       style={{
                         objectFit: "contain",
                         objectPosition: "center",
