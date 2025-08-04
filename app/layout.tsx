@@ -11,6 +11,9 @@ import StructuredData from "../components/StructuredData";
 import Analytics from "../components/Analytics";
 import ConsentBanner from "../components/ConsentBanner";
 
+// Configure revalidation for better SEO indexing
+export const revalidate = 3600; // Revalidate every hour
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://calculadoraonlinebr.com.br'),
   title: {

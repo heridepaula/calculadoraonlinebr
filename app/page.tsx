@@ -6,6 +6,9 @@ import dynamic from 'next/dynamic';
 import CriticalResourceLoader from '@/components/CriticalResourceLoader';
 import { Metadata } from 'next';
 
+// Configure revalidation for homepage SEO
+export const revalidate = 1800; // Revalidate every 30 minutes
+
 // Lazy load only the heavy HomePageClient component with better performance
 const HomePageClient = dynamic(() => import('@/components/HomePageClient'), { 
   loading: () => <div style={{ 

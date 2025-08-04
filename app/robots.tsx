@@ -6,17 +6,36 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/private/', '/admin/', '/_next/'],
+        disallow: [
+          '/private/', 
+          '/admin/', 
+          '/_next/',
+          '/api/',
+          '*.json$',
+        ],
       },
       {
         userAgent: 'Googlebot',
-        allow: '/',
+        allow: [
+          '/',
+          '/calculadoras/',
+          '/sitemap.xml',
+        ],
         crawlDelay: 1,
       },
       {
         userAgent: 'Bingbot',
-        allow: '/',
+        allow: [
+          '/',
+          '/calculadoras/',
+          '/sitemap.xml',
+        ],
         crawlDelay: 2,
+      },
+      {
+        userAgent: 'Applebot',
+        allow: '/',
+        crawlDelay: 3,
       }
     ],
     sitemap: 'https://calculadoraonlinebr.com.br/sitemap.xml',

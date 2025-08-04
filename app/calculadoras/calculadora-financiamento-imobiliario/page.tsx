@@ -8,6 +8,9 @@ import { Container } from "@mui/material";
 import Content from "./content";
 import Main from "./main";
 
+// Configure revalidation for calculator pages SEO
+export const revalidate = 7200; // Revalidate every 2 hours
+
 const calculatorMetadata = {
   title: "Calculadora de Financiamento Imobiliário 2025 | SAC, Price, FGTS e Subsídios",
   description: "Simule seu financiamento imobiliário com sistemas SAC e Price. Inclui programas Minha Casa Minha Vida, uso do FGTS, seguros obrigatórios e comparação de bancos. Atualizado para 2025.",

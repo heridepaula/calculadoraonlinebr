@@ -99,9 +99,10 @@ const nextConfig: NextConfig = {
   // Configurações de compressão
   compress: true,
 
-  // Headers de performance otimizados para mobile
+  // Headers otimizados para SEO e indexação do Google
   async headers() {
     return [
+      // Headers de segurança para todas as páginas
       {
         source: '/(.*)',
         headers: [
@@ -117,12 +118,19 @@ const nextConfig: NextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
+        ],
+      },
+      // Cache para páginas HTML - Permite revalidação frequente para SEO
+      {
+        source: '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+        headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=0, s-maxage=31536000, must-revalidate',
           },
         ],
       },
+      // Cache longo para imagens
       {
         source: '/images/(.*)',
         headers: [
@@ -132,12 +140,50 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Cache longo para assets estáticos
       {
         source: '/_next/static/(.*)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache específico para sitemap e robots.txt - Importante para SEO
+      {
+        source: '/sitemap.xml',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400', // 1h browser, 24h CDN
+          },
+          {
+            key: 'Content-Type',
+            value: 'application/xml',
+          },
+        ],
+      },
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400', // 1h browser, 24h CDN
+          },
+          {
+            key: 'Content-Type',
+            value: 'text/plain',
+          },
+        ],
+      },
+      // Cache para APIs
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, s-maxage=300', // 1min browser, 5min CDN
           },
         ],
       },

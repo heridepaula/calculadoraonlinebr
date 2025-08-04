@@ -26,12 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Add calculator pages
+  // Add calculator pages with enhanced SEO metadata
   const calculatorRoutes = CALCULATORS.map((calculator) => ({
     url: `${baseUrl}${calculator.path}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: 0.9, // Higher priority for calculator pages
   }));
 
   return [...routes, ...calculatorRoutes];
