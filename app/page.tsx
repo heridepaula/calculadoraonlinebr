@@ -76,6 +76,11 @@ const categories = [
         description: "Simule investimentos em títulos públicos federais: Prefixado, Selic e IPCA+.",
         href: "/calculadoras/calculadora-tesouro-direto",
       },
+      {
+        title: "Financiamento Imobiliário",
+        description: "Simule financiamentos SAC e Price com FGTS, subsídios governamentais e seguros.",
+        href: "/calculadoras/calculadora-financiamento-imobiliario",
+      },
     ],
   },
   {
