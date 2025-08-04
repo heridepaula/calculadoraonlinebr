@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Suprimir avisos do Turbopack vs Webpack
+  onDemandEntries: {
+    // Reduz avisos de configuração
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  
   // Otimização de bundle
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
@@ -10,6 +17,16 @@ const nextConfig: NextConfig = {
   experimental: {
     // Otimizações de CSS e JS
     optimizeCss: process.env.NODE_ENV === "production",
+  },
+
+  // Configuração do Turbopack (novo formato estável)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
 
   // Webpack optimizations for better JS performance

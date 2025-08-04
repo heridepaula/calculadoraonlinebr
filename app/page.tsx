@@ -54,6 +54,12 @@ const categories = [
         image: "/images/cards/cdb.webp",
         href: "/calculadoras/calculadora-cdb",
       },
+      {
+        title: "Comparador de Renda Fixa",
+        description: "Compare CDB, LCI/LCA, Tesouro SELIC e Poupança para escolher o melhor investimento.",
+        image: "/images/cards/comparador-renda-fixa.webp",
+        href: "/calculadoras/comparador-renda-fixa",
+      },
     ],
   },
   {
