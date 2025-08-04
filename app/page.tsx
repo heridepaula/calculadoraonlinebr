@@ -4,6 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import WorkIcon from '@mui/icons-material/Work';
 import dynamic from 'next/dynamic';
 import CriticalResourceLoader from '@/components/CriticalResourceLoader';
+import { Metadata } from 'next';
 
 // Lazy load only the heavy HomePageClient component with better performance
 const HomePageClient = dynamic(() => import('@/components/HomePageClient'), { 
@@ -17,6 +18,23 @@ const HomePageClient = dynamic(() => import('@/components/HomePageClient'), {
   }}>Carregando calculadoras...</div>
 });
 
+export const metadata: Metadata = {
+  title: 'Calculadoras Online Gratuitas | Financeira, Matemática, Saúde e Trabalhista',
+  description: 'Acesse gratuitamente mais de 10 calculadoras online: Juros Compostos, IMC, CDB, Tesouro Direto, Rescisão Trabalhista e muito mais. Rápido, fácil e preciso.',
+  keywords: 'calculadora online, juros compostos, imc, cdb, tesouro direto, rescisão trabalhista, lci lca, calculadora financeira, calculadora matemática, calculadora saúde',
+  openGraph: {
+    title: 'Calculadoras Online Gratuitas',
+    description: 'Mais de 10 calculadoras online gratuitas para suas necessidades financeiras, matemáticas, de saúde e trabalhistas.',
+    type: 'website',
+    url: 'https://calculadoraonline.com.br',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Calculadoras Online Gratuitas',
+    description: 'Mais de 10 calculadoras online gratuitas para suas necessidades financeiras, matemáticas, de saúde e trabalhistas.',
+  },
+};
+
 const categories = [
   {
     title: "Financeira",
@@ -25,45 +43,37 @@ const categories = [
     tools: [
       {
         title: "Juros Compostos",
-        description:
-          "Calcule o crescimento do seu investimento ao longo do tempo.",
-        image: "/images/cards/juros-compostos.webp",
+        description: "Calcule o crescimento do seu investimento ao longo do tempo.",
         href: "/calculadoras/calculadora-juros-compostos",
       },
       {
         title: "LCI e LCA",
         description: "Simule investimentos isentos de IR com garantia FGC.",
-        image: "/images/cards/lci-lca.webp",
         href: "/calculadoras/calculadora-lci-lca",
       },
       {
         title: "Primeiro Milhão",
         description: "Descubra quanto tempo ou aporte necessário para alcançar R$ 1 milhão.",
-        image: "/images/cards/primeiro-milhao.webp",
         href: "/calculadoras/calculadora-primeiro-milhao",
       },
       {
         title: "Preço Médio",
         description: "Calcule o preço médio das suas ações com aportes regulares.",
-        image: "/images/cards/preco-medio.webp",
         href: "/calculadoras/calculadora-preco-medio",
       },
       {
         title: "CDB",
         description: "Simule a rentabilidade do seu Certificado de Depósito Bancário.",
-        image: "/images/cards/cdb.webp",
         href: "/calculadoras/calculadora-cdb",
       },
       {
         title: "Comparador de Renda Fixa",
         description: "Compare CDB, LCI/LCA, Tesouro SELIC e Poupança para escolher o melhor investimento.",
-        image: "/images/cards/comparador-renda-fixa.webp",
         href: "/calculadoras/comparador-renda-fixa",
       },
       {
         title: "Tesouro Direto",
         description: "Simule investimentos em títulos públicos federais: Prefixado, Selic e IPCA+.",
-        image: "/images/cards/tesouro-direto.webp",
         href: "/calculadoras/calculadora-tesouro-direto",
       },
     ],
@@ -76,7 +86,6 @@ const categories = [
       {
         title: "Regra de Três",
         description: "Resolva proporções com facilidade e precisão.",
-        image: "/images/cards/regra-de-tres.webp",
         href: "/calculadoras/regra-de-tres-simples",
       },
     ],
@@ -89,18 +98,16 @@ const categories = [
       {
         title: "IMC (Índice de Massa Corporal)",
         description: "Verifique se seu peso está dentro do ideal.",
-        image: "/images/cards/imc.webp",
         href: "/calculadoras/calculadora-imc",
       },
       {
         title: "Percentual de Gordura Corporal",
         description: "Calcule seu percentual de gordura usando o método US Navy.",
-        image: "/images/cards/gordura-corporal.webp",
         href: "/calculadoras/calculadora-gordura-corporal",
       },
     ],
   },
-    {
+  {
     title: "Trabalhista",
     icon: <WorkIcon />,
     color: "#380202ff",
@@ -108,7 +115,6 @@ const categories = [
       {
         title: "Rescisão Trabalhista",
         description: "Calcule o valor da rescisão do seu contrato de trabalho.",
-        image: "/images/cards/rescisao-trabalhista.webp",
         href: "/calculadoras/calculadora-rescisao",
       },
     ],

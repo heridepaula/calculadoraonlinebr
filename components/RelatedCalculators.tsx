@@ -3,15 +3,19 @@
 import { 
   Box, 
   Typography, 
-  Grid, 
   Card, 
   CardActionArea, 
-  CardContent, 
-  CardMedia 
+  CardContent,
+  Avatar,
+  Chip,
+  useTheme
 } from "@mui/material";
-import Image from "next/image";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import FunctionsIcon from "@mui/icons-material/Functions";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import WorkIcon from '@mui/icons-material/Work';
 import { CALCULATORS } from "@/lib/data/calculators";
-import { componentStyles } from "@/src/styles/components";
+import { CALCULATOR_CATEGORIES } from "@/lib/config/constants";
 
 interface RelatedCalculatorsProps {
   currentCalculatorId?: string;
@@ -19,11 +23,22 @@ interface RelatedCalculatorsProps {
   maxItems?: number;
 }
 
+const getCategoryIcon = (category: string) => {
+  const iconMap = {
+    'financial': <MonetizationOnIcon />,
+    'math': <FunctionsIcon />,
+    'health': <FavoriteIcon />,
+    'labor': <WorkIcon />,
+  };
+  return iconMap[category as keyof typeof iconMap] || <MonetizationOnIcon />;
+};
+
 export default function RelatedCalculators({ 
   currentCalculatorId, 
   category, 
   maxItems = 3 
 }: RelatedCalculatorsProps) {
+  const theme = useTheme();
   
   let relatedCalculators = CALCULATORS.filter(calc => calc.id !== currentCalculatorId);
   
@@ -48,55 +63,159 @@ export default function RelatedCalculators({
         component="h2"
         sx={{
           fontWeight: 600,
-          mb: 3,
+          mb: 4,
           textAlign: "center",
-          color: "primary.main"
+          color: theme.palette.text.primary
         }}
       >
         Outras Calculadoras
       </Typography>
       
-      <Grid container spacing={2}>
-        {relatedCalculators.map((calculator) => (
-          <Grid key={calculator.id} size={{ xs: 12, sm: 6, md: 4 }}>
-            <Card sx={componentStyles.homepage.toolCard}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: maxItems >= 2 ? 'repeat(2, 1fr)' : '1fr',
+            md: maxItems >= 3 ? 'repeat(3, 1fr)' : maxItems >= 2 ? 'repeat(2, 1fr)' : '1fr',
+          },
+          gap: 3,
+        }}
+      >
+        {relatedCalculators.map((calculator) => {
+          const categoryConfig = CALCULATOR_CATEGORIES[calculator.category];
+          
+          return (
+            <Card
+              key={calculator.id}
+              sx={{
+                height: '100%',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                border: '1px solid',
+                borderColor: 'divider',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+                  borderColor: categoryConfig.color,
+                },
+              }}
+            >
               <CardActionArea
                 href={calculator.path}
-                sx={componentStyles.homepage.toolCardAction}
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'stretch',
+                }}
               >
-                <CardMedia sx={componentStyles.homepage.toolCardMedia}>
-                  <Image
-                    src={calculator.image}
-                    alt={calculator.title}
-                    fill
-                    style={{ 
-                      objectFit: "contain",
-                      objectPosition: "center",
-                      padding: "8px"
+                <CardContent
+                  sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    p: 3,
+                  }}
+                >
+                  {/* Ícone da categoria como indicador */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      mb: 2,
                     }}
-                  />
-                </CardMedia>
-                <CardContent sx={componentStyles.homepage.toolCardContent}>
+                  >
+                    <Avatar
+                      sx={{
+                        bgcolor: categoryConfig.color + '20',
+                        color: categoryConfig.color,
+                        width: 40,
+                        height: 40,
+                        mr: 1.5,
+                      }}
+                    >
+                      {getCategoryIcon(calculator.category)}
+                    </Avatar>
+                    <Chip
+                      label={categoryConfig.name}
+                      size="small"
+                      sx={{
+                        backgroundColor: categoryConfig.color + '15',
+                        color: categoryConfig.color,
+                        fontWeight: 500,
+                      }}
+                    />
+                  </Box>
+
+                  {/* Título */}
                   <Typography
                     variant="h6"
-                    component="div"
-                    sx={componentStyles.homepage.toolCardTitle}
+                    component="h3"
+                    sx={{
+                      fontWeight: 600,
+                      mb: 1.5,
+                      color: theme.palette.text.primary,
+                      lineHeight: 1.3,
+                      fontSize: '1.1rem',
+                    }}
                   >
                     {calculator.title}
                   </Typography>
+
+                  {/* Descrição */}
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={componentStyles.homepage.toolCardDescription}
+                    sx={{
+                      flexGrow: 1,
+                      lineHeight: 1.5,
+                      mb: 2,
+                    }}
                   >
                     {calculator.description}
                   </Typography>
+
+                  {/* Indicador visual de ação */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      mt: 'auto',
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: categoryConfig.color,
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      Calcular agora
+                      <Box
+                        component="span"
+                        sx={{
+                          ml: 1,
+                          transform: 'translateX(0)',
+                          transition: 'transform 0.2s ease',
+                          '.MuiCard-root:hover &': {
+                            transform: 'translateX(4px)',
+                          },
+                        }}
+                      >
+                        →
+                      </Box>
+                    </Typography>
+                  </Box>
                 </CardContent>
               </CardActionArea>
             </Card>
-          </Grid>
-        ))}
-      </Grid>
+          );
+        })}
+      </Box>
     </Box>
   );
 }

@@ -1,31 +1,32 @@
 "use client";
 
-import {
-  Box,
-  Container,
-  Typography,
-  Avatar,
-} from "@mui/material";
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { componentStyles } from '@/src/styles/components';
 import LoadingOptimized from '@/components/LoadingOptimized';
 
-// Lazy load do carrossel para melhor performance inicial
-const CategoryCarousel = dynamic(() => import('@/components/CategoryCarousel'), {
+// Lazy load dos componentes para melhor performance inicial
+const SearchHeader = dynamic(() => import('@/components/SearchHeader'), {
   loading: () => <LoadingOptimized variant="carousel" />,
-  ssr: false // Permitido em client component
+  ssr: true
 });
+
+const CategoryGrid = dynamic(() => import('@/components/CategoryGrid'), {
+  loading: () => <LoadingOptimized variant="carousel" />,
+  ssr: true
+});
+
+interface Tool {
+  title: string;
+  description: string;
+  image?: string;
+  href: string;
+}
 
 interface Category {
   title: string;
   icon: React.ReactNode;
   color: string;
-  tools: Array<{
-    title: string;
-    description: string;
-    image: string;
-    href: string;
-  }>;
+  tools: Tool[];
 }
 
 interface HomePageClientProps {
@@ -33,34 +34,61 @@ interface HomePageClientProps {
 }
 
 const HomePageClient: React.FC<HomePageClientProps> = ({ categories }) => {
-  return (
-    <Container sx={componentStyles.homepage.container}>
-      {categories.map((category) => (
-        <Box key={category.title} sx={componentStyles.homepage.categoryContainer}>
-          <Box
-            sx={{
-              ...componentStyles.homepage.categoryHeader,
-              borderBottom: `2px solid ${category.color}`,
-            }}
-          >
-            <Avatar
-              sx={{
-                ...componentStyles.homepage.categoryAvatar,
-                bgcolor: category.color,
-              }}
-            >
-              {category.icon}
-            </Avatar>
-            <Typography variant="h5" sx={componentStyles.homepage.categoryTitle}>
-              {category.title}
-            </Typography>
-          </Box>
+  // Converter dados para o formato do SearchHeader
+  const allTools = useMemo(() => {
+    return categories.flatMap(category =>
+      category.tools.map(tool => ({
+        title: tool.title,
+        description: tool.description,
+        href: tool.href,
+        category: category.title,
+        keywords: generateKeywords(tool.title, tool.description, category.title)
+      }))
+    );
+  }, [categories]);
 
-          <CategoryCarousel tools={category.tools} />
-        </Box>
-      ))}
-    </Container>
+  return (
+    <>
+      <SearchHeader tools={allTools} />
+      <CategoryGrid categories={categories} />
+    </>
   );
 };
+
+// Função para gerar keywords para busca
+function generateKeywords(title: string, description: string, category: string): string[] {
+  const keywords: string[] = [];
+  
+  // Palavras do título
+  keywords.push(...title.toLowerCase().split(' '));
+  
+  // Palavras relevantes da descrição
+  keywords.push(...description.toLowerCase().split(' ').filter(word => 
+    word.length > 3 && 
+    !['para', 'com', 'das', 'dos', 'uma', 'seu', 'sua', 'seus', 'suas'].includes(word)
+  ));
+  
+  // Categoria
+  keywords.push(category.toLowerCase());
+  
+  // Keywords específicas por tipo de calculadora
+  const specificKeywords: Record<string, string[]> = {
+    'juros compostos': ['investimento', 'rentabilidade', 'juros', 'compostos'],
+    'imc': ['saúde', 'peso', 'altura', 'massa', 'corporal'],
+    'cdb': ['renda fixa', 'banco', 'certificado', 'depósito'],
+    'rescisão': ['trabalhista', 'demissão', 'indenização', 'trabalho'],
+    'tesouro direto': ['governo', 'títulos', 'públicos', 'selic', 'ipca'],
+    'lci': ['isento', 'ir', 'crédito', 'imobiliário'],
+    'lca': ['isento', 'ir', 'crédito', 'agronegócio'],
+  };
+  
+  Object.entries(specificKeywords).forEach(([key, values]) => {
+    if (title.toLowerCase().includes(key)) {
+      keywords.push(...values);
+    }
+  });
+  
+  return [...new Set(keywords)]; // Remove duplicatas
+}
 
 export default HomePageClient;
