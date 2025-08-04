@@ -125,6 +125,11 @@ const categories = [
         description: "Calcule o valor da rescisão do seu contrato de trabalho.",
         href: "/calculadoras/calculadora-rescisao",
       },
+      {
+        title: "Aposentadoria INSS + Privada",
+        description: "Simule sua aposentadoria com as regras atuais do INSS e previdência privada complementar.",
+        href: "/calculadoras/calculadora-aposentadoria",
+      },
     ],
   },
 ];
