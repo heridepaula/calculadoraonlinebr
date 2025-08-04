@@ -60,6 +60,12 @@ const categories = [
         image: "/images/cards/comparador-renda-fixa.webp",
         href: "/calculadoras/comparador-renda-fixa",
       },
+      {
+        title: "Tesouro Direto",
+        description: "Simule investimentos em títulos públicos federais: Prefixado, Selic e IPCA+.",
+        image: "/images/cards/tesouro-direto.webp",
+        href: "/calculadoras/calculadora-tesouro-direto",
+      },
     ],
   },
   {
