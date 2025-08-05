@@ -145,6 +145,11 @@ const categories = [
         description: "Calcule auxílio-doença, auxílio-acidente e pensão por morte com valores atualizados 2025.",
         href: "/calculadoras/calculadora-auxilio-doenca",
       },
+      {
+        title: "Salário Líquido CLT, PJ e MEI",
+        description: "Calcule seu salário líquido e compare regimes de trabalho com descontos e benefícios atualizados.",
+        href: "/calculadoras/calculadora-salario-liquido",
+      },
     ],
   },
 ];
