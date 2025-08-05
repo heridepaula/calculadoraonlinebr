@@ -84,6 +84,11 @@ const categories = [
         description: "Simule financiamentos SAC e Price com FGTS, subsídios governamentais e seguros.",
         href: "/calculadoras/calculadora-financiamento-imobiliario",
       },
+      {
+        title: "Empréstimo Consignado",
+        description: "Simule empréstimo consignado para INSS, servidores públicos e CLT com margem consignável.",
+        href: "/calculadoras/calculadora-emprestimo-consignado",
+      },
     ],
   },
   {
