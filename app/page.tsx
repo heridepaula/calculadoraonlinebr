@@ -135,6 +135,11 @@ const categories = [
         description: "Simule sua aposentadoria com as regras atuais do INSS e previdência privada complementar.",
         href: "/calculadoras/calculadora-aposentadoria",
       },
+      {
+        title: "Auxílio-Doença e Benefícios INSS",
+        description: "Calcule auxílio-doença, auxílio-acidente e pensão por morte com valores atualizados 2025.",
+        href: "/calculadoras/calculadora-auxilio-doenca",
+      },
     ],
   },
 ];
