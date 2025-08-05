@@ -89,6 +89,11 @@ const categories = [
         description: "Simule empréstimo consignado para INSS, servidores públicos e CLT com margem consignável.",
         href: "/calculadoras/calculadora-emprestimo-consignado",
       },
+      {
+        title: "Consórcio",
+        description: "Simule consórcio de imóvel e veículo, compare com financiamento e calcule probabilidades.",
+        href: "/calculadoras/calculadora-consorcio",
+      },
     ],
   },
   {
