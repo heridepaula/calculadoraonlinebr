@@ -106,6 +106,11 @@ const categories = [
         description: "Resolva proporções com facilidade e precisão.",
         href: "/calculadoras/regra-de-tres-simples",
       },
+      {
+        title: "Equação do 2º Grau (Bhaskara)",
+        description: "Resolva equações quadráticas com gráfico da parábola e resolução passo a passo.",
+        href: "/calculadoras/calculadora-bhaskara",
+      },
     ],
   },
   {

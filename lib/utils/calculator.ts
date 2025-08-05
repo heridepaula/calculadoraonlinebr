@@ -2,7 +2,11 @@ import { CalculatorMetadata } from '@/lib/types/calculator';
 import { Metadata } from 'next';
 
 export const parseBRLNumber = (value: string): number => {
-  return parseFloat(value.replace(/\./g, '').replace(',', '.'));
+  // Handle negative numbers correctly
+  const isNegative = value.startsWith('-');
+  const cleanValue = value.replace(/^-/, '').replace(/\./g, '').replace(',', '.');
+  const result = parseFloat(cleanValue);
+  return isNegative ? -result : result;
 };
 
 export const formatBRLNumber = (value: number, decimals: number = 2): string => {
@@ -31,7 +35,7 @@ export const validateNumberInput = (
   }
   
   if (min !== undefined && num < min) {
-    return { valid: false, error: `Valor deve ser maior que ${min}` };
+    return { valid: false, error: `Valor deve ser maior ou igual a ${min}` };
   }
   
   if (max !== undefined && num > max) {
@@ -78,7 +82,21 @@ export const createCalculatorMetadata = (
 };
 
 export const sanitizeNumericInput = (value: string): string => {
-  return value.replace(/[^0-9,]/g, '');
+  // Allow digits, comma, dot, and minus sign (only at the beginning)
+  let sanitized = value.replace(/[^0-9,.-]/g, '');
+  
+  // Ensure minus sign is only at the beginning
+  if (sanitized.includes('-')) {
+    const minusCount = (sanitized.match(/-/g) || []).length;
+    if (minusCount > 1 || sanitized.indexOf('-') !== 0) {
+      sanitized = sanitized.replace(/-/g, '');
+      if (value.startsWith('-')) {
+        sanitized = '-' + sanitized;
+      }
+    }
+  }
+  
+  return sanitized;
 };
 
 export const debounce = <T extends (...args: any[]) => any>(
