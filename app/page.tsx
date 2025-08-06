@@ -23,18 +23,18 @@ const HomePageClient = dynamic(() => import('@/components/HomePageClient'), {
 
 export const metadata: Metadata = {
   title: 'Calculadoras Online Gratuitas | Financeira, Matemática, Saúde e Trabalhista',
-  description: 'Acesse gratuitamente mais de 10 calculadoras online: Juros Compostos, IMC, CDB, Tesouro Direto, Rescisão Trabalhista e muito mais. Rápido, fácil e preciso.',
-  keywords: 'calculadora online, juros compostos, imc, cdb, tesouro direto, rescisão trabalhista, lci lca, calculadora financeira, calculadora matemática, calculadora saúde',
+  description: 'Acesse gratuitamente mais de 25 calculadoras online: Juros Compostos, IMC, Fertilidade, Crescimento Infantil, Hidratação, CDB, Tesouro Direto, Rescisão Trabalhista e muito mais. Rápido, fácil e preciso.',
+  keywords: 'calculadora online, juros compostos, imc, fertilidade, crescimento infantil, hidratação, cdb, tesouro direto, rescisão trabalhista, lci lca, calculadora financeira, calculadora matemática, calculadora saúde',
   openGraph: {
     title: 'Calculadoras Online Gratuitas',
-    description: 'Mais de 10 calculadoras online gratuitas para suas necessidades financeiras, matemáticas, de saúde e trabalhistas.',
+    description: 'Mais de 25 calculadoras online gratuitas para suas necessidades financeiras, matemáticas, de saúde e trabalhistas.',
     type: 'website',
     url: 'https://calculadoraonline.com.br',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Calculadoras Online Gratuitas',
-    description: 'Mais de 10 calculadoras online gratuitas para suas necessidades financeiras, matemáticas, de saúde e trabalhistas.',
+    description: 'Mais de 25 calculadoras online gratuitas para suas necessidades financeiras, matemáticas, de saúde e trabalhistas.',
   },
 };
 
@@ -152,6 +152,21 @@ const categories = [
         title: "Percentual de Gordura Corporal",
         description: "Calcule seu percentual de gordura usando o método US Navy.",
         href: "/calculadoras/calculadora-gordura-corporal",
+      },
+      {
+        title: "Hidratação e Balanço Hídrico",
+        description: "Calcule suas necessidades diárias de água baseado em peso, idade, atividade física e clima.",
+        href: "/calculadoras/calculadora-hidratacao",
+      },
+      {
+        title: "Crescimento e Desenvolvimento Infantil",
+        description: "Avalie o crescimento da criança usando as curvas da OMS com percentis de peso e altura.",
+        href: "/calculadoras/calculadora-crescimento-infantil",
+      },
+      {
+        title: "Fertilidade e Ciclo Menstrual",
+        description: "Calcule seu período fértil, data de ovulação e melhores dias para concepção ou prevenção.",
+        href: "/calculadoras/calculadora-fertilidade",
       },
     ],
   },
