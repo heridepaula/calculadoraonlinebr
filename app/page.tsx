@@ -126,6 +126,16 @@ const categories = [
         description: "Calcule área e perímetro de 15+ figuras geométricas com visualização 3D.",
         href: "/calculadoras/calculadora-area-perimetro",
       },
+      {
+        title: "Volume",
+        description: "Calcule volume de sólidos geométricos: esfera, cilindro, cone, cubo e mais com visualização 3D.",
+        href: "/calculadoras/calculadora-volume",
+      },
+      {
+        title: "Teorema de Pitágoras",
+        description: "Calcule hipotenusa, catetos e propriedades de triângulos retângulos com visualização prática.",
+        href: "/calculadoras/calculadora-pitagoras",
+      },
     ],
   },
   {
