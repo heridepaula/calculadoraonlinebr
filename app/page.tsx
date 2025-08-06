@@ -111,6 +111,21 @@ const categories = [
         description: "Resolva equações quadráticas com gráfico da parábola e resolução passo a passo.",
         href: "/calculadoras/calculadora-bhaskara",
       },
+      {
+        title: "MMC e MDC",
+        description: "Calcule Mínimo Múltiplo Comum e Máximo Divisor Comum com árvore de fatores animada.",
+        href: "/calculadoras/calculadora-mmc-mdc",
+      },
+      {
+        title: "Frações",
+        description: "Realize operações com frações: soma, subtração, multiplicação e divisão com visualização gráfica.",
+        href: "/calculadoras/calculadora-fracoes",
+      },
+      {
+        title: "Área e Perímetro",
+        description: "Calcule área e perímetro de 15+ figuras geométricas com visualização 3D.",
+        href: "/calculadoras/calculadora-area-perimetro",
+      },
     ],
   },
   {
