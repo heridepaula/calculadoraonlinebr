@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Grid, MenuItem, TextField, FormControlLabel, Checkbox, Box, Typography, Paper, Divider } from '@mui/material';
+import { MenuItem, TextField, FormControlLabel, Checkbox, Box, Typography, Paper, Divider, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useCalculator } from '@/lib/hooks/useCalculator';
 import { parseBRLNumber, validateNumberInput } from '@/lib/utils/calculator';
@@ -425,7 +425,7 @@ const CdbCalculator: React.FC = () => {
       />
 
       <Grid container spacing={3}>
-        <Grid xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CurrencyInput
             initialValue={state.initialValue}
             handleChange={(value) => handleFieldUpdate('initialValue', value)}
@@ -435,7 +435,7 @@ const CdbCalculator: React.FC = () => {
           />
         </Grid>
 
-        <Grid xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CalculatorInput
             label="Período de Investimento (dias)"
             value={state.investmentPeriod}
@@ -445,7 +445,7 @@ const CdbCalculator: React.FC = () => {
           />
         </Grid>
 
-        <Grid xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TextField
             label="Tipo de Indexação"
             value={state.indexationType}
@@ -461,7 +461,7 @@ const CdbCalculator: React.FC = () => {
           </TextField>
         </Grid>
 
-        <Grid xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CalculatorInput
             label={
               state.indexationType === 'pre' ? 'Taxa Anual (%)' :
@@ -480,7 +480,7 @@ const CdbCalculator: React.FC = () => {
         </Grid>
 
         {state.indexationType === 'pos' && (
-          <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <CalculatorInput
               label="Taxa CDI Atual (%)"
               value={state.cdiRate}
@@ -492,7 +492,7 @@ const CdbCalculator: React.FC = () => {
         )}
 
         {state.indexationType === 'ipca' && (
-          <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <CalculatorInput
               label="Taxa IPCA Estimada (%)"
               value={state.ipcaRate}
@@ -503,7 +503,7 @@ const CdbCalculator: React.FC = () => {
           </Grid>
         )}
 
-        <Grid xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TextField
             label="Regime de Tributação"
             value={state.taxRegime}
@@ -518,7 +518,7 @@ const CdbCalculator: React.FC = () => {
           </TextField>
         </Grid>
 
-        <Grid xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -531,7 +531,7 @@ const CdbCalculator: React.FC = () => {
         </Grid>
 
         {state.hasLiquidityGrace && (
-          <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <CalculatorInput
               label="Período de Carência (dias)"
               value={state.liquidityGracePeriod}
@@ -543,12 +543,12 @@ const CdbCalculator: React.FC = () => {
         )}
 
         {result && (
-          <Grid xs={12}>
+          <Grid size={{ xs: 12 }}>
             <CdbResultDisplay result={result as CdbResult} />
           </Grid>
         )}
 
-        <Grid xs={12}>
+        <Grid size={{ xs: 12 }}>
           <CalculatorActions
             onClear={handleClearWithReset}
             layout="clear-only"
