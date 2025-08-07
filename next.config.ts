@@ -1,11 +1,28 @@
 import type { NextConfig } from "next";
 
+const isProduction = process.env.NODE_ENV === "production";
+const isVercel = process.env.VERCEL === "1";
+
 const nextConfig: NextConfig = {
+  // Production optimizations
+  swcMinify: true,
+  reactStrictMode: true,
+  
+  // Vercel-specific optimizations
+  output: isVercel ? 'standalone' : undefined,
+  
   // Suprimir avisos do Turbopack vs Webpack
   onDemandEntries: {
     // Reduz avisos de configuração
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
+  },
+  
+  // Experimental features for better performance
+  experimental: {
+    optimizeCss: isProduction,
+    optimizePackageImports: ['@mui/material', '@mui/icons-material', 'recharts'],
+    serverComponentsExternalPackages: ['@vercel/analytics', '@vercel/speed-insights'],
   },
   
   // Otimização de bundle

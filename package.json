@@ -6,9 +6,16 @@
     "dev": "next dev",
     "dev:clean": "npm run clean && next dev --turbopack",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
+    "build:vercel": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "rimraf .next && rimraf node_modules/.cache && rimraf tsconfig.tsbuildinfo"
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf .next && rimraf node_modules/.cache && rimraf tsconfig.tsbuildinfo",
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
+    "test:build": "npm run build && npm run start",
+    "health-check": "curl -f http://localhost:3000/api/health || exit 1"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -34,6 +41,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
+    "next-sitemap": "^4.2.3",
     "rimraf": "^6.0.1",
     "typescript": "^5"
   }
