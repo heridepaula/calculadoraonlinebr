@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? ("justify" as const) : ("left" as const),
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As <strong>frações</strong> são uma das bases fundamentais da matemática, representando partes de um todo. Nossa calculadora oferece operações completas com <strong>simplificação automática</strong> e <strong>visualização gráfica</strong>, facilitando o entendimento dos conceitos para estudantes do ensino fundamental e médio.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que são Frações?</strong> Uma fração representa uma divisão, onde o <em>numerador</em> (número de cima) indica quantas partes temos, e o <em>denominador</em> (número de baixo) indica em quantas partes o todo foi dividido. Por exemplo, 3/4 significa que temos 3 partes de um total de 4 partes iguais.
           </Typography>
@@ -77,7 +71,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ listStyleType: "disc", paddingLeft: 16 }}>
@@ -111,7 +105,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>1. Adição e Subtração:</strong> Para somar ou subtrair frações, precisamos ter o mesmo denominador (denominador comum). Utilizamos o MMC (Mínimo Múltiplo Comum) para encontrar esse denominador comum.
           </Typography>
@@ -137,7 +131,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>2. Multiplicação:</strong> Para multiplicar frações, multiplicamos numerador por numerador e denominador por denominador. É a operação mais simples com frações.
           </Typography>
@@ -161,7 +155,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>3. Divisão:</strong> Para dividir frações, multiplicamos a primeira fração pelo <em>inverso</em> (reciproco) da segunda fração. &quot;Dividir é multiplicar pelo inverso.&quot;
           </Typography>
@@ -195,7 +189,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Simplificar</strong> uma fração significa reduzi-la à sua forma mais simples, dividindo numerador e denominador pelo seu <strong>Máximo Divisor Comum (MDC)</strong>. Uma fração está na forma mais simples quando o MDC do numerador e denominador é 1.
           </Typography>
@@ -234,7 +228,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <strong>No cotidiano brasileiro:</strong>
@@ -315,7 +309,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As frações aparecem frequentemente em provas de matemática, especialmente em:
           </Typography>
@@ -326,7 +320,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ listStyleType: "disc", paddingLeft: 16 }}>
@@ -341,14 +335,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora com visualização gráfica e explicação passo a passo ajuda na compreensão intuitiva dos conceitos, preparando você para resolver problemas mais complexos com confiança.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para mais recursos educacionais sobre frações e matemática básica, consulte o{" "}
             <Link
@@ -380,7 +374,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para se tornar expert em frações, siga uma metodologia estruturada de aprendizado:
             </Typography>
@@ -390,7 +384,7 @@ const Content = () => {
               sx={{
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <ul style={{ listStyleType: "disc", paddingLeft: 16 }}>
@@ -419,7 +413,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               <strong>Lembre-se:</strong> As frações são a base para álgebra, geometria e cálculo. Investir tempo no domínio completo deste tópico pagará dividendos em todos os seus estudos matemáticos futuros. Use nossa calculadora como ferramenta de verificação e aprendizado!
             </Typography>

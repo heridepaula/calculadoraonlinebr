@@ -37,7 +37,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ categories }) => {
   const router = useRouter();
 
   const handleToolClick = (href: string) => {
-    router.push(href);
+    window.open(href, '_blank');
   };
 
   return (

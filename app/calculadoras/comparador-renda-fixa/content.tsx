@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getInvestmentColor = (type: string) => {
     switch (type) {
@@ -48,7 +42,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>comparador de renda fixa</strong> é uma ferramenta essencial para investidores que desejam escolher a melhor opção de investimento em renda fixa. Com a taxa SELIC atual em <strong>15% ao ano</strong>, é fundamental comparar os rendimentos líquidos entre CDB, LCI/LCA, Tesouro SELIC e Poupança para tomar a decisão mais rentável.
           </Typography>
@@ -56,7 +50,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Por que comparar investimentos em renda fixa?</strong> Cada modalidade de investimento possui características específicas em relação à tributação, liquidez, rentabilidade e risco. Uma análise comparativa permite identificar qual produto financeiro oferece o melhor retorno líquido considerando seu perfil e objetivos.
           </Typography>
@@ -91,7 +85,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -132,7 +126,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A tributação é um fator decisivo na escolha do investimento. Veja como funciona cada modalidade:
           </Typography>
@@ -145,7 +139,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -197,7 +191,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getInvestmentColor("cdb") }}>CDB - Vantagens:</strong> Maior rentabilidade bruta, diversas opções de bancos, flexibilidade de prazos. <strong>Desvantagens:</strong> Tributação de IR, menor rentabilidade líquida em prazos menores.
           </Typography>
@@ -205,7 +199,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getInvestmentColor("lci_lca") }}>LCI/LCA - Vantagens:</strong> Isenção total de IR, boa rentabilidade líquida, garantia do FGC. <strong>Desvantagens:</strong> Menor liquidez, carência mínima de 90 dias, rentabilidade bruta menor que CDB.
           </Typography>
@@ -213,7 +207,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getInvestmentColor("tesouro") }}>Tesouro SELIC - Vantagens:</strong> Maior segurança do mercado, liquidez diária, acompanha a SELIC. <strong>Desvantagens:</strong> Tributação de IR, taxa de custódia da B3 (0,20% ao ano).
           </Typography>
@@ -221,7 +215,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getInvestmentColor("poupanca") }}>Poupança - Vantagens:</strong> Isenção de IR, liquidez imediata, simplicidade. <strong>Desvantagens:</strong> Menor rentabilidade, perda de poder de compra em relação à inflação.
           </Typography>
@@ -243,7 +237,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>FGC (Fundo Garantidor de Créditos):</strong> Garante CDB, LCI e LCA até R$ 250 mil por CPF por instituição financeira</li>
@@ -269,7 +263,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Reserva de Emergência:</strong> Prefira Tesouro SELIC ou CDB com liquidez diária</li>
@@ -291,7 +285,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Com a SELIC em 15% e perspectiva de alta para 15,75%, a renda fixa se torna extremamente atrativa. O Banco Central mantém política monetária restritiva para combater a inflação, beneficiando investidores de renda fixa.
           </Typography>
@@ -304,7 +298,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>SELIC Alta:</strong> Melhora atratividade do Tesouro SELIC e CDBs indexados ao CDI</li>
@@ -325,7 +319,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora considera todos os fatores relevantes para a comparação:
           </Typography>
@@ -338,7 +332,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Valor Inicial:</strong> Informe o valor que deseja investir</li>
@@ -350,14 +344,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O comparador utiliza as taxas atuais de mercado e considera a tributação vigente para apresentar o <strong>rendimento líquido real</strong> de cada investimento, ajudando você a tomar a melhor decisão financeira.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações atualizadas sobre taxas e regulamentações, consulte o{" "}
             <Link
@@ -389,7 +383,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para otimizar seus investimentos em renda fixa, considere estas estratégias:
             </Typography>
@@ -401,7 +395,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -422,7 +416,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Lembre-se: o melhor investimento é aquele que se alinha com seus objetivos, prazo e perfil de risco. Nossa calculadora oferece uma análise técnica, mas sempre considere sua situação financeira específica.
             </Typography>

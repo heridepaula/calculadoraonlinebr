@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getRiskColor = (imcRange: string) => {
     switch (imcRange) {
@@ -71,7 +65,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>Índice de Massa Corporal (IMC)</strong> é uma medida
             simples que relaciona peso e altura, sendo amplamente utilizada para
@@ -84,7 +78,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Como o IMC é calculado?</strong> O cálculo do IMC é feito
             dividindo o peso de uma pessoa em quilogramas (kg) pelo quadrado de
@@ -107,7 +101,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Importância do IMC:</strong> Embora seja uma ferramenta
             simples e não leve em consideração fatores como massa muscular,
@@ -134,7 +128,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -256,7 +250,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Estar fora da faixa de peso saudável, tanto abaixo quanto acima,
             pode trazer diversos perigos para a saúde. A{" "}
@@ -276,7 +270,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Doenças cardiovasculares (infarto, AVC)</li>
@@ -302,7 +296,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             É importante procurar um médico ou nutricionista nas seguintes
             situações relacionadas ao seu IMC:
@@ -316,7 +310,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -344,7 +338,7 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Lembre-se que o IMC é apenas um indicador e deve ser interpretado no
             contexto da saúde individual de cada pessoa. Um profissional de
@@ -355,7 +349,7 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para mais informações detalhadas sobre o IMC, você pode consultar a
             página oficial da{" "}
@@ -379,7 +373,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               É crucial entender que o IMC possui algumas limitações
               importantes:
@@ -392,7 +386,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -420,7 +414,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Devido a essas limitações, o IMC deve ser usado como uma
               ferramenta de triagem inicial e complementado por outras

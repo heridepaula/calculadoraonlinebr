@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? ("justify" as const) : ("left" as const),
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>MMC (Mínimo Múltiplo Comum)</strong> e o <strong>MDC (Máximo Divisor Comum)</strong> são conceitos fundamentais da matemática básica, essenciais para estudantes do ensino fundamental e médio. Nossa calculadora oferece visualização através de <strong>árvores de fatores animadas</strong>, facilitando o aprendizado da decomposição em fatores primos.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é MMC?</strong> O Mínimo Múltiplo Comum é o menor número inteiro positivo que é múltiplo de dois ou mais números. Por exemplo, o MMC de 4 e 6 é 12, pois é o menor número que pode ser dividido tanto por 4 quanto por 6 sem deixar resto.
           </Typography>
@@ -49,7 +43,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é MDC?</strong> O Máximo Divisor Comum é o maior número inteiro positivo que divide dois ou mais números. Por exemplo, o MDC de 12 e 18 é 6, pois é o maior número que divide ambos sem deixar resto.
           </Typography>
@@ -81,7 +75,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A <strong>árvore de fatores</strong> é um método visual para encontrar todos os fatores primos de um número. Começamos com o número original no topo e vamos dividindo por números primos até obtermos apenas números primos nas "folhas" da árvore.
           </Typography>
@@ -92,7 +86,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <strong>Passos para construir a árvore:</strong>
@@ -135,7 +129,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>Algoritmo de Euclides</strong> é um método eficiente para calcular o MDC de dois números baseado na divisão sucessiva. É especialmente útil para números grandes, pois reduz rapidamente o problema.
           </Typography>
@@ -171,7 +165,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <strong>1. Método da Fatoração Completa:</strong>
@@ -209,7 +203,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <strong>MMC em situações reais:</strong>
@@ -298,7 +292,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             MMC e MDC são tópicos fundamentais que aparecem em diversas situações acadêmicas:
           </Typography>
@@ -309,7 +303,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ listStyleType: "disc", paddingLeft: 16 }}>
@@ -324,14 +318,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora com visualização animada da árvore de fatores torna o aprendizado mais intuitivo e eficaz. Use-a para verificar exercícios e compreender melhor o processo de fatoração.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para mais conteúdo educacional sobre matemática básica, consulte o{" "}
             <Link
@@ -363,7 +357,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para dominar MMC e MDC, seguir uma metodologia estruturada é essencial:
             </Typography>
@@ -373,7 +367,7 @@ const Content = () => {
               sx={{
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <ul style={{ listStyleType: "disc", paddingLeft: 16 }}>
@@ -399,7 +393,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Lembre-se: a prática constante é a chave para o domínio. Nossa calculadora com árvore de fatores animada serve como excelente ferramenta de estudo e verificação.
             </Typography>

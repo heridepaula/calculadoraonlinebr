@@ -60,7 +60,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ tools }) => {
   const handleToolSelect = (href: string) => {
     setSearchQuery('');
     setShowResults(false);
-    router.push(href);
+    window.open(href, '_blank');
   };
 
   const handlePopularSearch = (search: string) => {

@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -48,7 +42,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A <strong>rescisão trabalhista</strong> é o processo de encerramento do contrato de trabalho entre empregado e empregador, regulamentada pela CLT (Consolidação das Leis do Trabalho). Durante a rescisão, o trabalhador tem direito a receber diferentes verbas rescisórias, que variam conforme o tipo de demissão e as circunstâncias do desligamento.
           </Typography>
@@ -56,7 +50,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é a rescisão trabalhista?</strong> A rescisão trabalhista é a formalização do fim do vínculo empregatício, documentada através do Termo de Rescisão do Contrato de Trabalho (TRCT). Este processo garante que o trabalhador receba todos os direitos devidos conforme a legislação brasileira.
           </Typography>
@@ -91,7 +85,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -132,7 +126,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As verbas rescisórias são os valores que o trabalhador tem direito a receber no momento da rescisão. Veja cada componente:
           </Typography>
@@ -145,7 +139,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -221,7 +215,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>FGTS (Fundo de Garantia do Tempo de Serviço)</strong> é um direito de todos os trabalhadores CLT. Durante o contrato, o empregador deposita mensalmente 8% do salário em uma conta vinculada ao trabalhador.
           </Typography>
@@ -234,7 +228,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Depósitos mensais:</strong> 8% sobre o salário de cada mês trabalhado</li>
@@ -255,7 +249,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Sobre as verbas rescisórias incidem alguns descontos obrigatórios conforme a legislação:
           </Typography>
@@ -268,7 +262,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>INSS (2024):</strong> 7,5% até R$ 1.412; 9% até R$ 2.667; 12% até R$ 4.000; 14% até R$ 7.786 (teto: R$ 908,85)</li>
@@ -291,7 +285,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>salário família</strong> é um benefício previdenciário pago mensalmente ao trabalhador que tenha filhos de até 14 anos ou filhos com deficiência de qualquer idade. Em 2024/2025, o valor é de <strong>R$ 65,00 por dependente</strong> para trabalhadores com salário de até <strong>R$ 1.906,04</strong>.
           </Typography>
@@ -304,7 +298,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Quem tem direito:</strong> Trabalhadores CLT com salário até R$ 1.906,04 e dependentes menores de 14 anos ou com deficiência</li>
@@ -325,7 +319,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para formalizar a rescisão trabalhista, são necessários os seguintes documentos:
           </Typography>
@@ -338,7 +332,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Termo de Rescisão do Contrato de Trabalho (TRCT)</li>
@@ -360,7 +354,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             É recomendável buscar orientação de um advogado trabalhista ou contador especializado nas seguintes situações:
           </Typography>
@@ -373,7 +367,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Discordância dos valores calculados pela empresa</li>
@@ -385,14 +379,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora oferece uma estimativa baseada nas regras gerais da CLT. Para casos específicos ou complexos, sempre consulte um profissional qualificado para garantir que seus direitos sejam respeitados.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais sobre direitos trabalhistas, consulte o{" "}
             <Link
@@ -424,7 +418,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               É fundamental que o trabalhador conheça seus direitos durante o processo de rescisão:
             </Typography>
@@ -436,7 +430,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -457,7 +451,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Sempre confira os cálculos antes de assinar o Termo de Rescisão e não hesite em buscar orientação profissional quando necessário. Seus direitos trabalhistas são garantidos por lei e devem ser respeitados integralmente.
             </Typography>

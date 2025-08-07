@@ -25,7 +25,8 @@
       "@/styles/*": ["./src/styles/*"],
       "@/ui/*": ["./src/components/ui/*"],
       "@/models/*": ["./models/*"],
-      "@/app/*": ["./app/*"]
+      "@/app/*": ["./app/*"],
+      "@/hooks/*": ["./hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "_pages/404.js"],

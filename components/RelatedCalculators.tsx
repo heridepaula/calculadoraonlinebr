@@ -102,7 +102,7 @@ export default function RelatedCalculators({
               }}
             >
               <CardActionArea
-                href={calculator.path}
+                onClick={() => window.open(calculator.path, '_blank')}
                 sx={{
                   height: '100%',
                   display: 'flex',

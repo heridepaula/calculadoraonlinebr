@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, alpha } from '@mui/material/styles';
 
 // Design Tokens
 export const designTokens = {
@@ -123,8 +123,8 @@ export const designTokens = {
   },
 } as const;
 
-// Tema customizado do Material-UI
-const theme = createTheme({
+// Tema customizado do Material-UI  
+const baseTheme = createTheme({
   palette: {
     primary: designTokens.colors.primary,
     secondary: designTokens.colors.secondary,
@@ -236,12 +236,25 @@ const theme = createTheme({
     },
     MuiAlert: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           borderRadius: designTokens.borderRadius.md,
-        },
+        }),
+      },
+    },
+    MuiSkeleton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: designTokens.borderRadius.sm,
+        }),
       },
     },
   },
 });
+
+// Create theme and add alpha utility for MUI v7 compatibility
+const theme = createTheme(baseTheme);
+
+// Add alpha function directly to theme for MUI component compatibility
+(theme as any).alpha = alpha;
 
 export default theme;

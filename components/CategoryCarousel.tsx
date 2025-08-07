@@ -10,7 +10,6 @@ import {
   CardMedia,
   Typography,
   useTheme,
-  useMediaQuery,
 } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import OptimizedImage from './OptimizedImage';
@@ -39,25 +38,17 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = memo(({ tools }) => {
   const [currentX, setCurrentX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
+  // Using responsive breakpoints directly in JSX
+  const getResponsiveValue = (mobile: any, tablet: any, desktop: any, large: any) => ({
+    xs: mobile,
+    sm: tablet, 
+    md: desktop,
+    lg: large
+  });
   
-  // Memoizar cálculos de largura
-  const cardWidth = useMemo(() => {
-    if (isMobile) return '100%';     // xs: 12 = 100%
-    if (isTablet) return '50%';      // sm: 6 = 50%
-    if (isLarge) return '25%';       // lg: 3 = 25%
-    return '33.333%';                // md: 4 = 33.333%
-  }, [isMobile, isTablet, isLarge]);
-  
-  // Memoizar cálculo de cards por view
-  const cardsPerView = useMemo(() => {
-    if (isMobile) return 1;
-    if (isTablet) return 2;
-    if (isLarge) return 4;
-    return 3;
-  }, [isMobile, isTablet, isLarge]);
+  // Simplified responsive values - will use CSS Grid instead
+  const cardWidth = '100%';
+  const cardsPerView = 1; // Simplified to 1 card per view for mobile-first approach
 
   const maxIndex = useMemo(() => Math.max(0, tools.length - cardsPerView), [tools.length, cardsPerView]);
 
@@ -308,7 +299,7 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = memo(({ tools }) => {
             display: 'flex',
             justifyContent: 'center',
             mt: 2,
-            gap: isMobile ? 1.5 : 1,
+            gap: { xs: 1.5, sm: 1 },
           }}
         >
           {Array.from({ length: maxIndex + 1 }, (_, index) => (
@@ -316,13 +307,13 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = memo(({ tools }) => {
               key={index}
               onClick={() => setCurrentIndex(index)}
               sx={{
-                width: isMobile ? 12 : 8,
-                height: isMobile ? 12 : 8,
+                width: { xs: 12, sm: 8 },
+                height: { xs: 12, sm: 8 },
                 borderRadius: '50%',
                 backgroundColor: currentIndex === index ? 'primary.main' : 'grey.400',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                transform: currentIndex === index && isMobile ? 'scale(1.2)' : 'scale(1)',
+                transform: 'scale(1)', // Simplified - remove conditional scaling
                 '&:hover': {
                   backgroundColor: currentIndex === index ? 'primary.dark' : 'grey.600',
                   transform: 'scale(1.2)',
@@ -337,7 +328,8 @@ const CategoryCarousel: React.FC<CategoryCarouselProps> = memo(({ tools }) => {
       )}
 
       {/* Feedback visual para swipe em mobile */}
-      {isMobile && isDragging && (
+      {/* Simplified - show drag feedback on all screen sizes */}
+      {isDragging && (
         <Box
           sx={{
             position: 'absolute',

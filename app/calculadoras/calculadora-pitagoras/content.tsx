@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>Teorema de Pitágoras</strong> é um dos conceitos fundamentais da matemática, estabelecendo a relação entre os lados de um triângulo retângulo. Criado pelo matemático grego Pitágoras (c. 570-495 a.C.), este teorema afirma que em qualquer triângulo retângulo, o quadrado da hipotenusa é igual à soma dos quadrados dos catetos.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é o Teorema de Pitágoras?</strong> O teorema estabelece que a² + b² = c², onde 'a' e 'b' são os catetos (lados que formam o ângulo reto) e 'c' é a hipotenusa (lado oposto ao ângulo reto, sempre o maior lado do triângulo). Esta relação é válida apenas para triângulos retângulos, que possuem um ângulo de 90 graus.
           </Typography>
@@ -74,7 +68,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -111,7 +105,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -174,7 +168,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Os <strong>trios pitagóricos</strong> são conjuntos de três números inteiros positivos que satisfazem o teorema de Pitágoras. O mais famoso é o trio 3-4-5:
           </Typography>
@@ -185,7 +179,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -213,7 +207,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -274,7 +268,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O Teorema de Pitágoras é a base para as funções trigonométricas fundamentais:
           </Typography>
@@ -285,7 +279,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -311,7 +305,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -332,7 +326,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               O domínio do Teorema de Pitágoras é fundamental em diversas áreas:
             </Typography>
@@ -342,7 +336,7 @@ const Content = () => {
               sx={{
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <ul style={{ paddingLeft: '1rem' }}>
@@ -365,13 +359,13 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Nossa calculadora oferece não apenas os cálculos, mas também visualizações do triângulo e exemplos de aplicações práticas. Use a ferramenta para compreender melhor as relações entre os lados e ângulos, facilitando o aprendizado e a aplicação do teorema.
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, marginTop: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginTop: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para aprofundar seus conhecimentos em matemática, consulte materiais do{" "}
               <Link

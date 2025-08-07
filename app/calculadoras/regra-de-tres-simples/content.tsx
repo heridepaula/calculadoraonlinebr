@@ -5,18 +5,12 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -32,7 +26,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A <strong>regra de três simples</strong> é um método matemático
             prático para resolver problemas que envolvem proporções entre duas
@@ -52,7 +46,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A regra de três simples é utilizada quando há uma relação de
             proporcionalidade entre duas grandezas, e conhecemos três dos quatro
@@ -76,7 +70,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -102,7 +96,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Suponha que 3 ovos são suficientes para fazer um bolo para 6
             pessoas. Quantos ovos seriam necessários para um bolo para 12
@@ -111,7 +105,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Montamos a proporção:
             <br />
@@ -124,7 +118,7 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A regra de três simples é direta, fácil de aplicar e resolve
             diversos problemas cotidianos com agilidade. Saber identificar se a

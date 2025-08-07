@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As <strong>férias e o 13º salário</strong> são direitos fundamentais dos trabalhadores brasileiros, garantidos pela CLT (Consolidação das Leis do Trabalho) e pela Constituição Federal. Esses benefícios asseguram o descanso remunerado e uma renda extra ao final do ano, proporcionando melhor qualidade de vida e segurança financeira aos trabalhadores.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que são Férias e 13º Salário?</strong> As férias são um período de descanso remunerado de 30 dias anuais, enquanto o 13º salário é uma gratificação natalina equivalente a um salário extra pago ao final do ano. Ambos os direitos são calculados proporcionalmente ao tempo trabalhado.
           </Typography>
@@ -72,7 +66,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As férias são um direito constitucional do trabalhador brasileiro. Para cada 12 meses trabalhados (período aquisitivo), o empregado adquire o direito a 30 dias de descanso remunerado.
           </Typography>
@@ -85,7 +79,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -114,7 +108,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>abono pecuniário</strong> permite ao trabalhador "vender" parte das suas férias, convertendo até 1/3 do período (máximo 10 dias) em pagamento em dinheiro. Este benefício deve ser solicitado com antecedência mínima de 15 dias antes do término do período aquisitivo.
           </Typography>
@@ -127,7 +121,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Limite máximo:</strong> 10 dias das férias podem ser vendidos</li>
@@ -148,7 +142,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>13º salário</strong>, também conhecido como gratificação natalina, é um benefício criado pela Lei 4.090/1962 que garante aos trabalhadores CLT o recebimento de um salário extra ao final do ano. O valor corresponde a 1/12 da remuneração anual para cada mês trabalhado.
           </Typography>
@@ -161,7 +155,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -247,7 +241,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Sobre as férias e 13º salário incidem alguns descontos conforme a legislação vigente:
           </Typography>
@@ -260,7 +254,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>INSS 2025:</strong> 7,5% até R$ 1.518; 9% até R$ 2.862; 12% até R$ 4.296; 14% até R$ 8.349 (teto: R$ 945,94)</li>
@@ -282,7 +276,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A Reforma Trabalhista de 2017 permitiu o fracionamento das férias em até 3 períodos, desde que haja concordância entre empregado e empregador:
           </Typography>
@@ -295,7 +289,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>1º Período:</strong> Mínimo de 14 dias corridos</li>
@@ -383,7 +377,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Posso receber 13º e férias juntos?</strong> Sim, é possível solicitar a antecipação da 1ª parcela do 13º junto com as férias.</li>
@@ -394,14 +388,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora oferece estimativas baseadas na legislação trabalhista brasileira atual. Para casos específicos ou dúvidas complexas, consulte sempre um profissional especializado em direito trabalhista ou contabilidade.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais sobre direitos trabalhistas, consulte o{" "}
             <Link
@@ -433,7 +427,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               As férias e o 13º salário são direitos constitucionais e trabalhistas invioláveis:
             </Typography>
@@ -445,7 +439,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -466,7 +460,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Conhecer seus direitos é fundamental. Em caso de dúvidas ou irregularidades, procure sempre orientação de um advogado trabalhista ou do sindicato de sua categoria profissional.
             </Typography>

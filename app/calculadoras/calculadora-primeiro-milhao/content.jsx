@@ -6,7 +6,6 @@ import {
   Stack,
   Paper,
   Divider,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -15,11 +14,6 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -35,7 +29,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Conquistar o <strong>primeiro milhão</strong> é um marco fundamental na jornada rumo à 
             <strong> independência financeira</strong>. Para muitos brasileiros, esse objetivo representa 
@@ -48,7 +42,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Por que R$ 1 milhão é uma meta importante?</strong> Com esse valor aplicado em 
             investimentos conservadores que rendem cerca de 10% ao ano, é possível gerar uma renda 
@@ -73,7 +67,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -101,7 +95,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Os <strong>melhores investimentos para o primeiro milhão</strong> incluem uma 
             combinação de <strong>ações</strong>, <strong>fundos imobiliários (FIIs)</strong>, 
@@ -113,7 +107,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             É importante também considerar a <strong>inflação</strong> em seus cálculos. 
             O milhão de hoje não terá o mesmo poder de compra daqui a 10 ou 20 anos. 
@@ -132,7 +126,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Vamos analisar <strong>cenários reais</strong> de como diferentes perfis de investidores 
               podem atingir o primeiro milhão:
@@ -143,7 +137,7 @@ const Content = () => {
                 <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
                   📊 Cenário 1: Jovem Profissional (25 anos)
                 </Typography>
-                <Typography variant="body2" sx={{ lineHeight: 1.6, ...mobileTextStyle }}>
+                <Typography variant="body2" sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}>
                   <strong>Meta:</strong> Primeiro milhão aos 45 anos (20 anos de investimento)<br/>
                   <strong>Rentabilidade esperada:</strong> 10% ao ano<br/>
                   <strong>Aporte mensal necessário:</strong> Aproximadamente R$ 1.500<br/>
@@ -155,7 +149,7 @@ const Content = () => {
                 <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
                   📊 Cenário 2: Profissional Experiente (35 anos)
                 </Typography>
-                <Typography variant="body2" sx={{ lineHeight: 1.6, ...mobileTextStyle }}>
+                <Typography variant="body2" sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}>
                   <strong>Meta:</strong> Primeiro milhão aos 50 anos (15 anos de investimento)<br/>
                   <strong>Rentabilidade esperada:</strong> 10% ao ano<br/>
                   <strong>Aporte mensal necessário:</strong> Aproximadamente R$ 2.400<br/>
@@ -167,7 +161,7 @@ const Content = () => {
                 <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
                   📊 Cenário 3: Investidor com Capital Inicial (qualquer idade)
                 </Typography>
-                <Typography variant="body2" sx={{ lineHeight: 1.6, ...mobileTextStyle }}>
+                <Typography variant="body2" sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}>
                   <strong>Capital inicial:</strong> R$ 100.000<br/>
                   <strong>Rentabilidade esperada:</strong> 10% ao ano<br/>
                   <strong>Aporte mensal:</strong> R$ 1.000<br/>
@@ -191,13 +185,13 @@ const Content = () => {
               variant="body2"
               fontWeight="bold"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 1, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 1, textAlign: { xs: "justify", sm: "left" } }}
             >
               💡 Dicas Importantes para Acelerar sua Jornada:
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               <strong>1. Renda Extra:</strong> Utilize freelances, vendas ou trabalhos extras para 
               aumentar seus aportes mensais.<br/>
@@ -224,7 +218,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Diversos fatores podem acelerar ou retardar sua jornada rumo ao <strong>primeiro milhão</strong>:
           </Typography>
@@ -237,7 +231,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -264,7 +258,7 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Lembre-se: o <strong>primeiro milhão é apenas o começo</strong>. Uma vez atingido esse 
             marco, o segundo milhão tende a vir mais rapidamente devido ao efeito dos juros compostos. 

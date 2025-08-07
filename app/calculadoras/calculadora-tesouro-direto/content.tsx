@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getBondColor = (type: string) => {
     switch (type) {
@@ -48,7 +42,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>Tesouro Direto</strong> é o programa do Tesouro Nacional para venda de títulos públicos federais a pessoas físicas pela internet. Criado em 2002, é considerado o investimento mais seguro do país, pois tem garantia do Governo Federal. Nossa calculadora permite simular os diferentes tipos de títulos disponíveis com suas respectivas fórmulas de cálculo matemático-financeiro.
           </Typography>
@@ -56,7 +50,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Por que investir no Tesouro Direto?</strong> Os títulos públicos oferecem alta liquidez, baixo risco e diversas opções de rentabilidade. Com investimento mínimo de apenas R$ 30,00, é acessível para qualquer perfil de investidor, desde iniciantes até os mais experientes.
           </Typography>
@@ -91,7 +85,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -132,7 +126,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Cada tipo de título possui fórmulas específicas baseadas em matemática financeira:
           </Typography>
@@ -177,7 +171,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A tributação segue a tabela regressiva do Imposto de Renda, incentivando investimentos de longo prazo:
           </Typography>
@@ -190,7 +184,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Até 180 dias:</strong> 22,5% de IR sobre o rendimento</li>
@@ -213,7 +207,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getBondColor("ltn") }}>Tesouro Prefixado - Vantagens:</strong> Previsibilidade total de ganhos, proteção contra queda de juros, ideal para metas com prazo definido. <strong>Riscos:</strong> Perda de valor em caso de alta de juros (marcação a mercado), não protege contra inflação.
           </Typography>
@@ -221,7 +215,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getBondColor("lft") }}>Tesouro Selic - Vantagens:</strong> Liquidez diária sem risco de marcação a mercado, acompanha variações da Selic, ideal para reserva de emergência. <strong>Riscos:</strong> Rentabilidade variável, não protege contra inflação alta.
           </Typography>
@@ -229,7 +223,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getBondColor("ntn-b") }}>Tesouro IPCA+ - Vantagens:</strong> Proteção contra inflação, rentabilidade real garantida, ideal para longo prazo. <strong>Riscos:</strong> Marcação a mercado em caso de resgate antecipado, menor liquidez que Tesouro Selic.
           </Typography>
@@ -237,7 +231,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong style={{ color: getBondColor("ntn-f") }}>Tesouro com Juros Semestrais - Vantagens:</strong> Renda periódica de cupons, diversificação de fluxo de caixa. <strong>Riscos:</strong> Tributação sobre cupons, reinvestimento necessário, maior complexidade.
           </Typography>
@@ -259,7 +253,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Conceito:</strong> Os preços dos títulos oscilam diariamente conforme as condições de mercado</li>
@@ -286,7 +280,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Reserva de Emergência:</strong> Tesouro Selic pela liquidez e baixo risco</li>
@@ -309,7 +303,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Com a Selic em 15% e perspectiva de manutenção em patamares elevados, o Tesouro Direto oferece oportunidades atrativas em 2025:
           </Typography>
@@ -322,7 +316,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Tesouro Prefixado:</strong> Taxas atrativas próximas a 14,5% para quem acredita em queda futura dos juros</li>
@@ -344,7 +338,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora utiliza as fórmulas oficiais do Tesouro Nacional e considera todos os fatores relevantes:
           </Typography>
@@ -357,7 +351,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Cálculo Preciso:</strong> Utiliza 252 dias úteis por ano, como no mercado financeiro</li>
@@ -385,7 +379,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Abra conta em uma corretora</strong> habilitada pelo Tesouro Nacional</li>
@@ -399,14 +393,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora oferece simulações precisas baseadas nas fórmulas matemáticas oficiais do Tesouro Nacional. Use-a para comparar cenários e tomar decisões informadas sobre seus investimentos em títulos públicos.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais e atualizadas, acesse o{" "}
             <Link
@@ -438,7 +432,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para otimizar seus investimentos no Tesouro Direto, considere estas estratégias avançadas:
             </Typography>
@@ -450,7 +444,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -474,7 +468,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Lembre-se: o Tesouro Direto é o investimento mais seguro do país, mas cada título tem características específicas. Use nossa calculadora para simular diferentes cenários e encontrar a estratégia ideal para seus objetivos financeiros.
             </Typography>

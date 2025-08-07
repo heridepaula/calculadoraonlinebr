@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A <strong>hidratação adequada</strong> é fundamental para o bom funcionamento do organismo. Nossa <strong>calculadora de hidratação</strong> determina suas <strong>necessidades diárias de água</strong> baseada em fatores científicos como peso, idade, atividade física e condições climáticas.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Por que a hidratação é importante?</strong> A água constitui aproximadamente 60% do peso corporal em adultos e é essencial para todas as funções vitais: transporte de nutrientes, regulação da temperatura, eliminação de toxinas e manutenção do equilíbrio eletrolítico.
           </Typography>
@@ -76,7 +70,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -123,7 +117,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As necessidades de água variam significativamente entre indivíduos, sendo influenciadas por diversos fatores:
           </Typography>
@@ -136,7 +130,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -204,7 +198,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Reconhecer os sinais de desidratação é crucial para manter um adequado balanço hídrico:
           </Typography>
@@ -217,12 +211,12 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Desidratação Leve (2-5%):</strong> Sede, boca seca, urina amarelo-escura, fadiga leve</li>
             <li><strong>Desidratação Moderada (5-10%):</strong> Tontura, dor de cabeça, pele menos elástica, redução urinária</li>
-            <li><strong>Desidratação Severa (>10%):</strong> Confusão mental, taquicardia, hipotensão, pele pegajosa</li>
+            <li><strong>Desidratação Severa ({'>'}10%):</strong> Confusão mental, taquicardia, hipotensão, pele pegajosa</li>
             <li><strong>Cor da Urina:</strong> Amarelo claro indica boa hidratação, amarelo escuro sugere desidratação</li>
             <li><strong>Teste da Prega Cutânea:</strong> Pelliscar a pele do dorso da mão - retorno lento indica desidratação</li>
           </Typography>
@@ -239,7 +233,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Durante atividades físicas, as perdas hídricas aumentam drasticamente, exigindo estratégias específicas de hidratação:
           </Typography>
@@ -252,11 +246,11 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Pré-exercício:</strong> 500-600ml de água 2-3 horas antes, 200-300ml 15-20 minutos antes</li>
-            <li><strong>Durante exercício:</strong> 150-250ml a cada 15-20 minutos (exercícios > 1 hora)</li>
+            <li><strong>Durante exercício:</strong> 150-250ml a cada 15-20 minutos (exercícios {'>'}1 hora)</li>
             <li><strong>Pós-exercício:</strong> 150% do peso perdido em suor nas próximas 6 horas</li>
             <li><strong>Exercícios longos:</strong> Bebidas esportivas com eletrólitos após 1 hora de atividade</li>
             <li><strong>Monitoramento:</strong> Pese-se antes e após o exercício para calcular perdas hídricas</li>
@@ -274,7 +268,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Cerca de 20% das necessidades hídricas são supridas pelos alimentos. Conheça o teor de água dos principais grupos:
           </Typography>
@@ -287,7 +281,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Frutas (85-95%):</strong> Melancia, laranja, melão, morango, abacaxi, uva</li>
@@ -314,7 +308,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Crianças:</strong> Maior proporção de água corporal, metabolismo acelerado, maior vulnerabilidade</li>
@@ -337,7 +331,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Além da quantidade, a qualidade da água consumida é fundamental para a saúde:
           </Typography>
@@ -350,7 +344,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Água tratada:</strong> Livre de contaminantes microbiológicos e químicos</li>
@@ -383,7 +377,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Consulte um médico ou nutricionista em situações específicas:
           </Typography>
@@ -396,7 +390,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Histórico de problemas renais, cardíacos ou hepáticos</li>
@@ -409,14 +403,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora fornece estimativas baseadas em diretrizes científicas internacionais. Para condições específicas ou dúvidas médicas, sempre consulte um profissional de saúde qualificado.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais sobre qualidade da água e saúde, consulte a{" "}
             <Link
@@ -448,7 +442,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Estratégias simples para incorporar a hidratação adequada no seu dia a dia:
             </Typography>
@@ -460,7 +454,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -484,7 +478,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Lembre-se: a hidratação é um hábito que se constrói gradualmente. Comece com pequenas mudanças e aumente progressivamente até atingir suas necessidades individuais. Sua saúde e bem-estar agradecem!
             </Typography>

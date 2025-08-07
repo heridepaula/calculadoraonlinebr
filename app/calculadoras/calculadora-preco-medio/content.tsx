@@ -6,7 +6,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Accordion,
   AccordionSummary,
@@ -23,11 +22,6 @@ import {
 
 const Content: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" as const : "left" as const,
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -44,7 +38,7 @@ const Content: React.FC = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>preço médio de ações</strong> é uma métrica fundamental para investidores que fazem compras 
             recorrentes de uma mesma ação. Também conhecido como <em>custo médio ponderado</em>, 
@@ -54,7 +48,7 @@ const Content: React.FC = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Esta estratégia de investimento é conhecida como <strong>Dollar Cost Averaging (DCA)</strong> 
             ou <strong>Aporte Regular</strong>, e é amplamente utilizada por investidores de longo prazo 
@@ -87,7 +81,7 @@ const Content: React.FC = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O cálculo do preço médio é uma <strong>média ponderada</strong> que considera tanto a quantidade 
             quanto o preço de cada compra. A fórmula é:
@@ -117,16 +111,16 @@ const Content: React.FC = () => {
           </Box>
 
           <Box component="ul" sx={{ listStyleType: "disc", pl: 2, lineHeight: 1.6, marginBottom: 2 }}>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Redução do Risco:</strong> Diminui o impacto da volatilidade do mercado ao longo do tempo
             </Typography>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Disciplina de Investimento:</strong> Cria um hábito regular de investir
             </Typography>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Aproveitamento de Baixas:</strong> Quando o preço cai, você compra mais ações com o mesmo valor
             </Typography>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Simplicidade:</strong> Estratégia fácil de entender e implementar
             </Typography>
           </Box>
@@ -190,16 +184,16 @@ const Content: React.FC = () => {
           </Box>
 
           <Box component="ul" sx={{ listStyleType: "disc", pl: 2, lineHeight: 1.6, marginBottom: 2 }}>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Defina um valor fixo mensal:</strong> Estabeleça um valor que caiba no seu orçamento
             </Typography>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Mantenha registros:</strong> Use nossa calculadora para acompanhar a evolução
             </Typography>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Pense no longo prazo:</strong> A estratégia funciona melhor em horizontes de 3-5 anos
             </Typography>
-            <Typography component="li" variant="body2" sx={mobileTextStyle}>
+            <Typography component="li" variant="body2" sx={{ textAlign: { xs: "justify", sm: "left" } }}>
               <strong>Analise a empresa:</strong> Estude os fundamentos antes de iniciar aportes regulares
             </Typography>
           </Box>

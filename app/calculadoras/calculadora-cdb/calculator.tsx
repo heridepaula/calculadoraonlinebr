@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Grid, MenuItem, TextField, FormControlLabel, Checkbox, Box, Typography, Paper, Divider } from '@mui/material';
+import { Grid2 as Grid, MenuItem, TextField, FormControlLabel, Checkbox, Box, Typography, Paper, Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useCalculator } from '@/lib/hooks/useCalculator';
 import { parseBRLNumber, validateNumberInput } from '@/lib/utils/calculator';

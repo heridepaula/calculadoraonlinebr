@@ -137,7 +137,7 @@ const FertilityResultDisplay: React.FC<{ result: FertilityResult; mode: string }
       </Box>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box sx={{ 
             backgroundColor: '#fff3e0', 
             p: 2, 
@@ -154,7 +154,7 @@ const FertilityResultDisplay: React.FC<{ result: FertilityResult; mode: string }
           </Box>
         </Grid>
         
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box sx={{ 
             backgroundColor: '#f3e5f5', 
             p: 2, 
@@ -198,13 +198,13 @@ const FertilityResultDisplay: React.FC<{ result: FertilityResult; mode: string }
         </Typography>
         
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Typography variant="body2"><strong>Janela de Implantação:</strong></Typography>
             <Typography variant="body1" color={theme.palette.info.dark}>
               {result.breakdown.implantationWindow}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Typography variant="body2"><strong>Probabilidade de Gravidez:</strong></Typography>
             <Typography variant="body1" color={theme.palette.success.dark}>
               {result.breakdown.pregnancyProbability}% (este ciclo)
@@ -331,7 +331,7 @@ const FertilityCalculator: React.FC = () => {
       </Box>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TextField
             label="Data da Última Menstruação"
             type="date"
@@ -345,7 +345,7 @@ const FertilityCalculator: React.FC = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CalculatorInput
             label="Duração do Ciclo (dias)"
             value={state.cycleLength}
@@ -355,7 +355,7 @@ const FertilityCalculator: React.FC = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CalculatorInput
             label="Sua Idade (anos)"
             value={state.age}
@@ -365,7 +365,7 @@ const FertilityCalculator: React.FC = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TextField
             label="Regularidade do Ciclo"
             value={state.cycleRegularity}
@@ -381,7 +381,7 @@ const FertilityCalculator: React.FC = () => {
         </Grid>
 
         {state.cycleRegularity === 'irregular' && (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Alert severity="warning">
               ⚠️ <strong>Atenção:</strong> Para ciclos irregulares, esta calculadora pode ter menor precisão. 
               Recomendamos consultar um ginecologista e considerar outros métodos de acompanhamento 
@@ -391,12 +391,12 @@ const FertilityCalculator: React.FC = () => {
         )}
 
         {result && (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FertilityResultDisplay result={result as FertilityResult} mode={state.mode} />
           </Grid>
         )}
 
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid size={{ xs: 12 }} sx={{ display: 'flex', justifyContent: 'center' }}>
           <CalculatorActions
             onClear={handleClearWithReset}
             layout="clear-only"

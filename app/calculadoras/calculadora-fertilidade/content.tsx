@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A <strong>calculadora de fertilidade</strong> é uma ferramenta fundamental para mulheres que desejam <strong>planejar a gravidez</strong> ou entender melhor seu <strong>ciclo menstrual</strong>. Baseada em métodos científicos, ela identifica o <strong>período fértil</strong> e a <strong>data de ovulação</strong> para maximizar as chances de concepção.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é o período fértil?</strong> O período fértil compreende os dias do ciclo menstrual em que há maior probabilidade de gravidez. Geralmente ocorre entre 5 dias antes e 1 dia após a ovulação, totalizando cerca de 6 dias por ciclo.
           </Typography>
@@ -76,7 +70,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -117,7 +111,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O corpo feminino apresenta diversos sinais que indicam o período fértil e a proximidade da ovulação:
           </Typography>
@@ -130,7 +124,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -197,7 +191,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Diversos fatores podem influenciar a <strong>fertilidade feminina</strong> e a regularidade do ciclo menstrual:
           </Typography>
@@ -210,7 +204,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Idade:</strong> A fertilidade diminui gradualmente após os 30 anos, com declínio mais acentuado após os 35</li>
@@ -239,7 +233,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Relações regulares:</strong> Mantenha relações a cada 2-3 dias durante o período fértil</li>
@@ -264,7 +258,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para quem busca <strong>prevenção natural da gravidez</strong>, é importante conhecer os métodos baseados no conhecimento do ciclo:
           </Typography>
@@ -277,7 +271,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Método do calendário:</strong> Evitar relações no período fértil (eficácia: 76-88%)</li>
@@ -309,7 +303,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             É recomendável consultar um ginecologista ou especialista em reprodução nas seguintes situações:
           </Typography>
@@ -322,10 +316,10 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
-            <li>Tentativas de engravidar há mais de 12 meses (ou 6 meses se idade > 35 anos)</li>
+            <li>Tentativas de engravidar há mais de 12 meses (ou 6 meses se idade {'>'}35 anos)</li>
             <li>Ciclos menstruais irregulares ou ausência de menstruação</li>
             <li>Histórico de abortos recorrentes</li>
             <li>Dor pélvica intensa durante a menstruação</li>
@@ -336,14 +330,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora oferece uma estimativa baseada em ciclos regulares e fórmulas científicas. Para casos específicos ou irregular, sempre consulte um profissional qualificado para avaliação personalizada.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais sobre saúde reprodutiva, consulte a{" "}
             <Link
@@ -375,7 +369,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               O planejamento familiar é um direito fundamental que permite aos casais decidir sobre o número e espaçamento dos filhos:
             </Typography>
@@ -387,7 +381,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -408,7 +402,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Lembre-se de que cada mulher é única, e o conhecimento do próprio corpo é fundamental para uma vida reprodutiva saudável. Utilize nossa calculadora como ferramenta complementar, mas sempre mantenha acompanhamento médico regular.
             </Typography>

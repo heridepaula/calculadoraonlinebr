@@ -13,12 +13,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
 
-  // Otimizações modernas do Next.js 15 - Melhoradas para performance JS
-  experimental: {
-    // Otimizações de CSS e JS
-    optimizeCss: process.env.NODE_ENV === "production",
-  },
-
   // Configuração do Turbopack (novo formato estável)
   turbopack: {
     rules: {
@@ -31,6 +25,13 @@ const nextConfig: NextConfig = {
 
   // Webpack optimizations for better JS performance
   webpack: (config, { isServer }) => {
+    // Fix webpack cache serialization warning for large strings
+    config.cache = {
+      ...config.cache,
+      compression: 'brotli',
+      maxMemoryGenerations: 1,
+    };
+
     // Optimize bundle splitting
     if (!isServer) {
       config.optimization.splitChunks = {

@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>volume</strong> é uma grandeza física que mede o espaço tridimensional ocupado por um sólido geométrico. É fundamental na geometria espacial, engenharia, arquitetura e diversas áreas da ciência. Cada sólido geométrico possui uma fórmula específica para calcular seu volume, baseada em suas dimensões características.
           </Typography>
@@ -41,7 +35,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é volume?</strong> Volume é a medida do espaço tridimensional ocupado por uma figura sólida. É expresso em unidades cúbicas, como centímetros cúbicos (cm³), metros cúbicos (m³), ou litros (L). O volume é uma propriedade fundamental que nos permite calcular capacidades, quantidades de material e espaços ocupados.
           </Typography>
@@ -74,7 +68,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -116,7 +110,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -184,7 +178,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             É essencial conhecer as conversões entre diferentes unidades de volume para aplicações práticas:
           </Typography>
@@ -195,7 +189,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -221,7 +215,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -245,7 +239,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para objetos mais complexos, podemos usar diferentes estratégias:
           </Typography>
@@ -256,7 +250,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -279,7 +273,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O conceito de volume está presente em diversas situações do dia a dia:
           </Typography>
@@ -290,7 +284,7 @@ const Content = () => {
             sx={{
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <ul style={{ paddingLeft: '1rem' }}>
@@ -341,7 +335,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               O domínio dos cálculos de volume é essencial em diversas profissões e situações:
             </Typography>
@@ -351,7 +345,7 @@ const Content = () => {
               sx={{
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <ul style={{ paddingLeft: '1rem' }}>
@@ -374,13 +368,13 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Nossa calculadora oferece precisão e praticidade para todos os tipos de cálculos de volume. Use as visualizações 3D para melhor compreender cada sólido geométrico e suas propriedades. Para projetos profissionais, sempre considere fatores de segurança e consulte normas técnicas específicas.
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, marginTop: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginTop: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para informações técnicas e normas oficiais, consulte o{" "}
               <Link

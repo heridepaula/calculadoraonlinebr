@@ -6,18 +6,12 @@ import {
   Stack,
   Paper,
   Divider,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   return (
     <Box mt={4} mx="auto" maxWidth="md">
@@ -33,7 +27,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Entenda como os <strong>juros compostos</strong> podem impulsionar
             seus investimentos! Para investidores de todos os níveis,
@@ -51,7 +45,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Por que os juros compostos são tão importantes?</strong>{" "}
             Eles transformam pequenos investimentos iniciais e aportes regulares
@@ -77,7 +71,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -103,7 +97,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Diversas{" "}
             <strong>
@@ -121,7 +115,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             No entanto, é crucial estar atento ao outro lado da moeda. As{" "}
             <strong>dívidas com juros compostos</strong>, como as do{" "}
@@ -136,7 +130,7 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Em resumo,{" "}
             <strong>
@@ -160,7 +154,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Para calcular o{" "}
               <strong>
@@ -185,7 +179,7 @@ const Content = () => {
             <Typography
               variant="caption"
               color="text.secondary"
-              sx={{ lineHeight: 1.6, marginBottom: 1, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 1, textAlign: { xs: "justify", sm: "left" } }}
             >
               Onde cada variável representa:
               <br />– <strong>M (Montante Final):</strong> O valor total do
@@ -206,7 +200,7 @@ const Content = () => {
                 mt: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               Compreender cada elemento da fórmula é essencial para planejar
@@ -232,14 +226,14 @@ const Content = () => {
               variant="body2"
               fontWeight="bold"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 1, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 1, textAlign: { xs: "justify", sm: "left" } }}
             >
               Exemplo Prático de Juros Compostos:
             </Typography>
             <Typography
               variant="caption"
               fontFamily="monospace"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               Imagine que você invista um <strong>Capital Inicial (C)</strong>{" "}
               de R$ 1.000 a uma <strong>Taxa de Juros (i)</strong> de 1% ao mês

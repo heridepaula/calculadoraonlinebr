@@ -194,7 +194,7 @@ const calculatePythagorean = (state: PythagoreanState): PythagoreanResult | null
       'Tipo de Cálculo': calcType.name,
       'Cateto A': `${finalCatetoA.toFixed(4)} unidades`,
       'Cateto B': `${finalCatetoB.toFixed(4)} unidades`,
-      'Hipotenusa': `${finalHypotenusa.toFixed(4)} unidades`,
+      'Hipotenusa': `${finalHypotenuse.toFixed(4)} unidades`,
       'Perímetro': `${perimeter.toFixed(4)} unidades`,
       'Área': `${area.toFixed(4)} unidades²`
     }

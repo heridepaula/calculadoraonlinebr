@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -46,7 +40,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>consórcio</strong> é uma das modalidades de crédito mais vantajosas do mercado brasileiro, permitindo a aquisição de imóveis e veículos sem pagamento de juros. Em 2025, com o crescimento de 19,1% nas vendas de cotas, o consórcio consolida-se como alternativa inteligente ao financiamento tradicional, especialmente em tempos de juros altos.
           </Typography>
@@ -54,7 +48,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é consórcio?</strong> É um sistema de autofinanciamento para aquisição de bens, onde um grupo de pessoas se une para formar um fundo comum. Mensalmente, através de sorteios ou lances, alguns participantes são contemplados e recebem a carta de crédito para comprar o bem desejado.
           </Typography>
@@ -87,7 +81,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Sim, especialmente no cenário econômico atual.</strong> Com a taxa Selic em patamares elevados, os financiamentos tradicionais apresentam juros que podem ultrapassar 12% ao ano. O consórcio, por sua vez, cobra apenas taxa administrativa (entre 0,15% e 0,35% ao mês), resultando em economia significativa.
           </Typography>
@@ -100,7 +94,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -135,7 +129,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             A contemplação é o momento em que o consorciado recebe a carta de crédito para comprar seu bem. Existem duas formas principais:
           </Typography>
@@ -148,7 +142,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -197,7 +191,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Dar lance no consórcio é uma estratégia para antecipar a contemplação. Conheça as melhores práticas:
           </Typography>
@@ -210,7 +204,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Observe o Comportamento do Grupo:</strong> Nos primeiros meses, analise os valores dos lances vencedores</li>
@@ -232,7 +226,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para tomar a melhor decisão, é essencial comparar os custos totais:
           </Typography>
@@ -283,7 +277,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Consórcio Imobiliário:</strong> 0,15% a 0,25% ao mês (média: 0,20%)</li>
@@ -306,7 +300,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Vantagens:</strong>
           </Typography>
@@ -319,7 +313,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Sem juros, apenas taxa administrativa baixa</li>
@@ -335,7 +329,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Desvantagens:</strong>
           </Typography>
@@ -348,7 +342,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Não há garantia de quando será contemplado</li>
@@ -377,7 +371,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Reputação:</strong> Verifique no Banco Central e órgãos de proteção ao consumidor</li>
@@ -405,7 +399,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Mantenha-se em dia:</strong> Atrasos podem resultar em exclusão do grupo</li>
@@ -419,14 +413,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora oferece simulações precisas baseadas em dados reais do mercado de consórcios. Para informações oficiais e contratação, sempre consulte administradoras autorizadas pelo Banco Central.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais sobre consórcios, consulte o{" "}
             <Link
@@ -458,7 +452,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Esclareça as principais dúvidas sobre consórcios:
             </Typography>
@@ -470,7 +464,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -491,7 +485,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               O consórcio é uma ferramenta de planejamento financeiro consolidada há décadas no Brasil. Com disciplina e estratégia, pode ser a forma mais econômica de realizar o sonho da casa própria ou do veículo novo.
             </Typography>

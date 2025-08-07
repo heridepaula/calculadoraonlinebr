@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -48,7 +42,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>salário líquido</strong> é o valor que efetivamente chega na sua conta após todos os descontos obrigatórios e benefícios. Em 2025, com as atualizações nas tabelas do INSS e Imposto de Renda, entender como calcular seu salário líquido tornou-se essencial para o planejamento financeiro pessoal e comparação entre diferentes regimes de trabalho.
           </Typography>
@@ -56,7 +50,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é salário líquido?</strong> É o valor final que o trabalhador recebe após descontados INSS, Imposto de Renda, contribuições sindicais, planos de saúde e outros descontos, somados aos benefícios como vale-transporte e vale-refeição quando aplicáveis.
           </Typography>
@@ -89,7 +83,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>A escolha do regime de trabalho impacta diretamente no valor líquido recebido.</strong> Cada modalidade possui suas vantagens e desvantagens, sendo essencial analisar não apenas o valor líquido, mas também os benefícios, segurança jurídica e custos envolvidos.
           </Typography>
@@ -102,7 +96,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -137,7 +131,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             As tabelas do INSS e Imposto de Renda são atualizadas anualmente. Entenda como funcionam:
           </Typography>
@@ -179,7 +173,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Os benefícios corporativos podem aumentar significativamente o valor líquido recebido pelo trabalhador:
           </Typography>
@@ -192,7 +186,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -233,7 +227,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Veja como o mesmo valor bruto resulta em líquidos diferentes conforme o regime:
           </Typography>
@@ -288,7 +282,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Otimize os Dependentes IR:</strong> Cada dependente deduz R$ 189,59 mensais da base do IRPF</li>
@@ -317,7 +311,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>CLT para PJ:</strong> Geralmente vantajoso acima de R$ 8.000 brutos, considerando os benefícios perdidos</li>
@@ -328,14 +322,14 @@ const Content = () => {
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora utiliza as tabelas oficiais de 2025 e considera todos os benefícios e descontos legais. Para decisões importantes sobre mudança de regime, sempre consulte um contador qualificado.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para informações oficiais sobre tributação, consulte a{" "}
             <Link
@@ -367,7 +361,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Esclareça as principais dúvidas sobre cálculo de salário líquido:
             </Typography>
@@ -379,7 +373,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -403,7 +397,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               O cálculo correto do salário líquido é fundamental para o planejamento financeiro pessoal. Nossa calculadora considera todas as variáveis legais e fornece simulações precisas para auxiliar na tomada de decisões sobre regime de trabalho.
             </Typography>
@@ -423,7 +417,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li><strong>Regra 50-30-20:</strong> 50% gastos essenciais, 30% gastos pessoais, 20% investimentos/reserva</li>

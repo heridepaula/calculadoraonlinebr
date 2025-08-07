@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,10 +12,9 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const mobileTextStyle = {
-    textAlign: isMobile ? ("justify" as const) : ("left" as const),
+    textAlign: { xs: "justify", sm: "left" },
   };
 
   return (

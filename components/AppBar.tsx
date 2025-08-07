@@ -10,7 +10,6 @@ import {
   Button,
   Menu,
   MenuItem,
-  useMediaQuery,
   useTheme,
   IconButton,
 } from "@mui/material";
@@ -27,7 +26,6 @@ interface HeaderProps {
 
 export default function Header({ reduced }: HeaderProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
   
@@ -116,7 +114,7 @@ export default function Header({ reduced }: HeaderProps) {
           </Link>
           
           {/* Desktop Navigation */}
-          {!isMobile && (
+          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
               <Button
                 color="inherit"
@@ -158,9 +156,10 @@ export default function Header({ reduced }: HeaderProps) {
                   ...calcs.map((calc) => (
                     <MenuItem
                       key={calc.id}
-                      component={Link}
-                      href={calc.path}
-                      onClick={handleMenuClose}
+                      onClick={() => {
+                        handleMenuClose();
+                        window.open(calc.path, '_blank');
+                      }}
                       sx={{
                         pl: 3,
                         fontSize: "0.875rem",
@@ -185,10 +184,10 @@ export default function Header({ reduced }: HeaderProps) {
                 ])}
               </Menu>
             </Box>
-          )}
+          </Box>
           
           {/* Mobile Navigation */}
-          {isMobile && (
+          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
             <IconButton
               color="inherit"
               onClick={handleMobileMenuOpen}
@@ -197,7 +196,7 @@ export default function Header({ reduced }: HeaderProps) {
             >
               <MenuIcon />
             </IconButton>
-          )}
+          </Box>
           
           <Menu
             anchorEl={mobileMenuAnchor}
@@ -238,9 +237,10 @@ export default function Header({ reduced }: HeaderProps) {
               ...calcs.map((calc) => (
                 <MenuItem
                   key={calc.id}
-                  component={Link}
-                  href={calc.path}
-                  onClick={handleMobileMenuClose}
+                  onClick={() => {
+                    handleMobileMenuClose();
+                    window.open(calc.path, '_blank');
+                  }}
                   sx={{
                     pl: 3,
                     fontSize: "0.875rem",

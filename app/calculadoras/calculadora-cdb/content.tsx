@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
 } from "@mui/material";
@@ -13,11 +12,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getIndexationColor = (type: string) => {
     switch (type) {
@@ -46,7 +40,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>CDB (Certificado de Depósito Bancário)</strong> é um dos investimentos de renda fixa mais populares no Brasil. É um título emitido por bancos para captar recursos, oferecendo rentabilidade ao investidor em troca do empréstimo de dinheiro por um período determinado.
           </Typography>
@@ -54,7 +48,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é CDB?</strong> O CDB é um investimento em que você empresta dinheiro ao banco, e ele te paga juros por isso. É considerado um investimento seguro, pois é garantido pelo FGC (Fundo Garantidor de Créditos) até R$ 250.000 por CPF e por instituição financeira.
           </Typography>
@@ -89,7 +83,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -124,7 +118,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O rendimento do CDB depende do tipo de indexação e do prazo de investimento. Nossa calculadora considera todos os fatores importantes:
           </Typography>
@@ -137,7 +131,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -198,7 +192,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 1, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 1, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>✅ Vantagens:</strong>
           </Typography>
@@ -211,7 +205,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Segurança:</strong> Garantido pelo FGC até R$ 250.000 por CPF e por banco</li>
@@ -224,7 +218,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 1, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 1, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>❌ Desvantagens:</strong>
           </Typography>
@@ -237,7 +231,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Tributação:</strong> Incidência de IR e IOF sobre os rendimentos</li>
@@ -258,7 +252,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>CDI</strong> é a taxa de juros que os bancos usam para emprestar dinheiro entre si. É o principal indexador dos CDBs pós-fixados e acompanha de perto a taxa Selic (taxa básica da economia brasileira).
           </Typography>
@@ -271,7 +265,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Relação com Selic:</strong> O CDI fica sempre próximo da taxa Selic</li>
@@ -292,7 +286,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>IPCA (Índice Nacional de Preços ao Consumidor Amplo)</strong> é o índice oficial de inflação do Brasil. CDBs IPCA+ garantem rentabilidade real, ou seja, ganho acima da inflação.
           </Typography>
@@ -305,7 +299,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Proteção contra inflação:</strong> Seu dinheiro não perde poder de compra</li>
@@ -326,7 +320,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para escolher o melhor CDB para seu perfil, considere os seguintes fatores:
           </Typography>
@@ -339,7 +333,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li><strong>Prazo de investimento:</strong> Defina por quanto tempo pode deixar o dinheiro aplicado</li>
@@ -362,7 +356,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Escada de CDBs:</strong> Divida o valor em CDBs com vencimentos diferentes para ter liquidez periodicamente e aproveitar possíveis altas de juros.
           </Typography>
@@ -370,7 +364,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Diversificação por bancos:</strong> Invista em CDBs de diferentes bancos para maximizar a proteção do FGC e reduzir riscos.
           </Typography>
@@ -378,14 +372,14 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Análise de cenários:</strong> Use nossa calculadora para comparar diferentes tipos de CDB e escolher o mais adequado ao seu perfil e expectativas.
           </Typography>
 
           <Typography
             variant="body2"
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Nossa calculadora oferece simulações precisas baseadas nas regras atuais de tributação e indexação. Para informações sempre atualizadas sobre taxas e regulamentações, consulte o{" "}
             <Link
@@ -417,7 +411,7 @@ const Content = () => {
             <Typography
               variant="body2"
               gutterBottom
-              sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
             >
               Antes de investir em CDB, considere estas dicas essenciais:
             </Typography>
@@ -429,7 +423,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 marginBottom: 2,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>
@@ -453,7 +447,7 @@ const Content = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+              sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
             >
               O CDB é uma excelente opção para quem busca segurança e rentabilidade superior à poupança. Use nossa calculadora para simular diferentes cenários e tomar a melhor decisão de investimento para seu perfil.
             </Typography>

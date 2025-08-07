@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   Paper,
-  useMediaQuery,
   useTheme,
   Link,
   Grid,
@@ -15,11 +14,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Content = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const mobileTextStyle = {
-    textAlign: isMobile ? "justify" : "left",
-  };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -50,7 +44,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             O <strong>percentual de gordura corporal</strong> é um indicador mais preciso da composição corporal do que o IMC tradicional, pois diferencia entre massa muscular e gordura. Nossa calculadora utiliza o método da Marinha Americana (US Navy), reconhecido por sua precisão e facilidade de aplicação, considerando medidas corporais específicas para homens e mulheres.
           </Typography>
@@ -58,7 +52,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>O que é percentual de gordura corporal?</strong> É a proporção de gordura em relação ao peso total do corpo, expressa em percentual. Este método é superior ao IMC pois atletas com alta massa muscular podem ter IMC elevado, mas percentual de gordura baixo, sendo mais saudáveis.
           </Typography>
@@ -88,7 +82,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Para Homens:</strong>
           </Typography>
@@ -101,7 +95,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -139,7 +133,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             <strong>Para Mulheres:</strong>
           </Typography>
@@ -152,7 +146,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -199,7 +193,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 3, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 3, textAlign: { xs: "justify", sm: "left" } }}
           >
             Para obter resultados precisos, siga estas instruções de medição:
           </Typography>
@@ -236,7 +230,7 @@ const Content = () => {
 
                 <Typography
                   variant="body2"
-                  sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+                  sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
                 >
                   <strong>Local:</strong> Na altura do umbigo, mantendo a fita horizontal.<br />
                   <strong>Posição:</strong> Respire normalmente, não comprima a pele.<br />
@@ -275,7 +269,7 @@ const Content = () => {
 
                 <Typography
                   variant="body2"
-                  sx={{ lineHeight: 1.6, ...mobileTextStyle }}
+                  sx={{ lineHeight: 1.6, textAlign: { xs: "justify", sm: "left" } }}
                 >
                   <strong>Homens:</strong> Logo abaixo do pomo de Adão.<br />
                   <strong>Mulheres:</strong> Na base do pescoço, ponto mais estreito.<br />
@@ -306,7 +300,7 @@ const Content = () => {
                 pl: 2,
                 lineHeight: 1.6,
                 margin: 0,
-                ...mobileTextStyle,
+                textAlign: { xs: "justify", sm: "left" },
               }}
             >
               <li>Use uma fita métrica flexível (não elástica)</li>
@@ -334,7 +328,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>
@@ -366,7 +360,7 @@ const Content = () => {
           <Typography
             variant="body2"
             gutterBottom
-            sx={{ lineHeight: 1.6, marginBottom: 2, ...mobileTextStyle }}
+            sx={{ lineHeight: 1.6, marginBottom: 2, textAlign: { xs: "justify", sm: "left" } }}
           >
             Embora nossa calculadora seja precisa, recomendamos buscar orientação profissional em casos como:
           </Typography>
@@ -379,7 +373,7 @@ const Content = () => {
               pl: 2,
               lineHeight: 1.6,
               marginBottom: 2,
-              ...mobileTextStyle,
+              textAlign: { xs: "justify", sm: "left" },
             }}
           >
             <li>Percentual muito baixo (abaixo da gordura essencial)</li>
