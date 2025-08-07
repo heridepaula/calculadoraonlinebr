@@ -34,7 +34,7 @@ jobs:
         run: npm run lint
 
       - name: Build application
-        run: npm run build
+        run: npm run build:vercel
         env:
           NODE_ENV: production
           NEXT_TELEMETRY_DISABLED: 1

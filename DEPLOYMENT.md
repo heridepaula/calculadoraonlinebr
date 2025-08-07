@@ -73,7 +73,7 @@ The application includes multiple health check endpoints:
 
 ### 6. SEO Optimizations
 
-- **Sitemap**: Automatically generated at `/sitemap.xml`
+- **Sitemap**: Automatically generated using Next.js native sitemap at `/sitemap.xml`
 - **Robots.txt**: SEO-friendly robots file
 - **Meta Tags**: Optimized for Google indexing
 - **Security Headers**: OWASP-compliant security headers

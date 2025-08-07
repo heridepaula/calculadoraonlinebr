@@ -5,7 +5,6 @@ const isVercel = process.env.VERCEL === "1";
 
 const nextConfig: NextConfig = {
   // Production optimizations
-  swcMinify: true,
   reactStrictMode: true,
   
   // Vercel-specific optimizations
@@ -18,11 +17,13 @@ const nextConfig: NextConfig = {
     pagesBufferLength: 2,
   },
   
+  // Server external packages
+  serverExternalPackages: ['@vercel/analytics', '@vercel/speed-insights'],
+  
   // Experimental features for better performance
   experimental: {
     optimizeCss: isProduction,
     optimizePackageImports: ['@mui/material', '@mui/icons-material', 'recharts'],
-    serverComponentsExternalPackages: ['@vercel/analytics', '@vercel/speed-insights'],
   },
   
   // Otimização de bundle
