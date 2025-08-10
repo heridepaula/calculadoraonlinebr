@@ -1,36 +1,162 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Calculadora Online BR
 
-## Getting Started
+Uma aplicação web moderna com diversas calculadoras online gratuitas, construída com React Router (Remix) e TypeScript.
 
-First, run the development server:
+## 🚀 Funcionalidades
+
+- **Calculadora de IMC**: Calcule seu Índice de Massa Corporal
+- **Calculadora de Porcentagem**: Calcule porcentagens de forma rápida
+- **Calculadora de Juros**: Compare juros simples e compostos
+- **Design Responsivo**: Mobile-first, otimizada para todos os dispositivos
+- **Acessibilidade**: WCAG 2.1 AA compliant
+- **SEO Otimizado**: Meta tags dinâmicas e structured data
+- **Performance**: Core Web Vitals otimizados
+
+## 🛠 Tecnologias
+
+- **React Router v7** (Remix)
+- **TypeScript**
+- **Tailwind CSS**
+- **Vite**
+- **ESLint + Prettier**
+
+## 📦 Instalação
 
 ```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/calculadora-online-br.git
+
+# Entre no diretório
+cd calculadora-online-br
+
+# Instale as dependências
+npm install
+
+# Execute em modo desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏗 Build para Produção
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Build da aplicação
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Preview do build
+npm run preview
+```
 
-## Learn More
+## 🧪 Qualidade de Código
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Lint
+npm run lint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Formatação de código
+npm run format
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Type checking
+npm run typecheck
+```
 
-## Deploy on Vercel
+## 📱 Estrutura do Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/
+├── components/          # Componentes reutilizáveis
+│   ├── ui/             # Componentes base (Button, Input, Card)
+│   ├── forms/          # Componentes de formulário
+│   └── layout/         # Componentes de layout
+├── routes/             # Páginas e API routes
+├── lib/                # Utilitários e configurações
+│   ├── validations/    # Schemas de validação
+│   └── constants/      # Constantes da aplicação
+├── hooks/              # Custom hooks
+├── styles/             # Estilos globais
+├── types/              # Definições TypeScript
+└── utils/              # Funções utilitárias
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Design System
+
+- **Cores**: Sistema de cores baseado em blue como primary
+- **Tipografia**: Inter font family
+- **Breakpoints**: Mobile-first (320px, 640px, 768px, 1024px, 1280px)
+- **Componentes**: Biblioteca consistente de componentes UI
+- **Acessibilidade**: Botões com mínimo 44px de altura
+
+## ♿ Acessibilidade
+
+- **WCAG 2.1 AA** compliant
+- Navegação por teclado
+- Skip links
+- Aria labels adequados
+- Contraste de cores 4.5:1+
+- Screen reader compatibility
+
+## 🚀 Performance
+
+- **Core Web Vitals** otimizados
+- Code splitting automático
+- Lazy loading de rotas
+- CSS otimizado
+- Compressão de assets
+- Service worker ready
+
+## 📊 SEO
+
+- Meta tags dinâmicas
+- Open Graph tags
+- Twitter Cards
+- Structured data (JSON-LD)
+- Sitemap automático
+- URLs amigáveis
+
+## 🌐 Deploy
+
+### Vercel (Recomendado)
+
+1. Conecte seu repositório GitHub à Vercel
+2. Configure as variáveis de ambiente se necessário
+3. Deploy automático em cada push
+
+### Outros Provedores
+
+- Netlify
+- Railway
+- Render
+- Digital Ocean
+
+## 📈 Monitoramento
+
+- Core Web Vitals tracking
+- Error boundaries
+- Performance metrics
+- User analytics ready
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature
+3. Commit suas mudanças
+4. Push para a branch
+5. Abra um Pull Request
+
+## 📄 Licença
+
+MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## 📧 Contato
+
+- Website: [calculadora-online-br.vercel.app](https://calculadora-online-br.vercel.app)
+- Email: contato@calculadoraonlinebr.com
+
+## 🔄 Changelog
+
+### v1.0.0
+
+- ✨ Calculadoras básicas (IMC, Porcentagem, Juros)
+- 🎨 Design system mobile-first
+- ♿ Acessibilidade WCAG 2.1 AA
+- 🚀 Performance otimizada
+- 📱 Layout responsivo

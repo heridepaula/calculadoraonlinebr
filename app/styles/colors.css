@@ -1,0 +1,171 @@
+/* Dark Theme Only - Financial & Growth Color System */
+/* Modern dark color palette for calculator interfaces */
+
+:root {
+  /* Primary Colors */
+  --primary-blue: #64b5f6;
+  --primary-green: #81c784;
+  --background: #121212;
+  --surface: #1e1e1e;
+
+  /* Secondary Colors */
+  --blue-light: #1a2332;
+  --green-soft: #1b2a1f;
+  --blue-action: #64b5f6;
+  --green-success: #66bb6a;
+
+  /* Surface Colors */
+  --surface-variant: #242424;
+  --surface-elevated: #2c2c2c;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+
+  /* System Colors */
+  --error: #ef5350;
+  --warning: #ffb74d;
+  --success: #66bb6a;
+  --info: #42a5f5;
+
+  /* Shadows and Borders */
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.05);
+}
+
+/* Utility Classes for Color System */
+.bg-primary {
+  background-color: var(--primary-blue);
+}
+.bg-growth {
+  background-color: var(--primary-green);
+}
+.bg-surface {
+  background-color: var(--surface);
+}
+.bg-base {
+  background-color: var(--background);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.border-default {
+  border-color: var(--border);
+}
+.border-light {
+  border-color: var(--border-light);
+}
+
+.shadow-default {
+  box-shadow: var(--shadow);
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--blue-action);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-success {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: var(--green-success);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: var(--blue-light);
+  color: var(--primary-blue);
+}
+
+/* Cards with Enhanced Shadows */
+.card-primary {
+  background-color: var(--surface);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.card-primary:hover {
+  box-shadow: 0 4px 12px rgba(27, 95, 140, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Input Focus States */
+.input-focus:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(27, 95, 140, 0.1);
+}
+
+/* Success States for Results */
+.result-success {
+  background-color: var(--green-soft);
+  border-left: 4px solid var(--primary-green);
+  color: var(--text-primary);
+}
+
+/* Alert States */
+.alert-error {
+  background-color: rgba(211, 47, 47, 0.1);
+  border-left: 4px solid var(--error);
+  color: var(--text-primary);
+}
+
+.alert-warning {
+  background-color: rgba(255, 152, 0, 0.1);
+  border-left: 4px solid var(--warning);
+  color: var(--text-primary);
+}
+
+.alert-info {
+  background-color: var(--blue-light);
+  border-left: 4px solid var(--primary-blue);
+  color: var(--text-primary);
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-blue: #64b5f6;
+    --primary-green: #81c784;
+    --text-primary: #ffffff;
+    --border: #ffffff;
+  }
+}

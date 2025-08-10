@@ -1,51 +1,18 @@
 {
-  "buildCommand": "npm run build:vercel",
+  "framework": "remix",
+  "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm ci",
-  "framework": "nextjs",
-  "functions": {
-    "app/api/health/route.ts": {
-      "maxDuration": 10
-    },
-    "app/api/healthz/route.ts": {
-      "maxDuration": 10
-    },
-    "app/api/livez/route.ts": {
-      "maxDuration": 5
-    },
-    "app/api/readyz/route.ts": {
-      "maxDuration": 5
-    }
-  },
-  "regions": ["gru1"],
   "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, PUT, DELETE, OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
-        }
-      ]
-    },
     {
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
           "key": "X-Frame-Options",
           "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
         },
         {
           "key": "X-XSS-Protection",
@@ -53,7 +20,7 @@
         },
         {
           "key": "Referrer-Policy",
-          "value": "origin-when-cross-origin"
+          "value": "strict-origin-when-cross-origin"
         },
         {
           "key": "Permissions-Policy",
@@ -64,10 +31,34 @@
   ],
   "redirects": [
     {
-      "source": "/health",
-      "destination": "/api/health",
+      "source": "/calculadoras/(.*)",
+      "destination": "/calculadora/$1",
+      "permanent": true
+    },
+    {
+      "source": "/imc",
+      "destination": "/calculadora/saude/imc",
+      "permanent": true
+    },
+    {
+      "source": "/juros",
+      "destination": "/calculadora/financas/juros-compostos",
+      "permanent": true
+    },
+    {
+      "source": "/porcentagem",
+      "destination": "/calculadora/matematica/porcentagem",
       "permanent": true
     }
   ],
-  "crons": []
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    }
+  ]
 }

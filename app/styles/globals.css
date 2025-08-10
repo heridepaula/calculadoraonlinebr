@@ -1,0 +1,104 @@
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: initial;
+  margin: initial;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --tw-shadow: 0 0 0 2px currentColor;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles for better accessibility */
+:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure interactive elements have minimum touch target size */
+button,
+input,
+select,
+textarea,
+a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* High contrast mode for Windows */
+@media screen and (-ms-high-contrast: active) {
+  button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Enhanced numerical display for calculators using Inter font */
+input[type="number"],
+.numeric-display,
+.result-display {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* Optimize Inter font for calculator interfaces */
+.font-inter {
+  font-feature-settings: "cv02" 1, "cv03" 1, "cv04" 1, "cv11" 1;
+}
+
+/* Tabular numbers for all calculator results and inputs */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Text truncation utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

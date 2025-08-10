@@ -1,0 +1,34 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://calculadoraonline.com.br/sitemap.xml
+
+# Allow all calculators
+Allow: /calculadora/
+Allow: /calculadora/saude/
+Allow: /calculadora/financas/
+Allow: /calculadora/matematica/
+Allow: /calculadoras/
+
+# SEO-friendly URLs
+Allow: /calculadora/saude/imc
+Allow: /calculadora/saude/gordura-corporal
+Allow: /calculadora/saude/ciclo-menstrual
+Allow: /calculadora/financas/juros
+Allow: /calculadora/financas/juros-compostos
+Allow: /calculadora/financas/primeiro-milhao
+Allow: /calculadora/matematica/porcentagem
+
+# Legacy calculators
+Allow: /calculadoras/imc
+Allow: /calculadoras/juros
+Allow: /calculadoras/porcentagem
+
+# Disallow build files and cache
+Disallow: /build/
+Disallow: /.cache/
+Disallow: /node_modules/
+
+# Performance
+Crawl-delay: 1

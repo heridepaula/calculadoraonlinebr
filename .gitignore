@@ -1,50 +1,197 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Dependencies
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Remix Build
+/build/
+/public/build/
+/.cache/
 
-# vercel
+# Vite
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+.nyc_output/
+
+# ESLint cache
+.eslintcache
+
+# Optional npm cache directory
+.npm
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Temporary folders
+tmp/
+temp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.stackdump
+
+# Linux
+*~
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional stylelint cache
+.stylelintcache
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local development files
+.local/
+local/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+
+# Backup files
+*.bak
+*.backup
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Build artifacts
+build/
+dist/
+out/
+
+# Test coverage
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# Vercel
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-.claude/settings.local.json
-STYLE_OPTIMIZATION_SUMMARY.md
-STYLES_GUIDE.md
-scripts/apply-analytics.md
-DESENVOLVIMENTO.md
-prompt.txt
-ideias.md
-ideas_2.md
-ideas_3.md
+# Netlify
+.netlify/
+
+# Railway
+.railway/
+
+# Cloudflare Workers
+wrangler.toml
+
+# Local Netlify folder
+.netlify
+
+# Claude Code local settings (optional)
+.claude*
+DARK_MODE_GUIDE.md
+DEPLOYMENT.md
+script.MD
+SEO_OPTIMIZATION_REPORT.md
+THEME_DEBUG.md
+THEME_SWITCHING_FIX.md
+SCRIPTS.MD
