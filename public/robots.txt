@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://calculadoraonline.com.br/sitemap.xml
+Sitemap: https://www.calculadoraonlinebr.com.br/sitemap.xml
 
 # Allow all calculators categories (new structure)
 Allow: /calculadoras/
@@ -90,6 +90,10 @@ Disallow: /calculadoras/calculadora-ferias-decimo-terceiro
 Disallow: /build/
 Disallow: /.cache/
 Disallow: /node_modules/
+
+# Disallow API endpoints and health checks
+Disallow: /api/
+Disallow: /api/healthz
 
 # Performance
 Crawl-delay: 1

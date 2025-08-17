@@ -23,7 +23,9 @@ export const loader: LoaderFunction = async () => {
       "Content-Type": "application/json",
       "Cache-Control": "no-cache, no-store, must-revalidate",
       "Pragma": "no-cache",
-      "Expires": "0"
+      "Expires": "0",
+      "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+      "X-Frame-Options": "DENY"
     }
   });
 };
