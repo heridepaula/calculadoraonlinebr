@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 
 export const loader: LoaderFunction = async () => {
-  const baseUrl = "https://calculadoraonline.com.br";
+  const baseUrl = "https://www.calculadoraonlinebr.com.br";
 
   const urls = [
     // Main pages
