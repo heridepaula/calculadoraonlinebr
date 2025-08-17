@@ -4,26 +4,87 @@ Allow: /
 # Sitemaps
 Sitemap: https://calculadoraonline.com.br/sitemap.xml
 
-# Allow all calculators
-Allow: /calculadora/
-Allow: /calculadora/saude/
-Allow: /calculadora/financas/
-Allow: /calculadora/matematica/
+# Allow all calculators categories (new structure)
 Allow: /calculadoras/
+Allow: /calculadoras/saude/
+Allow: /calculadoras/financas/
+Allow: /calculadoras/matematica/
+Allow: /calculadoras/trabalhista/
 
-# SEO-friendly URLs
-Allow: /calculadora/saude/imc
-Allow: /calculadora/saude/gordura-corporal
-Allow: /calculadora/saude/ciclo-menstrual
-Allow: /calculadora/financas/juros
-Allow: /calculadora/financas/juros-compostos
-Allow: /calculadora/financas/primeiro-milhao
-Allow: /calculadora/matematica/porcentagem
+# Health Calculators (new routes)
+Allow: /calculadoras/saude/imc
+Allow: /calculadoras/saude/gordura-corporal
+Allow: /calculadoras/saude/ciclo-menstrual
+Allow: /calculadoras/saude/desenvolvimento-infantil
+Allow: /calculadoras/saude/hidratacao
 
-# Legacy calculators
-Allow: /calculadoras/imc
-Allow: /calculadoras/juros
-Allow: /calculadoras/porcentagem
+# Financial Calculators (new routes)
+Allow: /calculadoras/financas/juros-compostos
+Allow: /calculadoras/financas/primeiro-milhao
+Allow: /calculadoras/financas/cdb
+Allow: /calculadoras/financas/tesouro-direto
+Allow: /calculadoras/financas/lci-lca
+Allow: /calculadoras/financas/emprestimo-consignado
+Allow: /calculadoras/financas/financiamento-imobiliario
+Allow: /calculadoras/financas/juros-simples
+Allow: /calculadoras/financas/preco-medio
+Allow: /calculadoras/financas/consorcio
+Allow: /calculadoras/financas/renda-fixa-comparativa
+
+# Mathematical Calculators (new routes)
+Allow: /calculadoras/matematica/porcentagem
+Allow: /calculadoras/matematica/regra-de-tres
+Allow: /calculadoras/matematica/equacao-segundo-grau
+Allow: /calculadoras/matematica/mmc-mdc
+Allow: /calculadoras/matematica/area-perimetro
+Allow: /calculadoras/matematica/volume
+Allow: /calculadoras/matematica/teorema-pitagoras
+Allow: /calculadoras/matematica/fracoes
+
+# Labor Law Calculators (new routes)
+Allow: /calculadoras/trabalhista/rescisao
+Allow: /calculadoras/trabalhista/aposentadoria
+Allow: /calculadoras/trabalhista/auxilio-doenca
+Allow: /calculadoras/trabalhista/salario-liquido
+Allow: /calculadoras/trabalhista/ferias-decimo-terceiro
+
+# DISALLOW OLD ROUTES (redirected with 301)
+# Financial - old routes
+Disallow: /calculadoras/calculadora-juros-compostos
+Disallow: /calculadoras/calculadora-lci-lca
+Disallow: /calculadoras/calculadora-primeiro-milhao
+Disallow: /calculadoras/calculadora-preco-medio
+Disallow: /calculadoras/calculadora-cdb
+Disallow: /calculadoras/calculadora-tesouro-direto
+Disallow: /calculadoras/calculadora-financiamento-imobiliario
+Disallow: /calculadoras/calculadora-emprestimo-consignado
+Disallow: /calculadoras/comparador-renda-fixa
+Disallow: /calculadoras/calculadora-consorcio
+Disallow: /calculadoras/calculadora-juros-simples
+
+# Health - old routes
+Disallow: /calculadoras/calculadora-imc
+Disallow: /calculadoras/calculadora-gordura-corporal
+Disallow: /calculadoras/calculadora-ciclo-menstrual
+Disallow: /calculadoras/calculadora-desenvolvimento-infantil
+Disallow: /calculadoras/calculadora-hidratacao
+
+# Mathematics - old routes
+Disallow: /calculadoras/regra-de-tres-simples
+Disallow: /calculadoras/calculadora-bhaskara
+Disallow: /calculadoras/calculadora-mmc-mdc
+Disallow: /calculadoras/calculadora-area-perimetro
+Disallow: /calculadoras/calculadora-volume
+Disallow: /calculadoras/calculadora-pitagora
+Disallow: /calculadoras/calculadora-porcentagem
+Disallow: /calculadoras/calculadora-fracoes
+
+# Labor Law - old routes
+Disallow: /calculadoras/calculadora-rescisao
+Disallow: /calculadoras/calculadora-aposentadoria
+Disallow: /calculadoras/calculadora-auxilio-doenca
+Disallow: /calculadoras/calculadora-salario-liquido
+Disallow: /calculadoras/calculadora-ferias-decimo-terceiro
 
 # Disallow build files and cache
 Disallow: /build/

@@ -1,52 +1,35 @@
 import type { SEOData } from "~/types";
+import {
+  generateWebsiteStructuredData,
+  generateCalculatorStructuredData,
+  generateCategoryStructuredData,
+  generateBreadcrumbStructuredData,
+  generateFAQStructuredData,
+} from "~/lib/structured-data";
 
 export function generateStructuredData(
-  type: "website" | "calculator",
-  data: { name: string; description: string; path?: string }
+  type: "website" | "calculator" | "category" | "breadcrumb" | "faq",
+  data: any
 ) {
-  const baseUrl =
-    typeof window !== "undefined"
-      ? window.location.origin
-      : "https://calculadora-online-br.vercel.app";
+  switch (type) {
+    case "website":
+      return generateWebsiteStructuredData();
 
-  if (type === "website") {
-    return {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: data.name,
-      description: data.description,
-      url: baseUrl,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${baseUrl}/search?q={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
-    };
+    case "calculator":
+      return generateCalculatorStructuredData(data.calculatorId);
+
+    case "category":
+      return generateCategoryStructuredData(data.categoryId);
+
+    case "breadcrumb":
+      return generateBreadcrumbStructuredData(data.breadcrumbs);
+
+    case "faq":
+      return generateFAQStructuredData(data.faqs);
+
+    default:
+      return null;
   }
-
-  if (type === "calculator") {
-    return {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      name: data.name,
-      description: data.description,
-      url: `${baseUrl}${data.path}`,
-      applicationCategory: "UtilitiesApplication",
-      operatingSystem: "Web Browser",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "BRL",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.8",
-        ratingCount: "150",
-      },
-    };
-  }
-
-  return null;
 }
 
 export function generateSEOTags(seoData: SEOData): Array<Record<string, string>> {

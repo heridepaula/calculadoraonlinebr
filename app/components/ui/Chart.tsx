@@ -17,7 +17,7 @@ export function LineChart({ data, width = 800, height = 400, className = "" }: L
   const { pathData, points, maxValue, minValue } = useMemo(() => {
     if (data.length === 0) return { pathData: "", points: [], maxValue: 0, minValue: 0 };
 
-    const values = data.map(d => d.value);
+    const values = data.map((d) => d.value);
     const maxValue = Math.max(...values);
     const minValue = Math.min(...values);
     const range = maxValue - minValue || 1;
@@ -33,8 +33,8 @@ export function LineChart({ data, width = 800, height = 400, className = "" }: L
     });
 
     const pathData = points
-      .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
-      .join(' ');
+      .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`)
+      .join(" ");
 
     return { pathData, points, maxValue, minValue };
   }, [data, width, height]);
@@ -43,7 +43,7 @@ export function LineChart({ data, width = 800, height = 400, className = "" }: L
     const tickCount = 5;
     const range = maxValue - minValue;
     const step = range / (tickCount - 1);
-    
+
     return Array.from({ length: tickCount }, (_, i) => {
       const value = minValue + i * step;
       const y = 60 + (height - 120) - (i * (height - 120)) / (tickCount - 1);
@@ -62,10 +62,10 @@ export function LineChart({ data, width = 800, height = 400, className = "" }: L
 
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <svg 
-        width={width} 
-        height={height} 
-        className="bg-gray-900 rounded-lg border border-gray-700"
+      <svg
+        width={width}
+        height={height}
+        className="rounded-lg border border-gray-700 bg-gray-900"
         viewBox={`0 0 ${width} ${height}`}
       >
         <defs>
@@ -146,7 +146,7 @@ export function LineChart({ data, width = 800, height = 400, className = "" }: L
             fill="currentColor"
             className="text-gray-400"
           >
-            {i % Math.max(1, Math.floor(points.length / 8)) === 0 ? point.label : ''}
+            {i % Math.max(1, Math.floor(points.length / 8)) === 0 ? point.label : ""}
           </text>
         ))}
 
@@ -185,18 +185,18 @@ export function BarChart({ data, width = 600, height = 300, className = "" }: Ba
   const { bars, maxValue } = useMemo(() => {
     if (data.length === 0) return { bars: [], maxValue: 0 };
 
-    const maxValue = Math.max(...data.map(d => d.value));
+    const maxValue = Math.max(...data.map((d) => d.value));
     const padding = 60;
     const chartWidth = width - padding * 2;
     const chartHeight = height - padding * 2;
-    const barWidth = chartWidth / data.length * 0.8;
-    const barSpacing = chartWidth / data.length * 0.2;
+    const barWidth = (chartWidth / data.length) * 0.8;
+    const barSpacing = (chartWidth / data.length) * 0.2;
 
     const bars = data.map((item, index) => {
       const barHeight = (item.value / maxValue) * chartHeight;
       const x = padding + index * (barWidth + barSpacing) + barSpacing / 2;
       const y = height - padding - barHeight;
-      
+
       return {
         x,
         y,
@@ -220,10 +220,10 @@ export function BarChart({ data, width = 600, height = 300, className = "" }: Ba
 
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <svg 
-        width={width} 
-        height={height} 
-        className="bg-gray-900 rounded-lg border border-gray-700"
+      <svg
+        width={width}
+        height={height}
+        className="rounded-lg border border-gray-700 bg-gray-900"
         viewBox={`0 0 ${width} ${height}`}
       >
         <defs>
@@ -279,7 +279,7 @@ export function BarChart({ data, width = 600, height = 300, className = "" }: Ba
           strokeOpacity="0.3"
           className="text-gray-600"
         />
-        
+
         {/* X-axis */}
         <line
           x1={60}

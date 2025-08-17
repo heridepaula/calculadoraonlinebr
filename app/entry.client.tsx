@@ -11,20 +11,11 @@ startTransition(() => {
     {
       onRecoverableError(error) {
         // Suppress browser extension hydration warnings
-        if (error.message?.includes('Extra attributes from the server') && 
-            (error.message?.includes('cz-shortcut-listen') || 
-             error.message?.includes('data-') ||
-             error.message?.includes('extension'))) {
+        if (error.message?.includes("Extra attributes from the server")) {
           return;
         }
-        console.warn('Hydration error recovered:', error);
-      }
+        console.warn("Hydration error recovered:", error);
+      },
     }
   );
 });
-
-// Performance monitoring ready for web-vitals integration
-if (typeof window !== "undefined" && "performance" in window) {
-  // Report Core Web Vitals - ready for production analytics
-  console.log("Performance monitoring initialized");
-}

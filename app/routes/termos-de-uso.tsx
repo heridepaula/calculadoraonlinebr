@@ -3,7 +3,11 @@ import type { MetaFunction } from "@remix-run/node";
 export const meta: MetaFunction = () => {
   return [
     { title: "Termos de Uso - Calculadora Online BR" },
-    { name: "description", content: "Termos de uso da Calculadora Online BR. Entenda os termos para uso das nossas calculadoras gratuitas." },
+    {
+      name: "description",
+      content:
+        "Termos de uso da Calculadora Online BR. Entenda os termos para uso das nossas calculadoras gratuitas.",
+    },
     { name: "keywords", content: "termos de uso, calculadora online br, condições de uso, acordo" },
     { property: "og:title", content: "Termos de Uso - Calculadora Online BR" },
     { property: "og:description", content: "Termos e condições de uso da nossa plataforma." },
@@ -20,12 +24,8 @@ export default function TermosDeUso() {
   return (
     <div className="mx-auto max-w-4xl space-y-8">
       <section className="py-8 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-text-primary md:text-5xl">
-          Termos de Uso
-        </h1>
-        <p className="text-sm text-text-secondary-dark">
-          Última atualização: {lastUpdated}
-        </p>
+        <h1 className="mb-4 text-4xl font-bold text-text-primary md:text-5xl">Termos de Uso</h1>
+        <p className="text-sm text-text-secondary-dark">Última atualização: {lastUpdated}</p>
       </section>
 
       <div className="space-y-8">
@@ -34,11 +34,13 @@ export default function TermosDeUso() {
             1. Aceitação dos Termos
           </h2>
           <p className="mb-4 text-text-secondary-dark">
-            Ao acessar e usar a Calculadora Online BR, você concorda em cumprir e estar vinculado a estes 
-            Termos de Uso. Se você não concordar com qualquer parte destes termos, não deve usar nossos serviços.
+            Ao acessar e usar a Calculadora Online BR, você concorda em cumprir e estar vinculado a
+            estes Termos de Uso. Se você não concordar com qualquer parte destes termos, não deve
+            usar nossos serviços.
           </p>
           <p className="text-text-secondary-dark">
-            Estes termos se aplicam a todos os visitantes, usuários e outras pessoas que acessam ou usam o serviço.
+            Estes termos se aplicam a todos os visitantes, usuários e outras pessoas que acessam ou
+            usam o serviço.
           </p>
         </section>
 
@@ -61,12 +63,8 @@ export default function TermosDeUso() {
         </section>
 
         <section className="rounded-lg bg-neutral-surface p-6">
-          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-            3. Uso Permitido
-          </h2>
-          <p className="mb-4 text-text-secondary-dark">
-            Você pode usar nossos serviços para:
-          </p>
+          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">3. Uso Permitido</h2>
+          <p className="mb-4 text-text-secondary-dark">Você pode usar nossos serviços para:</p>
           <ul className="mb-4 space-y-2 pl-4 text-text-secondary-dark">
             <li>• Realizar cálculos pessoais e profissionais</li>
             <li>• Fins educacionais e informativos</li>
@@ -74,21 +72,18 @@ export default function TermosDeUso() {
             <li>• Monitoramento de saúde pessoal</li>
             <li>• Pesquisa acadêmica ou profissional</li>
           </ul>
-          <div className="rounded-md bg-growth-green-light p-4">
+          <div className="bg-growth-green-light rounded-md p-4">
             <p className="text-sm text-text-secondary-dark">
-              <strong>Importante:</strong> Nossas calculadoras são ferramentas de apoio. Para decisões importantes 
-              de saúde ou financeiras, sempre consulte profissionais qualificados.
+              <strong>Importante:</strong> Nossas calculadoras são ferramentas de apoio. Para
+              decisões importantes de saúde ou financeiras, sempre consulte profissionais
+              qualificados.
             </p>
           </div>
         </section>
 
         <section className="rounded-lg bg-neutral-surface p-6">
-          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-            4. Uso Proibido
-          </h2>
-          <p className="mb-4 text-text-secondary-dark">
-            Você NÃO pode usar nossos serviços para:
-          </p>
+          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">4. Uso Proibido</h2>
+          <p className="mb-4 text-text-secondary-dark">Você NÃO pode usar nossos serviços para:</p>
           <ul className="mb-4 space-y-2 pl-4 text-text-secondary-dark">
             <li>• Atividades ilegais ou fraudulentas</li>
             <li>• Spam, phishing ou outras práticas maliciosas</li>
@@ -104,12 +99,13 @@ export default function TermosDeUso() {
           <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
             5. Precisão dos Cálculos
           </h2>
-          <div className="mb-4 rounded-md bg-system-warning-light p-4">
+          <div className="bg-system-warning-light mb-4 rounded-md p-4">
             <h3 className="mb-2 font-semibold text-text-primary-dark">
               Isenção de Responsabilidade
             </h3>
             <p className="text-sm text-text-secondary-dark">
-              Embora nos esforcemos para fornecer cálculos precisos, não garantimos 100% de precisão em todos os casos.
+              Embora nos esforcemos para fornecer cálculos precisos, não garantimos 100% de precisão
+              em todos os casos.
             </p>
           </div>
           <ul className="mb-4 space-y-2 pl-4 text-text-secondary-dark">
@@ -124,9 +120,7 @@ export default function TermosDeUso() {
           <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
             6. Responsabilidades do Usuário
           </h2>
-          <p className="mb-4 text-text-secondary-dark">
-            Como usuário, você é responsável por:
-          </p>
+          <p className="mb-4 text-text-secondary-dark">Como usuário, você é responsável por:</p>
           <ul className="space-y-2 pl-4 text-text-secondary-dark">
             <li>• Inserir dados corretos nas calculadoras</li>
             <li>• Interpretar os resultados adequadamente</li>
@@ -151,8 +145,8 @@ export default function TermosDeUso() {
             <li>• Marca e logotipo</li>
           </ul>
           <p className="text-text-secondary-dark">
-            São protegidos por direitos autorais e outras leis de propriedade intelectual. 
-            O uso é permitido apenas conforme especificado nestes termos.
+            São protegidos por direitos autorais e outras leis de propriedade intelectual. O uso é
+            permitido apenas conforme especificado nestes termos.
           </p>
         </section>
 
@@ -178,7 +172,7 @@ export default function TermosDeUso() {
           <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
             9. Limitação de Responsabilidade
           </h2>
-          <div className="mb-4 rounded-md bg-system-warning-light p-4">
+          <div className="bg-system-warning-light mb-4 rounded-md p-4">
             <p className="text-sm font-semibold text-text-primary-dark">
               IMPORTANTE: Limitações Legais
             </p>
@@ -212,9 +206,7 @@ export default function TermosDeUso() {
         </section>
 
         <section className="rounded-lg bg-neutral-surface p-6">
-          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-            11. Lei Aplicável
-          </h2>
+          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">11. Lei Aplicável</h2>
           <p className="mb-4 text-text-secondary-dark">
             Estes Termos de Uso são regidos pelas leis brasileiras:
           </p>
@@ -227,12 +219,8 @@ export default function TermosDeUso() {
         </section>
 
         <section className="rounded-lg bg-neutral-surface p-6">
-          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-            12. Contato
-          </h2>
-          <p className="mb-4 text-text-secondary-dark">
-            Para questões sobre estes Termos de Uso:
-          </p>
+          <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">12. Contato</h2>
+          <p className="mb-4 text-text-secondary-dark">Para questões sobre estes Termos de Uso:</p>
           <div className="rounded-md bg-gray-900 p-4">
             <p className="mb-2 text-sm text-text-secondary-dark">
               <strong>Email:</strong> termos@calculadoraonline.com.br
@@ -251,7 +239,7 @@ export default function TermosDeUso() {
             Compromisso com a Transparência
           </h2>
           <p className="text-text-secondary-dark">
-            Nossos termos foram escritos para serem claros e compreensíveis. Se você tiver dúvidas 
+            Nossos termos foram escritos para serem claros e compreensíveis. Se você tiver dúvidas
             sobre qualquer ponto, não hesite em entrar em contato conosco.
           </p>
         </section>

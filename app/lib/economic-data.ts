@@ -5,34 +5,34 @@ export const ECONOMIC_INDICATORS = {
   // Taxa CDI - Certificado de Depósito Interbancário
   CDI: {
     rate: 12.25, // % ao ano
-    lastUpdate: '2025-01-08', // Data da última atualização
-    source: 'CETIP/B3',
-    description: 'Taxa DI Over - Taxa referencial do mercado interbancário'
+    lastUpdate: "2025-01-08", // Data da última atualização
+    source: "CETIP/B3",
+    description: "Taxa DI Over - Taxa referencial do mercado interbancário",
   },
-  
+
   // IPCA - Índice Nacional de Preços ao Consumidor Amplo
   IPCA: {
     rate: 4.87, // % ao ano (projeção 12 meses)
-    lastUpdate: '2025-01-08',
-    source: 'IBGE/BCB',
-    description: 'Inflação oficial medida pelo IBGE - projeção 12 meses'
+    lastUpdate: "2025-01-08",
+    source: "IBGE/BCB",
+    description: "Inflação oficial medida pelo IBGE - projeção 12 meses",
   },
-  
+
   // Taxa Selic - Taxa básica de juros da economia
   SELIC: {
     rate: 12.25, // % ao ano
-    lastUpdate: '2025-01-08',
-    source: 'BCB - Banco Central do Brasil',
-    description: 'Taxa básica de juros da economia brasileira'
+    lastUpdate: "2025-01-08",
+    source: "BCB - Banco Central do Brasil",
+    description: "Taxa básica de juros da economia brasileira",
   },
-  
+
   // Poupança - Rendimento da caderneta de poupança
   POUPANCA: {
     rate: 8.59, // % ao ano (aproximadamente 70% do CDI)
-    lastUpdate: '2025-01-08',
-    source: 'Calculado com base no CDI',
-    description: 'Rendimento da poupança (70% do CDI quando CDI > 8,5%)'
-  }
+    lastUpdate: "2025-01-08",
+    source: "Calculado com base no CDI",
+    description: "Rendimento da poupança (70% do CDI quando CDI > 8,5%)",
+  },
 };
 
 // Função para calcular rendimento da poupança baseado no CDI
@@ -65,7 +65,7 @@ export function isDataRecent(indicator: keyof typeof ECONOMIC_INDICATORS): boole
 // Função para obter a cor do indicador baseado na idade dos dados
 export function getDataFreshnessColor(indicator: keyof typeof ECONOMIC_INDICATORS): string {
   const isRecent = isDataRecent(indicator);
-  return isRecent ? 'text-system-success' : 'text-system-warning';
+  return isRecent ? "text-system-success" : "text-system-warning";
 }
 
 // Valores típicos de mercado para referência
@@ -85,6 +85,6 @@ export function useEconomicData() {
     getIndicatorInfo,
     isDataRecent,
     calculateSavingsRate,
-    marketRanges: MARKET_RANGES
+    marketRanges: MARKET_RANGES,
   };
 }

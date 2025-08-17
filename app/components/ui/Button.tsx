@@ -26,9 +26,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizeClasses = {
-      sm: "px-3 py-1.5 text-sm min-h-[36px]",
-      md: "px-4 py-2 text-base min-h-[44px]",
-      lg: "px-6 py-3 text-lg min-h-[52px]",
+      sm: "px-3 py-1.5 text-sm min-h-[36px] md:py-2 md:min-h-[44px]",
+      md: "px-4 py-2 text-base min-h-[44px] md:text-sm",
+      lg: "px-6 py-3 text-lg min-h-[52px] md:px-5 md:min-h-[48px] md:text-base",
     };
 
     const widthClass = fullWidth ? "w-full" : "";

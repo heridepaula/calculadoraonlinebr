@@ -4,7 +4,20 @@
   "devCommand": "npm run dev",
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/build/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "identity"
+        }
+      ]
+    },
+    {
+      "source": "/((?!build).)*",
       "headers": [
         {
           "key": "X-Frame-Options",
@@ -25,29 +38,33 @@
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; img-src 'self' data:; frame-src 'none';"
         }
       ]
     }
   ],
   "redirects": [
     {
-      "source": "/calculadoras/(.*)",
-      "destination": "/calculadora/$1",
+      "source": "/calculadora",
+      "destination": "/calculadoras",
       "permanent": true
     },
     {
       "source": "/imc",
-      "destination": "/calculadora/saude/imc",
+      "destination": "/calculadoras/saude/imc",
       "permanent": true
     },
     {
       "source": "/juros",
-      "destination": "/calculadora/financas/juros-compostos",
+      "destination": "/calculadoras/financas/juros-compostos",
       "permanent": true
     },
     {
       "source": "/porcentagem",
-      "destination": "/calculadora/matematica/porcentagem",
+      "destination": "/calculadoras/matematica/porcentagem",
       "permanent": true
     }
   ],

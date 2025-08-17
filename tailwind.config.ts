@@ -54,7 +54,17 @@ export default {
         "system-success-dark": "#66BB6A",
         "system-info": "#42A5F5",
         "system-info-dark": "#42A5F5",
-        "light": "rgba(255, 255, 255, 0.1)",
+        light: "rgba(255, 255, 255, 0.1)",
+        // Category-specific colors
+        "health-red": "#E57373",
+        "health-red-dark": "#F44336",
+        "health-red-light": "#2A1515",
+        "finance-gold": "#FFD54F",
+        "finance-gold-dark": "#FFC107",
+        "finance-gold-light": "#2A2315",
+        "math-purple": "#BA68C8",
+        "math-purple-dark": "#9C27B0",
+        "math-purple-light": "#251A2A",
       },
       spacing: {
         "18": "4.5rem",

@@ -6,20 +6,28 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
+    "build": "cross-env NODE_ENV=production remix vite:build",
+    "build:analyze": "cross-env ANALYZE=true npm run build",
     "dev": "remix vite:dev",
     "start": "remix-serve ./build/server/index.js",
     "lint": "eslint --ignore-path .gitignore .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "clean": "rm -rf build .cache",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@radix-ui/react-tabs": "1.1.12",
     "@remix-run/node": "2.16.7",
     "@remix-run/react": "2.16.7",
     "@remix-run/serve": "2.16.7",
+    "@vercel/analytics": "^1.5.0",
     "@vercel/remix": "2.16.7",
+    "@vercel/speed-insights": "^1.2.0",
     "clsx": "2.1.1",
+    "compression": "^1.8.1",
     "isbot": "4.1.0",
+    "node-fetch": "^3.3.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "3.3.1"
@@ -31,17 +39,18 @@
     "@typescript-eslint/eslint-plugin": "6.7.4",
     "@typescript-eslint/parser": "6.7.4",
     "autoprefixer": "10.4.19",
+    "cross-env": "^10.0.0",
+    "cssnano": "^7.1.0",
     "eslint": "8.38.0",
     "postcss": "8.4.38",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "3.4.4",
     "terser": "5.43.1",
     "typescript": "5.1.6",
     "vite": "6.0.0",
+    "vite-plugin-compression": "^0.5.1",
     "vite-tsconfig-paths": "4.3.2"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=9.0.0"
   },
   "keywords": [
     "calculadora",

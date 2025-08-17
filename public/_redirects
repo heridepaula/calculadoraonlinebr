@@ -1,17 +1,17 @@
 # Legacy URL redirects
-/calculadoras/* /calculadora/:splat 301
-/imc /calculadora/saude/imc 301
-/juros /calculadora/financas/juros-compostos 301
-/porcentagem /calculadora/matematica/porcentagem 301
+/calculadoras/* /calculadoras/:splat 301
+/imc /calculadoras/saude/imc 301
+/juros /calculadoras/financas/juros-compostos 301
+/porcentagem /calculadoras/matematica/porcentagem 301
 
 # SEO-friendly redirects
-/calc/* /calculadora/:splat 301
-/calculator/* /calculadora/:splat 301
+/calc/* /calculadoras/:splat 301
+/calculator/* /calculadoras/:splat 301
 
 # Old structure redirects (if any)
-/calculadoras.imc /calculadora/saude/imc 301
-/calculadoras.juros /calculadora/financas/juros-compostos 301
-/calculadoras.porcentagem /calculadora/matematica/porcentagem 301
+/calculadoras.imc /calculadoras/saude/imc 301
+/calculadoras.juros /calculadoras/financas/juros-compostos 301
+/calculadoras.porcentagem /calculadoras/matematica/porcentagem 301
 
 # Handle SPA routing
 /* /index.html 200

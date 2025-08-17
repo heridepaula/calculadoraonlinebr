@@ -1,5 +1,8 @@
 export { Button } from "./Button";
 export { Input } from "./Input";
+export { SmartInput } from "./SmartInput";
+export { MoneyInput } from "./MoneyInput";
+export { RateInput } from "./RateInput";
 export { Select } from "./Select";
 export { Card, CardHeader, CardTitle, CardContent } from "./Card";
 export { Breadcrumb, BreadcrumbItem } from "./Breadcrumb";

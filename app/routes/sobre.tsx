@@ -3,10 +3,20 @@ import type { MetaFunction } from "@remix-run/node";
 export const meta: MetaFunction = () => {
   return [
     { title: "Sobre - Calculadora Online BR" },
-    { name: "description", content: "Conheça a Calculadora Online BR, plataforma gratuita com calculadoras de saúde, finanças e matemática com design moderno." },
-    { name: "keywords", content: "sobre, calculadora online br, ferramentas gratuitas, saúde, finanças, matemática" },
+    {
+      name: "description",
+      content:
+        "Conheça a Calculadora Online BR, plataforma gratuita com calculadoras de saúde, finanças e matemática com design moderno.",
+    },
+    {
+      name: "keywords",
+      content: "sobre, calculadora online br, ferramentas gratuitas, saúde, finanças, matemática",
+    },
     { property: "og:title", content: "Sobre - Calculadora Online BR" },
-    { property: "og:description", content: "Plataforma gratuita com calculadoras organizadas para facilitar seu dia a dia." },
+    {
+      property: "og:description",
+      content: "Plataforma gratuita com calculadoras organizadas para facilitar seu dia a dia.",
+    },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
     { name: "twitter:title", content: "Sobre - Calculadora Online BR" },
@@ -22,30 +32,29 @@ export default function Sobre() {
           Sobre a Calculadora Online BR
         </h1>
         <p className="mx-auto mb-8 max-w-3xl text-xl text-text-secondary-dark">
-          Uma plataforma moderna e gratuita que oferece calculadoras organizadas por categoria para facilitar seu dia a dia
+          Uma plataforma moderna e gratuita que oferece calculadoras organizadas por categoria para
+          facilitar seu dia a dia
         </p>
       </section>
 
       <section className="rounded-lg bg-neutral-surface p-8">
-        <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">
-          Nossa Missão
-        </h2>
+        <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">Nossa Missão</h2>
         <p className="mb-4 text-text-secondary-dark">
-          Democratizar o acesso a ferramentas de cálculo essenciais, oferecendo uma plataforma gratuita, 
-          moderna e intuitiva que auxilia pessoas em suas decisões financeiras, cuidados com a saúde e 
-          resolução de problemas matemáticos do cotidiano.
+          Democratizar o acesso a ferramentas de cálculo essenciais, oferecendo uma plataforma
+          gratuita, moderna e intuitiva que auxilia pessoas em suas decisões financeiras, cuidados
+          com a saúde e resolução de problemas matemáticos do cotidiano.
         </p>
       </section>
 
       <section className="space-y-6">
-        <h2 className="text-2xl font-bold text-text-primary-dark">
-          O que Oferecemos
-        </h2>
-        
+        <h2 className="text-2xl font-bold text-text-primary-dark">O que Oferecemos</h2>
+
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="rounded-lg bg-primary-blue-light p-6">
             <div className="mb-4 text-center">
-              <span className="text-4xl" role="img" aria-label="Saúde">🏥</span>
+              <span className="text-4xl" role="img" aria-label="Saúde">
+                🏥
+              </span>
             </div>
             <h3 className="mb-3 text-xl font-semibold text-text-primary-dark">
               Calculadoras de Saúde
@@ -57,9 +66,11 @@ export default function Sobre() {
             </ul>
           </div>
 
-          <div className="rounded-lg bg-growth-green-light p-6">
+          <div className="bg-growth-green-light rounded-lg p-6">
             <div className="mb-4 text-center">
-              <span className="text-4xl" role="img" aria-label="Finanças">💰</span>
+              <span className="text-4xl" role="img" aria-label="Finanças">
+                💰
+              </span>
             </div>
             <h3 className="mb-3 text-xl font-semibold text-text-primary-dark">
               Calculadoras Financeiras
@@ -71,9 +82,11 @@ export default function Sobre() {
             </ul>
           </div>
 
-          <div className="rounded-lg bg-system-info-light p-6">
+          <div className="bg-system-info-light rounded-lg p-6">
             <div className="mb-4 text-center">
-              <span className="text-4xl" role="img" aria-label="Matemática">🔢</span>
+              <span className="text-4xl" role="img" aria-label="Matemática">
+                🔢
+              </span>
             </div>
             <h3 className="mb-3 text-xl font-semibold text-text-primary-dark">
               Calculadoras Matemáticas
@@ -91,7 +104,7 @@ export default function Sobre() {
         <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">
           Por que Escolher a Calculadora Online BR?
         </h2>
-        
+
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
@@ -99,11 +112,10 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">
-                  100% Gratuito
-                </h3>
+                <h3 className="font-semibold text-text-primary-dark">100% Gratuito</h3>
                 <p className="text-sm text-text-secondary-dark">
-                  Todas as calculadoras são completamente gratuitas, sem limitações ou taxas ocultas.
+                  Todas as calculadoras são completamente gratuitas, sem limitações ou taxas
+                  ocultas.
                 </p>
               </div>
             </div>
@@ -113,9 +125,7 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">
-                  Interface Moderna
-                </h3>
+                <h3 className="font-semibold text-text-primary-dark">Interface Moderna</h3>
                 <p className="text-sm text-text-secondary-dark">
                   Design responsivo e intuitivo que funciona perfeitamente em qualquer dispositivo.
                 </p>
@@ -127,9 +137,7 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">
-                  Resultados Precisos
-                </h3>
+                <h3 className="font-semibold text-text-primary-dark">Resultados Precisos</h3>
                 <p className="text-sm text-text-secondary-dark">
                   Algoritmos confiáveis que garantem cálculos precisos e resultados instantâneos.
                 </p>
@@ -143,11 +151,10 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">
-                  Sem Cadastro
-                </h3>
+                <h3 className="font-semibold text-text-primary-dark">Sem Cadastro</h3>
                 <p className="text-sm text-text-secondary-dark">
-                  Use todas as ferramentas imediatamente, sem necessidade de criar conta ou fornecer dados pessoais.
+                  Use todas as ferramentas imediatamente, sem necessidade de criar conta ou fornecer
+                  dados pessoais.
                 </p>
               </div>
             </div>
@@ -157,9 +164,7 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">
-                  Sempre Disponível
-                </h3>
+                <h3 className="font-semibold text-text-primary-dark">Sempre Disponível</h3>
                 <p className="text-sm text-text-secondary-dark">
                   Acesse as calculadoras 24/7, de qualquer lugar e a qualquer momento.
                 </p>
@@ -171,11 +176,10 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">
-                  Modo Escuro
-                </h3>
+                <h3 className="font-semibold text-text-primary-dark">Modo Escuro</h3>
                 <p className="text-sm text-text-secondary-dark">
-                  Interface moderna em tema escuro para melhor experiência visual e redução do cansaço ocular.
+                  Interface moderna em tema escuro para melhor experiência visual e redução do
+                  cansaço ocular.
                 </p>
               </div>
             </div>
@@ -184,13 +188,11 @@ export default function Sobre() {
       </section>
 
       <section className="rounded-lg bg-primary-blue-light p-8 text-center">
-        <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-          Nosso Compromisso
-        </h2>
+        <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">Nosso Compromisso</h2>
         <p className="mx-auto max-w-2xl text-text-secondary-dark">
-          Estamos comprometidos em manter esta plataforma sempre gratuita, atualizada e com novas funcionalidades. 
-          Nosso objetivo é ser sua ferramenta de referência para cálculos do dia a dia, contribuindo para decisões 
-          mais informadas em sua vida pessoal e profissional.
+          Estamos comprometidos em manter esta plataforma sempre gratuita, atualizada e com novas
+          funcionalidades. Nosso objetivo é ser sua ferramenta de referência para cálculos do dia a
+          dia, contribuindo para decisões mais informadas em sua vida pessoal e profissional.
         </p>
       </section>
     </div>

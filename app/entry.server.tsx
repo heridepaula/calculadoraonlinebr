@@ -5,7 +5,6 @@
  */
 
 import { PassThrough } from "node:stream";
-import compression from "compression";
 
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { createReadableStreamFromReadable } from "@remix-run/node";
@@ -47,7 +46,6 @@ function handleBotRequest(
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
-          responseHeaders.set("Content-Encoding", "gzip");
           responseHeaders.set("Vary", "Accept-Encoding");
 
           resolve(
@@ -95,7 +93,6 @@ function handleBrowserRequest(
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
-          responseHeaders.set("Content-Encoding", "gzip");
           responseHeaders.set("Vary", "Accept-Encoding");
 
           resolve(

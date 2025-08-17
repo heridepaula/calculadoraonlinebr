@@ -13,8 +13,8 @@ interface BreadcrumbItemProps {
 
 const Breadcrumb = ({ children }: BreadcrumbProps) => {
   return (
-    <nav aria-label="Navegação estrutural" className="mb-6">
-      <ol className="flex items-center space-x-2 text-sm text-text-secondary-dark">
+    <nav aria-label="Navegação estrutural" className="mb-6 md:mb-4">
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-text-secondary-dark md:text-xs">
         {children}
       </ol>
     </nav>
@@ -27,12 +27,14 @@ const BreadcrumbItem = ({ href, children, isLast = false }: BreadcrumbItemProps)
       {href && !isLast ? (
         <Link
           to={href}
-          className="duration-200 hover:text-primary-blue-dark"
+          className="flex min-h-[44px] items-center px-1 py-2 duration-200 hover:text-primary-blue-dark"
         >
           {children}
         </Link>
       ) : (
-        <span className={isLast ? "font-medium text-text-primary-dark" : ""}>
+        <span
+          className={`flex min-h-[44px] items-center px-1 py-2 ${isLast ? "font-medium text-text-primary-dark" : ""}`}
+        >
           {children}
         </span>
       )}

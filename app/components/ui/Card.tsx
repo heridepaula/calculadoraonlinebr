@@ -10,9 +10,9 @@ const Card = ({ className = "", children, padding = "md", ...props }: CardProps)
     "bg-card-bg rounded-lg border border-light shadow-default transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:border-primary-blue-dark/70 hover:bg-card-bg/95";
 
   const paddingClasses = {
-    sm: "p-4",
-    md: "p-6",
-    lg: "p-8",
+    sm: "p-4 md:p-3",
+    md: "p-6 md:p-4",
+    lg: "p-8 md:p-6",
   };
 
   const classes = `${baseClasses} ${paddingClasses[padding]} ${className}`.trim();
@@ -30,7 +30,7 @@ interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
 
 const CardHeader = ({ className = "", children, ...props }: CardHeaderProps) => {
   return (
-    <div className={`mb-4 ${className}`.trim()} {...props}>
+    <div className={`mb-4 md:mb-3 ${className}`.trim()} {...props}>
       {children}
     </div>
   );
@@ -49,7 +49,7 @@ const CardTitle = ({
 }: CardTitleProps) => {
   return (
     <Component
-      className={`text-lg font-semibold text-text-primary-dark ${className}`.trim()}
+      className={`text-lg font-semibold text-text-primary-dark md:text-base ${className}`.trim()}
       {...props}
     >
       {children}
@@ -63,10 +63,7 @@ interface CardContentProps extends HTMLAttributes<HTMLDivElement> {
 
 const CardContent = ({ className = "", children, ...props }: CardContentProps) => {
   return (
-    <div
-      className={`text-text-secondary-dark ${className}`.trim()}
-      {...props}
-    >
+    <div className={`text-text-secondary-dark ${className}`.trim()} {...props}>
       {children}
     </div>
   );

@@ -11,7 +11,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // Use useLayoutEffect on client
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : () => {};
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : () => {};
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // Apply dark theme immediately after DOM is available
@@ -29,9 +29,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ resolvedTheme: "dark" }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={{ resolvedTheme: "dark" }}>{children}</ThemeContext.Provider>
   );
 }
 
@@ -42,4 +40,3 @@ export function useTheme() {
   }
   return context;
 }
-
