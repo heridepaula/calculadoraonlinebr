@@ -195,6 +195,55 @@ export default function Sobre() {
           dia, contribuindo para decisões mais informadas em sua vida pessoal e profissional.
         </p>
       </section>
+
+      <section className="rounded-lg bg-neutral-surface p-8">
+        <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">Entre em Contato</h2>
+        <div className="space-y-4">
+          <p className="text-text-secondary-dark">
+            Tem alguma dúvida, sugestão ou precisa de ajuda com nossas calculadoras? Entre em contato conosco!
+          </p>
+          
+          <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-8 sm:space-y-0">
+            <div className="flex items-center space-x-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-blue">
+                <span className="text-white" role="img" aria-label="Email">
+                  ✉️
+                </span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-text-primary-dark">Email</h3>
+                <a 
+                  href="mailto:contato@calculadoraonlinebr.com.br"
+                  className="text-primary-blue hover:text-primary-blue-dark hover:underline"
+                >
+                  contato@calculadoraonlinebr.com.br
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-growth-green">
+                <span className="text-white" role="img" aria-label="Suporte">
+                  🤝
+                </span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-text-primary-dark">Suporte</h3>
+                <p className="text-sm text-text-secondary-dark">
+                  Resposta em até 24 horas
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg bg-primary-blue-light p-4">
+            <p className="text-sm text-text-secondary-dark">
+              <strong>Horário de atendimento:</strong> Segunda a sexta, das 9h às 18h (horário de Brasília).
+              Responderemos seu email o mais rápido possível!
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
