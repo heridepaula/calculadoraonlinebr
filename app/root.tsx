@@ -29,6 +29,12 @@ export const links: LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
   
+  // AdSense Performance Optimization
+  { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
+  { rel: "preconnect", href: "https://googleads.g.doubleclick.net" },
+  { rel: "dns-prefetch", href: "https://pagead2.googlesyndication.com" },
+  { rel: "dns-prefetch", href: "https://googleads.g.doubleclick.net" },
+  
   // Favicons and Icons
   { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
   { rel: "icon", type: "image/webp", sizes: "16x16", href: "/favicon-16x16.webp" },
@@ -50,6 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     ENV: {
       VITE_GA_ID: process.env.VITE_GA_ID,
       VITE_CLOUDFLARE_TOKEN: process.env.VITE_CLOUDFLARE_TOKEN,
+      VITE_ADSENSE_CLIENT: process.env.VITE_ADSENSE_CLIENT || "ca-pub-1778632581161801",
       NODE_ENV: process.env.NODE_ENV,
     },
   });
@@ -161,6 +168,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   }}
                 />
               </>
+            )}
+            
+            {/* Google AdSense */}
+            {data?.ENV?.VITE_ADSENSE_CLIENT && (
+              <script
+                async
+                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${data.ENV.VITE_ADSENSE_CLIENT}`}
+                crossOrigin="anonymous"
+                strategy="afterInteractive"
+              />
             )}
             
             {/* Cloudflare Web Analytics */}
