@@ -196,3 +196,7 @@ THEME_DEBUG.md
 THEME_SWITCHING_FIX.md
 SCRIPTS.MD
 STEPS.md
+context*
+
+# Playwright
+.playwright-mcp/*
