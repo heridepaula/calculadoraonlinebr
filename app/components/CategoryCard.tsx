@@ -59,59 +59,62 @@ export function CategoryCard({ category }: CategoryCardProps) {
   const colors = getCategoryColors(category.id);
 
   return (
-    <Card className="group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
+    <Card className="group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl border-0">
       {/* Background Pattern */}
       <div className={`absolute inset-0 bg-gradient-to-br ${colors.bgGradient}`}></div>
+      
+      {/* Subtle accent border */}
+      <div className={`absolute inset-0 rounded-lg border-2 ${colors.iconBg}/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
 
-      <CardContent className="relative p-6">
-        {/* Header Section */}
-        <div className="mb-4 flex items-center space-x-4">
+      <CardContent className="relative p-4 sm:p-5 lg:p-6 h-full flex flex-col">
+        {/* Header Section - Improved Mobile Layout */}
+        <div className="mb-3 sm:mb-4 flex items-start gap-3 sm:gap-4">
           <div
-            className={`flex h-16 w-16 items-center justify-center rounded-2xl ${colors.iconBg} transition-all duration-300 ${colors.iconBgHover} group-hover:rotate-6 group-hover:scale-110`}
+            className={`flex h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 items-center justify-center rounded-xl sm:rounded-2xl ${colors.iconBg} transition-all duration-300 ${colors.iconBgHover} group-hover:rotate-3 group-hover:scale-105 flex-shrink-0`}
           >
             <span
-              className="text-3xl transition-all duration-300 group-hover:scale-110"
+              className="text-xl sm:text-2xl lg:text-3xl transition-all duration-300 group-hover:scale-105"
               role="img"
               aria-label={category.name}
             >
               {category.icon}
             </span>
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-text-primary-dark">{category.name}</h2>
-            <p className={`text-xs font-medium ${colors.accentText} uppercase tracking-wider`}>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-lg sm:text-xl font-bold text-text-primary-dark leading-tight">{category.name}</h2>
+            <p className={`text-xs font-medium ${colors.accentText} uppercase tracking-wider mt-0.5`}>
               Categoria
             </p>
           </div>
         </div>
 
-        {/* Description */}
-        <p className="mb-6 text-sm leading-relaxed text-text-secondary-dark">
+        {/* Description - Better Typography */}
+        <p className="mb-4 sm:mb-5 lg:mb-6 text-sm sm:text-base leading-relaxed text-text-secondary-dark flex-grow">
           {category.description}
         </p>
 
-        {/* Prominent Call-to-Action Button */}
+        {/* Prominent Call-to-Action Button - Enhanced Mobile UX */}
         <Link to={category.path} className="block w-full">
           <div
-            className={`group/btn relative overflow-hidden rounded-xl bg-gradient-to-r ${colors.buttonGradient} p-4 text-center shadow-lg transition-all duration-300 hover:shadow-xl ${colors.buttonHover} hover:-translate-y-1 hover:scale-[1.02] active:scale-[0.98]`}
+            className={`group/btn relative overflow-hidden rounded-xl bg-gradient-to-r ${colors.buttonGradient} p-3 sm:p-4 text-center shadow-lg transition-all duration-300 hover:shadow-xl ${colors.buttonHover} hover:-translate-y-0.5 hover:scale-[1.01] active:scale-[0.99] min-h-[48px] flex items-center justify-center`}
           >
-            {/* Button background animation */}
+            {/* Enhanced button background animation */}
             <div
-              className={`absolute inset-0 bg-gradient-to-r ${colors.buttonGradient} opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100`}
+              className={`absolute inset-0 bg-gradient-to-r ${colors.buttonGradient} opacity-0 transition-opacity duration-300 group-hover/btn:opacity-20`}
             ></div>
 
-            <div className="relative flex items-center justify-center space-x-2">
-              <span className="font-bold text-white">Explorar Calculadoras</span>
+            <div className="relative flex items-center justify-center gap-2">
+              <span className="font-bold text-white text-sm sm:text-base">Explorar Calculadoras</span>
               <svg
-                className="h-5 w-5 text-white transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:scale-110"
+                className="h-4 w-4 sm:h-5 sm:w-5 text-white transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:scale-110"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                strokeWidth={2}
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
@@ -119,13 +122,13 @@ export function CategoryCard({ category }: CategoryCardProps) {
           </div>
         </Link>
 
-        {/* Feature Badges */}
-        <div className="mt-4 flex justify-center space-x-2">
-          <span className="inline-flex items-center rounded-full bg-system-success/20 px-2 py-1 text-xs font-medium text-system-success">
+        {/* Feature Badges - Responsive Layout */}
+        <div className="mt-3 sm:mt-4 flex flex-wrap justify-center gap-2">
+          <span className="inline-flex items-center rounded-full bg-system-success/20 px-2.5 py-1 text-xs font-medium text-system-success">
             ✓ Gratuito
           </span>
           <span
-            className={`inline-flex items-center rounded-full ${colors.badgeBg} px-2 py-1 text-xs font-medium ${colors.badgeText}`}
+            className={`inline-flex items-center rounded-full ${colors.badgeBg} px-2.5 py-1 text-xs font-medium ${colors.badgeText}`}
           >
             ⚡ Rápido
           </span>

@@ -67,6 +67,34 @@ Categories: `saude` (health), `financas` (finance), `matematica` (math), `trabal
 - **Accessibility compliant** - minimum 44px touch targets, proper aria labels
 - **Color system**: Primary blue (#64B5F6), category-specific colors (health-red, finance-gold, math-purple)
 
+## Visual Development
+
+### Design Principles
+
+- Comprehensive design system documentation in `/context/design-system-calculator.md`
+- Brazilian calculator app style guide in `/context/calculator-style-guide.md`
+- When making any visual changes to calculator interfaces, always refer to these files for guidance
+
+### Quick Visual Check
+
+IMMEDIATELY after implementing any front-end change:
+
+1. **Identify Current Design State** - Use `mcp__playwright__browser_navigate` to access calculator pages
+2. **Capture Visual Evidence** - Take comprehensive screenshots at multiple viewports
+3. **Analyze User Experience** - Evaluate input/output clarity, visual hierarchy
+4. **Validate Against Design System** - Compare against design system standards
+5. **Check Accessibility Compliance** - Verify WCAG 2.1 AA standards
+6. **Test Interaction Patterns** - Verify button states, form validation
+7. **Document Issues and Improvements** - Capture evidence with recommendations
+
+### Comprehensive Design Improvement Review
+
+Invoke the `@agent-design-improvement` when:
+
+- Implementing new calculator interfaces or major design updates
+- Optimizing existing calculators for better user conversion
+- Conducting accessibility audits and WCAG compliance reviews
+
 ### SEO & Performance
 
 - Dynamic meta tags using Remix meta functions

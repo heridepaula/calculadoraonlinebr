@@ -212,43 +212,58 @@ export function RelatedCalculators({
   };
 
   return (
-    <Card className="border-l-4 border-primary-blue bg-primary-blue-light">
-      <CardHeader>
-        <CardTitle as="h2" className="text-xl font-bold text-primary-blue-dark">
+    <Card className="border-l-4 border-primary-blue bg-primary-blue-light/50 backdrop-blur-sm">
+      <CardHeader className="pb-3 sm:pb-4">
+        <CardTitle as="h2" className="text-lg sm:text-xl font-bold text-primary-blue-dark">
           {getCategoryTitle(category)}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {displayCalculators.map((calculator) => (
             <a
               key={calculator.id}
               href={calculator.href}
-              className={`block ${calculator.bgColor} rounded-lg border p-4 ${calculator.borderColor} transition-all hover:border-primary-blue hover:shadow-md`}
+              className={`group block ${calculator.bgColor} rounded-xl border p-4 sm:p-5 ${calculator.borderColor} transition-all duration-300 hover:border-primary-blue hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1`}
             >
-              <div className="flex items-start gap-3">
-                <div className="flex-1">
+              <div className="flex flex-col h-full">
+                <div className="flex-1 mb-3">
                   <h3
-                    className={`font-semibold ${calculator.textColor} mb-2 text-sm leading-tight`}
+                    className={`font-semibold ${calculator.textColor} mb-2 text-sm sm:text-base leading-tight line-clamp-2`}
                   >
                     {calculator.title}
                   </h3>
-                  <p className="mb-3 text-xs leading-relaxed text-text-secondary">
+                  <p className="text-xs sm:text-sm leading-relaxed text-text-secondary-dark line-clamp-3">
                     {calculator.description}
                   </p>
-                  <span
-                    className={`text-xs ${calculator.buttonColor} ${calculator.buttonHoverColor} inline-block rounded px-3 py-1 text-white transition-colors`}
+                </div>
+                <div className="mt-auto">
+                  <div
+                    className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${calculator.buttonColor} ${calculator.buttonHoverColor} rounded-lg px-3 py-2 text-white transition-all duration-300 group-hover:shadow-md font-medium min-h-[36px]`}
                   >
-                    Acessar →
-                  </span>
+                    <span>Acessar</span>
+                    <svg
+                      className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </a>
           ))}
         </div>
 
-        <div className="mt-4 rounded-lg border border-primary-blue/30 bg-white p-3">
-          <p className="text-center text-xs text-primary-blue-dark">
+        <div className="mt-5 sm:mt-6 rounded-xl border border-primary-blue/30 bg-gradient-to-r from-white/80 to-primary-blue-light/20 p-3 sm:p-4 backdrop-blur-sm">
+          <p className="text-center text-xs sm:text-sm text-primary-blue-dark">
             💡 <strong>Dica:</strong> {getCategoryTip(category)}
           </p>
         </div>
