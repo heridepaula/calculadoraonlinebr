@@ -343,28 +343,47 @@ export default function ConsortiumCalculator() {
       </Breadcrumb>
 
       <div className="flex flex-col items-center space-y-8">
-        <header className="space-y-4 text-center">
-          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            🚗 Calculadora de Consórcio - Simule e Compare 2025
-          </h1>
-          <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-            Simule{" "}
-            <strong className="text-primary-blue-dark">
-              consórcios de veículos, imóveis e motos
-            </strong>{" "}
-            com precisão. Compare{" "}
-            <strong className="text-growth-green">vantagens vs financiamento</strong>, veja todas as
-            taxas detalhadas e tome a{" "}
-            <strong className="text-system-warning">melhor decisão financeira</strong> para realizar
-            seu sonho!
-          </p>
-          <div className="inline-block rounded-lg bg-gradient-to-r from-primary-blue-light via-growth-green-soft to-system-warning/20 p-4">
-            <p className="text-sm font-medium text-text-primary">
-              📊 <strong>Taxas Reais 2025</strong> • 🚗 <strong>Todos os Tipos</strong> • 📈{" "}
-              <strong>Projeções com Reajuste</strong> • ⚡ <strong>Comparativo Automático</strong>
+        {/* S-Tier Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+          <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
+            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+              <span className="mr-2">🚗</span>
+              Simulador Completo com Comparativo vs Financiamento
+            </div>
+            
+            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+              Calculadora de
+              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+                Consórcio
+              </span>
+            </h1>
+            
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+              Simule <strong className="text-finance-gold-dark">consórcios de veículos, imóveis e motos</strong> com precisão.
+              Compare <strong className="text-system-success">vantagens vs financiamento</strong> e tome a
+              melhor decisão financeira.
             </p>
+            
+            <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
+              <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
+                <div className="text-2xl font-bold text-finance-gold-dark">🚗</div>
+                <div className="text-sm text-text-secondary">Todos os Tipos</div>
+              </div>
+              <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
+                <div className="text-2xl font-bold text-system-success">📊</div>
+                <div className="text-sm text-text-secondary">Taxas Reais 2025</div>
+              </div>
+              <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
+                <div className="text-2xl font-bold text-primary-blue-dark">📈</div>
+                <div className="text-sm text-text-secondary">Projeções</div>
+              </div>
+              <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
+                <div className="text-2xl font-bold text-system-warning">⚡</div>
+                <div className="text-sm text-text-secondary">Comparativo</div>
+              </div>
+            </div>
           </div>
-        </header>
+        </section>
 
         {/* Formulário */}
         <Card className="w-full">
@@ -483,17 +502,24 @@ export default function ConsortiumCalculator() {
                 />
               </div>
 
-              <div className="flex justify-center gap-4">
-                <Button type="button" onClick={handleCalculate} className="px-8">
-                  Calcular
+              {/* Action Buttons - Prominent S-Tier Design */}
+              <div className="mt-8 space-y-4">
+                <Button 
+                  type="button"
+                  onClick={handleCalculate} 
+                  className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+                  fullWidth
+                >
+                  🚗 Simular Consórcio
                 </Button>
                 <Button
                   type="button"
                   onClick={handleReset}
                   variant="outline"
-                  className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+                  className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
+                  fullWidth
                 >
-                  Limpar
+                  🔄 Limpar Campos
                 </Button>
               </div>
 
@@ -521,24 +547,59 @@ export default function ConsortiumCalculator() {
           </CardContent>
         </Card>
 
-        {/* Resultado */}
+        {/* Hero Result Card - S-Tier Prominence */}
         {result && (
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle as="h2">Resultado da Simulação</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {/* Valor Principal */}
-                <div className="rounded-lg bg-gradient-to-r from-primary-blue-light to-growth-green-soft p-6 text-center">
-                  <div className="mb-2 text-3xl font-bold text-primary-blue-dark">
+          <>
+            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <div className="mb-3">
+                    <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
+                      🚗 {getGoodTypeLabel(goodType)} - {termMonths} meses
+                    </span>
+                  </div>
+                  <div className="text-5xl font-bold text-finance-gold-dark mb-2">
                     {formatCurrency(result.monthlyPayment.total)}
                   </div>
-                  <div className="text-sm text-text-secondary">Parcela Mensal do Consórcio</div>
-                  <div className="mt-1 text-xs text-text-secondary">
-                    {getGoodTypeLabel(goodType)} • {termMonths} meses
+                  <p className="text-lg text-text-secondary mb-6">
+                    Parcela Mensal do Consórcio
+                  </p>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
+                      <div className="text-2xl font-bold text-system-success">
+                        {formatCurrency(result.totalAmountPaid)}
+                      </div>
+                      <p className="text-sm text-text-secondary mt-1">Total Pago</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
+                      <div className="text-2xl font-bold text-primary-blue-dark">
+                        {formatCurrency(result.totalCosts)}
+                      </div>
+                      <p className="text-sm text-text-secondary mt-1">Custos Totais</p>
+                    </div>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Detailed Breakdown */}
+            <Card className="w-full">
+              <CardHeader>
+                <CardTitle as="h2">Detalhamento da Simulação</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Valor Principal */}
+                  <div className="rounded-lg bg-gradient-to-r from-primary-blue-light to-growth-green-soft p-6 text-center">
+                    <div className="mb-2 text-3xl font-bold text-primary-blue-dark">
+                      {formatCurrency(result.monthlyPayment.total)}
+                    </div>
+                    <div className="text-sm text-text-secondary">Parcela Mensal do Consórcio</div>
+                    <div className="mt-1 text-xs text-text-secondary">
+                      {getGoodTypeLabel(goodType)} • {termMonths} meses
+                    </div>
+                  </div>
 
                 {/* Breakdown da Parcela */}
                 <div>
@@ -674,6 +735,7 @@ export default function ConsortiumCalculator() {
               </div>
             </CardContent>
           </Card>
+          </>
         )}
 
         {/* Comparativo Detalhado */}

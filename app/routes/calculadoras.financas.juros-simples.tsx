@@ -193,24 +193,45 @@ export default function SimpleInterestCalculator() {
         <BreadcrumbItem isLast>Juros Simples</BreadcrumbItem>
       </Breadcrumb>
 
-      <div className="flex flex-col items-center space-y-8">
-        <header className="space-y-4 text-center">
-          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Calculadora de Juros Simples
-          </h1>
-          <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark">
-            Calcule <strong className="text-primary-blue-dark">juros simples</strong> de forma fácil
-            e precisa. Encontre{" "}
-            <strong className="text-system-success">capital, taxa, tempo ou montante</strong> com
-            fórmulas detalhadas e exemplos práticos.
-          </p>
-          <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
-            <p className="text-sm font-medium text-text-primary">
-              📐 <strong>Fórmulas explicadas</strong> • 💡 <strong>4 modos de cálculo</strong> • 📚{" "}
-              <strong>Conteúdo educativo</strong>
-            </p>
+      {/* S-Tier Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
+          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+            <span className="mr-2">📐</span>
+            Calculadora Educativa com 4 Modos de Cálculo
           </div>
-        </header>
+          
+          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+            Calculadora de
+            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+              Juros Simples
+            </span>
+          </h1>
+          
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+            Domine os <strong className="text-finance-gold-dark">juros simples</strong> com nossa calculadora educativa.
+            Encontre <strong className="text-system-success">capital, taxa, tempo ou montante</strong> com 
+            explicações detalhadas e fórmulas interativas.
+          </p>
+          
+          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-3 lg:gap-6">
+            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
+              <div className="text-2xl font-bold text-finance-gold-dark">4</div>
+              <div className="text-sm text-text-secondary">Modos de Cálculo</div>
+            </div>
+            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
+              <div className="text-2xl font-bold text-system-success">📐</div>
+              <div className="text-sm text-text-secondary">Fórmulas Explicadas</div>
+            </div>
+            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
+              <div className="text-2xl font-bold text-primary-blue-dark">💡</div>
+              <div className="text-sm text-text-secondary">Conteúdo Educativo</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="flex flex-col items-center space-y-8">
 
         {/* Seletor de Modo */}
         <Card className="bg-system-info/5/5 border-2 border-system-info duration-300">
@@ -345,60 +366,106 @@ export default function SimpleInterestCalculator() {
               )}
             </div>
 
-            <div className="mt-6 flex justify-center gap-4">
-              <Button onClick={handleCalculate} className="px-8">
-                Calcular
+            {/* Action Buttons - Prominent S-Tier Design */}
+            <div className="mt-8 space-y-4">
+              <Button 
+                onClick={handleCalculate} 
+                className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+                fullWidth
+              >
+                📐 {getModeTitle()}
               </Button>
               <Button
                 onClick={handleReset}
                 variant="outline"
-                className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+                className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
+                fullWidth
               >
-                Limpar
+                🔄 Limpar Campos
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        {/* Resultado */}
+        {/* Hero Result Card - S-Tier Prominence */}
         {result && (
-          <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-            <CardHeader>
-              <CardTitle as="h3" className="text-primary-blue-dark">
-                📊 Resultado do Cálculo
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Capital inicial:</span>
-                    <span className="font-medium text-text-primary">
-                      {formatCurrency(result.principal)}
+          <>
+            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <div className="mb-3">
+                    <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
+                      📊 {getModeTitle()}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Taxa de juros:</span>
-                    <span className="font-medium text-text-primary">{result.rate}% ao período</span>
+                  <div className="text-5xl font-bold text-finance-gold-dark mb-2">
+                    {mode === "findAmount" && formatCurrency(result.result)}
+                    {mode === "findPrincipal" && calculatedValue && formatCurrency(calculatedValue)}
+                    {mode === "findRate" && calculatedValue && `${calculatedValue.toFixed(2)}%`}
+                    {mode === "findTime" && calculatedValue && `${calculatedValue.toFixed(2)} períodos`}
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Tempo:</span>
-                    <span className="font-medium text-text-primary">{result.time} períodos</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Juros ganhos:</span>
-                    <span className="font-medium tabular-nums text-system-success">
-                      {formatCurrency(result.result - result.principal)}
-                    </span>
-                  </div>
-                  <hr className="border-neutral-surface-variant" />
-                  <div className="flex items-center justify-between text-lg">
-                    <span className="font-semibold text-text-primary">Montante final:</span>
-                    <span className="font-bold tabular-nums text-primary-blue-dark">
-                      {formatCurrency(result.result)}
-                    </span>
-                  </div>
+                  <p className="text-lg text-text-secondary mb-6">
+                    {getModeDescription()}
+                  </p>
+                  
+                  {mode === "findAmount" && (
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
+                        <div className="text-2xl font-bold text-system-success">
+                          {formatCurrency(result.result - result.principal)}
+                        </div>
+                        <p className="text-sm text-text-secondary mt-1">Juros Ganhos</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
+                        <div className="text-2xl font-bold text-primary-blue-dark">
+                          {formatCurrency(result.principal)}
+                        </div>
+                        <p className="text-sm text-text-secondary mt-1">Capital Inicial</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Detailed Breakdown */}
+            <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
+              <CardHeader>
+                <CardTitle as="h3" className="text-primary-blue-dark">
+                  📊 Detalhamento do Cálculo
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-text-secondary">Capital inicial:</span>
+                      <span className="font-medium text-text-primary">
+                        {formatCurrency(result.principal)}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-text-secondary">Taxa de juros:</span>
+                      <span className="font-medium text-text-primary">{result.rate}% ao período</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-text-secondary">Tempo:</span>
+                      <span className="font-medium text-text-primary">{result.time} períodos</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-text-secondary">Juros ganhos:</span>
+                      <span className="font-medium tabular-nums text-system-success">
+                        {formatCurrency(result.result - result.principal)}
+                      </span>
+                    </div>
+                    <hr className="border-neutral-surface-variant" />
+                    <div className="flex items-center justify-between text-lg">
+                      <span className="font-semibold text-text-primary">Montante final:</span>
+                      <span className="font-bold tabular-nums text-primary-blue-dark">
+                        {formatCurrency(result.result)}
+                      </span>
+                    </div>
+                  </div>
 
                 <div className="rounded-lg bg-gray-900 p-4">
                   <h4 className="mb-3 font-bold text-primary-blue-dark">🔢 Fórmula Utilizada</h4>
@@ -441,6 +508,7 @@ export default function SimpleInterestCalculator() {
               </div>
             </CardContent>
           </Card>
+          </>
         )}
 
         {/* Seção: O que são Juros Simples */}

@@ -201,23 +201,43 @@ export default function LCILCACalculator() {
         <BreadcrumbItem isLast>LCI e LCA</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-4 text-center md:space-y-3">
-        <h1 className="mb-4 text-4xl font-bold text-text-primary sm:text-2xl md:mb-3 md:text-3xl">
-          <span className="sm:hidden md:inline">Calculadora de LCI e LCA</span>
-          <span className="sm:inline md:hidden">LCI e LCA</span>
-        </h1>
-        <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-          Simule investimentos em <strong className="text-growth-green">LCI e LCA</strong> com
-          vantagens fiscais. Compare rendimentos, analise carência e descubra se vale mais que
-          <strong className="text-primary-blue-dark"> CDB e Poupança</strong>.
-        </p>
-        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300 md:p-3">
-          <p className="text-sm font-medium text-text-primary md:text-xs">
-            💰 <strong>Isento de IR</strong> • 📊 <strong>Compare investimentos</strong> • ⏰{" "}
-            <strong>Analise carência</strong>
+      {/* S-Tier Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
+          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+            <span className="mr-2">💰</span>
+            Simulador LCI e LCA com Vantagens Fiscais
+          </div>
+          
+          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+            Calculadora de
+            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+              LCI e LCA
+            </span>
+          </h1>
+          
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+            Simule <strong className="text-finance-gold-dark">Letras de Crédito</strong> com isenção fiscal.
+            Compare rendimentos, analise carência e descubra se vale mais que 
+            <strong className="text-system-success">CDB e Poupança</strong>.
           </p>
+          
+          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-3 lg:gap-6">
+            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
+              <div className="text-2xl font-bold text-system-success">0%</div>
+              <div className="text-sm text-text-secondary">Imposto de Renda</div>
+            </div>
+            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
+              <div className="text-2xl font-bold text-finance-gold-dark">📊</div>
+              <div className="text-sm text-text-secondary">Compare Investimentos</div>
+            </div>
+            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
+              <div className="text-2xl font-bold text-primary-blue-dark">⏰</div>
+              <div className="text-sm text-text-secondary">Analise Carência</div>
+            </div>
+          </div>
         </div>
-      </header>
+      </section>
 
       {/* Formulário Principal */}
       <Card>
@@ -432,34 +452,75 @@ export default function LCILCACalculator() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-row flex-wrap justify-center gap-3 md:flex-col">
-            <Button onClick={handleCalculate} className="px-6 sm:px-8" fullWidth>
-              Simular Investimento
-            </Button>
-            <Button
-              onClick={handleLoadDefaults}
-              variant="outline"
-              className="border-system-info px-5 text-system-info hover:bg-system-info hover:text-white sm:px-6"
+          {/* Action Buttons - Prominent S-Tier Design */}
+          <div className="mt-8 space-y-4">
+            <Button 
+              onClick={handleCalculate} 
+              className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
               fullWidth
             >
-              📊 Exemplo
+              💰 Simular LCI/LCA
             </Button>
-            <Button
-              onClick={handleReset}
-              variant="outline"
-              className="border-system-error px-5 text-system-error hover:bg-system-error hover:text-white sm:px-6"
-              fullWidth
-            >
-              🗑️ Limpar
-            </Button>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                onClick={handleLoadDefaults}
+                variant="outline"
+                className="h-12 border-2 border-system-info/30 text-system-info hover:bg-system-info/10 hover:border-system-info transition-all duration-200"
+                fullWidth
+              >
+                📊 Exemplo
+              </Button>
+              <Button
+                onClick={handleReset}
+                variant="outline"
+                className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
+                fullWidth
+              >
+                🔄 Limpar
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Resultados */}
+      {/* Hero Result Card - S-Tier Prominence */}
       {result && (
         <>
-          {/* Cards de Resultados Principais */}
+          <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
+            <CardContent className="p-8">
+              <div className="text-center">
+                <div className="mb-3">
+                  <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
+                    💰 {investmentType.toUpperCase()} - Isento de IR
+                  </span>
+                </div>
+                <div className="text-5xl font-bold text-finance-gold-dark mb-2">
+                  {formatCurrency(result.finalAmount)}
+                </div>
+                <p className="text-lg text-text-secondary mb-6">
+                  Valor final após {period}{" "}
+                  {periodUnit === "months" ? "meses" : periodUnit === "years" ? "anos" : "dias"}
+                </p>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
+                    <div className="text-2xl font-bold text-system-success">
+                      {formatCurrency(result.netReturn)}
+                    </div>
+                    <p className="text-sm text-text-secondary mt-1">Rendimento Líquido</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
+                    <div className="text-2xl font-bold text-primary-blue-dark">
+                      {formatPercentage(result.annualReturn)}
+                    </div>
+                    <p className="text-sm text-text-secondary mt-1">Rentabilidade Anual</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Detailed Breakdown */}
           <div className="grid grid-cols-3 gap-6 md:grid-cols-1 md:gap-4">
             <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
               <CardHeader>

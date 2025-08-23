@@ -350,24 +350,47 @@ export default function TreasuryDirectCalculator() {
         <BreadcrumbItem isLast>Tesouro Direto</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-3 text-center sm:space-y-4">
-        <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">Calculadora do Tesouro Direto</span>
-          <span className="sm:hidden">Tesouro Direto</span>
-        </h1>
-        <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-          Simule investimentos em{" "}
-          <strong className="text-primary-blue-dark">títulos públicos</strong> com
-          <strong className="text-system-success"> cálculo de cupons</strong>, impostos e
-          <strong className="text-growth-green">indexadores reais atualizados</strong>.
-        </p>
-        <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
-          <p className="text-xs font-medium text-text-primary sm:text-sm">
-            🏛️ <strong>5 Títulos</strong> • 💰 <strong>Cupons Semestrais</strong> • 📊{" "}
-            <strong>Selic + IPCA</strong> • 🎯 <strong>Comparações</strong>
+      {/* S-Tier Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
+          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+            <span className="mr-2">🏛️</span>
+            Simulador de Títulos Públicos com Cupons
+          </div>
+          
+          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+            Calculadora do
+            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+              Tesouro Direto
+            </span>
+          </h1>
+          
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+            Simule investimentos em <strong className="text-finance-gold-dark">títulos públicos</strong> com
+            <strong className="text-system-success"> cálculo de cupons</strong>, impostos e
+            indexadores reais atualizados.
           </p>
+          
+          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
+            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
+              <div className="text-2xl font-bold text-finance-gold-dark">5</div>
+              <div className="text-sm text-text-secondary">Títulos</div>
+            </div>
+            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
+              <div className="text-2xl font-bold text-system-success">💰</div>
+              <div className="text-sm text-text-secondary">Cupons Semestrais</div>
+            </div>
+            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
+              <div className="text-2xl font-bold text-primary-blue-dark">📊</div>
+              <div className="text-sm text-text-secondary">Selic + IPCA</div>
+            </div>
+            <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
+              <div className="text-2xl font-bold text-system-warning">🎯</div>
+              <div className="text-sm text-text-secondary">Comparações</div>
+            </div>
+          </div>
         </div>
-      </header>
+      </section>
 
       {/* Calculator Section */}
       <div className="space-y-6">
@@ -679,17 +702,22 @@ export default function TreasuryDirectCalculator() {
               )}
 
               {/* Botões de Ação */}
-              <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:justify-center sm:gap-4">
-                <Button onClick={handleCalculate} className="px-6 sm:px-8" fullWidth>
-                  💰 Simular Tesouro Direto
+              {/* Action Buttons - Prominent S-Tier Design */}
+              <div className="mt-8 space-y-4">
+                <Button 
+                  onClick={handleCalculate} 
+                  className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+                  fullWidth
+                >
+                  🏛️ Simular Tesouro Direto
                 </Button>
                 <Button
                   onClick={handleReset}
                   variant="outline"
-                  className="border-system-error px-6 text-system-error hover:bg-system-error hover:text-white sm:px-8"
+                  className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
                   fullWidth
                 >
-                  Limpar
+                  🔄 Limpar Campos
                 </Button>
               </div>
             </div>

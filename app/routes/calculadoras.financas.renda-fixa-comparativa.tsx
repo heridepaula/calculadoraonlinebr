@@ -429,27 +429,47 @@ export default function FixedIncomeComparativeCalculator() {
       </Breadcrumb>
 
       <div className="flex flex-col items-center space-y-8">
-        <header className="space-y-4 text-center">
-          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            📊 Calculadora Comparativa de Renda Fixa - 2025
-          </h1>
-          <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-            Compare{" "}
-            <strong className="text-primary-blue-dark">
-              CDB, LCI, LCA, Tesouro Direto e Poupança
-            </strong>{" "}
-            lado a lado! Descubra{" "}
-            <strong className="text-growth-green">qual investimento rende mais</strong> com
-            <strong className="text-system-warning"> taxas reais 2025</strong> e ranking automático
-            dos melhores rendimentos.
-          </p>
-          <div className="inline-block rounded-lg bg-gradient-to-r from-primary-blue-light via-growth-green-soft to-system-warning/20 p-4">
-            <p className="text-sm font-medium text-text-primary">
-              💰 <strong>Taxas Reais 2025</strong> • 📈 <strong>Ranking Automático</strong> • 🏆{" "}
-              <strong>Até 4 Comparações</strong> • ⚡ <strong>Cálculo em Tempo Real</strong>
+        {/* S-Tier Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+          <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
+            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+              <span className="mr-2">📊</span>
+              Comparativo Inteligente com Ranking Automático
+            </div>
+            
+            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+              Calculadora
+              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+                Renda Fixa Comparativa
+              </span>
+            </h1>
+            
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+              Compare <strong className="text-finance-gold-dark">CDB, LCI, LCA, Tesouro Direto e Poupança</strong>
+              lado a lado! Descubra <strong className="text-system-success">qual investimento rende mais</strong>
+              com taxas reais 2025.
             </p>
+            
+            <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
+              <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
+                <div className="text-2xl font-bold text-finance-gold-dark">💰</div>
+                <div className="text-sm text-text-secondary">Taxas Reais 2025</div>
+              </div>
+              <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
+                <div className="text-2xl font-bold text-system-success">📈</div>
+                <div className="text-sm text-text-secondary">Ranking Automático</div>
+              </div>
+              <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
+                <div className="text-2xl font-bold text-primary-blue-dark">4</div>
+                <div className="text-sm text-text-secondary">Comparações</div>
+              </div>
+              <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
+                <div className="text-2xl font-bold text-system-warning">⚡</div>
+                <div className="text-sm text-text-secondary">Tempo Real</div>
+              </div>
+            </div>
           </div>
-        </header>
+        </section>
 
         {/* Formulário - Grid de Investimentos */}
         <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
@@ -589,18 +609,24 @@ export default function FixedIncomeComparativeCalculator() {
           ))}
         </div>
 
-        {/* Botões de Ação */}
-        <div className="flex justify-center gap-4">
-          <Button type="button" onClick={handleCalculate} className="px-8">
-            Comparar Investimentos
+        {/* Action Buttons - Prominent S-Tier Design */}
+        <div className="mt-8 space-y-4">
+          <Button 
+            type="button"
+            onClick={handleCalculate} 
+            className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+            fullWidth
+          >
+            📊 Comparar Investimentos
           </Button>
           <Button
             type="button"
             onClick={handleReset}
             variant="outline"
-            className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
+            fullWidth
           >
-            Redefinir
+            🔄 Limpar Campos
           </Button>
         </div>
 

@@ -239,23 +239,43 @@ export default function AveragePriceCalculator() {
         <BreadcrumbItem isLast>Preço Médio</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-4 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-text-primary md:text-3xl">
-          Calculadora de Preço Médio
-        </h1>
-        <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark">
-          Calcule o <strong className="text-growth-green">preço médio das suas ações</strong> e
-          investimentos. Controle{" "}
-          <strong className="text-primary-blue-dark">ganhos/perdas realizados</strong> e
-          <strong className="text-system-success"> análise completa da carteira</strong>.
-        </p>
-        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
-          <p className="text-sm font-medium text-text-primary">
-            📊 <strong>Múltiplos métodos</strong> • 💰 <strong>Ganhos realizados</strong> • 📈{" "}
-            <strong>Controle total</strong>
+      {/* S-Tier Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
+          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+            <span className="mr-2">📊</span>
+            Calculadora com Múltiplos Métodos de Cálculo
+          </div>
+          
+          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+            Calculadora de
+            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+              Preço Médio
+            </span>
+          </h1>
+          
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
+            Calcule o <strong className="text-finance-gold-dark">preço médio das suas ações</strong> e investimentos.
+            Controle <strong className="text-system-success">ganhos/perdas realizados</strong> com
+            análise completa da carteira.
           </p>
+          
+          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-3 lg:gap-6">
+            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
+              <div className="text-2xl font-bold text-finance-gold-dark">📊</div>
+              <div className="text-sm text-text-secondary">Múltiplos Métodos</div>
+            </div>
+            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
+              <div className="text-2xl font-bold text-system-success">💰</div>
+              <div className="text-sm text-text-secondary">Ganhos Realizados</div>
+            </div>
+            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
+              <div className="text-2xl font-bold text-primary-blue-dark">📈</div>
+              <div className="text-sm text-text-secondary">Controle Total</div>
+            </div>
+          </div>
         </div>
-      </header>
+      </section>
 
       <div className="grid grid-cols-3 gap-8 md:grid-cols-1">
         {/* Configurações e Nova Transação */}
@@ -385,25 +405,28 @@ export default function AveragePriceCalculator() {
                   fullWidth
                 />
 
-                <div className="space-y-3">
+                {/* Action Buttons - Prominent S-Tier Design */}
+                <div className="mt-8 space-y-4">
                   <Button
                     onClick={addTransaction}
-                    className="w-full"
+                    className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+                    fullWidth
                     disabled={!newTransaction.quantity || !newTransaction.price}
                   >
-                    Adicionar Transação
+                    📊 Adicionar Transação
                   </Button>
 
-                  <div className="flex gap-2">
-                    <Button onClick={loadExampleData} variant="outline" className="flex-1 text-xs">
-                      📊 Carregar Exemplo
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button onClick={loadExampleData} variant="outline" className="h-12 border-2 border-system-info/30 text-system-info hover:bg-system-info/10 hover:border-system-info transition-all duration-200" fullWidth>
+                      📊 Exemplo
                     </Button>
                     <Button
                       onClick={clearAllTransactions}
                       variant="outline"
-                      className="hover:text-white:bg-system-error-dark flex-1 border-system-error text-xs text-system-error hover:bg-system-error"
+                      className="h-12 border-2 border-system-error/30 text-system-error hover:bg-system-error/10 hover:border-system-error transition-all duration-200"
+                      fullWidth
                     >
-                      🗑️ Limpar Tudo
+                      🗑️ Limpar
                     </Button>
                   </div>
                 </div>

@@ -176,186 +176,219 @@ export default function CDBCalculator() {
   const formatPercentage = (value: number) => `${(value * 100).toFixed(2)}%`;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6 px-4 md:max-w-4xl lg:max-w-6xl">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem isLast>CDB</BreadcrumbItem>
-      </Breadcrumb>
+    <div className="min-h-screen bg-surface">
+      {/* Breadcrumb Navigation */}
+      <div className="border-b border-border-primary bg-surface-light px-4 py-4 sm:px-6">
+        <div className="mx-auto max-w-7xl">
+          <Breadcrumb>
+            <BreadcrumbItem href="/">Início</BreadcrumbItem>
+            <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+            <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+            <BreadcrumbItem isLast>CDB</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+      </div>
 
-      <div className="flex flex-col items-center space-y-6">
-        <header className="space-y-4 text-center">
-          <h1 className="text-2xl font-bold text-text-primary md:text-3xl lg:text-4xl">
-            Calculadora de CDB
-          </h1>
-          <p className="mx-auto max-w-4xl text-base text-text-secondary-dark md:text-lg">
-            Simule investimentos em{" "}
-            <strong className="text-primary-blue-dark">CDB com tributação precisa</strong>. Compare
-            rendimentos líquidos e descubra se vale mais que
-            <strong className="text-growth-green"> LCI/LCA e Poupança</strong>.
-          </p>
-          <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300">
-            <p className="text-sm font-medium text-text-primary">
-              📊 <strong>Tributação automática</strong> • 💰 <strong>Compare investimentos</strong>{" "}
-              • 📈 <strong>Aportes mensais</strong>
+      {/* Hero Section - S-Tier Visual Hierarchy */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-finance-gold/10 via-transparent to-transparent"></div>
+        
+        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+              <span className="mr-2">🏦</span>
+              Simulador CDB com Cálculo Automático de IR
+            </div>
+            
+            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+              Calculadora de
+              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+                CDB
+              </span>
+            </h1>
+            
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-text-secondary-dark sm:text-lg">
+              Simule rendimentos de <strong className="text-finance-gold-dark">CDB pré e pós-fixado</strong> com{" "}
+              <strong className="text-system-success">tributação automática</strong> e compare com outros
+              investimentos de renda fixa.
             </p>
+            
+            {/* Trust Indicators */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-system-success"></div>
+                <span className="font-medium">IR Regressivo Automático</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-finance-gold"></div>
+                <span className="font-medium">Pré e Pós-Fixado</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
+                <span className="font-medium">Comparações Precisas</span>
+              </div>
+            </div>
           </div>
-        </header>
+        </div>
+      </section>
 
-        {/* Formulário Principal */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {/* Coluna 1 - Formulário */}
-          <div className="lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle as="h2">💰 Dados do Investimento</CardTitle>
+      {/* Main Calculator Container */}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          
+          {/* Input Section - Optimized for Mobile */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Primary Input Card */}
+            <Card className="shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-finance-gold/10 to-finance-gold/5">
+                <CardTitle as="h2" className="text-finance-gold-dark">💰 Dados do Investimento</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {/* Primeira linha - Valor e Taxa oferecida */}
+              <CardContent className="space-y-6">
+                {/* Primary Inputs - Strategic White Space */}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <MoneyInput
+                    label="Valor Inicial"
+                    value={principal}
+                    onChange={(value) => setPrincipal(value)}
+                    placeholder="10.000,00"
+                    min="0.01"
+                    required
+                    fullWidth
+                    className="h-14 text-lg"
+                  />
+
+                  <RateInput
+                    label="Taxa Oferecida (%)"
+                    value={interestRate}
+                    onChange={(value) => setInterestRate(value)}
+                    placeholder="105,00"
+                    required
+                    fullWidth
+                    className="h-14 text-lg"
+                  />
+                </div>
+
+                {/* Secondary Inputs */}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <Select
+                    label="Tipo de Taxa"
+                    value={interestType}
+                    onChange={(value) => handleInterestTypeChange(value as any)}
+                    options={[
+                      { value: "percentage_cdi", label: "% do CDI" },
+                      { value: "percentage_ipca", label: "IPCA +" },
+                      { value: "fixed_rate", label: "Taxa Fixa" },
+                    ]}
+                    fullWidth
+                    className="h-14"
+                  />
+
+                  <Input
+                    type="number"
+                    label="Prazo do Investimento"
+                    value={period}
+                    onChange={(e) => setPeriod(e.target.value)}
+                    placeholder="Ex: 24"
+                    min="0"
+                    step="1"
+                    required
+                    fullWidth
+                    className="h-14 text-lg"
+                  />
+                </div>
+
+                {/* Reference Rate - Conditional */}
+                {(interestType === "percentage_cdi" || interestType === "percentage_ipca") && (
+                  <div className="rounded-lg border border-system-info/20 bg-system-info/5 p-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <RateInput
+                        label={
+                          interestType === "percentage_cdi"
+                            ? "Taxa CDI Atual (%)"
+                            : "IPCA Estimado (%)"
+                        }
+                        value={indexRate}
+                        onChange={(value) => setIndexRate(value)}
+                        placeholder="0,00"
+                        required
+                        fullWidth
+                        className="h-12"
+                      />
+
+                      <Select
+                        label="Unidade do Prazo"
+                        value={periodUnit}
+                        onChange={(value) => setPeriodUnit(value as any)}
+                        options={[
+                          { value: "days", label: "Dias" },
+                          { value: "months", label: "Meses" },
+                          { value: "years", label: "Anos" },
+                        ]}
+                        fullWidth
+                        className="h-12"
+                      />
+                    </div>
+
+                    {/* Economic Indicator Info */}
+                    <div className="mt-3 rounded-lg border border-system-info/20 bg-system-info/10 p-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span
+                          className={`font-semibold ${getDataFreshnessColor(interestType === "percentage_cdi" ? "CDI" : "IPCA")}`}
+                        >
+                          💹 Oficial:{" "}
+                          {getDefaultRate(
+                            interestType === "percentage_cdi" ? "CDI" : "IPCA"
+                          )}
+                          %
+                        </span>
+                        <span className="text-text-secondary">
+                          {
+                            getIndicatorInfo(
+                              interestType === "percentage_cdi" ? "CDI" : "IPCA"
+                            ).source
+                          }
+                        </span>
+                      </div>
+                      {!isDataRecent(
+                        interestType === "percentage_cdi" ? "CDI" : "IPCA"
+                      ) && (
+                        <div className="mt-1 font-medium text-system-warning text-xs">
+                          ⚠️ Dados podem estar desatualizados
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Additional Settings */}
+                <div className="rounded-lg border border-finance-gold/20 bg-finance-gold/5 p-4">
+                  <h3 className="mb-4 font-semibold text-finance-gold-dark">⚙️ Configurações Opcionais</h3>
+
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <MoneyInput
-                      label="Valor Inicial"
-                      value={principal}
-                      onChange={(value) => setPrincipal(value)}
-                      placeholder="10.000,00"
-                      min="0.01"
-                      required
-                      fullWidth
-                    />
-
-                    <RateInput
-                      label="Taxa Oferecida (%)"
-                      value={interestRate}
-                      onChange={(value) => setInterestRate(value)}
-                      placeholder="0,00"
-                      required
-                      fullWidth
-                    />
-                  </div>
-
-                  {/* Segunda linha - Tipo de taxa e Prazo */}
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <Select
-                      label="Tipo de Taxa"
-                      value={interestType}
-                      onChange={(value) => handleInterestTypeChange(value as any)}
-                      options={[
-                        { value: "percentage_cdi", label: "% do CDI" },
-                        { value: "percentage_ipca", label: "IPCA +" },
-                        { value: "fixed_rate", label: "Taxa Fixa" },
-                      ]}
-                      fullWidth
-                    />
-
-                    <Input
-                      type="number"
-                      label="Prazo do Investimento"
-                      value={period}
-                      onChange={(e) => setPeriod(e.target.value)}
-                      placeholder="Ex: 24"
+                      label="Aporte Mensal"
+                      value={monthlyContributions}
+                      onChange={(value) => setMonthlyContributions(value)}
+                      placeholder="500,00"
                       min="0"
-                      step="1"
-                      required
                       fullWidth
+                      className="h-12"
                     />
-                  </div>
 
-                  {/* Taxa de referência (condicional) */}
-                  {(interestType === "percentage_cdi" || interestType === "percentage_ipca") && (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <RateInput
-                            label={
-                              interestType === "percentage_cdi"
-                                ? "Taxa CDI Atual (%)"
-                                : "IPCA Estimado (%)"
-                            }
-                            value={indexRate}
-                            onChange={(value) => setIndexRate(value)}
-                            placeholder="0,00"
-                            required
-                            fullWidth
-                          />
-
-                          {/* Informações sobre o valor atual */}
-                          <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-2">
-                            <div className="space-y-1 text-xs">
-                              <div className="flex items-center justify-between">
-                                <span
-                                  className={`font-semibold ${getDataFreshnessColor(interestType === "percentage_cdi" ? "CDI" : "IPCA")}`}
-                                >
-                                  💹 Oficial:{" "}
-                                  {getDefaultRate(
-                                    interestType === "percentage_cdi" ? "CDI" : "IPCA"
-                                  )}
-                                  %
-                                </span>
-                                <span className="text-text-secondary">
-                                  {
-                                    getIndicatorInfo(
-                                      interestType === "percentage_cdi" ? "CDI" : "IPCA"
-                                    ).source
-                                  }
-                                </span>
-                              </div>
-                              {!isDataRecent(
-                                interestType === "percentage_cdi" ? "CDI" : "IPCA"
-                              ) && (
-                                <div className="font-medium text-system-warning">
-                                  ⚠️ Dados podem estar desatualizados
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        <Select
-                          label="Unidade do Prazo"
-                          value={periodUnit}
-                          onChange={(value) => setPeriodUnit(value as any)}
-                          options={[
-                            { value: "days", label: "Dias" },
-                            { value: "months", label: "Meses" },
-                            { value: "years", label: "Anos" },
-                          ]}
-                          fullWidth
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Configurações Adicionais */}
-                  <div className="space-y-4">
-                    <h3 className="font-semibold text-text-primary">⚙️ Configurações Adicionais</h3>
-
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <MoneyInput
-                        label="Aporte Mensal - Opcional"
-                        value={monthlyContributions}
-                        onChange={(value) => setMonthlyContributions(value)}
-                        placeholder="500,00"
-                        min="0"
-                        fullWidth
-                      />
-                      <div></div> {/* Espaço vazio para manter layout */}
-                    </div>
-
-                    {/* IOF para investimentos curtos */}
-                    <div className="flex items-start space-x-3">
+                    
+                    {/* IOF Toggle */}
+                    <div className="flex items-center">
                       <button
                         type="button"
                         onClick={() => setHasIOF(!hasIOF)}
-                        className={`mt-0.5 flex h-5 w-5 items-center justify-center rounded border ${
+                        className={`mr-3 flex h-6 w-6 items-center justify-center rounded-lg border-2 transition-all ${
                           hasIOF
                             ? "border-system-warning bg-system-warning text-white"
-                            : "border-neutral-surface-variant bg-background-dark-secondary hover:border-system-warning"
+                            : "border-border-primary bg-surface hover:border-system-warning"
                         }`}
                       >
                         {hasIOF && (
-                          <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                             <path
                               fillRule="evenodd"
                               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -364,128 +397,187 @@ export default function CDBCalculator() {
                           </svg>
                         )}
                       </button>
-                      <div className="flex-1">
+                      <div>
                         <label
-                          className="cursor-pointer text-sm font-medium text-text-primary"
+                          className="cursor-pointer font-medium text-text-primary"
                           onClick={() => setHasIOF(!hasIOF)}
                         >
-                          Aplicar IOF (investimentos com menos de 30 dias)
+                          Aplicar IOF (&lt; 30 dias)
                         </label>
-                        <p className="mt-1 text-xs text-text-secondary">
-                          💡 IOF incide sobre rendimentos em aplicações de curto prazo
+                        <p className="text-xs text-text-secondary">
+                          💡 IOF incide em aplicações de curto prazo
                         </p>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Botões de Ação */}
-                  <div className="flex flex-wrap justify-center gap-3 pt-4">
-                    <Button onClick={handleCalculate} className="px-6 sm:px-8">
-                      Calcular
-                    </Button>
-                    <Button
-                      onClick={handleReset}
-                      variant="outline"
-                      className="border-system-error px-4 text-system-error hover:bg-system-error hover:text-white sm:px-6"
+                {/* Action Buttons - Prominent and Accessible */}
+                <div className="flex flex-col gap-4 pt-6 sm:flex-row sm:justify-center">
+                  <Button 
+                    onClick={handleCalculate} 
+                    className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white"
+                    fullWidth
+                  >
+                    🏦 Simular CDB
+                  </Button>
+                  <Button
+                    onClick={handleReset}
+                    variant="outline"
+                    className="h-14 px-8 border-2 border-system-error text-system-error hover:bg-system-error hover:text-white"
+                    fullWidth
+                  >
+                    Limpar Dados
+                  </Button>
+                </div>
+
+                {/* Quick Presets */}
+                <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/5 p-4">
+                  <h4 className="mb-3 text-center font-semibold text-primary-blue-dark">
+                    ⚡ Cenários Rápidos
+                  </h4>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPrincipal("5000");
+                        setInterestRate("105");
+                        setPeriod("12");
+                        setInterestType("percentage_cdi");
+                        setMonthlyContributions("300");
+                      }}
+                      className="rounded-lg border border-system-success/20 bg-system-success/10 p-3 text-left hover:bg-system-success/20 transition-colors"
                     >
-                      Limpar
-                    </Button>
+                      <div className="text-xs font-semibold text-system-success">💚 Conservador</div>
+                      <div className="mt-1 text-xs text-text-secondary">R$ 5k + R$ 300/mês</div>
+                      <div className="text-xs text-primary-blue-dark">105% CDI</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPrincipal("10000");
+                        setInterestRate("115");
+                        setPeriod("24");
+                        setInterestType("percentage_cdi");
+                        setMonthlyContributions("500");
+                      }}
+                      className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-3 text-left hover:bg-system-warning/20 transition-colors"
+                    >
+                      <div className="text-xs font-semibold text-system-warning">🔥 Moderado</div>
+                      <div className="mt-1 text-xs text-text-secondary">R$ 10k + R$ 500/mês</div>
+                      <div className="text-xs text-primary-blue-dark">115% CDI</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPrincipal("20000");
+                        setInterestRate("125");
+                        setPeriod("36");
+                        setInterestType("percentage_cdi");
+                        setMonthlyContributions("1000");
+                      }}
+                      className="rounded-lg border border-finance-gold/20 bg-finance-gold/10 p-3 text-left hover:bg-finance-gold/20 transition-colors"
+                    >
+                      <div className="text-xs font-semibold text-finance-gold-dark">💪 Agressivo</div>
+                      <div className="mt-1 text-xs text-text-secondary">R$ 20k + R$ 1k/mês</div>
+                      <div className="text-xs text-primary-blue-dark">125% CDI</div>
+                    </button>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Coluna 2 - Informações e Tributação */}
-          <div className="space-y-4">
-            {/* Informações de Tributação */}
-            <Card className="border-l-4 border-system-warning">
-              <CardHeader>
+          {/* Sidebar - Tax Information & Market Data */}
+          <div className="space-y-6">
+            {/* Tax Brackets */}
+            <Card className="border-2 border-system-warning bg-system-warning/5 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-system-warning/10 to-system-warning/5">
                 <CardTitle as="h3" className="text-system-warning">
                   📋 Tributação CDB
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
+                <div className="space-y-3">
                   {CDB_TAX_BRACKETS.map((bracket, index) => (
                     <div
                       key={index}
-                      className={`flex justify-between rounded p-2 ${
+                      className={`flex justify-between rounded-lg p-3 transition-all ${
                         result &&
                         result.periodInDays >= bracket.days &&
                         result.periodInDays <=
                           (bracket.maxDays === Infinity ? result.periodInDays : bracket.maxDays)
-                          ? "border border-system-warning/40 bg-system-warning/20"
-                          : "bg-neutral-surface/30"
+                          ? "border-2 border-system-warning bg-system-warning/20 shadow-md"
+                          : "border border-border-primary bg-surface-light"
                       }`}
                     >
-                      <span className="font-medium">{bracket.description}</span>
-                      <span className="font-bold">{formatPercentage(bracket.rate)}</span>
+                      <span className="font-medium text-sm">{bracket.description}</span>
+                      <span className="font-bold text-lg">{formatPercentage(bracket.rate)}</span>
                     </div>
                   ))}
-                  <div className="border-t border-neutral-surface-variant pt-2 text-xs text-text-secondary">
+                  <div className="mt-3 rounded-lg bg-system-warning/10 p-2 text-xs text-system-warning text-center">
                     💡 Taxa destacada será aplicada ao seu investimento
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Garantia do FGC */}
-            <Card className="border-l-4 border-system-success">
-              <CardHeader>
+            {/* FGC Guarantee */}
+            <Card className="border-2 border-system-success bg-system-success/5 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-system-success/10 to-system-success/5">
                 <CardTitle as="h3" className="text-system-success">
                   🛡️ Garantia FGC
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span>Por CPF por banco:</span>
-                    <span className="font-bold text-system-success">R$ 250.000</span>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center rounded-lg bg-system-success/10 p-3">
+                    <span className="font-medium">Por CPF por banco:</span>
+                    <span className="font-bold text-lg text-system-success">R$ 250.000</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Limite renovável:</span>
+                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
+                    <span className="font-medium">Limite renovável:</span>
                     <span className="font-bold">A cada 4 anos</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Total máximo:</span>
-                    <span className="font-bold">R$ 1.000.000</span>
+                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
+                    <span className="font-medium">Total máximo:</span>
+                    <span className="font-bold text-lg">R$ 1.000.000</span>
                   </div>
-                  <div className="border-t border-neutral-surface-variant pt-2 text-xs text-text-secondary">
-                    ✅ Seu investimento está protegido pelo FGC
+                  <div className="mt-3 rounded-lg bg-system-success/10 p-2 text-xs text-system-success text-center font-medium">
+                    ✅ Seu investimento está 100% protegido
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Dados Econômicos */}
-            <Card className="border-l-4 border-primary-blue">
-              <CardHeader>
+            {/* Market References */}
+            <Card className="border-2 border-primary-blue bg-primary-blue/5 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-primary-blue/10 to-primary-blue/5">
                 <CardTitle as="h3" className="text-primary-blue-dark">
                   📊 Referências de Mercado
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>CDI atual:</span>
-                    <span className="font-bold text-system-success">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center rounded-lg bg-system-success/10 p-3">
+                    <span className="font-medium">CDI atual:</span>
+                    <span className="font-bold text-lg text-system-success">
                       {getDefaultRate("CDI")}% a.a.
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>IPCA (projeção):</span>
-                    <span className="font-bold text-primary-blue-dark">
+                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
+                    <span className="font-medium">IPCA (projeção):</span>
+                    <span className="font-bold text-lg text-primary-blue-dark">
                       {getDefaultRate("IPCA")}% a.a.
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Poupança:</span>
-                    <span className="font-bold text-growth-green">
+                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
+                    <span className="font-medium">Poupança:</span>
+                    <span className="font-bold text-lg text-finance-gold-dark">
                       {getDefaultRate("POUPANCA")}% a.a.
                     </span>
                   </div>
-                  <div className="border-t border-neutral-surface-variant pt-2 text-xs text-text-secondary">
+                  <div className="mt-3 rounded-lg bg-primary-blue/10 p-2 text-xs text-primary-blue-dark text-center font-medium">
                     📈 CDBs típicos: 95% a 130% do CDI
                   </div>
                 </div>
@@ -494,201 +586,235 @@ export default function CDBCalculator() {
           </div>
         </div>
 
-        {/* Resultados */}
+        {/* Results Section - Prominent Visual Display */}
         {result && (
-          <>
-            {/* Cards de Resultados Principais */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <Card className="border-2 border-primary-blue bg-primary-blue-light">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-primary-blue-dark">
-                    💰 Valor Final Bruto
+          <div className="space-y-8">
+            {/* Hero Result Card */}
+            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
+              <CardHeader className="text-center">
+                <CardTitle as="h2" className="text-2xl font-bold text-finance-gold-dark">
+                  🎉 Resultado da Simulação CDB
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center space-y-4">
+                  <div className="bg-gradient-to-r from-finance-gold/20 to-finance-gold/10 rounded-2xl p-6">
+                    <div className="text-5xl font-bold text-finance-gold-dark mb-2">
+                      {formatCurrency(result.netFinalAmount)}
+                    </div>
+                    <div className="text-lg text-text-secondary">Valor Final Líquido</div>
+                    <div className="text-sm text-system-success mt-1">
+                      Lucro de {formatCurrency(result.netReturn)} • {((result.netReturn / (parseFloat(principal) || 1)) * 100).toFixed(1)}% de rentabilidade
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Results Grid - Enhanced for Mobile */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <Card className="border-2 border-primary-blue bg-primary-blue/10 shadow-lg hover:shadow-xl transition-shadow">
+                <CardHeader className="pb-2">
+                  <CardTitle as="h3" className="text-sm text-primary-blue-dark font-semibold">
+                    💰 Valor Bruto
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <div className="text-center">
-                    <div className="text-xl font-bold tabular-nums text-primary-blue-dark sm:text-2xl">
+                    <div className="text-2xl font-bold tabular-nums text-primary-blue-dark">
                       {formatCurrency(result.finalAmount)}
                     </div>
-                    <p className="mt-1 text-xs text-text-secondary sm:text-sm">
+                    <p className="mt-1 text-xs text-text-secondary">
                       Antes dos impostos
                     </p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-growth-green bg-growth-green-soft">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-growth-green">
-                    📈 Valor Final Líquido
+              <Card className="border-2 border-system-error bg-system-error/10 shadow-lg hover:shadow-xl transition-shadow">
+                <CardHeader className="pb-2">
+                  <CardTitle as="h3" className="text-sm text-system-error font-semibold">
+                    💸 Total Impostos
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <div className="text-center">
-                    <div className="text-xl font-bold tabular-nums text-growth-green sm:text-2xl">
-                      {formatCurrency(result.netFinalAmount)}
+                    <div className="text-2xl font-bold tabular-nums text-system-error">
+                      {formatCurrency(result.incomeTax + result.iofTax)}
                     </div>
-                    <p className="mt-1 text-xs text-text-secondary sm:text-sm">
-                      Após IR: {formatPercentage(result.taxRate)}
+                    <p className="mt-1 text-xs text-text-secondary">
+                      IR: {formatPercentage(result.taxRate)}
                     </p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-system-error-dark bg-system-error/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-system-error-dark">
-                    💸 Total de Impostos
+              <Card className="border-2 border-system-success bg-system-success/10 shadow-lg hover:shadow-xl transition-shadow">
+                <CardHeader className="pb-2">
+                  <CardTitle as="h3" className="text-sm text-system-success font-semibold">
+                    📊 Lucro Líquido
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <div className="text-center">
-                    <div className="text-xl font-bold tabular-nums text-system-error-dark sm:text-2xl">
-                      {formatCurrency(result.incomeTax + result.iofTax)}
-                    </div>
-                    <p className="mt-1 text-xs text-text-secondary sm:text-sm">IR + IOF</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-system-success bg-system-success/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-system-success">
-                    📊 Rendimento Líquido
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-xl font-bold tabular-nums text-system-success sm:text-2xl">
+                    <div className="text-2xl font-bold tabular-nums text-system-success">
                       {formatCurrency(result.netReturn)}
                     </div>
-                    <p className="mt-1 text-xs text-text-secondary sm:text-sm">Lucro final</p>
+                    <p className="mt-1 text-xs text-text-secondary">
+                      Ganho final
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-finance-gold bg-finance-gold/10 shadow-lg hover:shadow-xl transition-shadow">
+                <CardHeader className="pb-2">
+                  <CardTitle as="h3" className="text-sm text-finance-gold-dark font-semibold">
+                    📈 Rentabilidade
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold tabular-nums text-finance-gold-dark">
+                      {((result.netReturn / (parseFloat(principal) || 1)) * 100).toFixed(1)}%
+                    </div>
+                    <p className="mt-1 text-xs text-text-secondary">
+                      Retorno total
+                    </p>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Comparações */}
+            {/* Investment Comparison - Enhanced Visual Hierarchy */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {/* Comparação com Poupança */}
-              <Card className="border-2 border-growth-green bg-growth-green-soft">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-growth-green">
+              <Card className="border-2 border-growth-green bg-gradient-to-br from-growth-green/10 to-growth-green/5 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-growth-green/20 to-growth-green/10">
+                  <CardTitle as="h3" className="text-lg font-bold text-growth-green flex items-center">
                     🏦 CDB vs Poupança
+                    {result.comparison.savings.advantage > 0 && 
+                      <span className="ml-2 bg-growth-green text-white px-2 py-1 rounded-full text-xs">VANTAGEM</span>
+                    }
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">Na Poupança:</span>
-                      <span className="font-bold text-text-primary">
-                        {formatCurrency(result.comparison.savings.finalAmount)}
-                      </span>
+                    <div className="bg-surface-light rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-text-secondary font-medium">💰 Na Poupança:</span>
+                        <span className="font-bold text-lg">
+                          {formatCurrency(result.comparison.savings.finalAmount)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-text-secondary font-medium">🏦 No CDB (líquido):</span>
+                        <span className="font-bold text-lg text-growth-green">
+                          {formatCurrency(result.netFinalAmount)}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">No CDB (líquido):</span>
-                      <span className="font-bold text-growth-green">
-                        {formatCurrency(result.netFinalAmount)}
-                      </span>
-                    </div>
-                    <hr className="border-neutral-surface-variant" />
-                    <div className="flex items-center justify-between text-lg">
-                      <span className="font-bold text-text-primary">Vantagem do CDB:</span>
-                      <div className="text-right">
-                        <div className="font-bold text-growth-green">
-                          {formatCurrency(result.comparison.savings.advantage)}
-                        </div>
-                        <div className="text-sm text-system-success">
-                          {result.comparison.savings.percentageAdvantage > 0 ? "+" : ""}
-                          {result.comparison.savings.percentageAdvantage.toFixed(1)}%
-                        </div>
+                    
+                    <div className="bg-growth-green/20 rounded-lg p-4 text-center">
+                      <div className="text-sm text-text-secondary mb-1">💚 Vantagem do CDB</div>
+                      <div className="text-2xl font-bold text-growth-green">
+                        {formatCurrency(result.comparison.savings.advantage)}
+                      </div>
+                      <div className="text-sm text-system-success mt-1">
+                        {result.comparison.savings.percentageAdvantage > 0 ? "+" : ""}
+                        {result.comparison.savings.percentageAdvantage.toFixed(1)}% a mais
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Comparação com LCI/LCA */}
-              <Card className="border-2 border-system-info bg-system-info/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-system-info">
-                    💎 LCI/LCA vs CDB
+              <Card className="border-2 border-system-info bg-gradient-to-br from-system-info/10 to-system-info/5 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-system-info/20 to-system-info/10">
+                  <CardTitle as="h3" className="text-lg font-bold text-system-info flex items-center">
+                    💎 CDB vs LCI/LCA
+                    {result.comparison.lciLca.advantage > 0 && 
+                      <span className="ml-2 bg-system-info text-white px-2 py-1 rounded-full text-xs">LCI MELHOR</span>
+                    }
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">CDB (líquido):</span>
-                      <span className="font-bold text-text-primary">
-                        {formatCurrency(result.netFinalAmount)}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">LCI/LCA (isento):</span>
-                      <span className="font-bold text-system-info">
-                        {formatCurrency(result.comparison.lciLca.finalAmount)}
-                      </span>
-                    </div>
-                    <hr className="border-neutral-surface-variant" />
-                    <div className="flex items-center justify-between text-lg">
-                      <span className="font-bold text-text-primary">Vantagem LCI/LCA:</span>
-                      <div className="text-right">
-                        <div className="font-bold text-system-info">
-                          {formatCurrency(result.comparison.lciLca.advantage)}
-                        </div>
-                        <div className="text-sm text-system-success">
-                          {result.comparison.lciLca.percentageAdvantage > 0 ? "+" : ""}
-                          {result.comparison.lciLca.percentageAdvantage.toFixed(1)}%
-                        </div>
+                    <div className="bg-surface-light rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-text-secondary font-medium">🏦 CDB (líquido):</span>
+                        <span className="font-bold text-lg">
+                          {formatCurrency(result.netFinalAmount)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-text-secondary font-medium">💎 LCI/LCA (isento):</span>
+                        <span className="font-bold text-lg text-system-info">
+                          {formatCurrency(result.comparison.lciLca.finalAmount)}
+                        </span>
                       </div>
                     </div>
-                    <div className="rounded bg-system-info/10 p-2 text-xs text-system-info">
-                      💡 Esta é a economia de imposto que você teria com LCI/LCA
+                    
+                    <div className="bg-system-info/20 rounded-lg p-4 text-center">
+                      <div className="text-sm text-text-secondary mb-1">
+                        {result.comparison.lciLca.advantage > 0 ? "💎 Vantagem LCI/LCA" : "🏦 Vantagem CDB"}
+                      </div>
+                      <div className="text-2xl font-bold text-system-info">
+                        {formatCurrency(Math.abs(result.comparison.lciLca.advantage))}
+                      </div>
+                      <div className="text-sm text-text-secondary mt-1">
+                        {Math.abs(result.comparison.lciLca.percentageAdvantage).toFixed(1)}% de diferença
+                      </div>
+                    </div>
+                    
+                    <div className="bg-system-info/10 rounded-lg p-3 text-center">
+                      <p className="text-xs text-system-info font-medium">
+                        💡 Economia de imposto com LCI/LCA
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Evolução Mensal (se houver aportes) */}
+            {/* Monthly Evolution Table - Enhanced */}
             {result.monthlyEvolution.length > 1 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle as="h3">📊 Evolução Mensal do Investimento</CardTitle>
+              <Card className="border-2 border-primary-blue bg-primary-blue/5 shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-primary-blue/10 to-primary-blue/5">
+                  <CardTitle as="h3" className="text-primary-blue-dark">📊 Evolução Mensal do Investimento</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-neutral-surface-variant">
-                          <th className="p-2 text-left">Mês</th>
-                          <th className="p-2 text-right">Saldo</th>
-                          <th className="p-2 text-right">Juros Brutos</th>
-                          <th className="p-2 text-right">Imposto</th>
-                          <th className="p-2 text-right">Juros Líquidos</th>
-                          <th className="p-2 text-right">Rendimento Total</th>
+                        <tr className="border-b-2 border-primary-blue/20 bg-primary-blue/10">
+                          <th className="p-3 text-left font-semibold">Mês</th>
+                          <th className="p-3 text-right font-semibold">Saldo</th>
+                          <th className="p-3 text-right font-semibold">Juros Brutos</th>
+                          <th className="p-3 text-right font-semibold">Imposto</th>
+                          <th className="p-3 text-right font-semibold">Juros Líquidos</th>
+                          <th className="p-3 text-right font-semibold">Total Acumulado</th>
                         </tr>
                       </thead>
                       <tbody>
                         {result.monthlyEvolution.map((evolution, index) => (
                           <tr
                             key={index}
-                            className="hover:bg-neutral-surface/30:bg-background-dark-secondary/30 border-b border-neutral-surface-variant"
+                            className="border-b border-border-primary hover:bg-primary-blue/5 transition-colors"
                           >
-                            <td className="p-2 font-medium">{evolution.month}º mês</td>
-                            <td className="p-2 text-right font-medium tabular-nums text-primary-blue-dark">
+                            <td className="p-3 font-medium">{evolution.month}º mês</td>
+                            <td className="p-3 text-right font-medium tabular-nums text-primary-blue-dark">
                               {formatCurrency(evolution.balance)}
                             </td>
-                            <td className="p-2 text-right tabular-nums text-growth-green">
+                            <td className="p-3 text-right tabular-nums text-growth-green font-medium">
                               {formatCurrency(evolution.grossInterest)}
                             </td>
-                            <td className="p-2 text-right tabular-nums text-system-error-dark">
+                            <td className="p-3 text-right tabular-nums text-system-error font-medium">
                               -{formatCurrency(evolution.tax)}
                             </td>
-                            <td className="p-2 text-right tabular-nums text-system-success">
+                            <td className="p-3 text-right tabular-nums text-system-success font-medium">
                               {formatCurrency(evolution.netInterest)}
                             </td>
-                            <td className="p-2 text-right font-medium tabular-nums text-growth-green">
+                            <td className="p-3 text-right font-bold tabular-nums text-finance-gold-dark">
                               {formatCurrency(evolution.accumulatedNet)}
                             </td>
                           </tr>
@@ -699,7 +825,7 @@ export default function CDBCalculator() {
                 </CardContent>
               </Card>
             )}
-          </>
+          </div>
         )}
 
         {/* Seção Educacional: O que é CDB */}

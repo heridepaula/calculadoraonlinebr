@@ -194,89 +194,128 @@ export default function AdvancedCompoundInterestCalculator() {
     );
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem isLast>Juros Compostos</BreadcrumbItem>
-      </Breadcrumb>
+    <div className="min-h-screen bg-surface">
+      {/* Breadcrumb Navigation */}
+      <div className="border-b border-border-primary bg-surface-light px-4 py-4 sm:px-6">
+        <div className="mx-auto max-w-7xl">
+          <Breadcrumb>
+            <BreadcrumbItem href="/">Início</BreadcrumbItem>
+            <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+            <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+            <BreadcrumbItem isLast>Juros Compostos</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+      </div>
 
-      <div className="flex flex-col items-center space-y-8">
-        <header className="space-y-3 text-center sm:space-y-4">
-          <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-            <span className="hidden sm:inline">Calculadora de Juros Compostos Avançada</span>
-            <span className="sm:hidden">Juros Compostos Avançada</span>
-          </h1>
-          <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-            Simule investimentos com{" "}
-            <strong className="text-primary-blue-dark">aportes mensais</strong> e descubra o{" "}
-            <strong className="text-growth-green">poder dos juros compostos</strong>. Visualize
-            gráficos e tabelas detalhadas da evolução do seu investimento.
-          </p>
-          <div className="inline-block rounded-lg bg-growth-green-soft p-3 duration-300 sm:p-4">
-            <p className="text-xs font-medium text-text-primary sm:text-sm">
-              📊 <strong>Visualizações avançadas</strong> • 📈 <strong>Aportes mensais</strong> • ⏰{" "}
-              <strong>Resultados instantâneos</strong>
+      {/* Hero Section - S-Tier Visual Hierarchy */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-finance-gold/10 via-transparent to-transparent"></div>
+        
+        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
+              <span className="mr-2">📈</span>
+              Simulador Avançado com Visualizações Interativas
+            </div>
+            
+            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+              Calculadora de
+              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
+                Juros Compostos
+              </span>
+            </h1>
+            
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-text-secondary-dark sm:text-lg">
+              Simule investimentos com <strong className="text-finance-gold-dark">aportes mensais</strong> e descubra o{" "}
+              <strong className="text-system-success">poder dos juros compostos</strong>. Visualize
+              gráficos e tabelas detalhadas da evolução do seu patrimônio.
             </p>
-          </div>
-        </header>
-
-        <Card>
-          <CardHeader>
-            <CardTitle as="h2">Parâmetros do Investimento</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <MoneyInput
-                label="Valor Inicial"
-                value={principal}
-                onChange={(value) => setPrincipal(value)}
-                placeholder="1.000,00"
-                min="0.01"
-                fullWidth
-              />
-
-              <MoneyInput
-                label="Aporte Mensal"
-                value={monthlyContribution}
-                onChange={(value) => setMonthlyContribution(value)}
-                placeholder="500,00"
-                min="0"
-                fullWidth
-              />
-
-              <div className="grid grid-cols-2 gap-2">
-                <RateInput
-                  label="Taxa de Juros (%)"
-                  value={interestRate}
-                  onChange={(value) => setInterestRate(value)}
-                  placeholder="0,00"
-                  required
-                  fullWidth
-                />
-                <Select
-                  label="Período"
-                  value={interestPeriod}
-                  onChange={(value) => setInterestPeriod(value as "monthly" | "annual")}
-                  options={[
-                    { value: "annual", label: "Ao ano" },
-                    { value: "monthly", label: "Ao mês" },
-                  ]}
-                  fullWidth
-                />
+            
+            {/* Trust Indicators */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-system-success"></div>
+                <span className="font-medium">Visualizações Avançadas</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-finance-gold"></div>
+                <span className="font-medium">Aportes Mensais</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
+                <span className="font-medium">Resultados Instantâneos</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="mt-4 grid grid-cols-1 gap-4">
-              <div className="grid grid-cols-2 gap-2">
-                <Input
-                  type="number"
-                  label="Período de Investimento"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  placeholder="Ex: 10"
-                  min="0"
+      {/* Main Calculator Container */}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          
+          {/* Input Section - Optimized for Mobile */}
+          <div className="lg:col-span-2 space-y-6">
+
+            <Card className="shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-finance-gold/10 to-finance-gold/5">
+                <CardTitle as="h2" className="text-finance-gold-dark">💰 Parâmetros do Investimento</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Primary Investment Inputs */}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <MoneyInput
+                    label="Valor Inicial"
+                    value={principal}
+                    onChange={(value) => setPrincipal(value)}
+                    placeholder="1.000,00"
+                    min="0.01"
+                    fullWidth
+                    className="h-14 text-lg"
+                  />
+
+                  <MoneyInput
+                    label="Aporte Mensal"
+                    value={monthlyContribution}
+                    onChange={(value) => setMonthlyContribution(value)}
+                    placeholder="500,00"
+                    min="0"
+                    fullWidth
+                    className="h-14 text-lg"
+                  />
+                </div>
+
+                {/* Rate and Period Inputs */}
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                  <RateInput
+                    label="Taxa de Juros (%)"
+                    value={interestRate}
+                    onChange={(value) => setInterestRate(value)}
+                    placeholder="12,00"
+                    required
+                    fullWidth
+                    className="h-14 text-lg"
+                  />
+                  
+                  <Select
+                    label="Período da Taxa"
+                    value={interestPeriod}
+                    onChange={(value) => setInterestPeriod(value as "monthly" | "annual")}
+                    options={[
+                      { value: "annual", label: "Ao ano" },
+                      { value: "monthly", label: "Ao mês" },
+                    ]}
+                    fullWidth
+                    className="h-14"
+                  />
+
+                  <Input
+                    type="number"
+                    label="Período de Investimento"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    placeholder="Ex: 10"
+                    min="0"
                   step={timePeriod === "years" ? "0.1" : "1"}
                   required
                   fullWidth
@@ -292,19 +331,23 @@ export default function AdvancedCompoundInterestCalculator() {
                   fullWidth
                 />
               </div>
-            </div>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
-              <Button onClick={handleCalculate} className="px-6 sm:px-8" fullWidth>
-                Calcular
+            {/* Action Buttons - Prominent S-Tier Design */}
+            <div className="mt-8 space-y-4">
+              <Button 
+                onClick={handleCalculate} 
+                className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+                fullWidth
+              >
+                📊 Calcular Juros Compostos
               </Button>
               <Button
                 onClick={handleReset}
                 variant="outline"
-                className="border-system-error px-6 text-system-error hover:bg-system-error hover:text-white sm:px-8"
+                className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
                 fullWidth
               >
-                Limpar
+                🔄 Limpar Campos
               </Button>
             </div>
           </CardContent>
@@ -312,6 +355,47 @@ export default function AdvancedCompoundInterestCalculator() {
 
         {result && (
           <>
+            {/* Hero Result Card - S-Tier Prominence */}
+            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
+              <CardContent className="p-8">
+                <div className="text-center">
+                  <div className="mb-3">
+                    <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
+                      💰 Valor Final do Investimento
+                    </span>
+                  </div>
+                  <div className="text-5xl font-bold text-finance-gold-dark mb-2">
+                    {formatCurrency(result.finalAmount)}
+                  </div>
+                  <p className="text-lg text-text-secondary">
+                    Após {time}{" "}
+                    {timePeriod === "years"
+                      ? parseFloat(time) === 1
+                        ? "ano"
+                        : "anos"
+                      : parseFloat(time) === 1
+                        ? "mês"
+                        : "meses"}
+                  </p>
+                  <div className="mt-6 grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
+                      <div className="text-2xl font-bold text-system-success">
+                        {formatCurrency(result.totalInterest)}
+                      </div>
+                      <p className="text-sm text-text-secondary mt-1">Juros Ganhos</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
+                      <div className="text-2xl font-bold text-primary-blue-dark">
+                        {formatPercentage((result.totalInterest / result.totalContributions) * 100)}
+                      </div>
+                      <p className="text-sm text-text-secondary mt-1">Rentabilidade</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Detailed Breakdown */}
             <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
               <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
                 <CardHeader>
@@ -1029,6 +1113,8 @@ export default function AdvancedCompoundInterestCalculator() {
         />
 
         <RelatedCalculators category="financas" currentCalculatorId="juros-compostos" />
+          </div>
+        </div>
       </div>
     </div>
   );
