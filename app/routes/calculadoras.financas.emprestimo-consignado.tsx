@@ -25,21 +25,11 @@ export const meta: MetaFunction = () => {
       content:
         "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas. Descubra valor líquido, total de juros e compare modalidades para aposentados e servidores.",
     },
-    {
-      name: "keywords",
-      content:
-        "calculadora empréstimo consignado, simulador consignado, parcela consignado, CET, IOF, juros consignado, aposentado, servidor público",
-    },
     { name: "author", content: "Calculadora Online BR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
       href: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
@@ -105,7 +95,9 @@ export const meta: MetaFunction = () => {
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -118,7 +110,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-01-24",
+        dateModified: "2025-08-24",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -190,7 +182,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "FinancialProduct",
           name: "Empréstimo Consignado",
-          description: "Modalidade de crédito com desconto em folha para aposentados, pensionistas e servidores",
+          description:
+            "Modalidade de crédito com desconto em folha para aposentados, pensionistas e servidores",
           category: "Loan",
         },
         featureList: [
@@ -202,6 +195,62 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "O que é empréstimo consignado?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Empréstimo consignado é uma modalidade de crédito onde as parcelas são descontadas diretamente da folha de pagamento ou benefício, oferecendo menores taxas devido à garantia de pagamento."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual a margem consignável disponível?",
+            "acceptedAnswer": {
+              "@type": "Answer", 
+              "text": "Aposentados e pensionistas podem comprometer até 35% do benefício líquido, enquanto servidores públicos podem usar até 30% do salário líquido para pagamento de consignados."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Como é calculado o IOF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "O IOF incide sobre o valor do empréstimo: 0,38% fixo + 0,0082% por dia (limitado a 30 dias). É descontado do valor liberado, reduzindo o montante líquido recebido."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Posso quitar antecipadamente?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim, a quitação antecipada é permitida com desconto proporcional dos juros. O desconto varia conforme a instituição e pode representar economia significativa."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual a diferença entre CET e taxa de juros?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A taxa de juros é apenas os juros mensais, enquanto o CET (Custo Efetivo Total) inclui todos os custos: juros, IOF, taxas administrativas e seguros, representando o custo real total."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Como escolher entre as modalidades?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Servidores têm as melhores condições (menor taxa, maior prazo). Aposentados e pensionistas têm margem maior (35%). CLT depende da empresa conveniada. Compare sempre o CET total."
+            }
+          }
+        ]
       }),
     },
   ];
@@ -269,9 +318,9 @@ export default function PayrollLoanCalculator() {
         return 0.35; // 35%
       case "servidor":
       case "clt":
-        return 0.30; // 30%
+        return 0.3; // 30%
       default:
-        return 0.30;
+        return 0.3;
     }
   };
 
@@ -297,25 +346,25 @@ export default function PayrollLoanCalculator() {
       newErrors.salary = "Salário/benefício obrigatório e maior que 0";
       ok = false;
     }
-    
+
     // Validação da margem consignável
     if (loan > 0 && sal > 0 && m > 0) {
       const rate = parseRate(monthlyRate);
-      const monthlyPayment = loan * (rate * Math.pow(1 + rate, m)) / (Math.pow(1 + rate, m) - 1);
+      const monthlyPayment = (loan * (rate * Math.pow(1 + rate, m))) / (Math.pow(1 + rate, m) - 1);
       const maxMargin = getMaxMargin(loanType);
       const maxPayment = sal * maxMargin;
-      
+
       if (monthlyPayment > maxPayment) {
-        const maxLoanAmount = maxPayment * (Math.pow(1 + rate, m) - 1) / (rate * Math.pow(1 + rate, m));
+        const maxLoanAmount =
+          (maxPayment * (Math.pow(1 + rate, m) - 1)) / (rate * Math.pow(1 + rate, m));
         newErrors.loanAmount = `Valor excede margem consignável. Máximo: ${currencyBR(maxLoanAmount)} (${percentBR(maxMargin * 100, 0)}% de ${currencyBR(sal)})`;
         ok = false;
       }
     }
-    
+
     setErrors(newErrors);
     return ok;
   };
-
 
   const handleCalculate = () => {
     if (!validateInputs()) return;
@@ -327,29 +376,29 @@ export default function PayrollLoanCalculator() {
       const sal = parseMoney(salary);
 
       // Cálculo da parcela usando fórmula de amortização
-      const monthlyPayment = loan * (rate * Math.pow(1 + rate, m)) / (Math.pow(1 + rate, m) - 1);
-      
+      const monthlyPayment = (loan * (rate * Math.pow(1 + rate, m))) / (Math.pow(1 + rate, m) - 1);
+
       // Total a ser pago
       const totalAmount = monthlyPayment * m;
-      
+
       // Total de juros
       const totalInterest = totalAmount - loan;
-      
+
       // IOF sobre o valor do empréstimo (0,38% do valor + 0,0082% por dia, limitado a 30 dias)
       const iofRate = 0.0038; // 0,38%
       const iofDaily = 0.000082; // 0,0082% ao dia
       const daysIOF = Math.min(30, m * 30); // Considera 30 dias por mês, limitado a 30 dias
-      const iofAmount = loan * (iofRate + (iofDaily * daysIOF));
-      
+      const iofAmount = loan * (iofRate + iofDaily * daysIOF);
+
       // Valor líquido (valor solicitado - IOF)
       const liquidValue = loan - iofAmount;
-      
+
       // CET (Custo Efetivo Total) - taxa equivalente mensal
       const cetPercentage = rate * 100;
-      
+
       // Taxa efetiva anual
       const effectiveRate = (Math.pow(1 + rate, 12) - 1) * 100;
-      
+
       // Margem consignável usada
       const maxMargin = getMaxMargin(loanType);
       const marginUsed = (monthlyPayment / sal) * 100;
@@ -390,7 +439,7 @@ export default function PayrollLoanCalculator() {
     error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -398,15 +447,16 @@ export default function PayrollLoanCalculator() {
         <BreadcrumbItem isLast>Empréstimo Consignado</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-4 text-center">
+      <header className="space-y-4 text-center" role="banner">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
           Calculadora de Empréstimo Consignado 2025 – Simulador Completo
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule a <strong className="text-growth-green">parcela do seu empréstimo consignado</strong>{" "}
+          Calcule a{" "}
+          <strong className="text-growth-green">parcela do seu empréstimo consignado</strong>{" "}
           considerando valor, prazo e taxa de juros. Compare modalidades e receba{" "}
-          <strong className="text-primary-blue-dark">análise de margem consignável</strong> para apoiar
-          suas decisões.
+          <strong className="text-primary-blue-dark">análise de margem consignável</strong> para
+          apoiar suas decisões.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -422,7 +472,7 @@ export default function PayrollLoanCalculator() {
         </CardHeader>
         <CardContent>
           {/* Tipo de Beneficiário centralizado */}
-          <div className="mb-6 flex flex-wrap justify-center gap-2">
+          <div className="mb-6 flex flex-wrap justify-center gap-2" role="radiogroup" aria-label="Tipo de beneficiário">
             <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
               <button
                 type="button"
@@ -432,6 +482,9 @@ export default function PayrollLoanCalculator() {
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
                 }`}
+                role="radio"
+                aria-checked={loanType === "aposentado"}
+                aria-label="Aposentado INSS"
               >
                 Aposentado
               </button>
@@ -443,6 +496,9 @@ export default function PayrollLoanCalculator() {
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
                 }`}
+                role="radio"
+                aria-checked={loanType === "servidor"}
+                aria-label="Servidor público"
               >
                 Servidor
               </button>
@@ -454,6 +510,9 @@ export default function PayrollLoanCalculator() {
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
                 }`}
+                role="radio"
+                aria-checked={loanType === "pensionista"}
+                aria-label="Pensionista INSS"
               >
                 Pensionista
               </button>
@@ -465,6 +524,9 @@ export default function PayrollLoanCalculator() {
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
                 }`}
+                role="radio"
+                aria-checked={loanType === "clt"}
+                aria-label="Trabalhador CLT"
               >
                 CLT
               </button>
@@ -494,9 +556,7 @@ export default function PayrollLoanCalculator() {
                 className="h-12 text-lg"
               />
               <ErrorMessage error={errors.salary} />
-              <div className="mt-1 text-xs text-text-secondary">
-                Valor líquido mensal recebido
-              </div>
+              <div className="mt-1 text-xs text-text-secondary">Valor líquido mensal recebido</div>
             </div>
           </div>
 
@@ -535,13 +595,14 @@ export default function PayrollLoanCalculator() {
 
           {/* Botões */}
           <div className="margin-top-4 flex justify-center space-x-4">
-            <Button onClick={handleCalculate} className="px-8">
+            <Button onClick={handleCalculate} className="px-8" aria-label="Calcular empréstimo consignado">
               Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
               className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+              aria-label="Limpar formulário"
             >
               Limpar
             </Button>
@@ -551,9 +612,9 @@ export default function PayrollLoanCalculator() {
 
       {/* Resultado */}
       {result && (
-        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft" role="region" aria-label="Resultado da simulação">
           <CardHeader>
-            <CardTitle as="h3" className="text-growth-green">
+            <CardTitle as="h2" className="text-growth-green">
               📊 Resultado da Simulação de Empréstimo Consignado
             </CardTitle>
           </CardHeader>
@@ -585,7 +646,9 @@ export default function PayrollLoanCalculator() {
                 <div className="text-xl font-bold text-text-primary">
                   {percentBR(result.cetPercentage, 2)}% a.m.
                 </div>
-                <div className="text-sm text-text-secondary">{percentBR(result.effectiveRate, 2)}% a.a.</div>
+                <div className="text-sm text-text-secondary">
+                  {percentBR(result.effectiveRate, 2)}% a.a.
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">IOF</div>
@@ -596,19 +659,33 @@ export default function PayrollLoanCalculator() {
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Margem Usada</div>
-                <div className={`text-xl font-bold ${
-                  result.marginUsed > 35 ? 'text-system-error' : 
-                  result.marginUsed > 30 ? 'text-system-warning' : 'text-system-success'
-                }`}>
+                <div
+                  className={`text-xl font-bold ${
+                    result.marginUsed > 35
+                      ? "text-system-error"
+                      : result.marginUsed > 30
+                        ? "text-system-warning"
+                        : "text-system-success"
+                  }`}
+                >
                   {percentBR(result.marginUsed, 1)}%
                 </div>
                 <div className="text-sm text-text-secondary">Da renda líquida</div>
               </div>
             </div>
 
-            {result.marginUsed > (getMaxMargin(loanType) * 100) && (
+            {result.marginUsed > getMaxMargin(loanType) * 100 && (
               <div className="mb-6 rounded border border-system-error/20 bg-system-error/10 p-3 text-sm text-system-error">
-                ⚠️ Margem consignável excedida! O limite é {percentBR(getMaxMargin(loanType) * 100, 0)}% para {loanType === "aposentado" ? "aposentados" : loanType === "pensionista" ? "pensionistas" : loanType === "servidor" ? "servidores" : "trabalhadores CLT"}.
+                ⚠️ Margem consignável excedida! O limite é{" "}
+                {percentBR(getMaxMargin(loanType) * 100, 0)}% para{" "}
+                {loanType === "aposentado"
+                  ? "aposentados"
+                  : loanType === "pensionista"
+                    ? "pensionistas"
+                    : loanType === "servidor"
+                      ? "servidores"
+                      : "trabalhadores CLT"}
+                .
               </div>
             )}
 
@@ -616,7 +693,8 @@ export default function PayrollLoanCalculator() {
               <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo do Empréstimo</h4>
               <ul className="space-y-1 text-sm text-text-secondary">
                 <li>
-                  Valor solicitado: <strong>{currencyBR(result.totalAmount - result.totalInterest)}</strong>
+                  Valor solicitado:{" "}
+                  <strong>{currencyBR(result.totalAmount - result.totalInterest)}</strong>
                 </li>
                 <li>
                   Valor líquido (desconta IOF): <strong>{currencyBR(result.liquidValue)}</strong>
@@ -647,7 +725,7 @@ export default function PayrollLoanCalculator() {
           <div className="space-y-8">
             {/* Aposentados INSS */}
             <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark" role="heading" aria-level="3">
                 👴 Aposentados INSS
               </h3>
 
@@ -655,8 +733,8 @@ export default function PayrollLoanCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 Características</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Empréstimo com desconto automático no benefício do INSS, oferecendo
-                    segurança para o banco e melhores condições para o aposentado.
+                    Empréstimo com desconto automático no benefício do INSS, oferecendo segurança
+                    para o banco e melhores condições para o aposentado.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
@@ -686,7 +764,7 @@ export default function PayrollLoanCalculator() {
 
             {/* Servidores Públicos */}
             <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green" role="heading" aria-level="3">
                 💼 Servidores Públicos
               </h3>
 
@@ -694,8 +772,8 @@ export default function PayrollLoanCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Características</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Empréstimo com desconto direto na folha de pagamento, oferecendo
-                    estabilidade e melhores condições devido à segurança do vínculo.
+                    Empréstimo com desconto direto na folha de pagamento, oferecendo estabilidade e
+                    melhores condições devido à segurança do vínculo.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
@@ -725,7 +803,7 @@ export default function PayrollLoanCalculator() {
 
             {/* Pensionistas */}
             <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning" role="heading" aria-level="3">
                 💰 Pensionistas
               </h3>
 
@@ -733,8 +811,8 @@ export default function PayrollLoanCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 Características</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Empréstimo para beneficiários de pensão por morte do INSS,
-                    com desconto direto no benefício recebido.
+                    Empréstimo para beneficiários de pensão por morte do INSS, com desconto direto
+                    no benefício recebido.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
@@ -764,7 +842,7 @@ export default function PayrollLoanCalculator() {
 
             {/* Trabalhadores CLT */}
             <div className="rounded-xl border border-system-info/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-system-info">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-info" role="heading" aria-level="3">
                 💼 Trabalhadores CLT
               </h3>
 
@@ -772,8 +850,8 @@ export default function PayrollLoanCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 Características</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Empréstimo para trabalhadores de empresas privadas com desconto
-                    autorizado na folha de pagamento da empresa.
+                    Empréstimo para trabalhadores de empresas privadas com desconto autorizado na
+                    folha de pagamento da empresa.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
@@ -813,15 +891,17 @@ export default function PayrollLoanCalculator() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+          <div className="overflow-x-auto" role="region" aria-label="Tabela comparativa de modalidades">
+            <table className="w-full border-collapse text-sm" role="table" aria-label="Comparação entre modalidades de empréstimo consignado">
               <thead>
                 <tr className="border-b-2 border-neutral-surface-variant">
                   <th className="p-3 text-left font-semibold">Critério</th>
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
                     Aposentado INSS
                   </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Servidor Público</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    Servidor Público
+                  </th>
                   <th className="p-3 text-center font-semibold text-system-warning">
                     Pensionista INSS
                   </th>
@@ -868,9 +948,13 @@ export default function PayrollLoanCalculator() {
                 </tr>
                 <tr>
                   <td className="p-3 font-medium">Melhor para</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Valor alto, prazo médio</td>
+                  <td className="p-3 text-center text-primary-blue-dark">
+                    Valor alto, prazo médio
+                  </td>
                   <td className="p-3 text-center text-growth-green">Melhor taxa, prazo longo</td>
-                  <td className="p-3 text-center text-system-warning">Margem alta, flexibilidade</td>
+                  <td className="p-3 text-center text-system-warning">
+                    Margem alta, flexibilidade
+                  </td>
                   <td className="p-3 text-center text-system-info">Empresa conveniada</td>
                 </tr>
               </tbody>
@@ -967,9 +1051,13 @@ export default function PayrollLoanCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de empréstimo consignado</strong> utiliza{" "}
-              <strong className="text-growth-green">simulações financeiras</strong> para estimar
-              parcelas, CET, IOF e margem consignável para diferentes modalidades de beneficiários.
+              Esta{" "}
+              <strong className="text-primary-blue-dark">
+                calculadora de empréstimo consignado
+              </strong>{" "}
+              utiliza <strong className="text-growth-green">simulações financeiras</strong> para
+              estimar parcelas, CET, IOF e margem consignável para diferentes modalidades de
+              beneficiários.
             </p>
             <p>
               <strong>Modalidades disponíveis:</strong> Aposentados INSS, Servidores Públicos e
@@ -977,9 +1065,9 @@ export default function PayrollLoanCalculator() {
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e de planejamento pessoal. Para decisões de crédito, consulte
-              sempre as <strong>instituições financeiras autorizadas</strong> e avalie sua
-              capacidade de pagamento.
+              fins educacionais e de planejamento pessoal. Para decisões de crédito, consulte sempre
+              as <strong>instituições financeiras autorizadas</strong> e avalie sua capacidade de
+              pagamento.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
               🔎 Foco didático • 💰 Simulações realistas • 🔒 Dados não armazenados • 📱 Compatível

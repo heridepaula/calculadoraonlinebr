@@ -118,7 +118,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-01-24",
+        dateModified: "2025-08-23",
         offers: {
           "@type": "Offer",
           price: "0",
