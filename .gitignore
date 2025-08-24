@@ -201,3 +201,5 @@ context*
 # Playwright
 .playwright-mcp/*
 TODO.md
+SEO_AUDIT.md
+patches/cdb-seo-optimization.diff

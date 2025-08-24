@@ -18,30 +18,57 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de CDB – Simulador de Rentabilidade | ${APP_NAME}`,
+      title: "Calculadora de CDB 2025 – Simulador Preciso com IR e IOF | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Simule o rendimento de CDB pós-fixado, prefixado ou IPCA+ com cálculo automático de IR regressivo e IOF. Compare cenários e descubra seu montante líquido.",
+        "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos, taxas reais 2025 e descubra seu montante líquido.",
     },
     {
       name: "keywords",
       content:
-        "calculadora CDB, simulador CDB, rendimento CDB, CDB pós-fixado, CDB prefixado, CDB IPCA+, IR regressivo, IOF automático, rentabilidade líquida, montante final",
+        "calculadora CDB, simulador CDB, rendimento CDB, CDB pós-fixado, CDB prefixado, CDB IPCA+, IR regressivo, IOF",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
-    { name: "googlebot", content: "index,follow" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "bingbot", content: "index,follow" },
     {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
+    },
+    {
       property: "og:title",
-      content: `Calculadora de CDB – Simulador de Rentabilidade | ${APP_NAME}`,
+      content: "Calculadora de CDB 2025 – Simulador Preciso com IR e IOF",
     },
     {
       property: "og:description",
       content:
-        "Use nosso simulador de CDB para comparar rendimentos de títulos pós-fixados, prefixados e híbridos (IPCA+), incluindo IR e IOF.",
+        "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos, taxas reais 2025 e descubra seu montante líquido.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de CDB - Simule rendimentos de CDB pós-fixado, prefixado e IPCA+ com IR e IOF",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
@@ -53,82 +80,129 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: `Simulador de CDB – Rentabilidade Líquida | ${APP_NAME}`,
+      content: "Calculadora de CDB 2025 – Simulador Preciso com IR e IOF",
     },
     {
       name: "twitter:description",
       content:
-        "Simule CDB pós-fixado, prefixado ou IPCA+ com IR regressivo e IOF automático. Compare cenários e veja seu montante líquido.",
+        "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos e taxas reais 2025.",
     },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de CDB - Simule rendimentos com IR e IOF",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "FinancialService",
-        name: "Calculadora de CDB",
+        "@type": "WebApplication",
+        name: "Calculadora de CDB - Simulador de Rentabilidade 2025",
         description:
-          "Simulador gratuito de CDB (pós-fixado, prefixado e IPCA+) com cálculo de IR regressivo e IOF automático para estimar rentabilidade líquida.",
+          "Simulador gratuito e preciso de CDB (pós-fixado, prefixado e IPCA+) com cálculo automático de IR regressivo e IOF. Compare taxas, rendimentos e descubra seu montante líquido.",
         url: "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
-        mainEntity: {
-          "@type": "WebApplication",
-          name: "Simulador de CDB",
-          description:
-            "Ferramenta online para simular rendimento de CDB considerando taxas, prazos, indexadores e tributação.",
-          applicationCategory: "FinanceApplication",
-          operatingSystem: "Web Browser",
-          isAccessibleForFree: true,
-          mainEntityOfPage: {
-            "@type": "WebPage",
-            "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
-          },
-        },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonlinebr.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonlinebr.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Finanças",
-              item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "CDB",
-            },
-          ],
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-01-24",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
+          name: "CalculadoraOnlineBR",
           url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
-        inLanguage: "pt-BR",
-        isAccessibleForFree: true,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
+          name: "Calculadora de CDB 2025 - Simulador Preciso com IR e IOF",
+          description:
+            "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos, taxas reais 2025 e descubra seu montante líquido.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Calculadora de CDB",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
+              },
+            ],
+          },
+        },
         about: {
-          "@type": "InvestmentOrDeposit",
-          name: "Certificado de Depósito Bancário",
+          "@type": "FinancialProduct",
+          name: "Certificado de Depósito Bancário (CDB)",
+          description: "Título de renda fixa emitido por bancos com diferentes tipos de indexação",
+          category: "Investment",
         },
+        featureList: [
+          "Simulação de CDB pós-fixado (CDI)",
+          "Simulação de CDB prefixado",
+          "Simulação de CDB IPCA+ (híbrido)",
+          "Cálculo automático de IR regressivo",
+          "Cálculo automático de IOF",
+          "Comparação de diferentes tipos de CDB",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
   ];
@@ -367,7 +441,7 @@ export default function CdbCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          📊 Calculadora de CDB – CDI, Prefixado e IPCA+
+          Calculadora de CDB 2025 – Simulador Preciso com IR e IOF
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">rentabilidade líquida do seu CDB</strong>{" "}
@@ -385,7 +459,7 @@ export default function CdbCalculator() {
 
       <Card>
         <CardHeader>
-          <CardTitle as="h2">Detalhes do investimento</CardTitle>
+          <CardTitle as="h2">📋 Configure sua Simulação de CDB</CardTitle>
         </CardHeader>
         <CardContent>
           {/* Tipo de Título centralizado */}
@@ -543,7 +617,7 @@ export default function CdbCalculator() {
         <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
             <CardTitle as="h3" className="text-growth-green">
-              📊 Resultado
+              📊 Resultado da Simulação CDB
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -628,7 +702,7 @@ export default function CdbCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📋 Tipos de CDB – Guia Completo
+            🎯 Tipos de CDB – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -746,7 +820,7 @@ export default function CdbCalculator() {
       <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Comparação de Tipos de CDB
+            ⚖️ Tabela Comparativa: Qual CDB Escolher?
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -884,7 +958,7 @@ export default function CdbCalculator() {
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de CDB
+            📚 Como Usar Esta Calculadora de CDB
           </CardTitle>
         </CardHeader>
         <CardContent>
