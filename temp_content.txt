@@ -1,0 +1,107 @@
+            {/* Consórcio de Imóveis */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🏠 Consórcio de Imóveis
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Sistema de aquisição programada de imóveis através de grupo organizado,
+                    onde os participantes pagam parcelas mensais até serem contemplados.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Funcionamento</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Contemplação por sorteio mensal</li>
+                    <li>• Possibilidade de lance para antecipar</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Valores menores que financiamento</li>
+                    <li>• Não há juros sobre o crédito</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Não há garantia de quando será contemplado</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Consórcio de Veículos */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🚗 Consórcio de Veículos
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Modalidade focada na aquisição de automóveis, caminhões e outros veículos,
+                    com prazos menores e valores mais acessíveis.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Prazos de 30 a 100 meses</li>
+                    <li>• Grupos menores que imóveis</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Contemplação mais rápida</li>
+                    <li>• Flexibilidade de marca e modelo</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Depreciação do veículo durante o prazo</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Consórcio de Motos */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🏍️ Consórcio de Motos
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Opção mais acessível para aquisição de motocicletas, com valores
+                    menores e prazos reduzidos comparado aos outros consórcios.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Perfil</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Prazos de 24 a 60 meses</li>
+                    <li>• Parcelas mais baixas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Entrada facilitada no mercado</li>
+                    <li>• Contemplação mais ágil</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Alta depreciação do bem</li>
+                  </ul>
+                </div>
+              </div>
+            </div>

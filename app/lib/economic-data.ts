@@ -33,6 +33,14 @@ export const ECONOMIC_INDICATORS = {
     source: "Calculado com base no CDI",
     description: "Rendimento da poupança (70% do CDI quando CDI > 8,5%)",
   },
+
+  // INPC - Índice Nacional de Preços ao Consumidor
+  INPC: {
+    rate: 4.42, // % ao ano (projeção 12 meses)
+    lastUpdate: "2025-01-08",
+    source: "IBGE",
+    description: "Índice usado para reajuste de consórcios e contratos",
+  },
 };
 
 // Função para calcular rendimento da poupança baseado no CDI

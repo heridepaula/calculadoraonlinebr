@@ -1,1135 +1,1082 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  MoneyInput,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
-  RateInput,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  calculateConsortium,
-  type ConsortiumParams,
-  type ConsortiumResult,
-} from "~/utils/calculations";
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Consórcio 2025 - Simule Parcelas e Compare com Financiamento - ${APP_NAME}`,
+      title: "Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "★ Calculadora de consórcio GRATUITA e precisa! Simule parcelas de veículos, imóveis e motos. Compare com financiamento, calcule taxas e veja vantagens. Resultado instantâneo com todas as taxas detalhadas.",
+        "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação. Compare grupos e modalidades.",
     },
     {
       name: "keywords",
       content:
-        "calculadora consórcio, consórcio veículo, consórcio imóvel, consórcio moto, parcela consórcio, taxa administração, fundo reserva, consórcio vs financiamento, simulador consórcio, carta de crédito",
+        "calculadora consórcio, simulador consórcio, consórcio imóvel, consórcio veículo, parcelas consórcio, contemplação consórcio, taxa administração",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
-    { name: "googlebot", content: "index,follow" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "bingbot", content: "index,follow" },
     {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+    },
+    {
       property: "og:title",
-      content: `Calculadora de Consórcio Completa 2025 - Simule e Compare - ${APP_NAME}`,
+      content: "Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação",
     },
     {
       property: "og:description",
       content:
-        "Simule consórcios de veículos, imóveis e motos. Compare com financiamento e veja todas as taxas detalhadas. Ferramenta completa e gratuita!",
+        "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação. Compare grupos e modalidades.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Consórcio - Simule parcelas e contemplação de consórcio imóvel e veículo",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/financas/consorcio",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: `Simulador de Consórcio Online - Calcule Parcelas 2025 - ${APP_NAME}`,
+      content: "Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação",
     },
     {
       name: "twitter:description",
       content:
-        "Descubra se consórcio vale a pena! Simule parcelas, compare com financiamento e veja todas as vantagens e desvantagens.",
+        "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação.",
     },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Consórcio - Simule parcelas e contemplação",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Consórcio",
+        name: "Calculadora de Consórcio - Simulador de Parcelas e Contemplação 2025",
         description:
-          "Calculadora online gratuita para simular consórcios de veículos, imóveis e motos. Compare com financiamento e veja todas as taxas.",
-        url: "https://calculadoraonline.com.br/calculadoras/financas/consorcio",
+          "Simulador gratuito de consórcio para imóveis e veículos. Calcule parcelas, taxa de administração, valor do crédito e probabilidade de contemplação por sorteio.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Finanças",
-              item: "https://calculadoraonline.com.br/calculadoras/financas",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Consórcio",
-              item: "https://calculadoraonline.com.br/calculadoras/financas/consorcio",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-01-24",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+          name: "Calculadora de Consórcio 2025 - Simulador de Parcelas e Contemplação",
+          description:
+            "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação por sorteio.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Calculadora de Consórcio",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "FinancialProduct",
+          name: "Consórcio de Bens",
+          description: "Sistema de aquisição programada de bens por meio de grupo de participantes",
+          category: "Financing",
+        },
+        featureList: [
+          "Simulação de parcelas de consórcio",
+          "Cálculo de taxa de administração",
+          "Valor do crédito disponível",
+          "Probabilidade de contemplação por sorteio",
+          "Comparação de diferentes grupos",
+          "Análise de custo-benefício",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
   ];
 };
 
+type ConsortiumType = "imovel" | "veiculo" | "moto";
+
+interface ConsortiumResult {
+  monthlyPayment: number;
+  totalPaid: number;
+  adminFeeTotal: number;
+  creditValue: number;
+  fundValue: number;
+  contemplationProbability: number;
+  averageContemplationMonth: number;
+  totalContractMonths: number;
+  adminFeeRate: number;
+  effectiveRate: number;
+  reserveFundTotal: number;
+  insuranceTotal: number;
+  membershipFee: number;
+  adjustedMonthlyPaymentINPC: number;
+  projectedAnnualAdjustment: number;
+}
+
+interface ValidationErrors {
+  creditValue?: string;
+  totalMonths?: string;
+  adminFeeRate?: string;
+  participants?: string;
+  reserveFundRate?: string;
+  insuranceRate?: string;
+  membershipFeeRate?: string;
+}
+
 export default function ConsortiumCalculator() {
-  const [result, setResult] = useState<ConsortiumResult | null>(null);
-  const [isCalculating, setIsCalculating] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
-
-  // Estados do formulário
-  const [goodType, setGoodType] = useState<"vehicle" | "property" | "motorcycle" | "durables">(
-    "vehicle"
-  );
-  const [calculationMode, setCalculationMode] = useState<"by_value" | "by_installment">("by_value");
-  const [value, setValue] = useState("100000");
-  const [termMonths, setTermMonths] = useState("84");
-  const [adminFeeRate, setAdminFeeRate] = useState("15");
-  const [reserveFundRate, setReserveFundRate] = useState("2.5");
-  const [insuranceRate, setInsuranceRate] = useState("3");
-  const [membershipFeeRate, setMembershipFeeRate] = useState("0");
-
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "consorcio",
-    category: "financas"
+  const defaultINPC = ECONOMIC_INDICATORS.INPC.rate.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("consorcio");
 
-  // Função para processar valor monetário
-  const parseMoneyValue = (value: string | number | undefined): number => {
-    if (!value && value !== 0) {
-      return 0;
+  const [consortiumType, setConsortiumType] = useState<ConsortiumType>("imovel");
+  const [creditValue, setCreditValue] = useState("");
+  const [totalMonths, setTotalMonths] = useState("");
+  const [adminFeeRate, setAdminFeeRate] = useState("20,00");
+  const [participants, setParticipants] = useState("");
+  const [reserveFundRate, setReserveFundRate] = useState("2,00");
+  const [insuranceRate, setInsuranceRate] = useState("0,00");
+  const [membershipFeeRate, setMembershipFeeRate] = useState("0,00");
+  const [result, setResult] = useState<ConsortiumResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "consorcio",
+    category: "financas",
+  });
+  useFormTracking("consorcio");
+
+  const currencyBR = (v: number) =>
+    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  const percentBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+    
+    const credit = parseMoney(creditValue);
+    if (credit <= 0) {
+      newErrors.creditValue = "Valor do crédito obrigatório e maior que 0";
+      ok = false;
     }
-
-    if (typeof value === "number") {
-      return value;
+    
+    const months = parseInt(totalMonths, 10);
+    if (!totalMonths || isNaN(months) || months <= 0 || months > 300) {
+      newErrors.totalMonths = "Prazo deve estar entre 1 e 300 meses";
+      ok = false;
     }
-
-    const stringValue = String(value);
-    const cleanValue = stringValue.replace(/[^\d,.]/g, "");
-
-    if (!cleanValue) {
-      return 0;
+    
+    const adminRate = parseRate(adminFeeRate);
+    if (adminRate <= 0 || adminRate > 0.5) {
+      newErrors.adminFeeRate = "Taxa de administração deve estar entre 0,01% e 50%";
+      ok = false;
     }
-
-    if (cleanValue.includes(",")) {
-      return parseFloat(cleanValue.replace(/\./g, "").replace(",", ".")) || 0;
+    
+    const participantsNum = parseInt(participants, 10);
+    if (!participants || isNaN(participantsNum) || participantsNum < 10 || participantsNum > 1000) {
+      newErrors.participants = "Número de participantes deve estar entre 10 e 1000";
+      ok = false;
     }
-
-    return parseFloat(cleanValue) || 0;
+    
+    const reserveRate = parseRate(reserveFundRate);
+    if (reserveRate < 0 || reserveRate > 0.1) {
+      newErrors.reserveFundRate = "Fundo de reserva deve estar entre 0% e 10%";
+      ok = false;
+    }
+    
+    const insurance = parseRate(insuranceRate);
+    if (insurance < 0 || insurance > 0.05) {
+      newErrors.insuranceRate = "Seguro deve estar entre 0% e 5%";
+      ok = false;
+    }
+    
+    const membershipRate = parseRate(membershipFeeRate);
+    if (membershipRate < 0 || membershipRate > 0.1) {
+      newErrors.membershipFeeRate = "Taxa de adesão deve estar entre 0% e 10%";
+      ok = false;
+    }
+    
+    setErrors(newErrors);
+    return ok;
   };
 
-  // Função para processar percentual
-  const parsePercentValue = (value: string): number => {
-    return parseFloat(value) || 0;
-  };
-
-  // Configurações baseadas no tipo de bem
-  const getDefaultValues = (type: typeof goodType) => {
-    const defaults = {
-      vehicle: { reserveFund: 2.5, maxTerm: 120, minTerm: 60 },
-      property: { reserveFund: 3.0, maxTerm: 200, minTerm: 60 },
-      motorcycle: { reserveFund: 2.0, maxTerm: 100, minTerm: 60 },
-      durables: { reserveFund: 2.5, maxTerm: 120, minTerm: 60 },
+  const calculateConsortium = () => {
+    const credit = parseMoney(creditValue);
+    const months = parseInt(totalMonths, 10);
+    const adminRate = parseRate(adminFeeRate);
+    const participantsNum = parseInt(participants, 10);
+    const reserveRate = parseRate(reserveFundRate);
+    const insurance = parseRate(insuranceRate);
+    const membershipRate = parseRate(membershipFeeRate);
+    
+    // Taxas sobre o valor do crédito
+    const adminFeeTotal = credit * adminRate;
+    const reserveFundTotal = credit * reserveRate;
+    const insuranceTotal = credit * insurance;
+    const membershipFee = credit * membershipRate;
+    
+    // Valor do fundo total (crédito + todas as taxas)
+    const fundValue = credit + adminFeeTotal + reserveFundTotal + insuranceTotal + membershipFee;
+    
+    // Parcela mensal base = fundo / número de meses
+    const monthlyPayment = fundValue / months;
+    
+    // Total pago pelo consorciado
+    const totalPaid = monthlyPayment * months;
+    
+    // Probabilidade de contemplação por sorteio (aproximada)
+    const contemplationProbability = 1 / participantsNum;
+    
+    // Mês médio de contemplação (aproximado)
+    const averageContemplationMonth = participantsNum / 2;
+    
+    // Taxa efetiva anual do consórcio
+    const effectiveRate = (totalPaid / credit - 1) * 100;
+    
+    // Projeção de ajuste pelo INPC
+    const inpcRate = ECONOMIC_INDICATORS.INPC.rate / 100;
+    const projectedAnnualAdjustment = inpcRate * 100;
+    const adjustedMonthlyPaymentINPC = monthlyPayment * (1 + inpcRate);
+    
+    return {
+      monthlyPayment,
+      totalPaid,
+      adminFeeTotal,
+      creditValue: credit,
+      fundValue,
+      contemplationProbability: contemplationProbability * 100,
+      averageContemplationMonth,
+      totalContractMonths: months,
+      adminFeeRate: adminRate * 100,
+      effectiveRate,
+      reserveFundTotal,
+      insuranceTotal,
+      membershipFee,
+      adjustedMonthlyPaymentINPC,
+      projectedAnnualAdjustment
     };
-    return defaults[type];
   };
-
-  // Atualiza valores padrão quando muda o tipo de bem
-  useEffect(() => {
-    const defaults = getDefaultValues(goodType);
-    setReserveFundRate(defaults.reserveFund.toString());
-
-    // Ajusta prazo se necessário
-    const currentTerm = parseInt(termMonths);
-    if (currentTerm > defaults.maxTerm) {
-      setTermMonths(defaults.maxTerm.toString());
-    } else if (currentTerm < defaults.minTerm) {
-      setTermMonths(defaults.minTerm.toString());
-    }
-  }, [goodType]);
-
-  // Cálculo em tempo real
-  useEffect(() => {
-    const calculate = () => {
-      try {
-        const valueNum = parseMoneyValue(value);
-        const termNum = parseInt(termMonths) || 0;
-        const adminFeeNum = parsePercentValue(adminFeeRate);
-        const reserveFundNum = parsePercentValue(reserveFundRate);
-        const insuranceNum = parsePercentValue(insuranceRate);
-        const membershipFeeNum = parsePercentValue(membershipFeeRate);
-
-        if (valueNum > 0 && termNum > 0) {
-          setIsCalculating(true);
-
-          const params: ConsortiumParams = {
-            goodType,
-            calculationMode,
-            value: valueNum,
-            termMonths: termNum,
-            adminFeeRate: adminFeeNum,
-            reserveFundRate: reserveFundNum,
-            insuranceRate: insuranceNum > 0 ? insuranceNum : undefined,
-            membershipFeeRate: membershipFeeNum > 0 ? membershipFeeNum : undefined,
-          };
-
-          const calculationResult = calculateConsortium(params);
-          setResult(calculationResult);
-
-          setTimeout(() => setIsCalculating(false), 100);
-        } else {
-          setResult(null);
-        }
-      } catch (error) {
-        console.error("Erro no cálculo:", error);
-        setResult(null);
-        setIsCalculating(false);
-      }
-    };
-
-    calculate();
-  }, [
-    goodType,
-    calculationMode,
-    value,
-    termMonths,
-    adminFeeRate,
-    reserveFundRate,
-    insuranceRate,
-    membershipFeeRate,
-  ]);
 
   const handleCalculate = () => {
-    // Força recálculo
+    if (!validateInputs()) return;
+    startCalculation("calcular");
     try {
-      const valueNum = parseMoneyValue(value);
-      const termNum = parseInt(termMonths) || 0;
-      const adminFeeNum = parsePercentValue(adminFeeRate);
-      const reserveFundNum = parsePercentValue(reserveFundRate);
-      const insuranceNum = parsePercentValue(insuranceRate);
-      const membershipFeeNum = parsePercentValue(membershipFeeRate);
-
-      if (valueNum > 0 && termNum > 0) {
-        setIsCalculating(true);
-
-        const params: ConsortiumParams = {
-          goodType,
-          calculationMode,
-          value: valueNum,
-          termMonths: termNum,
-          adminFeeRate: adminFeeNum,
-          reserveFundRate: reserveFundNum,
-          insuranceRate: insuranceNum > 0 ? insuranceNum : undefined,
-          membershipFeeRate: membershipFeeNum > 0 ? membershipFeeNum : undefined,
-        };
-
-        const calculationResult = calculateConsortium(params);
-        setResult(calculationResult);
-
-        setTimeout(() => setIsCalculating(false), 100);
-      }
-    } catch (error) {
-      console.error("Erro no cálculo manual:", error);
-      setResult(null);
-      setIsCalculating(false);
+      const res = calculateConsortium();
+      setResult(res);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ creditValue: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setGoodType("vehicle");
-    setCalculationMode("by_value");
-    setValue("100000");
-    setTermMonths("84");
-    setAdminFeeRate("15");
-    setReserveFundRate("2.5");
-    setInsuranceRate("3");
-    setMembershipFeeRate("0");
+    setCreditValue("");
+    setTotalMonths("");
+    setAdminFeeRate("20,00");
+    setParticipants("");
+    setReserveFundRate("2,00");
+    setInsuranceRate("0,00");
+    setMembershipFeeRate("0,00");
     setResult(null);
-    setShowComparison(false);
+    setErrors({});
   };
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
-
-  const formatPercentage = (value: number): string => {
-    return `${value.toFixed(2)}%`;
-  };
-
-  const getGoodTypeLabel = (type: string) => {
-    const labels = {
-      vehicle: "Veículo",
-      property: "Imóvel",
-      motorcycle: "Motocicleta",
-      durables: "Bens Duráveis",
-    };
-    return labels[type as keyof typeof labels];
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 py-8 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem>Consórcio</BreadcrumbItem>
+        <BreadcrumbItem isLast>Consórcio</BreadcrumbItem>
       </Breadcrumb>
 
-      <div className="flex flex-col items-center space-y-8">
-        {/* S-Tier Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-          <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
-            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-              <span className="mr-2">🚗</span>
-              Simulador Completo com Comparativo vs Financiamento
-            </div>
-            
-            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              Calculadora de
-              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-                Consórcio
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-              Simule <strong className="text-finance-gold-dark">consórcios de veículos, imóveis e motos</strong> com precisão.
-              Compare <strong className="text-system-success">vantagens vs financiamento</strong> e tome a
-              melhor decisão financeira.
-            </p>
-            
-            <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
-              <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
-                <div className="text-2xl font-bold text-finance-gold-dark">🚗</div>
-                <div className="text-sm text-text-secondary">Todos os Tipos</div>
-              </div>
-              <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
-                <div className="text-2xl font-bold text-system-success">📊</div>
-                <div className="text-sm text-text-secondary">Taxas Reais 2025</div>
-              </div>
-              <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
-                <div className="text-2xl font-bold text-primary-blue-dark">📈</div>
-                <div className="text-sm text-text-secondary">Projeções</div>
-              </div>
-              <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
-                <div className="text-2xl font-bold text-system-warning">⚡</div>
-                <div className="text-sm text-text-secondary">Comparativo</div>
-              </div>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule as <strong className="text-growth-green">parcelas do seu consórcio</strong>{" "}
+          considerando valor do crédito, prazo e taxa de administração. Compare diferentes grupos e receba{" "}
+          <strong className="text-primary-blue-dark">simulações de contemplação</strong> para apoiar
+          suas decisões.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>Comparação de Grupos</strong> • ⚙️{" "}
+            <strong>Análise de Contemplação</strong>
+          </p>
+        </div>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📋 Configure sua Simulação de Consórcio</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Tipo de Consórcio centralizado */}
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+              <button
+                type="button"
+                onClick={() => setConsortiumType("imovel")}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  consortiumType === "imovel"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Imóvel
+              </button>
+              <button
+                type="button"
+                onClick={() => setConsortiumType("veiculo")}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  consortiumType === "veiculo"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Veículo
+              </button>
+              <button
+                type="button"
+                onClick={() => setConsortiumType("moto")}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  consortiumType === "moto"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Moto
+              </button>
             </div>
           </div>
-        </section>
 
-        {/* Formulário */}
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle as="h2">Dados do Consórcio</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form
-              className="space-y-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleCalculate();
-              }}
-            >
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <Select
-                  label="Tipo de Bem"
-                  value={goodType}
-                  onChange={(value) => setGoodType(value as typeof goodType)}
-                  options={[
-                    { value: "vehicle", label: "Veículo (Carro)" },
-                    { value: "motorcycle", label: "Motocicleta" },
-                    { value: "property", label: "Imóvel" },
-                    { value: "durables", label: "Bens Duráveis" },
-                  ]}
-                  fullWidth
-                />
+          {/* Valor do Crédito, Taxa de Administração, Prazo e Participantes */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <MoneyInput
+                label="Valor do Crédito"
+                value={creditValue}
+                onChange={setCreditValue}
+                placeholder="200.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.creditValue} />
+            </div>
+            <div>
+              <Input
+                type="number"
+                label="Prazo (meses)"
+                value={totalMonths}
+                onChange={(e) => setTotalMonths(e.target.value)}
+                placeholder="120"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.totalMonths} />
+            </div>
+            <div>
+              <RateInput
+                label="Taxa de Administração (%)"
+                value={adminFeeRate}
+                onChange={setAdminFeeRate}
+                placeholder="20,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.adminFeeRate} />
+            </div>
+            <div>
+              <Input
+                type="number"
+                label="Número de Participantes"
+                value={participants}
+                onChange={(e) => setParticipants(e.target.value)}
+                placeholder="100"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.participants} />
+            </div>
+          </div>
 
-                <Select
-                  label="Forma de Cálculo"
-                  value={calculationMode}
-                  onChange={(value) => setCalculationMode(value as typeof calculationMode)}
-                  options={[
-                    { value: "by_value", label: "Por Valor do Bem" },
-                    { value: "by_installment", label: "Por Valor da Parcela" },
-                  ]}
-                  fullWidth
-                />
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <MoneyInput
-                  label={
-                    calculationMode === "by_value" ? "Valor do Bem" : "Valor da Parcela Desejada"
-                  }
-                  value={value}
-                  onChange={setValue}
-                  placeholder="R$ 100.000,00"
-                  help={
-                    calculationMode === "by_value"
-                      ? "Valor total do bem que deseja adquirir"
-                      : "Valor que você quer pagar mensalmente"
-                  }
-                  required
-                  fullWidth
-                />
-
-                <Input
-                  type="number"
-                  label="Prazo do Consórcio (meses)"
-                  value={termMonths}
-                  onChange={(e) => setTermMonths(e.target.value)}
-                  placeholder="84"
-                  min={getDefaultValues(goodType).minTerm}
-                  max={getDefaultValues(goodType).maxTerm}
-                  help={`Entre ${getDefaultValues(goodType).minTerm} e ${getDefaultValues(goodType).maxTerm} meses para ${getGoodTypeLabel(goodType).toLowerCase()}`}
-                  fullWidth
-                />
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <RateInput
-                  label="Taxa de Administração (%)"
-                  value={adminFeeRate}
-                  onChange={setAdminFeeRate}
-                  placeholder="15,00"
-                  help="Média de mercado: 12% a 18%"
-                  min="10"
-                  max="22.5"
-                  fullWidth
-                />
-
+          {/* Campos Opcionais */}
+          <div className="mb-6 rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
+            <h3 className="mb-4 text-lg font-semibold text-text-primary">⚙️ Configurações Adicionais (Opcional)</h3>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div>
                 <RateInput
                   label="Fundo de Reserva (%)"
                   value={reserveFundRate}
                   onChange={setReserveFundRate}
-                  placeholder="2,50"
-                  help="Reserva para inadimplência e despesas"
-                  min="2"
-                  max="5"
+                  placeholder="2,00"
                   fullWidth
+                  className="h-12 text-lg"
                 />
+                <ErrorMessage error={errors.reserveFundRate} />
               </div>
-
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div>
                 <RateInput
                   label="Seguro (% - Opcional)"
                   value={insuranceRate}
                   onChange={setInsuranceRate}
-                  placeholder="3,00"
-                  help="Recomendado para veículos e motos"
-                  min="0"
-                  max="10"
+                  placeholder="0,00"
                   fullWidth
+                  className="h-12 text-lg"
                 />
-
+                <ErrorMessage error={errors.insuranceRate} />
+              </div>
+              <div>
                 <RateInput
                   label="Taxa de Adesão (% - Opcional)"
                   value={membershipFeeRate}
                   onChange={setMembershipFeeRate}
                   placeholder="0,00"
-                  help="Taxa única cobrada no início"
-                  min="0"
-                  max="5"
                   fullWidth
+                  className="h-12 text-lg"
                 />
+                <ErrorMessage error={errors.membershipFeeRate} />
               </div>
+            </div>
+          </div>
 
-              {/* Action Buttons - Prominent S-Tier Design */}
-              <div className="mt-8 space-y-4">
-                <Button 
-                  type="button"
-                  onClick={handleCalculate} 
-                  className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
-                  fullWidth
-                >
-                  🚗 Simular Consórcio
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleReset}
-                  variant="outline"
-                  className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
-                  fullWidth
-                >
-                  🔄 Limpar Campos
-                </Button>
-              </div>
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-              <div className="rounded-lg border border-primary-blue/20 bg-gradient-to-r from-primary-blue/10 to-growth-green/10 p-4">
-                <div className="text-center">
-                  <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                    💡 Diferencial Exclusivo
-                  </h4>
-                  <p className="text-sm text-text-secondary">
-                    🔥 <strong>Simulação Completa:</strong> Nossa calculadora inclui comparativo com
-                    financiamento, projeção de reajustes e todas as taxas do mercado. Veja se
-                    consórcio realmente vale a pena!
-                  </p>
-                  <Button
-                    type="button"
-                    onClick={() => setShowComparison(!showComparison)}
-                    variant="outline"
-                    className="mt-2 text-xs"
-                  >
-                    {showComparison ? "Ocultar" : "Mostrar"} Comparativo Detalhado
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Hero Result Card - S-Tier Prominence */}
-        {result && (
-          <>
-            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
-              <CardContent className="p-8">
-                <div className="text-center">
-                  <div className="mb-3">
-                    <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
-                      🚗 {getGoodTypeLabel(goodType)} - {termMonths} meses
-                    </span>
-                  </div>
-                  <div className="text-5xl font-bold text-finance-gold-dark mb-2">
-                    {formatCurrency(result.monthlyPayment.total)}
-                  </div>
-                  <p className="text-lg text-text-secondary mb-6">
-                    Parcela Mensal do Consórcio
-                  </p>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
-                      <div className="text-2xl font-bold text-system-success">
-                        {formatCurrency(result.totalAmountPaid)}
-                      </div>
-                      <p className="text-sm text-text-secondary mt-1">Total Pago</p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
-                      <div className="text-2xl font-bold text-primary-blue-dark">
-                        {formatCurrency(result.totalCosts)}
-                      </div>
-                      <p className="text-sm text-text-secondary mt-1">Custos Totais</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Detailed Breakdown */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle as="h2">Detalhamento da Simulação</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {/* Valor Principal */}
-                  <div className="rounded-lg bg-gradient-to-r from-primary-blue-light to-growth-green-soft p-6 text-center">
-                    <div className="mb-2 text-3xl font-bold text-primary-blue-dark">
-                      {formatCurrency(result.monthlyPayment.total)}
-                    </div>
-                    <div className="text-sm text-text-secondary">Parcela Mensal do Consórcio</div>
-                    <div className="mt-1 text-xs text-text-secondary">
-                      {getGoodTypeLabel(goodType)} • {termMonths} meses
-                    </div>
-                  </div>
-
-                {/* Breakdown da Parcela */}
-                <div>
-                  <h4 className="mb-3 font-semibold text-text-primary">
-                    💰 Composição da Parcela Mensal:
-                  </h4>
-                  <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                    <div className="flex items-center justify-between rounded border border-growth-green/20 bg-growth-green/10 p-3">
-                      <div>
-                        <div className="font-medium text-growth-green">Fundo Comum</div>
-                        <div className="text-xs text-text-secondary">Valor do bem ÷ prazo</div>
-                      </div>
-                      <div className="font-semibold text-growth-green">
-                        {formatCurrency(result.monthlyPayment.commonFund)}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between rounded border border-system-warning/20 bg-system-warning/10 p-3">
-                      <div>
-                        <div className="font-medium text-system-warning">Taxa de Administração</div>
-                        <div className="text-xs text-text-secondary">{adminFeeRate}% do valor</div>
-                      </div>
-                      <div className="font-semibold text-system-warning">
-                        {formatCurrency(result.monthlyPayment.adminFee)}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between rounded border border-primary-blue/20 bg-primary-blue/10 p-3">
-                      <div>
-                        <div className="font-medium text-primary-blue-dark">Fundo de Reserva</div>
-                        <div className="text-xs text-text-secondary">
-                          {reserveFundRate}% do valor
-                        </div>
-                      </div>
-                      <div className="font-semibold text-primary-blue-dark">
-                        {formatCurrency(result.monthlyPayment.reserveFund)}
-                      </div>
-                    </div>
-
-                    {result.monthlyPayment.insurance > 0 && (
-                      <div className="flex items-center justify-between rounded border border-system-info/20 bg-system-info/10 p-3">
-                        <div>
-                          <div className="font-medium text-system-info">Seguro</div>
-                          <div className="text-xs text-text-secondary">
-                            {insuranceRate}% do valor
-                          </div>
-                        </div>
-                        <div className="font-semibold text-system-info">
-                          {formatCurrency(result.monthlyPayment.insurance)}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Resumo Financeiro */}
-                <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
-                  <div className="rounded bg-neutral-surface/20 p-4 text-center">
-                    <div className="text-lg font-semibold text-text-primary">
-                      {formatCurrency(result.totalValues.goodValue)}
-                    </div>
-                    <div className="text-text-secondary">Valor do Bem</div>
-                  </div>
-
-                  <div className="rounded bg-neutral-surface/20 p-4 text-center">
-                    <div className="text-lg font-semibold text-text-primary">
-                      {formatCurrency(result.totalValues.totalPaid)}
-                    </div>
-                    <div className="text-text-secondary">Total Pago</div>
-                  </div>
-
-                  <div className="rounded bg-neutral-surface/20 p-4 text-center">
-                    <div className="text-lg font-semibold text-system-error">
-                      {formatCurrency(result.totalValues.totalFees)}
-                    </div>
-                    <div className="text-text-secondary">Total em Taxas</div>
-                  </div>
-                </div>
-
-                {/* Projeções */}
-                <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                  <h4 className="mb-3 font-semibold text-system-info">
-                    📈 Projeções com Reajuste Anual:
-                  </h4>
-                  <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
-                    <div>
-                      <p>
-                        <strong>Índice de Reajuste:</strong> {result.projections.adjustmentIndex}
-                      </p>
-                      <p>
-                        <strong>Reajuste Anual:</strong>{" "}
-                        {formatPercentage(result.projections.annualAdjustment)}
-                      </p>
-                    </div>
-                    <div>
-                      <p>
-                        <strong>Última Parcela Estimada:</strong>
-                      </p>
-                      <div className="text-lg font-bold text-system-warning">
-                        {formatCurrency(result.projections.lastInstallment)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Alertas e Recomendações */}
-                {(result.validation.warnings.length > 0 ||
-                  result.validation.recommendations.length > 0) && (
-                  <div className="space-y-3">
-                    {result.validation.warnings.length > 0 && (
-                      <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                        <h4 className="mb-2 font-semibold text-system-error">⚠️ Atenção:</h4>
-                        <ul className="space-y-1 text-sm text-text-secondary">
-                          {result.validation.warnings.map((warning, index) => (
-                            <li key={index}>• {warning}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {result.validation.recommendations.length > 0 && (
-                      <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                        <h4 className="mb-2 font-semibold text-growth-green">💡 Recomendações:</h4>
-                        <ul className="space-y-1 text-sm text-text-secondary">
-                          {result.validation.recommendations.map((recommendation, index) => (
-                            <li key={index}>• {recommendation}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-          </>
-        )}
-
-        {/* Comparativo Detalhado */}
-        {showComparison && result && (
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle as="h3">⚖️ Consórcio vs Financiamento</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  {/* Consórcio */}
-                  <div className="rounded-lg border border-primary-blue bg-primary-blue/5 p-4">
-                    <h4 className="mb-3 font-semibold text-primary-blue-dark">🏆 Consórcio</h4>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Parcela Inicial:</span>
-                        <span className="font-semibold">
-                          {formatCurrency(result.monthlyPayment.total)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Total Pago:</span>
-                        <span className="font-semibold">
-                          {formatCurrency(result.totalValues.totalPaid)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-growth-green">
-                        <span>Economia:</span>
-                        <span className="font-semibold">
-                          {formatCurrency(result.totalValues.savingsVsFinancing)}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <p className="mb-2 text-xs font-semibold text-text-secondary">Vantagens:</p>
-                      <ul className="space-y-1 text-xs text-text-secondary">
-                        {result.comparison.consortiumAdvantages.map((advantage, index) => (
-                          <li key={index}>• {advantage}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Financiamento */}
-                  <div className="rounded-lg border border-system-warning bg-system-warning/5 p-4">
-                    <h4 className="mb-3 font-semibold text-system-warning">💳 Financiamento</h4>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Parcela Fixa:</span>
-                        <span className="font-semibold">
-                          {formatCurrency(result.comparison.financingMonthlyPayment)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Total Pago:</span>
-                        <span className="font-semibold">
-                          {formatCurrency(
-                            result.comparison.financingMonthlyPayment * parseInt(termMonths)
-                          )}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-system-error">
-                        <span>Custo Extra:</span>
-                        <span className="font-semibold">
-                          {formatCurrency(Math.abs(result.totalValues.savingsVsFinancing))}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <p className="mb-2 text-xs font-semibold text-text-secondary">Vantagens:</p>
-                      <ul className="space-y-1 text-xs text-text-secondary">
-                        {result.comparison.financingAdvantages.map((advantage, index) => (
-                          <li key={index}>• {advantage}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4 text-center">
-                  <h4 className="mb-2 font-semibold text-growth-green">🎯 Veredicto</h4>
-                  <p className="text-sm text-text-secondary">
-                    {result.totalValues.savingsVsFinancing > 0
-                      ? `O consórcio pode economizar ${formatCurrency(result.totalValues.savingsVsFinancing)} comparado ao financiamento, mas você precisa aguardar a contemplação.`
-                      : "O financiamento tem custo maior, mas oferece o bem imediatamente. Avalie sua necessidade de urgência."}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Conteúdo Educacional */}
-        <Card className="w-full">
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
-            <CardTitle as="h2">📚 Tudo sobre Consórcio - Guia Completo 2025</CardTitle>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Simulação de Consórcio
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6 text-text-secondary">
-              {/* O que é Consórcio */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  🤔 O que é Consórcio?
-                </h3>
-                <p className="mb-4">
-                  O <strong className="text-primary-blue-dark">consórcio</strong> é um sistema de
-                  compra programada onde um grupo de pessoas se reúne para adquirir bens (carros,
-                  motos, imóveis) ou serviços através de{" "}
-                  <strong className="text-growth-green">sorteios ou lances</strong>.
-                </p>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">✅ Como Funciona:</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Grupo de pessoas paga parcelas mensais</li>
-                      <li>• Formação do fundo comum para compras</li>
-                      <li>• Contemplação por sorteio ou lance</li>
-                      <li>• Contemplado adquire o bem imediatamente</li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      🎯 Tipos de Contemplação:
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Sorteio:</strong> Contemplação gratuita por sorte
-                      </li>
-                      <li>
-                        • <strong>Lance:</strong> Oferta em dinheiro para antecipar
-                      </li>
-                      <li>
-                        • <strong>Natural:</strong> Ordem de entrada no grupo
-                      </li>
-                    </ul>
-                  </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-growth-green">
+                  {currencyBR(result.monthlyPayment)}
                 </div>
-              </section>
+                <div className="text-sm text-text-secondary">Parcela Mensal</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {currencyBR(result.totalPaid)}
+                </div>
+                <div className="text-sm text-text-secondary">Total a Pagar</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {percentBR(result.contemplationProbability, 2)}%
+                </div>
+                <div className="text-sm text-text-secondary">Chance de Contemplação/Mês</div>
+              </div>
+            </div>
 
-              {/* Vantagens e Desvantagens */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  ⚖️ Vantagens vs Desvantagens
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-3 font-semibold text-growth-green">
-                      ✅ Vantagens do Consórcio:
-                    </h4>
-                    <ul className="space-y-2 text-sm">
-                      <li>
-                        • <strong>Sem juros:</strong> Não há incidência de juros sobre o valor
-                      </li>
-                      <li>
-                        • <strong>Menor custo total:</strong> Economia significativa vs
-                        financiamento
-                      </li>
-                      <li>
-                        • <strong>Flexibilidade:</strong> Possibilidade de quitar antecipadamente
-                      </li>
-                      <li>
-                        • <strong>Proteção:</strong> Reajuste apenas por índices oficiais
-                      </li>
-                      <li>
-                        • <strong>Contemplação antecipada:</strong> Chance de sorteio a cada
-                        assembleia
-                      </li>
-                      <li>
-                        • <strong>Crédito pré-aprovado:</strong> Processo mais simples
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                    <h4 className="mb-3 font-semibold text-system-error">
-                      ❌ Desvantagens do Consórcio:
-                    </h4>
-                    <ul className="space-y-2 text-sm">
-                      <li>
-                        • <strong>Tempo de espera:</strong> Não garante contemplação imediata
-                      </li>
-                      <li>
-                        • <strong>Taxa de administração:</strong> Custo fixo mensal obrigatório
-                      </li>
-                      <li>
-                        • <strong>Reajuste anual:</strong> Parcelas aumentam conforme inflação
-                      </li>
-                      <li>
-                        • <strong>Risco de inadimplência:</strong> Afeta todo o grupo
-                      </li>
-                      <li>
-                        • <strong>Lance obrigatório:</strong> Para contemplação antecipada
-                      </li>
-                      <li>
-                        • <strong>Menor liquidez:</strong> Dificuldade para sair antes do fim
-                      </li>
-                    </ul>
-                  </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Taxa de Administração</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {percentBR(result.adminFeeRate, 2)}%
                 </div>
-              </section>
+                <div className="text-sm text-text-secondary">{currencyBR(result.adminFeeTotal)}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Valor do Fundo</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {currencyBR(result.fundValue)}
+                </div>
+                <div className="text-sm text-text-secondary">
+                  Crédito + Taxa Adm
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Mês Médio de Contemplação</div>
+                <div className="text-xl font-bold text-text-primary">{Math.round(result.averageContemplationMonth)}º mês</div>
+              </div>
+            </div>
 
-              {/* Tipos de Consórcio */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  🚗 Tipos de Consórcio Disponíveis
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">
-                      🚙 Consórcio de Veículos
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Prazo:</strong> 60 a 120 meses
-                      </li>
-                      <li>
-                        • <strong>Taxa Admin:</strong> 12% a 18%
-                      </li>
-                      <li>
-                        • <strong>Carros populares:</strong> Grupos grandes, parcelas menores
-                      </li>
-                      <li>
-                        • <strong>Carros premium:</strong> Grupos menores, contemplação mais rápida
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      🏠 Consórcio de Imóveis
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Prazo:</strong> 120 a 200 meses
-                      </li>
-                      <li>
-                        • <strong>Taxa Admin:</strong> 15% a 20%
-                      </li>
-                      <li>
-                        • <strong>Valores altos:</strong> Contemplação pode demorar mais
-                      </li>
-                      <li>
-                        • <strong>Uso para reforma:</strong> Também aceito pela maioria
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      🏍️ Consórcio de Motos
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Prazo:</strong> 60 a 100 meses
-                      </li>
-                      <li>
-                        • <strong>Taxa Admin:</strong> 10% a 16%
-                      </li>
-                      <li>
-                        • <strong>Contemplação rápida:</strong> Grupos menores
-                      </li>
-                      <li>
-                        • <strong>Parcelas baixas:</strong> Mais acessível
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      📱 Consórcio de Bens
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Eletrônicos:</strong> Celulares, notebooks, TVs
-                      </li>
-                      <li>
-                        • <strong>Eletrodomésticos:</strong> Geladeira, fogão, máquina
-                      </li>
-                      <li>
-                        • <strong>Prazo:</strong> 60 a 120 meses
-                      </li>
-                      <li>
-                        • <strong>Valores:</strong> R$ 2.000 a R$ 50.000
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </section>
+            {result.totalContractMonths > 120 && (
+              <div className="mb-6 rounded border border-system-warning/20 bg-system-warning/10 p-3 text-sm text-system-warning">
+                ⚠️ Prazos longos (acima de 10 anos) podem apresentar maior risco de inadimplência do grupo.
+                Considere grupos menores e mais consolidados.
+              </div>
+            )}
 
-              {/* Dicas Importantes */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  💡 Dicas para Escolher o Melhor Consórcio
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">🔍 Antes de Aderir</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Compare taxas de administração</li>
-                      <li>• Verifique reputação da administradora</li>
-                      <li>• Leia todo o contrato</li>
-                      <li>• Entenda as regras de contemplação</li>
-                      <li>• Calcule o custo total</li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      📊 Durante o Consórcio
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Mantenha pagamentos em dia</li>
-                      <li>• Participe das assembleias</li>
-                      <li>• Monitore o fundo de reserva</li>
-                      <li>• Considere lances estratégicos</li>
-                      <li>• Acompanhe reajustes</li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      ⚠️ Cuidados Importantes
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Não acredite em "garantia" de contemplação</li>
-                      <li>• Evite empresas sem registro no Banco Central</li>
-                      <li>• Desconfie de taxas muito baixas</li>
-                      <li>• Leia todas as cláusulas</li>
-                      <li>• Guarde todos os comprovantes</li>
-                    </ul>
+            {/* Seção de Projeção INPC */}
+            <div className="mb-6 rounded-lg border border-system-info/20 bg-system-info/10 p-4">
+              <h4 className="mb-3 font-semibold text-system-info">📈 Projeção de Reajuste pelo INPC</h4>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Parcela Atual</div>
+                  <div className="text-2xl font-bold text-text-primary">
+                    {currencyBR(result.monthlyPayment)}
                   </div>
                 </div>
-              </section>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Parcela Projetada (próximo ano)</div>
+                  <div className="text-2xl font-bold text-system-info">
+                    {currencyBR(result.adjustedMonthlyPaymentINPC)}
+                  </div>
+                  <div className="text-xs text-text-secondary">
+                    Reajuste estimado: +{percentBR(result.projectedAnnualAdjustment, 2)}% (INPC)
+                  </div>
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-text-secondary">
+                * Projeção baseada no INPC atual ({percentBR(ECONOMIC_INDICATORS.INPC.rate, 2)}% a.a.). 
+                Reajustes reais podem variar conforme índice oficial no período.
+              </p>
+            </div>
+
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo Técnico</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Valor do crédito: <strong>{currencyBR(result.creditValue)}</strong>
+                </li>
+                <li>
+                  Taxa de administração: <strong>{currencyBR(result.adminFeeTotal)}</strong>
+                </li>
+                {result.reserveFundTotal > 0 && (
+                  <li>
+                    Fundo de reserva: <strong>{currencyBR(result.reserveFundTotal)}</strong>
+                  </li>
+                )}
+                {result.insuranceTotal > 0 && (
+                  <li>
+                    Seguro: <strong>{currencyBR(result.insuranceTotal)}</strong>
+                  </li>
+                )}
+                {result.membershipFee > 0 && (
+                  <li>
+                    Taxa de adesão: <strong>{currencyBR(result.membershipFee)}</strong>
+                  </li>
+                )}
+                <li>
+                  Valor do fundo do grupo: <strong>{currencyBR(result.fundValue)}</strong>
+                </li>
+                <li>
+                  Taxa efetiva do consórcio: <strong>{percentBR(result.effectiveRate, 2)}%</strong>
+                </li>
+                <li>
+                  Prazo total do contrato: <strong>{result.totalContractMonths} meses</strong>
+                </li>
+              </ul>
             </div>
           </CardContent>
         </Card>
+      )}
 
-        <FAQ
-          title="Perguntas Frequentes - Calculadora de Consórcio"
-          items={[
-            {
-              question: "Como funciona o sistema de sorteio no consórcio e quais minhas chances?",
-              answer:
-                "O sorteio acontece <strong>mensalmente nas assembleias</strong>, com chances iguais para todos os não contemplados. O número de contemplados por sorteio depende do tamanho do grupo. É <strong>totalmente aleatório</strong> e fiscalizado pelo Banco Central.",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Posso dar lance mesmo não tendo o dinheiro todo disponível?",
-              answer:
-                "<strong>Sim!</strong> O lance pode ser parcelado junto com as mensalidades restantes. Exemplo: lance de R$ 10.000 divide pelas parcelas que faltam. <strong>Atenção:</strong> certifique-se de conseguir pagar o valor aumentado das parcelas.",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como é calculado o reajuste anual das parcelas do consórcio?",
-              answer:
-                "O reajuste é baseado em <strong>índices oficiais</strong> como INPC ou IGP-M, definidos no contrato. Ocorre no aniversário do grupo para <strong>manter o poder de compra</strong> do fundo comum, compensando a inflação.",
-              borderColor: "system-warning",
-            },
-            {
-              question: "Posso escolher qualquer marca/modelo de veículo no consórcio?",
-              answer:
-                "Depende do tipo: <strong>Consórcios de carta de crédito</strong> permitem qualquer marca/modelo dentro do valor. <strong>Consórcios específicos</strong> limitam marcas/modelos. Sempre verifique no contrato!",
-              borderColor: "system-info",
-            },
-            {
-              question: "Consórcio de imóvel serve para financiar construção ou reforma?",
-              answer:
-                "<strong>Sim!</strong> Muitos consórcios imobiliários permitem usar o crédito para <strong>compra de terreno + construção, reforma ou ampliação</strong>. É necessário apresentar projetos e orçamentos aprovados.",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Qual o prazo médio para ser contemplado no consórcio?",
-              answer:
-                "Não há prazo garantido, mas estatisticamente <strong>50% são contemplados até a metade do prazo</strong>. Grupos pequenos têm contemplação mais rápida. Com lance, contemplação é <strong>imediata</strong> (se ganhar o leilão).",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Posso sair do consórcio antes de ser contemplado? Perco dinheiro?",
-              answer:
-                "Sim, mas há regras: <strong>Desistência</strong> = recebe de volta só no final do grupo. <strong>Inadimplência</strong> = pode perder parte do valor. <strong>Transferência de cota</strong> = venda para terceiros (se permitido).",
-              borderColor: "system-error-dark",
-            },
-            {
-              question: "O consórcio é regulamentado e seguro para investir?",
-              answer:
-                "<strong>Totalmente seguro!</strong> É regulamentado pelo <strong>Banco Central do Brasil</strong> (Circular 3.432). Administradoras precisam de autorização, manter reservas e seguir regras rígidas. Sempre verifique o registro no BC!",
-              borderColor: "system-success",
-            },
-          ]}
-          tipSection={{
-            title: "Dica de Especialista",
-            content:
-              "Para <strong>maximizar suas chances</strong>, prefira grupos menores, considere dar lances estratégicos nos primeiros meses e sempre mantenha as parcelas em dia para não perder seus direitos!",
-          }}
-          footerText="<strong>Quer simular diferentes cenários?</strong> Nossa calculadora oferece comparação completa entre consórcio e financiamento, ajudando você a tomar a melhor decisão financeira!"
-        />
+      {/* Seção: Detalhes dos Tipos de Consórcio - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎯 Tipos de Consórcio – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Consórcio de Imóveis */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🏠 Consórcio de Imóveis
+              </h3>
 
-        <RelatedCalculators category="financas" currentCalculatorId="consorcio" />
-      </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Sistema de aquisição programada de imóveis através de grupo organizado,
+                    onde os participantes pagam parcelas mensais até serem contemplados.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Funcionamento</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Contemplação por sorteio mensal</li>
+                    <li>• Possibilidade de lance para antecipar</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Valores menores que financiamento</li>
+                    <li>• Não há juros sobre o crédito</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Não há garantia de quando será contemplado</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Consórcio de Veículos */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🚗 Consórcio de Veículos
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Modalidade focada na aquisição de automóveis, caminhões e outros veículos,
+                    com prazos menores e valores mais acessíveis.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Prazos de 30 a 100 meses</li>
+                    <li>• Grupos menores que imóveis</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Contemplação mais rápida</li>
+                    <li>• Flexibilidade de marca e modelo</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Depreciação do veículo durante o prazo</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Consórcio de Motos */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🏍️ Consórcio de Motos
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Opção mais acessível para aquisição de motocicletas, com valores
+                    menores e prazos reduzidos comparado aos outros consórcios.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Perfil</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Prazos de 24 a 60 meses</li>
+                    <li>• Parcelas mais baixas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Entrada facilitada no mercado</li>
+                    <li>• Contemplação mais ágil</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Alta depreciação do bem</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Componentes do Consórcio */}
+      <Card className="border-l-4 border-system-info bg-gradient-to-r from-system-info/10 to-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🧾 Componentes dos Custos do Consórcio
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="space-y-4">
+              <div className="rounded-lg border border-primary-blue/20 bg-gray-900 p-4">
+                <h4 className="mb-2 font-bold text-primary-blue-dark">📊 Taxa de Administração</h4>
+                <p className="text-sm text-text-secondary">
+                  Principal custo do consórcio, varia de 15% a 35% do valor do crédito. 
+                  É dividida entre todas as parcelas mensais do grupo.
+                </p>
+              </div>
+              
+              <div className="rounded-lg border border-growth-green/20 bg-gray-900 p-4">
+                <h4 className="mb-2 font-bold text-growth-green">🛡️ Fundo de Reserva</h4>
+                <p className="text-sm text-text-secondary">
+                  Geralmente 1% a 3% do crédito. Protege o grupo contra inadimplência 
+                  e é devolvido proporcionalmente no encerramento.
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="rounded-lg border border-system-warning/20 bg-gray-900 p-4">
+                <h4 className="mb-2 font-bold text-system-warning">🔒 Seguro (Opcional)</h4>
+                <p className="text-sm text-text-secondary">
+                  Protege contra morte e invalidez permanente. Varia de 0,1% a 2% 
+                  do crédito conforme idade e tipo de bem.
+                </p>
+              </div>
+              
+              <div className="rounded-lg border border-system-info/20 bg-gray-900 p-4">
+                <h4 className="mb-2 font-bold text-system-info">📝 Taxa de Adesão (Opcional)</h4>
+                <p className="text-sm text-text-secondary">
+                  Cobrada uma única vez na entrada. Varia de 0,5% a 5% do crédito, 
+                  dependendo da administradora e modalidade.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-6 rounded-lg border border-system-info/30 bg-system-info/5 p-4">
+            <h4 className="mb-2 font-bold text-system-info">📈 Reajuste pelo INPC</h4>
+            <p className="text-sm text-text-secondary">
+              As parcelas do consórcio são reajustadas anualmente pelo INPC (Índice Nacional de 
+              Preços ao Consumidor), que mede a inflação. Este reajuste mantém o poder de compra 
+              das parcelas ao longo do tempo. A simulação mostra a projeção baseada no INPC atual.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Tipos de Consórcio */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Qual Consórcio Escolher?
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Consórcio de Imóveis
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Consórcio de Veículos</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Consórcio de Motos
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Valor Típico</td>
+                  <td className="p-3 text-center text-primary-blue-dark">R$ 150k - R$ 800k</td>
+                  <td className="p-3 text-center text-growth-green">R$ 30k - R$ 150k</td>
+                  <td className="p-3 text-center text-system-warning">R$ 8k - R$ 30k</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Prazo Típico</td>
+                  <td className="p-3 text-center">⭐⭐⭐ (100-200 meses)</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐ (60-100 meses)</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐ (30-60 meses)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Velocidade de Contemplação</td>
+                  <td className="p-3 text-center text-system-warning">Mais lenta</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Média</td>
+                  <td className="p-3 text-center text-growth-green">Mais rápida</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Taxa de Administração</td>
+                  <td className="p-3 text-center">15% - 25%</td>
+                  <td className="p-3 text-center">18% - 30%</td>
+                  <td className="p-3 text-center">20% - 35%</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Indicado para</td>
+                  <td className="p-3 text-center">Aquisição de imóvel</td>
+                  <td className="p-3 text-center">Troca ou primeiro veículo</td>
+                  <td className="p-3 text-center">Mobilidade urbana</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Perfil do Investidor</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Longo prazo, paciencia</td>
+                  <td className="p-3 text-center text-growth-green">Médio prazo, flexível</td>
+                  <td className="p-3 text-center text-system-warning">Curto prazo, ágil</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Longo Prazo</h4>
+              <p className="text-sm text-text-secondary">
+                Escolha <strong>Consórcio de Imóveis</strong> se tem paciencia e quer realizar o sonho da casa própria.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">🚗 Equilibrado</h4>
+              <p className="text-sm text-text-secondary">
+                Prefira <strong>Consórcio de Veículos</strong> para ter flexibilidade entre prazo e contemplação.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">🏍️ Rápido</h4>
+              <p className="text-sm text-text-secondary">
+                Opte por <strong>Consórcio de Motos</strong> para contemplação mais ágil e parcelas menores.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <FAQ
+        title="Perguntas Frequentes - Calculadora de Consórcio"
+        items={[
+          {
+            question: "O que é um consórcio?",
+            answer:
+              "Consórcio é um sistema de aquisição programada de bens (imóveis, veículos, motos) por meio de grupo organizado, onde participantes pagam parcelas mensais até serem contemplados por sorteio ou lance.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Como funciona a contemplação?",
+            answer:
+              "A contemplação ocorre por sorteio mensal ou lance. No sorteio, todos têm chances iguais. No lance, quem oferece maior valor tem prioridade. A contemplação dá direito ao crédito para aquisição do bem.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Posso sair do consórcio antes de ser contemplado?",
+            answer:
+              "Sim, mas há regras específicas. Se sair por desistência, recebe os valores pagos corrigidos após o encerramento do grupo, deduzindo taxas. Se for excluído por inadimplência, as regras são mais restritivas.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Qual é a taxa de administração do consórcio?",
+            answer:
+              "A taxa varia conforme o bem e administradora: imóveis (15-25%), veículos (18-30%), motos (20-35%). Esta taxa é cobrada sobre o valor do crédito e divide-se entre todas as parcelas do grupo.",
+            borderColor: "system-warning",
+          },
+          {
+            question: "Consórcio tem garantia ou seguro?",
+            answer:
+              "Consórcios são regulamentados pelo Banco Central e as administradoras devem manter reservas. Não há garantia do FGC, mas existe regulação específica que protege os consorciados em caso de problemas da administradora.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "O que é o fundo de reserva e seguro do consórcio?",
+            answer:
+              "O fundo de reserva (1-3% do crédito) protege contra inadimplência e é devolvido no final. O seguro (opcional, 0,1-2%) cobre morte e invalidez. A taxa de adesão (opcional, 0,5-5%) é paga uma única vez na entrada.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Como funciona o reajuste pelo INPC?",
+            answer:
+              "As parcelas são reajustadas anualmente pelo INPC para manter o poder de compra. Este índice mede a inflação e garante que o valor das parcelas acompanhe o custo de vida. O reajuste é aplicado a todos os participantes.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Como escolher entre consórcio, financiamento ou poupança?",
+            answer:
+              "Consórcio é ideal para quem tem disciplina e não tem pressa. Financiamento dá posse imediata mas custa mais. Poupança é mais segura mas pode não acompanhar a inflação do bem desejado.",
+            borderColor: "system-error-dark",
+          },
+        ]}
+        tipSection={{
+          title: "Dica Importante sobre Consórcio",
+          content:
+            "<strong>Para a melhor escolha:</strong> avalie sua capacidade de pagamento, urgência na aquisição e tolerância à incerteza. Consórcios são excelentes para planejamento de longo prazo.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Compare taxas de administração, tamanho do grupo e histórico da administradora antes de aderir ao consórcio."
+      />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Consórcio
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta <strong className="text-primary-blue-dark">calculadora de consórcio</strong> utiliza{" "}
+              <strong className="text-growth-green">simulações financeiras</strong> para estimar as
+              parcelas mensais, probabilidade de contemplação e custo total de diferentes tipos de consórcio.
+            </p>
+            <p>
+              <strong>Modalidades disponíveis:</strong> Consórcio de Imóveis, Veículos e Motos.
+              Cada modalidade tem características próprias de prazo, valor e velocidade de contemplação.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e de planejamento pessoal. Para decisões de adesão, consulte
+              sempre um <strong>especialista em consórcios</strong> e
+              analise as condições da administradora escolhida.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🔎 Foco didático • 💰 Simulações realistas • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <RelatedCalculators category="financas" currentCalculatorId="consorcio" />
     </div>
   );
 }
