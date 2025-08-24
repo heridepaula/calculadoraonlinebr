@@ -1,220 +1,393 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
-  MoneyInput,
-  RateInput,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  LineChart,
-  BarChart,
-  Select,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  calculatePayrollLoan,
-  type PayrollLoanParams,
-  type PayrollLoanResult,
-} from "~/utils/calculations";
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora Empréstimo Consignado 2025 - Simulador CLT, Servidor e Aposentado - ${APP_NAME}`,
+      title: "Calculadora de Empréstimo Consignado 2025 – Simulador Completo | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "★ Calculadora de empréstimo consignado COMPLETA e GRATUITA para CLT, servidores públicos e aposentados. Simule parcelas, analise margem consignável, compare taxas e descubra o melhor consignado para seu perfil. Análise de affordability e comparação com outras modalidades de crédito.",
+        "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas. Descubra valor líquido, total de juros e compare modalidades para aposentados e servidores.",
     },
     {
       name: "keywords",
       content:
-        "calculadora empréstimo consignado, consignado CLT, consignado servidor público, consignado aposentado, margem consignável, simulador consignado, taxa empréstimo consignado, parcela consignado, consignado INSS, consignado folha pagamento, crédito consignado, empréstimo desconto folha, consignado pensionista, consignado vs crediário, melhor empréstimo consignado, como funciona consignado, limite consignado, consignado banco, consignado correspondente bancário, consignado fintech, portabilidade consignado",
+        "calculadora empréstimo consignado, simulador consignado, parcela consignado, CET, IOF, juros consignado, aposentado, servidor público",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+    },
     {
       property: "og:title",
-      content: `Calculadora Empréstimo Consignado - Simulador Completo 2025 - ${APP_NAME}`,
+      content: "Calculadora de Empréstimo Consignado 2025 – Simulador Completo",
     },
     {
       property: "og:description",
       content:
-        "★ Simule seu empréstimo consignado com precisão! Analise margem consignável, compare taxas por instituição e descubra a melhor opção para CLT, servidor ou aposentado. 100% gratuito!",
+        "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas. Descubra valor líquido, total de juros e compare modalidades para aposentados e servidores.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Empréstimo Consignado - Simule parcelas, CET e IOF para aposentados e servidores",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/financas/emprestimo-consignado",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
-      content: `Simulador Empréstimo Consignado CLT/Servidor - ${APP_NAME}`,
+      content: "Calculadora de Empréstimo Consignado 2025 – Simulador Completo",
     },
     {
       name: "twitter:description",
       content:
-        "Simule empréstimos consignados com análise completa de margem! Compare taxas, calcule parcelas e tome decisões financeiras inteligentes.",
+        "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas. Descubra valor líquido e total de juros.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#059669" },
-    { name: "theme-color", content: "#059669" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Empréstimo Consignado - Simule parcelas e taxas",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Empréstimo Consignado - Simulador Completo 2025",
+        description:
+          "Simulador gratuito de empréstimo consignado com cálculo de parcelas, CET, IOF e taxas para aposentados, pensionistas e servidores públicos.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-01-24",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+          name: "Calculadora de Empréstimo Consignado 2025 - Simulador Completo",
+          description:
+            "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas para aposentados, pensionistas e servidores públicos.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Calculadora de Empréstimo Consignado",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "FinancialProduct",
+          name: "Empréstimo Consignado",
+          description: "Modalidade de crédito com desconto em folha para aposentados, pensionistas e servidores",
+          category: "Loan",
+        },
+        featureList: [
+          "Simulação de parcelas de empréstimo consignado",
+          "Cálculo de CET (Custo Efetivo Total)",
+          "Cálculo de IOF",
+          "Comparação de modalidades",
+          "Análise de margem consignável",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
+      }),
+    },
   ];
 };
 
-export default function PayrollLoanCalculator() {
-  const [loanAmount, setLoanAmount] = useState("");
-  const [interestRate, setInterestRate] = useState("");
-  const [termMonths, setTermMonths] = useState("");
-  const [grossSalary, setGrossSalary] = useState("");
-  const [employeeType, setEmployeeType] = useState<
-    "clt" | "public_servant" | "retiree" | "pensioner"
-  >("clt");
-  const [hasOtherConsignados, setHasOtherConsignados] = useState(false);
-  const [otherConsignadosAmount, setOtherConsignadosAmount] = useState("");
-  const [institutionType, setInstitutionType] = useState<"bank" | "correspondent" | "fintech">(
-    "bank"
-  );
-  const [hasInsurance, setHasInsurance] = useState(false);
-  const [insuranceCost, setInsuranceCost] = useState("");
-  const [age, setAge] = useState("");
-  const [result, setResult] = useState<PayrollLoanResult | null>(null);
-  const [calculationMode, setCalculationMode] = useState<"loan_amount" | "desired_payment">(
-    "loan_amount"
-  );
-  const [desiredPayment, setDesiredPayment] = useState("");
-  const [showAmortization, setShowAmortization] = useState(false);
+type LoanType = "aposentado" | "servidor" | "pensionista" | "clt";
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "emprestimo_consignado",
-    category: "financas"
+interface PayrollLoanResult {
+  monthlyPayment: number;
+  totalAmount: number;
+  totalInterest: number;
+  liquidValue: number;
+  iofAmount: number;
+  cetPercentage: number;
+  effectiveRate: number;
+  marginUsed: number;
+}
+
+interface ValidationErrors {
+  loanAmount?: string;
+  months?: string;
+  monthlyRate?: string;
+  salary?: string;
+}
+
+export default function PayrollLoanCalculator() {
+  const [loanType, setLoanType] = useState<LoanType>("aposentado");
+  const [loanAmount, setLoanAmount] = useState("");
+  const [months, setMonths] = useState("");
+  const [monthlyRate, setMonthlyRate] = useState("2,50");
+  const [salary, setSalary] = useState("");
+  const [result, setResult] = useState<PayrollLoanResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "emprestimo-consignado",
+    category: "financas",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("emprestimo_consignado");
+  useFormTracking("emprestimo-consignado");
+
+  const currencyBR = (v: number) =>
+    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  const percentBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
+
+  const getIOFFactor = (d: number) => (d <= 0 ? 1 : d >= 30 ? 0 : (30 - d) / 30);
+  const getIRRate = (d: number) => (d <= 180 ? 0.225 : d <= 360 ? 0.2 : d <= 720 ? 0.175 : 0.15);
+
+  const getMaxMargin = (type: LoanType): number => {
+    switch (type) {
+      case "aposentado":
+      case "pensionista":
+        return 0.35; // 35%
+      case "servidor":
+      case "clt":
+        return 0.30; // 30%
+      default:
+        return 0.30;
+    }
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+    const loan = parseMoney(loanAmount);
+    if (loan <= 0) {
+      newErrors.loanAmount = "Valor do empréstimo obrigatório e maior que 0";
+      ok = false;
+    }
+    const m = parseInt(months, 10);
+    if (!months || isNaN(m) || m <= 0) {
+      newErrors.months = "Prazo (meses) obrigatório e maior que 0";
+      ok = false;
+    }
+    if (parseRate(monthlyRate) <= 0) {
+      newErrors.monthlyRate = "Taxa mensal deve ser > 0";
+      ok = false;
+    }
+    const sal = parseMoney(salary);
+    if (sal <= 0) {
+      newErrors.salary = "Salário/benefício obrigatório e maior que 0";
+      ok = false;
+    }
+    
+    // Validação da margem consignável
+    if (loan > 0 && sal > 0 && m > 0) {
+      const rate = parseRate(monthlyRate);
+      const monthlyPayment = loan * (rate * Math.pow(1 + rate, m)) / (Math.pow(1 + rate, m) - 1);
+      const maxMargin = getMaxMargin(loanType);
+      const maxPayment = sal * maxMargin;
+      
+      if (monthlyPayment > maxPayment) {
+        const maxLoanAmount = maxPayment * (Math.pow(1 + rate, m) - 1) / (rate * Math.pow(1 + rate, m));
+        newErrors.loanAmount = `Valor excede margem consignável. Máximo: ${currencyBR(maxLoanAmount)} (${percentBR(maxMargin * 100, 0)}% de ${currencyBR(sal)})`;
+        ok = false;
+      }
+    }
+    
+    setErrors(newErrors);
+    return ok;
+  };
+
 
   const handleCalculate = () => {
-    const loanAmountNum = parseFloat(loanAmount) || 0;
-    const interestRateNum = parseFloat(interestRate) || 0;
-    const termMonthsNum = parseFloat(termMonths) || 0;
-    const grossSalaryNum = parseFloat(grossSalary) || 0;
-    const otherConsignadosAmountNum = hasOtherConsignados
-      ? parseFloat(otherConsignadosAmount) || 0
-      : 0;
-    const insuranceCostNum = hasInsurance ? parseFloat(insuranceCost) || 0 : 0;
-    const ageNum = age ? parseFloat(age) : undefined;
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const loan = parseMoney(loanAmount);
+      const m = parseInt(months, 10);
+      const rate = parseRate(monthlyRate);
+      const sal = parseMoney(salary);
 
-    if (grossSalaryNum > 0 && interestRateNum > 0 && termMonthsNum > 0) {
-      let finalLoanAmount = loanAmountNum;
+      // Cálculo da parcela usando fórmula de amortização
+      const monthlyPayment = loan * (rate * Math.pow(1 + rate, m)) / (Math.pow(1 + rate, m) - 1);
+      
+      // Total a ser pago
+      const totalAmount = monthlyPayment * m;
+      
+      // Total de juros
+      const totalInterest = totalAmount - loan;
+      
+      // IOF sobre o valor do empréstimo (0,38% do valor + 0,0082% por dia, limitado a 30 dias)
+      const iofRate = 0.0038; // 0,38%
+      const iofDaily = 0.000082; // 0,0082% ao dia
+      const daysIOF = Math.min(30, m * 30); // Considera 30 dias por mês, limitado a 30 dias
+      const iofAmount = loan * (iofRate + (iofDaily * daysIOF));
+      
+      // Valor líquido (valor solicitado - IOF)
+      const liquidValue = loan - iofAmount;
+      
+      // CET (Custo Efetivo Total) - taxa equivalente mensal
+      const cetPercentage = rate * 100;
+      
+      // Taxa efetiva anual
+      const effectiveRate = (Math.pow(1 + rate, 12) - 1) * 100;
+      
+      // Margem consignável usada
+      const maxMargin = getMaxMargin(loanType);
+      const marginUsed = (monthlyPayment / sal) * 100;
 
-      // If calculating by desired payment, reverse calculate loan amount
-      if (calculationMode === "desired_payment" && desiredPayment) {
-        const desiredPaymentNum = parseFloat(desiredPayment) || 0;
-        const monthlyRate = interestRateNum / 100;
-        finalLoanAmount =
-          (desiredPaymentNum * (Math.pow(1 + monthlyRate, termMonthsNum) - 1)) /
-          (monthlyRate * Math.pow(1 + monthlyRate, termMonthsNum));
-      }
+      const res: PayrollLoanResult = {
+        monthlyPayment,
+        totalAmount,
+        totalInterest,
+        liquidValue,
+        iofAmount,
+        cetPercentage,
+        effectiveRate,
+        marginUsed,
+      };
 
-      if (finalLoanAmount > 0) {
-        const params: PayrollLoanParams = {
-          loanAmount: finalLoanAmount,
-          interestRate: interestRateNum,
-          termMonths: termMonthsNum,
-          grossSalary: grossSalaryNum,
-          employeeType,
-          hasOtherConsignados,
-          otherConsignadosAmount: otherConsignadosAmountNum,
-          institutionType,
-          hasInsurance,
-          insuranceCost: insuranceCostNum,
-          age: ageNum,
-        };
-
-        const calculationResult = calculatePayrollLoan(params);
-        setResult(calculationResult);
-
-        // Update loan amount if we calculated from desired payment
-        if (calculationMode === "desired_payment") {
-          setLoanAmount(finalLoanAmount.toFixed(2));
-        }
-      }
+      setResult(res);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ loanAmount: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
     setLoanAmount("");
-    setInterestRate("");
-    setTermMonths("");
-    setGrossSalary("");
-    setEmployeeType("clt");
-    setHasOtherConsignados(false);
-    setOtherConsignadosAmount("");
-    setInstitutionType("bank");
-    setHasInsurance(false);
-    setInsuranceCost("");
-    setAge("");
-    setDesiredPayment("");
+    setMonths("");
+    setMonthlyRate("2,50");
+    setSalary("");
     setResult(null);
-    setShowAmortization(false);
+    setErrors({});
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
-
-  const formatPercentage = (value: number) =>
-    new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 2 }).format(
-      value / 100
-    );
-
-  const getEmployeeTypeLabel = (type: string) => {
-    const labels = {
-      clt: "CLT (Carteira Assinada)",
-      public_servant: "Servidor Público",
-      retiree: "Aposentado INSS",
-      pensioner: "Pensionista",
-    };
-    return labels[type as keyof typeof labels] || type;
-  };
-
-  const getRiskColor = (level: "low" | "medium" | "high") => {
-    const colors = {
-      low: "system-success",
-      medium: "system-warning",
-      high: "system-error",
-    };
-    return colors[level];
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
@@ -225,898 +398,405 @@ export default function PayrollLoanCalculator() {
         <BreadcrumbItem isLast>Empréstimo Consignado</BreadcrumbItem>
       </Breadcrumb>
 
-      {/* S-Tier Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
-          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-            <span className="mr-2">💳</span>
-            Simulador com Análise de Margem Consignável
-          </div>
-          
-          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-            Calculadora de
-            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-              Empréstimo Consignado
-            </span>
-          </h1>
-          
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-            Simule <strong className="text-finance-gold-dark">empréstimos consignados</strong> para
-            CLT, servidores e aposentados. Analise <strong className="text-system-success">margem consignável</strong>
-            e compare as melhores taxas do mercado.
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Empréstimo Consignado 2025 – Simulador Completo
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule a <strong className="text-growth-green">parcela do seu empréstimo consignado</strong>{" "}
+          considerando valor, prazo e taxa de juros. Compare modalidades e receba{" "}
+          <strong className="text-primary-blue-dark">análise de margem consignável</strong> para apoiar
+          suas decisões.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>Análise de CET</strong> • ⚙️{" "}
+            <strong>Margem Consignável</strong>
           </p>
-          
-          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-3 lg:gap-6">
-            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
-              <div className="text-2xl font-bold text-system-success">💳</div>
-              <div className="text-sm text-text-secondary">Margem Consignável</div>
-            </div>
-            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
-              <div className="text-2xl font-bold text-finance-gold-dark">📊</div>
-              <div className="text-sm text-text-secondary">Compare Taxas</div>
-            </div>
-            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
-              <div className="text-2xl font-bold text-primary-blue-dark">🎯</div>
-              <div className="text-sm text-text-secondary">Perfil Personalizado</div>
+        </div>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📋 Configure sua Simulação de Empréstimo Consignado</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Tipo de Beneficiário centralizado */}
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+              <button
+                type="button"
+                onClick={() => setLoanType("aposentado")}
+                className={`min-w-[100px] flex-1 basis-0 py-3 text-center text-sm font-medium transition ${
+                  loanType === "aposentado"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Aposentado
+              </button>
+              <button
+                type="button"
+                onClick={() => setLoanType("servidor")}
+                className={`min-w-[100px] flex-1 basis-0 py-3 text-center text-sm font-medium transition ${
+                  loanType === "servidor"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Servidor
+              </button>
+              <button
+                type="button"
+                onClick={() => setLoanType("pensionista")}
+                className={`min-w-[100px] flex-1 basis-0 py-3 text-center text-sm font-medium transition ${
+                  loanType === "pensionista"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Pensionista
+              </button>
+              <button
+                type="button"
+                onClick={() => setLoanType("clt")}
+                className={`min-w-[100px] flex-1 basis-0 py-3 text-center text-sm font-medium transition ${
+                  loanType === "clt"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                CLT
+              </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Left Column - Calculator Inputs */}
-        <div className="space-y-6 lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">👤 Dados Pessoais e Profissionais</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Input
-                  type="number"
-                  label="Salário Bruto (R$)"
-                  value={grossSalary}
-                  onChange={(e) => setGrossSalary(e.target.value)}
-                  placeholder="Ex: 5000"
-                  min="0"
-                  step="100"
-                  required
-                  fullWidth
-                />
-
-                <Select
-                  label="Tipo de Vínculo"
-                  value={employeeType}
-                  onChange={(value) => setEmployeeType(value as typeof employeeType)}
-                  options={[
-                    { value: "clt", label: "CLT (Carteira Assinada)" },
-                    { value: "public_servant", label: "Servidor Público" },
-                    { value: "retiree", label: "Aposentado INSS" },
-                    { value: "pensioner", label: "Pensionista" },
-                  ]}
-                  fullWidth
-                />
-
-                <Input
-                  type="number"
-                  label="Idade (Opcional)"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  placeholder="Ex: 45"
-                  min="18"
-                  max="80"
-                  step="1"
-                  fullWidth
-                />
-
-                <Select
-                  label="Tipo de Instituição"
-                  value={institutionType}
-                  onChange={(value) => setInstitutionType(value as typeof institutionType)}
-                  options={[
-                    { value: "bank", label: "Banco Tradicional" },
-                    { value: "correspondent", label: "Correspondente Bancário" },
-                    { value: "fintech", label: "Fintech" },
-                  ]}
-                  fullWidth
-                />
+          {/* Valor do Empréstimo e Salário */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <MoneyInput
+                label="Valor do Empréstimo"
+                value={loanAmount}
+                onChange={setLoanAmount}
+                placeholder="50.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.loanAmount} />
+            </div>
+            <div>
+              <MoneyInput
+                label="Salário/Benefício Líquido"
+                value={salary}
+                onChange={setSalary}
+                placeholder="3.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.salary} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Valor líquido mensal recebido
               </div>
+            </div>
+          </div>
 
-              <div className="mt-4 space-y-4">
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="hasOtherConsignados"
-                    checked={hasOtherConsignados}
-                    onChange={(e) => setHasOtherConsignados(e.target.checked)}
-                    className="rounded border-gray-300"
-                  />
-                  <label
-                    htmlFor="hasOtherConsignados"
-                    className="text-sm font-medium text-text-primary"
-                  >
-                    Já possui outros empréstimos consignados?
-                  </label>
-                </div>
-
-                {hasOtherConsignados && (
-                  <Input
-                    type="number"
-                    label="Valor Total dos Outros Consignados (R$/mês)"
-                    value={otherConsignadosAmount}
-                    onChange={(e) => setOtherConsignadosAmount(e.target.value)}
-                    placeholder="Ex: 300"
-                    min="0"
-                    step="10"
-                    fullWidth
-                  />
-                )}
-
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="hasInsurance"
-                    checked={hasInsurance}
-                    onChange={(e) => setHasInsurance(e.target.checked)}
-                    className="rounded border-gray-300"
-                  />
-                  <label htmlFor="hasInsurance" className="text-sm font-medium text-text-primary">
-                    Incluir seguro prestamista?
-                  </label>
-                </div>
-
-                {hasInsurance && (
-                  <Input
-                    type="number"
-                    label="Custo do Seguro (R$/mês)"
-                    value={insuranceCost}
-                    onChange={(e) => setInsuranceCost(e.target.value)}
-                    placeholder="Ex: 25"
-                    min="0"
-                    step="1"
-                    fullWidth
-                  />
-                )}
+          {/* Taxa de Juros e Prazo */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <RateInput
+                label="Taxa de Juros (% a.m.)"
+                value={monthlyRate}
+                onChange={setMonthlyRate}
+                placeholder="2,50"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.monthlyRate} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Taxa mensal de juros do empréstimo
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">💰 Configurações do Empréstimo</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <Select
-                  label="Modo de Cálculo"
-                  value={calculationMode}
-                  onChange={(value) => setCalculationMode(value as typeof calculationMode)}
-                  options={[
-                    { value: "loan_amount", label: "Por Valor do Empréstimo" },
-                    { value: "desired_payment", label: "Por Parcela Desejada" },
-                  ]}
-                  fullWidth
-                />
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {calculationMode === "loan_amount" ? (
-                    <Input
-                      type="number"
-                      label="Valor do Empréstimo (R$)"
-                      value={loanAmount}
-                      onChange={(e) => setLoanAmount(e.target.value)}
-                      placeholder="Ex: 50000"
-                      min="0"
-                      step="1000"
-                      required
-                      fullWidth
-                    />
-                  ) : (
-                    <Input
-                      type="number"
-                      label="Parcela Desejada (R$)"
-                      value={desiredPayment}
-                      onChange={(e) => setDesiredPayment(e.target.value)}
-                      placeholder="Ex: 800"
-                      min="0"
-                      step="10"
-                      required
-                      fullWidth
-                    />
-                  )}
-
-                  <RateInput
-                    label="Taxa de Juros (% ao mês)"
-                    value={interestRate}
-                    onChange={(value) => setInterestRate(value)}
-                    placeholder="0,00"
-                    required
-                    fullWidth
-                  />
-
-                  <Input
-                    type="number"
-                    label="Prazo (meses)"
-                    value={termMonths}
-                    onChange={(e) => setTermMonths(e.target.value)}
-                    placeholder="Ex: 60"
-                    min="6"
-                    max="120"
-                    step="6"
-                    required
-                    fullWidth
-                  />
-                </div>
+            </div>
+            <div>
+              <Input
+                type="number"
+                label="Prazo (meses)"
+                value={months}
+                onChange={(e) => setMonths(e.target.value)}
+                placeholder="84"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.months} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Número de parcelas do empréstimo
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          {/* Action Buttons - Prominent S-Tier Design */}
-          <div className="mt-8 space-y-4">
-            <Button 
-              onClick={handleCalculate} 
-              className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
-              fullWidth
-            >
-              💳 Calcular Consignado
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
-              className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
-              fullWidth
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
-              🔄 Limpar Campos
+              Limpar
             </Button>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Right Column - Quick Results */}
-        {result && (
-          <div className="space-y-4">
-            <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-lg text-growth-green">
-                  💰 Resumo do Empréstimo
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span>Valor emprestado:</span>
-                    <span className="font-bold text-growth-green">
-                      {formatCurrency(result.loanAmount)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Parcela mensal:</span>
-                    <span className="font-bold text-primary-blue-dark">
-                      {formatCurrency(result.monthlyPayment)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Taxa efetiva (ano):</span>
-                    <span className="font-bold text-text-primary">
-                      {result.effectiveAnnualRate.toFixed(2)}%
-                    </span>
-                  </div>
-                  <div className="border-t border-growth-green/20 pt-2">
-                    <div className="flex items-center justify-between">
-                      <span>Total a pagar:</span>
-                      <span className="font-bold text-system-warning">
-                        {formatCurrency(result.totalAmount)}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>Total de juros:</span>
-                      <span className="font-bold text-system-warning">
-                        {formatCurrency(result.totalInterest)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card
-              className={`border-2 duration-300 ${
-                result.marginAnalysis.isWithinLimits
-                  ? "border-system-success bg-system-success/10"
-                  : "border-system-error bg-system-error/10"
-              }`}
-            >
-              <CardHeader>
-                <CardTitle
-                  as="h3"
-                  className={`text-lg ${
-                    result.marginAnalysis.isWithinLimits
-                      ? "text-system-success"
-                      : "text-system-error"
-                  }`}
-                >
-                  {result.marginAnalysis.isWithinLimits ? "✅" : "⚠️"} Análise de Margem
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span>Margem disponível:</span>
-                    <span className="font-bold">
-                      {formatCurrency(result.marginAnalysis.availableMargin)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Margem utilizada:</span>
-                    <span
-                      className={`font-bold ${
-                        result.marginAnalysis.isWithinLimits
-                          ? "text-system-success"
-                          : "text-system-error"
-                      }`}
-                    >
-                      {formatCurrency(result.marginAnalysis.usedMargin)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>% da margem:</span>
-                    <span
-                      className={`font-bold ${
-                        result.marginAnalysis.marginPercent <= 100
-                          ? "text-system-success"
-                          : "text-system-error"
-                      }`}
-                    >
-                      {result.marginAnalysis.marginPercent.toFixed(1)}%
-                    </span>
-                  </div>
-                  <div className="rounded bg-background-dark-secondary p-2 text-xs">
-                    <p
-                      className={
-                        result.marginAnalysis.isWithinLimits
-                          ? "text-system-success"
-                          : "text-system-error"
-                      }
-                    >
-                      {result.marginAnalysis.isWithinLimits
-                        ? `👍 Empréstimo dentro da margem para ${getEmployeeTypeLabel(employeeType)}`
-                        : "⚠️ Empréstimo excede a margem consignável permitida"}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card
-              className={`border-2 duration-300 border-${getRiskColor(result.affordabilityAnalysis.riskLevel)} bg-${getRiskColor(result.affordabilityAnalysis.riskLevel)}/10`}
-            >
-              <CardHeader>
-                <CardTitle
-                  as="h3"
-                  className={`text-lg text-${getRiskColor(result.affordabilityAnalysis.riskLevel)}`}
-                >
-                  📊 Análise de Risco
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span>Compromet. salário:</span>
-                    <span
-                      className={`font-bold text-${getRiskColor(result.affordabilityAnalysis.riskLevel)}`}
-                    >
-                      {result.affordabilityAnalysis.salaryCommitment.toFixed(1)}%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Salário restante:</span>
-                    <span className="font-bold">
-                      {formatCurrency(result.affordabilityAnalysis.remainingSalary)}
-                    </span>
-                  </div>
-                  <div className="rounded bg-background-dark-secondary p-2 text-xs">
-                    <p className={`text-${getRiskColor(result.affordabilityAnalysis.riskLevel)}`}>
-                      Nível de risco:{" "}
-                      <strong>{result.affordabilityAnalysis.riskLevel.toUpperCase()}</strong>
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </div>
-
+      {/* Resultado */}
       {result && (
-        <>
-          {/* Main Results Section */}
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-4">
-            <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-base text-primary-blue-dark">
-                  💳 Parcela Mensal
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-xl font-bold tabular-nums text-primary-blue-dark sm:text-2xl">
-                    {formatCurrency(result.monthlyPayment)}
-                  </div>
-                  <p className="mt-1 text-xs text-text-secondary">
-                    {result.affordabilityAnalysis.salaryCommitment.toFixed(1)}% do salário bruto
-                  </p>
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Simulação de Empréstimo Consignado
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-growth-green">
+                  {currencyBR(result.monthlyPayment)}
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-base text-growth-green">
-                  💰 Valor Liberado
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-xl font-bold tabular-nums text-growth-green sm:text-2xl">
-                    {formatCurrency(result.loanAmount)}
-                  </div>
-                  <p className="mt-1 text-xs text-text-secondary">Dinheiro na conta</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-system-warning bg-system-warning/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-base text-system-warning">
-                  📈 Taxa Anual
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-xl font-bold tabular-nums text-system-warning sm:text-2xl">
-                    {result.effectiveAnnualRate.toFixed(2)}%
-                  </div>
-                  <p className="mt-1 text-xs text-text-secondary">Taxa efetiva ao ano</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-system-info bg-system-info/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-base text-system-info">
-                  🏦 Margem Restante
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-xl font-bold tabular-nums text-system-info sm:text-2xl">
-                    {formatCurrency(Math.max(0, result.marginAnalysis.remainingMargin))}
-                  </div>
-                  <p className="mt-1 text-xs text-text-secondary">Para novos consignados</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Comparison Section */}
-          <Card className="border-l-4 border-growth-green bg-background-dark-secondary duration-300">
-            <CardHeader>
-              <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-                🆚 Comparação com Outras Modalidades
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-4">
-                  <h3 className="mb-3 font-bold text-growth-green">
-                    💰 Consignado vs Empréstimo Pessoal
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="rounded-lg bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">Consignado</h4>
-                      <p>
-                        Parcela: <strong>{formatCurrency(result.monthlyPayment)}</strong>
-                      </p>
-                      <p>
-                        Total: <strong>{formatCurrency(result.totalAmount)}</strong>
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-warning">Empréstimo Pessoal</h4>
-                      <p>
-                        Parcela:{" "}
-                        <strong>
-                          {formatCurrency(result.comparison.personalLoan.monthlyPayment)}
-                        </strong>
-                      </p>
-                      <p>
-                        Total:{" "}
-                        <strong>
-                          {formatCurrency(result.comparison.personalLoan.totalAmount)}
-                        </strong>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-3">
-                    <p className="text-center text-sm">
-                      <strong className="text-system-success">Economia com consignado:</strong>
-                      <br />
-                      {formatCurrency(result.comparison.personalLoan.savings)}(
-                      {result.comparison.personalLoan.percentageSavings.toFixed(1)}% menos)
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="mb-3 font-bold text-primary-blue-dark">
-                    💳 Consignado vs Cartão de Crédito
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="rounded-lg bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">Consignado</h4>
-                      <p>
-                        Parcela: <strong>{formatCurrency(result.monthlyPayment)}</strong>
-                      </p>
-                      <p>
-                        Total: <strong>{formatCurrency(result.totalAmount)}</strong>
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-error">Cartão Crédito</h4>
-                      <p>
-                        Parcela:{" "}
-                        <strong>
-                          {formatCurrency(result.comparison.creditCard.monthlyPayment)}
-                        </strong>
-                      </p>
-                      <p>
-                        Total:{" "}
-                        <strong>{formatCurrency(result.comparison.creditCard.totalAmount)}</strong>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-3">
-                    <p className="text-center text-sm">
-                      <strong className="text-system-success">Economia com consignado:</strong>
-                      <br />
-                      {formatCurrency(result.comparison.creditCard.savings)}(
-                      {result.comparison.creditCard.percentageSavings.toFixed(1)}% menos)
-                    </p>
-                  </div>
-                </div>
+                <div className="text-sm text-text-secondary">Parcela Mensal</div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Charts Section */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3">📈 Evolução do Saldo Devedor</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <LineChart
-                  data={result.monthlyPayments
-                    .filter((_, index) => index % 6 === 0)
-                    .map((payment) => ({
-                      label: `${Math.ceil(payment.month / 6)}º Sem.`,
-                      value: payment.balance,
-                    }))}
-                  width={400}
-                  height={300}
-                  className="mb-4"
-                />
-                <div className="text-xs text-text-secondary">
-                  <p>Acompanhe como o saldo devedor diminui ao longo do tempo</p>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {currencyBR(result.liquidValue)}
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3">💰 Composição do Pagamento</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <BarChart
-                  data={[
-                    { label: "Principal", value: result.loanAmount, color: "rgb(34, 197, 94)" },
-                    { label: "Juros", value: result.totalInterest, color: "rgb(251, 146, 60)" },
-                  ]}
-                  width={400}
-                  height={300}
-                />
-                <div className="mt-4 space-y-2 text-sm">
-                  <div className="flex items-center justify-between rounded bg-growth-green-soft p-2">
-                    <span>Dinheiro recebido:</span>
-                    <span className="font-bold text-growth-green">
-                      {formatCurrency(result.loanAmount)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between rounded border border-system-warning/20 bg-system-warning/10 p-2">
-                    <span>Juros pagos:</span>
-                    <span className="font-bold text-system-warning">
-                      {formatCurrency(result.totalInterest)}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Institution Analysis */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">🏦 Análise da Instituição Selecionada</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-bold text-primary-blue-dark">
-                    ✅ Vantagens -{" "}
-                    {institutionType === "bank"
-                      ? "Banco"
-                      : institutionType === "correspondent"
-                        ? "Correspondente"
-                        : "Fintech"}
-                  </h4>
-                  <ul className="space-y-2 text-sm">
-                    {result.institutionAnalysis.advantages.map((advantage, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="mr-2 text-system-success">•</span>
-                        <span>{advantage}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="mb-3 font-bold text-system-warning">⚠️ Considerações</h4>
-                  <ul className="space-y-2 text-sm">
-                    {result.institutionAnalysis.considerations.map((consideration, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="mr-2 text-system-warning">•</span>
-                        <span>{consideration}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <div className="text-sm text-text-secondary">Valor Líquido</div>
               </div>
-
-              <div className="mt-6 rounded-lg bg-primary-blue-light p-4">
-                <h4 className="mb-2 font-bold text-primary-blue-dark">
-                  📊 Taxas Típicas do Mercado
-                </h4>
-                <div className="grid grid-cols-3 gap-4 text-center text-sm">
-                  <div>
-                    <p className="text-system-success">Mínima</p>
-                    <p className="font-bold">{result.institutionAnalysis.typicalRates.min}% a.m.</p>
-                  </div>
-                  <div>
-                    <p className="text-primary-blue-dark">Média</p>
-                    <p className="font-bold">
-                      {result.institutionAnalysis.typicalRates.average}% a.m.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-system-error">Máxima</p>
-                    <p className="font-bold">{result.institutionAnalysis.typicalRates.max}% a.m.</p>
-                  </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {currencyBR(result.totalInterest)}
                 </div>
+                <div className="text-sm text-text-secondary">Total de Juros</div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          {/* Age Impact Analysis */}
-          {result.ageImpact && (
-            <Card
-              className={`border-l-4 duration-300 ${
-                result.ageImpact.isViable
-                  ? "border-system-success bg-system-success/10"
-                  : "border-system-warning bg-system-warning/10"
-              }`}
-            >
-              <CardHeader>
-                <CardTitle
-                  as="h3"
-                  className={`text-lg ${result.ageImpact.isViable ? "text-system-success" : "text-system-warning"}`}
-                >
-                  📅 Análise de Idade e Prazo
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between">
-                      <span>Idade atual:</span>
-                      <span className="font-bold">{age} anos</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Idade no final:</span>
-                      <span className="font-bold">{result.ageImpact.ageAtEnd} anos</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Prazo máximo disponível:</span>
-                      <span className="font-bold">
-                        {Math.ceil(result.ageImpact.maxTermAvailable / 12)} anos
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <h5 className="mb-2 font-bold text-system-info">💡 Recomendações</h5>
-                    <ul className="space-y-1 text-sm">
-                      {result.ageImpact.recommendations.length > 0 ? (
-                        result.ageImpact.recommendations.map((rec, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="mr-2 text-system-warning">•</span>
-                            <span>{rec}</span>
-                          </li>
-                        ))
-                      ) : (
-                        <li className="text-system-success">✓ Prazo adequado para sua idade</li>
-                      )}
-                    </ul>
-                  </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">CET (Custo Efetivo Total)</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {percentBR(result.cetPercentage, 2)}% a.m.
                 </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Recommendations */}
-          {result.affordabilityAnalysis.recommendations.length > 0 && (
-            <Card className="border-l-4 border-system-info bg-system-info/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-system-info">
-                  💡 Recomendações Personalizadas
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm">
-                  {result.affordabilityAnalysis.recommendations.map((recommendation, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="mr-2 text-system-info">•</span>
-                      <span>{recommendation}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Amortization Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📊 Tabela de Amortização
-                <Button
-                  onClick={() => setShowAmortization(!showAmortization)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showAmortization ? "Ocultar" : "Mostrar"} Tabela
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showAmortization && (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b border-neutral-surface-variant">
-                        <th className="p-2 text-left">Mês</th>
-                        <th className="p-2 text-right">Parcela</th>
-                        <th className="p-2 text-right">Principal</th>
-                        <th className="p-2 text-right">Juros</th>
-                        <th className="p-2 text-right">Saldo</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.monthlyPayments.slice(0, 24).map((payment) => (
-                        <tr key={payment.month} className="border-b border-neutral-surface-variant">
-                          <td className="p-2 font-medium">{payment.month}</td>
-                          <td className="p-2 text-right tabular-nums">
-                            {formatCurrency(payment.payment)}
-                          </td>
-                          <td className="p-2 text-right tabular-nums text-growth-green">
-                            {formatCurrency(payment.principal)}
-                          </td>
-                          <td className="p-2 text-right tabular-nums text-system-warning">
-                            {formatCurrency(payment.interest)}
-                          </td>
-                          <td className="p-2 text-right tabular-nums text-primary-blue-dark">
-                            {formatCurrency(payment.balance)}
-                          </td>
-                        </tr>
-                      ))}
-                      {result.monthlyPayments.length > 24 && (
-                        <tr>
-                          <td colSpan={5} className="p-2 text-center text-xs text-text-secondary">
-                            ... e mais {result.monthlyPayments.length - 24} parcelas
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+                <div className="text-sm text-text-secondary">{percentBR(result.effectiveRate, 2)}% a.a.</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">IOF</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {currencyBR(result.iofAmount)}
                 </div>
-              )}
-            </CardContent>
-          </Card>
-        </>
+                <div className="text-sm text-text-secondary">Sobre o valor do empréstimo</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Margem Usada</div>
+                <div className={`text-xl font-bold ${
+                  result.marginUsed > 35 ? 'text-system-error' : 
+                  result.marginUsed > 30 ? 'text-system-warning' : 'text-system-success'
+                }`}>
+                  {percentBR(result.marginUsed, 1)}%
+                </div>
+                <div className="text-sm text-text-secondary">Da renda líquida</div>
+              </div>
+            </div>
+
+            {result.marginUsed > (getMaxMargin(loanType) * 100) && (
+              <div className="mb-6 rounded border border-system-error/20 bg-system-error/10 p-3 text-sm text-system-error">
+                ⚠️ Margem consignável excedida! O limite é {percentBR(getMaxMargin(loanType) * 100, 0)}% para {loanType === "aposentado" ? "aposentados" : loanType === "pensionista" ? "pensionistas" : loanType === "servidor" ? "servidores" : "trabalhadores CLT"}.
+              </div>
+            )}
+
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo do Empréstimo</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Valor solicitado: <strong>{currencyBR(result.totalAmount - result.totalInterest)}</strong>
+                </li>
+                <li>
+                  Valor líquido (desconta IOF): <strong>{currencyBR(result.liquidValue)}</strong>
+                </li>
+                <li>
+                  Total a pagar: <strong>{currencyBR(result.totalAmount)}</strong>
+                </li>
+                <li>
+                  Total de juros: <strong>{currencyBR(result.totalInterest)}</strong>
+                </li>
+                <li>
+                  IOF: <strong>{currencyBR(result.iofAmount)}</strong>
+                </li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
-      {/* Educational Content Sections */}
-      <Card className="border-l-4 border-growth-green bg-gradient-to-r from-growth-green-soft to-primary-blue-light duration-300">
+      {/* Seção: Modalidades de Empréstimo Consignado - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            💳 Empréstimo Consignado: O Crédito Mais Barato do Mercado
+            🎯 Modalidades de Empréstimo Consignado – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
-              <p>
-                O <strong className="text-growth-green">empréstimo consignado</strong> é uma
-                modalidade de crédito com
-                <strong className="text-primary-blue-dark">
-                  {" "}
-                  desconto direto na folha de pagamento
-                </strong>
-                , oferecendo as <em>menores taxas de juros</em> do mercado brasileiro devido à menor
-                inadimplência.
-              </p>
-            </div>
+          <div className="space-y-8">
+            {/* Aposentados INSS */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                👴 Aposentados INSS
+              </h3>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-growth-green">
-                  ✅ Principais Vantagens
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <ul className="list-inside list-disc space-y-2 text-text-secondary">
-                    <li>
-                      <strong className="text-growth-green">Taxas mais baixas:</strong> 1,5% a 3,5%
-                      ao mês
-                    </li>
-                    <li>
-                      <strong className="text-growth-green">Sem consulta ao SPC/Serasa:</strong>{" "}
-                      Aprovação mais fácil
-                    </li>
-                    <li>
-                      <strong className="text-growth-green">Desconto automático:</strong> Nunca
-                      esquece de pagar
-                    </li>
-                    <li>
-                      <strong className="text-growth-green">Prazos longos:</strong> Até 96 meses
-                    </li>
-                    <li>
-                      <strong className="text-growth-green">Portabilidade:</strong> Pode trocar de
-                      banco
-                    </li>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Características</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Empréstimo com desconto automático no benefício do INSS, oferecendo
+                    segurança para o banco e melhores condições para o aposentado.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Margem: até 35% do benefício</li>
+                    <li>• Prazo: até 84 meses</li>
+                    <li>• Taxa: 1,5% a 3,5% a.m.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Menores taxas de juros</li>
+                    <li>• Sem consulta ao SPC/Serasa</li>
+                    <li>• Desconto automático</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Atenção</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Compromete a renda mensal</li>
+                    <li>• IOF incidente</li>
                   </ul>
                 </div>
               </div>
+            </div>
 
-              <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-system-warning">⚠️ Pontos de Atenção</h3>
-                <div className="space-y-3 text-sm">
-                  <ul className="list-inside list-disc space-y-2 text-text-secondary">
-                    <li>
-                      <strong className="text-system-warning">Margem limitada:</strong> Máximo
-                      30-35% do salário
-                    </li>
-                    <li>
-                      <strong className="text-system-warning">Vinculação obrigatória:</strong>{" "}
-                      Precisa manter o emprego
-                    </li>
-                    <li>
-                      <strong className="text-system-warning">Dificulta mobilidade:</strong> Mudança
-                      de emprego complica
-                    </li>
-                    <li>
-                      <strong className="text-system-warning">Prazo longo:</strong> Compromisso de
-                      vários anos
-                    </li>
-                    <li>
-                      <strong className="text-system-warning">Taxas variáveis:</strong> Algumas
-                      podem aumentar
-                    </li>
+            {/* Servidores Públicos */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                💼 Servidores Públicos
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Características</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Empréstimo com desconto direto na folha de pagamento, oferecendo
+                    estabilidade e melhores condições devido à segurança do vínculo.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Margem: até 30% do salário líquido</li>
+                    <li>• Prazo: até 96 meses</li>
+                    <li>• Taxa: 1,2% a 3,0% a.m.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Menores taxas do mercado</li>
+                    <li>• Maior prazo disponível</li>
+                    <li>• Processo simplificado</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Considerações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Margem menor que aposentados</li>
+                    <li>• Depende da estabilidade do cargo</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Pensionistas */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                💰 Pensionistas
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Características</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Empréstimo para beneficiários de pensão por morte do INSS,
+                    com desconto direto no benefício recebido.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Margem: até 35% do benefício</li>
+                    <li>• Prazo: até 84 meses</li>
+                    <li>• Taxa: 1,6% a 3,8% a.m.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Mesma margem dos aposentados</li>
+                    <li>• Processo desburocratizado</li>
+                    <li>• Taxas competitivas</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Considerações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Pode ter taxas ligeiramente maiores</li>
+                    <li>• Depende da continuidade do benefício</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Trabalhadores CLT */}
+            <div className="rounded-xl border border-system-info/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-info">
+                💼 Trabalhadores CLT
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Características</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Empréstimo para trabalhadores de empresas privadas com desconto
+                    autorizado na folha de pagamento da empresa.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Limites</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Margem: até 30% do salário líquido</li>
+                    <li>• Prazo: até 72 meses</li>
+                    <li>• Taxa: 2,0% a 4,5% a.m.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Desconto automático na folha</li>
+                    <li>• Sem consulta ao SPC/Serasa</li>
+                    <li>• Aprovação rápida</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Considerações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Depende da empresa conveniada</li>
+                    <li>• Taxas geralmente mais altas</li>
+                    <li>• Prazo menor que servidores</li>
                   </ul>
                 </div>
               </div>
@@ -1125,236 +805,189 @@ export default function PayrollLoanCalculator() {
         </CardContent>
       </Card>
 
-      {/* Detailed Educational Content */}
-      <Card className="border-l-4 border-system-info bg-background-dark-secondary duration-300">
+      {/* Seção: Comparação de Modalidades */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            📋 Como Funciona o Empréstimo Consignado na Prática
+            ⚖️ Tabela Comparativa: Qual Modalidade Escolher?
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-system-info">
-                  👥 Quem Pode Contratar
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">
-                      🏢 CLT (Carteira Assinada)
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Margem:</strong> 30% do salário bruto
-                      <br />
-                      <strong>Prazo:</strong> Até 96 meses
-                      <br />
-                      <strong>Taxa típica:</strong> 1,8% a 2,5% a.m.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">🏛️ Servidor Público</h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Margem:</strong> 35% do salário bruto
-                      <br />
-                      <strong>Prazo:</strong> Até 96 meses
-                      <br />
-                      <strong>Taxa típica:</strong> 1,5% a 2,0% a.m.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-success">
-                      👴 Aposentados e Pensionistas
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Margem:</strong> 35% do benefício
-                      <br />
-                      <strong>Prazo:</strong> Até 84 meses
-                      <br />
-                      <strong>Taxa típica:</strong> 1,6% a 2,2% a.m.
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Aposentado INSS
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Servidor Público</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Pensionista INSS
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">
+                    Trabalhador CLT
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Margem Consignável</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Até 35%</td>
+                  <td className="p-3 text-center text-growth-green">Até 30%</td>
+                  <td className="p-3 text-center text-system-warning">Até 35%</td>
+                  <td className="p-3 text-center text-system-info">Até 30%</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Taxa de Juros</td>
+                  <td className="p-3 text-center">1,5% a 3,5% a.m.</td>
+                  <td className="p-3 text-center">1,2% a 3,0% a.m.</td>
+                  <td className="p-3 text-center">1,6% a 3,8% a.m.</td>
+                  <td className="p-3 text-center">2,0% a 4,5% a.m.</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Prazo Máximo</td>
+                  <td className="p-3 text-center text-growth-green">84 meses</td>
+                  <td className="p-3 text-center">96 meses</td>
+                  <td className="p-3 text-center">84 meses</td>
+                  <td className="p-3 text-center">72 meses</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Documentação</td>
+                  <td className="p-3 text-center">Simples</td>
+                  <td className="p-3 text-center">Mínima</td>
+                  <td className="p-3 text-center">Simples</td>
+                  <td className="p-3 text-center">Média</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aprovação</td>
+                  <td className="p-3 text-center">Rápida</td>
+                  <td className="p-3 text-center">Muito rápida</td>
+                  <td className="p-3 text-center">Rápida</td>
+                  <td className="p-3 text-center">Média</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Melhor para</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Valor alto, prazo médio</td>
+                  <td className="p-3 text-center text-growth-green">Melhor taxa, prazo longo</td>
+                  <td className="p-3 text-center text-system-warning">Margem alta, flexibilidade</td>
+                  <td className="p-3 text-center text-system-info">Empresa conveniada</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-growth-green">
-                  💡 Processo de Contratação
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-growth-green-soft p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      1️⃣ Escolha da Instituição
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      Compare taxas entre bancos, correspondentes e fintechs. Negocie sempre a
-                      melhor condição.
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-growth-green-soft p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">2️⃣ Documentação</h4>
-                    <p className="text-sm text-text-secondary">
-                      CPF, RG, comprovante de renda, extrato bancário e autorização do empregador
-                      (quando necessário).
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-growth-green-soft p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">3️⃣ Análise e Aprovação</h4>
-                    <p className="text-sm text-text-secondary">
-                      Verificação da margem consignável, histórico empregatício e aprovação em 24-48
-                      horas.
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">4️⃣ Liberação</h4>
-                    <p className="text-sm text-text-secondary">
-                      Dinheiro na conta em até 72 horas e desconto automático na folha a partir do
-                      mês seguinte.
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">👴 Aposentados</h4>
+              <p className="text-sm text-text-secondary">
+                Ideal para <strong>emergências</strong> com margem de 35% e taxas competitivas.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">💼 Servidores</h4>
+              <p className="text-sm text-text-secondary">
+                Melhores <strong>condições do mercado</strong> com taxas baixas e prazo estendido.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">💰 Pensionistas</h4>
+              <p className="text-sm text-text-secondary">
+                <strong>Flexibilidade</strong> com margem de 35% e processo simplificado.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
+              <h4 className="mb-2 font-bold text-system-info">💼 CLT</h4>
+              <p className="text-sm text-text-secondary">
+                <strong>Conveniência</strong> com desconto na folha, mas taxas mais altas.
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Empréstimo Consignado"
+        title="Perguntas Frequentes - Calculadora de Empréstimo Consignado"
         items={[
           {
-            question: "Qual a diferença entre empréstimo consignado e empréstimo pessoal?",
+            question: "O que é empréstimo consignado?",
             answer:
-              "<strong>Consignado</strong> tem desconto automático na folha com taxas de <strong>1,5% a 3,5% a.m.</strong> e prazo até 96 meses. <strong>Empréstimo pessoal</strong> é pago por boleto com taxas de 4% a 15% a.m. e consulta SPC/Serasa.",
+              "Empréstimo consignado é uma modalidade de crédito onde as parcelas são descontadas diretamente da folha de pagamento ou benefício, oferecendo menores taxas devido à garantia de pagamento.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Qual a margem consignável disponível?",
+            answer:
+              "Aposentados e pensionistas podem comprometer até 35% do benefício líquido, enquanto servidores públicos podem usar até 30% do salário líquido para pagamento de consignados.",
             borderColor: "growth-green",
           },
           {
-            question: "O que é margem consignável e como funciona?",
+            question: "Como é calculado o IOF?",
             answer:
-              "É o <strong>percentual máximo do salário</strong> que pode ser comprometido: <strong>CLT: 30%</strong>, <strong>Servidor Público: 35%</strong>, <strong>Aposentado/Pensionista: 35%</strong> do benefício. É definido por lei para proteger sua renda.",
+              "O IOF incide sobre o valor do empréstimo: 0,38% fixo + 0,0082% por dia (limitado a 30 dias). É descontado do valor liberado, reduzindo o montante líquido recebido.",
             borderColor: "system-info",
           },
           {
-            question: "Posso quitar o empréstimo consignado antecipadamente?",
+            question: "Posso quitar antecipadamente?",
             answer:
-              "<strong>Sim!</strong> Você pode quitar antecipadamente com <strong>desconto nos juros futuros</strong> (Lei 10.820/03). Opções: quitação total, amortização parcial ou portabilidade para melhor taxa.",
-            borderColor: "system-success",
-          },
-          {
-            question: "O que acontece se eu for demitido com consignado ativo?",
-            answer:
-              "O <strong>saldo devedor não é cancelado</strong>. Opções: renegociar como crédito pessoal, parcelar com novas condições, quitar com FGTS ou transferir para nova empresa se conseguir emprego.",
+              "Sim, a quitação antecipada é permitida com desconto proporcional dos juros. O desconto varia conforme a instituição e pode representar economia significativa.",
             borderColor: "system-warning",
           },
           {
-            question: "Como funciona a portabilidade do empréstimo consignado?",
+            question: "Qual a diferença entre CET e taxa de juros?",
             answer:
-              "Permite <strong>transferir para instituição com melhor taxa</strong> sem custos. A nova instituição quita seu débito atual e você fica com condições melhores. Compare sempre as taxas!",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Empréstimo consignado afeta meu CPF ou score?",
-            answer:
-              "<strong>Não afeta negativamente!</strong> Não aparece no SPC/Serasa como restrição e pode até <strong>melhorar seu score</strong> por demonstrar capacidade de pagamento, já que o desconto é automático.",
-            borderColor: "system-success",
-          },
-          {
-            question: "Qual a melhor estratégia para usar o empréstimo consignado?",
-            answer:
-              "Use para <strong>quitar dívidas caras</strong> (cartão, cheque especial - economia de 80%+ em juros), consolidar dívidas, investir em educação ou reformar imóvel. Evite gastos supérfluos!",
+              "A taxa de juros é apenas os juros mensais, enquanto o CET (Custo Efetivo Total) inclui todos os custos: juros, IOF, taxas administrativas e seguros, representando o custo real total.",
             borderColor: "growth-green",
           },
           {
-            question: "Quais documentos preciso para contratar um consignado?",
+            question: "Como escolher entre as modalidades?",
             answer:
-              "Documentos básicos: <strong>CPF, RG, comprovante de renda, extrato bancário</strong> e autorização do empregador (quando necessário). Aprovação em 24-48h e liberação em até 72h.",
-            borderColor: "primary-blue",
+              "Servidores têm as melhores condições (menor taxa, maior prazo). Aposentados e pensionistas têm margem maior (35%). CLT depende da empresa conveniada. Compare sempre o CET total.",
+            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica de Especialista",
+          title: "Dica Importante sobre Empréstimo Consignado",
           content:
-            "Sempre <strong>compare taxas</strong> entre bancos, correspondentes e fintechs. Negocie condições e considere a portabilidade periodicamente para garantir as <strong>melhores taxas do mercado</strong>!",
+            "<strong>Para a melhor decisão:</strong> compare sempre o CET (não apenas a taxa de juros), respeite sua margem consignável e negocie condições. Use apenas para necessidades reais.",
         }}
-        footerText="<strong>Precisa simular diferentes cenários?</strong> Nossa calculadora oferece análise completa de margem consignável e comparação com outras modalidades para sua melhor decisão financeira!"
+        footerText="<strong>Lembre-se:</strong> Empréstimo consignado compromete sua renda mensal. Avalie sua capacidade de pagamento e considere o prazo total antes de contratar."
       />
 
-      {/* Footer */}
-      <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de Empréstimo Consignado
+            📚 Como Usar Esta Calculadora de Empréstimo Consignado
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-growth-green">calculadora de empréstimo consignado</strong> é
-              <strong className="text-primary-blue-dark"> 100% gratuita</strong> e permite simular
-              empréstimos para CLT, servidores públicos, aposentados e pensionistas com análise
-              completa de margem consignável e comparação com outras modalidades.
+              Esta <strong className="text-primary-blue-dark">calculadora de empréstimo consignado</strong> utiliza{" "}
+              <strong className="text-growth-green">simulações financeiras</strong> para estimar
+              parcelas, CET, IOF e margem consignável para diferentes modalidades de beneficiários.
             </p>
             <p>
-              <strong>Recursos inclusos:</strong> Análise de margem por categoria profissional,
-              comparação com empréstimo pessoal e cartão de crédito, análise de risco personalizada,
-              simulação por parcela desejada, impacto da idade no prazo e muito mais.
+              <strong>Modalidades disponíveis:</strong> Aposentados INSS, Servidores Públicos e
+              Pensionistas. Cada categoria possui limites e taxas específicas conforme a legislação.
             </p>
             <p>
-              <strong className="text-system-warning">Aviso Legal:</strong> Os cálculos são para
-              fins educacionais e de planejamento. Para contratação de empréstimos, consulte sempre
-              um
-              <strong> correspondente bancário autorizado</strong> ou{" "}
-              <strong>instituição financeira</strong>e leia atentamente o contrato.
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e de planejamento pessoal. Para decisões de crédito, consulte
+              sempre as <strong>instituições financeiras autorizadas</strong> e avalie sua
+              capacidade de pagamento.
             </p>
-            <p className="mt-4 border-t border-growth-green/20 pt-3 text-xs opacity-75">
-              ⚖️ Cálculos baseados na legislação atual (Lei 10.820/03) • 🎓 Ferramenta educacional
-              gratuita • 🔒 Seus dados não são armazenados • 📱 Responsivo para todos os
-              dispositivos • 🌙 Modo escuro disponível • 📊 Gráficos SVG nativos para melhor
-              performance
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🔎 Foco didático • 💰 Simulações realistas • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
       </Card>
-
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora de Empréstimo Consignado",
-            description:
-              "Calculadora online gratuita para simular empréstimos consignados para CLT, servidores públicos, aposentados e pensionistas. Análise completa de margem consignável.",
-            url: "https://calculadorasonline.com.br/calculadoras/financas/emprestimo-consignado",
-            applicationCategory: "FinanceApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Simulação para CLT, servidores e aposentados",
-              "Análise de margem consignável",
-              "Comparação com outras modalidades",
-              "Análise de risco personalizada",
-              "Simulação por parcela desejada",
-              "100% gratuito",
-            ],
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
 
       <RelatedCalculators category="financas" currentCalculatorId="emprestimo-consignado" />
     </div>
