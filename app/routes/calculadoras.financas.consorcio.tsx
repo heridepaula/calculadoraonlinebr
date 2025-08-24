@@ -18,7 +18,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação | CalculadoraOnlineBR",
+      title: "Calculadora Consórcio 2025 – Simule Parcelas e Contemplação | CalculadoraOnlineBR",
     },
     {
       name: "description",
@@ -63,6 +63,10 @@ export const meta: MetaFunction = () => {
         "Calculadora de Consórcio - Simule parcelas e contemplação de consórcio imóvel e veículo",
     },
     {
+      property: "og:image:type",
+      content: "image/webp",
+    },
+    {
       property: "og:image:width",
       content: "1200",
     },
@@ -89,7 +93,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+      content: "https://calculadoraonlinebr.com.br/og-images/calculadora-consorcio.webp",
     },
     {
       name: "twitter:image:alt",
@@ -281,49 +285,49 @@ export default function ConsortiumCalculator() {
   const validateInputs = (): boolean => {
     const newErrors: ValidationErrors = {};
     let ok = true;
-    
+
     const credit = parseMoney(creditValue);
     if (credit <= 0) {
       newErrors.creditValue = "Valor do crédito obrigatório e maior que 0";
       ok = false;
     }
-    
+
     const months = parseInt(totalMonths, 10);
     if (!totalMonths || isNaN(months) || months <= 0 || months > 300) {
       newErrors.totalMonths = "Prazo deve estar entre 1 e 300 meses";
       ok = false;
     }
-    
+
     const adminRate = parseRate(adminFeeRate);
     if (adminRate <= 0 || adminRate > 0.5) {
       newErrors.adminFeeRate = "Taxa de administração deve estar entre 0,01% e 50%";
       ok = false;
     }
-    
+
     const participantsNum = parseInt(participants, 10);
     if (!participants || isNaN(participantsNum) || participantsNum < 10 || participantsNum > 1000) {
       newErrors.participants = "Número de participantes deve estar entre 10 e 1000";
       ok = false;
     }
-    
+
     const reserveRate = parseRate(reserveFundRate);
     if (reserveRate < 0 || reserveRate > 0.1) {
       newErrors.reserveFundRate = "Fundo de reserva deve estar entre 0% e 10%";
       ok = false;
     }
-    
+
     const insurance = parseRate(insuranceRate);
     if (insurance < 0 || insurance > 0.05) {
       newErrors.insuranceRate = "Seguro deve estar entre 0% e 5%";
       ok = false;
     }
-    
+
     const membershipRate = parseRate(membershipFeeRate);
     if (membershipRate < 0 || membershipRate > 0.1) {
       newErrors.membershipFeeRate = "Taxa de adesão deve estar entre 0% e 10%";
       ok = false;
     }
-    
+
     setErrors(newErrors);
     return ok;
   };
@@ -336,36 +340,36 @@ export default function ConsortiumCalculator() {
     const reserveRate = parseRate(reserveFundRate);
     const insurance = parseRate(insuranceRate);
     const membershipRate = parseRate(membershipFeeRate);
-    
+
     // Taxas sobre o valor do crédito
     const adminFeeTotal = credit * adminRate;
     const reserveFundTotal = credit * reserveRate;
     const insuranceTotal = credit * insurance;
     const membershipFee = credit * membershipRate;
-    
+
     // Valor do fundo total (crédito + todas as taxas)
     const fundValue = credit + adminFeeTotal + reserveFundTotal + insuranceTotal + membershipFee;
-    
+
     // Parcela mensal base = fundo / número de meses
     const monthlyPayment = fundValue / months;
-    
+
     // Total pago pelo consorciado
     const totalPaid = monthlyPayment * months;
-    
+
     // Probabilidade de contemplação por sorteio (aproximada)
     const contemplationProbability = 1 / participantsNum;
-    
+
     // Mês médio de contemplação (aproximado)
     const averageContemplationMonth = participantsNum / 2;
-    
+
     // Taxa efetiva anual do consórcio
     const effectiveRate = (totalPaid / credit - 1) * 100;
-    
+
     // Projeção de ajuste pelo INPC
     const inpcRate = ECONOMIC_INDICATORS.INPC.rate / 100;
     const projectedAnnualAdjustment = inpcRate * 100;
     const adjustedMonthlyPaymentINPC = monthlyPayment * (1 + inpcRate);
-    
+
     return {
       monthlyPayment,
       totalPaid,
@@ -381,7 +385,7 @@ export default function ConsortiumCalculator() {
       insuranceTotal,
       membershipFee,
       adjustedMonthlyPaymentINPC,
-      projectedAnnualAdjustment
+      projectedAnnualAdjustment,
     };
   };
 
@@ -428,13 +432,13 @@ export default function ConsortiumCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação
+          Calculadora Consórcio 2025 – Simule Parcelas
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule as <strong className="text-growth-green">parcelas do seu consórcio</strong>{" "}
-          considerando valor do crédito, prazo e taxa de administração. Compare diferentes grupos e receba{" "}
-          <strong className="text-primary-blue-dark">simulações de contemplação</strong> para apoiar
-          suas decisões.
+          considerando valor do crédito, prazo e taxa de administração. Compare diferentes grupos e
+          receba <strong className="text-primary-blue-dark">simulações de contemplação</strong> para
+          apoiar suas decisões.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -454,6 +458,7 @@ export default function ConsortiumCalculator() {
             <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
               <button
                 type="button"
+                aria-label="Selecionar consórcio de imóvel"
                 onClick={() => setConsortiumType("imovel")}
                 className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
                   consortiumType === "imovel"
@@ -465,6 +470,7 @@ export default function ConsortiumCalculator() {
               </button>
               <button
                 type="button"
+                aria-label="Selecionar consórcio de veículo"
                 onClick={() => setConsortiumType("veiculo")}
                 className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
                   consortiumType === "veiculo"
@@ -476,6 +482,7 @@ export default function ConsortiumCalculator() {
               </button>
               <button
                 type="button"
+                aria-label="Selecionar consórcio de moto"
                 onClick={() => setConsortiumType("moto")}
                 className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
                   consortiumType === "moto"
@@ -540,7 +547,9 @@ export default function ConsortiumCalculator() {
 
           {/* Campos Opcionais */}
           <div className="mb-6 rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-            <h3 className="mb-4 text-lg font-semibold text-text-primary">⚙️ Configurações Adicionais (Opcional)</h3>
+            <h3 className="mb-4 text-lg font-semibold text-text-primary">
+              ⚙️ Configurações Adicionais (Opcional)
+            </h3>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div>
                 <RateInput
@@ -630,33 +639,37 @@ export default function ConsortiumCalculator() {
                 <div className="text-xl font-bold text-text-primary">
                   {percentBR(result.adminFeeRate, 2)}%
                 </div>
-                <div className="text-sm text-text-secondary">{currencyBR(result.adminFeeTotal)}</div>
+                <div className="text-sm text-text-secondary">
+                  {currencyBR(result.adminFeeTotal)}
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Valor do Fundo</div>
                 <div className="text-xl font-bold text-text-primary">
                   {currencyBR(result.fundValue)}
                 </div>
-                <div className="text-sm text-text-secondary">
-                  Crédito + Taxa Adm
-                </div>
+                <div className="text-sm text-text-secondary">Crédito + Taxa Adm</div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Mês Médio de Contemplação</div>
-                <div className="text-xl font-bold text-text-primary">{Math.round(result.averageContemplationMonth)}º mês</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {Math.round(result.averageContemplationMonth)}º mês
+                </div>
               </div>
             </div>
 
             {result.totalContractMonths > 120 && (
               <div className="mb-6 rounded border border-system-warning/20 bg-system-warning/10 p-3 text-sm text-system-warning">
-                ⚠️ Prazos longos (acima de 10 anos) podem apresentar maior risco de inadimplência do grupo.
-                Considere grupos menores e mais consolidados.
+                ⚠️ Prazos longos (acima de 10 anos) podem apresentar maior risco de inadimplência do
+                grupo. Considere grupos menores e mais consolidados.
               </div>
             )}
 
             {/* Seção de Projeção INPC */}
             <div className="mb-6 rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-              <h4 className="mb-3 font-semibold text-system-info">📈 Projeção de Reajuste pelo INPC</h4>
+              <h4 className="mb-3 font-semibold text-system-info">
+                📈 Projeção de Reajuste pelo INPC
+              </h4>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="text-center">
                   <div className="text-sm text-text-secondary">Parcela Atual</div>
@@ -675,8 +688,8 @@ export default function ConsortiumCalculator() {
                 </div>
               </div>
               <p className="mt-3 text-xs text-text-secondary">
-                * Projeção baseada no INPC atual ({percentBR(ECONOMIC_INDICATORS.INPC.rate, 2)}% a.a.). 
-                Reajustes reais podem variar conforme índice oficial no período.
+                * Projeção baseada no INPC atual ({percentBR(ECONOMIC_INDICATORS.INPC.rate, 2)}%
+                a.a.). Reajustes reais podem variar conforme índice oficial no período.
               </p>
             </div>
 
@@ -738,8 +751,8 @@ export default function ConsortiumCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Sistema de aquisição programada de imóveis através de grupo organizado,
-                    onde os participantes pagam parcelas mensais até serem contemplados.
+                    Sistema de aquisição programada de imóveis através de grupo organizado, onde os
+                    participantes pagam parcelas mensais até serem contemplados.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Funcionamento</h4>
@@ -774,8 +787,8 @@ export default function ConsortiumCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Modalidade focada na aquisição de automóveis, caminhões e outros veículos,
-                    com prazos menores e valores mais acessíveis.
+                    Modalidade focada na aquisição de automóveis, caminhões e outros veículos, com
+                    prazos menores e valores mais acessíveis.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Características</h4>
@@ -810,8 +823,8 @@ export default function ConsortiumCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Opção mais acessível para aquisição de motocicletas, com valores
-                    menores e prazos reduzidos comparado aos outros consórcios.
+                    Opção mais acessível para aquisição de motocicletas, com valores menores e
+                    prazos reduzidos comparado aos outros consórcios.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Perfil</h4>
@@ -852,45 +865,45 @@ export default function ConsortiumCalculator() {
               <div className="rounded-lg border border-primary-blue/20 bg-gray-900 p-4">
                 <h4 className="mb-2 font-bold text-primary-blue-dark">📊 Taxa de Administração</h4>
                 <p className="text-sm text-text-secondary">
-                  Principal custo do consórcio, varia de 15% a 35% do valor do crédito. 
-                  É dividida entre todas as parcelas mensais do grupo.
+                  Principal custo do consórcio, varia de 15% a 35% do valor do crédito. É dividida
+                  entre todas as parcelas mensais do grupo.
                 </p>
               </div>
-              
+
               <div className="rounded-lg border border-growth-green/20 bg-gray-900 p-4">
                 <h4 className="mb-2 font-bold text-growth-green">🛡️ Fundo de Reserva</h4>
                 <p className="text-sm text-text-secondary">
-                  Geralmente 1% a 3% do crédito. Protege o grupo contra inadimplência 
-                  e é devolvido proporcionalmente no encerramento.
+                  Geralmente 1% a 3% do crédito. Protege o grupo contra inadimplência e é devolvido
+                  proporcionalmente no encerramento.
                 </p>
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div className="rounded-lg border border-system-warning/20 bg-gray-900 p-4">
                 <h4 className="mb-2 font-bold text-system-warning">🔒 Seguro (Opcional)</h4>
                 <p className="text-sm text-text-secondary">
-                  Protege contra morte e invalidez permanente. Varia de 0,1% a 2% 
-                  do crédito conforme idade e tipo de bem.
+                  Protege contra morte e invalidez permanente. Varia de 0,1% a 2% do crédito
+                  conforme idade e tipo de bem.
                 </p>
               </div>
-              
+
               <div className="rounded-lg border border-system-info/20 bg-gray-900 p-4">
                 <h4 className="mb-2 font-bold text-system-info">📝 Taxa de Adesão (Opcional)</h4>
                 <p className="text-sm text-text-secondary">
-                  Cobrada uma única vez na entrada. Varia de 0,5% a 5% do crédito, 
-                  dependendo da administradora e modalidade.
+                  Cobrada uma única vez na entrada. Varia de 0,5% a 5% do crédito, dependendo da
+                  administradora e modalidade.
                 </p>
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6 rounded-lg border border-system-info/30 bg-system-info/5 p-4">
             <h4 className="mb-2 font-bold text-system-info">📈 Reajuste pelo INPC</h4>
             <p className="text-sm text-text-secondary">
-              As parcelas do consórcio são reajustadas anualmente pelo INPC (Índice Nacional de 
-              Preços ao Consumidor), que mede a inflação. Este reajuste mantém o poder de compra 
-              das parcelas ao longo do tempo. A simulação mostra a projeção baseada no INPC atual.
+              As parcelas do consórcio são reajustadas anualmente pelo INPC (Índice Nacional de
+              Preços ao Consumidor), que mede a inflação. Este reajuste mantém o poder de compra das
+              parcelas ao longo do tempo. A simulação mostra a projeção baseada no INPC atual.
             </p>
           </div>
         </CardContent>
@@ -912,7 +925,9 @@ export default function ConsortiumCalculator() {
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
                     Consórcio de Imóveis
                   </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Consórcio de Veículos</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    Consórcio de Veículos
+                  </th>
                   <th className="p-3 text-center font-semibold text-system-warning">
                     Consórcio de Motos
                   </th>
@@ -963,21 +978,24 @@ export default function ConsortiumCalculator() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Longo Prazo</h4>
               <p className="text-sm text-text-secondary">
-                Escolha <strong>Consórcio de Imóveis</strong> se tem paciencia e quer realizar o sonho da casa própria.
+                Escolha <strong>Consórcio de Imóveis</strong> se tem paciencia e quer realizar o
+                sonho da casa própria.
               </p>
             </div>
 
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
               <h4 className="mb-2 font-bold text-growth-green">🚗 Equilibrado</h4>
               <p className="text-sm text-text-secondary">
-                Prefira <strong>Consórcio de Veículos</strong> para ter flexibilidade entre prazo e contemplação.
+                Prefira <strong>Consórcio de Veículos</strong> para ter flexibilidade entre prazo e
+                contemplação.
               </p>
             </div>
 
             <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
               <h4 className="mb-2 font-bold text-system-warning">🏍️ Rápido</h4>
               <p className="text-sm text-text-secondary">
-                Opte por <strong>Consórcio de Motos</strong> para contemplação mais ágil e parcelas menores.
+                Opte por <strong>Consórcio de Motos</strong> para contemplação mais ágil e parcelas
+                menores.
               </p>
             </div>
           </div>
@@ -1054,19 +1072,20 @@ export default function ConsortiumCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de consórcio</strong> utiliza{" "}
-              <strong className="text-growth-green">simulações financeiras</strong> para estimar as
-              parcelas mensais, probabilidade de contemplação e custo total de diferentes tipos de consórcio.
+              Esta <strong className="text-primary-blue-dark">calculadora de consórcio</strong>{" "}
+              utiliza <strong className="text-growth-green">simulações financeiras</strong> para
+              estimar as parcelas mensais, probabilidade de contemplação e custo total de diferentes
+              tipos de consórcio.
             </p>
             <p>
-              <strong>Modalidades disponíveis:</strong> Consórcio de Imóveis, Veículos e Motos.
-              Cada modalidade tem características próprias de prazo, valor e velocidade de contemplação.
+              <strong>Modalidades disponíveis:</strong> Consórcio de Imóveis, Veículos e Motos. Cada
+              modalidade tem características próprias de prazo, valor e velocidade de contemplação.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e de planejamento pessoal. Para decisões de adesão, consulte
-              sempre um <strong>especialista em consórcios</strong> e
-              analise as condições da administradora escolhida.
+              fins educacionais e de planejamento pessoal. Para decisões de adesão, consulte sempre
+              um <strong>especialista em consórcios</strong> e analise as condições da
+              administradora escolhida.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
               🔎 Foco didático • 💰 Simulações realistas • 🔒 Dados não armazenados • 📱 Compatível
