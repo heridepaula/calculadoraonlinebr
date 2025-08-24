@@ -36,7 +36,7 @@ export interface CloudflareBeaconConfig {
  * Token do Cloudflare Web Analytics
  * Pode ser configurado via variável de ambiente ou hardcoded
  */
-export const CLOUDFLARE_TOKEN = process.env.VITE_CLOUDFLARE_TOKEN || '17de6aeb3f444f6289e06cd7ed4fb3aa';
+export const CLOUDFLARE_TOKEN = (typeof window !== 'undefined' && import.meta.env?.VITE_CLOUDFLARE_TOKEN) || '17de6aeb3f444f6289e06cd7ed4fb3aa';
 
 /**
  * URL do script do Cloudflare Web Analytics
@@ -55,7 +55,7 @@ export const CLOUDFLARE_SCRIPT_URL = 'https://static.cloudflareinsights.com/beac
  */
 export const isCloudflareEnabled = (): boolean => {
   return (
-    process.env.NODE_ENV === 'production' && 
+    import.meta.env.PROD && 
     Boolean(CLOUDFLARE_TOKEN) &&
     CLOUDFLARE_TOKEN.length > 10 && // Validação básica do token
     typeof window !== 'undefined'
@@ -84,7 +84,7 @@ export const getCloudflareConfig = (): CloudflareBeaconConfig => ({
  */
 export const loadCloudflareAnalytics = async (): Promise<boolean> => {
   if (!isCloudflareEnabled()) {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log('[Cloudflare] Desabilitado - ambiente de desenvolvimento');
     }
     return false;
@@ -109,7 +109,7 @@ export const loadCloudflareAnalytics = async (): Promise<boolean> => {
     
     // Adicionar event listeners para debugging
     script.onload = () => {
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         console.log('[Cloudflare] Analytics carregado com sucesso');
       }
     };
@@ -229,7 +229,7 @@ export const useCloudflareAnalytics = () => {
  * Apenas em desenvolvimento
  */
 export const getCloudflareDebugInfo = () => {
-  if (process.env.NODE_ENV !== 'development') {
+  if (!import.meta.env.DEV) {
     return null;
   }
 
@@ -239,7 +239,7 @@ export const getCloudflareDebugInfo = () => {
     hasScript: typeof window !== 'undefined' && 
                Boolean(document.querySelector('script[src*="cloudflareinsights.com"]')),
     hasBeacon: typeof window !== 'undefined' && Boolean(window.__cfBeacon),
-    nodeEnv: process.env.NODE_ENV,
+    nodeEnv: import.meta.env.MODE,
     scriptUrl: CLOUDFLARE_SCRIPT_URL
   };
 };
@@ -259,7 +259,7 @@ export const validateCloudflareAnalytics = (): boolean => {
   // Verificar se o beacon está disponível (pode demorar alguns segundos)
   const hasBeacon = Boolean(window.__cfBeacon);
   
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     console.log('[Cloudflare] Validação:', {
       hasScript,
       hasBeacon,

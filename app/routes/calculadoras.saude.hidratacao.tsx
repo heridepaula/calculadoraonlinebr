@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoras-online-br.com/calculadoras/saude/hidratacao",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -85,7 +85,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Hidratação e Balanço Hídrico",
         description:
           "Calculadora online gratuita para determinar necessidade diária de água personalizada com base em peso, idade, atividade física e condições ambientais.",
-        url: "https://calculadoras-online-br.com/calculadoras/saude/hidratacao",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
         applicationCategory: "HealthApplication",
         operatingSystem: "Any",
         permissions: "browser",
@@ -124,18 +124,18 @@ export default function HidratacaoCalculator() {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "hidratacao",
-    category: "saude"
+    category: "saude",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("hidratacao");
 
   const handleCalculate = () => {

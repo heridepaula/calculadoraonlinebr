@@ -204,7 +204,7 @@ export const meta: MetaFunction = () => {
         "Calculadora de IMC mais completa do Brasil: análise por idade/sexo, múltiplas unidades, gráficos interativos e recomendações personalizadas baseadas na OMS.",
     },
     { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://calculadoras-online-br.com/calculadoras/saude/imc" },
+    { property: "og:url", content: "https://calculadoraonlinebr.com.br/calculadoras/saude/imc" },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -233,7 +233,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de IMC Avançada",
         description:
           "Calculadora online gratuita de Índice de Massa Corporal com análise personalizada por idade, sexo e múltiplas unidades de medida.",
-        url: "https://calculadoras-online-br.com/calculadoras/saude/imc",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/imc",
         mainEntity: {
           "@type": "MedicalCalculator",
           name: "Calculadora de IMC (Índice de Massa Corporal)",
@@ -245,7 +245,7 @@ export const meta: MetaFunction = () => {
           isAccessibleForFree: true,
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": "https://calculadoras-online-br.com/calculadoras/saude/imc",
+            "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/imc",
           },
         },
         breadcrumb: {
@@ -255,19 +255,19 @@ export const meta: MetaFunction = () => {
               "@type": "ListItem",
               position: 1,
               name: "Início",
-              item: "https://calculadoras-online-br.com",
+              item: "https://calculadoraonlinebr.com.br",
             },
             {
               "@type": "ListItem",
               position: 2,
               name: "Calculadoras",
-              item: "https://calculadoras-online-br.com/calculadoras",
+              item: "https://calculadoraonlinebr.com.br/calculadoras",
             },
             {
               "@type": "ListItem",
               position: 3,
               name: "Saúde",
-              item: "https://calculadoras-online-br.com/calculadoras/saude",
+              item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
             },
             {
               "@type": "ListItem",
@@ -279,7 +279,7 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "Calculadora Online BR",
-          url: "https://calculadoras-online-br.com",
+          url: "https://calculadoraonlinebr.com.br",
         },
         inLanguage: "pt-BR",
         isAccessibleForFree: true,
@@ -311,18 +311,18 @@ export default function IMCCalculator() {
   const [errors, setErrors] = useState<{ weight?: string; height?: string; age?: string }>({});
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "imc",
-    category: "saude"
+    category: "saude",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("imc");
 
   const handleCalculate = () => {

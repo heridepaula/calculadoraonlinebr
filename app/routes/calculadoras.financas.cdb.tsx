@@ -1,1114 +1,919 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
-  MoneyInput,
-  RateInput,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { calculateCDB, CDB_TAX_BRACKETS } from "~/utils/calculations";
-import type { CDBParams, CDBResult } from "~/utils/calculations";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  getDefaultRate,
-  getIndicatorInfo,
-  isDataRecent,
-  getDataFreshnessColor,
-} from "~/lib/economic-data";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora CDB 2025 - Simulador Completo com Tributação - ${APP_NAME}` },
+    {
+      title: `Calculadora de CDB – Simulador de Rentabilidade | ${APP_NAME}`,
+    },
     {
       name: "description",
       content:
-        "★ Calculadora CDB GRATUITA com simulação completa de tributação. Calcule rendimentos, imposto de renda, IOF e compare com LCI/LCA e Poupança. Ferramenta completa para investimentos em renda fixa com aportes mensais.",
+        "Simule o rendimento de CDB pós-fixado, prefixado ou IPCA+ com cálculo automático de IR regressivo e IOF. Compare cenários e descubra seu montante líquido.",
     },
     {
       name: "keywords",
       content:
-        "calculadora cdb, certificado depósito bancário, cdb tributação, imposto renda cdb, cdb vs lci lca, cdb aportes mensais, rendimento cdb, taxa cdb, cdb pré fixado, cdb pós fixado, cdb ipca, simulador cdb, investimento renda fixa, cdb bancos digitais, cdb corretoras, IOF CDB",
+        "calculadora CDB, simulador CDB, rendimento CDB, CDB pós-fixado, CDB prefixado, CDB IPCA+, IR regressivo, IOF automático, rentabilidade líquida, montante final",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    { name: "robots", content: "index,follow" },
+    { name: "googlebot", content: "index,follow" },
+    { name: "bingbot", content: "index,follow" },
     {
       property: "og:title",
-      content: `Calculadora CDB - Simulação Completa com Tributação - ${APP_NAME}`,
+      content: `Calculadora de CDB – Simulador de Rentabilidade | ${APP_NAME}`,
     },
     {
       property: "og:description",
       content:
-        "★ Simule investimentos em CDB com cálculo preciso de impostos! Compare rendimentos líquidos, veja vantagens da LCI/LCA e tome a melhor decisão. Ferramenta gratuita e completa.",
+        "Use nosso simulador de CDB para comparar rendimentos de títulos pós-fixados, prefixados e híbridos (IPCA+), incluindo IR e IOF.",
     },
     { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://calculadorasonline.com.br/calculadoras/financas/cdb" },
+    {
+      property: "og:url",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
+    },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora CDB com Tributação - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: `Simulador de CDB – Rentabilidade Líquida | ${APP_NAME}`,
+    },
     {
       name: "twitter:description",
       content:
-        "Simule investimentos em CDB com cálculo completo de impostos e compare com outras opções de renda fixa!",
+        "Simule CDB pós-fixado, prefixado ou IPCA+ com IR regressivo e IOF automático. Compare cenários e veja seu montante líquido.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#1e40af" },
-    { name: "theme-color", content: "#1e40af" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+    { name: "theme-color", content: "#3B82F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        name: "Calculadora de CDB",
+        description:
+          "Simulador gratuito de CDB (pós-fixado, prefixado e IPCA+) com cálculo de IR regressivo e IOF automático para estimar rentabilidade líquida.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
+        mainEntity: {
+          "@type": "WebApplication",
+          name: "Simulador de CDB",
+          description:
+            "Ferramenta online para simular rendimento de CDB considerando taxas, prazos, indexadores e tributação.",
+          applicationCategory: "FinanceApplication",
+          operatingSystem: "Web Browser",
+          isAccessibleForFree: true,
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/cdb",
+          },
+        },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Início",
+              item: "https://calculadoraonlinebr.com.br",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Calculadoras",
+              item: "https://calculadoraonlinebr.com.br/calculadoras",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "Finanças",
+              item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: "CDB",
+            },
+          ],
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Calculadora Online BR",
+          url: "https://calculadoraonlinebr.com.br",
+        },
+        inLanguage: "pt-BR",
+        isAccessibleForFree: true,
+        about: {
+          "@type": "InvestmentOrDeposit",
+          name: "Certificado de Depósito Bancário",
+        },
+      }),
+    },
   ];
 };
 
-export default function CDBCalculator() {
-  const [principal, setPrincipal] = useState("");
-  const [interestRate, setInterestRate] = useState("105");
-  const [interestType, setInterestType] = useState<
-    "percentage_cdi" | "percentage_ipca" | "fixed_rate"
-  >("percentage_cdi");
-  const [period, setPeriod] = useState("");
-  const [periodUnit, setPeriodUnit] = useState<"days" | "months" | "years">("months");
-  const [indexRate, setIndexRate] = useState(() => getDefaultRate("CDI").toString());
-  const [hasIOF, setHasIOF] = useState(false);
-  const [monthlyContributions, setMonthlyContributions] = useState("");
-  const [result, setResult] = useState<CDBResult | null>(null);
+type TitleType = "cdi" | "ipca" | "prefixado";
+type FixType = "pos" | "pre";
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "cdb",
-    category: "financas"
+interface CdbResult {
+  grossYield: number;
+  irTax: number;
+  iofTax: number;
+  netYield: number;
+  finalAmount: number;
+  grossRatePct: number;
+  netRatePct: number;
+  annualizedNetPct: number;
+  periodDays: number;
+  irRateAppliedPct: number;
+  iofRateAppliedPct: number;
+  cdiAnnualPct?: number;
+  cdbOverCdiPct?: number;
+  ipcaAnnualPct?: number;
+  realRatePct?: number;
+  fixedRatePct?: number;
+}
+
+interface ValidationErrors {
+  principal?: string;
+  days?: string;
+  cdi?: string;
+  cdbOverCdi?: string;
+  ipca?: string;
+  realRate?: string;
+  fixedRate?: string;
+}
+
+export default function CdbCalculator() {
+  const defaultIPCA = ECONOMIC_INDICATORS.IPCA.rate.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("cdb");
+  const defaultCDI = ECONOMIC_INDICATORS.CDI.rate.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
-  // Função para atualizar indexRate quando o tipo de taxa mudar
-  const handleInterestTypeChange = (
-    newType: "percentage_cdi" | "percentage_ipca" | "fixed_rate"
-  ) => {
-    setInterestType(newType);
-    if (newType === "percentage_cdi") {
-      setIndexRate(getDefaultRate("CDI").toString());
-    } else if (newType === "percentage_ipca") {
-      setIndexRate(getDefaultRate("IPCA").toString());
+  const [titleType, setTitleType] = useState<TitleType>("cdi");
+  const [fixType, setFixType] = useState<FixType>("pos");
+  const [principal, setPrincipal] = useState("");
+  const [days, setDays] = useState("");
+  const [cdiAnnualPct, setCdiAnnualPct] = useState(defaultCDI);
+  const [cdbOverCdiPct, setCdbOverCdiPct] = useState("101,00");
+  const [ipcaAnnualPct, setIpcaAnnualPct] = useState(defaultIPCA);
+  const [realRatePct, setRealRatePct] = useState(defaultIPCA);
+  const [fixedRatePct, setFixedRatePct] = useState(defaultCDI);
+  const [applyIOF, setApplyIOF] = useState(true);
+  const [result, setResult] = useState<CdbResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "cdb",
+    category: "financas",
+  });
+  useFormTracking("cdb");
+
+  const currencyBR = (v: number) =>
+    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  const percentBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
+
+  const getIOFFactor = (d: number) => (d <= 0 ? 1 : d >= 30 ? 0 : (30 - d) / 30);
+  const getIRRate = (d: number) => (d <= 180 ? 0.225 : d <= 360 ? 0.2 : d <= 720 ? 0.175 : 0.15);
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+    const p = parseMoney(principal);
+    if (p <= 0) {
+      newErrors.principal = "Valor inicial obrigatório e maior que 0";
+      ok = false;
     }
+    const d = parseInt(days, 10);
+    if (!days || isNaN(d) || d <= 0) {
+      newErrors.days = "Prazo (dias) obrigatório e maior que 0";
+      ok = false;
+    }
+    if (fixType === "pos" && titleType === "cdi") {
+      if (parseRate(cdiAnnualPct) <= 0) {
+        newErrors.cdi = "CDI anual (%) deve ser > 0";
+        ok = false;
+      }
+      if (parseMoney(cdbOverCdiPct) <= 0) {
+        newErrors.cdbOverCdi = "% do CDI deve ser > 0";
+        ok = false;
+      }
+    }
+    if (fixType === "pos" && titleType === "ipca") {
+      if (parseRate(ipcaAnnualPct) < 0) {
+        newErrors.ipca = "IPCA (a.a. %) inválido";
+        ok = false;
+      }
+      if (parseRate(realRatePct) <= 0) {
+        newErrors.realRate = "Taxa real (a.a. %) deve ser > 0";
+        ok = false;
+      }
+    }
+    if (fixType === "pre" && titleType === "prefixado") {
+      if (parseRate(fixedRatePct) <= 0) {
+        newErrors.fixedRate = "Taxa prefixada (a.a. %) deve ser > 0";
+        ok = false;
+      }
+    }
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const getAnnualRate = () => {
+    if (fixType === "pos" && titleType === "cdi") {
+      return parseRate(cdiAnnualPct) * (parseMoney(cdbOverCdiPct) / 100);
+    }
+    if (fixType === "pos" && titleType === "ipca") {
+      return (1 + parseRate(ipcaAnnualPct)) * (1 + parseRate(realRatePct)) - 1;
+    }
+    if (fixType === "pre" && titleType === "prefixado") {
+      return parseRate(fixedRatePct);
+    }
+    return 0;
   };
 
   const handleCalculate = () => {
-    const principalNum = parseFloat(principal) || 0;
-    const interestRateNum = parseFloat(interestRate) || 0;
-    const periodNum = parseFloat(period) || 0;
-    const indexRateNum = parseFloat(indexRate) || 0;
-    const monthlyContributionsNum = parseFloat(monthlyContributions) || 0;
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const p = parseMoney(principal);
+      const d = parseInt(days, 10);
+      const annualRate = getAnnualRate(); // decimal, e.g. 0.12 for 12% a.a.
 
-    if (principalNum > 0 && interestRateNum > 0 && periodNum > 0) {
-      const params: CDBParams = {
-        principal: principalNum,
-        interestRate: interestRateNum,
-        interestType,
-        period: periodNum,
-        periodUnit,
-        indexRate: indexRateNum,
-        bankTier: "tier1", // Default value
-        hasIOF,
-        monthlyContributions: monthlyContributionsNum,
+      // cálculo diário do fator: (1 + taxa anual)^(1/365) - 1
+      const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
+      // rendimento bruto para d dias
+      const grossYield = p * (Math.pow(1 + dailyRate, d) - 1);
+
+      // IOF se aplicável
+      const iofFactor = d < 30 && applyIOF ? getIOFFactor(d) : 0;
+      const iofTax = grossYield * iofFactor;
+      const iofRateAppliedPct = grossYield ? (iofTax / grossYield) * 100 : 0;
+
+      // IR regressivo sobre rendimento após IOF
+      const irRate = getIRRate(d);
+      const irTax = (grossYield - iofTax) * irRate;
+      const irRateAppliedPct = irRate * 100;
+
+      // rendimento líquido e montante final
+      const netYield = grossYield - iofTax - irTax;
+      const finalAmount = p + netYield;
+
+      // taxas percentuais
+      const grossRatePct = (grossYield / p) * 100;
+      const netRatePct = (netYield / p) * 100;
+      const annualizedNetPct = d > 0 ? (Math.pow(1 + netYield / p, 365 / d) - 1) * 100 : 0;
+
+      const res: CdbResult = {
+        grossYield,
+        irTax,
+        iofTax,
+        netYield,
+        finalAmount,
+        grossRatePct,
+        netRatePct,
+        annualizedNetPct,
+        periodDays: d,
+        irRateAppliedPct,
+        iofRateAppliedPct,
+        ...(titleType === "cdi" && {
+          cdiAnnualPct: parseRate(cdiAnnualPct) * 100,
+          cdbOverCdiPct: parseMoney(cdbOverCdiPct),
+        }),
+        ...(titleType === "ipca" && {
+          ipcaAnnualPct: parseRate(ipcaAnnualPct) * 100,
+          realRatePct: parseRate(realRatePct) * 100,
+        }),
+        ...(titleType === "prefixado" && {
+          fixedRatePct: parseRate(fixedRatePct) * 100,
+        }),
       };
 
-      const calculationResult = calculateCDB(params);
-      setResult(calculationResult);
+      setResult(res);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ principal: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
     setPrincipal("");
-    setInterestRate("105");
-    setPeriod("");
-    setIndexRate(getDefaultRate("CDI").toString());
-    setMonthlyContributions("");
-    setHasIOF(false);
-    setInterestType("percentage_cdi");
+    setDays("");
+    setCdiAnnualPct(defaultCDI);
+    setCdbOverCdiPct("110,00");
+    setIpcaAnnualPct(defaultIPCA);
+    setRealRatePct(defaultIPCA);
+    setFixedRatePct(defaultCDI);
+    setApplyIOF(true);
     setResult(null);
+    setErrors({});
   };
 
-  const handleLoadDefaults = () => {
-    setPrincipal("10000");
-    setInterestRate("105");
-    setPeriod("24");
-    setPeriodUnit("months");
-    setIndexRate(getDefaultRate("CDI").toString());
-    setInterestType("percentage_cdi");
-    setHasIOF(false);
-    setMonthlyContributions("500");
-  };
-
-  const formatCurrency = (value: number) => {
-    try {
-      return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
-    } catch (error) {
-      return `R$ ${value.toFixed(2).replace(".", ",")}`;
-    }
-  };
-
-  const formatPercentage = (value: number) => `${(value * 100).toFixed(2)}%`;
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="min-h-screen bg-surface">
-      {/* Breadcrumb Navigation */}
-      <div className="border-b border-border-primary bg-surface-light px-4 py-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumb>
-            <BreadcrumbItem href="/">Início</BreadcrumbItem>
-            <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-            <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-            <BreadcrumbItem isLast>CDB</BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-      </div>
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+      <Breadcrumb>
+        <BreadcrumbItem href="/">Início</BreadcrumbItem>
+        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+        <BreadcrumbItem isLast>CDB</BreadcrumbItem>
+      </Breadcrumb>
 
-      {/* Hero Section - S-Tier Visual Hierarchy */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-finance-gold/10 via-transparent to-transparent"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-              <span className="mr-2">🏦</span>
-              Simulador CDB com Cálculo Automático de IR
-            </div>
-            
-            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              Calculadora de
-              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-                CDB
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-text-secondary-dark sm:text-lg">
-              Simule rendimentos de <strong className="text-finance-gold-dark">CDB pré e pós-fixado</strong> com{" "}
-              <strong className="text-system-success">tributação automática</strong> e compare com outros
-              investimentos de renda fixa.
-            </p>
-            
-            {/* Trust Indicators */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">IR Regressivo Automático</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-finance-gold"></div>
-                <span className="font-medium">Pré e Pós-Fixado</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
-                <span className="font-medium">Comparações Precisas</span>
-              </div>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          📊 Calculadora de CDB – CDI, Prefixado e IPCA+
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule a <strong className="text-growth-green">rentabilidade líquida do seu CDB</strong>{" "}
+          considerando taxa, prazo e indexador. Compare diferentes tipos de CDB e receba{" "}
+          <strong className="text-primary-blue-dark">projeções de rendimento</strong> para apoiar
+          suas decisões.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>Comparação de CDBs</strong> • ⚙️{" "}
+            <strong>Recomendações Personalizadas</strong>
+          </p>
+        </div>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">Detalhes do investimento</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Tipo de Título centralizado */}
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+              <button
+                type="button"
+                onClick={() => {
+                  setTitleType("cdi");
+                  setFixType("pos");
+                }}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  titleType === "cdi"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                CDI
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTitleType("ipca");
+                  setFixType("pos");
+                }}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  titleType === "ipca"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                IPCA+
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTitleType("prefixado");
+                  setFixType("pre");
+                }}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  titleType === "prefixado"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Prefixado
+              </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Main Calculator Container */}
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          
-          {/* Input Section - Optimized for Mobile */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Primary Input Card */}
-            <Card className="shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-finance-gold/10 to-finance-gold/5">
-                <CardTitle as="h2" className="text-finance-gold-dark">💰 Dados do Investimento</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Primary Inputs - Strategic White Space */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <MoneyInput
-                    label="Valor Inicial"
-                    value={principal}
-                    onChange={(value) => setPrincipal(value)}
-                    placeholder="10.000,00"
-                    min="0.01"
-                    required
-                    fullWidth
-                    className="h-14 text-lg"
-                  />
-
+          {/* Valor Inicial, % do índice e Prazo */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div>
+              <MoneyInput
+                label="Valor Inicial"
+                value={principal}
+                onChange={setPrincipal}
+                placeholder="1.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.principal} />
+            </div>
+            <div className="space-y-4">
+              {titleType === "cdi" && (
+                <>
                   <RateInput
-                    label="Taxa Oferecida (%)"
-                    value={interestRate}
-                    onChange={(value) => setInterestRate(value)}
-                    placeholder="105,00"
-                    required
+                    label="% do CDI"
+                    value={cdbOverCdiPct}
+                    onChange={setCdbOverCdiPct}
+                    placeholder="110,00"
                     fullWidth
-                    className="h-14 text-lg"
+                    className="h-12 text-lg"
                   />
-                </div>
-
-                {/* Secondary Inputs */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <Select
-                    label="Tipo de Taxa"
-                    value={interestType}
-                    onChange={(value) => handleInterestTypeChange(value as any)}
-                    options={[
-                      { value: "percentage_cdi", label: "% do CDI" },
-                      { value: "percentage_ipca", label: "IPCA +" },
-                      { value: "fixed_rate", label: "Taxa Fixa" },
-                    ]}
+                  <ErrorMessage error={errors.cdbOverCdi} />
+                  <RateInput
+                    label="CDI (a.a. %)"
+                    value={cdiAnnualPct}
+                    onChange={setCdiAnnualPct}
+                    placeholder="10,50"
                     fullWidth
-                    className="h-14"
+                    className="mt-2 h-12 text-lg"
                   />
-
-                  <Input
-                    type="number"
-                    label="Prazo do Investimento"
-                    value={period}
-                    onChange={(e) => setPeriod(e.target.value)}
-                    placeholder="Ex: 24"
-                    min="0"
-                    step="1"
-                    required
+                  <ErrorMessage error={errors.cdi} />
+                </>
+              )}
+              {titleType === "ipca" && (
+                <>
+                  <RateInput
+                    label="% do IPCA"
+                    value={ipcaAnnualPct}
+                    onChange={setIpcaAnnualPct}
+                    placeholder="4,00"
                     fullWidth
-                    className="h-14 text-lg"
+                    className="h-12 text-lg"
                   />
-                </div>
-
-                {/* Reference Rate - Conditional */}
-                {(interestType === "percentage_cdi" || interestType === "percentage_ipca") && (
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/5 p-4">
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <RateInput
-                        label={
-                          interestType === "percentage_cdi"
-                            ? "Taxa CDI Atual (%)"
-                            : "IPCA Estimado (%)"
-                        }
-                        value={indexRate}
-                        onChange={(value) => setIndexRate(value)}
-                        placeholder="0,00"
-                        required
-                        fullWidth
-                        className="h-12"
-                      />
-
-                      <Select
-                        label="Unidade do Prazo"
-                        value={periodUnit}
-                        onChange={(value) => setPeriodUnit(value as any)}
-                        options={[
-                          { value: "days", label: "Dias" },
-                          { value: "months", label: "Meses" },
-                          { value: "years", label: "Anos" },
-                        ]}
-                        fullWidth
-                        className="h-12"
-                      />
-                    </div>
-
-                    {/* Economic Indicator Info */}
-                    <div className="mt-3 rounded-lg border border-system-info/20 bg-system-info/10 p-3">
-                      <div className="flex items-center justify-between text-xs">
-                        <span
-                          className={`font-semibold ${getDataFreshnessColor(interestType === "percentage_cdi" ? "CDI" : "IPCA")}`}
-                        >
-                          💹 Oficial:{" "}
-                          {getDefaultRate(
-                            interestType === "percentage_cdi" ? "CDI" : "IPCA"
-                          )}
-                          %
-                        </span>
-                        <span className="text-text-secondary">
-                          {
-                            getIndicatorInfo(
-                              interestType === "percentage_cdi" ? "CDI" : "IPCA"
-                            ).source
-                          }
-                        </span>
-                      </div>
-                      {!isDataRecent(
-                        interestType === "percentage_cdi" ? "CDI" : "IPCA"
-                      ) && (
-                        <div className="mt-1 font-medium text-system-warning text-xs">
-                          ⚠️ Dados podem estar desatualizados
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Additional Settings */}
-                <div className="rounded-lg border border-finance-gold/20 bg-finance-gold/5 p-4">
-                  <h3 className="mb-4 font-semibold text-finance-gold-dark">⚙️ Configurações Opcionais</h3>
-
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <MoneyInput
-                      label="Aporte Mensal"
-                      value={monthlyContributions}
-                      onChange={(value) => setMonthlyContributions(value)}
-                      placeholder="500,00"
-                      min="0"
-                      fullWidth
-                      className="h-12"
-                    />
-
-                    
-                    {/* IOF Toggle */}
-                    <div className="flex items-center">
-                      <button
-                        type="button"
-                        onClick={() => setHasIOF(!hasIOF)}
-                        className={`mr-3 flex h-6 w-6 items-center justify-center rounded-lg border-2 transition-all ${
-                          hasIOF
-                            ? "border-system-warning bg-system-warning text-white"
-                            : "border-border-primary bg-surface hover:border-system-warning"
-                        }`}
-                      >
-                        {hasIOF && (
-                          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        )}
-                      </button>
-                      <div>
-                        <label
-                          className="cursor-pointer font-medium text-text-primary"
-                          onClick={() => setHasIOF(!hasIOF)}
-                        >
-                          Aplicar IOF (&lt; 30 dias)
-                        </label>
-                        <p className="text-xs text-text-secondary">
-                          💡 IOF incide em aplicações de curto prazo
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons - Prominent and Accessible */}
-                <div className="flex flex-col gap-4 pt-6 sm:flex-row sm:justify-center">
-                  <Button 
-                    onClick={handleCalculate} 
-                    className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white"
+                  <ErrorMessage error={errors.ipca} />
+                  <RateInput
+                    label="Taxa Real (a.a. %)"
+                    value={realRatePct}
+                    onChange={setRealRatePct}
+                    placeholder="6,00"
                     fullWidth
-                  >
-                    🏦 Simular CDB
-                  </Button>
-                  <Button
-                    onClick={handleReset}
-                    variant="outline"
-                    className="h-14 px-8 border-2 border-system-error text-system-error hover:bg-system-error hover:text-white"
+                    className="mt-2 h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.realRate} />
+                </>
+              )}
+              {titleType === "prefixado" && (
+                <>
+                  <RateInput
+                    label="Prefixado (a.a. %)"
+                    value={fixedRatePct}
+                    onChange={setFixedRatePct}
+                    placeholder="12,00"
                     fullWidth
-                  >
-                    Limpar Dados
-                  </Button>
-                </div>
-
-                {/* Quick Presets */}
-                <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/5 p-4">
-                  <h4 className="mb-3 text-center font-semibold text-primary-blue-dark">
-                    ⚡ Cenários Rápidos
-                  </h4>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPrincipal("5000");
-                        setInterestRate("105");
-                        setPeriod("12");
-                        setInterestType("percentage_cdi");
-                        setMonthlyContributions("300");
-                      }}
-                      className="rounded-lg border border-system-success/20 bg-system-success/10 p-3 text-left hover:bg-system-success/20 transition-colors"
-                    >
-                      <div className="text-xs font-semibold text-system-success">💚 Conservador</div>
-                      <div className="mt-1 text-xs text-text-secondary">R$ 5k + R$ 300/mês</div>
-                      <div className="text-xs text-primary-blue-dark">105% CDI</div>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPrincipal("10000");
-                        setInterestRate("115");
-                        setPeriod("24");
-                        setInterestType("percentage_cdi");
-                        setMonthlyContributions("500");
-                      }}
-                      className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-3 text-left hover:bg-system-warning/20 transition-colors"
-                    >
-                      <div className="text-xs font-semibold text-system-warning">🔥 Moderado</div>
-                      <div className="mt-1 text-xs text-text-secondary">R$ 10k + R$ 500/mês</div>
-                      <div className="text-xs text-primary-blue-dark">115% CDI</div>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPrincipal("20000");
-                        setInterestRate("125");
-                        setPeriod("36");
-                        setInterestType("percentage_cdi");
-                        setMonthlyContributions("1000");
-                      }}
-                      className="rounded-lg border border-finance-gold/20 bg-finance-gold/10 p-3 text-left hover:bg-finance-gold/20 transition-colors"
-                    >
-                      <div className="text-xs font-semibold text-finance-gold-dark">💪 Agressivo</div>
-                      <div className="mt-1 text-xs text-text-secondary">R$ 20k + R$ 1k/mês</div>
-                      <div className="text-xs text-primary-blue-dark">125% CDI</div>
-                    </button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.fixedRate} />
+                </>
+              )}
+            </div>
+            <div>
+              <Input
+                type="number"
+                label="Prazo (dias)"
+                value={days}
+                onChange={(e) => setDays(e.target.value)}
+                placeholder="90"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.days} />
+            </div>
           </div>
 
-          {/* Sidebar - Tax Information & Market Data */}
-          <div className="space-y-6">
-            {/* Tax Brackets */}
-            <Card className="border-2 border-system-warning bg-system-warning/5 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-system-warning/10 to-system-warning/5">
-                <CardTitle as="h3" className="text-system-warning">
-                  📋 Tributação CDB
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {CDB_TAX_BRACKETS.map((bracket, index) => (
-                    <div
-                      key={index}
-                      className={`flex justify-between rounded-lg p-3 transition-all ${
-                        result &&
-                        result.periodInDays >= bracket.days &&
-                        result.periodInDays <=
-                          (bracket.maxDays === Infinity ? result.periodInDays : bracket.maxDays)
-                          ? "border-2 border-system-warning bg-system-warning/20 shadow-md"
-                          : "border border-border-primary bg-surface-light"
-                      }`}
-                    >
-                      <span className="font-medium text-sm">{bracket.description}</span>
-                      <span className="font-bold text-lg">{formatPercentage(bracket.rate)}</span>
-                    </div>
-                  ))}
-                  <div className="mt-3 rounded-lg bg-system-warning/10 p-2 text-xs text-system-warning text-center">
-                    💡 Taxa destacada será aplicada ao seu investimento
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* FGC Guarantee */}
-            <Card className="border-2 border-system-success bg-system-success/5 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-system-success/10 to-system-success/5">
-                <CardTitle as="h3" className="text-system-success">
-                  🛡️ Garantia FGC
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center rounded-lg bg-system-success/10 p-3">
-                    <span className="font-medium">Por CPF por banco:</span>
-                    <span className="font-bold text-lg text-system-success">R$ 250.000</span>
-                  </div>
-                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
-                    <span className="font-medium">Limite renovável:</span>
-                    <span className="font-bold">A cada 4 anos</span>
-                  </div>
-                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
-                    <span className="font-medium">Total máximo:</span>
-                    <span className="font-bold text-lg">R$ 1.000.000</span>
-                  </div>
-                  <div className="mt-3 rounded-lg bg-system-success/10 p-2 text-xs text-system-success text-center font-medium">
-                    ✅ Seu investimento está 100% protegido
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Market References */}
-            <Card className="border-2 border-primary-blue bg-primary-blue/5 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-primary-blue/10 to-primary-blue/5">
-                <CardTitle as="h3" className="text-primary-blue-dark">
-                  📊 Referências de Mercado
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center rounded-lg bg-system-success/10 p-3">
-                    <span className="font-medium">CDI atual:</span>
-                    <span className="font-bold text-lg text-system-success">
-                      {getDefaultRate("CDI")}% a.a.
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
-                    <span className="font-medium">IPCA (projeção):</span>
-                    <span className="font-bold text-lg text-primary-blue-dark">
-                      {getDefaultRate("IPCA")}% a.a.
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center rounded-lg bg-surface-light p-3">
-                    <span className="font-medium">Poupança:</span>
-                    <span className="font-bold text-lg text-finance-gold-dark">
-                      {getDefaultRate("POUPANCA")}% a.a.
-                    </span>
-                  </div>
-                  <div className="mt-3 rounded-lg bg-primary-blue/10 p-2 text-xs text-primary-blue-dark text-center font-medium">
-                    📈 CDBs típicos: 95% a 130% do CDI
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Results Section - Prominent Visual Display */}
-        {result && (
-          <div className="space-y-8">
-            {/* Hero Result Card */}
-            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
-              <CardHeader className="text-center">
-                <CardTitle as="h2" className="text-2xl font-bold text-finance-gold-dark">
-                  🎉 Resultado da Simulação CDB
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center space-y-4">
-                  <div className="bg-gradient-to-r from-finance-gold/20 to-finance-gold/10 rounded-2xl p-6">
-                    <div className="text-5xl font-bold text-finance-gold-dark mb-2">
-                      {formatCurrency(result.netFinalAmount)}
-                    </div>
-                    <div className="text-lg text-text-secondary">Valor Final Líquido</div>
-                    <div className="text-sm text-system-success mt-1">
-                      Lucro de {formatCurrency(result.netReturn)} • {((result.netReturn / (parseFloat(principal) || 1)) * 100).toFixed(1)}% de rentabilidade
-                    </div>
-                  </div>
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-growth-green">
+                  {currencyBR(result.finalAmount)}
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Results Grid - Enhanced for Mobile */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <Card className="border-2 border-primary-blue bg-primary-blue/10 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="pb-2">
-                  <CardTitle as="h3" className="text-sm text-primary-blue-dark font-semibold">
-                    💰 Valor Bruto
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-primary-blue-dark">
-                      {formatCurrency(result.finalAmount)}
-                    </div>
-                    <p className="mt-1 text-xs text-text-secondary">
-                      Antes dos impostos
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-system-error bg-system-error/10 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="pb-2">
-                  <CardTitle as="h3" className="text-sm text-system-error font-semibold">
-                    💸 Total Impostos
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-system-error">
-                      {formatCurrency(result.incomeTax + result.iofTax)}
-                    </div>
-                    <p className="mt-1 text-xs text-text-secondary">
-                      IR: {formatPercentage(result.taxRate)}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-system-success bg-system-success/10 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="pb-2">
-                  <CardTitle as="h3" className="text-sm text-system-success font-semibold">
-                    📊 Lucro Líquido
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-system-success">
-                      {formatCurrency(result.netReturn)}
-                    </div>
-                    <p className="mt-1 text-xs text-text-secondary">
-                      Ganho final
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-finance-gold bg-finance-gold/10 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="pb-2">
-                  <CardTitle as="h3" className="text-sm text-finance-gold-dark font-semibold">
-                    📈 Rentabilidade
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-finance-gold-dark">
-                      {((result.netReturn / (parseFloat(principal) || 1)) * 100).toFixed(1)}%
-                    </div>
-                    <p className="mt-1 text-xs text-text-secondary">
-                      Retorno total
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                <div className="text-sm text-text-secondary">Montante Final</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {currencyBR(result.netYield)}
+                </div>
+                <div className="text-sm text-text-secondary">Rendimento Líquido</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {percentBR(result.netRatePct)}%
+                </div>
+                <div className="text-sm text-text-secondary">Taxa Líquida</div>
+              </div>
             </div>
 
-            {/* Investment Comparison - Enhanced Visual Hierarchy */}
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <Card className="border-2 border-growth-green bg-gradient-to-br from-growth-green/10 to-growth-green/5 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-growth-green/20 to-growth-green/10">
-                  <CardTitle as="h3" className="text-lg font-bold text-growth-green flex items-center">
-                    🏦 CDB vs Poupança
-                    {result.comparison.savings.advantage > 0 && 
-                      <span className="ml-2 bg-growth-green text-white px-2 py-1 rounded-full text-xs">VANTAGEM</span>
-                    }
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="bg-surface-light rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-text-secondary font-medium">💰 Na Poupança:</span>
-                        <span className="font-bold text-lg">
-                          {formatCurrency(result.comparison.savings.finalAmount)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-text-secondary font-medium">🏦 No CDB (líquido):</span>
-                        <span className="font-bold text-lg text-growth-green">
-                          {formatCurrency(result.netFinalAmount)}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-growth-green/20 rounded-lg p-4 text-center">
-                      <div className="text-sm text-text-secondary mb-1">💚 Vantagem do CDB</div>
-                      <div className="text-2xl font-bold text-growth-green">
-                        {formatCurrency(result.comparison.savings.advantage)}
-                      </div>
-                      <div className="text-sm text-system-success mt-1">
-                        {result.comparison.savings.percentageAdvantage > 0 ? "+" : ""}
-                        {result.comparison.savings.percentageAdvantage.toFixed(1)}% a mais
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-system-info bg-gradient-to-br from-system-info/10 to-system-info/5 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-system-info/20 to-system-info/10">
-                  <CardTitle as="h3" className="text-lg font-bold text-system-info flex items-center">
-                    💎 CDB vs LCI/LCA
-                    {result.comparison.lciLca.advantage > 0 && 
-                      <span className="ml-2 bg-system-info text-white px-2 py-1 rounded-full text-xs">LCI MELHOR</span>
-                    }
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="bg-surface-light rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-text-secondary font-medium">🏦 CDB (líquido):</span>
-                        <span className="font-bold text-lg">
-                          {formatCurrency(result.netFinalAmount)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-text-secondary font-medium">💎 LCI/LCA (isento):</span>
-                        <span className="font-bold text-lg text-system-info">
-                          {formatCurrency(result.comparison.lciLca.finalAmount)}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-system-info/20 rounded-lg p-4 text-center">
-                      <div className="text-sm text-text-secondary mb-1">
-                        {result.comparison.lciLca.advantage > 0 ? "💎 Vantagem LCI/LCA" : "🏦 Vantagem CDB"}
-                      </div>
-                      <div className="text-2xl font-bold text-system-info">
-                        {formatCurrency(Math.abs(result.comparison.lciLca.advantage))}
-                      </div>
-                      <div className="text-sm text-text-secondary mt-1">
-                        {Math.abs(result.comparison.lciLca.percentageAdvantage).toFixed(1)}% de diferença
-                      </div>
-                    </div>
-                    
-                    <div className="bg-system-info/10 rounded-lg p-3 text-center">
-                      <p className="text-xs text-system-info font-medium">
-                        💡 Economia de imposto com LCI/LCA
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">IR Aplicado</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {percentBR(result.irRateAppliedPct, 1)}%
+                </div>
+                <div className="text-sm text-text-secondary">{currencyBR(result.irTax)}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">IOF</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {currencyBR(result.iofTax)}
+                </div>
+                <div className="text-sm text-text-secondary">
+                  {percentBR(result.iofRateAppliedPct, 2)}% do rendimento
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Prazo</div>
+                <div className="text-xl font-bold text-text-primary">{result.periodDays} dias</div>
+              </div>
             </div>
 
-            {/* Monthly Evolution Table - Enhanced */}
-            {result.monthlyEvolution.length > 1 && (
-              <Card className="border-2 border-primary-blue bg-primary-blue/5 shadow-lg">
-                <CardHeader className="bg-gradient-to-r from-primary-blue/10 to-primary-blue/5">
-                  <CardTitle as="h3" className="text-primary-blue-dark">📊 Evolução Mensal do Investimento</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b-2 border-primary-blue/20 bg-primary-blue/10">
-                          <th className="p-3 text-left font-semibold">Mês</th>
-                          <th className="p-3 text-right font-semibold">Saldo</th>
-                          <th className="p-3 text-right font-semibold">Juros Brutos</th>
-                          <th className="p-3 text-right font-semibold">Imposto</th>
-                          <th className="p-3 text-right font-semibold">Juros Líquidos</th>
-                          <th className="p-3 text-right font-semibold">Total Acumulado</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {result.monthlyEvolution.map((evolution, index) => (
-                          <tr
-                            key={index}
-                            className="border-b border-border-primary hover:bg-primary-blue/5 transition-colors"
-                          >
-                            <td className="p-3 font-medium">{evolution.month}º mês</td>
-                            <td className="p-3 text-right font-medium tabular-nums text-primary-blue-dark">
-                              {formatCurrency(evolution.balance)}
-                            </td>
-                            <td className="p-3 text-right tabular-nums text-growth-green font-medium">
-                              {formatCurrency(evolution.grossInterest)}
-                            </td>
-                            <td className="p-3 text-right tabular-nums text-system-error font-medium">
-                              -{formatCurrency(evolution.tax)}
-                            </td>
-                            <td className="p-3 text-right tabular-nums text-system-success font-medium">
-                              {formatCurrency(evolution.netInterest)}
-                            </td>
-                            <td className="p-3 text-right font-bold tabular-nums text-finance-gold-dark">
-                              {formatCurrency(evolution.accumulatedNet)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </CardContent>
-              </Card>
+            {result.periodDays < 30 && result.iofTax > 0 && (
+              <div className="mb-6 rounded border border-system-warning/20 bg-system-warning/10 p-3 text-sm text-system-warning">
+                ⚠️ IOF aplicado por prazo inferior a 30 dias. Quanto mais próximo de 30 dias, menor
+                o IOF incidente.
+              </div>
             )}
+
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo Técnico</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Rendimento bruto: <strong>{currencyBR(result.grossYield)}</strong>
+                </li>
+                <li>
+                  Impostos: IR <strong>{currencyBR(result.irTax)}</strong> + IOF{" "}
+                  <strong>{currencyBR(result.iofTax)}</strong>
+                </li>
+                <li>
+                  Rentabilidade bruta: <strong>{percentBR(result.grossRatePct, 4)}%</strong>
+                </li>
+                <li>
+                  Rentabilidade líquida: <strong>{percentBR(result.netRatePct, 4)}%</strong>
+                </li>
+                <li>
+                  Anualizada (aprox.):{" "}
+                  <strong>{percentBR(result.annualizedNetPct, 2)}% a.a.</strong>
+                </li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Seção: Detalhes dos Tipos de CDB - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            📋 Tipos de CDB – Guia Completo
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* CDB Pós-fixado (CDI) */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                💧 CDB Pós-fixado (CDI)
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Título de renda fixa que rende um percentual do CDI diário, refletindo as
+                    variações da taxa básica de juros.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Previsibilidade</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Segue a oscilação diária do CDI</li>
+                    <li>• Ideal para reserva de liquidez</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Liquidez diária (na maioria dos títulos)</li>
+                    <li>• Baixa complexidade de comparação</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Rendimento pode cair se CDI diminuir</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* CDB Prefixado */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🔒 CDB Prefixado
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Investimento que paga uma taxa fixa anual acordada no momento da aplicação,
+                    independente de variações futuras de juros.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Previsibilidade</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Taxa definida no início</li>
+                    <li>• Ideal para cenários de juros estáveis ou em queda</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Rendimento garantido se mantido até o vencimento</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Perde valor se resgatado antes do vencimento</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* CDB IPCA+ (Híbrido) */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🌡️ CDB IPCA+ (Híbrido)
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Título híbrido que combina variação do IPCA mais uma taxa fixa contratada,
+                    protegendo contra a inflação.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Previsibilidade</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Garante retorno real acima da inflação</li>
+                    <li>• Ideal para objetivos de longo prazo</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Proteção contra erosão inflacionária</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Rendimento real só confirmado no vencimento</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+        </CardContent>
+      </Card>
 
-        {/* Seção Educacional: O que é CDB */}
-        <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary sm:text-2xl">
-              🏦 O que é CDB? Guia Completo
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6 text-text-primary">
-              <div className="text-base leading-relaxed sm:text-lg">
-                <p>
-                  <strong className="text-primary-blue-dark">
-                    CDB (Certificado de Depósito Bancário)
-                  </strong>{" "}
-                  é um investimento de renda fixa onde você empresta dinheiro para o banco em troca
-                  de juros. É uma das aplicações mais populares do Brasil, oferecendo{" "}
-                  <strong className="text-growth-green">segurança e rentabilidade</strong>
-                  superiores à poupança.
-                </p>
-              </div>
+      {/* Seção: Comparação de Tipos de CDB */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Comparação de Tipos de CDB
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    CDB Pós-fixado (CDI)
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">CDB Prefixado</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    CDB IPCA+ (híbrido)
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Previsibilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Média (acompanha CDI)</td>
+                  <td className="p-3 text-center text-growth-green">Alta (taxa fixa)</td>
+                  <td className="p-3 text-center text-system-warning">Alta (IPCA + cupom)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Facilidade de Comparação</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Liquidez</td>
+                  <td className="p-3 text-center text-growth-green">Diária comum</td>
+                  <td className="p-3 text-center">No vencimento</td>
+                  <td className="p-3 text-center">No vencimento</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Tributação</td>
+                  <td className="p-3 text-center">IR regressivo + IOF até 30d</td>
+                  <td className="p-3 text-center">IR regressivo + IOF até 30d</td>
+                  <td className="p-3 text-center">IR regressivo + IOF até 30d</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Indicada para</td>
+                  <td className="p-3 text-center">Reserva de curto/médio prazo</td>
+                  <td className="p-3 text-center">Travar taxa em queda de juros</td>
+                  <td className="p-3 text-center">Proteção contra inflação</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Rendimento esperável</td>
+                  <td className="p-3 text-center text-primary-blue-dark">CDI x % contratado</td>
+                  <td className="p-3 text-center text-growth-green">Taxa fixa anual</td>
+                  <td className="p-3 text-center text-system-warning">IPCA + taxa fixa</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-                  <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
-                    🎯 Como Funciona o CDB?
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="rounded-lg bg-primary-blue-light p-4">
-                      <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                        💡 Mecânica Simples
-                      </h4>
-                      <p className="text-sm text-text-secondary">
-                        Você empresta seu dinheiro para o banco, que usa esses recursos para fazer
-                        empréstimos e investimentos. Em troca, o banco paga{" "}
-                        <strong>juros pré-definidos</strong> sobre seu capital.
-                      </p>
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-success">✅</span>
-                        <span>
-                          <strong>Garantido pelo FGC</strong> até R$ 250.000
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-success">✅</span>
-                        <span>
-                          <strong>Liquidez:</strong> Pode ser diária ou no vencimento
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-success">✅</span>
-                        <span>
-                          <strong>Rentabilidade:</strong> Geralmente superior à poupança
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-warning">⚠️</span>
-                        <span>
-                          <strong>Tributação:</strong> Imposto de Renda sobre os ganhos
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-                  <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
-                    📊 Tipos de CDB
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-3">
-                      <h4 className="mb-1 font-semibold text-growth-green">
-                        📈 Pós-fixado (% do CDI)
-                      </h4>
-                      <p className="text-xs text-text-secondary">
-                        Mais comum. Rentabilidade varia com a taxa CDI (ex: 105% do CDI)
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-3">
-                      <h4 className="mb-1 font-semibold text-primary-blue-dark">💹 Pré-fixado</h4>
-                      <p className="text-xs text-text-secondary">
-                        Taxa definida na contratação (ex: 12% ao ano)
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-3">
-                      <h4 className="mb-1 font-semibold text-system-info">🌡️ Híbrido (IPCA+)</h4>
-                      <p className="text-xs text-text-secondary">
-                        Inflação + taxa fixa (ex: IPCA + 5%)
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-system-success/20 bg-system-success/10 p-6">
-                <h4 className="mb-3 text-center text-lg font-bold text-system-success">
-                  💰 Exemplo Prático: CDB vs Poupança vs LCI/LCA
-                </h4>
-                <div className="grid grid-cols-1 gap-6 text-sm md:grid-cols-3">
-                  <div>
-                    <h5 className="mb-2 font-semibold text-system-success">💙 CDB 105% CDI:</h5>
-                    <p>• Investimento: R$ 10.000</p>
-                    <p>• Prazo: 24 meses</p>
-                    <p>• Bruto: R$ 12.860</p>
-                    <p>• IR (20%): R$ 572</p>
-                    <p className="font-bold">• Líquido: R$ 12.288</p>
-                  </div>
-                  <div>
-                    <h5 className="mb-2 font-semibold text-growth-green">💚 Poupança:</h5>
-                    <p>• Investimento: R$ 10.000</p>
-                    <p>• Prazo: 24 meses</p>
-                    <p>• Bruto: R$ 11.796</p>
-                    <p>• IR: R$ 0 (isento)</p>
-                    <p className="font-bold">• Líquido: R$ 11.796</p>
-                  </div>
-                  <div>
-                    <h5 className="mb-2 font-semibold text-system-info">🌟 LCI 95% CDI:</h5>
-                    <p>• Investimento: R$ 10.000</p>
-                    <p>• Prazo: 24 meses</p>
-                    <p>• Bruto: R$ 12.421</p>
-                    <p>• IR: R$ 0 (isento)</p>
-                    <p className="font-bold">• Líquido: R$ 12.421</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-center font-bold">
-                  <span className="text-system-info">🏆 LCI ganha por R$ 133!</span>
-                  <span className="text-primary-blue-dark"> CDB ganha da poupança por R$ 492!</span>
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <FAQ
-          title="Perguntas Frequentes - Calculadora CDB"
-          items={[
-            {
-              question: "Como funciona a tributação do CDB e qual a alíquota de Imposto de Renda?",
-              answer:
-                "O <strong>CDB é tributado pelo Imposto de Renda</strong> com alíquotas decrescentes: <strong>22,5% até 180 dias</strong>, 20% de 181-360 dias, 17,5% de 361-720 dias e <strong>15% acima de 720 dias</strong>. Quanto mais tempo investido, menor o imposto!",
-              borderColor: "system-warning",
-            },
-            {
-              question: "CDB ou LCI/LCA: qual investimento é melhor para minha carteira?",
-              answer:
-                "Depende da <strong>rentabilidade oferecida e prazo</strong>. LCI/LCA são isentas de IR, mas CDB pode pagar taxas maiores. Regra prática: CDB precisa pagar <strong>18-29% a mais</strong> que LCI/LCA para ser equivalente (dependendo do prazo).",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Qual o valor mínimo para investir em CDB?",
-              answer:
-                "Varia por instituição: <strong>Bancos digitais: R$ 1-1.000</strong> (100-120% CDI), <strong>Corretoras: R$ 1.000-5.000</strong> (105-130% CDI), <strong>Grandes bancos: R$ 5.000-30.000</strong> (95-110% CDI). Geralmente menor que LCI/LCA.",
-              borderColor: "growth-green",
-            },
-            {
-              question: "CDB tem liquidez diária ou só no vencimento?",
-              answer:
-                "<strong>Alguns CDBs têm liquidez diária</strong>, outros só no vencimento. CDBs com liquidez diária são ideais para <strong>reserva de emergência</strong>, mas oferecem rentabilidade menor. CDBs sem liquidez pagam mais e são ideais para objetivos de longo prazo.",
-              borderColor: "system-info",
-            },
-            {
-              question: "Vale a pena fazer aportes mensais no CDB?",
-              answer:
-                "<strong>Sim, é excelente estratégia!</strong> Aportes regulares potencializam os <strong>juros compostos</strong> e criam disciplina. Exemplo: R$ 5.000 inicial + R$ 500 mensais por 24 meses em CDB 105% CDI = <strong>R$ 19.278 líquidos</strong> (13,4% de rendimento).",
-              borderColor: "growth-green",
-            },
-            {
-              question: "CDB é garantido pelo FGC? Qual o limite de proteção?",
-              answer:
-                "<strong>Sim, CDB é 100% garantido pelo FGC</strong> até R$ 250.000 por CPF por banco. Limite renovável a cada 4 anos, com máximo total de <strong>R$ 1.000.000</strong>. Seu investimento está completamente protegido!",
-              borderColor: "system-success",
-            },
-            {
-              question: "Como comparar CDB com Poupança e outros investimentos?",
-              answer:
-                "CDB geralmente rende <strong>muito mais que a Poupança</strong>. Nossa calculadora mostra comparação automática! CDB 105% CDI supera poupança em 15-25%. Compare sempre o <strong>rendimento líquido</strong> após impostos.",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Posso resgatar meu CDB antes do vencimento?",
-              answer:
-                "Depende do tipo: <strong>CDB com liquidez diária</strong> permite resgate a qualquer momento. <strong>CDB sem liquidez</strong> só permite resgate no vencimento ou com perda de rentabilidade. Sempre verifique as condições antes de investir.",
-              borderColor: "system-warning",
-            },
-          ]}
-          tipSection={{
-            title: "Dica de Especialista",
-            content:
-              "Para <strong>maximizar seus ganhos</strong>, considere CDBs com prazo acima de 2 anos (menor IR) e diversifique entre bancos para aproveitar melhor o limite do FGC de R$ 250.000 por instituição.",
-          }}
-          footerText="<strong>Precisa simular outros cenários?</strong> Nossa calculadora CDB oferece cálculos precisos com tributação automática e comparações inteligentes para suas melhores decisões de investimento!"
-        />
-
-        {/* Footer */}
-        <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft">
-          <CardHeader>
-            <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-              📚 Sobre Esta Calculadora de CDB
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3 text-sm text-text-secondary">
-              <p>
-                Esta <strong className="text-primary-blue-dark">calculadora de CDB</strong> é
-                <strong className="text-system-success"> 100% gratuita</strong> e oferece cálculo
-                preciso de tributação, comparações com outros investimentos e simulação de aportes
-                mensais. Ideal para quem busca renda fixa com rentabilidade superior à poupança.
-              </p>
-              <p>
-                <strong>Funcionalidades avançadas:</strong> Cálculo automático de IR com tabela
-                regressiva, simulação de IOF para aplicações curtas, comparação com LCI/LCA e
-                Poupança, aportes mensais, evolução detalhada mês a mês, informações sobre garantia
-                do FGC e interface mobile-first.
-              </p>
-              <p>
-                <strong className="text-system-warning">Importante:</strong> Os cálculos são para
-                fins educacionais. Rentabilidades passadas não garantem resultados futuros. Para
-                decisões de investimento, consulte sempre um <strong>assessor qualificado</strong>{" "}
-                ou <strong>planejador financeiro certificado</strong>.
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
+              <p className="text-sm text-text-secondary">
+                Comece com o <strong>CDB Pós-fixado (CDI)</strong> pela liquidez diária e facilidade
+                de comparação.
               </p>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Structured Data - JSON-LD for SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "Calculadora CDB",
-              description:
-                "Calculadora gratuita para CDB com cálculo preciso de tributação. Compare rendimentos líquidos e tome a melhor decisão de investimento.",
-              url: "https://calculadorasonline.com.br/calculadoras/financas/cdb",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Web",
-              browserRequirements: "Requires JavaScript",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "BRL",
-              },
-              featureList: [
-                "Cálculo de tributação IR automática",
-                "Comparação com LCI/LCA e Poupança",
-                "Simulação de aportes mensais",
-                "Cálculo de IOF para investimentos curtos",
-                "Evolução mensal detalhada",
-                "Informações sobre garantia FGC",
-                "Interface mobile-first",
-                "100% gratuito",
-              ],
-              about: [
-                {
-                  "@type": "Thing",
-                  name: "CDB - Certificado de Depósito Bancário",
-                },
-                {
-                  "@type": "Thing",
-                  name: "Investimento em Renda Fixa",
-                },
-                {
-                  "@type": "Thing",
-                  name: "Tributação de Investimentos",
-                },
-              ],
-              author: {
-                "@type": "Organization",
-                name: "Calculadora Online BR",
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "Calculadora Online BR",
-              },
-            }),
-          }}
-        />
-        <RelatedCalculators category="financas" currentCalculatorId="cdb" />
-      </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">🔒 Taxa Fixa</h4>
+              <p className="text-sm text-text-secondary">
+                Escolha o <strong>CDB Prefixado</strong> para garantir rendimento em cenários de
+                queda de juros.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">🌡️ Proteção</h4>
+              <p className="text-sm text-text-secondary">
+                Prefira o <strong>CDB IPCA+</strong> para manter poder de compra no longo prazo.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <FAQ
+        title="Perguntas Frequentes - Calculadora de CDB"
+        items={[
+          {
+            question: "O que é um CDB?",
+            answer:
+              "CDB (Certificado de Depósito Bancário) é um título de renda fixa emitido por bancos que remunera o investidor com base em uma taxa acordada, prefixada, pós-fixada ao CDI ou híbrida (IPCA+).",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Como funciona a tributação?",
+            answer:
+              "Os rendimentos do CDB são sujeitos a IR regressivo (15% a 22,5%) e IOF se resgatados em até 30 dias. A alíquota de IR diminui conforme o tempo de aplicação: 22,5% (até 6 meses) a 15% (acima de 2 anos).",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Posso resgatar antes do vencimento?",
+            answer:
+              "Depende da liquidez oferecida: muitos CDBs pós-fixados permitem resgate diário, mas prefixados e IPCA+ costumam liberar apenas no vencimento. Resgates antecipados podem sofrer marcação a mercado.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Qual é o prazo ideal para investir?",
+            answer:
+              "Para liquidez rápida, escolha CDBs com liquidez diária. Para travar taxa, prefira prefixados de médio prazo (1–2 anos). Para proteger contra inflação, opte por IPCA+ no longo prazo (3+ anos).",
+            borderColor: "system-warning",
+          },
+          {
+            question: "CDB tem garantia do FGC?",
+            answer:
+              "Sim. O FGC cobre até R$ 250.000 por CPF e por instituição (limite global de R$ 1 milhão a cada 4 anos), garantindo o valor aplicado e os rendimentos contratados.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Como escolher entre pós-fixado, prefixado e IPCA+?",
+            answer:
+              "Combine seu objetivo (liquidez, travar taxa ou proteger contra inflação) com o cenário de juros. Pós-fixados são melhores para curto prazo, prefixados em queda de juros, e IPCA+ para metas reais de longo prazo.",
+            borderColor: "system-error-dark",
+          },
+        ]}
+        tipSection={{
+          title: "Dica Importante sobre CDB",
+          content:
+            "<strong>Para a melhor escolha:</strong> avalie taxa, prazo e liquidez juntos. CDB Pós-fixado para reserva de emergência, Prefixado para travar rendimento e IPCA+ para proteção inflacionária.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Diversifique entre bancos e prazos, fique atento ao FGC e alinhe o CDB ao seu objetivo financeiro."
+      />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Sobre Esta Calculadora de CDB
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta <strong className="text-primary-blue-dark">calculadora de CDB</strong> utiliza{" "}
+              <strong className="text-growth-green">simulações financeiras</strong> para estimar a
+              rentabilidade líquida de diferentes tipos de CDB. Os cálculos consideram CDI, taxas
+              prefixadas, IPCA e tributação aplicável.
+            </p>
+            <p>
+              <strong>Métodos disponíveis:</strong> CDB Pós-fixado (CDI), CDB Prefixado e CDB IPCA+
+              (híbrido). Cada tipo atende a objetivos e horizontes de investimento distintos.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e de planejamento pessoal. Para decisões de investimento, consulte
+              sempre um <strong>assessor de investimentos ou profissional qualificado</strong> e
+              reveja as condições do emissor.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🔎 Foco didático • 💰 Simulações realistas • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <RelatedCalculators category="financas" currentCalculatorId="cdb" />
     </div>
   );
 }

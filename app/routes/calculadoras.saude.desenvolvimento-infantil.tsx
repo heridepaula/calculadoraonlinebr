@@ -68,7 +68,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoras-online-br.com/calculadoras/saude/desenvolvimento-infantil",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -98,7 +98,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Desenvolvimento Infantil",
         description:
           "Ferramenta online gratuita para acompanhar marcos de desenvolvimento de bebês de 0 a 36 meses, com suporte a prematuros e cronograma pediátrico personalizado.",
-        url: "https://calculadoras-online-br.com/calculadoras/saude/desenvolvimento-infantil",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
         mainEntity: {
           "@type": "MedicalCalculator",
           name: "Calculadora de Marcos de Desenvolvimento Infantil",
@@ -107,7 +107,7 @@ export const meta: MetaFunction = () => {
           medicalSpecialty: "Pediatria",
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": "https://calculadoras-online-br.com/calculadoras/saude/desenvolvimento-infantil",
+            "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
           },
         },
         breadcrumb: {
@@ -117,19 +117,19 @@ export const meta: MetaFunction = () => {
               "@type": "ListItem",
               position: 1,
               name: "Início",
-              item: "https://calculadoras-online-br.com",
+              item: "https://calculadoraonlinebr.com.br",
             },
             {
               "@type": "ListItem",
               position: 2,
               name: "Calculadoras",
-              item: "https://calculadoras-online-br.com/calculadoras",
+              item: "https://calculadoraonlinebr.com.br/calculadoras",
             },
             {
               "@type": "ListItem",
               position: 3,
               name: "Saúde",
-              item: "https://calculadoras-online-br.com/calculadoras/saude",
+              item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
             },
             {
               "@type": "ListItem",
@@ -141,7 +141,7 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "Calculadora Online BR",
-          url: "https://calculadoras-online-br.com",
+          url: "https://calculadoraonlinebr.com.br",
         },
         inLanguage: "pt-BR",
         isAccessibleForFree: true,
@@ -190,18 +190,18 @@ export default function ChildDevelopmentCalculator() {
   const [isCalculating, setIsCalculating] = useState(false);
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "desenvolvimento_infantil",
-    category: "saude"
+    category: "saude",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("desenvolvimento_infantil");
   const resultsRef = useRef<HTMLDivElement>(null);
 
