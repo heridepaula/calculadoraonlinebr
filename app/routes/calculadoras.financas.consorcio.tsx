@@ -93,7 +93,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://calculadoraonlinebr.com.br/og-images/calculadora-consorcio.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-cdb.webp",
     },
     {
       name: "twitter:image:alt",

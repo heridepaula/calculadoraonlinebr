@@ -89,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-cdb.webp",
     },
     {
       name: "twitter:image:alt",
