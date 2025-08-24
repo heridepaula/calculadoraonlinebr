@@ -206,50 +206,50 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
-            name: "O que é empréstimo consignado?",
+            name: "Qual a diferença entre Sistema SAC e Sistema PRICE?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Empréstimo consignado é uma modalidade de crédito onde as parcelas são descontadas diretamente da folha de pagamento ou benefício, oferecendo menores taxas devido à garantia de pagamento.",
+              text: "No SAC, a amortização é constante e as prestações diminuem ao longo do tempo, resultando em menor pagamento de juros totais. No PRICE, as prestações são fixas, facilitando o planejamento financeiro, mas resulta em maior pagamento de juros ao longo do contrato.",
             },
           },
           {
             "@type": "Question",
-            name: "Qual a margem consignável disponível?",
+            name: "Qual o valor mínimo de entrada para financiamento imobiliário?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Aposentados e pensionistas podem comprometer até 35% do benefício líquido, enquanto servidores públicos podem usar até 30% do salário líquido para pagamento de consignados.",
+              text: "O valor mínimo da entrada varia de 20% a 30% do valor do imóvel, dependendo da instituição financeira e do programa de financiamento. Para imóveis usados, algumas instituições exigem entrada maior. Programas como Minha Casa Minha Vida podem ter condições especiais.",
             },
           },
           {
             "@type": "Question",
-            name: "Como é calculado o IOF?",
+            name: "Quais são os custos adicionais no financiamento imobiliário?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O IOF incide sobre o valor do empréstimo: 0,38% fixo + 0,0082% por dia (limitado a 30 dias). É descontado do valor liberado, reduzindo o montante líquido recebido.",
+              text: "Além das parcelas, há custos como: avaliação do imóvel, seguro habitacional, registro em cartório, ITBI, taxa de abertura de crédito (TAC), e custos de documentação. Esses valores podem somar entre 3% a 6% do valor do imóvel.",
             },
           },
           {
             "@type": "Question",
-            name: "Posso quitar antecipadamente?",
+            name: "É possível fazer amortização extraordinária do financiamento?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sim, a quitação antecipada é permitida com desconto proporcional dos juros. O desconto varia conforme a instituição e pode representar economia significativa.",
+              text: "Sim, é possível fazer amortizações extraordinárias utilizando o saldo do FGTS anualmente ou recursos próprios a qualquer momento. Você pode optar por reduzir o valor das parcelas ou diminuir o prazo do financiamento, sendo a segunda opção mais vantajosa financeiramente.",
             },
           },
           {
             "@type": "Question",
-            name: "Qual a diferença entre CET e taxa de juros?",
+            name: "Qual a renda necessária para conseguir financiamento imobiliário?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A taxa de juros é apenas os juros mensais, enquanto o CET (Custo Efetivo Total) inclui todos os custos: juros, IOF, taxas administrativas e seguros, representando o custo real total.",
+              text: "A prestação do financiamento não pode comprometer mais de 30% da renda líquida familiar. É necessário comprovar renda estável há pelo menos 2 anos, ter idade entre 18 e 80 anos no final do contrato, não ter nome no SPC/Serasa e atender aos critérios de score de crédito da instituição.",
             },
           },
           {
             "@type": "Question",
-            name: "Como escolher entre as modalidades?",
+            name: "Qual sistema escolher: SAC ou PRICE?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Servidores têm as melhores condições (menor taxa, maior prazo). Aposentados e pensionistas têm margem maior (35%). CLT depende da empresa conveniada. Compare sempre o CET total.",
+              text: "SAC é melhor se você quer pagar menos juros totais e pode arcar com parcelas maiores no início. PRICE é ideal para quem prefere parcelas fixas e planejamento orçamentário estável. Considere sua capacidade de pagamento atual e futura antes de decidir.",
             },
           },
         ],
@@ -920,7 +920,7 @@ export default function MortgageCalculator() {
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Como Usar Esta Calculadora de Empréstimo Consignado
+            📚 Como Usar Esta Calculadora de Financiamento Imobiliário
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -928,31 +928,32 @@ export default function MortgageCalculator() {
             <p>
               Esta{" "}
               <strong className="text-primary-blue-dark">
-                calculadora de empréstimo consignado
+                calculadora de financiamento imobiliário
               </strong>{" "}
-              utiliza <strong className="text-growth-green">simulações financeiras</strong> para
-              estimar parcelas, CET, IOF e margem consignável para diferentes modalidades de
-              beneficiários.
+              utiliza <strong className="text-growth-green">simulações financeiras precisas</strong> para
+              comparar sistemas SAC e PRICE, calculando parcelas, juros totais e cronograma de
+              amortização para diferentes cenários de financiamento.
             </p>
             <p>
-              <strong>Modalidades disponíveis:</strong> Aposentados INSS, Servidores Públicos e
-              Pensionistas. Cada categoria possui limites e taxas específicas conforme a legislação.
+              <strong>Sistemas disponíveis:</strong> SAC (Sistema de Amortização Constante) e PRICE 
+              (Tabela Price). Cada sistema possui características específicas que impactam o valor 
+              total de juros e a evolução das parcelas ao longo do financiamento.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e de planejamento pessoal. Para decisões de crédito, consulte sempre
+              fins educacionais e de planejamento pessoal. Para decisões de financiamento, consulte sempre
               as <strong>instituições financeiras autorizadas</strong> e avalie sua capacidade de
-              pagamento.
+              pagamento e estabilidade de renda.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco didático • 💰 Simulações realistas • 🔒 Dados não armazenados • 📱 Compatível
-              com todos os dispositivos • 🌙 Suporte a modo escuro
+              🏠 Simulação imobiliária • 📊 SAC vs PRICE • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>
       </Card>
 
-      <RelatedCalculators category="financas" currentCalculatorId="emprestimo-consignado" />
+      <RelatedCalculators category="financas" currentCalculatorId="financiamento-imobiliario" />
     </div>
   );
 }
