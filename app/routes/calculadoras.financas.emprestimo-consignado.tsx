@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/emprestimo-consignado.webp",
     },
     {
       property: "og:image:alt",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/emprestimo-consignado.webp",
     },
     {
       name: "twitter:image:alt",
@@ -201,56 +201,56 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
+        mainEntity: [
           {
             "@type": "Question",
-            "name": "O que é empréstimo consignado?",
-            "acceptedAnswer": {
+            name: "O que é empréstimo consignado?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "Empréstimo consignado é uma modalidade de crédito onde as parcelas são descontadas diretamente da folha de pagamento ou benefício, oferecendo menores taxas devido à garantia de pagamento."
-            }
+              text: "Empréstimo consignado é uma modalidade de crédito onde as parcelas são descontadas diretamente da folha de pagamento ou benefício, oferecendo menores taxas devido à garantia de pagamento.",
+            },
           },
           {
             "@type": "Question",
-            "name": "Qual a margem consignável disponível?",
-            "acceptedAnswer": {
-              "@type": "Answer", 
-              "text": "Aposentados e pensionistas podem comprometer até 35% do benefício líquido, enquanto servidores públicos podem usar até 30% do salário líquido para pagamento de consignados."
-            }
+            name: "Qual a margem consignável disponível?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Aposentados e pensionistas podem comprometer até 35% do benefício líquido, enquanto servidores públicos podem usar até 30% do salário líquido para pagamento de consignados.",
+            },
           },
           {
             "@type": "Question",
-            "name": "Como é calculado o IOF?",
-            "acceptedAnswer": {
+            name: "Como é calculado o IOF?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "O IOF incide sobre o valor do empréstimo: 0,38% fixo + 0,0082% por dia (limitado a 30 dias). É descontado do valor liberado, reduzindo o montante líquido recebido."
-            }
+              text: "O IOF incide sobre o valor do empréstimo: 0,38% fixo + 0,0082% por dia (limitado a 30 dias). É descontado do valor liberado, reduzindo o montante líquido recebido.",
+            },
           },
           {
             "@type": "Question",
-            "name": "Posso quitar antecipadamente?",
-            "acceptedAnswer": {
+            name: "Posso quitar antecipadamente?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "Sim, a quitação antecipada é permitida com desconto proporcional dos juros. O desconto varia conforme a instituição e pode representar economia significativa."
-            }
+              text: "Sim, a quitação antecipada é permitida com desconto proporcional dos juros. O desconto varia conforme a instituição e pode representar economia significativa.",
+            },
           },
           {
             "@type": "Question",
-            "name": "Qual a diferença entre CET e taxa de juros?",
-            "acceptedAnswer": {
+            name: "Qual a diferença entre CET e taxa de juros?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "A taxa de juros é apenas os juros mensais, enquanto o CET (Custo Efetivo Total) inclui todos os custos: juros, IOF, taxas administrativas e seguros, representando o custo real total."
-            }
+              text: "A taxa de juros é apenas os juros mensais, enquanto o CET (Custo Efetivo Total) inclui todos os custos: juros, IOF, taxas administrativas e seguros, representando o custo real total.",
+            },
           },
           {
             "@type": "Question",
-            "name": "Como escolher entre as modalidades?",
-            "acceptedAnswer": {
+            name: "Como escolher entre as modalidades?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "Servidores têm as melhores condições (menor taxa, maior prazo). Aposentados e pensionistas têm margem maior (35%). CLT depende da empresa conveniada. Compare sempre o CET total."
-            }
-          }
-        ]
+              text: "Servidores têm as melhores condições (menor taxa, maior prazo). Aposentados e pensionistas têm margem maior (35%). CLT depende da empresa conveniada. Compare sempre o CET total.",
+            },
+          },
+        ],
       }),
     },
   ];
@@ -472,7 +472,11 @@ export default function PayrollLoanCalculator() {
         </CardHeader>
         <CardContent>
           {/* Tipo de Beneficiário centralizado */}
-          <div className="mb-6 flex flex-wrap justify-center gap-2" role="radiogroup" aria-label="Tipo de beneficiário">
+          <div
+            className="mb-6 flex flex-wrap justify-center gap-2"
+            role="radiogroup"
+            aria-label="Tipo de beneficiário"
+          >
             <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
               <button
                 type="button"
@@ -595,7 +599,11 @@ export default function PayrollLoanCalculator() {
 
           {/* Botões */}
           <div className="margin-top-4 flex justify-center space-x-4">
-            <Button onClick={handleCalculate} className="px-8" aria-label="Calcular empréstimo consignado">
+            <Button
+              onClick={handleCalculate}
+              className="px-8"
+              aria-label="Calcular empréstimo consignado"
+            >
               Calcular
             </Button>
             <Button
@@ -612,7 +620,12 @@ export default function PayrollLoanCalculator() {
 
       {/* Resultado */}
       {result && (
-        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft" role="region" aria-label="Resultado da simulação">
+        <Card
+          ref={resultRef as any}
+          className="border-2 border-growth-green bg-growth-green-soft"
+          role="region"
+          aria-label="Resultado da simulação"
+        >
           <CardHeader>
             <CardTitle as="h2" className="text-growth-green">
               📊 Resultado da Simulação de Empréstimo Consignado
@@ -725,7 +738,11 @@ export default function PayrollLoanCalculator() {
           <div className="space-y-8">
             {/* Aposentados INSS */}
             <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark" role="heading" aria-level="3">
+              <h3
+                className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark"
+                role="heading"
+                aria-level="3"
+              >
                 👴 Aposentados INSS
               </h3>
 
@@ -764,7 +781,11 @@ export default function PayrollLoanCalculator() {
 
             {/* Servidores Públicos */}
             <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green" role="heading" aria-level="3">
+              <h3
+                className="mb-4 flex items-center text-xl font-bold text-growth-green"
+                role="heading"
+                aria-level="3"
+              >
                 💼 Servidores Públicos
               </h3>
 
@@ -803,7 +824,11 @@ export default function PayrollLoanCalculator() {
 
             {/* Pensionistas */}
             <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning" role="heading" aria-level="3">
+              <h3
+                className="mb-4 flex items-center text-xl font-bold text-system-warning"
+                role="heading"
+                aria-level="3"
+              >
                 💰 Pensionistas
               </h3>
 
@@ -842,7 +867,11 @@ export default function PayrollLoanCalculator() {
 
             {/* Trabalhadores CLT */}
             <div className="rounded-xl border border-system-info/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-system-info" role="heading" aria-level="3">
+              <h3
+                className="mb-4 flex items-center text-xl font-bold text-system-info"
+                role="heading"
+                aria-level="3"
+              >
                 💼 Trabalhadores CLT
               </h3>
 
@@ -891,8 +920,16 @@ export default function PayrollLoanCalculator() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto" role="region" aria-label="Tabela comparativa de modalidades">
-            <table className="w-full border-collapse text-sm" role="table" aria-label="Comparação entre modalidades de empréstimo consignado">
+          <div
+            className="overflow-x-auto"
+            role="region"
+            aria-label="Tabela comparativa de modalidades"
+          >
+            <table
+              className="w-full border-collapse text-sm"
+              role="table"
+              aria-label="Comparação entre modalidades de empréstimo consignado"
+            >
               <thead>
                 <tr className="border-b-2 border-neutral-surface-variant">
                   <th className="p-3 text-left font-semibold">Critério</th>
