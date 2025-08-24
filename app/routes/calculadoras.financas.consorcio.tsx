@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-consorcio.webp",
     },
     {
       property: "og:image:alt",
