@@ -1,213 +1,201 @@
-import { useState, useEffect, forwardRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-interface RateInputProps {
+export interface RateInputProps {
   label?: string;
-  value?: string;
-  onChange?: (value: string) => void;
+  value: string | number;
+  onChange: (value: string) => void;
   placeholder?: string;
   required?: boolean;
-  fullWidth?: boolean;
-  min?: string;
-  max?: string;
-  step?: string;
-  disabled?: boolean;
-  readOnly?: boolean;
   className?: string;
-  id?: string;
+  fullWidth?: boolean;
+  readOnly?: boolean;
+  min?: string;
 }
 
-const RateInput = forwardRef<HTMLInputElement, RateInputProps>(
-  (
-    {
-      label,
-      value = "",
-      onChange,
-      placeholder = "0,00",
-      required = false,
-      fullWidth = false,
-      min,
-      max,
-      step,
-      disabled = false,
-      readOnly = false,
-      className = "",
-      id,
-      ...props
-    },
-    ref
-  ) => {
-    const [displayValue, setDisplayValue] = useState("");
-    const [internalValue, setInternalValue] = useState("");
+export const RateInput: React.FC<RateInputProps> = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  required = false,
+  className = "",
+  fullWidth = false,
+  readOnly = false,
+  min,
+}) => {
+  const [displayValue, setDisplayValue] = useState("");
+  const [numericValue, setNumericValue] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    // Função para formatar o valor para exibição (999.999,99%)
-    const formatDisplayValue = (numericValue: string): string => {
-      if (!numericValue) return "";
+  // Formatar número para exibição brasileira com %
+  const formatPercentage = (cents: number): string => {
+    const percentage = cents / 100;
+    return percentage.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + "%";
+  };
 
-      const num = parseFloat(numericValue);
-      if (isNaN(num)) return "";
+  // Converter string ou number para centavos
+  const stringToCents = (str: string | number): number => {
+    if (typeof str === "number") {
+      return Math.round(str * 100);
+    }
+    // Remove tudo exceto dígitos
+    const numericString = str.replace(/\D/g, "");
+    return parseInt(numericString) || 0;
+  };
 
-      return (
-        new Intl.NumberFormat("pt-BR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }).format(num) + "%"
-      );
-    };
+  // Sincronizar com valor externo
+  useEffect(() => {
+    const externalCents = stringToCents(value);
+    if (externalCents !== numericValue) {
+      setNumericValue(externalCents);
+      setDisplayValue(formatPercentage(externalCents));
+    }
+  }, [value]);
 
-    // Função para converter valor numérico interno para string
-    const formatInternalValue = (centavos: number): string => {
-      return (centavos / 100).toFixed(2);
-    };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (readOnly) return;
 
-    // Função para processar a entrada do usuário (digitação da direita para a esquerda)
-    const processInput = (input: string): { display: string; internal: string } => {
-      // Remove tudo que não for número
-      const digitsOnly = input.replace(/\D/g, "");
+    const input = e.target as HTMLInputElement;
+    const cursorPosition = input.selectionStart || 0;
+    const inputValue = input.value;
+    const inputLength = inputValue.length;
 
-      if (!digitsOnly) {
-        return { display: "", internal: "" };
-      }
-
-      // Converte para centavos (número inteiro)
-      const centavos = parseInt(digitsOnly, 10);
-
-      // Converte centavos para valor decimal
-      const decimalValue = centavos / 100;
-
-      // Formata para exibição
-      const formatted =
-        new Intl.NumberFormat("pt-BR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }).format(decimalValue) + "%";
-
-      const internalVal = decimalValue.toFixed(2);
-
-      return { display: formatted, internal: internalVal };
-    };
-
-    // Inicializar valores quando o componente monta ou value prop muda
-    useEffect(() => {
-      if (value) {
-        const numValue = parseFloat(value);
-        if (!isNaN(numValue)) {
-          const formatted = formatDisplayValue(value);
-          setDisplayValue(formatted);
-          setInternalValue(value);
-        } else {
-          setDisplayValue("");
-          setInternalValue("");
-        }
-      } else {
-        setDisplayValue("");
-        setInternalValue("");
-      }
-    }, [value]);
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (readOnly || disabled) return;
-
-      const inputValue = e.target.value;
-
-      // Se o usuário está apagando tudo
-      if (!inputValue) {
-        setDisplayValue("");
-        setInternalValue("");
-        onChange?.("");
-        return;
-      }
-
-      const { display, internal } = processInput(inputValue);
-
-      setDisplayValue(display);
-      setInternalValue(internal);
-      onChange?.(internal);
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      // Permite: backspace, delete, tab, escape, enter
-      if ([8, 9, 27, 13, 46].includes(e.keyCode)) {
-        return;
-      }
-
-      // Permite: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-      if (e.ctrlKey && [65, 67, 86, 88].includes(e.keyCode)) {
-        return;
-      }
-
-      // Permite: Home, End, Left, Right
-      if ([35, 36, 37, 39].includes(e.keyCode)) {
-        return;
-      }
-
-      // Só permite números (0-9)
-      if (!((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105))) {
-        e.preventDefault();
-      }
-    };
-
-    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    // Se backspace ou delete e cursor está no final, limpa o campo completamente
+    if ((e.key === "Backspace" || e.key === "Delete") && cursorPosition >= inputLength) {
       e.preventDefault();
-      const pastedText = e.clipboardData.getData("text");
-      const { display, internal } = processInput(pastedText);
+      setNumericValue(0);
+      setDisplayValue(formatPercentage(0));
+      onChange("0,00");
+      return;
+    }
 
-      setDisplayValue(display);
-      setInternalValue(internal);
-      onChange?.(internal);
-    };
+    // Se backspace e cursor está no final ou quase no final, também limpa
+    if (e.key === "Backspace" && cursorPosition >= inputLength - 1) {
+      e.preventDefault();
+      setNumericValue(0);
+      setDisplayValue(formatPercentage(0));
+      onChange("0,00");
+      return;
+    }
 
-    const inputClasses = `
-      w-full px-3 py-2 text-sm
-      border border-neutral-surface-variant rounded-md
-      bg-background-primary text-text-primary
-      placeholder:text-text-secondary
-      focus:border-primary-blue focus:ring-1 focus:ring-primary-blue focus:outline-none
-      disabled:opacity-50 disabled:cursor-not-allowed
-      read-only:bg-neutral-surface read-only:cursor-default
-      transition-colors duration-200
-      ${fullWidth ? "w-full" : ""}
-      ${className}
-    `.trim();
+    // Permitir teclas especiais
+    const allowedKeys = [
+      "Backspace",
+      "Delete",
+      "Tab",
+      "Escape",
+      "Enter",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
+    ];
 
-    return (
-      <div className={`space-y-1 ${fullWidth ? "w-full" : ""}`}>
-        {label && (
-          <label htmlFor={id} className="block text-sm font-medium text-text-primary">
-            {label}
-            {required && <span className="ml-1 text-system-error">*</span>}
-          </label>
-        )}
-        <div className="relative">
-          <input
-            {...props}
-            ref={ref}
-            id={id}
-            type="text"
-            value={displayValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            onPaste={handlePaste}
-            placeholder={placeholder}
-            required={required}
-            disabled={disabled}
-            readOnly={readOnly}
-            className={inputClasses}
-            inputMode="numeric"
-            autoComplete="off"
-          />
-          <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 transform">
-            <span className="text-xs text-text-secondary">📊</span>
-          </div>
-        </div>
-        <div className="text-xs text-text-secondary">
-          💡 Digite apenas números - Ex: 1250 = 12,50%
+    if (allowedKeys.includes(e.key)) {
+      if (e.key === "Backspace") {
+        e.preventDefault();
+        const newCents = Math.floor(numericValue / 10);
+        setNumericValue(newCents);
+        setDisplayValue(formatPercentage(newCents));
+        const percentageValue = (newCents / 100).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+        onChange(percentageValue);
+      }
+      return;
+    }
+
+    // Permitir apenas dígitos
+    if (!/^\d$/.test(e.key)) {
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+    const digit = parseInt(e.key);
+    const newCents = numericValue * 10 + digit;
+
+    // Limitar a 9.999,99% (999999 centavos)
+    if (newCents > 999999) {
+      return;
+    }
+
+    setNumericValue(newCents);
+    setDisplayValue(formatPercentage(newCents));
+    const percentageValue = (newCents / 100).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    onChange(percentageValue);
+  };
+
+  const handleFocus = () => {
+    if (inputRef.current && !readOnly) {
+      // Posicionar cursor no final
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.setSelectionRange(
+            inputRef.current.value.length,
+            inputRef.current.value.length
+          );
+        }
+      }, 0);
+    }
+  };
+
+  const handleChange = () => {
+    // Previne mudanças diretas no input - só aceita via teclado
+  };
+
+  const baseClasses = [
+    "w-full p-3 border rounded-lg transition-colors duration-200",
+    "focus:outline-none focus:ring-2 focus:ring-primary-blue/20 focus:border-primary-blue",
+    "bg-background-primary text-text-primary border-neutral-surface-variant",
+    "placeholder:text-text-secondary",
+    readOnly && "bg-neutral-surface/50 cursor-not-allowed",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const containerClasses = ["space-y-1", fullWidth && "w-full"].filter(Boolean).join(" ");
+
+  return (
+    <div className={containerClasses}>
+      {label && (
+        <label className="block text-sm font-medium text-text-primary">
+          {label}
+          {required && <span className="ml-1 text-system-error">*</span>}
+        </label>
+      )}
+      <div className="relative">
+        <input
+          ref={inputRef}
+          type="text"
+          value={displayValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
+          placeholder={placeholder}
+          className={baseClasses}
+          readOnly={readOnly}
+          style={{ caretColor: readOnly ? "transparent" : "auto" }}
+        />
+        <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 transform">
+          <span className="text-xs text-text-secondary">📊</span>
         </div>
       </div>
-    );
-  }
-);
-
-RateInput.displayName = "RateInput";
-
-export { RateInput };
-export type { RateInputProps };
+      {min && (
+        <p className="text-xs text-text-secondary">
+          Valor mínimo: {parseFloat(min).toFixed(2).replace(".", ",")}%
+        </p>
+      )}
+    </div>
+  );
+};

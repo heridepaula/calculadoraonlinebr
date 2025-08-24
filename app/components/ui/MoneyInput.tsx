@@ -58,6 +58,29 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (readOnly) return;
 
+    const input = e.target as HTMLInputElement;
+    const cursorPosition = input.selectionStart || 0;
+    const inputValue = input.value;
+    const inputLength = inputValue.length;
+
+    // Se backspace ou delete e cursor está no final, limpa o campo completamente
+    if ((e.key === "Backspace" || e.key === "Delete") && cursorPosition >= inputLength) {
+      e.preventDefault();
+      setNumericValue(0);
+      setDisplayValue(formatCurrency(0));
+      onChange(0);
+      return;
+    }
+
+    // Se backspace e cursor está no final ou quase no final, também limpa
+    if (e.key === "Backspace" && cursorPosition >= inputLength - 1) {
+      e.preventDefault();
+      setNumericValue(0);
+      setDisplayValue(formatCurrency(0));
+      onChange(0);
+      return;
+    }
+
     // Permitir teclas especiais
     const allowedKeys = [
       "Backspace",
