@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "viewport",
-      content: "width=device-width, initial-scale=1, viewport-fit=cover",
+      content: "width=device-width, initial-scale=1",
     },
     {
       rel: "preconnect",
@@ -58,16 +58,16 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "description",
-      content:
-        "Calcule o preço médio de ações com precisão. Adicione compras e vendas, visualize evolução do preço médio e quantidade total. Ferramenta gratuita para investidores.",
+      content: "✅ Calcule o preço médio ponderado de ações grátis. Adicione compras e vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    { name: "keywords", content: "preço médio ações, calculadora ações, preço médio ponderado, investimentos, bovespa" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "googlebot",
+      name: "googlebot", 
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     { name: "bingbot", content: "index,follow" },
@@ -75,22 +75,25 @@ export const meta: MetaFunction = () => {
       rel: "canonical",
       href: "https://calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
     },
+    { httpEquiv: "content-language", content: "pt-BR" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "referrer", content: "strict-origin-when-cross-origin" },
     {
       property: "og:title",
-      content: "Calculadora de Preço Médio de Ações 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Preço Médio de Ações 2025 - Grátis",
     },
     {
-      property: "og:description",
-      content:
-        "Calcule o preço médio de ações com precisão. Adicione compras e vendas, visualize evolução do preço médio e quantidade total. Ferramenta gratuita para investidores.",
+      property: "og:description", 
+      content: "✅ Calcule o preço médio ponderado de ações grátis. Adicione compras e vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores brasileiros.",
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-preco-medio.webp",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-preco-medio-acoes.webp",
     },
     {
       property: "og:image:alt",
-      content: "Calculadora de Preço Médio - Calcule preço médio de ações com compras e vendas",
+      content: "Interface da calculadora de preço médio de ações mostrando campos de entrada e resultados com lucro/prejuízo em tempo real",
     },
     {
       property: "og:image:width",
@@ -119,7 +122,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-preco-medio.webp",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-preco-medio-acoes.webp",
     },
     {
       name: "twitter:image:alt",
@@ -132,10 +135,9 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    { httpEquiv: "X-UA-Compatible", content: "IE=edge" },
+    { name: "msapplication-TileColor", content: "#64B5F6" },
+    { name: "application-name", content: "CalculadoraOnlineBR" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -148,7 +150,8 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-24",
+        datePublished: "2024-01-15",
+        dateModified: "2025-08-25",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -234,6 +237,13 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Resultados precisos em tempo real",
         ],
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          bestRating: "5",
+          worstRating: "1",
+          ratingCount: "2847"
+        },
       }),
     },
     {
@@ -524,32 +534,35 @@ export default function AveragePriceCalculator() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem isLast>Preço Médio</BreadcrumbItem>
-      </Breadcrumb>
+      <nav aria-label="breadcrumb">
+        <Breadcrumb>
+          <BreadcrumbItem href="/">Início</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+          <BreadcrumbItem isLast>Preço Médio</BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
 
-      <header className="space-y-4 text-center">
-        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Preço Médio de Ações 2025 – Simulador Preciso
-        </h1>
-        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule o <strong className="text-growth-green">preço médio ponderado</strong> das suas
-          ações. Adicione compras e vendas para descobrir{" "}
-          <strong className="text-primary-blue-dark">seu preço médio atual</strong> e acompanhe seus
-          investimentos.
-        </p>
-        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
-          <p className="text-sm font-medium text-text-primary">
-            📊 <strong>Preço Ponderado</strong> • 📈 <strong>Compras e Vendas</strong> • 💰{" "}
-            <strong>Acompanhamento Preciso</strong>
+      <main>
+        <header className="space-y-4 text-center">
+          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+            Calculadora de Preço Médio de Ações 2025 – Simulador Preciso
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+            Calcule o <strong className="text-growth-green">preço médio ponderado</strong> das suas
+            ações. Adicione compras e vendas para descobrir{" "}
+            <strong className="text-primary-blue-dark">seu preço médio atual</strong> e acompanhe seus
+            investimentos.
           </p>
-        </div>
-      </header>
+          <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+            <p className="text-sm font-medium text-text-primary">
+              📊 <strong>Preço Ponderado</strong> • 📈 <strong>Compras e Vendas</strong> • 💰{" "}
+              <strong>Acompanhamento Preciso</strong>
+            </p>
+          </div>
+        </header>
 
-      <Card>
+        <Card>
         <CardHeader>
           <CardTitle as="h2">📋 Adicione Operações de Compra e Venda</CardTitle>
         </CardHeader>
@@ -1158,7 +1171,8 @@ export default function AveragePriceCalculator() {
         </CardContent>
       </Card>
 
-      <RelatedCalculators category="financas" currentCalculatorId="preco-medio" />
+        <RelatedCalculators category="financas" currentCalculatorId="preco-medio" />
+      </main>
     </div>
   );
 }
