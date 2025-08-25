@@ -1,1121 +1,1312 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
-  MoneyInput,
-  RateInput,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  LineChart,
-  BarChart,
-  Select,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
-  calculateAdvancedCompoundInterest,
-  compareWithSimpleInterest,
-  type CompoundInterestParams,
-  type CompoundInterestResult,
-} from "~/utils/calculations";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Juros Compostos 2025 - Simulador Completo com Aportes - ${APP_NAME}` },
+    {
+      title: "Calculadora de Juros Compostos 2025 – Simulador Preciso | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora de juros compostos GRATUITA com aportes mensais e gráficos detalhados. Simule investimentos, entenda o poder dos juros sobre juros e descubra como multiplicar seu dinheiro. Ferramenta completa para planejamento financeiro e aposentadoria.",
+        "Calcule juros compostos com precisão. Simule crescimento do capital, rendimentos ao longo do tempo e compare diferentes cenários de investimento com nossa calculadora gratuita.",
     },
     {
       name: "keywords",
       content:
-        "calculadora juros compostos, juros sobre juros, aportes mensais, investimento longo prazo, simulador financeiro, crescimento exponencial, planejamento aposentadoria, como calcular juros compostos, fórmula juros compostos, CDI, tesouro direto, fundos investimento, poupança programada, educação financeira, multiplicação dinheiro, regra dos 72, taxa real de juros, inflação investimentos",
+        "calculadora juros compostos, simulador juros compostos, matemática financeira, rendimento composto, investimentos, montante final",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
-    { property: "og:title", content: `Calculadora de Juros Compostos Completa 2025 - ${APP_NAME}` },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
+    },
+    {
+      property: "og:title",
+      content: "Calculadora de Juros Compostos 2025 – Simulador Preciso",
+    },
     {
       property: "og:description",
       content:
-        "★ Simule investimentos com juros compostos e aportes mensais. Veja como seu dinheiro pode crescer exponencialmente com gráficos e tabelas detalhadas. 100% gratuito!",
+        "Calcule juros compostos com precisão. Simule crescimento do capital e rendimentos ao longo do tempo com nossa calculadora gratuita.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-juros-compostos.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Juros Compostos - Simule crescimento exponencial do patrimônio com aportes mensais",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/financas/juros-compostos",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora de Juros Compostos com Aportes - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Juros Compostos 2025 – Simulador Preciso",
+    },
     {
       name: "twitter:description",
       content:
-        "Descubra o poder dos juros compostos! Simule investimentos, visualize gráficos de crescimento e planeje sua aposentadoria.",
+        "Simule crescimento exponencial do patrimônio com juros compostos e aportes mensais. Visualize gráficos e tabela mês a mês com nossa calculadora gratuita.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#22c55e" },
-    { name: "theme-color", content: "#22c55e" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-juros-compostos.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Juros Compostos - Simule crescimento do patrimônio",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
-
-    // Structured Data - JSON-LD will be added in the component
-    { name: "next-head-count", content: "25" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Juros Compostos - Simulador de Crescimento 2025",
+        description:
+          "Simulador gratuito e preciso de juros compostos com aportes mensais. Visualize gráficos, tabela mês a mês e descubra o poder do crescimento exponencial do seu patrimônio.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-23",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
+          name: "Calculadora de Juros Compostos 2025 - Simulador Preciso",
+          description:
+            "Simule crescimento exponencial do patrimônio com juros compostos e aportes mensais. Visualize gráficos interativos, tabela detalhada mês a mês e descubra o poder dos juros sobre juros.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Calculadora de Juros Compostos",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "MathematicalConcept",
+          name: "Juros Compostos",
+          description: "Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido dos juros acumulados",
+          category: "Financial Mathematics",
+        },
+        featureList: [
+          "Simulação de juros compostos com aportes mensais",
+          "Gráficos interativos de evolução do patrimônio",
+          "Tabela detalhada mês a mês com paginação",
+          "Composição visual do patrimônio final",
+          "Cálculo baseado em taxas SELIC atualizadas",
+          "Simulação por meses ou anos",
+          "Interface móvel responsiva otimizada",
+          "Resultados precisos em tempo real",
+        ],
+      }),
+    },
   ];
 };
 
-export default function AdvancedCompoundInterestCalculator() {
-  const [principal, setPrincipal] = useState("");
-  const [monthlyContribution, setMonthlyContribution] = useState("");
-  const [interestRate, setInterestRate] = useState("");
-  const [interestPeriod, setInterestPeriod] = useState<"monthly" | "annual">("annual");
-  const [time, setTime] = useState("");
-  const [timePeriod, setTimePeriod] = useState<"months" | "years">("years");
-  const [result, setResult] = useState<CompoundInterestResult | null>(null);
-  const [comparison, setComparison] = useState<any>(null);
-  const [showEvolution, setShowEvolution] = useState(false);
-  const [errors, setErrors] = useState<{
-    principal?: string;
-    interestRate?: string;
-    time?: string;
-  }>({});
+type PeriodType = "months" | "years";
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "juros_compostos",
-    category: "financas"
+interface MonthlyData {
+  month: number;
+  balance: number;
+  monthlyContribution: number;
+  monthlyInterest: number;
+  totalContributions: number;
+  totalInterest: number;
+}
+
+interface CompoundInterestResult {
+  finalAmount: number;
+  totalInterest: number;
+  initialAmount: number;
+  monthlyRate: number;
+  periods: number;
+  periodType: PeriodType;
+  annualRate: number;
+  monthlyInvestment: number;
+  totalContributions: number;
+  monthlyData: MonthlyData[];
+}
+
+interface ValidationErrors {
+  principal?: string;
+  rate?: string;
+  periods?: string;
+}
+
+export default function CompoundInterestCalculator() {
+  const [principal, setPrincipal] = useState("");
+  const [annualRate, setAnnualRate] = useState("");
+  const [periods, setPeriods] = useState("");
+  const [periodType, setPeriodType] = useState<PeriodType>("months");
+  const [monthlyInvestment, setMonthlyInvestment] = useState("");
+  const [result, setResult] = useState<CompoundInterestResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "juros-compostos",
+    category: "financas",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("juros_compostos");
+  useFormTracking("juros-compostos");
+
+  // Função para calcular taxa padrão baseada na SELIC
+  const getDefaultSelicRate = (type: PeriodType): string => {
+    const selicAnnualRate = ECONOMIC_INDICATORS.SELIC.rate; // 12,25% ao ano
+    if (type === "months") {
+      const monthlyRate = selicAnnualRate / 12; // Converte para mensal
+      return monthlyRate.toFixed(2).replace('.', ',');
+    } else {
+      return selicAnnualRate.toFixed(2).replace('.', ',');
+    }
+  };
+
+  // Inicializa a taxa com valor da SELIC na primeira renderização
+  useEffect(() => {
+    if (!annualRate) {
+      setAnnualRate(getDefaultSelicRate(periodType));
+    }
+  }, []);
+
+  // Atualiza a taxa quando o tipo de período muda
+  useEffect(() => {
+    if (annualRate) {
+      setAnnualRate(getDefaultSelicRate(periodType));
+    }
+  }, [periodType]);
+
+  const currencyBR = (v: number) =>
+    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  const percentBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+    const p = parseMoney(principal);
+    if (p <= 0) {
+      newErrors.principal = "Capital inicial obrigatório e maior que 0";
+      ok = false;
+    }
+    const r = parseRate(annualRate);
+    if (r <= 0) {
+      newErrors.rate = "Taxa de juros deve ser maior que 0";
+      ok = false;
+    }
+    const n = parseInt(periods, 10);
+    if (!periods || isNaN(n) || n <= 0) {
+      newErrors.periods = "Período obrigatório e maior que 0";
+      ok = false;
+    }
+    setErrors(newErrors);
+    return ok;
+  };
 
   const handleCalculate = () => {
-    const principalNum = parseFloat(principal) || 0;
-    const monthlyContributionNum = parseFloat(monthlyContribution) || 0;
-    const interestRateNum = parseFloat(interestRate) || 0;
-    const timeNum = parseFloat(time) || 0;
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const p = parseMoney(principal);
+      const r = parseRate(annualRate);
+      const n = parseInt(periods, 10);
+      const pmt = parseMoney(monthlyInvestment || "0");
 
-    // Reset errors
-    setErrors({});
+      // Taxa correta conforme período selecionado
+      const monthlyRate = periodType === "months" ? r : r / 12;
+      const totalMonths = periodType === "months" ? n : n * 12;
 
-    // Validation
-    const newErrors: { principal?: string; interestRate?: string; time?: string } = {};
+      // Calcular evolução mês a mês
+      const monthlyData: MonthlyData[] = [];
+      let currentBalance = p; // Começa com o capital inicial
+      let totalContributions = 0;
+      let totalInterest = 0;
 
-    if (principalNum <= 0 && monthlyContributionNum <= 0) {
-      newErrors.principal = "Informe um valor inicial ou aporte mensal";
+      for (let month = 1; month <= totalMonths; month++) {
+        let monthlyInterest = 0;
+        let monthlyContribution = pmt;
+        
+        if (month === 1) {
+          // Primeiro mês: apenas capital inicial + aporte (sem juros)
+          currentBalance = p + monthlyContribution;
+        } else {
+          // Meses seguintes: aplica juros sobre saldo anterior + adiciona aporte
+          monthlyInterest = currentBalance * monthlyRate;
+          currentBalance = currentBalance + monthlyInterest + monthlyContribution;
+        }
+        
+        // Acumular totais
+        totalContributions += monthlyContribution;
+        totalInterest += monthlyInterest;
+        
+        // Salvar dados do mês
+        monthlyData.push({
+          month,
+          balance: currentBalance,
+          monthlyContribution,
+          monthlyInterest,
+          totalContributions,
+          totalInterest,
+        });
+      }
+
+      const finalAmount = currentBalance;
+
+      const res: CompoundInterestResult = {
+        finalAmount,
+        totalInterest,
+        initialAmount: p,
+        monthlyRate: (periodType === "months" ? r : r / 12) * 100, // taxa mensal em porcentagem
+        periods: totalMonths,
+        periodType,
+        annualRate: (periodType === "months" ? r * 12 : r) * 100, // taxa anual em porcentagem
+        monthlyInvestment: pmt,
+        totalContributions,
+        monthlyData,
+      };
+
+      setResult(res);
+      setErrors({});
+      setCurrentPage(1); // Reset pagination quando há novo cálculo
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ principal: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
-
-    if (!interestRate || isNaN(interestRateNum) || interestRateNum <= 0) {
-      newErrors.interestRate = "Por favor, insira uma taxa de juros válida";
-    } else if (interestRateNum > 100) {
-      newErrors.interestRate = "Taxa de juros muito alta. Use valores até 100%";
-    }
-
-    if (!time || isNaN(timeNum) || timeNum <= 0) {
-      newErrors.time = "Por favor, insira um período válido";
-    } else if (timePeriod === "years" && timeNum > 100) {
-      newErrors.time = "Período muito longo. Máximo 100 anos";
-    } else if (timePeriod === "months" && timeNum > 1200) {
-      newErrors.time = "Período muito longo. Máximo 1200 meses";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setResult(null);
-      setComparison(null);
-      return;
-    }
-
-    // If validation passes, calculate
-    const params: CompoundInterestParams = {
-      principal: principalNum,
-      monthlyContribution: monthlyContributionNum,
-      interestRate: interestRateNum,
-      interestPeriod,
-      time: timeNum,
-      timePeriod,
-    };
-
-    const calculationResult = calculateAdvancedCompoundInterest(params);
-    const comparisonResult = compareWithSimpleInterest(
-      principalNum,
-      interestRateNum,
-      interestPeriod,
-      timeNum,
-      timePeriod
-    );
-
-    setResult(calculationResult);
-    setComparison(comparisonResult);
   };
 
   const handleReset = () => {
     setPrincipal("");
-    setMonthlyContribution("");
-    setInterestRate("");
-    setTime("");
-    setInterestPeriod("annual");
-    setTimePeriod("years");
+    setAnnualRate(getDefaultSelicRate("months")); // Reset com SELIC mensal
+    setPeriods("");
+    setPeriodType("months");
+    setMonthlyInvestment("");
     setResult(null);
-    setComparison(null);
-    setShowEvolution(false);
     setErrors({});
+    setCurrentPage(1);
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
-
-  const formatPercentage = (value: number) =>
-    new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 2 }).format(
-      value / 100
-    );
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="min-h-screen bg-surface">
-      {/* Breadcrumb Navigation */}
-      <div className="border-b border-border-primary bg-surface-light px-4 py-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumb>
-            <BreadcrumbItem href="/">Início</BreadcrumbItem>
-            <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-            <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-            <BreadcrumbItem isLast>Juros Compostos</BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-      </div>
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+      <Breadcrumb>
+        <BreadcrumbItem href="/">Início</BreadcrumbItem>
+        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+        <BreadcrumbItem isLast>Juros Compostos</BreadcrumbItem>
+      </Breadcrumb>
 
-      {/* Hero Section - S-Tier Visual Hierarchy */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-finance-gold/10 via-transparent to-transparent"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-              <span className="mr-2">📈</span>
-              Simulador Avançado com Visualizações Interativas
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Juros Compostos 2025 – Simulador Preciso
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule o <strong className="text-growth-green">crescimento do seu capital</strong>{" "}
+          com juros compostos. Simule diferentes cenários de investimento e descubra{" "}
+          <strong className="text-primary-blue-dark">o montante final</strong> ao longo do tempo.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🧮 <strong>Fórmula Matemática</strong> • 📈 <strong>Crescimento Exponencial</strong> • 💰{" "}
+            <strong>Resultados Precisos</strong>
+          </p>
+        </div>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📋 Configure sua Simulação de Juros Compostos</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Tipo de Período centralizado */}
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+              <button
+                type="button"
+                onClick={() => setPeriodType("months")}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  periodType === "months"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Meses
+              </button>
+              <button
+                type="button"
+                onClick={() => setPeriodType("years")}
+                className={`min-w-[120px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                  periodType === "years"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Anos
+              </button>
             </div>
-            
-            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              Calculadora de
-              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-                Juros Compostos
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-text-secondary-dark sm:text-lg">
-              Simule investimentos com <strong className="text-finance-gold-dark">aportes mensais</strong> e descubra o{" "}
-              <strong className="text-system-success">poder dos juros compostos</strong>. Visualize
-              gráficos e tabelas detalhadas da evolução do seu patrimônio.
-            </p>
-            
-            {/* Trust Indicators */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">Visualizações Avançadas</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-finance-gold"></div>
-                <span className="font-medium">Aportes Mensais</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
-                <span className="font-medium">Resultados Instantâneos</span>
+          </div>
+
+          {/* Linha 1: Valores - Capital inicial e Investimento mensal */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <MoneyInput
+                label="Capital Inicial"
+                value={principal}
+                onChange={setPrincipal}
+                placeholder="1.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.principal} />
+              <div className="mt-1 text-xs text-text-secondary">Valor inicial a ser investido</div>
+            </div>
+            <div>
+              <MoneyInput
+                label="Investimento Mensal (Opcional)"
+                value={monthlyInvestment}
+                onChange={setMonthlyInvestment}
+                placeholder="0,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <div className="mt-1 text-xs text-text-secondary">
+                Valor adicional investido mensalmente
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Main Calculator Container */}
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          
-          {/* Input Section - Optimized for Mobile */}
-          <div className="lg:col-span-2 space-y-6">
-
-            <Card className="shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-finance-gold/10 to-finance-gold/5">
-                <CardTitle as="h2" className="text-finance-gold-dark">💰 Parâmetros do Investimento</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Primary Investment Inputs */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <MoneyInput
-                    label="Valor Inicial"
-                    value={principal}
-                    onChange={(value) => setPrincipal(value)}
-                    placeholder="1.000,00"
-                    min="0.01"
-                    fullWidth
-                    className="h-14 text-lg"
-                  />
-
-                  <MoneyInput
-                    label="Aporte Mensal"
-                    value={monthlyContribution}
-                    onChange={(value) => setMonthlyContribution(value)}
-                    placeholder="500,00"
-                    min="0"
-                    fullWidth
-                    className="h-14 text-lg"
-                  />
-                </div>
-
-                {/* Rate and Period Inputs */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                  <RateInput
-                    label="Taxa de Juros (%)"
-                    value={interestRate}
-                    onChange={(value) => setInterestRate(value)}
-                    placeholder="12,00"
-                    required
-                    fullWidth
-                    className="h-14 text-lg"
-                  />
-                  
-                  <Select
-                    label="Período da Taxa"
-                    value={interestPeriod}
-                    onChange={(value) => setInterestPeriod(value as "monthly" | "annual")}
-                    options={[
-                      { value: "annual", label: "Ao ano" },
-                      { value: "monthly", label: "Ao mês" },
-                    ]}
-                    fullWidth
-                    className="h-14"
-                  />
-
-                  <Input
-                    type="number"
-                    label="Período de Investimento"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    placeholder="Ex: 10"
-                    min="0"
-                  step={timePeriod === "years" ? "0.1" : "1"}
-                  required
-                  fullWidth
-                />
-                <Select
-                  label="Unidade"
-                  value={timePeriod}
-                  onChange={(value) => setTimePeriod(value as "months" | "years")}
-                  options={[
-                    { value: "years", label: "Anos" },
-                    { value: "months", label: "Meses" },
-                  ]}
-                  fullWidth
-                />
+          {/* Linha 2: Taxa e Período */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <RateInput
+                label={`Taxa de Juros (% ${periodType === "months" ? "a.m." : "a.a."})`}
+                value={annualRate}
+                onChange={setAnnualRate}
+                placeholder={getDefaultSelicRate(periodType)}
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.rate} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Taxa {periodType === "months" ? "mensal" : "anual"} de juros compostos
+                <span className="ml-2 text-system-info">
+                  (SELIC: {periodType === "months" 
+                    ? `${(ECONOMIC_INDICATORS.SELIC.rate / 12).toFixed(2)}% a.m.` 
+                    : `${ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.`})
+                </span>
               </div>
+            </div>
+            <div>
+              <Input
+                type="number"
+                label={`Período (${periodType === "months" ? "meses" : "anos"})`}
+                value={periods}
+                onChange={(e) => setPeriods(e.target.value)}
+                placeholder={periodType === "months" ? "12" : "1"}
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.periods} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Tempo de aplicação em {periodType === "months" ? "meses" : "anos"}
+              </div>
+            </div>
+          </div>
 
-            {/* Action Buttons - Prominent S-Tier Design */}
-            <div className="mt-8 space-y-4">
-              <Button 
-                onClick={handleCalculate} 
-                className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
-                fullWidth
-              >
-                📊 Calcular Juros Compostos
-              </Button>
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
-                fullWidth
-              >
-                🔄 Limpar Campos
-              </Button>
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Simulação de Juros Compostos
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-growth-green">
+                  {currencyBR(result.finalAmount)}
+                </div>
+                <div className="text-sm text-text-secondary">Montante Final</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {currencyBR(result.totalInterest)}
+                </div>
+                <div className="text-sm text-text-secondary">Juros Ganhos</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {percentBR(result.annualRate)}%
+                </div>
+                <div className="text-sm text-text-secondary">Taxa Anual</div>
+              </div>
+            </div>
+
+            {/* Breakdown detalhado se há aportes mensais */}
+            {result.monthlyInvestment > 0 && (
+              <div className="mb-6 grid grid-cols-1 gap-4 rounded-lg bg-system-info/10 p-4 md:grid-cols-4">
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Capital Inicial</div>
+                  <div className="text-xl font-bold text-text-primary">
+                    {currencyBR(result.initialAmount)}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Aportes Mensais</div>
+                  <div className="text-xl font-bold text-system-info">
+                    {currencyBR(result.totalContributions)}
+                  </div>
+                  <div className="text-xs text-text-secondary">
+                    {currencyBR(result.monthlyInvestment)}/mês
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Total Investido</div>
+                  <div className="text-xl font-bold text-text-primary">
+                    {currencyBR(result.initialAmount + result.totalContributions)}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Juros Compostos</div>
+                  <div className="text-xl font-bold text-growth-green">
+                    {currencyBR(result.totalInterest)}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Capital Inicial</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {currencyBR(result.initialAmount)}
+                </div>
+                <div className="text-sm text-text-secondary">Valor investido</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Taxa Mensal</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {percentBR(result.monthlyRate, 3)}%
+                </div>
+                <div className="text-sm text-text-secondary">
+                  Taxa equivalente mensal
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Período</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {result.periodType === "months" ? result.periods : result.periods / 12} {result.periodType === "months" ? "meses" : "anos"}
+                </div>
+                <div className="text-sm text-text-secondary">
+                  {result.periods} meses de aplicação
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo do Cálculo</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Capital inicial: <strong>{currencyBR(result.initialAmount)}</strong>
+                </li>
+                {result.monthlyInvestment > 0 && (
+                  <li>
+                    Investimento mensal: <strong>{currencyBR(result.monthlyInvestment)}</strong>
+                  </li>
+                )}
+                <li>
+                  Taxa de juros: <strong>{percentBR(result.annualRate)}% ao ano</strong>
+                </li>
+                <li>
+                  Período: <strong>{result.periodType === "months" ? result.periods : result.periods / 12} {result.periodType === "months" ? "meses" : "anos"} ({result.periods} meses)</strong>
+                </li>
+                {result.monthlyInvestment > 0 && (
+                  <li>
+                    Total de aportes: <strong>{currencyBR(result.totalContributions)}</strong>
+                  </li>
+                )}
+                <li>
+                  Juros compostos: <strong>{currencyBR(result.totalInterest)}</strong>
+                </li>
+                <li>
+                  Montante final: <strong>{currencyBR(result.finalAmount)}</strong>
+                </li>
+              </ul>
             </div>
           </CardContent>
         </Card>
+      )}
 
-        {result && (
-          <>
-            {/* Hero Result Card - S-Tier Prominence */}
-            <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
-              <CardContent className="p-8">
-                <div className="text-center">
-                  <div className="mb-3">
-                    <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
-                      💰 Valor Final do Investimento
-                    </span>
-                  </div>
-                  <div className="text-5xl font-bold text-finance-gold-dark mb-2">
-                    {formatCurrency(result.finalAmount)}
-                  </div>
-                  <p className="text-lg text-text-secondary">
-                    Após {time}{" "}
-                    {timePeriod === "years"
-                      ? parseFloat(time) === 1
-                        ? "ano"
-                        : "anos"
-                      : parseFloat(time) === 1
-                        ? "mês"
-                        : "meses"}
-                  </p>
-                  <div className="mt-6 grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
-                      <div className="text-2xl font-bold text-system-success">
-                        {formatCurrency(result.totalInterest)}
-                      </div>
-                      <p className="text-sm text-text-secondary mt-1">Juros Ganhos</p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
-                      <div className="text-2xl font-bold text-primary-blue-dark">
-                        {formatPercentage((result.totalInterest / result.totalContributions) * 100)}
-                      </div>
-                      <p className="text-sm text-text-secondary mt-1">Rentabilidade</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Detailed Breakdown */}
-            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
-              <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-growth-green">
-                    💰 Valor Final
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-growth-green sm:text-3xl">
-                      {formatCurrency(result.finalAmount)}
-                    </div>
-                    <p className="mt-2 text-xs text-text-secondary sm:text-sm">
-                      Após {time}{" "}
-                      {timePeriod === "years"
-                        ? parseFloat(time) === 1
-                          ? "ano"
-                          : "anos"
-                        : parseFloat(time) === 1
-                          ? "mês"
-                          : "meses"}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-primary-blue-dark">
-                    🏦 Total Investido
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-primary-blue-dark sm:text-3xl">
-                      {formatCurrency(result.totalContributions)}
-                    </div>
-                    <p className="mt-2 text-xs text-text-secondary sm:text-sm">
-                      Valor inicial + aportes
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-system-success bg-system-success/10 duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-system-success">
-                    📈 Juros Ganhos
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold tabular-nums text-system-success sm:text-3xl">
-                      {formatCurrency(result.totalInterest)}
-                    </div>
-                    <p className="mt-2 text-xs text-text-secondary sm:text-sm">
-                      {formatPercentage((result.totalInterest / result.totalContributions) * 100)}{" "}
-                      do investido
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {comparison && (
-              <Card className="border-2 border-system-warning bg-system-warning/10 duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-system-warning">
-                    ⚖️ Juros Compostos vs Simples
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                    <div>
-                      <p className="text-xs text-text-secondary sm:text-sm">Juros Simples</p>
-                      <p className="text-lg font-bold tabular-nums text-primary-blue-dark sm:text-xl">
-                        {formatCurrency(comparison.simple)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-text-secondary sm:text-sm">Juros Compostos</p>
-                      <p className="text-lg font-bold tabular-nums text-growth-green sm:text-xl">
-                        {formatCurrency(comparison.compound)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-text-secondary sm:text-sm">Vantagem</p>
-                      <p className="text-lg font-bold tabular-nums text-system-warning sm:text-xl">
-                        {formatCurrency(comparison.difference)}
-                      </p>
-                      <p className="text-xs text-system-warning">
-                        (+{comparison.percentageDifference.toFixed(1)}%)
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
+      {/* Gráficos e Tabela de Evolução */}
+      {result && (
+        <>
+          {/* Gráficos */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Gráfico de Evolução do Patrimônio */}
             <Card>
               <CardHeader>
-                <CardTitle as="h3">📈 Gráfico de Crescimento</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <LineChart
-                  data={result.monthlyEvolution
-                    .filter(
-                      (_, index) =>
-                        index % 12 === 11 || index === result.monthlyEvolution.length - 1
-                    )
-                    .map((evolution) => ({
-                      label: `Ano ${Math.ceil(evolution.month / 12)}`,
-                      value: evolution.balance,
-                    }))}
-                  width={800}
-                  height={400}
-                  className="mb-6"
-                />
-
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <div>
-                    <h4 className="mb-3 font-semibold text-primary-blue-dark">
-                      📊 Composição Final
-                    </h4>
-                    <BarChart
-                      data={[
-                        {
-                          label: "Capital Inicial",
-                          value: parseFloat(principal) || 0,
-                          color: "rgb(59, 130, 246)",
-                        },
-                        {
-                          label: "Aportes",
-                          value: result.totalContributions - (parseFloat(principal) || 0),
-                          color: "rgb(16, 185, 129)",
-                        },
-                        { label: "Juros", value: result.totalInterest, color: "rgb(34, 197, 94)" },
-                      ]}
-                      width={350}
-                      height={250}
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="font-semibold text-growth-green">💡 Insights do Investimento</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-center justify-between rounded bg-primary-blue-light p-3">
-                        <span>Rendimento anual médio:</span>
-                        <span className="font-bold text-primary-blue-dark">
-                          {formatPercentage(
-                            Math.pow(
-                              result.finalAmount / result.totalContributions,
-                              1 /
-                                (timePeriod === "years" ? parseFloat(time) : parseFloat(time) / 12)
-                            ) - 1
-                          )}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between rounded bg-growth-green-soft p-3">
-                        <span>Multiplicador do investimento:</span>
-                        <span className="font-bold text-growth-green">
-                          {(result.finalAmount / result.totalContributions).toFixed(2)}x
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between rounded bg-system-success/10 p-3">
-                        <span>Tempo para dobrar:</span>
-                        <span className="font-bold text-system-success">
-                          {(() => {
-                            const effectiveAnnualRate =
-                              interestPeriod === "annual"
-                                ? parseFloat(interestRate)
-                                : parseFloat(interestRate) * 12;
-                            return (70 / effectiveAnnualRate).toFixed(1);
-                          })()}{" "}
-                          anos
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3" className="flex items-center justify-between">
-                  📊 Evolução Detalhada
-                  <Button
-                    onClick={() => setShowEvolution(!showEvolution)}
-                    variant="outline"
-                    className="text-sm"
-                  >
-                    {showEvolution ? "Ocultar" : "Mostrar"} Tabela
-                  </Button>
+                <CardTitle as="h3" className="text-growth-green">
+                  📈 Evolução do Patrimônio
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {showEvolution && (
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-neutral-surface-variant">
-                          <th className="p-2 text-left">Ano</th>
-                          <th className="p-2 text-right">Saldo</th>
-                          <th className="p-2 text-right">Aportes</th>
-                          <th className="p-2 text-right">Juros do Ano</th>
-                          <th className="p-2 text-right">Total Investido</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {result.monthlyEvolution
-                          .filter(
-                            (_, index) =>
-                              index % 12 === 11 || index === result.monthlyEvolution.length - 1
-                          )
-                          .map((evolution, index) => (
-                            <tr key={index} className="border-b border-neutral-surface-variant">
-                              <td className="p-2 font-medium">{Math.ceil(evolution.month / 12)}</td>
-                              <td className="p-2 text-right font-medium tabular-nums text-growth-green">
-                                {formatCurrency(evolution.balance)}
+                <div className="h-80">
+                  <Line
+                    data={{
+                      labels: result.monthlyData.map((_, i) => `Mês ${i + 1}`),
+                      datasets: [
+                        {
+                          label: "Patrimônio Total",
+                          data: result.monthlyData.map(d => d.balance),
+                          borderColor: "#64B5F6",
+                          backgroundColor: "rgba(100, 181, 246, 0.1)",
+                          fill: true,
+                        },
+                        {
+                          label: "Capital + Aportes",
+                          data: result.monthlyData.map(d => result.initialAmount + d.totalContributions),
+                          borderColor: "#FFA726",
+                          backgroundColor: "rgba(255, 167, 38, 0.1)",
+                          borderDash: [5, 5],
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "top" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function(context) {
+                              return `${context.dataset.label}: ${currencyBR(context.parsed.y)}`;
+                            },
+                          },
+                        },
+                      },
+                      scales: {
+                        y: {
+                          ticks: {
+                            color: "#A1A1A1",
+                            callback: function(value) {
+                              return currencyBR(Number(value));
+                            },
+                          },
+                          grid: {
+                            color: "#333333",
+                          },
+                        },
+                        x: {
+                          ticks: {
+                            color: "#A1A1A1",
+                          },
+                          grid: {
+                            color: "#333333",
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Gráfico de Pizza - Composição Final */}
+            <Card>
+              <CardHeader>
+                <CardTitle as="h3" className="text-system-warning">
+                  🥧 Composição do Patrimônio Final
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <Pie
+                    data={{
+                      labels: ["Capital Inicial", "Aportes", "Juros Compostos"],
+                      datasets: [
+                        {
+                          data: [
+                            result.initialAmount,
+                            result.totalContributions,
+                            result.totalInterest,
+                          ],
+                          backgroundColor: [
+                            "#64B5F6", // Primary blue
+                            "#FFA726", // Orange
+                            "#66BB6A", // Green
+                          ],
+                          borderColor: [
+                            "#1976D2",
+                            "#F57C00",
+                            "#388E3C",
+                          ],
+                          borderWidth: 2,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "bottom" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                            padding: 20,
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function(context) {
+                              const value = context.parsed;
+                              const total = result.finalAmount;
+                              const percentage = ((value / total) * 100).toFixed(1);
+                              return `${context.label}: ${currencyBR(value)} (${percentage}%)`;
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Tabela de Evolução Mensal */}
+          <Card>
+            <CardHeader>
+              <CardTitle as="h3" className="text-primary-blue-dark">
+                📊 Evolução Mensal Detalhada
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {(() => {
+                const itemsPerPage = 12;
+                const totalPages = Math.ceil(result.monthlyData.length / itemsPerPage);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentItems = result.monthlyData.slice(startIndex, endIndex);
+                
+                return (
+                  <>
+                    {/* Informação da paginação */}
+                    <div className="mb-4 flex items-center justify-between text-sm text-text-secondary">
+                      <div>
+                        Mostrando meses {startIndex + 1} a {Math.min(endIndex, result.monthlyData.length)} de {result.monthlyData.length}
+                      </div>
+                      <div>
+                        Página {currentPage} de {totalPages}
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      {/* Tabela Desktop - Todas as colunas */}
+                      <table className="hidden w-full text-sm md:table">
+                        <thead>
+                          <tr className="border-b-2 border-neutral-surface-variant">
+                            <th className="p-3 text-left font-semibold">Mês</th>
+                            <th className="p-3 text-right font-semibold">Patrimônio</th>
+                            <th className="p-3 text-right font-semibold">Aporte Mensal</th>
+                            <th className="p-3 text-right font-semibold">Juros do Mês</th>
+                            <th className="p-3 text-right font-semibold">Total Investido</th>
+                            <th className="p-3 text-right font-semibold">Total em Juros</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentItems.map((data, index) => (
+                            <tr
+                              key={data.month}
+                              className="border-b border-neutral-surface-variant hover:bg-neutral-surface/20"
+                            >
+                              <td className="p-3 font-medium">{data.month}</td>
+                              <td className="p-3 text-right font-bold text-growth-green">
+                                {currencyBR(data.balance)}
                               </td>
-                              <td className="p-2 text-right tabular-nums">
-                                {formatCurrency(evolution.contribution)}
+                              <td className="p-3 text-right text-system-info">
+                                {currencyBR(data.monthlyContribution)}
                               </td>
-                              <td className="p-2 text-right tabular-nums text-system-success">
-                                {formatCurrency(
-                                  result.monthlyEvolution
-                                    .slice(Math.max(0, index * 12), (index + 1) * 12)
-                                    .reduce((sum, month) => sum + month.interest, 0)
-                                )}
+                              <td className="p-3 text-right text-primary-blue-dark">
+                                {currencyBR(data.monthlyInterest)}
                               </td>
-                              <td className="p-2 text-right tabular-nums text-primary-blue-dark">
-                                {formatCurrency(evolution.totalContributions)}
+                              <td className="p-3 text-right">
+                                {currencyBR(result.initialAmount + data.totalContributions)}
+                              </td>
+                              <td className="p-3 text-right text-growth-green">
+                                {currencyBR(data.totalInterest)}
                               </td>
                             </tr>
                           ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </>
-        )}
+                        </tbody>
+                      </table>
 
-        {/* Seção: O que são Juros Compostos - SEO Principal */}
-        <Card className="border-l-4 border-growth-green bg-gradient-to-r from-growth-green-soft to-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-              📈 O que são Juros Compostos? A 8ª Maravilha do Mundo
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6 text-text-primary">
-              <div className="text-lg leading-relaxed">
-                <p>
-                  <strong className="text-growth-green">Juros compostos</strong> são os juros
-                  calculados sobre o capital inicial
-                  <strong className="text-primary-blue-dark">
-                    {" "}
-                    mais todos os juros acumulados
-                  </strong>{" "}
-                  dos períodos anteriores. É o famoso <em>"juros sobre juros"</em> que fez Albert
-                  Einstein supostamente chamar de "a 8ª maravilha do mundo".
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-growth-green">
-                  🔢 Fórmula dos Juros Compostos
-                </h3>
-                <div className="rounded-lg border border-growth-green/30 bg-growth-green-soft p-4">
-                  <div className="text-center">
-                    <p className="mb-2 font-mono text-2xl font-bold text-growth-green">
-                      M = C × (1 + i)^t
-                    </p>
-                    <div className="space-y-1 text-sm text-text-secondary">
-                      <p>
-                        <strong>M</strong> = Montante final (valor futuro)
-                      </p>
-                      <p>
-                        <strong>C</strong> = Capital inicial (valor presente)
-                      </p>
-                      <p>
-                        <strong>i</strong> = Taxa de juros por período (em decimal)
-                      </p>
-                      <p>
-                        <strong>t</strong> = Número de períodos
-                      </p>
+                      {/* Tabela Mobile - Colunas essenciais */}
+                      <table className="w-full text-sm md:hidden">
+                        <thead>
+                          <tr className="border-b-2 border-neutral-surface-variant">
+                            <th className="p-2 text-left font-semibold">Mês</th>
+                            <th className="p-2 text-right font-semibold">Patrimônio</th>
+                            <th className="p-2 text-right font-semibold">Juros</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentItems.map((data, index) => (
+                            <tr
+                              key={`mobile-${data.month}`}
+                              className="border-b border-neutral-surface-variant hover:bg-neutral-surface/20"
+                            >
+                              <td className="p-2 font-medium">{data.month}</td>
+                              <td className="p-2 text-right font-bold text-growth-green">
+                                {currencyBR(data.balance)}
+                              </td>
+                              <td className="p-2 text-right text-primary-blue-dark">
+                                {currencyBR(data.monthlyInterest)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
-                  </div>
-                </div>
-              </div>
+
+                    {/* Controles de paginação */}
+                    {totalPages > 1 && (
+                      <div className="mt-6 flex items-center justify-center space-x-2">
+                        <Button
+                          onClick={() => setCurrentPage(1)}
+                          disabled={currentPage === 1}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ««
+                        </Button>
+                        <Button
+                          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                          disabled={currentPage === 1}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ‹
+                        </Button>
+                        
+                        {/* Números das páginas */}
+                        {(() => {
+                          const pages = [];
+                          const maxVisiblePages = 5;
+                          let startPage = Math.max(1, currentPage - 2);
+                          let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+                          
+                          if (endPage - startPage < maxVisiblePages - 1) {
+                            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                          }
+                          
+                          for (let i = startPage; i <= endPage; i++) {
+                            pages.push(
+                              <Button
+                                key={i}
+                                onClick={() => setCurrentPage(i)}
+                                variant={currentPage === i ? "default" : "outline"}
+                                className="px-3 py-2 text-sm"
+                              >
+                                {i}
+                              </Button>
+                            );
+                          }
+                          return pages;
+                        })()}
+                        
+                        <Button
+                          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                          disabled={currentPage === totalPages}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ›
+                        </Button>
+                        <Button
+                          onClick={() => setCurrentPage(totalPages)}
+                          disabled={currentPage === totalPages}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          »»
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </CardContent>
+          </Card>
+        </>
+      )}
+
+      {/* Seção: Juros Compostos - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎯 Juros Compostos – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Conceito de Juros Compostos */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🧮 Conceito de Juros Compostos
+              </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="rounded-xl border border-primary-blue/20 bg-primary-blue-light p-6">
-                  <h4 className="mb-3 text-lg font-bold text-primary-blue-dark">
-                    💰 Exemplo Prático
-                  </h4>
-                  <div className="space-y-3 text-sm">
-                    <p>
-                      <strong>Situação:</strong> R$ 1.000 investidos a 10% ao ano por 10 anos
-                    </p>
-                    <div className="space-y-2">
-                      <p>
-                        <strong className="text-growth-green">Juros Compostos:</strong>
-                      </p>
-                      <p className="ml-4">M = 1.000 × (1 + 0,10)^10</p>
-                      <p className="ml-4">
-                        M = 1.000 × 2,594 = <strong className="text-growth-green">R$ 2.594</strong>
-                      </p>
-                    </div>
-                    <div className="space-y-2">
-                      <p>
-                        <strong className="text-primary-blue-dark">Juros Simples:</strong>
-                      </p>
-                      <p className="ml-4">M = 1.000 + (1.000 × 0,10 × 10)</p>
-                      <p className="ml-4">
-                        M = 1.000 + 1.000 ={" "}
-                        <strong className="text-primary-blue-dark">R$ 2.000</strong>
-                      </p>
-                    </div>
-                    <div className="border-t border-system-warning/30 pt-2">
-                      <p className="font-bold text-system-warning">
-                        Diferença: R$ 594 (29,7% a mais!)
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-system-success/20 bg-system-success/10 p-6">
-                  <h4 className="mb-3 text-lg font-bold text-system-success">
-                    🚀 O Poder do Tempo
-                  </h4>
-                  <div className="space-y-3 text-sm">
-                    <p>
-                      <strong>Mesmo investimento (R$ 1.000 a 10% ao ano):</strong>
-                    </p>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span>5 anos:</span>
-                        <span className="font-bold">R$ 1.611</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>10 anos:</span>
-                        <span className="font-bold">R$ 2.594</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>20 anos:</span>
-                        <span className="font-bold text-growth-green">R$ 6.728</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>30 anos:</span>
-                        <span className="font-bold text-system-success">R$ 17.449</span>
-                      </div>
-                    </div>
-                    <div className="border-t border-growth-green/30 pt-2">
-                      <p className="text-center font-bold text-growth-green">
-                        Crescimento Exponencial!
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Seção: Como Funcionam na Prática */}
-        <Card className="border-l-4 border-system-info bg-background-dark-secondary duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🏦 Como os Juros Compostos Funcionam na Prática
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="text-text-primary">
-                <p className="mb-4 text-lg">
-                  Os juros compostos são aplicados em praticamente{" "}
-                  <strong className="text-system-info">todos os investimentos modernos</strong>e
-                  também nas dívidas. Entender como funcionam é essencial para sua saúde financeira.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div>
-                  <h3 className="mb-4 flex items-center text-lg font-bold text-growth-green">
-                    📊 Investimentos com Juros Compostos
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="rounded-lg bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">🏛️ Tesouro Direto</h4>
-                      <p className="text-sm text-text-secondary">
-                        Os títulos do governo pagam juros que são automaticamente reinvestidos,
-                        gerando juros sobre juros ao longo do tempo.
-                      </p>
-                    </div>
-                    <div className="rounded-lg bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">🏦 CDB e LCI/LCA</h4>
-                      <p className="text-sm text-text-secondary">
-                        Certificados de Depósito Bancário e Letras de Crédito aplicam juros
-                        compostos mensalmente sobre o valor investido.
-                      </p>
-                    </div>
-                    <div className="rounded-lg bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">
-                        💰 Fundos de Investimento
-                      </h4>
-                      <p className="text-sm text-text-secondary">
-                        Os rendimentos são reinvestidos automaticamente, comprando mais cotas e
-                        aumentando exponencialmente seu patrimônio.
-                      </p>
-                    </div>
-                    <div className="rounded-lg bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">
-                        📈 Ações (Dividendos)
-                      </h4>
-                      <p className="text-sm text-text-secondary">
-                        Quando você reinveste os dividendos comprando mais ações, cria um efeito de
-                        juros compostos no longo prazo.
-                      </p>
-                    </div>
-                  </div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido 
+                    dos juros acumulados de períodos anteriores. É o famoso "juros sobre juros".
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Como Funciona</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Crescimento exponencial do capital</li>
+                    <li>• Tempo é seu maior aliado</li>
+                  </ul>
                 </div>
 
                 <div>
-                  <h3 className="mb-4 flex items-center text-lg font-bold text-system-warning">
-                    ⚠️ Dívidas com Juros Compostos
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-warning">
-                        💳 Cartão de Crédito
-                      </h4>
-                      <p className="text-sm text-text-secondary">
-                        Juros sobre juros fazem a dívida crescer exponencialmente.
-                        <strong className="text-system-error-dark">
-                          {" "}
-                          Taxa média: 300% ao ano!
-                        </strong>
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-warning">🏦 Cheque Especial</h4>
-                      <p className="text-sm text-text-secondary">
-                        Uma das modalidades mais caras, com juros compostos diários.
-                        <strong className="text-system-error-dark">Evite a todo custo!</strong>
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-warning">
-                        🏠 Financiamento Imobiliário
-                      </h4>
-                      <p className="text-sm text-text-secondary">
-                        Sistema SAC e PRICE aplicam juros compostos mensalmente. Amortizações extras
-                        reduzem significativamente o total pago.
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-success">💡 Dica de Ouro</h4>
-                      <p className="text-sm text-text-secondary">
-                        <strong>Quite dívidas caras primeiro!</strong> É melhor quitar um cartão de
-                        crédito do que investir na poupança. O "rendimento" é maior!
-                      </p>
-                    </div>
-                  </div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Acelera o crescimento do patrimônio</li>
+                    <li>• Recompensa investimentos de longo prazo</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Fatores Importantes</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Taxa de juros impacta significativamente</li>
+                    <li>• Consistência nos aportes maximiza resultados</li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Seção: Estratégias Práticas */}
-        <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🎯 Estratégias para Maximizar o Poder dos Juros Compostos
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-4 text-lg font-bold text-growth-green">
-                  🚀 Para Multiplicar seu Dinheiro
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-growth-green/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      1. ⏰ Comece o Quanto Antes
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Tempo é seu maior aliado.</strong> Quem investe R$ 200/mês dos 25 aos
-                      35 anos (10 anos) pode ter mais dinheiro aos 65 do que quem investe dos 35 aos
-                      65 anos (30 anos).
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-growth-green/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      2. 🔄 Aportes Regulares
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Consistência vence valor.</strong> É melhor investir R$ 100 todo mês
-                      do que R$ 1.200 uma vez por ano. Os aportes regulares maximizam o tempo de
-                      cada real investido.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-growth-green/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      3. 🎯 Foque no Longo Prazo
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Paciência é fundamental.</strong> Os juros compostos são mais
-                      poderosos quanto maior o prazo. Pense em décadas, não em meses.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-growth-green/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      4. 📊 Reinvista os Rendimentos
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Nunca retire os juros.</strong> Deixe que trabalhem para você. É assim
-                      que funciona a mágica dos juros sobre juros.
-                    </p>
-                  </div>
+            {/* Juros Simples vs Compostos */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🔄 Juros Simples vs Compostos
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">📊 Juros Simples</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Juros calculados apenas sobre o capital inicial, sem capitalização. 
+                    Crescimento linear e previsível.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📈 Fórmula</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• M = C × (1 + i × t)</li>
+                    <li>• Crescimento aritmético</li>
+                  </ul>
                 </div>
-              </div>
 
-              <div>
-                <h3 className="mb-4 text-lg font-bold text-primary-blue-dark">
-                  💡 Dicas Práticas e Avançadas
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-primary-blue/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      5. 🤖 Automatize Tudo
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      Configure débito automático para seus investimentos.
-                      <strong>Automatizar elimina a tentação</strong> de gastar o dinheiro com
-                      outras coisas.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-primary-blue/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      6. 📈 Aumente os Aportes
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      Sempre que receber aumento, promoção ou 13º salário,
-                      <strong>aumente proporcionalmente seus investimentos</strong> para acelerar o
-                      crescimento.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-primary-blue/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      7. 🎚️ Busque Melhores Taxas
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>1% de diferença na taxa</strong> pode significar dezenas de milhares
-                      de reais a mais no longo prazo. Compare sempre as opções.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-primary-blue/20 bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      8. 🛡️ Proteja-se da Inflação
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      Invista em ativos que rendam <strong>acima da inflação</strong>
-                      (IPCA+ no Tesouro, fundos imobiliários, ações) para manter o poder de compra.
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🚀 Juros Compostos</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Juros calculados sobre capital + juros acumulados. 
+                    Crescimento exponencial e acelerado.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-success">💡 Fórmula</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• M = C × (1 + i)^t</li>
+                    <li>• Crescimento geométrico</li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        <FAQ
-          title="Perguntas Frequentes - Juros Compostos"
-          items={[
-            {
-              question: "Qual a diferença entre juros compostos e juros simples?",
-              answer:
-                "<strong>Juros simples:</strong> calculados apenas sobre o capital inicial. <strong>Juros compostos:</strong> calculados sobre capital inicial + juros acumulados. Exemplo: R$ 1.000 a 10% por 10 anos - Simples: R$ 2.000 | <strong>Compostos: R$ 2.594 (29,7% mais!)</strong>",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como calcular juros compostos manualmente?",
-              answer:
-                "Use a fórmula: <strong>M = C × (1 + i)^t</strong>. Exemplo: R$ 5.000 a 8% ao ano por 5 anos = 5.000 × (1,08)^5 = <strong>R$ 7.346</strong>. Nossa calculadora faz isso automaticamente com precisão total!",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Quanto tempo para dobrar o dinheiro com juros compostos?",
-              answer:
-                "Use a <strong>Regra dos 72:</strong> divida 72 pela taxa anual. <strong>8% = 9 anos | 10% = 7,2 anos | 12% = 6 anos | 15% = 4,8 anos</strong>. Quanto maior a taxa, mais rápido seu dinheiro dobra exponencialmente!",
-              borderColor: "system-info",
-            },
-            {
-              question: "Quais investimentos brasileiros usam juros compostos?",
-              answer:
-                "<strong>Praticamente todos:</strong> Tesouro Direto, CDB, LCI/LCA, Fundos, Poupança, Previdência. Até <strong>ações com dividendos reinvestidos</strong> criam efeito composto. Apenas alguns empréstimos comerciais usam juros simples.",
-              borderColor: "system-success",
-            },
-            {
-              question: "É melhor investir tudo de uma vez ou aportes mensais?",
-              answer:
-                "<strong>Matematicamente:</strong> investir tudo de uma vez é melhor (mais tempo para composição). <strong>Na prática:</strong> aportes mensais são mais seguros e disciplinados. <strong>Ideal: quantia inicial + aportes regulares!</strong>",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como a inflação afeta os juros compostos?",
-              answer:
-                "A inflação corrói o <strong>poder de compra real</strong>. Se você ganha 10% ao ano mas a inflação é 4%, seu ganho real é ~6%. Sempre invista em ativos que rendem <strong>acima da inflação</strong> (IPCA+, FIIs, ações)!",
-              borderColor: "system-warning",
-            },
-            {
-              question: "Por que começar cedo é tão importante?",
-              answer:
-                "<strong>Tempo é o maior aliado!</strong> Exemplo clássico: João investe R$ 200/mês dos 25-35 anos (R$ 24k total). Maria investe dos 35-65 anos (R$ 72k total). Aos 65 anos, <strong>João terá mais dinheiro que Maria!</strong> 🤯",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Como maximizar o poder dos juros compostos?",
-              answer:
-                "<strong>7 estratégias:</strong> 1) Comece hoje, 2) Aportes regulares automáticos, 3) Reinvista todos os rendimentos, 4) Aumente aportes com promoções, 5) Busque melhores taxas, 6) Foque no longo prazo, 7) Proteja-se da inflação. <strong>Disciplina vence timing!</strong>",
-              borderColor: "system-success",
-            },
-          ]}
-          tipSection={{
-            title: "Dica Matemática Poderosa",
-            content:
-              "Para <strong>acelerar drasticamente</strong> seus juros compostos, use a regra 1% = 70 anos. Cada 1% a mais na taxa reduz ~7 anos no tempo para dobrar! Por isso vale tanto a pena buscar melhores investimentos.",
-          }}
-          footerText="<strong>Pronto para ver a mágica?</strong> Use nossa calculadora para simular diferentes cenários e descobrir o poder transformador dos juros compostos!"
-        />
+            {/* Estratégias para Maximizar Juros Compostos */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🎯 Estratégias para Maximizar Juros Compostos
+              </h3>
 
-        {/* Footer */}
-        <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-              📚 Sobre Esta Calculadora de Juros Compostos
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3 text-sm text-text-secondary">
-              <p>
-                Esta{" "}
-                <strong className="text-primary-blue-dark">
-                  calculadora avançada de juros compostos
-                </strong>{" "}
-                é<strong className="text-growth-green"> 100% gratuita</strong> e permite simular
-                investimentos com aportes mensais regulares, mostrando o crescimento exponencial do
-                seu patrimônio ao longo do tempo.
-              </p>
-              <p>
-                <strong>Recursos inclusos:</strong> Gráficos interativos, tabelas detalhadas,
-                comparação com juros simples, cálculo de rentabilidade real, e muito mais. Ideal
-                para planejamento de aposentadoria e educação financeira.
-              </p>
-              <p>
-                <strong className="text-system-warning">Aviso Legal:</strong> Os cálculos são para
-                fins educacionais e de planejamento. Para decisões financeiras importantes, consulte
-                sempre um
-                <strong> planejador financeiro certificado</strong> ou{" "}
-                <strong>consultor de investimentos</strong>.
-              </p>
-              <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-                ⚖️ Cálculos baseados em fórmulas matemáticas padronizadas • 🎓 Ferramenta
-                educacional gratuita • 🔒 Seus dados não são armazenados • 📱 Responsivo para todos
-                os dispositivos • 🌙 Modo escuro disponível • 📊 Gráficos SVG nativos para melhor
-                performance
-              </p>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🚀 Comece Cedo</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O tempo é o fator mais importante nos juros compostos. 
+                    Começar mais cedo amplia exponencialmente os resultados.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">💰 Aportes Regulares</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Consistência nos aportes mensais</li>
+                    <li>• Disciplina supera valor individual</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">📈 Reinvestimento</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Sempre reinvista os rendimentos</li>
+                    <li>• Evite resgates desnecessários</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⏰ Paciência</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Resultados expressivos levam tempo</li>
+                    <li>• Foco no longo prazo é essencial</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Structured Data - JSON-LD for SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "Calculadora de Juros Compostos",
-              description:
-                "Calculadora online gratuita para simular investimentos com juros compostos e aportes mensais. Visualize o crescimento exponencial do seu patrimônio.",
-              url: "https://calculadorasonline.com.br/calculadoras/financas/juros-compostos",
-              applicationCategory: "FinanceApplication",
-              operatingSystem: "Web",
-              browserRequirements: "Requires JavaScript",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "BRL",
-              },
-              featureList: [
-                "Cálculo de juros compostos",
-                "Simulação com aportes mensais",
-                "Gráficos interativos",
-                "Comparação com juros simples",
-                "Tabelas detalhadas",
-                "100% gratuito",
-              ],
-              author: {
-                "@type": "Organization",
-                name: "Calculadora Online BR",
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "Calculadora Online BR",
-              },
-            }),
-          }}
-        />
-
-        <RelatedCalculators category="financas" currentCalculatorId="juros-compostos" />
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Estratégias de Investimento */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Comparação: Investimentos que Utilizam Juros Compostos
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Renda Fixa
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Fundos de Investimento</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Tesouro Direto
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Previsibilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Alta (taxa conhecida)</td>
+                  <td className="p-3 text-center text-growth-green">Média (varia com mercado)</td>
+                  <td className="p-3 text-center text-system-warning">Alta (governo federal)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Facilidade de Comparação</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Liquidez</td>
+                  <td className="p-3 text-center text-growth-green">Varia por produto</td>
+                  <td className="p-3 text-center">Diária (na maioria)</td>
+                  <td className="p-3 text-center">Diária (com desconto)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Valor Mínimo</td>
+                  <td className="p-3 text-center">R$ 1.000 a R$ 5.000</td>
+                  <td className="p-3 text-center">R$ 100 a R$ 1.000</td>
+                  <td className="p-3 text-center">R$ 30 a R$ 100</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Indicado para</td>
+                  <td className="p-3 text-center">Reserva de emergência</td>
+                  <td className="p-3 text-center">Diversificação</td>
+                  <td className="p-3 text-center">Iniciantes em investimentos</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Potencial de Retorno</td>
+                  <td className="p-3 text-center text-primary-blue-dark">8-13% ao ano</td>
+                  <td className="p-3 text-center text-growth-green">Varia amplamente</td>
+                  <td className="p-3 text-center text-system-warning">10-13% ao ano</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
+              <p className="text-sm text-text-secondary">
+                Comece com <strong>Tesouro Direto</strong> pelo baixo valor mínimo e garantia 
+                do governo federal.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">💰 Reserva</h4>
+              <p className="text-sm text-text-secondary">
+                Use <strong>Renda Fixa</strong> para reserva de emergência pela previsibilidade 
+                e estabilidade.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📈 Diversificação</h4>
+              <p className="text-sm text-text-secondary">
+                Explore <strong>Fundos de Investimento</strong> para diversificar e potencializar 
+                os juros compostos.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <FAQ
+        title="Perguntas Frequentes - Calculadora de Juros Compostos"
+        items={[
+          {
+            question: "O que são juros compostos?",
+            answer:
+              "Juros compostos são calculados sobre o capital inicial somado aos juros acumulados de períodos anteriores. É o famoso 'juros sobre juros', responsável pelo crescimento exponencial dos investimentos ao longo do tempo.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Qual a fórmula dos juros compostos?",
+            answer:
+              "A fórmula é M = C × (1 + i)^t, onde M é o montante final, C é o capital inicial, i é a taxa de juros por período (em decimal) e t é o número de períodos. Esta calculadora aplica essa fórmula automaticamente.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Qual a diferença entre juros simples e compostos?",
+            answer:
+              "Nos juros simples, os juros são calculados apenas sobre o capital inicial. Nos juros compostos, os juros são calculados sobre o capital inicial + juros acumulados, gerando crescimento exponencial.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Por que os juros compostos são importantes?",
+            answer:
+              "Os juros compostos aceleram o crescimento do capital ao longo do tempo. Quanto maior o período e a taxa, maior o impacto. É fundamental para planejamento financeiro de longo prazo.",
+            borderColor: "system-warning",
+          },
+          {
+            question: "Como escolher entre meses e anos?",
+            answer:
+              "Use 'meses' para investimentos de curto prazo (até 2 anos) para maior precisão. Use 'anos' para planejamentos de longo prazo (3+ anos). A calculadora converte automaticamente para cálculos mensais.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Que taxa de juros devo usar na simulação?",
+            answer:
+              "Use taxas realistas baseadas em investimentos disponíveis: Renda Fixa (8-12% a.a.), Tesouro Direto (10-13% a.a.), fundos de investimento (6-15% a.a.). A SELIC atual é de 12,25% a.a. Evite taxas muito altas para simulações realistas.",
+            borderColor: "system-error-dark",
+          },
+        ]}
+        tipSection={{
+          title: "Dica Importante sobre Juros Compostos",
+          content:
+            "<strong>Para maximizar resultados:</strong> comece a investir cedo, mantenha consistência nos aportes e seja paciente. O tempo é seu maior aliado nos juros compostos.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Juros compostos recompensam a disciplina e o tempo. Pequenos valores investidos regularmente podem gerar grandes resultados no longo prazo."
+      />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Juros Compostos
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta <strong className="text-primary-blue-dark">calculadora de juros compostos</strong> utiliza{" "}
+              <strong className="text-growth-green">a fórmula matemática clássica</strong> para calcular
+              o crescimento do capital ao longo do tempo. Os cálculos consideram capitalizações mensais
+              para maior precisão.
+            </p>
+            <p>
+              <strong>Configurações disponíveis:</strong> Capital inicial, taxa anual de juros e período
+              em meses ou anos. A calculadora converte automaticamente para cálculos mensais compostos.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e de planejamento financeiro. Para decisões de investimento, consulte
+              sempre um <strong>assessor financeiro qualificado</strong> e considere taxas reais
+              de mercado.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🧮 Fórmula matemática • 📈 Crescimento exponencial • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Interface otimizada
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <RelatedCalculators category="financas" currentCalculatorId="juros-compostos" />
     </div>
   );
 }
