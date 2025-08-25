@@ -178,17 +178,17 @@ const IMCScale = ({ userIMC }: { userIMC?: number }) => {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de IMC Avançada - Índice de Massa Corporal com Análise Personalizada - ${APP_NAME}`,
+      title: `Calculadora de IMC - Índice de Massa Corporal com Análise Personalizada - ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Calculadora de IMC online gratuita e avançada com análise personalizada por idade, sexo e múltiplas unidades de medida. Descubra seu peso ideal, risks para saúde, recomendações personalizadas e compare com padrões da OMS. Resultados instantâneos com gráficos interativos.",
+        "Calculadora de IMC online gratuita com análise personalizada por idade, sexo e múltiplas unidades de medida. Descubra seu peso ideal, risks para saúde, recomendações personalizadas e compare com padrões da OMS. Resultados instantâneos com gráficos interativos.",
     },
     {
       name: "keywords",
       content:
-        "calculadora IMC avançada, índice massa corporal personalizado, peso ideal por idade, IMC masculino feminino, obesidade classificação OMS, sobrepeso saúde, calculadora peso libras quilos, IMC pés metros, análise corporal grátis, saúde preventiva, risco cardiovascular IMC",
+        "calculadora IMC, índice massa corporal personalizado, peso ideal por idade, IMC masculino feminino, obesidade classificação OMS, sobrepeso saúde, calculadora peso libras quilos, IMC pés metros, análise corporal grátis, saúde preventiva, risco cardiovascular IMC",
     },
     { name: "author", content: "Calculadora Online BR" },
     { name: "robots", content: "index,follow" },
@@ -196,7 +196,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       property: "og:title",
-      content: `Calculadora de IMC Avançada - Análise Personalizada do Peso Ideal - ${APP_NAME}`,
+      content: `Calculadora de IMC - Análise Personalizada do Peso Ideal - ${APP_NAME}`,
     },
     {
       property: "og:description",
@@ -210,7 +210,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: `Calculadora IMC Avançada Online - Análise Personalizada - ${APP_NAME}`,
+      content: `Calculadora IMC Online - Análise Personalizada - ${APP_NAME}`,
     },
     {
       name: "twitter:description",
@@ -230,7 +230,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "MedicalWebPage",
-        name: "Calculadora de IMC Avançada",
+        name: "Calculadora de IMC",
         description:
           "Calculadora online gratuita de Índice de Massa Corporal com análise personalizada por idade, sexo e múltiplas unidades de medida.",
         url: "https://calculadoraonlinebr.com.br/calculadoras/saude/imc",
@@ -238,7 +238,7 @@ export const meta: MetaFunction = () => {
           "@type": "MedicalCalculator",
           name: "Calculadora de IMC (Índice de Massa Corporal)",
           description:
-            "Ferramenta avançada para cálculo do IMC com personalização por idade, sexo, múltiplas unidades e análise de riscos para saúde.",
+            "Ferramenta para cálculo do IMC com personalização por idade, sexo, múltiplas unidades e análise de riscos para saúde.",
           medicalSpecialty: "Medicina Preventiva",
           applicationCategory: "HealthApplication",
           operatingSystem: "Web Browser",
@@ -1053,7 +1053,7 @@ export default function IMCCalculator() {
                     </p>
                   </div>
                   <div>
-                    <strong className="text-growth-green">2. Personalização Avançada</strong>
+                    <strong className="text-growth-green">2. Personalização</strong>
                     <p>
                       Análise contextualizada por idade, sexo e características demográficas
                       específicas do usuário.
@@ -1090,7 +1090,7 @@ export default function IMCCalculator() {
                     <span className="mr-2 text-2xl">🏋️</span>
                     <div>
                       <h4 className="text-sm font-bold text-growth-green">COMPLEMENTAR AO IMC</h4>
-                      <p className="text-xs text-text-secondary">Análise corporal avançada</p>
+                      <p className="text-xs text-text-secondary">Análise corporal</p>
                     </div>
                   </div>
                   <h3 className="mb-1 font-semibold text-growth-green">

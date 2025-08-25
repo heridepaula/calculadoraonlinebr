@@ -207,18 +207,18 @@ export default function PrimeiroMilhao() {
   const [inflacao, setInflacao] = useState("4");
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "primeiro_milhao",
-    category: "financas"
+    category: "financas",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("primeiro_milhao");
   const metaValor = parseFloat(metaPersonalizada) || 1000000;
 
@@ -395,26 +395,29 @@ export default function PrimeiroMilhao() {
       </Breadcrumb>
 
       {/* S-Tier Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
+      <section className="via-surface to-surface-dark relative overflow-hidden bg-gradient-to-br from-finance-gold/5">
         <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
           <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
             <span className="mr-2">🎯</span>
             Calculadora de Independência Financeira
           </div>
-          
+
           <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
             Calculadora do
             <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
               Primeiro Milhão
             </span>
           </h1>
-          
+
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-            Descubra <strong className="text-finance-gold-dark">em quanto tempo você pode se tornar milionário</strong>
+            Descubra{" "}
+            <strong className="text-finance-gold-dark">
+              em quanto tempo você pode se tornar milionário
+            </strong>
             ou <strong className="text-system-success">quanto investir mensalmente</strong> para
             alcançar a independência financeira.
           </p>
-          
+
           <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
             <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
               <div className="text-2xl font-bold text-finance-gold-dark">315k</div>
@@ -608,9 +611,9 @@ export default function PrimeiroMilhao() {
 
           {/* Action Buttons - Prominent S-Tier Design */}
           <div className="mt-8 space-y-4">
-            <Button 
-              onClick={handleCalculate} 
-              className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+            <Button
+              onClick={handleCalculate}
+              className="h-14 transform bg-finance-gold px-12 text-lg font-semibold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:bg-finance-gold-dark hover:shadow-2xl"
               fullWidth
             >
               🎯 Calcular Primeiro Milhão
@@ -618,7 +621,7 @@ export default function PrimeiroMilhao() {
             <Button
               onClick={handleReset}
               variant="outline"
-              className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
+              className="h-12 border-2 border-finance-gold/30 text-finance-gold transition-all duration-200 hover:border-finance-gold hover:bg-finance-gold/10"
               fullWidth
             >
               🔄 Limpar Campos
@@ -1090,7 +1093,7 @@ export default function PrimeiroMilhao() {
               <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4 transition-shadow hover:shadow-md">
                 <h4 className="mb-2 font-semibold text-primary-blue-dark">
                   <a href="/calculadoras/financas/juros-compostos" className="hover:underline">
-                    📈 Calculadora de Juros Compostos Avançada
+                    📈 Calculadora de Juros Compostos
                   </a>
                 </h4>
                 <p className="text-sm text-text-secondary">

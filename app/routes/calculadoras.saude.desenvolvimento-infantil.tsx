@@ -1363,8 +1363,8 @@ export default function ChildDevelopmentCalculator() {
                   🧮 Algoritmo de Interpolação
                 </h4>
                 <p className="mb-3 text-sm text-text-secondary">
-                  Nossa calculadora usa <strong>interpolação linear avançada</strong> para calcular
-                  percentis precisos em qualquer idade:
+                  Nossa calculadora usa <strong>interpolação linear</strong> para calcular percentis
+                  precisos em qualquer idade:
                 </p>
                 <div className="grid grid-cols-1 gap-3 text-xs text-system-info md:grid-cols-2">
                   <div>

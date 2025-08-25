@@ -57,9 +57,15 @@ export const meta: MetaFunction = () => {
       crossOrigin: "anonymous",
     },
     {
+      rel: "preload",
+      href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      as: "style",
+      onload: "this.onload=null;this.rel='stylesheet'",
+    },
+    {
       name: "description",
       content:
-        "Calcule juros simples com precisão. Simule crescimento linear do capital com facilidade, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
+        "Calcule juros simples online de forma gratuita e precisa. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -82,7 +88,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule juros simples com precisão. Simule crescimento linear do capital com facilidade, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
+        "Calcule juros simples online de forma gratuita e precisa. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
     },
     {
       property: "og:image",
@@ -107,7 +113,7 @@ export const meta: MetaFunction = () => {
       content: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
     },
     { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
+    { property: "og:locale", content: "pt-BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
@@ -116,7 +122,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule juros simples com precisão. Simule crescimento linear do capital com facilidade, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
+        "Calcule juros simples online de forma gratuita e precisa. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
     },
     {
       name: "twitter:image",
@@ -128,15 +134,13 @@ export const meta: MetaFunction = () => {
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
+    { httpEquiv: "content-language", content: "pt-BR" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -149,7 +153,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-24",
+        dateModified: "2025-08-25",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -228,7 +232,7 @@ export const meta: MetaFunction = () => {
         featureList: [
           "Simulação de juros simples com cálculo direto",
           "Gráficos claros de evolução do capital",
-          "Tabela detalhada com progressoão linear",
+          "Tabela detalhada com progressão linear",
           "Visualização da composição do montante final",
           "Cálculo baseado na fórmula clássica de juros simples",
           "Simulação por meses ou anos",
@@ -1017,7 +1021,7 @@ export default function SimpleInterestCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Juros Compostos – Guia Completo 2025
+            🎯 Juros Simples – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1075,7 +1079,7 @@ export default function SimpleInterestCalculator() {
 
                   <h4 className="mb-3 font-semibold text-system-info">📈 Fórmula</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• M = C × (1 + i × t)</li>
+                    <li>• M = C + (C × i × t)</li>
                     <li>• Crescimento aritmético</li>
                   </ul>
                 </div>

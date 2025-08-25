@@ -80,7 +80,7 @@ export const CALCULATORS = [
   },
   {
     id: "juros-compostos",
-    name: "Calculadora de Juros Compostos Avançada",
+    name: "Calculadora de Juros Compostos",
     description: "Simule investimentos com aportes mensais e visualizações",
     category: "financas",
     path: "/calculadoras/financas/juros-compostos",
