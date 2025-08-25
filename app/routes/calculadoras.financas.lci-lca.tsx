@@ -57,11 +57,19 @@ export const meta: MetaFunction = () => {
       crossOrigin: "anonymous",
     },
     {
+      rel: "preload",
+      href: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+      as: "image",
+      type: "image/webp",
+    },
+    {
       name: "description",
       content:
         "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
     },
     { name: "author", content: "Calculadora Online BR" },
+    { name: "publisher", content: "CalculadoraOnlineBR" },
+    { name: "article:modified_time", content: "2025-08-25T00:00:00-03:00" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -71,6 +79,7 @@ export const meta: MetaFunction = () => {
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     { name: "bingbot", content: "index,follow" },
+    { name: "keywords", content: "LCI, LCA, calculadora, investimentos, CDI, renda fixa, isento IR, Brasil" },
     {
       rel: "canonical",
       href: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
@@ -108,6 +117,8 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
+    { property: "og:article:modified_time", content: "2025-08-25T00:00:00-03:00" },
+    { property: "og:article:publisher", content: "https://www.facebook.com/CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
@@ -149,7 +160,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-24",
+        dateModified: "2025-08-25",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -169,6 +180,11 @@ export const meta: MetaFunction = () => {
             "https://twitter.com/CalculadoraBR",
             "https://www.facebook.com/CalculadoraOnlineBR",
           ],
+        },
+        author: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br"
         },
         mainEntityOfPage: {
           "@type": "WebPage",
@@ -229,10 +245,10 @@ export const meta: MetaFunction = () => {
           "Simulação de rendimentos LCI/LCA baseados no CDI",
           "Cálculo de rentabilidade isenta de IR",
           "Comparação com outros investimentos",
-          "Tabela detalhada de evolução mensal",
+          "Tabela detalhada de evolução diária",
           "Gráficos de crescimento do capital",
           "Cálculo baseado em percentual do CDI",
-          "Simulação por diferentes prazos",
+          "Simulação por diferentes prazos em dias",
           "Interface otimizada para mobile",
         ],
       }),
@@ -275,6 +291,50 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como Calcular Rendimentos de LCI e LCA",
+        description: "Passo a passo para simular rendimentos de investimentos em LCI e LCA com base no CDI",
+        image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+        totalTime: "PT2M",
+        estimatedCost: {
+          "@type": "MonetaryAmount",
+          currency: "BRL",
+          value: "0"
+        },
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de LCI e LCA Online"
+          }
+        ],
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Inserir valor a investir",
+            text: "Digite o valor que deseja aplicar em LCI ou LCA",
+            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp"
+          },
+          {
+            "@type": "HowToStep", 
+            name: "Definir percentual do CDI",
+            text: "Informe o percentual do CDI oferecido pela instituição financeira"
+          },
+          {
+            "@type": "HowToStep",
+            name: "Escolher prazo em dias",
+            text: "Selecione o prazo de vencimento da LCI/LCA em dias corridos"
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcular rendimentos",
+            text: "Clique em 'Calcular' para ver o resultado completo com evolução diária"
+          }
+        ]
       }),
     },
   ];
