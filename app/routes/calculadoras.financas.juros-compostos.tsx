@@ -41,17 +41,25 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Juros Compostos 2025 – Simulador Preciso | CalculadoraOnlineBR",
+      title: "Calculadora de Juros Compostos 2025 | CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, viewport-fit=cover",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
     },
     {
       name: "description",
       content:
-        "Calcule juros compostos com precisão. Simule crescimento do capital, rendimentos ao longo do tempo e compare diferentes cenários de investimento com nossa calculadora gratuita.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora juros compostos, simulador juros compostos, matemática financeira, rendimento composto, investimentos, montante final",
+        "Calcule juros compostos com precisão. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -69,12 +77,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Juros Compostos 2025 – Simulador Preciso",
+      content: "Calculadora de Juros Compostos 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Calcule juros compostos com precisão. Simule crescimento do capital e rendimentos ao longo do tempo com nossa calculadora gratuita.",
+        "Calcule juros compostos com precisão. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
     },
     {
       property: "og:image",
@@ -103,12 +111,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Juros Compostos 2025 – Simulador Preciso",
+      content: "Calculadora de Juros Compostos 2025 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
       content:
-        "Simule crescimento exponencial do patrimônio com juros compostos e aportes mensais. Visualize gráficos e tabela mês a mês com nossa calculadora gratuita.",
+        "Calcule juros compostos com precisão. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
     },
     {
       name: "twitter:image",
@@ -141,7 +149,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-23",
+        dateModified: "2025-08-24",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -213,7 +221,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "MathematicalConcept",
           name: "Juros Compostos",
-          description: "Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido dos juros acumulados",
+          description:
+            "Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido dos juros acumulados",
           category: "Financial Mathematics",
         },
         featureList: [
@@ -225,6 +234,46 @@ export const meta: MetaFunction = () => {
           "Simulação por meses ou anos",
           "Interface móvel responsiva otimizada",
           "Resultados precisos em tempo real",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que são juros compostos?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Juros compostos são calculados sobre o capital inicial somado aos juros acumulados de períodos anteriores. É o famoso 'juros sobre juros', responsável pelo crescimento exponencial dos investimentos ao longo do tempo.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a fórmula dos juros compostos?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A fórmula é M = C × (1 + i)^t, onde M é o montante final, C é o capital inicial, i é a taxa de juros por período (em decimal) e t é o número de períodos.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre juros simples e compostos?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Nos juros simples, os juros são calculados apenas sobre o capital inicial. Nos juros compostos, os juros são calculados sobre o capital inicial + juros acumulados, gerando crescimento exponencial.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Que taxa de juros devo usar na simulação?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Use taxas realistas baseadas em investimentos disponíveis: Renda Fixa (8-12% a.a.), Tesouro Direto (10-13% a.a.), fundos de investimento (6-15% a.a.). A SELIC atual é de 12,25% a.a.",
+            },
+          },
         ],
       }),
     },
@@ -283,9 +332,9 @@ export default function CompoundInterestCalculator() {
     const selicAnnualRate = ECONOMIC_INDICATORS.SELIC.rate; // 12,25% ao ano
     if (type === "months") {
       const monthlyRate = selicAnnualRate / 12; // Converte para mensal
-      return monthlyRate.toFixed(2).replace('.', ',');
+      return monthlyRate.toFixed(2).replace(".", ",");
     } else {
-      return selicAnnualRate.toFixed(2).replace('.', ',');
+      return selicAnnualRate.toFixed(2).replace(".", ",");
     }
   };
 
@@ -363,7 +412,7 @@ export default function CompoundInterestCalculator() {
       for (let month = 1; month <= totalMonths; month++) {
         let monthlyInterest = 0;
         let monthlyContribution = pmt;
-        
+
         if (month === 1) {
           // Primeiro mês: apenas capital inicial + aporte (sem juros)
           currentBalance = p + monthlyContribution;
@@ -372,11 +421,11 @@ export default function CompoundInterestCalculator() {
           monthlyInterest = currentBalance * monthlyRate;
           currentBalance = currentBalance + monthlyInterest + monthlyContribution;
         }
-        
+
         // Acumular totais
         totalContributions += monthlyContribution;
         totalInterest += monthlyInterest;
-        
+
         // Salvar dados do mês
         monthlyData.push({
           month,
@@ -444,14 +493,14 @@ export default function CompoundInterestCalculator() {
           Calculadora de Juros Compostos 2025 – Simulador Preciso
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule o <strong className="text-growth-green">crescimento do seu capital</strong>{" "}
-          com juros compostos. Simule diferentes cenários de investimento e descubra{" "}
+          Calcule o <strong className="text-growth-green">crescimento do seu capital</strong> com
+          juros compostos. Simule diferentes cenários de investimento e descubra{" "}
           <strong className="text-primary-blue-dark">o montante final</strong> ao longo do tempo.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🧮 <strong>Fórmula Matemática</strong> • 📈 <strong>Crescimento Exponencial</strong> • 💰{" "}
-            <strong>Resultados Precisos</strong>
+            🧮 <strong>Fórmula Matemática</strong> • 📈 <strong>Crescimento Exponencial</strong> •
+            💰 <strong>Resultados Precisos</strong>
           </p>
         </div>
       </header>
@@ -533,9 +582,11 @@ export default function CompoundInterestCalculator() {
               <div className="mt-1 text-xs text-text-secondary">
                 Taxa {periodType === "months" ? "mensal" : "anual"} de juros compostos
                 <span className="ml-2 text-system-info">
-                  (SELIC: {periodType === "months" 
-                    ? `${(ECONOMIC_INDICATORS.SELIC.rate / 12).toFixed(2)}% a.m.` 
-                    : `${ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.`})
+                  (SELIC:{" "}
+                  {periodType === "months"
+                    ? `${(ECONOMIC_INDICATORS.SELIC.rate / 12).toFixed(2)}% a.m.`
+                    : `${ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.`}
+                  )
                 </span>
               </div>
             </div>
@@ -648,14 +699,13 @@ export default function CompoundInterestCalculator() {
                 <div className="text-xl font-bold text-text-primary">
                   {percentBR(result.monthlyRate, 3)}%
                 </div>
-                <div className="text-sm text-text-secondary">
-                  Taxa equivalente mensal
-                </div>
+                <div className="text-sm text-text-secondary">Taxa equivalente mensal</div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Período</div>
                 <div className="text-xl font-bold text-text-primary">
-                  {result.periodType === "months" ? result.periods : result.periods / 12} {result.periodType === "months" ? "meses" : "anos"}
+                  {result.periodType === "months" ? result.periods : result.periods / 12}{" "}
+                  {result.periodType === "months" ? "meses" : "anos"}
                 </div>
                 <div className="text-sm text-text-secondary">
                   {result.periods} meses de aplicação
@@ -678,7 +728,11 @@ export default function CompoundInterestCalculator() {
                   Taxa de juros: <strong>{percentBR(result.annualRate)}% ao ano</strong>
                 </li>
                 <li>
-                  Período: <strong>{result.periodType === "months" ? result.periods : result.periods / 12} {result.periodType === "months" ? "meses" : "anos"} ({result.periods} meses)</strong>
+                  Período:{" "}
+                  <strong>
+                    {result.periodType === "months" ? result.periods : result.periods / 12}{" "}
+                    {result.periodType === "months" ? "meses" : "anos"} ({result.periods} meses)
+                  </strong>
                 </li>
                 {result.monthlyInvestment > 0 && (
                   <li>
@@ -717,14 +771,16 @@ export default function CompoundInterestCalculator() {
                       datasets: [
                         {
                           label: "Patrimônio Total",
-                          data: result.monthlyData.map(d => d.balance),
+                          data: result.monthlyData.map((d) => d.balance),
                           borderColor: "#64B5F6",
                           backgroundColor: "rgba(100, 181, 246, 0.1)",
                           fill: true,
                         },
                         {
                           label: "Capital + Aportes",
-                          data: result.monthlyData.map(d => result.initialAmount + d.totalContributions),
+                          data: result.monthlyData.map(
+                            (d) => result.initialAmount + d.totalContributions
+                          ),
                           borderColor: "#FFA726",
                           backgroundColor: "rgba(255, 167, 38, 0.1)",
                           borderDash: [5, 5],
@@ -746,7 +802,7 @@ export default function CompoundInterestCalculator() {
                           titleColor: "#E5E5E5",
                           bodyColor: "#E5E5E5",
                           callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                               return `${context.dataset.label}: ${currencyBR(context.parsed.y)}`;
                             },
                           },
@@ -756,7 +812,7 @@ export default function CompoundInterestCalculator() {
                         y: {
                           ticks: {
                             color: "#A1A1A1",
-                            callback: function(value) {
+                            callback: function (value) {
                               return currencyBR(Number(value));
                             },
                           },
@@ -803,11 +859,7 @@ export default function CompoundInterestCalculator() {
                             "#FFA726", // Orange
                             "#66BB6A", // Green
                           ],
-                          borderColor: [
-                            "#1976D2",
-                            "#F57C00",
-                            "#388E3C",
-                          ],
+                          borderColor: ["#1976D2", "#F57C00", "#388E3C"],
                           borderWidth: 2,
                         },
                       ],
@@ -828,7 +880,7 @@ export default function CompoundInterestCalculator() {
                           titleColor: "#E5E5E5",
                           bodyColor: "#E5E5E5",
                           callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                               const value = context.parsed;
                               const total = result.finalAmount;
                               const percentage = ((value / total) * 100).toFixed(1);
@@ -858,13 +910,15 @@ export default function CompoundInterestCalculator() {
                 const startIndex = (currentPage - 1) * itemsPerPage;
                 const endIndex = startIndex + itemsPerPage;
                 const currentItems = result.monthlyData.slice(startIndex, endIndex);
-                
+
                 return (
                   <>
                     {/* Informação da paginação */}
                     <div className="mb-4 flex items-center justify-between text-sm text-text-secondary">
                       <div>
-                        Mostrando meses {startIndex + 1} a {Math.min(endIndex, result.monthlyData.length)} de {result.monthlyData.length}
+                        Mostrando meses {startIndex + 1} a{" "}
+                        {Math.min(endIndex, result.monthlyData.length)} de{" "}
+                        {result.monthlyData.length}
                       </div>
                       <div>
                         Página {currentPage} de {totalPages}
@@ -951,25 +1005,25 @@ export default function CompoundInterestCalculator() {
                           ««
                         </Button>
                         <Button
-                          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                           disabled={currentPage === 1}
                           variant="outline"
                           className="px-3 py-2 text-sm"
                         >
                           ‹
                         </Button>
-                        
+
                         {/* Números das páginas */}
                         {(() => {
                           const pages = [];
                           const maxVisiblePages = 5;
                           let startPage = Math.max(1, currentPage - 2);
                           let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-                          
+
                           if (endPage - startPage < maxVisiblePages - 1) {
                             startPage = Math.max(1, endPage - maxVisiblePages + 1);
                           }
-                          
+
                           for (let i = startPage; i <= endPage; i++) {
                             pages.push(
                               <Button
@@ -984,9 +1038,9 @@ export default function CompoundInterestCalculator() {
                           }
                           return pages;
                         })()}
-                        
+
                         <Button
-                          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                           disabled={currentPage === totalPages}
                           variant="outline"
                           className="px-3 py-2 text-sm"
@@ -1030,7 +1084,7 @@ export default function CompoundInterestCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido 
+                    Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido
                     dos juros acumulados de períodos anteriores. É o famoso "juros sobre juros".
                   </p>
 
@@ -1067,8 +1121,8 @@ export default function CompoundInterestCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">📊 Juros Simples</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Juros calculados apenas sobre o capital inicial, sem capitalização. 
-                    Crescimento linear e previsível.
+                    Juros calculados apenas sobre o capital inicial, sem capitalização. Crescimento
+                    linear e previsível.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📈 Fórmula</h4>
@@ -1081,8 +1135,8 @@ export default function CompoundInterestCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🚀 Juros Compostos</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Juros calculados sobre capital + juros acumulados. 
-                    Crescimento exponencial e acelerado.
+                    Juros calculados sobre capital + juros acumulados. Crescimento exponencial e
+                    acelerado.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-success">💡 Fórmula</h4>
@@ -1104,8 +1158,8 @@ export default function CompoundInterestCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🚀 Comece Cedo</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    O tempo é o fator mais importante nos juros compostos. 
-                    Começar mais cedo amplia exponencialmente os resultados.
+                    O tempo é o fator mais importante nos juros compostos. Começar mais cedo amplia
+                    exponencialmente os resultados.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">💰 Aportes Regulares</h4>
@@ -1150,7 +1204,9 @@ export default function CompoundInterestCalculator() {
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
                     Renda Fixa
                   </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Fundos de Investimento</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    Fundos de Investimento
+                  </th>
                   <th className="p-3 text-center font-semibold text-system-warning">
                     Tesouro Direto
                   </th>
@@ -1201,24 +1257,24 @@ export default function CompoundInterestCalculator() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
               <p className="text-sm text-text-secondary">
-                Comece com <strong>Tesouro Direto</strong> pelo baixo valor mínimo e garantia 
-                do governo federal.
+                Comece com <strong>Tesouro Direto</strong> pelo baixo valor mínimo e garantia do
+                governo federal.
               </p>
             </div>
 
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
               <h4 className="mb-2 font-bold text-growth-green">💰 Reserva</h4>
               <p className="text-sm text-text-secondary">
-                Use <strong>Renda Fixa</strong> para reserva de emergência pela previsibilidade 
-                e estabilidade.
+                Use <strong>Renda Fixa</strong> para reserva de emergência pela previsibilidade e
+                estabilidade.
               </p>
             </div>
 
             <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
               <h4 className="mb-2 font-bold text-system-warning">📈 Diversificação</h4>
               <p className="text-sm text-text-secondary">
-                Explore <strong>Fundos de Investimento</strong> para diversificar e potencializar 
-                os juros compostos.
+                Explore <strong>Fundos de Investimento</strong> para diversificar e potencializar os
+                juros compostos.
               </p>
             </div>
           </div>
@@ -1283,24 +1339,26 @@ export default function CompoundInterestCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de juros compostos</strong> utiliza{" "}
-              <strong className="text-growth-green">a fórmula matemática clássica</strong> para calcular
-              o crescimento do capital ao longo do tempo. Os cálculos consideram capitalizações mensais
-              para maior precisão.
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora de juros compostos</strong>{" "}
+              utiliza <strong className="text-growth-green">a fórmula matemática clássica</strong>{" "}
+              para calcular o crescimento do capital ao longo do tempo. Os cálculos consideram
+              capitalizações mensais para maior precisão.
             </p>
             <p>
-              <strong>Configurações disponíveis:</strong> Capital inicial, taxa anual de juros e período
-              em meses ou anos. A calculadora converte automaticamente para cálculos mensais compostos.
+              <strong>Configurações disponíveis:</strong> Capital inicial, taxa anual de juros e
+              período em meses ou anos. A calculadora converte automaticamente para cálculos mensais
+              compostos.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e de planejamento financeiro. Para decisões de investimento, consulte
-              sempre um <strong>assessor financeiro qualificado</strong> e considere taxas reais
-              de mercado.
+              fins educacionais e de planejamento financeiro. Para decisões de investimento,
+              consulte sempre um <strong>assessor financeiro qualificado</strong> e considere taxas
+              reais de mercado.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🧮 Fórmula matemática • 📈 Crescimento exponencial • 🔒 Dados não armazenados • 📱 Compatível
-              com todos os dispositivos • 🌙 Interface otimizada
+              🧮 Fórmula matemática • 📈 Crescimento exponencial • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>
