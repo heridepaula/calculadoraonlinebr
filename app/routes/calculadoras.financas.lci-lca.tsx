@@ -1,196 +1,459 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
-  RateInput,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { calculateLCILCA } from "~/utils/calculations";
-import type { LCILCAParams, LCILCAResult } from "~/utils/calculations";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
-  getDefaultRate,
-  getIndicatorInfo,
-  isDataRecent,
-  getDataFreshnessColor,
-} from "~/lib/economic-data";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora LCI e LCA 2025 - Simulador Completo de Investimentos - ${APP_NAME}` },
+    {
+      title: "Calculadora de LCI e LCA 2025 | CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, viewport-fit=cover",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora LCI e LCA GRATUITA com simulações completas. Compare rendimentos, veja vantagens fiscais, calcule carência e descubra se vale mais que CDB e Poupança. Ferramenta completa para investir em Letras de Crédito no Brasil.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora LCI, calculadora LCA, letra de crédito imobiliário, letra de crédito agronegócio, investimento LCI LCA, rendimento LCI LCA, carência LCI LCA, isenção imposto renda, CDI LCI LCA, comparar LCI CDB, simulador investimento, renda fixa brasil, banco investimento, percentual CDI, IPCA+ LCI, taxa pré fixada, liquidez LCI LCA",
+        "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+    },
     {
       property: "og:title",
-      content: `Calculadora LCI e LCA - Simule seu Investimento - ${APP_NAME}`,
+      content: "Calculadora de LCI e LCA 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "★ Simule investimentos em LCI e LCA! Compare rendimentos, veja vantagens fiscais e descubra qual o melhor investimento para seu perfil. Ferramenta gratuita e completa.",
+        "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de LCI e LCA - Simule rendimentos de investimentos isentos de IR baseados no CDI",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/financas/lci-lca",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora LCI e LCA - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de LCI e LCA 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "twitter:description",
       content:
-        "Simule investimentos em LCI e LCA com nossa calculadora gratuita. Compare rendimentos e tome a melhor decisão!",
+        "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#22c55e" },
-    { name: "theme-color", content: "#22c55e" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de LCI e LCA - Simule rendimentos isentos de IR",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de LCI e LCA - Simulador de Rendimentos 2025",
+        description:
+          "Calculadora gratuita de LCI e LCA com cálculos baseados no CDI. Simule rendimentos isentos de IR, compare opções e otimize seus investimentos.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-24",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+          name: "Calculadora de LCI e LCA 2025 - Simulador Preciso",
+          description:
+            "Simule rendimentos de LCI e LCA baseados no CDI. Calcule ganhos isentos de IR, compare rentabilidade e tome decisões de investimento mais inteligentes.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Calculadora de LCI e LCA",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "MathematicalConcept",
+          name: "LCI e LCA",
+          description:
+            "Letras de Crédito Imobiliário e do Agronegócio - investimentos de renda fixa isentos de IR para pessoa física",
+          category: "Financial Mathematics",
+        },
+        featureList: [
+          "Simulação de rendimentos LCI/LCA baseados no CDI",
+          "Cálculo de rentabilidade isenta de IR",
+          "Comparação com outros investimentos",
+          "Tabela detalhada de evolução mensal",
+          "Gráficos de crescimento do capital",
+          "Cálculo baseado em percentual do CDI",
+          "Simulação por diferentes prazos",
+          "Interface otimizada para mobile",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que são LCI e LCA?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "LCI (Letra de Crédito Imobiliário) e LCA (Letra de Crédito do Agronegócio) são títulos de renda fixa isentos de IR para pessoa física, lastreados por créditos imobiliários e do agronegócio.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como é calculado o rendimento de LCI e LCA?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O rendimento é calculado com base em um percentual do CDI, usando juros compostos. Fórmula: M = C × (1 + CDI × percentual)^t, sendo isento de Imposto de Renda.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre LCI e LCA?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "LCI é lastreada em créditos imobiliários e LCA em créditos do agronegócio. Ambas têm características similares: isenção de IR, garantia do FGC até R$ 250 mil e rentabilidade atrelada ao CDI.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual percentual do CDI devo usar na simulação?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "LCI/LCA geralmente oferecem entre 80% a 120% do CDI. Grandes bancos: 80-95% do CDI. Bancos médios/digitais: 90-110% do CDI. Corretoras: 95-120% do CDI.",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 
-export default function LCILCACalculator() {
-  const [principal, setPrincipal] = useState("");
-  const [interestRate, setInterestRate] = useState("");
-  const [interestType, setInterestType] = useState<
-    "percentage_cdi" | "percentage_ipca" | "fixed_rate"
-  >("percentage_cdi");
-  const [period, setPeriod] = useState("");
-  const [periodUnit, setPeriodUnit] = useState<"days" | "months" | "years">("months");
-  const [indexRate, setIndexRate] = useState(() => {
-    // Define valor padrão baseado no tipo de taxa inicial
-    return getDefaultRate("CDI").toString();
-  });
-  const [investmentType, setInvestmentType] = useState<"lci" | "lca">("lci");
-  const [hasCarencia, setHasCarencia] = useState(false);
-  const [carenciaPeriod, setCarenciaPeriod] = useState("");
-  const [carenciaUnit, setCarenciaUnit] = useState<"days" | "months">("days");
-  const [result, setResult] = useState<LCILCAResult | null>(null);
+type PeriodType = "days";
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "lci_lca",
-    category: "financas"
-  });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("lci_lca");
+interface DailyData {
+  day: number;
+  balance: number;
+  dailyInterest: number;
+  totalInterest: number;
+}
 
-  // Função para atualizar indexRate quando o tipo de taxa mudar
-  const handleInterestTypeChange = (
-    newType: "percentage_cdi" | "percentage_ipca" | "fixed_rate"
-  ) => {
-    setInterestType(newType);
-    // Atualiza automaticamente o indexRate com valor padrão
-    if (newType === "percentage_cdi") {
-      setIndexRate(getDefaultRate("CDI").toString());
-    } else if (newType === "percentage_ipca") {
-      setIndexRate(getDefaultRate("IPCA").toString());
+interface LciLcaResult {
+  finalAmount: number;
+  totalInterest: number;
+  initialAmount: number;
+  cdiRate: number;
+  cdiPercentage: number;
+  effectiveRate: number;
+  days: number;
+  dailyData: DailyData[];
+}
+
+interface ValidationErrors {
+  investedAmount?: string;
+  cdiPercentage?: string;
+  days?: string;
+}
+
+export default function LciLcaCalculator() {
+  const [investedAmount, setInvestedAmount] = useState("");
+  const [cdiPercentage, setCdiPercentage] = useState("");
+  const [days, setDays] = useState("");
+  const [result, setResult] = useState<LciLcaResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "lci-lca",
+    category: "financas",
+  });
+  useFormTracking("lci-lca");
+
+  // Função para obter percentual padrão do CDI
+  const getDefaultCdiPercentage = (): string => {
+    return "100"; // 100% do CDI como padrão
+  };
+
+  // Inicializa o percentual do CDI
+  useEffect(() => {
+    if (!cdiPercentage) {
+      setCdiPercentage(getDefaultCdiPercentage());
     }
+  }, []);
+
+  const currencyBR = (v: number) => {
+    if (isNaN(v) || !isFinite(v)) return "R$ 0,00";
+    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  };
+  const percentBR = (v: number, digits = 2) => {
+    if (isNaN(v) || !isFinite(v)) return "0,00";
+    return new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+  };
+
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+    const amount = parseMoney(investedAmount);
+    if (amount <= 0) {
+      newErrors.investedAmount = "Valor investido obrigatório e maior que 0";
+      ok = false;
+    }
+    const percentage = parseFloat(cdiPercentage.replace(",", "."));
+    if (percentage <= 0) {
+      newErrors.cdiPercentage = "Percentual do CDI deve ser maior que 0";
+      ok = false;
+    }
+    const numberOfDays = parseInt(days, 10);
+    if (!days || isNaN(numberOfDays) || numberOfDays <= 0) {
+      newErrors.days = "Prazo em dias obrigatório e maior que 0";
+      ok = false;
+    }
+    setErrors(newErrors);
+    return ok;
   };
 
   const handleCalculate = () => {
-    const principalNum = parseFloat(principal) || 0;
-    const interestRateNum = parseFloat(interestRate) || 0;
-    const periodNum = parseFloat(period) || 0;
-    const indexRateNum = parseFloat(indexRate) || 0;
-    const carenciaPeriodNum = parseFloat(carenciaPeriod) || 0;
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const amount = parseMoney(investedAmount);
+      const cdiPercent = parseFloat(cdiPercentage.replace(",", ".")) / 100;
+      const numberOfDays = parseInt(days, 10);
+      
+      // Taxa CDI atual (baseada na SELIC)
+      const currentCdiRate = ECONOMIC_INDICATORS.SELIC.rate / 100; // CDI aproximadamente igual à SELIC
+      const effectiveAnnualRate = currentCdiRate * cdiPercent;
+      
+      // Verificar se as taxas são válidas
+      if (!isFinite(currentCdiRate) || !isFinite(effectiveAnnualRate)) {
+        throw new Error("Taxa inválida");
+      }
+      
+      const dailyRate = Math.pow(1 + effectiveAnnualRate, 1/252) - 1; // 252 dias úteis no ano
 
-    if (principalNum > 0 && interestRateNum > 0 && periodNum > 0) {
-      const params: LCILCAParams = {
-        principal: principalNum,
-        interestRate: interestRateNum,
-        interestType,
-        period: periodNum,
-        periodUnit,
-        indexRate: indexRateNum,
-        investmentType,
-        bank: "Não especificado",
-        hasCarencia,
-        carenciaPeriod: carenciaPeriodNum,
-        carenciaUnit,
+      // Calcular evolução dia a dia para LCI/LCA
+      const dailyData: DailyData[] = [];
+      let currentBalance = amount;
+      let totalInterest = 0;
+
+      for (let day = 1; day <= numberOfDays; day++) {
+        const dailyInterest = currentBalance * dailyRate;
+        currentBalance = currentBalance + dailyInterest;
+        totalInterest += dailyInterest;
+
+        dailyData.push({
+          day,
+          balance: currentBalance,
+          dailyInterest,
+          totalInterest,
+        });
+      }
+
+      const finalAmount = currentBalance;
+
+      // Verificar se todos os valores são válidos
+      if (!isFinite(finalAmount) || !isFinite(totalInterest)) {
+        throw new Error("Valores calculados inválidos");
+      }
+
+      const res: LciLcaResult = {
+        finalAmount,
+        totalInterest,
+        initialAmount: amount,
+        cdiRate: currentCdiRate * 100,
+        cdiPercentage: cdiPercent * 100,
+        effectiveRate: effectiveAnnualRate * 100,
+        days: numberOfDays,
+        dailyData,
       };
 
-      const calculationResult = calculateLCILCA(params);
-      setResult(calculationResult);
+      setResult(res);
+      setErrors({});
+      setCurrentPage(1); // Reset pagination quando há novo cálculo
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ investedAmount: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setPrincipal("");
-    setInterestRate("");
-    setPeriod("");
-    setIndexRate(getDefaultRate("CDI").toString()); // Restaura valor padrão do CDI
-    setCarenciaPeriod("");
-    setHasCarencia(false);
-    setInterestType("percentage_cdi"); // Volta para CDI
+    setInvestedAmount("");
+    setCdiPercentage(getDefaultCdiPercentage());
+    setDays("");
     setResult(null);
+    setErrors({});
+    setCurrentPage(1);
   };
 
-  const handleLoadDefaults = () => {
-    setPrincipal("10000");
-    setInterestRate("95");
-    setPeriod("24");
-    setPeriodUnit("months");
-    setIndexRate(getDefaultRate("CDI").toString());
-    setInterestType("percentage_cdi");
-    setInvestmentType("lci");
-    setHasCarencia(true);
-    setCarenciaPeriod("90");
-    setCarenciaUnit("days");
-  };
-
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
-
-  const formatPercentage = (value: number) =>
-    new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 2 }).format(
-      value / 100
-    );
-
-  const formatDate = (date: Date) =>
-    new Intl.DateFormat("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }).format(date);
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
@@ -201,855 +464,628 @@ export default function LCILCACalculator() {
         <BreadcrumbItem isLast>LCI e LCA</BreadcrumbItem>
       </Breadcrumb>
 
-      {/* S-Tier Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
-          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-            <span className="mr-2">💰</span>
-            Simulador LCI e LCA com Vantagens Fiscais
-          </div>
-          
-          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-            Calculadora de
-            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-              LCI e LCA
-            </span>
-          </h1>
-          
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-            Simule <strong className="text-finance-gold-dark">Letras de Crédito</strong> com isenção fiscal.
-            Compare rendimentos, analise carência e descubra se vale mais que 
-            <strong className="text-system-success">CDB e Poupança</strong>.
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de LCI e LCA 2025 – Simulador de Rendimentos
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule os <strong className="text-growth-green">rendimentos de LCI e LCA</strong> isentos de IR.
+          Simule investimentos baseados no CDI e descubra{" "}
+          <strong className="text-primary-blue-dark">quanto seu dinheiro vai render</strong> livre de impostos.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🏦 <strong>Isento de IR</strong> • 📈 <strong>Baseado no CDI</strong> •
+            💰 <strong>Garantia do FGC</strong>
           </p>
-          
-          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-3 lg:gap-6">
-            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
-              <div className="text-2xl font-bold text-system-success">0%</div>
-              <div className="text-sm text-text-secondary">Imposto de Renda</div>
-            </div>
-            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
-              <div className="text-2xl font-bold text-finance-gold-dark">📊</div>
-              <div className="text-sm text-text-secondary">Compare Investimentos</div>
-            </div>
-            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
-              <div className="text-2xl font-bold text-primary-blue-dark">⏰</div>
-              <div className="text-sm text-text-secondary">Analise Carência</div>
-            </div>
-          </div>
         </div>
-      </section>
+      </header>
 
-      {/* Formulário Principal */}
       <Card>
         <CardHeader>
-          <CardTitle as="h2">Dados do Investimento</CardTitle>
+          <CardTitle as="h2">📋 Configure sua Simulação de LCI/LCA</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {/* Primeira linha - Tipo de Investimento e Valor */}
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-              <Select
-                label="Tipo de Investimento"
-                value={investmentType}
-                onChange={(value) => setInvestmentType(value as "lci" | "lca")}
-                options={[
-                  { value: "lci", label: "LCI - Imobiliário" },
-                  { value: "lca", label: "LCA - Agronegócio" },
-                ]}
-                fullWidth
-              />
 
+          {/* Linha 1: Valor a ser investido */}
+          <div className="mb-6">
+            <div>
+              <MoneyInput
+                label="Valor a Investir"
+                value={investedAmount}
+                onChange={setInvestedAmount}
+                placeholder="10.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.investedAmount} />
+              <div className="mt-1 text-xs text-text-secondary">Valor que deseja aplicar em LCI ou LCA</div>
+            </div>
+          </div>
+
+          {/* Linha 2: Percentual do CDI e Período */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <Input
+                type="text"
+                label="Percentual do CDI (%)"
+                value={cdiPercentage}
+                onChange={(e) => setCdiPercentage(e.target.value)}
+                placeholder="100"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.cdiPercentage} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Percentual do CDI oferecido pela LCI/LCA
+                <span className="ml-2 text-system-info">
+                  (CDI atual: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.)
+                </span>
+              </div>
+            </div>
+            <div>
               <Input
                 type="number"
-                label="Valor do Investimento (R$)"
-                value={principal}
-                onChange={(e) => setPrincipal(e.target.value)}
-                placeholder="Ex: 10000"
-                min="0"
-                step="0.01"
-                required
+                label="Prazo (dias)"
+                value={days}
+                onChange={(e) => setDays(e.target.value)}
+                placeholder="90"
                 fullWidth
+                className="h-12 text-lg"
               />
+              <ErrorMessage error={errors.days} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Prazo de vencimento da LCI/LCA em dias corridos
+              </div>
+            </div>
+          </div>
+
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Simulação de Juros Compostos
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-growth-green">
+                  {currencyBR(result.finalAmount)}
+                </div>
+                <div className="text-sm text-text-secondary">Montante Final</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {currencyBR(result.totalInterest)}
+                </div>
+                <div className="text-sm text-text-secondary">Juros Ganhos</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {percentBR(result.annualRate)}%
+                </div>
+                <div className="text-sm text-text-secondary">Taxa Anual</div>
+              </div>
             </div>
 
-            {/* Segunda linha - Taxa oferecida e Tipo de Taxa */}
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-              <RateInput
-                label="Taxa Oferecida (%)"
-                value={interestRate}
-                onChange={(value) => setInterestRate(value)}
-                placeholder="0,00"
-                required
-                fullWidth
-              />
-
-              <Select
-                label="Tipo de Taxa"
-                value={interestType}
-                onChange={(value) => handleInterestTypeChange(value as any)}
-                options={[
-                  { value: "percentage_cdi", label: "% do CDI" },
-                  { value: "percentage_ipca", label: "IPCA +" },
-                  { value: "fixed_rate", label: "Taxa Fixa" },
-                ]}
-                fullWidth
-              />
-            </div>
-
-            {/* Terceira linha - Taxa de referência (condicional) */}
-            {(interestType === "percentage_cdi" || interestType === "percentage_ipca") && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-                  <div className="space-y-2">
-                    <RateInput
-                      label={
-                        interestType === "percentage_cdi"
-                          ? "Taxa CDI Atual (%)"
-                          : "IPCA Estimado (%)"
-                      }
-                      value={indexRate}
-                      onChange={(value) => setIndexRate(value)}
-                      placeholder="0,00"
-                      required
-                      fullWidth
-                    />
-
-                    {/* Informações sobre o valor atual */}
-                    <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-3">
-                      <div className="flex items-center justify-between text-xs">
-                        <div>
-                          <span
-                            className={`font-semibold ${getDataFreshnessColor(interestType === "percentage_cdi" ? "CDI" : "IPCA")}`}
-                          >
-                            💹 Valor oficial atual:{" "}
-                            {getDefaultRate(interestType === "percentage_cdi" ? "CDI" : "IPCA")}%
-                          </span>
-                        </div>
-                        <div className="text-text-secondary">
-                          {
-                            getIndicatorInfo(interestType === "percentage_cdi" ? "CDI" : "IPCA")
-                              .source
-                          }
-                        </div>
-                      </div>
-                      <div className="mt-1 text-xs text-text-secondary">
-                        📅 Última atualização:{" "}
-                        {
-                          getIndicatorInfo(interestType === "percentage_cdi" ? "CDI" : "IPCA")
-                            .lastUpdate
-                        }
-                      </div>
-                      <div className="mt-1 text-xs text-text-secondary">
-                        {
-                          getIndicatorInfo(interestType === "percentage_cdi" ? "CDI" : "IPCA")
-                            .description
-                        }
-                      </div>
-                      {!isDataRecent(interestType === "percentage_cdi" ? "CDI" : "IPCA") && (
-                        <div className="mt-1 text-xs font-medium text-system-warning">
-                          ⚠️ Dados podem estar desatualizados. Verifique fontes oficiais.
-                        </div>
-                      )}
-                    </div>
+            {/* Breakdown detalhado se há aportes mensais */}
+            {result.monthlyInvestment > 0 && (
+              <div className="mb-6 grid grid-cols-1 gap-4 rounded-lg bg-system-info/10 p-4 md:grid-cols-4">
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Capital Inicial</div>
+                  <div className="text-xl font-bold text-text-primary">
+                    {currencyBR(result.initialAmount)}
                   </div>
-                  <div></div> {/* Espaço vazio para manter alinhamento */}
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Aportes Mensais</div>
+                  <div className="text-xl font-bold text-system-info">
+                    {currencyBR(result.totalContributions)}
+                  </div>
+                  <div className="text-xs text-text-secondary">
+                    {currencyBR(result.monthlyInvestment)}/mês
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Total Investido</div>
+                  <div className="text-xl font-bold text-text-primary">
+                    {currencyBR(result.initialAmount + result.totalContributions)}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Juros Compostos</div>
+                  <div className="text-xl font-bold text-growth-green">
+                    {currencyBR(result.totalInterest)}
+                  </div>
                 </div>
               </div>
             )}
 
-            {/* Quarta linha - Prazo do investimento */}
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-              <Input
-                type="number"
-                label="Prazo do Investimento"
-                value={period}
-                onChange={(e) => setPeriod(e.target.value)}
-                placeholder="Ex: 24"
-                min="0"
-                step="1"
-                required
-                fullWidth
-              />
-
-              <Select
-                label="Unidade do Prazo"
-                value={periodUnit}
-                onChange={(value) => setPeriodUnit(value as any)}
-                options={[
-                  { value: "days", label: "Dias" },
-                  { value: "months", label: "Meses" },
-                  { value: "years", label: "Anos" },
-                ]}
-                fullWidth
-              />
-            </div>
-
-            {/* Quinta linha - Seção de Carência */}
-            <div>
-              <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                <div className="mb-4">
-                  <div className="mb-3 flex items-start space-x-3">
-                    <button
-                      type="button"
-                      onClick={() => setHasCarencia(!hasCarencia)}
-                      className={`mt-0.5 flex h-4 w-4 items-center justify-center rounded border ${
-                        hasCarencia
-                          ? "border-system-info bg-system-info text-white"
-                          : "hover:border-system-info:border-system-info-dark border-neutral-surface-variant bg-background-dark-secondary"
-                      }`}
-                    >
-                      {hasCarencia && (
-                        <svg className="h-2.5 w-2.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                    <div className="flex-1">
-                      <label
-                        className="cursor-pointer text-sm font-medium text-system-info"
-                        onClick={() => setHasCarencia(!hasCarencia)}
-                      >
-                        Este investimento tem carência?
-                      </label>
-                      <p className="mt-1 text-xs text-text-secondary">
-                        💡 <strong>Carência</strong> é o período mínimo que você deve manter o
-                        investimento.
-                      </p>
-                    </div>
-                  </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Capital Inicial</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {currencyBR(result.initialAmount)}
                 </div>
-
-                {hasCarencia && (
-                  <div className="grid grid-cols-2 gap-4 border-t border-system-info/20 pt-4">
-                    <Input
-                      type="number"
-                      label="Período de Carência"
-                      value={carenciaPeriod}
-                      onChange={(e) => setCarenciaPeriod(e.target.value)}
-                      placeholder="Ex: 90"
-                      min="0"
-                      step="1"
-                      fullWidth
-                    />
-
-                    <Select
-                      label="Unidade"
-                      value={carenciaUnit}
-                      onChange={(value) => setCarenciaUnit(value as any)}
-                      options={[
-                        { value: "days", label: "Dias" },
-                        { value: "months", label: "Meses" },
-                      ]}
-                      fullWidth
-                    />
-                  </div>
-                )}
+                <div className="text-sm text-text-secondary">Valor investido</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Prazo</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {result.days} dias
+                </div>
+                <div className="text-sm text-text-secondary">
+                  {Math.round(result.days / 30)} meses aprox.
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Action Buttons - Prominent S-Tier Design */}
-          <div className="mt-8 space-y-4">
-            <Button 
-              onClick={handleCalculate} 
-              className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
-              fullWidth
-            >
-              💰 Simular LCI/LCA
-            </Button>
-            <div className="grid grid-cols-2 gap-3">
-              <Button
-                onClick={handleLoadDefaults}
-                variant="outline"
-                className="h-12 border-2 border-system-info/30 text-system-info hover:bg-system-info/10 hover:border-system-info transition-all duration-200"
-                fullWidth
-              >
-                📊 Exemplo
-              </Button>
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
-                fullWidth
-              >
-                🔄 Limpar
-              </Button>
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo do Cálculo</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Valor investido: <strong>{currencyBR(result.initialAmount)}</strong>
+                </li>
+                <li>
+                  Taxa efetiva: <strong>{percentBR(result.effectiveRate)}% ao ano</strong>
+                </li>
+                <li>
+                  Prazo de investimento:{" "}
+                  <strong>
+                    {result.days} dias ({Math.round(result.days / 30)} meses aprox.)
+                  </strong>
+                </li>
+                <li>
+                  Rendimento bruto: <strong>{currencyBR(result.totalInterest)}</strong> (isento de IR)
+                </li>
+                <li>
+                  Montante final: <strong>{currencyBR(result.finalAmount)}</strong>
+                </li>
+              </ul>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
-      {/* Hero Result Card - S-Tier Prominence */}
+      {/* Gráficos e Tabela de Evolução */}
       {result && (
         <>
-          <Card className="border-4 border-finance-gold bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 shadow-2xl">
-            <CardContent className="p-8">
-              <div className="text-center">
-                <div className="mb-3">
-                  <span className="inline-flex items-center rounded-full bg-finance-gold/20 px-4 py-2 text-sm font-medium text-finance-gold-dark">
-                    💰 {investmentType.toUpperCase()} - Isento de IR
-                  </span>
-                </div>
-                <div className="text-5xl font-bold text-finance-gold-dark mb-2">
-                  {formatCurrency(result.finalAmount)}
-                </div>
-                <p className="text-lg text-text-secondary mb-6">
-                  Valor final após {period}{" "}
-                  {periodUnit === "months" ? "meses" : periodUnit === "years" ? "anos" : "dias"}
-                </p>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-system-success/10 border border-system-success/20">
-                    <div className="text-2xl font-bold text-system-success">
-                      {formatCurrency(result.netReturn)}
-                    </div>
-                    <p className="text-sm text-text-secondary mt-1">Rendimento Líquido</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-primary-blue/10 border border-primary-blue/20">
-                    <div className="text-2xl font-bold text-primary-blue-dark">
-                      {formatPercentage(result.annualReturn)}
-                    </div>
-                    <p className="text-sm text-text-secondary mt-1">Rentabilidade Anual</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Detailed Breakdown */}
-          <div className="grid grid-cols-3 gap-6 md:grid-cols-1 md:gap-4">
-            <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-growth-green">
-                  💰 Valor Final
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-3xl font-bold tabular-nums text-growth-green md:text-2xl">
-                    {formatCurrency(result.finalAmount)}
-                  </div>
-                  <p className="mt-2 text-sm text-text-secondary md:text-xs">
-                    Após {period}{" "}
-                    {periodUnit === "months" ? "meses" : periodUnit === "years" ? "anos" : "dias"}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-system-success bg-system-success/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-system-success">
-                  📈 Rendimento Líquido
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-3xl font-bold tabular-nums text-system-success">
-                    {formatCurrency(result.netReturn)}
-                  </div>
-                  <p className="mt-2 text-sm text-text-secondary">Isento de Imposto de Renda</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-primary-blue-dark">
-                  📊 Rentabilidade Anual
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="text-3xl font-bold tabular-nums text-primary-blue-dark">
-                    {formatPercentage(result.annualReturn)}
-                  </div>
-                  <p className="mt-2 text-sm text-text-secondary">
-                    Taxa efetiva: {result.effectiveRate}%
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Informações de Carência */}
-          {hasCarencia && (
-            <Card className="border-2 border-system-warning bg-system-warning/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-system-warning">
-                  ⏰ Informações de Carência
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div>
-                    <h4 className="mb-2 font-bold text-system-warning">Data de Liberação</h4>
-                    <p className="text-2xl font-bold text-text-primary">
-                      {formatDate(result.canWithdrawOn)}
-                    </p>
-                    <p className="text-sm text-text-secondary">
-                      Você poderá resgatar a partir desta data
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="mb-2 font-bold text-system-warning">Status Atual</h4>
-                    <div
-                      className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${
-                        result.isDuringCarencia
-                          ? "bg-system-error/10 text-system-error/10"
-                          : "bg-system-success/10 text-system-success/10"
-                      }`}
-                    >
-                      {result.isDuringCarencia ? "🔒 Em carência" : "✅ Disponível para resgate"}
-                    </div>
-                    <p className="mt-2 text-sm text-text-secondary">
-                      {result.isDuringCarencia
-                        ? "Investimento ainda em período de carência"
-                        : "Investimento já pode ser resgatado"}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Comparações */}
+          {/* Gráficos */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {/* Comparação com Poupança */}
-            <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-primary-blue-dark">
-                  🏦 Comparação com a Poupança
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Na Poupança:</span>
-                    <span className="font-bold text-text-primary">
-                      {formatCurrency(
-                        parseFloat(principal) + result.comparisonWithSavings.savingsReturn
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Na {investmentType.toUpperCase()}:</span>
-                    <span className="font-bold text-growth-green">
-                      {formatCurrency(result.finalAmount)}
-                    </span>
-                  </div>
-                  <hr className="border-neutral-surface-variant" />
-                  <div className="flex items-center justify-between text-lg">
-                    <span className="font-bold text-text-primary">Vantagem:</span>
-                    <div className="text-right">
-                      <div className="font-bold text-primary-blue-dark">
-                        {formatCurrency(result.comparisonWithSavings.advantage)}
-                      </div>
-                      <div className="text-sm text-system-success">
-                        {result.comparisonWithSavings.percentageAdvantage > 0 ? "+" : ""}
-                        {result.comparisonWithSavings.percentageAdvantage.toFixed(1)}%
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Comparação com CDB */}
-            <Card className="border-2 border-system-info bg-system-info/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-system-info">
-                  💳 Comparação com CDB
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">CDB (bruto):</span>
-                    <span className="font-bold text-text-primary">
-                      {formatCurrency(parseFloat(principal) + result.comparisonWithCDB.cdbReturn)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Imposto CDB:</span>
-                    <span className="font-bold text-system-error-dark">
-                      -{formatCurrency(result.comparisonWithCDB.cdbTax)}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">CDB (líquido):</span>
-                    <span className="font-bold text-text-primary">
-                      {formatCurrency(
-                        parseFloat(principal) + result.comparisonWithCDB.cdbNetReturn
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">
-                      {investmentType.toUpperCase()} (isento):
-                    </span>
-                    <span className="font-bold text-growth-green">
-                      {formatCurrency(result.finalAmount)}
-                    </span>
-                  </div>
-                  <hr className="border-neutral-surface-variant" />
-                  <div className="flex items-center justify-between text-lg">
-                    <span className="font-bold text-text-primary">Vantagem fiscal:</span>
-                    <div className="text-right">
-                      <div className="font-bold text-system-info">
-                        {formatCurrency(result.comparisonWithCDB.advantage)}
-                      </div>
-                      <div className="text-sm text-system-success">
-                        {result.comparisonWithCDB.percentageAdvantage > 0 ? "+" : ""}
-                        {result.comparisonWithCDB.percentageAdvantage.toFixed(1)}%
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Evolução Mensal */}
-          {result.monthlyEvolution.length > 1 && (
+            {/* Gráfico de Evolução do Patrimônio */}
             <Card>
               <CardHeader>
-                <CardTitle as="h3">📊 Evolução do Investimento</CardTitle>
+                <CardTitle as="h3" className="text-growth-green">
+                  📈 Evolução do Patrimônio
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b border-neutral-surface-variant">
-                        <th className="p-2 text-left">Mês</th>
-                        <th className="p-2 text-right">Saldo</th>
-                        <th className="p-2 text-right">Juros do Mês</th>
-                        <th className="p-2 text-right">Rendimento Acumulado</th>
-                        <th className="p-2 text-center">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {result.monthlyEvolution.map((evolution, index) => (
-                        <tr key={index} className="border-b border-neutral-surface-variant">
-                          <td className="p-2 font-medium">{evolution.month}º mês</td>
-                          <td className="p-2 text-right font-medium tabular-nums text-growth-green">
-                            {formatCurrency(evolution.balance)}
-                          </td>
-                          <td className="p-2 text-right tabular-nums text-system-success">
-                            {formatCurrency(evolution.interestEarned)}
-                          </td>
-                          <td className="p-2 text-right tabular-nums text-primary-blue-dark">
-                            {formatCurrency(evolution.accumulatedReturn)}
-                          </td>
-                          <td className="p-2 text-center">
-                            <span
-                              className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
-                                evolution.canWithdraw
-                                  ? "bg-system-success/10 text-system-success/10"
-                                  : "bg-system-warning/10 text-system-warning/10"
-                              }`}
-                            >
-                              {evolution.canWithdraw ? "✅ Livre" : "🔒 Carência"}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="h-80">
+                  <Line
+                    data={{
+                      labels: result.dailyData.map((_, i) => `Dia ${i + 1}`),
+                      datasets: [
+                        {
+                          label: "Patrimônio Total",
+                          data: result.dailyData.map((d) => d.balance),
+                          borderColor: "#64B5F6",
+                          backgroundColor: "rgba(100, 181, 246, 0.1)",
+                          fill: true,
+                        },
+                        {
+                          label: "Valor Investido",
+                          data: result.dailyData.map(() => result.initialAmount),
+                          borderColor: "#FFA726",
+                          backgroundColor: "rgba(255, 167, 38, 0.1)",
+                          borderDash: [5, 5],
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "top" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function (context) {
+                              return `${context.dataset.label}: ${currencyBR(context.parsed.y)}`;
+                            },
+                          },
+                        },
+                      },
+                      scales: {
+                        y: {
+                          ticks: {
+                            color: "#A1A1A1",
+                            callback: function (value) {
+                              return currencyBR(Number(value));
+                            },
+                          },
+                          grid: {
+                            color: "#333333",
+                          },
+                        },
+                        x: {
+                          ticks: {
+                            color: "#A1A1A1",
+                          },
+                          grid: {
+                            color: "#333333",
+                          },
+                        },
+                      },
+                    }}
+                  />
                 </div>
               </CardContent>
             </Card>
-          )}
+
+            {/* Gráfico de Pizza - Composição Final */}
+            <Card>
+              <CardHeader>
+                <CardTitle as="h3" className="text-system-warning">
+                  🥧 Composição do Patrimônio Final
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <Pie
+                    data={{
+                      labels: ["Capital Inicial", "Aportes", "Juros Compostos"],
+                      datasets: [
+                        {
+                          data: [
+                            result.initialAmount,
+                            result.totalContributions,
+                            result.totalInterest,
+                          ],
+                          backgroundColor: [
+                            "#64B5F6", // Primary blue
+                            "#FFA726", // Orange
+                            "#66BB6A", // Green
+                          ],
+                          borderColor: ["#1976D2", "#F57C00", "#388E3C"],
+                          borderWidth: 2,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "bottom" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                            padding: 20,
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function (context) {
+                              const value = context.parsed;
+                              const total = result.finalAmount;
+                              const percentage = ((value / total) * 100).toFixed(1);
+                              return `${context.label}: ${currencyBR(value)} (${percentage}%)`;
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Tabela de Evolução Mensal */}
+          <Card>
+            <CardHeader>
+              <CardTitle as="h3" className="text-primary-blue-dark">
+                📊 Evolução Diária Detalhada
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {(() => {
+                const itemsPerPage = 15; // Mais linhas por página para dados diários
+                const totalPages = Math.ceil(result.dailyData.length / itemsPerPage);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentItems = result.dailyData.slice(startIndex, endIndex);
+
+                return (
+                  <>
+                    {/* Informação da paginação */}
+                    <div className="mb-4 flex items-center justify-between text-sm text-text-secondary">
+                      <div>
+                        Mostrando dias {startIndex + 1} a{" "}
+                        {Math.min(endIndex, result.dailyData.length)} de{" "}
+                        {result.dailyData.length}
+                      </div>
+                      <div>
+                        Página {currentPage} de {totalPages}
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      {/* Tabela Desktop - Todas as colunas */}
+                      <table className="hidden w-full text-sm md:table">
+                        <thead>
+                          <tr className="border-b-2 border-neutral-surface-variant">
+                            <th className="p-3 text-left font-semibold">Dia</th>
+                            <th className="p-3 text-right font-semibold">Patrimônio</th>
+                            <th className="p-3 text-right font-semibold">Rendimento Diário</th>
+                            <th className="p-3 text-right font-semibold">Total de Rendimentos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentItems.map((data, index) => (
+                            <tr
+                              key={data.day}
+                              className="border-b border-neutral-surface-variant hover:bg-neutral-surface/20"
+                            >
+                              <td className="p-3 font-medium">{data.day}</td>
+                              <td className="p-3 text-right font-bold text-growth-green">
+                                {currencyBR(data.balance)}
+                              </td>
+                              <td className="p-3 text-right text-primary-blue-dark">
+                                {currencyBR(data.dailyInterest)}
+                              </td>
+                              <td className="p-3 text-right text-growth-green">
+                                {currencyBR(data.totalInterest)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+
+                      {/* Tabela Mobile - Colunas essenciais */}
+                      <table className="w-full text-sm md:hidden">
+                        <thead>
+                          <tr className="border-b-2 border-neutral-surface-variant">
+                            <th className="p-2 text-left font-semibold">Dia</th>
+                            <th className="p-2 text-right font-semibold">Patrimônio</th>
+                            <th className="p-2 text-right font-semibold">Rendimento</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentItems.map((data, index) => (
+                            <tr
+                              key={`mobile-${data.day}`}
+                              className="border-b border-neutral-surface-variant hover:bg-neutral-surface/20"
+                            >
+                              <td className="p-2 font-medium">{data.day}</td>
+                              <td className="p-2 text-right font-bold text-growth-green">
+                                {currencyBR(data.balance)}
+                              </td>
+                              <td className="p-2 text-right text-primary-blue-dark">
+                                {currencyBR(data.dailyInterest)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Controles de paginação */}
+                    {totalPages > 1 && (
+                      <div className="mt-6 flex items-center justify-center space-x-2">
+                        <Button
+                          onClick={() => setCurrentPage(1)}
+                          disabled={currentPage === 1}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ««
+                        </Button>
+                        <Button
+                          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                          disabled={currentPage === 1}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ‹
+                        </Button>
+
+                        {/* Números das páginas */}
+                        {(() => {
+                          const pages = [];
+                          const maxVisiblePages = 5;
+                          let startPage = Math.max(1, currentPage - 2);
+                          let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+                          if (endPage - startPage < maxVisiblePages - 1) {
+                            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                          }
+
+                          for (let i = startPage; i <= endPage; i++) {
+                            pages.push(
+                              <Button
+                                key={i}
+                                onClick={() => setCurrentPage(i)}
+                                variant={currentPage === i ? "default" : "outline"}
+                                className="px-3 py-2 text-sm"
+                              >
+                                {i}
+                              </Button>
+                            );
+                          }
+                          return pages;
+                        })()}
+
+                        <Button
+                          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                          disabled={currentPage === totalPages}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ›
+                        </Button>
+                        <Button
+                          onClick={() => setCurrentPage(totalPages)}
+                          disabled={currentPage === totalPages}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          »»
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </CardContent>
+          </Card>
         </>
       )}
 
-      {/* Seção: O que são LCI e LCA */}
-      <Card className="border-l-4 border-growth-green bg-gradient-to-r from-growth-green-soft to-primary-blue-light duration-300">
+      {/* Seção: LCI e LCA - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🏢 O que são LCI e LCA? Investimentos com Vantagem Fiscal
+            🎯 LCI e LCA – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
-              <p>
-                <strong className="text-growth-green">LCI (Letra de Crédito Imobiliário)</strong> e
-                <strong className="text-primary-blue-dark">
-                  {" "}
-                  LCA (Letra de Crédito do Agronegócio)
-                </strong>{" "}
-                são investimentos de renda fixa{" "}
-                <strong className="text-system-success">isentos de Imposto de Renda</strong>
-                para pessoas físicas, oferecendo excelente relação risco-retorno.
-              </p>
-            </div>
+          <div className="space-y-8">
+            {/* Conceito de LCI e LCA */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🏦 O que são LCI e LCA?
+              </h3>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-                <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
-                  🏠 LCI - Letra de Crédito Imobiliário
-                </h3>
-                <div className="space-y-3">
-                  <div className="rounded-lg bg-growth-green-soft p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">💡 Como Funciona</h4>
-                    <p className="text-sm text-text-secondary">
-                      Você empresta dinheiro para o banco, que usa esses recursos para financiar
-                      <strong className="text-growth-green"> operações do setor imobiliário</strong>
-                      (financiamentos de casas, apartamentos, construção civil).
-                    </p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-growth-green">✅</span>
-                      <span>
-                        <strong>Isento de IR</strong> para pessoa física
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-growth-green">✅</span>
-                      <span>
-                        <strong>Garantido pelo FGC</strong> até R$ 250.000
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-growth-green">✅</span>
-                      <span>
-                        <strong>Rentabilidade</strong> normalmente entre 80% a 100% do CDI
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-warning">⚠️</span>
-                      <span>
-                        <strong>Carência:</strong> Normalmente 90 dias a 24 meses
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-                <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
-                  🌾 LCA - Letra de Crédito do Agronegócio
-                </h3>
-                <div className="space-y-3">
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">💡 Como Funciona</h4>
-                    <p className="text-sm text-text-secondary">
-                      Você empresta dinheiro para o banco, que usa esses recursos para financiar
-                      <strong className="text-primary-blue-dark"> operações do agronegócio</strong>
-                      (compra de equipamentos, custeio de safras, financiamento rural).
-                    </p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-primary-blue-dark">✅</span>
-                      <span>
-                        <strong>Isento de IR</strong> para pessoa física
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-primary-blue-dark">✅</span>
-                      <span>
-                        <strong>Garantido pelo FGC</strong> até R$ 250.000
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-primary-blue-dark">✅</span>
-                      <span>
-                        <strong>Rentabilidade</strong> similar ou superior à LCI
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-warning">⚠️</span>
-                      <span>
-                        <strong>Carência:</strong> Varia conforme a instituição
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-system-success/20 bg-system-success/10 p-6">
-              <h4 className="mb-3 text-center text-lg font-bold text-system-success">
-                🎯 Principal Vantagem: Isenção de Imposto de Renda
-              </h4>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h5 className="mb-2 font-semibold text-system-success">💚 LCI/LCA (Isento):</h5>
-                  <div className="space-y-1 text-sm">
-                    <p>
-                      • <strong>Rendimento bruto:</strong> R$ 1.000
-                    </p>
-                    <p>
-                      • <strong>Imposto de Renda:</strong> R$ 0
-                    </p>
-                    <p className="font-bold text-system-success">
-                      • <strong>Rendimento líquido:</strong> R$ 1.000
-                    </p>
-                  </div>
+                  <h4 className="mb-3 font-semibold text-growth-green">📋 LCI - Letra de Crédito Imobiliário</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Título de renda fixa lastreado em créditos imobiliários. Oferece isenção de IR para pessoa física e garantia do FGC até R$ 250 mil.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">🌾 LCA - Letra de Crédito do Agronegócio</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Lastreada em créditos do agronegócio</li>
+                    <li>• Mesmos benefícios da LCI</li>
+                  </ul>
                 </div>
+
                 <div>
-                  <h5 className="mb-2 font-semibold text-system-warning">💛 CDB (Com IR):</h5>
-                  <div className="space-y-1 text-sm">
-                    <p>
-                      • <strong>Rendimento bruto:</strong> R$ 1.000
-                    </p>
-                    <p>
-                      • <strong>Imposto de Renda:</strong> R$ 150-225
-                    </p>
-                    <p className="font-bold text-system-warning">
-                      • <strong>Rendimento líquido:</strong> R$ 775-850
-                    </p>
-                  </div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Isenção de Imposto de Renda</li>
+                    <li>• Garantia do FGC até R$ 250 mil</li>
+                    <li>• Rentabilidade baseada no CDI</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Fatores Importantes</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Carência para resgate antecipado</li>
+                    <li>• Valor mínimo de aplicação</li>
+                  </ul>
                 </div>
               </div>
-              <p className="mt-4 text-center font-bold text-system-success">
-                💰 Vantagem fiscal de até 29% nos seus rendimentos!
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Tipos de Rentabilidade */}
-      <Card className="border-l-4 border-system-info bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            📊 Tipos de Rentabilidade em LCI e LCA
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <div className="text-lg text-text-primary">
-              <p>
-                LCI e LCA podem oferecer diferentes tipos de rentabilidade.
-                <strong className="text-system-info"> Entenda cada modalidade</strong>
-                para escolher a que melhor se adapta ao seu perfil e momento econômico.
-              </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="rounded-xl border border-primary-blue/20 bg-primary-blue-light p-6">
-                <h3 className="mb-4 text-lg font-bold text-primary-blue-dark">
-                  📈 Pós-fixada (% do CDI)
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">Como Funciona</h4>
-                    <p className="text-sm text-text-secondary">
-                      Oferece um <strong>percentual do CDI</strong> (ex: 95% do CDI). Se o CDI
-                      subir, sua rentabilidade também sobe.
-                    </p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-success">✅</span>
-                      <span>
-                        <strong>Proteção contra alta da Selic</strong>
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-success">✅</span>
-                      <span>
-                        <strong>Mais comum no mercado</strong>
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-warning">⚠️</span>
-                      <span>
-                        <strong>Risco:</strong> Queda da Selic reduz rendimento
-                      </span>
-                    </div>
-                  </div>
-                  <div className="rounded bg-primary-blue-light p-3">
-                    <p className="text-xs font-bold text-primary-blue-dark">
-                      💡 Ideal quando: CDI está em alta ou há expectativa de alta da Selic
-                    </p>
-                  </div>
+            {/* CDI e Rentabilidade */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📊 CDI e Rentabilidade
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">💹 O que é CDI?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Certificado de Depósito Interbancário - taxa de referência para empréstimos entre bancos. 
+                    Base para remuneração de LCI/LCA.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📈 Como funciona</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Percentual do CDI (ex: 100% do CDI)</li>
+                    <li>• CDI atual: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">💰 Faixas de Rentabilidade</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Grandes bancos: 80-95% do CDI</li>
+                    <li>• Bancos médios: 90-110% do CDI</li>
+                    <li>• Corretoras: 95-120% do CDI</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-success">✨ Benefício Fiscal</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• 100% isento de Imposto de Renda</li>
+                    <li>• Vantagem sobre CDB e outros</li>
+                  </ul>
                 </div>
               </div>
+            </div>
 
-              <div className="rounded-xl border border-growth-green/20 bg-growth-green-soft p-6">
-                <h3 className="mb-4 text-lg font-bold text-growth-green">
-                  📊 Pré-fixada (Taxa Fixa)
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">Como Funciona</h4>
-                    <p className="text-sm text-text-secondary">
-                      Oferece uma <strong>taxa fixa</strong> (ex: 10% ao ano). Você sabe exatamente
-                      quanto receberá no vencimento.
-                    </p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-success">✅</span>
-                      <span>
-                        <strong>Previsibilidade total</strong>
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-success">✅</span>
-                      <span>
-                        <strong>Proteção contra queda da Selic</strong>
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-warning">⚠️</span>
-                      <span>
-                        <strong>Risco:</strong> Perde se o CDI subir muito
-                      </span>
-                    </div>
-                  </div>
-                  <div className="rounded bg-growth-green-soft p-3">
-                    <p className="text-xs font-bold text-growth-green">
-                      💡 Ideal quando: CDI está alto e há expectativa de queda da Selic
-                    </p>
-                  </div>
+            {/* Estratégias para Otimizar LCI e LCA */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🎯 Estratégias para Otimizar LCI e LCA
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Pesquise Taxas</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Compare percentuais do CDI entre instituições. Corretoras geralmente oferecem 
+                    melhores condições que grandes bancos.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">💰 Diversifique</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Divida entre LCI e LCA</li>
+                    <li>• Respeite limite do FGC (R$ 250 mil)</li>
+                  </ul>
                 </div>
-              </div>
 
-              <div className="rounded-xl border border-system-info/20 bg-system-info/10 p-6">
-                <h3 className="mb-4 text-lg font-bold text-system-info">📊 Híbrida (IPCA+)</h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-gray-900 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">Como Funciona</h4>
-                    <p className="text-sm text-text-secondary">
-                      Oferece <strong>inflação + taxa fixa</strong> (ex: IPCA + 5% ao ano). Protege
-                      contra inflação e ainda rende um extra.
-                    </p>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-success">✅</span>
-                      <span>
-                        <strong>Proteção contra inflação</strong>
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-success">✅</span>
-                      <span>
-                        <strong>Ganho real garantido</strong>
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-system-warning">⚠️</span>
-                      <span>
-                        <strong>Menos comum em LCI/LCA</strong>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="rounded bg-system-info/10 p-3">
-                    <p className="text-xs font-bold text-system-info">
-                      💡 Ideal para: Investimentos de longo prazo e proteção inflacionária
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">📅 Planeje Prazos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Considere carência para liquidez</li>
+                    <li>• Aloque conforme seus objetivos</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚖️ Compare Alternativas</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Considere CDB (se taxa compensar IR)</li>
+                    <li>• Avalie Tesouro Direto também</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -1057,302 +1093,180 @@ export default function LCILCACalculator() {
         </CardContent>
       </Card>
 
-      {/* Seção: Carência e Liquidez */}
-      <Card className="border-l-4 border-system-warning bg-system-warning/10 duration-300">
+      {/* Seção: Comparação LCI/LCA vs Outros Investimentos */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⏰ Carência e Liquidez: O que Você Precisa Saber
+            ⚖️ LCI/LCA vs Outros Investimentos de Renda Fixa
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="text-lg text-text-primary">
-              <p>
-                A <strong className="text-system-warning">carência</strong> é a principal limitação
-                das LCI e LCA. Entenda como funciona e como se planejar para maximizar seus
-                rendimentos.
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    LCI/LCA
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    CDB
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Tesouro Direto
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Imposto de Renda</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Isento</td>
+                  <td className="p-3 text-center text-growth-green">15-22,5% (regressivo)</td>
+                  <td className="p-3 text-center text-system-warning">15-22,5% (regressivo)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Garantia FGC</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐ (R$ 250 mil)</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐ (R$ 250 mil)</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐ (Governo)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Liquidez</td>
+                  <td className="p-3 text-center text-growth-green">Vence no prazo</td>
+                  <td className="p-3 text-center">Diária (maioria)</td>
+                  <td className="p-3 text-center">Diária</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Valor Mínimo</td>
+                  <td className="p-3 text-center">R$ 1.000 a R$ 5.000</td>
+                  <td className="p-3 text-center">R$ 500 a R$ 1.000</td>
+                  <td className="p-3 text-center">R$ 30 a R$ 100</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Rentabilidade</td>
+                  <td className="p-3 text-center">80-120% CDI</td>
+                  <td className="p-3 text-center">90-130% CDI</td>
+                  <td className="p-3 text-center">SELIC ou IPCA+</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Indicado para</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Médio prazo</td>
+                  <td className="p-3 text-center text-growth-green">Curto/médio prazo</td>
+                  <td className="p-3 text-center text-system-warning">Iniciantes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 LCI/LCA</h4>
+              <p className="text-sm text-text-secondary">
+                Ideal para <strong>médio prazo</strong> com isenção de IR. Melhor que CDB líquido 
+                por não ter taxa regressiva.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-4 text-lg font-bold text-system-warning">🔒 O que é Carência?</h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-warning/20 bg-gray-900 p-4">
-                    <p className="mb-3 text-sm text-text-secondary">
-                      <strong className="text-system-warning">Carência</strong> é o período mínimo
-                      que você deve manter o dinheiro investido. Durante esse tempo,
-                      <strong> não é possível resgatar</strong> sem perdas.
-                    </p>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-error-dark">❌</span>
-                        <span>
-                          <strong>90 dias:</strong> Carência mínima mais comum
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-error-dark">❌</span>
-                        <span>
-                          <strong>180 dias a 2 anos:</strong> Carências mais longas
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-system-warning">⚠️</span>
-                        <span>
-                          <strong>Resgate antecipado:</strong> Pode perder rentabilidade
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      💡 Dica de Planejamento
-                    </h4>
-                    <p className="text-xs text-text-secondary">
-                      Só invista dinheiro que você <strong>não precisará</strong> durante o período
-                      de carência. Considere sua reserva de emergência antes de investir.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="mb-4 text-lg font-bold text-growth-green">
-                  🎯 Estratégias de Liquidez
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      1. 💰 Escadinha de Vencimentos
-                    </h4>
-                    <p className="text-xs text-text-secondary">
-                      Divida o dinheiro em várias aplicações com vencimentos escalonados. Ex: R$
-                      10.000 em 4 LCIs de R$ 2.500 com vencimentos de 3, 6, 12 e 24 meses.
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      2. 🏦 Diversifique Bancos
-                    </h4>
-                    <p className="text-xs text-text-secondary">
-                      Aplique em diferentes instituições para ter mais opções de resgate e
-                      aproveitar melhores ofertas de diferentes bancos.
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-success">3. ⚖️ Mix de Prazos</h4>
-                    <p className="text-xs text-text-secondary">
-                      Combine investimentos de curto prazo (mais líquidos) com longo prazo (maior
-                      rentabilidade) conforme sua necessidade.
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">💰 CDB</h4>
+              <p className="text-sm text-text-secondary">
+                Use <strong>CDB com liquidez</strong> para reserva de emergência. 
+                Só vale se o CDI compensar o IR.
+              </p>
             </div>
 
-            <div className="rounded-xl border border-system-info/20 bg-system-info/10 p-6">
-              <h4 className="mb-3 text-center text-lg font-bold text-system-info">
-                📊 Comparação: Carência vs Rentabilidade
-              </h4>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-system-info/30">
-                      <th className="p-3 text-left">Prazo de Carência</th>
-                      <th className="p-3 text-center">Rentabilidade Típica</th>
-                      <th className="p-3 text-center">Liquidez</th>
-                      <th className="p-3 text-center">Recomendado Para</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-system-info/20">
-                    <tr>
-                      <td className="p-3 font-medium">90 dias</td>
-                      <td className="p-3 text-center">85% - 95% CDI</td>
-                      <td className="p-3 text-center">
-                        <span className="inline-flex items-center rounded-full bg-system-success/10 px-2 py-1 text-xs text-system-success/10">
-                          Alta
-                        </span>
-                      </td>
-                      <td className="p-3 text-center text-xs">Reserva de oportunidade</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-medium">180-360 dias</td>
-                      <td className="p-3 text-center">95% - 105% CDI</td>
-                      <td className="p-3 text-center">
-                        <span className="inline-flex items-center rounded-full bg-system-warning/10 px-2 py-1 text-xs text-system-warning/10">
-                          Média
-                        </span>
-                      </td>
-                      <td className="p-3 text-center text-xs">Objetivos médio prazo</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 font-medium">1-2 anos</td>
-                      <td className="p-3 text-center">100% - 120% CDI</td>
-                      <td className="p-3 text-center">
-                        <span className="inline-flex items-center rounded-full bg-system-error/10 px-2 py-1 text-xs text-system-error/10">
-                          Baixa
-                        </span>
-                      </td>
-                      <td className="p-3 text-center text-xs">Objetivos longo prazo</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📈 Tesouro Direto</h4>
+              <p className="text-sm text-text-secondary">
+                Para <strong>iniciantes</strong> pelo valor mínimo baixo e facilidade. 
+                Boa para objetivos de longo prazo.
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Calculadora LCI e LCA"
+        title="Perguntas Frequentes - Calculadora de LCI e LCA"
         items={[
           {
-            question: "LCI e LCA são realmente isentas de Imposto de Renda para pessoas físicas?",
+            question: "O que são LCI e LCA?",
             answer:
-              "<strong>Sim, totalmente isentas!</strong> Para pessoas físicas, LCI e LCA não pagam IR mesmo nos prazos mais curtos. Esta é a <strong>maior vantagem</strong> sobre CDB, que pode ter IR de até 22,5%. Para pessoas jurídicas há tributação normal.",
-            borderColor: "system-success",
-          },
-          {
-            question: "Qual a diferença prática entre LCI e LCA para o investidor?",
-            answer:
-              "Para o investidor, <strong>são praticamente iguais</strong>. <strong>LCI</strong> financia setor imobiliário, <strong>LCA</strong> financia agronegócio. Ambas têm isenção de IR, garantia FGC, carência similar e rentabilidades equivalentes no mercado.",
+              "LCI (Letra de Crédito Imobiliário) e LCA (Letra de Crédito do Agronegócio) são títulos de renda fixa isentos de IR para pessoa física, lastreados por créditos imobiliários e do agronegócio.",
             borderColor: "primary-blue",
           },
           {
-            question: "Como comparar LCI/LCA com CDB? Qual vale mais a pena?",
+            question: "Como é calculado o rendimento de LCI e LCA?",
             answer:
-              "Use a <strong>regra prática</strong>: LCI/LCA precisa pagar <strong>77-85% da taxa do CDB</strong> para ser equivalente (dependendo do prazo). Exemplo: CDB 100% CDI = LCI 85% CDI no longo prazo. Nossa calculadora faz essa comparação automaticamente!",
+              "O rendimento é calculado com base em um percentual do CDI, usando juros compostos. Fórmula: M = C × (1 + CDI × percentual)^t, sendo isento de Imposto de Renda.",
             borderColor: "growth-green",
           },
           {
-            question: "Qual o valor mínimo para investir em LCI e LCA?",
+            question: "Qual a diferença entre LCI e LCA?",
             answer:
-              "Varia por instituição: <strong>Bancos digitais: R$ 1.000-5.000</strong>, <strong>Grandes bancos: R$ 5.000-30.000</strong>, <strong>Corretoras: R$ 1.000-10.000</strong>. Geralmente valores maiores que CDB devido à regulamentação específica.",
+              "LCI é lastreada em créditos imobiliários e LCA em créditos do agronegócio. Ambas têm características similares: isenção de IR, garantia do FGC até R$ 250 mil e rentabilidade atrelada ao CDI.",
             borderColor: "system-info",
           },
           {
-            question: "LCI e LCA têm garantia do FGC? Como funciona?",
+            question: "Qual percentual do CDI devo usar na simulação?",
             answer:
-              "<strong>Sim, 100% garantidas!</strong> FGC protege até <strong>R$ 250.000 por CPF por banco</strong>. Estratégia: diversifique entre bancos para maximizar proteção (R$ 250k Banco A + R$ 250k Banco B = R$ 500k total protegidos).",
-            borderColor: "system-success",
-          },
-          {
-            question: "Posso resgatar LCI/LCA antes do vencimento?",
-            answer:
-              "<strong>Geralmente não</strong>, especialmente durante a carência (90-180 dias). Após carência, alguns bancos permitem com <strong>perda de rentabilidade</strong>. Planeje bem o prazo antes de investir!",
+              "LCI/LCA geralmente oferecem entre 80% a 120% do CDI. Grandes bancos: 80-95% do CDI. Bancos médios/digitais: 90-110% do CDI. Corretoras: 95-120% do CDI.",
             borderColor: "system-warning",
           },
           {
-            question: "Como funciona a carência da LCI e LCA?",
+            question: "LCI/LCA é melhor que CDB?",
             answer:
-              "Carência típica: <strong>90-180 dias</strong> para LCI e LCA. Durante este período, <strong>não é possível resgatar</strong> o investimento. Após a carência, resgate pode ser permitido conforme condições do banco.",
-            borderColor: "system-error-dark",
+              "Depende da taxa e prazo. LCI/LCA são isentas de IR, enquanto CDB tem alíquota regressiva (22,5% a 15%). Para mesmo percentual do CDI, LCI/LCA sempre rendem mais líquido.",
+            borderColor: "growth-green",
           },
           {
-            question: "Vale a pena investir em LCI/LCA com a taxa Selic atual?",
+            question: "Qual o prazo ideal para LCI/LCA?",
             answer:
-              "Com Selic alta, LCI/LCA se tornam <strong>muito atrativas</strong> pela isenção de IR! Mesmo pagando 85-90% do CDI, o retorno líquido supera CDBs. Use nossa calculadora para comparar cenários reais do mercado!",
-            borderColor: "growth-green",
+              "Varia conforme objetivo. Prazos mais longos geralmente oferecem percentuais melhores do CDI. Considere a carência (geralmente 90 dias) para liquidez antecipada.",
+            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica de Especialista",
+          title: "Dica Importante sobre LCI/LCA",
           content:
-            "Para <strong>maximizar rendimentos</strong>, diversifique entre LCI e LCA de diferentes bancos, respeitando o limite de R$ 250.000 do FGC por instituição. Priorize taxas acima de 85% do CDI para superar CDBs!",
+            "<strong>Para otimizar resultados:</strong> compare percentuais do CDI entre instituições, respeite o limite do FGC (R$ 250 mil por CPF/CNPJ) e considere prazos conforme seu planejamento financeiro.",
         }}
-        footerText="<strong>Quer comparar investimentos?</strong> Nossa calculadora LCI/LCA oferece análise completa com comparações automáticas e projeções precisas para sua melhor decisão!"
+        footerText="<strong>Lembre-se:</strong> LCI/LCA são ideais para médio prazo com isenção de IR. A rentabilidade líquida supera muitos investimentos tributados, mesmo com CDI menor."
       />
 
-      {/* Footer */}
-      <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de LCI e LCA
+            📚 Como Usar Esta Calculadora de LCI e LCA
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-growth-green">calculadora de LCI e LCA</strong> é
-              <strong className="text-system-success"> 100% gratuita</strong> e oferece simulações
-              completas com comparações, análise de carência e vantagens fiscais. Ideal para
-              investidores que buscam renda fixa com isenção de IR.
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora de LCI e LCA</strong>{" "}
+              utiliza <strong className="text-growth-green">cálculos baseados no CDI</strong>{" "}
+              para simular rendimentos de investimentos isentos de IR. Os cálculos consideram
+              capitalização mensal composta para maior precisão.
             </p>
             <p>
-              <strong>Recursos inclusos:</strong> Cálculo de rentabilidade, comparação com CDB e
-              Poupança, análise de carência, evolução mensal do investimento, diferentes tipos de
-              rentabilidade (CDI, pré-fixada, IPCA+) e conteúdo educacional completo sobre o mercado
-              brasileiro.
+              <strong>Configurações disponíveis:</strong> Valor a investir, percentual do CDI oferecido 
+              e prazo em meses ou anos. A calculadora usa a taxa CDI atual ({ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.) 
+              como base para os cálculos.
             </p>
             <p>
-              <strong className="text-system-warning">Aviso Legal:</strong> Os cálculos são para
-              fins educacionais e de planejamento. Rentabilidades passadas não garantem resultados
-              futuros. Para decisões de investimento importantes, consulte sempre um{" "}
-              <strong>assessor financeiro</strong>
-              ou <strong>analista qualificado</strong>.
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e comparativos. As taxas reais podem variar entre instituições.
+              Para decisões de investimento, consulte sempre um <strong>assessor financeiro qualificado</strong>.
             </p>
-            <p className="mt-4 border-t border-growth-green/20 pt-3 text-xs opacity-75">
-              ⚖️ Cálculos baseados em metodologia do mercado financeiro brasileiro • 🎓 Conteúdo
-              educacional especializado • 🔒 Seus dados não são armazenados • 📱 Interface
-              responsiva • 🌙 Modo escuro disponível • 💰 Informações atualizadas sobre LCI e LCA
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🏦 Baseado no CDI • 📈 Isenção de IR • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>
       </Card>
-
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora LCI e LCA",
-            description:
-              "Calculadora online gratuita para simular investimentos em LCI e LCA. Compare rendimentos, analise vantagens fiscais e carência.",
-            url: "https://calculadorasonline.com.br/calculadoras/financas/lci-lca",
-            applicationCategory: "FinanceApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Cálculo de rentabilidade LCI/LCA",
-              "Comparação com CDB e Poupança",
-              "Análise de carência e liquidez",
-              "Diferentes tipos de rentabilidade",
-              "Evolução mensal do investimento",
-              "Conteúdo educacional especializado",
-              "100% gratuito",
-            ],
-            about: [
-              {
-                "@type": "Thing",
-                name: "LCI - Letra de Crédito Imobiliário",
-              },
-              {
-                "@type": "Thing",
-                name: "LCA - Letra de Crédito do Agronegócio",
-              },
-            ],
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
 
       <RelatedCalculators category="financas" currentCalculatorId="lci-lca" />
     </div>
