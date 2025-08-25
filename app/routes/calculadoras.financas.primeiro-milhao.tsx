@@ -1,185 +1,278 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
-  MoneyInput,
-  RateInput,
   Button,
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora do Primeiro Milhão 2025 - Como Ficar Milionário - ${APP_NAME}` },
+    {
+      title: "Calculadora do Primeiro Milhão 2025 | CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, viewport-fit=cover",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora do Primeiro Milhão GRATUITA! Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente. Simulações realistas com juros compostos, estratégias comprovadas e planejamento financeiro para independência. Usado por +50.000 brasileiros.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora primeiro milhão, como ficar milionário, quanto tempo para ser milionário, investir para ser milionário, planejamento financeiro milionário, simulação primeiro milhão, independência financeira, juros compostos primeiro milhão, aporte mensal milionário, estratégia primeiro milhão, brasileiros milionários, patrimônio líquido um milhão, como juntar um milhão de reais, investimento longo prazo milionário, aposentadoria milionário, educação financeira milhão, multiplicar dinheiro milhão",
+        "Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com juros compostos. Ferramenta gratuita.",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
+    },
     {
       property: "og:title",
-      content: `Calculadora do Primeiro Milhão - Como se Tornar Milionário - ${APP_NAME}`,
+      content: "Calculadora do Primeiro Milhão 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "★ Simule seu caminho para o primeiro milhão! Descubra quanto tempo levará ou quanto investir mensalmente. Estratégias comprovadas usadas por brasileiros milionários. 100% gratuito!",
+        "Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com juros compostos. Ferramenta gratuita.",
+    },
+    {
+      property: "og:image",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-primeiro-milhao.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Juros Compostos - Simule crescimento exponencial do patrimônio com aportes mensais",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/financas/primeiro-milhao",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
-      content: `Calculadora do Primeiro Milhão - Como Ficar Milionário - ${APP_NAME}`,
+      content: "Calculadora do Primeiro Milhão 2025 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
       content:
-        "Descubra seu caminho para a independência financeira! Simule investimentos e veja quanto tempo para chegar ao primeiro milhão.",
+        "Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com juros compostos.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#10b981" },
-    { name: "theme-color", content: "#10b981" },
+    {
+      name: "twitter:image",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-primeiro-milhao.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Juros Compostos - Simule crescimento do patrimônio",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
-
-    // Schema.org structured data for Financial Calculator
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "@id": "https://calculadorasonline.com.br/calculadoras/financas/primeiro-milhao",
-        url: "https://calculadorasonline.com.br/calculadoras/financas/primeiro-milhao",
-        name: "Calculadora do Primeiro Milhão - Como se Tornar Milionário",
+        "@type": "WebApplication",
+        name: "Calculadora do Primeiro Milhão - Simulador de Independência Financeira 2025",
         description:
-          "Calculadora gratuita para descobrir quanto tempo levará para alcançar seu primeiro milhão ou quanto investir mensalmente. Simulações com juros compostos e estratégias comprovadas.",
+          "Descubra quanto tempo leva para se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com estratégias comprovadas.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        isPartOf: {
-          "@type": "WebSite",
-          "@id": "https://calculadorasonline.com.br",
-          name: APP_NAME,
-          url: "https://calculadorasonline.com.br",
+        dateModified: "2025-08-24",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
-        mainEntity: {
-          "@type": "SoftwareApplication",
-          name: "Calculadora do Primeiro Milhão",
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
+          name: "Calculadora do Primeiro Milhão 2025 - Simulador de Independência Financeira",
           description:
-            "Ferramenta online gratuita para simular o caminho para o primeiro milhão através de investimentos sistemáticos com juros compostos",
-          applicationCategory: "FinanceApplication",
-          operatingSystem: "Web Browser",
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "BRL",
-            availability: "https://schema.org/InStock",
+            "Descubra seu caminho para o primeiro milhão com simulações realistas de investimentos. Calcule tempo necessário ou aporte mensal para alcançar a independência financeira.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
           },
-          featureList: [
-            "Cálculo de tempo para primeiro milhão",
-            "Cálculo de aporte mensal necessário",
-            "Simulação com juros compostos",
-            "Análise de retorno sobre investimento",
-            "Planejamento financeiro personalizado",
-          ],
-        },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              item: {
-                "@id": "https://calculadorasonline.com.br/",
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
                 name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
               },
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              item: {
-                "@id": "https://calculadorasonline.com.br/calculadoras",
+              {
+                "@type": "ListItem",
+                position: 2,
                 name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
               },
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              item: {
-                "@id": "https://calculadorasonline.com.br/calculadoras/financas",
+              {
+                "@type": "ListItem",
+                position: 3,
                 name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
               },
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              item: {
-                "@id": "https://calculadorasonline.com.br/calculadoras/financas/primeiro-milhao",
+              {
+                "@type": "ListItem",
+                position: 4,
                 name: "Calculadora do Primeiro Milhão",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
               },
-            },
-          ],
+            ],
+          },
         },
-        about: [
-          {
-            "@type": "Thing",
-            name: "Independência Financeira",
-            description: "Estado de ter recursos suficientes para viver sem depender de emprego",
-          },
-          {
-            "@type": "Thing",
-            name: "Juros Compostos",
-            description: "Sistema de capitalização onde os juros são incorporados ao capital",
-          },
-          {
-            "@type": "Thing",
-            name: "Planejamento Financeiro",
-            description: "Processo de organização das finanças pessoais para atingir objetivos",
-          },
+        about: {
+          "@type": "Thing",
+          name: "Primeiro Milhão",
+          description:
+            "Marco de independência financeira representado por R$ 1 milhão em patrimônio líquido, alcançado através de investimentos sistemáticos",
+          category: "Financial Planning",
+        },
+        featureList: [
+          "Cálculo de tempo para primeiro milhão",
+          "Cálculo de aporte mensal necessário",
+          "Simulação com juros compostos",
+          "Metas personalizadas de patrimônio",
+          "Análise de inflação e poder de compra real",
+          "Progresso anual detalhado",
+          "Interface móvel responsiva otimizada",
+          "Estratégias comprovadas de investimento",
         ],
-        mentions: [
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
           {
-            "@type": "FinancialProduct",
-            name: "Investimentos de Renda Fixa",
-            description: "Produtos como CDB, Tesouro Direto e LCI para investidores conservadores",
+            "@type": "Question",
+            name: "É realmente possível um brasileiro comum chegar ao primeiro milhão?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim, absolutamente! Cerca de 315.000 brasileiros já são milionários (0,15% da população). A maioria chegou lá através de disciplina, aportes regulares e juros compostos. Com R$ 500-2.000/mês a 8-12% ao ano, é possível em 15-25 anos!",
+            },
           },
           {
-            "@type": "FinancialProduct",
-            name: "Ações",
-            description: "Participação societária em empresas listadas na bolsa de valores",
+            "@type": "Question",
+            name: "Quanto tempo leva para juntar o primeiro milhão no Brasil?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Depende de 3 fatores: capital inicial, aporte mensal e taxa de retorno. Exemplos: R$ 1.000/mês a 10% = 22 anos, R$ 2.000/mês a 12% = 15 anos, R$ 3.000/mês a 15% = 11 anos.",
+            },
           },
           {
-            "@type": "FinancialProduct",
-            name: "Fundos Imobiliários",
-            description: "Investimento coletivo em empreendimentos imobiliários com renda mensal",
+            "@type": "Question",
+            name: "Qual a melhor estratégia de investimento para o primeiro milhão?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Diversificação inteligente: 40-60% Renda Fixa (CDB, Tesouro, LCI/LCA), 20-40% Ações (empresas sólidas), 10-20% FIIs (renda passiva). O segredo está na regularidade dos aportes.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como os juros compostos aceleram o caminho ao milhão?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Juros compostos = 'juros sobre juros'. Exemplo R$ 1.000/mês a 10%: Ano 10 = R$ 204k, Ano 15 = R$ 417k, Ano 20 = R$ 765k, Ano 22 = R$ 1.014k! Nos últimos anos, os juros trabalham mais que você!",
+            },
           },
         ],
       }),
@@ -187,203 +280,289 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-interface CalculationResult {
-  totalInvestido: number;
-  totalJuros: number;
-  valorFinal: number;
-  tempo?: number;
-  aporteMensal?: number;
+type CalculationType = "time" | "monthlyAmount";
+
+interface MonthlyData {
+  month: number;
+  balance: number;
+  monthlyContribution: number;
+  monthlyInterest: number;
+  totalContributions: number;
+  totalInterest: number;
 }
 
-export default function PrimeiroMilhao() {
-  const [capitalInicial, setCapitalInicial] = useState("");
-  const [aporteMensal, setAporteMensal] = useState("");
-  const [taxaJuros, setTaxaJuros] = useState("");
-  const [tipoCalculo, setTipoCalculo] = useState<"tempo" | "aporte">("tempo");
-  const [tempoMeta, setTempoMeta] = useState("");
-  const [resultado, setResultado] = useState<CalculationResult | null>(null);
-  const [metaPersonalizada, setMetaPersonalizada] = useState("1000000");
-  const [mostrarProgresso, setMostrarProgresso] = useState(false);
-  const [inflacao, setInflacao] = useState("4");
+interface FirstMillionResult {
+  finalAmount: number;
+  totalInterest: number;
+  initialAmount: number;
+  annualRate: number;
+  monthlyInvestment: number;
+  totalContributions: number;
+  timeToGoal?: number; // em meses
+  requiredMonthlyAmount?: number;
+  goalAmount: number;
+  monthlyData: MonthlyData[];
+}
 
-  // Global Analytics Tracking
-  const {
-    startCalculation,
-    endCalculation,
-    trackFeature,
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus,
-  } = useAutoCalculatorTracking({
-    calculatorType: "primeiro_milhao",
+interface ValidationErrors {
+  principal?: string;
+  rate?: string;
+  monthlyInvestment?: string;
+  targetTimeMonths?: string;
+  goalAmount?: string;
+}
+
+export default function FirstMillionCalculator() {
+  const [principal, setPrincipal] = useState("");
+  const [annualRate, setAnnualRate] = useState("");
+  const [monthlyInvestment, setMonthlyInvestment] = useState("");
+  const [targetTimeMonths, setTargetTimeMonths] = useState("");
+  const [goalAmount, setGoalAmount] = useState(1000000);
+  const [calculationType, setCalculationType] = useState<CalculationType>("time");
+  const [result, setResult] = useState<FirstMillionResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "primeiro-milhao",
     category: "financas",
   });
+  useFormTracking("primeiro-milhao");
 
-  const { trackInputChange, trackFormSubmission } = useFormTracking("primeiro_milhao");
-  const metaValor = parseFloat(metaPersonalizada) || 1000000;
+  // Inicializa a taxa com valor da SELIC na primeira renderização
+  useEffect(() => {
+    if (!annualRate) {
+      const selicRate = ECONOMIC_INDICATORS.SELIC.rate.toFixed(2).replace(".", ",");
+      setAnnualRate(selicRate);
+    }
+  }, []);
 
-  const calcularJurosCompostos = (
-    capital: number,
-    aporte: number,
-    taxa: number,
-    meses: number
-  ): CalculationResult => {
-    const taxaMensal = taxa / 100 / 12;
+  const currencyBR = (v: number) =>
+    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  const percentBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
 
-    let montante = capital;
-    let totalInvestido = capital;
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
 
-    for (let i = 0; i < meses; i++) {
-      montante = montante * (1 + taxaMensal) + aporte;
-      totalInvestido += aporte;
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const p = parseMoney(principal);
+    if (p <= 0) {
+      newErrors.principal = "Capital inicial obrigatório e maior que 0";
+      ok = false;
     }
 
+    const r = parseRate(annualRate);
+    if (r <= 0) {
+      newErrors.rate = "Taxa de juros deve ser maior que 0";
+      ok = false;
+    }
+
+    const goal = parseMoney(goalAmount);
+    if (goal <= p) {
+      newErrors.goalAmount = "Meta deve ser maior que capital inicial";
+      ok = false;
+    }
+
+    if (calculationType === "time") {
+      const monthlyAmount = parseMoney(monthlyInvestment);
+      if (monthlyAmount <= 0) {
+        newErrors.monthlyInvestment = "Aporte mensal obrigatório e maior que 0";
+        ok = false;
+      }
+    } else {
+      const timeMonths = parseInt(targetTimeMonths, 10);
+      if (!targetTimeMonths || isNaN(timeMonths) || timeMonths <= 0) {
+        newErrors.targetTimeMonths = "Tempo obrigatório e maior que 0";
+        ok = false;
+      }
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  // Função para calcular tempo necessário para atingir a meta
+  const calculateTimeToGoal = (
+    initialAmount: number,
+    monthlyAmount: number,
+    annualRate: number,
+    goalAmount: number
+  ): FirstMillionResult | null => {
+    const monthlyRate = annualRate / 12;
+    let currentBalance = initialAmount;
+    let totalContributions = 0;
+    let totalInterest = 0;
+    let months = 0;
+    const monthlyData: MonthlyData[] = [];
+    const maxMonths = 600; // 50 anos máximo
+
+    while (currentBalance < goalAmount && months < maxMonths) {
+      months++;
+
+      // Calcula juros do mês anterior
+      const monthlyInterest = currentBalance * monthlyRate;
+
+      // Adiciona aporte e juros
+      currentBalance = currentBalance + monthlyInterest + monthlyAmount;
+      totalContributions += monthlyAmount;
+      totalInterest += monthlyInterest;
+
+      monthlyData.push({
+        month: months,
+        balance: currentBalance,
+        monthlyContribution: monthlyAmount,
+        monthlyInterest,
+        totalContributions,
+        totalInterest,
+      });
+    }
+
+    if (months >= maxMonths) return null;
+
     return {
-      totalInvestido,
-      totalJuros: montante - totalInvestido,
-      valorFinal: montante,
+      finalAmount: currentBalance,
+      totalInterest,
+      initialAmount,
+      annualRate: annualRate * 100,
+      monthlyInvestment: monthlyAmount,
+      totalContributions,
+      timeToGoal: months,
+      goalAmount,
+      monthlyData,
     };
   };
 
-  const calcularTempoParaMeta = (): CalculationResult | null => {
-    const capital = parseFloat(capitalInicial);
-    const aporte = parseFloat(aporteMensal);
-    const taxa = parseFloat(taxaJuros);
+  // Função para calcular aporte mensal necessário para atingir meta em tempo determinado
+  const calculateRequiredMonthlyAmount = (
+    initialAmount: number,
+    annualRate: number,
+    timeMonths: number,
+    goalAmount: number
+  ): FirstMillionResult | null => {
+    const monthlyRate = annualRate / 12;
 
-    console.log("Calculando tempo:", { capital, aporte, taxa });
+    // Fórmula para calcular PMT (aporte mensal necessário)
+    // FV = PV * (1 + r)^n + PMT * [((1 + r)^n - 1) / r]
+    // PMT = (FV - PV * (1 + r)^n) / [((1 + r)^n - 1) / r]
 
-    if (isNaN(capital) || isNaN(aporte) || isNaN(taxa) || aporte <= 0 || taxa <= 0) {
-      console.log("Validação falhou:", { capital, aporte, taxa });
-      return null;
+    const futureValueOfPrincipal = initialAmount * Math.pow(1 + monthlyRate, timeMonths);
+    const annuityFactor = (Math.pow(1 + monthlyRate, timeMonths) - 1) / monthlyRate;
+    const requiredMonthlyAmount = (goalAmount - futureValueOfPrincipal) / annuityFactor;
+
+    if (requiredMonthlyAmount < 0) return null;
+
+    // Gerar dados mês a mês para verificação
+    const monthlyData: MonthlyData[] = [];
+    let currentBalance = initialAmount;
+    let totalContributions = 0;
+    let totalInterest = 0;
+
+    for (let month = 1; month <= timeMonths; month++) {
+      const monthlyInterest = currentBalance * monthlyRate;
+      currentBalance = currentBalance + monthlyInterest + requiredMonthlyAmount;
+      totalContributions += requiredMonthlyAmount;
+      totalInterest += monthlyInterest;
+
+      monthlyData.push({
+        month,
+        balance: currentBalance,
+        monthlyContribution: requiredMonthlyAmount,
+        monthlyInterest,
+        totalContributions,
+        totalInterest,
+      });
     }
-
-    const taxaMensal = taxa / 100 / 12;
-
-    let meses = 0;
-    let montante = capital;
-    let totalInvestido = capital;
-    const maxMeses = 600; // 50 anos
-
-    while (montante < metaValor && meses < maxMeses) {
-      montante = montante * (1 + taxaMensal) + aporte;
-      totalInvestido += aporte;
-      meses++;
-    }
-
-    if (meses >= maxMeses) return null;
 
     return {
-      totalInvestido,
-      totalJuros: montante - totalInvestido,
-      valorFinal: montante,
-      tempo: meses,
-    };
-  };
-
-  const calcularAporteNecessario = (): CalculationResult | null => {
-    const capital = parseFloat(capitalInicial);
-    const tempo = parseFloat(tempoMeta);
-    const taxa = parseFloat(taxaJuros);
-
-    console.log("Calculando aporte:", { capital, tempo, taxa });
-
-    if (isNaN(capital) || isNaN(tempo) || isNaN(taxa) || tempo <= 0 || taxa <= 0) {
-      console.log("Validação aporte falhou:", { capital, tempo, taxa });
-      return null;
-    }
-
-    const taxaMensal = taxa / 100 / 12;
-    const n = tempo;
-    const fv = metaValor;
-    const pv = capital;
-
-    const aporte =
-      (fv - pv * Math.pow(1 + taxaMensal, n)) / ((Math.pow(1 + taxaMensal, n) - 1) / taxaMensal);
-
-    if (aporte < 0) return null;
-
-    const resultado = calcularJurosCompostos(capital, aporte, taxa, tempo);
-
-    return {
-      ...resultado,
-      aporteMensal: aporte,
+      finalAmount: currentBalance,
+      totalInterest,
+      initialAmount,
+      annualRate: annualRate * 100,
+      monthlyInvestment: requiredMonthlyAmount,
+      totalContributions,
+      requiredMonthlyAmount,
+      goalAmount,
+      monthlyData,
     };
   };
 
   const handleCalculate = () => {
-    console.log("Botão calcular clicado, tipo:", tipoCalculo);
-    console.log("Valores atuais:", { capitalInicial, aporteMensal, taxaJuros, tempoMeta });
+    if (!validateInputs()) return;
+    startCalculation("calcular");
 
-    if (tipoCalculo === "tempo") {
-      const result = calcularTempoParaMeta();
-      console.log("Resultado tempo:", result);
-      setResultado(result);
-    } else {
-      const result = calcularAporteNecessario();
-      console.log("Resultado aporte:", result);
-      setResultado(result);
+    try {
+      const p = parseMoney(principal);
+      const r = parseRate(annualRate);
+      const goal = parseMoney(goalAmount);
+
+      let res: FirstMillionResult | null = null;
+
+      if (calculationType === "time") {
+        const monthlyAmount = parseMoney(monthlyInvestment);
+        res = calculateTimeToGoal(p, monthlyAmount, r, goal);
+      } else {
+        const timeMonths = parseInt(targetTimeMonths, 10);
+        res = calculateRequiredMonthlyAmount(p, r, timeMonths, goal);
+      }
+
+      if (!res) {
+        setErrors({
+          principal:
+            "Não é possível atingir a meta com esses parâmetros. Tente ajustar os valores.",
+        });
+        endCalculation("calcular", { success: false });
+        return;
+      }
+
+      setResult(res);
+      setErrors({});
+      setCurrentPage(1);
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ principal: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setCapitalInicial("");
-    setAporteMensal("");
-    setTaxaJuros("");
-    setTempoMeta("");
-    setResultado(null);
+    setPrincipal("");
+    setAnnualRate(ECONOMIC_INDICATORS.SELIC.rate.toFixed(2).replace(".", ","));
+    setMonthlyInvestment("");
+    setTargetTimeMonths("");
+    setGoalAmount("1.000.000");
+    setCalculationType("time");
+    setResult(null);
+    setErrors({});
+    setCurrentPage(1);
   };
 
-  const formatarMoeda = (valor: number): string => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(valor);
+  const formatTimeToGoal = (months: number): string => {
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+
+    if (years === 0) return `${months} meses`;
+    if (remainingMonths === 0) return `${years} anos`;
+    return `${years} anos e ${remainingMonths} meses`;
   };
 
-  const formatarTempo = (meses: number): string => {
-    const anos = Math.floor(meses / 12);
-    const mesesRestantes = meses % 12;
-
-    if (anos === 0) return `${meses} meses`;
-    if (mesesRestantes === 0) return `${anos} anos`;
-    return `${anos} anos e ${mesesRestantes} meses`;
-  };
-
-  const calcularProgressoAnual = (
-    capital: number,
-    aporte: number,
-    taxa: number,
-    meses: number
-  ): Array<{ ano: number; saldo: number; aportes: number; juros: number; saldoReal: number }> => {
-    const taxaMensal = taxa / 100 / 12;
-    const inflacaoMensal = parseFloat(inflacao) / 100 / 12;
-
-    let montante = capital;
-    let totalAportes = capital;
-    const progressoAnual = [];
-
-    for (let ano = 1; ano <= Math.ceil(meses / 12); ano++) {
-      const mesesDoAno = Math.min(12, meses - (ano - 1) * 12);
-
-      for (let mes = 0; mes < mesesDoAno; mes++) {
-        montante = montante * (1 + taxaMensal) + aporte;
-        totalAportes += aporte;
-      }
-
-      // Valor real considerando inflação
-      const saldoReal = montante / Math.pow(1 + parseFloat(inflacao) / 100, ano);
-
-      progressoAnual.push({
-        ano,
-        saldo: Math.round(montante),
-        aportes: Math.round(totalAportes),
-        juros: Math.round(montante - totalAportes),
-        saldoReal: Math.round(saldoReal),
-      });
-    }
-
-    return progressoAnual;
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
@@ -394,450 +573,773 @@ export default function PrimeiroMilhao() {
         <BreadcrumbItem isLast>Primeiro Milhão</BreadcrumbItem>
       </Breadcrumb>
 
-      {/* S-Tier Hero Section */}
-      <section className="via-surface to-surface-dark relative overflow-hidden bg-gradient-to-br from-finance-gold/5">
-        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
-          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-            <span className="mr-2">🎯</span>
-            Calculadora de Independência Financeira
-          </div>
-
-          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-            Calculadora do
-            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-              Primeiro Milhão
-            </span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-            Descubra{" "}
-            <strong className="text-finance-gold-dark">
-              em quanto tempo você pode se tornar milionário
-            </strong>
-            ou <strong className="text-system-success">quanto investir mensalmente</strong> para
-            alcançar a independência financeira.
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora do Primeiro Milhão 2025 – Simulador de Independência Financeira
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Descubra{" "}
+          <strong className="text-growth-green">
+            em quanto tempo você pode se tornar milionário
+          </strong>
+          ou <strong className="text-primary-blue-dark">quanto investir mensalmente</strong> para
+          alcançar seu primeiro milhão com juros compostos.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🎯 <strong>Meta Personalizada</strong> • ⏰ <strong>Tempo para Meta</strong> • 💰{" "}
+            <strong>Aporte Necessário</strong>
           </p>
-
-          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
-            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
-              <div className="text-2xl font-bold text-finance-gold-dark">315k</div>
-              <div className="text-sm text-text-secondary">Milionários BR</div>
-            </div>
-            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
-              <div className="text-2xl font-bold text-system-success">📈</div>
-              <div className="text-sm text-text-secondary">Estratégias</div>
-            </div>
-            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
-              <div className="text-2xl font-bold text-primary-blue-dark">🎯</div>
-              <div className="text-sm text-text-secondary">Independência</div>
-            </div>
-            <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
-              <div className="text-2xl font-bold text-system-warning">15-25</div>
-              <div className="text-sm text-text-secondary">Anos</div>
-            </div>
-          </div>
         </div>
-      </section>
+      </header>
 
       <Card>
         <CardHeader>
-          <CardTitle as="h2">Parâmetros de Investimento</CardTitle>
+          <CardTitle as="h2">📋 Configure sua Simulação do Primeiro Milhão</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <MoneyInput
-                label="Capital Inicial"
-                value={capitalInicial}
-                onChange={(value) => setCapitalInicial(value)}
-                placeholder="10.000,00"
-                min="0.01"
-                required
-                fullWidth
-              />
-
-              <RateInput
-                label="Taxa de Juros (% ao ano)"
-                value={taxaJuros}
-                onChange={(value) => setTaxaJuros(value)}
-                placeholder="0,00"
-                required
-                fullWidth
-              />
+          {/* Tipo de Cálculo centralizado */}
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+              <button
+                type="button"
+                onClick={() => setCalculationType("time")}
+                className={`min-w-[120px] flex-1 basis-0 py-2 text-center text-sm font-medium transition ${
+                  calculationType === "time"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Tempo
+              </button>
+              <button
+                type="button"
+                onClick={() => setCalculationType("monthlyAmount")}
+                className={`min-w-[120px] flex-1 basis-0 py-2 text-center text-sm font-medium transition ${
+                  calculationType === "monthlyAmount"
+                    ? "bg-primary-blue text-white"
+                    : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                }`}
+              >
+                Aporte
+              </button>
             </div>
-
-            {/* Inovação: Meta Personalizada */}
-            <div className="rounded-lg border border-system-warning/30 bg-gradient-to-r from-system-warning/10 to-growth-green-soft/20 p-4">
-              <h4 className="mb-3 text-center font-semibold text-system-warning">
-                🎯 Meta Personalizada
-              </h4>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <MoneyInput
-                  label="Sua Meta Financeira"
-                  value={metaPersonalizada}
-                  onChange={(value) => setMetaPersonalizada(value)}
-                  placeholder="2.000.000,00"
-                  min="100000.00"
-                  fullWidth
-                />
-                <RateInput
-                  label="Inflação Estimada (% ao ano)"
-                  value={inflacao}
-                  onChange={(value) => setInflacao(value)}
-                  placeholder="0,00"
-                  fullWidth
-                />
-              </div>
-              <div className="mt-3 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setMostrarProgresso(!mostrarProgresso)}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium ${
-                    mostrarProgresso
-                      ? "bg-growth-green text-white"
-                      : "hover:bg-growth-green/10-dark/10 bg-neutral-surface text-text-secondary"
-                  }`}
-                >
-                  {mostrarProgresso ? "✅ Progresso Ativado" : "📊 Mostrar Progresso Anual"}
-                </button>
-              </div>
-            </div>
-
-            {/* Inovação: Presets Rápidos */}
-            <div className="rounded-lg border border-primary-blue/30 bg-gradient-to-r from-primary-blue-light to-system-info/10 p-4">
-              <h4 className="mb-3 text-center font-semibold text-primary-blue-dark">
-                ⚡ Cenários Rápidos (Clique para Preencher)
-              </h4>
-              <div className="grid grid-cols-3 gap-2 md:grid-cols-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCapitalInicial("5000");
-                    setAporteMensal("800");
-                    setTaxaJuros("10");
-                    setTipoCalculo("tempo");
-                  }}
-                  className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-3 text-left hover:bg-growth-green-soft/10"
-                >
-                  <div className="text-xs font-semibold text-growth-green">🏃‍♂️ Conservador</div>
-                  <div className="mt-1 text-xs text-text-secondary">R$ 5k + R$ 800/mês</div>
-                  <div className="text-xs text-primary-blue-dark">~10% ao ano</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCapitalInicial("10000");
-                    setAporteMensal("1500");
-                    setTaxaJuros("12");
-                    setTipoCalculo("tempo");
-                  }}
-                  className="hover:bg-system-warning/10:bg-system-warning-dark/10 rounded-lg border border-neutral-surface-variant bg-gray-900 p-3 text-left"
-                >
-                  <div className="text-xs font-semibold text-system-warning">🚀 Moderado</div>
-                  <div className="mt-1 text-xs text-text-secondary">R$ 10k + R$ 1.5k/mês</div>
-                  <div className="text-xs text-primary-blue-dark">~12% ao ano</div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCapitalInicial("20000");
-                    setAporteMensal("3000");
-                    setTaxaJuros("15");
-                    setTipoCalculo("tempo");
-                  }}
-                  className="hover:bg-system-error/10:bg-system-error-dark/10 rounded-lg border border-neutral-surface-variant bg-gray-900 p-3 text-left"
-                >
-                  <div className="text-xs font-semibold text-system-error-dark">💪 Agressivo</div>
-                  <div className="mt-1 text-xs text-text-secondary">R$ 20k + R$ 3k/mês</div>
-                  <div className="text-xs text-primary-blue-dark">~15% ao ano</div>
-                </button>
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-sm">
-              <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">
-                Tipo de Cálculo:
-              </h3>
-              <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
-                <button
-                  type="button"
-                  onClick={() => setTipoCalculo("tempo")}
-                  className={`flex-1 px-4 py-2 text-sm font-medium ${
-                    tipoCalculo === "tempo"
-                      ? "bg-primary-blue text-white"
-                      : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
-                  }`}
-                >
-                  ⏰ Tempo
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTipoCalculo("aporte")}
-                  className={`flex-1 px-4 py-2 text-sm font-medium ${
-                    tipoCalculo === "aporte"
-                      ? "bg-primary-blue text-white"
-                      : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
-                  }`}
-                >
-                  💰 Aporte
-                </button>
-              </div>
-            </div>
-
-            {tipoCalculo === "tempo" ? (
-              <MoneyInput
-                label="Aporte Mensal"
-                value={aporteMensal}
-                onChange={(value) => setAporteMensal(value)}
-                placeholder="1.000,00"
-                min="0.01"
-                required
-                fullWidth
-              />
-            ) : (
-              <Input
-                type="number"
-                label="Tempo para Meta (meses)"
-                value={tempoMeta}
-                onChange={(e) => setTempoMeta(e.target.value)}
-                placeholder="Ex: 120"
-                min="1"
-                step="1"
-                required
-                fullWidth
-              />
-            )}
           </div>
 
-          {/* Action Buttons - Prominent S-Tier Design */}
-          <div className="mt-8 space-y-4">
-            <Button
-              onClick={handleCalculate}
-              className="h-14 transform bg-finance-gold px-12 text-lg font-semibold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:bg-finance-gold-dark hover:shadow-2xl"
-              fullWidth
-            >
-              🎯 Calcular Primeiro Milhão
+          {/* Linha 1: Capital inicial e Meta financeira */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <MoneyInput
+                label="Capital Inicial"
+                value={principal}
+                onChange={setPrincipal}
+                placeholder="10.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.principal} />
+              <div className="mt-1 text-xs text-text-secondary">Valor inicial a ser investido</div>
+            </div>
+            <div>
+              <MoneyInput
+                label="Meta Financeira"
+                value={goalAmount}
+                onChange={setGoalAmount}
+                placeholder="1.000.000"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.goalAmount} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Seu objetivo de patrimônio (padrão: R$ 1 milhão)
+              </div>
+            </div>
+          </div>
+
+          {/* Linha 2: Taxa e Input condicional */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <RateInput
+                label="Taxa de Juros (% a.a.)"
+                value={annualRate}
+                onChange={setAnnualRate}
+                placeholder={ECONOMIC_INDICATORS.SELIC.rate.toFixed(2).replace(".", ",")}
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.rate} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Taxa anual esperada dos investimentos
+                <span className="ml-2 text-system-info">
+                  (SELIC: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.)
+                </span>
+              </div>
+            </div>
+            <div>
+              {calculationType === "time" ? (
+                <>
+                  <MoneyInput
+                    label="Aporte Mensal"
+                    value={monthlyInvestment}
+                    onChange={setMonthlyInvestment}
+                    placeholder="1.000,00"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.monthlyInvestment} />
+                  <div className="mt-1 text-xs text-text-secondary">
+                    Valor investido mensalmente
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Input
+                    type="number"
+                    label="Tempo Desejado (meses)"
+                    value={targetTimeMonths}
+                    onChange={(e) => setTargetTimeMonths(e.target.value)}
+                    placeholder="240"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.targetTimeMonths} />
+                  <div className="mt-1 text-xs text-text-secondary">
+                    Em quantos meses quer atingir a meta
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
-              className="h-12 border-2 border-finance-gold/30 text-finance-gold transition-all duration-200 hover:border-finance-gold hover:bg-finance-gold/10"
-              fullWidth
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
-              🔄 Limpar Campos
+              Limpar
             </Button>
           </div>
         </CardContent>
       </Card>
 
-      {resultado && (
-        <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
             <CardTitle as="h3" className="text-growth-green">
-              🎉 Resultado da Simulação
+              🎉 Resultado da Simulação do Primeiro Milhão
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="mb-6 text-center">
               <div className="mb-2 text-4xl font-bold text-growth-green">
-                {formatarMoeda(resultado.valorFinal)}
+                {currencyBR(result.finalAmount)}
               </div>
-              <div className="text-sm text-text-secondary">Valor Final</div>
+              <div className="text-sm text-text-secondary">Meta Alcançada</div>
             </div>
 
-            {resultado.tempo && (
+            {result.timeToGoal && (
               <div className="mb-4 rounded-lg bg-primary-blue-light p-4">
                 <div className="text-center">
                   <div className="mb-2 font-semibold text-primary-blue-dark">
                     ⏰ Tempo Necessário
                   </div>
                   <div className="text-2xl font-bold text-text-primary">
-                    {formatarTempo(resultado.tempo)}
+                    {formatTimeToGoal(result.timeToGoal)}
                   </div>
                 </div>
               </div>
             )}
 
-            {resultado.aporteMensal && (
+            {result.requiredMonthlyAmount && (
               <div className="mb-4 rounded-lg bg-system-warning/10 p-4">
                 <div className="text-center">
                   <div className="mb-2 font-semibold text-system-warning">
                     💰 Aporte Mensal Necessário
                   </div>
                   <div className="text-2xl font-bold text-text-primary">
-                    {formatarMoeda(resultado.aporteMensal)}
+                    {currencyBR(result.requiredMonthlyAmount)}
                   </div>
                 </div>
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-lg bg-background-dark-secondary p-4">
-                <div className="mb-1 text-sm font-semibold text-text-secondary">
-                  Total Investido
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {currencyBR(result.initialAmount)}
                 </div>
-                <div className="text-lg font-bold text-text-primary">
-                  {formatarMoeda(resultado.totalInvestido)}
+                <div className="text-sm text-text-secondary">Capital Inicial</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-info">
+                  {currencyBR(result.totalContributions)}
+                </div>
+                <div className="text-sm text-text-secondary">Total de Aportes</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-growth-green">
+                  {currencyBR(result.totalInterest)}
+                </div>
+                <div className="text-sm text-text-secondary">Juros Compostos</div>
+              </div>
+            </div>
+
+            {/* Breakdown detalhado se há aportes mensais */}
+            {result.monthlyInvestment > 0 && (
+              <div className="mb-6 grid grid-cols-1 gap-4 rounded-lg bg-system-info/10 p-4 md:grid-cols-4">
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Capital Inicial</div>
+                  <div className="text-xl font-bold text-text-primary">
+                    {currencyBR(result.initialAmount)}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Aportes Mensais</div>
+                  <div className="text-xl font-bold text-system-info">
+                    {currencyBR(result.totalContributions)}
+                  </div>
+                  <div className="text-xs text-text-secondary">
+                    {currencyBR(result.monthlyInvestment)}/mês
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Total Investido</div>
+                  <div className="text-xl font-bold text-text-primary">
+                    {currencyBR(result.initialAmount + result.totalContributions)}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Juros Compostos</div>
+                  <div className="text-xl font-bold text-growth-green">
+                    {currencyBR(result.totalInterest)}
+                  </div>
                 </div>
               </div>
+            )}
 
-              <div className="rounded-lg bg-growth-green-soft p-4">
-                <div className="mb-1 text-sm font-semibold text-growth-green">Juros Compostos</div>
-                <div className="text-lg font-bold text-growth-green">
-                  {formatarMoeda(resultado.totalJuros)}
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Taxa Anual</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {percentBR(result.annualRate)}%
+                </div>
+                <div className="text-sm text-text-secondary">Taxa de retorno anual</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Taxa Mensal</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {percentBR(result.annualRate / 12, 3)}%
+                </div>
+                <div className="text-sm text-text-secondary">Taxa equivalente mensal</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">
+                  {result.timeToGoal ? "Tempo Necessário" : "Tempo da Meta"}
+                </div>
+                <div className="text-xl font-bold text-text-primary">
+                  {result.timeToGoal
+                    ? formatTimeToGoal(result.timeToGoal)
+                    : formatTimeToGoal(result.monthlyData.length)}
+                </div>
+                <div className="text-sm text-text-secondary">
+                  {result.timeToGoal ? result.timeToGoal : result.monthlyData.length} meses de
+                  aplicação
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 rounded-lg bg-system-info/10 p-4">
-              <div className="text-center">
-                <div className="mb-2 text-sm font-semibold text-system-info">
-                  📊 Percentual de Juros
-                </div>
-                <div className="text-xl font-bold text-text-primary">
-                  {((resultado.totalJuros / resultado.valorFinal) * 100).toFixed(1)}%
-                </div>
-              </div>
-            </div>
-
-            {/* Inovação: Valor Ajustado pela Inflação */}
-            <div className="mt-4 rounded-lg bg-system-warning/10 p-4">
-              <div className="text-center">
-                <div className="mb-2 text-sm font-semibold text-system-warning">
-                  🏛️ Poder de Compra Real (Após Inflação de {inflacao}%)
-                </div>
-                <div className="text-xl font-bold text-text-primary">
-                  {resultado.tempo &&
-                    formatarMoeda(
-                      resultado.valorFinal /
-                        Math.pow(1 + parseFloat(inflacao) / 100, resultado.tempo / 12)
-                    )}
-                  {resultado.aporteMensal &&
-                    formatarMoeda(
-                      resultado.valorFinal /
-                        Math.pow(1 + parseFloat(inflacao) / 100, parseFloat(tempoMeta) / 12)
-                    )}
-                </div>
-                <p className="mt-1 text-xs text-text-secondary">
-                  💡 Este é o valor real que você terá considerando a perda do poder de compra
-                </p>
-              </div>
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">📊 Resumo da Simulação</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Capital inicial: <strong>{currencyBR(result.initialAmount)}</strong>
+                </li>
+                <li>
+                  Meta financeira: <strong>{currencyBR(result.goalAmount)}</strong>
+                </li>
+                <li>
+                  Taxa de juros: <strong>{percentBR(result.annualRate)}% ao ano</strong>
+                </li>
+                {result.timeToGoal && (
+                  <li>
+                    Tempo necessário: <strong>{formatTimeToGoal(result.timeToGoal)}</strong>
+                  </li>
+                )}
+                {result.requiredMonthlyAmount && (
+                  <li>
+                    Aporte mensal necessário:{" "}
+                    <strong>{currencyBR(result.requiredMonthlyAmount)}</strong>
+                  </li>
+                )}
+                <li>
+                  Investimento mensal: <strong>{currencyBR(result.monthlyInvestment)}</strong>
+                </li>
+                <li>
+                  Total de aportes: <strong>{currencyBR(result.totalContributions)}</strong>
+                </li>
+                <li>
+                  Juros compostos: <strong>{currencyBR(result.totalInterest)}</strong>
+                </li>
+                <li>
+                  Valor final alcançado: <strong>{currencyBR(result.finalAmount)}</strong>
+                </li>
+              </ul>
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Inovação: Tabela de Progresso Anual */}
-      {resultado && mostrarProgresso && resultado.tempo && (
-        <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h3" className="text-primary-blue-dark">
-              📈 Progresso Anual Detalhado (Exclusivo!)
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="max-h-64 overflow-y-auto rounded-lg bg-gray-900 p-4">
-              <div className="mb-3 grid grid-cols-5 gap-2 border-b border-neutral-surface-variant pb-2 text-xs font-semibold text-text-secondary">
-                <div>Ano</div>
-                <div>Saldo Nominal</div>
-                <div>Saldo Real</div>
-                <div>Aportes</div>
-                <div>Juros</div>
-              </div>
-              {calcularProgressoAnual(
-                parseFloat(capitalInicial) || 0,
-                parseFloat(aporteMensal) || 0,
-                parseFloat(taxaJuros) || 0,
-                resultado.tempo
-              ).map((ano, index) => (
-                <div
-                  key={index}
-                  className={`grid grid-cols-5 gap-2 py-2 text-xs ${
-                    ano.saldo >= metaValor
-                      ? "rounded bg-growth-green-soft font-semibold text-growth-green"
-                      : "text-text-primary"
-                  }`}
-                >
-                  <div>{ano.ano}º</div>
-                  <div>{(ano.saldo / 1000).toFixed(0)}k</div>
-                  <div>{(ano.saldoReal / 1000).toFixed(0)}k</div>
-                  <div>{(ano.aportes / 1000).toFixed(0)}k</div>
-                  <div>{(ano.juros / 1000).toFixed(0)}k</div>
+      {/* Gráficos e Tabela de Evolução */}
+      {result && (
+        <>
+          {/* Gráficos */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Gráfico de Evolução do Patrimônio */}
+            <Card>
+              <CardHeader>
+                <CardTitle as="h3" className="text-growth-green">
+                  📈 Evolução do Patrimônio
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <Line
+                    data={{
+                      labels: result.monthlyData.map((_, i) => `Mês ${i + 1}`),
+                      datasets: [
+                        {
+                          label: "Patrimônio Total",
+                          data: result.monthlyData.map((d) => d.balance),
+                          borderColor: "#64B5F6",
+                          backgroundColor: "rgba(100, 181, 246, 0.1)",
+                          fill: true,
+                        },
+                        {
+                          label: "Capital + Aportes",
+                          data: result.monthlyData.map(
+                            (d) => result.initialAmount + d.totalContributions
+                          ),
+                          borderColor: "#FFA726",
+                          backgroundColor: "rgba(255, 167, 38, 0.1)",
+                          borderDash: [5, 5],
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "top" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function (context) {
+                              return `${context.dataset.label}: ${currencyBR(context.parsed.y)}`;
+                            },
+                          },
+                        },
+                      },
+                      scales: {
+                        y: {
+                          ticks: {
+                            color: "#A1A1A1",
+                            callback: function (value) {
+                              return currencyBR(Number(value));
+                            },
+                          },
+                          grid: {
+                            color: "#333333",
+                          },
+                        },
+                        x: {
+                          ticks: {
+                            color: "#A1A1A1",
+                          },
+                          grid: {
+                            color: "#333333",
+                          },
+                        },
+                      },
+                    }}
+                  />
                 </div>
-              ))}
-            </div>
-            <div className="mt-4 text-center">
-              <p className="text-sm text-text-secondary">
-                💡 <strong>Saldo Nominal:</strong> Valor bruto | <strong>Saldo Real:</strong> Poder
-                de compra atual
-              </p>
-              <p className="mt-1 text-xs text-system-info">
-                ✨ <strong>Linha verde:</strong> Ano em que você atinge sua meta!
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+
+            {/* Gráfico de Pizza - Composição Final */}
+            <Card>
+              <CardHeader>
+                <CardTitle as="h3" className="text-system-warning">
+                  🥧 Composição do Patrimônio Final
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <Pie
+                    data={{
+                      labels: ["Capital Inicial", "Aportes", "Juros Compostos"],
+                      datasets: [
+                        {
+                          data: [
+                            result.initialAmount,
+                            result.totalContributions,
+                            result.totalInterest,
+                          ],
+                          backgroundColor: [
+                            "#64B5F6", // Primary blue
+                            "#FFA726", // Orange
+                            "#66BB6A", // Green
+                          ],
+                          borderColor: ["#1976D2", "#F57C00", "#388E3C"],
+                          borderWidth: 2,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "bottom" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                            padding: 20,
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function (context) {
+                              const value = context.parsed;
+                              const total = result.finalAmount;
+                              const percentage = ((value / total) * 100).toFixed(1);
+                              return `${context.label}: ${currencyBR(value)} (${percentage}%)`;
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Tabela de Evolução Mensal */}
+          <Card>
+            <CardHeader>
+              <CardTitle as="h3" className="text-primary-blue-dark">
+                📊 Evolução Mensal Detalhada
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {(() => {
+                const itemsPerPage = 12;
+                const totalPages = Math.ceil(result.monthlyData.length / itemsPerPage);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentItems = result.monthlyData.slice(startIndex, endIndex);
+
+                return (
+                  <>
+                    {/* Informação da paginação */}
+                    <div className="mb-4 flex items-center justify-between text-sm text-text-secondary">
+                      <div>
+                        Mostrando meses {startIndex + 1} a{" "}
+                        {Math.min(endIndex, result.monthlyData.length)} de{" "}
+                        {result.monthlyData.length}
+                      </div>
+                      <div>
+                        Página {currentPage} de {totalPages}
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      {/* Tabela Desktop - Todas as colunas */}
+                      <table className="hidden w-full text-sm md:table">
+                        <thead>
+                          <tr className="border-b-2 border-neutral-surface-variant">
+                            <th className="p-3 text-left font-semibold">Mês</th>
+                            <th className="p-3 text-right font-semibold">Patrimônio</th>
+                            <th className="p-3 text-right font-semibold">Aporte Mensal</th>
+                            <th className="p-3 text-right font-semibold">Juros do Mês</th>
+                            <th className="p-3 text-right font-semibold">Total Investido</th>
+                            <th className="p-3 text-right font-semibold">Total em Juros</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentItems.map((data, index) => (
+                            <tr
+                              key={data.month}
+                              className="border-b border-neutral-surface-variant hover:bg-neutral-surface/20"
+                            >
+                              <td className="p-3 font-medium">{data.month}</td>
+                              <td className="p-3 text-right font-bold text-growth-green">
+                                {currencyBR(data.balance)}
+                              </td>
+                              <td className="p-3 text-right text-system-info">
+                                {currencyBR(data.monthlyContribution)}
+                              </td>
+                              <td className="p-3 text-right text-primary-blue-dark">
+                                {currencyBR(data.monthlyInterest)}
+                              </td>
+                              <td className="p-3 text-right">
+                                {currencyBR(result.initialAmount + data.totalContributions)}
+                              </td>
+                              <td className="p-3 text-right text-growth-green">
+                                {currencyBR(data.totalInterest)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+
+                      {/* Tabela Mobile - Colunas essenciais */}
+                      <table className="w-full text-sm md:hidden">
+                        <thead>
+                          <tr className="border-b-2 border-neutral-surface-variant">
+                            <th className="p-2 text-left font-semibold">Mês</th>
+                            <th className="p-2 text-right font-semibold">Patrimônio</th>
+                            <th className="p-2 text-right font-semibold">Juros</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentItems.map((data, index) => (
+                            <tr
+                              key={`mobile-${data.month}`}
+                              className="border-b border-neutral-surface-variant hover:bg-neutral-surface/20"
+                            >
+                              <td className="p-2 font-medium">{data.month}</td>
+                              <td className="p-2 text-right font-bold text-growth-green">
+                                {currencyBR(data.balance)}
+                              </td>
+                              <td className="p-2 text-right text-primary-blue-dark">
+                                {currencyBR(data.monthlyInterest)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Controles de paginação */}
+                    {totalPages > 1 && (
+                      <div className="mt-6 flex items-center justify-center space-x-2">
+                        <Button
+                          onClick={() => setCurrentPage(1)}
+                          disabled={currentPage === 1}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ««
+                        </Button>
+                        <Button
+                          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                          disabled={currentPage === 1}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ‹
+                        </Button>
+
+                        {/* Números das páginas */}
+                        {(() => {
+                          const pages = [];
+                          const maxVisiblePages = 5;
+                          let startPage = Math.max(1, currentPage - 2);
+                          let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+                          if (endPage - startPage < maxVisiblePages - 1) {
+                            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                          }
+
+                          for (let i = startPage; i <= endPage; i++) {
+                            pages.push(
+                              <Button
+                                key={i}
+                                onClick={() => setCurrentPage(i)}
+                                variant={currentPage === i ? "default" : "outline"}
+                                className="px-3 py-2 text-sm"
+                              >
+                                {i}
+                              </Button>
+                            );
+                          }
+                          return pages;
+                        })()}
+
+                        <Button
+                          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                          disabled={currentPage === totalPages}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          ›
+                        </Button>
+                        <Button
+                          onClick={() => setCurrentPage(totalPages)}
+                          disabled={currentPage === totalPages}
+                          variant="outline"
+                          className="px-3 py-2 text-sm"
+                        >
+                          »»
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </CardContent>
+          </Card>
+        </>
       )}
 
-      {/* O Que é o Primeiro Milhão */}
-      <Card className="border-l-4 border-growth-green bg-gradient-to-br from-growth-green-soft via-growth-green-soft/50 to-primary-blue-light duration-300">
+      {/* Seção: Primeiro Milhão - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 O Que é o Primeiro Milhão e Por Que é Importante?
+            🎯 Primeiro Milhão – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="text-text-secondary">
-              <p className="mb-4">
-                O <strong className="text-growth-green">primeiro milhão</strong> é mais do que
-                apenas um número - representa um marco de <strong>independência financeira</strong>{" "}
-                que pode transformar sua vida. No Brasil, alcançar R$ 1 milhão em patrimônio líquido
-                coloca você entre os 1% mais ricos da população.
-              </p>
-              <p className="mb-4">
-                Diferente do que muitos pensam,{" "}
-                <strong className="text-primary-blue-dark">
-                  não é necessário ganhar um salário milionário
-                </strong>{" "}
-                para chegar lá. Com planejamento, disciplina e o poder dos{" "}
-                <strong>juros compostos</strong>, é possível alcançar esse objetivo investindo
-                quantias mensais acessíveis.
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-6">
-              <h3 className="mb-4 text-lg font-bold text-text-primary">
-                📊 Estatísticas Reais: Brasileiros Milionários em 2025
+          <div className="space-y-8">
+            {/* O que é o Primeiro Milhão */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🎯 O que é o Primeiro Milhão?
               </h3>
+
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Brasileiros milionários:</span>
-                    <strong className="text-growth-green">~315.000 pessoas</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">% da população:</span>
-                    <strong className="text-growth-green">~0,15%</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Tempo médio para chegar:</span>
-                    <strong className="text-primary-blue-dark">15-25 anos</strong>
-                  </div>
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Conceito</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O primeiro milhão representa o marco de R$ 1.000.000 em patrimônio líquido,
+                    colocando você entre os 0,15% mais ricos do Brasil (cerca de 315.000 pessoas).
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Por que é Importante</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Marco de independência financeira</li>
+                    <li>• Permite renda passiva significativa</li>
+                    <li>• Base para multiplicar riqueza</li>
+                  </ul>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Aporte mensal médio:</span>
-                    <strong className="text-system-warning">R$ 500-2.000</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Taxa anual média:</span>
-                    <strong className="text-system-warning">8-12%</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Idade média:</span>
-                    <strong className="text-primary-blue-dark">45-55 anos</strong>
-                  </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Benefícios</h4>
+                  <ul className="mb-4 space-y-1 text-text-secondary">
+                    <li>• Segurança financeira para emergências</li>
+                    <li>• Liberdade para tomar decisões de carreira</li>
+                    <li>• Possibilidade de aposentadoria antecipada</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Realidade no Brasil</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Tempo médio: 15-25 anos de investimentos</li>
+                    <li>• Aporte mensal típico: R$ 500-2.000</li>
+                    <li>• Taxa anual média: 8-12%</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Estratégias para o Primeiro Milhão */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🚀 Estratégias Comprovadas para o Primeiro Milhão
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    📊 Perfil Conservador
+                  </h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Foco em renda fixa e baixo risco. Tempo: 20-25 anos.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📈 Estratégia</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• 70% Renda Fixa (CDB, Tesouro)</li>
+                    <li>• 20% Fundos Multimercado</li>
+                    <li>• 10% Ações de blue chips</li>
+                    <li>• Taxa esperada: 8-10% a.a.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    🚀 Perfil Moderado/Agressivo
+                  </h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Diversificação inteligente com maior exposição em ações. Tempo: 15-20 anos.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-success">💡 Estratégia</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• 40% Renda Fixa</li>
+                    <li>• 40% Ações e ETFs</li>
+                    <li>• 20% FIIs e REITs</li>
+                    <li>• Taxa esperada: 12-15% a.a.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Erros que Impedem o Primeiro Milhão */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                ❌ Erros que Impedem o Primeiro Milhão
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-error">🚫 Erros Comportamentais</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Procrastinar o início dos investimentos</li>
+                    <li>• Não ter metas claras e prazo definido</li>
+                    <li>• Sacar investimentos para gastos supérfluos</li>
+                    <li>• Tentar "timing" do mercado constantemente</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-info">💳 Erros Financeiros</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Viver no cartão de crédito (juros altos)</li>
+                    <li>• Não ter reserva de emergência</li>
+                    <li>• Focar apenas na casa própria</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Como Corrigir</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Começar hoje, mesmo com pouco</li>
+                    <li>• Automatizar aportes mensais</li>
+                    <li>• Educar-se financeiramente</li>
+                    <li>• Focar no longo prazo (15+ anos)</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-growth-green">🎯 Mentalidade Correta</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Disciplina &gt; conhecimento técnico</li>
+                    <li>• Consistência &gt; valor alto esporádico</li>
+                    <li>• Paciência &gt; ganhos rápidos</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -845,313 +1347,95 @@ export default function PrimeiroMilhao() {
         </CardContent>
       </Card>
 
-      {/* Estratégias para o Primeiro Milhão */}
-      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+      {/* Seção: Comparação de Estratégias de Investimento */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🚀 Estratégias Comprovadas para Alcançar o Primeiro Milhão
+            ⚖️ Comparação: Investimentos que Utilizam Juros Compostos
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div>
-              <h4 className="mb-3 font-semibold text-primary-blue-dark">
-                💪 Fundamentos Essenciais
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>
-                  <strong>• Comece hoje:</strong> Cada mês perdido são milhares a menos no futuro
-                </li>
-                <li>
-                  <strong>• Disciplina de aportes:</strong> R$ 500-1.000/mês pode te tornar
-                  milionário
-                </li>
-                <li>
-                  <strong>• Controle de gastos:</strong> 90% dos brasileiros não poupam para
-                  aposentadoria
-                </li>
-                <li>
-                  <strong>• Eduque-se financeiramente:</strong> Conhecimento é o melhor investimento
-                </li>
-                <li>
-                  <strong>• Aumente sua renda:</strong> Foque mais em ganhar do que em economizar
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="mb-3 font-semibold text-growth-green">📈 Portfólio Diversificado</h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>
-                  <strong>• Renda Fixa (30-50%):</strong> CDB, Tesouro Direto, Debêntures
-                </li>
-                <li>
-                  <strong>• Ações (20-40%):</strong> Empresas sólidas com histórico de crescimento
-                </li>
-                <li>
-                  <strong>• Fundos Imobiliários (10-20%):</strong> Renda passiva mensal
-                </li>
-                <li>
-                  <strong>• ETFs:</strong> Diversificação automática com baixo custo
-                </li>
-                <li>
-                  <strong>• Reserva de Emergência:</strong> 6-12 meses de gastos em liquidez
-                </li>
-              </ul>
-            </div>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Renda Fixa
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    Fundos de Investimento
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Tesouro Direto
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Previsibilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Alta (taxa conhecida)</td>
+                  <td className="p-3 text-center text-growth-green">Média (varia com mercado)</td>
+                  <td className="p-3 text-center text-system-warning">Alta (governo federal)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Facilidade de Comparação</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Liquidez</td>
+                  <td className="p-3 text-center text-growth-green">Varia por produto</td>
+                  <td className="p-3 text-center">Diária (na maioria)</td>
+                  <td className="p-3 text-center">Diária (com desconto)</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Valor Mínimo</td>
+                  <td className="p-3 text-center">R$ 1.000 a R$ 5.000</td>
+                  <td className="p-3 text-center">R$ 100 a R$ 1.000</td>
+                  <td className="p-3 text-center">R$ 30 a R$ 100</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Indicado para</td>
+                  <td className="p-3 text-center">Reserva de emergência</td>
+                  <td className="p-3 text-center">Diversificação</td>
+                  <td className="p-3 text-center">Iniciantes em investimentos</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Potencial de Retorno</td>
+                  <td className="p-3 text-center text-primary-blue-dark">8-13% ao ano</td>
+                  <td className="p-3 text-center text-growth-green">Varia amplamente</td>
+                  <td className="p-3 text-center text-system-warning">10-13% ao ano</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Poder dos Juros Compostos */}
-      <Card className="border-l-4 border-system-warning bg-gradient-to-r from-system-warning/10 via-growth-green-soft/30 to-primary-blue-light duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚡ O Poder dos Juros Compostos: A 8ª Maravilha do Mundo
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <p className="text-text-secondary">
-              Albert Einstein chamou os juros compostos de{" "}
-              <strong className="text-system-warning">"a 8ª maravilha do mundo"</strong>. Quem
-              entende, ganha; quem não entende, paga. Veja exemplos práticos de como pequenos
-              valores se transformam em fortunas:
-            </p>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-bold text-growth-green">💰 Exemplo 1</h4>
-                <div className="space-y-1 text-sm">
-                  <div>
-                    Aporte mensal: <strong>R$ 500</strong>
-                  </div>
-                  <div>
-                    Taxa anual: <strong>10%</strong>
-                  </div>
-                  <div>
-                    Tempo: <strong>20 anos</strong>
-                  </div>
-                  <div className="border-t border-neutral-surface-variant pt-2">
-                    <div className="font-bold text-system-warning">Resultado: R$ 383.846</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Exemplo 2</h4>
-                <div className="space-y-1 text-sm">
-                  <div>
-                    Aporte mensal: <strong>R$ 1.000</strong>
-                  </div>
-                  <div>
-                    Taxa anual: <strong>12%</strong>
-                  </div>
-                  <div>
-                    Tempo: <strong>18 anos</strong>
-                  </div>
-                  <div className="border-t border-neutral-surface-variant pt-2">
-                    <div className="font-bold text-growth-green">Resultado: R$ 1.006.454</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-bold text-system-error-dark">🚀 Exemplo 3</h4>
-                <div className="space-y-1 text-sm">
-                  <div>
-                    Aporte mensal: <strong>R$ 2.000</strong>
-                  </div>
-                  <div>
-                    Taxa anual: <strong>15%</strong>
-                  </div>
-                  <div>
-                    Tempo: <strong>15 anos</strong>
-                  </div>
-                  <div className="border-t border-neutral-surface-variant pt-2">
-                    <div className="font-bold text-system-error-dark">Resultado: R$ 1.399.470</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg bg-system-info/10 p-4">
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
               <p className="text-sm text-text-secondary">
-                💡 <strong className="text-system-info">Dica Pro:</strong> Começar 5 anos mais cedo
-                pode significar
-                <strong> centenas de milhares de reais a mais</strong> no final. O tempo é
-                literalmente dinheiro nos investimentos!
+                Comece com <strong>Tesouro Direto</strong> pelo baixo valor mínimo e garantia do
+                governo federal.
               </p>
             </div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* Erros Comuns */}
-      <Card className="bg-system-error/5/5 border-l-4 border-system-error-dark duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ❌ 7 Erros Que Impedem Você de Chegar ao Primeiro Milhão
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="space-y-4">
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  1. 🕐 Procrastinar o início
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  "Vou começar no próximo mês" é a frase que mais afasta pessoas da riqueza.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  2. 💳 Viver no cartão de crédito
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Juros de 400% ao ano destroem qualquer chance de acumular patrimônio.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  3. 🎯 Não ter metas claras
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Sem planejamento financeiro estruturado, é impossível chegar lá.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  4. 📚 Falta de educação financeira
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Investir sem conhecimento é apostar, não investir estrategicamente.
-                </p>
-              </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">💰 Reserva</h4>
+              <p className="text-sm text-text-secondary">
+                Use <strong>Renda Fixa</strong> para reserva de emergência pela previsibilidade e
+                estabilidade.
+              </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  5. 🏠 Focar só na casa própria
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Imóvel não gera renda passiva nem liquidez para emergências.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  6. ⚡ Buscar enriquecimento rápido
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Day trade, crypto especulação e "fórmulas mágicas" quebram mais do que enriquecem.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4">
-                <h4 className="mb-2 font-semibold text-system-error-dark">
-                  7. 💸 Sacar os investimentos
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Interromper o ciclo dos juros compostos zera todo o progresso acumulado.
-                </p>
-              </div>
-
-              <div className="rounded-lg bg-gradient-to-r from-growth-green-soft to-primary-blue-light p-4">
-                <p className="text-sm font-medium text-text-primary">
-                  <strong className="text-growth-green">✅ Solução:</strong> Use nossa calculadora
-                  para criar um plano realista e descobrir exatamente quanto investir mensalmente
-                  para alcançar seu primeiro milhão!
-                </p>
-              </div>
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📈 Diversificação</h4>
+              <p className="text-sm text-text-secondary">
+                Explore <strong>Fundos de Investimento</strong> para diversificar e potencializar os
+                juros compostos.
+              </p>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Ecossistema Completo - Links Internos */}
-      <Card className="border border-neutral-surface-variant bg-gradient-to-r from-growth-green-soft via-primary-blue-light to-system-warning/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🎯 Ecossistema Completo de Planejamento Financeiro
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="mb-6 text-text-secondary">
-            Maximize seus resultados combinando nossa calculadora do primeiro milhão com outras
-            ferramentas especializadas. Cada calculadora foi desenvolvida para uma fase específica
-            da sua jornada financeira:
-          </p>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="space-y-4">
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4 transition-shadow hover:shadow-md">
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                  <a href="/calculadoras/financas/juros-compostos" className="hover:underline">
-                    📈 Calculadora de Juros Compostos
-                  </a>
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Perfeita para <strong>simular cenários detalhados</strong> com gráficos evolutivos
-                  e comparação com juros simples. Ideal para visualizar como pequenas mudanças nas
-                  taxas impactam seu caminho ao milhão.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4 transition-shadow hover:shadow-md">
-                <h4 className="mb-2 font-semibold text-growth-green">
-                  <a href="/calculadoras/saude/imc" className="hover:underline">
-                    💪 Calculadora de IMC e Saúde
-                  </a>
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  A <strong>saúde é seu maior patrimônio</strong>. Mantê-la em dia reduz gastos
-                  médicos futuros, permitindo investir mais para seu primeiro milhão. Monitore seu
-                  IMC e percentual de gordura.
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4 transition-shadow hover:shadow-md">
-                <h4 className="mb-2 font-semibold text-system-warning">
-                  <a href="/calculadoras/matematica/porcentagem" className="hover:underline">
-                    🔢 Calculadora de Porcentagem
-                  </a>
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Essencial para <strong>calcular rendimentos, descontos e taxas</strong> de
-                  investimentos. Compreenda exatamente quanto cada produto rende e compare opções de
-                  forma inteligente.
-                </p>
-              </div>
-
-              <div className="rounded-lg border border-neutral-surface-variant bg-gray-900 p-4 transition-shadow hover:shadow-md">
-                <h4 className="mb-2 font-semibold text-system-info">
-                  <a href="/calculadoras/financas/juros" className="hover:underline">
-                    💰 Calculadora de Juros Simples e Compostos
-                  </a>
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Compare <strong>diferentes modalidades de juros</strong> e entenda por que os
-                  juros compostos são fundamentais para construir riqueza. Base teórica para seu
-                  planejamento financeiro.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-lg bg-gradient-to-r from-primary-blue-light to-growth-green-soft p-4">
-            <p className="text-center text-sm font-medium text-text-primary">
-              🎯 <strong>Dica de Ouro:</strong> Use todas as calculadoras em conjunto para criar um
-              <strong className="text-growth-green">plano financeiro completo e realista</strong>.
-              Cada ferramenta complementa as outras na sua jornada rumo à independência financeira!
-            </p>
           </div>
         </CardContent>
       </Card>
@@ -1190,22 +1474,10 @@ export default function PrimeiroMilhao() {
             borderColor: "growth-green",
           },
           {
-            question: "Qual a diferença entre ser milionário e ter renda de milionário?",
-            answer:
-              "<strong>Patrimônio líquido</strong> = ter R$ 1 milhão em bens/investimentos. <strong>Renda mensal</strong> = receber R$ 83.000/mês. Com R$ 1 milhão a 12% ao ano, você gera <strong>R$ 10.000 de renda passiva mensal</strong> - suficiente para independência financeira!",
-            borderColor: "system-warning",
-          },
-          {
             question: "Como os juros compostos aceleram o caminho ao milhão?",
             answer:
               "Juros compostos = <strong>'juros sobre juros'</strong>. Exemplo R$ 1.000/mês a 10%: Ano 10 = R$ 204k, Ano 15 = R$ 417k, Ano 20 = R$ 765k, <strong>Ano 22 = R$ 1.014k!</strong> Nos últimos anos, os juros trabalham mais que você!",
             borderColor: "primary-blue",
-          },
-          {
-            question: "E se houver crise durante meu investimento?",
-            answer:
-              "Crises são <strong>oportunidades de compra</strong> para longo prazo! Estratégias: mantenha aportes regulares (compra mais barato), diversifique globalmente, tenha reserva sólida, foque no longo prazo. Quem investiu na crise de 2008 teve os melhores retornos!",
-            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
@@ -1215,6 +1487,41 @@ export default function PrimeiroMilhao() {
         }}
         footerText="<strong>Pronto para começar?</strong> Nossa calculadora mostra exatamente quanto tempo você levará para chegar ao primeiro milhão com diferentes cenários de aportes e rentabilidade!"
       />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora do Primeiro Milhão
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora do primeiro milhão</strong>{" "}
+              utiliza <strong className="text-growth-green">juros compostos</strong> para mostrar
+              quanto tempo levará para atingir sua meta financeira ou quanto você precisa investir
+              mensalmente.
+            </p>
+            <p>
+              <strong>Configurações disponíveis:</strong> Capital inicial, meta financeira (padrão
+              R$ 1 milhão), taxa anual esperada e escolha entre calcular tempo necessário ou aporte
+              mensal necessário.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e planejamento financeiro. Para decisões de investimento, consulte
+              sempre um <strong>assessor financeiro qualificado</strong> e considere sua tolerância
+              ao risco.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🎯 Meta personalizada • ⏰ Tempo para objetivo • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Interface otimizada
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       <RelatedCalculators category="financas" currentCalculatorId="primeiro-milhao" />
     </div>
