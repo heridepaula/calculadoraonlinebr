@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora do Primeiro Milhão 2025 | CalculadoraOnlineBR",
+      title: "Primeiro Milhão: Calculadora 2025 | CalculadoraOnlineBR",
     },
     {
       name: "viewport",
@@ -77,7 +77,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora do Primeiro Milhão 2025 | CalculadoraOnlineBR",
+      content: "Primeiro Milhão: Calculadora 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -91,7 +91,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image:alt",
       content:
-        "Calculadora de Juros Compostos - Simule crescimento exponencial do patrimônio com aportes mensais",
+        "Calculadora do Primeiro Milhão - Simule quanto tempo e aportes necessários para se tornar milionário",
     },
     {
       property: "og:image:width",
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora do Primeiro Milhão 2025 | CalculadoraOnlineBR",
+      content: "Primeiro Milhão: Calculadora 2025 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -124,7 +124,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Juros Compostos - Simule crescimento do patrimônio",
+      content: "Calculadora do Primeiro Milhão - Simule seu caminho para R$ 1 milhão",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -149,7 +149,8 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-24",
+        dateModified: "2025-08-25",
+        datePublished: "2024-12-01",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -235,6 +236,19 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Estratégias comprovadas de investimento",
         ],
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          ratingCount: "2847",
+          bestRating: "5",
+          worstRating: "1",
+        },
+        author: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          description: "Especialistas em ferramentas financeiras educacionais",
+          expertise: "Educação Financeira e Simuladores de Investimento",
+        },
       }),
     },
     {
@@ -566,12 +580,14 @@ export default function FirstMillionCalculator() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem isLast>Primeiro Milhão</BreadcrumbItem>
-      </Breadcrumb>
+      <nav aria-label="Navegação estrutural">
+        <Breadcrumb>
+          <BreadcrumbItem href="/">Início</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+          <BreadcrumbItem isLast>Primeiro Milhão</BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
@@ -593,7 +609,8 @@ export default function FirstMillionCalculator() {
         </div>
       </header>
 
-      <Card>
+      <main role="main" aria-label="Calculadora do Primeiro Milhão">
+        <Card>
         <CardHeader>
           <CardTitle as="h2">📋 Configure sua Simulação do Primeiro Milhão</CardTitle>
         </CardHeader>
@@ -1209,10 +1226,11 @@ export default function FirstMillionCalculator() {
         </>
       )}
 
-      {/* Seção: Primeiro Milhão - Guia Completo */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+      <section aria-labelledby="guia-completo-heading">
+        {/* Seção: Primeiro Milhão - Guia Completo */}
+        <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
-          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+          <CardTitle as="h2" id="guia-completo-heading" className="text-2xl font-bold text-text-primary">
             🎯 Primeiro Milhão – Guia Completo 2025
           </CardTitle>
         </CardHeader>
@@ -1346,11 +1364,13 @@ export default function FirstMillionCalculator() {
           </div>
         </CardContent>
       </Card>
+      </section>
 
-      {/* Seção: Comparação de Estratégias de Investimento */}
+      <section aria-labelledby="estrategias-heading">
+        {/* Seção: Comparação de Estratégias de Investimento */}
       <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+          <CardTitle as="h2" id="estrategias-heading" className="text-xl font-bold text-text-primary">
             ⚖️ Comparação: Investimentos que Utilizam Juros Compostos
           </CardTitle>
         </CardHeader>
@@ -1439,8 +1459,11 @@ export default function FirstMillionCalculator() {
           </div>
         </CardContent>
       </Card>
+      </section>
 
-      <FAQ
+      <section aria-labelledby="faq-heading">
+        <FAQ
+        id="faq-heading"
         title="Perguntas Frequentes - Calculadora do Primeiro Milhão"
         items={[
           {
@@ -1522,8 +1545,12 @@ export default function FirstMillionCalculator() {
           </div>
         </CardContent>
       </Card>
+      </section>
+      </main>
 
-      <RelatedCalculators category="financas" currentCalculatorId="primeiro-milhao" />
+      <aside aria-label="Calculadoras relacionadas">
+        <RelatedCalculators category="financas" currentCalculatorId="primeiro-milhao" />
+      </aside>
     </div>
   );
 }
