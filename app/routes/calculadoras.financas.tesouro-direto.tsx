@@ -64,17 +64,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais | CalculadoraOnlineBR",
+      title: "Tesouro Direto 2025 - Simulador Oficial | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado. Ferramenta gratuita e atualizada.",
+        "Simule Tesouro Selic, Prefixado e IPCA+ com dados oficiais. Calcule IR, custódia e resgate antecipado. Ferramenta gratuita e atualizada.",
     },
     {
       name: "keywords",
       content:
         "calculadora tesouro direto, simulador tesouro direto, tesouro selic, tesouro prefixado, tesouro ipca, resgate antecipado, custódia",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, viewport-fit=cover",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -92,12 +96,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais",
+      content: "Tesouro Direto 2025 - Simulador Oficial",
     },
     {
       property: "og:description",
       content:
-        "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado.",
+        "Simule Tesouro Selic, Prefixado e IPCA+ com dados oficiais. Calcule IR, custódia e resgate antecipado.",
     },
     {
       property: "og:image",
@@ -126,12 +130,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais",
+      content: "Tesouro Direto 2025 - Simulador Oficial",
     },
     {
       name: "twitter:description",
       content:
-        "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+. Calcule IR, custódia e resgate antecipado com precisão.",
+        "Simule Tesouro Selic, Prefixado e IPCA+ com dados oficiais. Calcule IR, custódia e resgate antecipado.",
     },
     {
       name: "twitter:image",
@@ -164,7 +168,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-23",
+        dateModified: "2025-08-26",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -249,6 +253,90 @@ export const meta: MetaFunction = () => {
           "Dados oficiais do Tesouro Nacional",
           "Interface móvel responsiva",
           "Resultados em tempo real",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Qual título do Tesouro Direto é melhor para iniciantes?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Tesouro Selic é ideal para iniciantes! Tem liquidez diária sem perda, baixa volatilidade e acompanha a taxa básica de juros. É perfeito para reserva de emergência e para quem está começando a investir.",
+            },
+          },
+          {
+            "@type": "Question", 
+            name: "Como funciona o resgate antecipado do Tesouro Direto?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Você pode resgatar qualquer título antes do vencimento, com liquidez diária. Tesouro Selic: praticamente sem perda. Prefixado e IPCA+: sujeitos à marcação a mercado (pode ter ganho ou perda conforme variação dos juros).",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Quais são os custos para investir no Tesouro Direto?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Taxa do Tesouro Nacional: 0,20% ao ano sobre o valor investido. Taxa da corretora: varia de 0% a 0,50% ao ano. Imposto de Renda: regressivo de 15% a 22,5% sobre o rendimento.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "É seguro investir no Tesouro Direto?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "É o investimento mais seguro do Brasil! Tem garantia do Governo Federal - quem emite o Real e cobra impostos. O risco é praticamente zero, sendo considerado 'livre de risco' pelos especialistas.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como Calcular Rendimentos do Tesouro Direto",
+        description: "Passo a passo para simular investimentos em títulos do Tesouro Direto com dados oficiais",
+        image: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+        totalTime: "PT3M",
+        estimatedCost: {
+          "@type": "MonetaryAmount",
+          currency: "BRL",
+          value: "0",
+        },
+        tool: [
+          {
+            "@type": "HowToTool", 
+            name: "Calculadora Tesouro Direto Online",
+          },
+        ],
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecionar tipo de título",
+            text: "Escolha entre Tesouro Selic, Prefixado ou IPCA+ conforme seu objetivo",
+            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Inserir valor do investimento",
+            text: "Digite o valor inicial e aportes mensais se houver",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Configurar prazo",
+            text: "Defina a data de vencimento ou resgate do título",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcular rendimentos",
+            text: "Veja o resultado com IR, custódia e valor líquido final",
+          },
         ],
       }),
     },
