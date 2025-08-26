@@ -17,17 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Área e Perímetro 2025 – Formas Geométricas | CalculadoraOnlineBR",
+      title: "Calculadora de Área e Perímetro ⚡ Grátis - Retângulo, Círculo, Triângulo | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
         "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos para estudos.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora área perímetro, formas geométricas, retângulo, círculo, triângulo, quadrado, trapézio, geometria",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -50,7 +45,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados.",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas precisas e resultados instantâneos.",
     },
     {
       property: "og:image",
@@ -104,7 +99,7 @@ export const meta: MetaFunction = () => {
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -117,7 +112,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-23",
+        dateModified: "2025-08-26",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -202,6 +197,82 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é área e perímetro?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Área é a medida da superfície de uma figura geométrica (em unidades²). Perímetro é a soma das medidas de todos os lados da figura (em unidades lineares)."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Por que π (pi) é usado no círculo?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "π (pi) é a razão entre a circunferência e o diâmetro de qualquer círculo, sempre igual a aproximadamente 3,14159. É uma constante matemática fundamental para cálculos circulares."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Como calcular área de triângulos irregulares?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para triângulos irregulares, use a fórmula da área: (base × altura) ÷ 2. A altura deve ser perpendicular à base escolhida. Para o perímetro, some todos os três lados."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre quadrado e retângulo?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Quadrado tem todos os lados iguais, então área = lado² e perímetro = 4 × lado. Retângulo tem lados opostos iguais, então área = comprimento × largura e perímetro = 2 × (comprimento + largura)."
+            }
+          }
+        ]
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Área e Perímetro",
+        description: "Aprenda a calcular área e perímetro de formas geométricas usando nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione a forma geométrica",
+            text: "Escolha entre retângulo, círculo, triângulo, quadrado ou trapézio usando os botões de seleção."
+          },
+          {
+            "@type": "HowToStep", 
+            name: "Insira as dimensões",
+            text: "Digite as medidas necessárias para a forma escolhida (comprimento, largura, raio, lados, etc.)."
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule os resultados",
+            text: "Clique no botão 'Calcular' para obter instantaneamente a área, perímetro e fórmulas utilizadas."
+          },
+          {
+            "@type": "HowToStep",
+            name: "Visualize os resultados",
+            text: "Veja os valores calculados com as fórmulas matemáticas e dimensões utilizadas no cálculo."
+          }
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Área e Perímetro Online"
+          }
+        ]
       }),
     },
   ];
@@ -502,7 +573,7 @@ export default function AreaPerimeterCalculator() {
             <button
               type="button"
               onClick={() => setShapeType("retangulo")}
-              className={`px-3 py-2 text-xs font-medium rounded-md transition ${
+              className={`w-20 px-2 py-2 text-xs font-medium rounded-md transition ${
                 shapeType === "retangulo"
                   ? "bg-primary-blue text-white"
                   : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -513,7 +584,7 @@ export default function AreaPerimeterCalculator() {
             <button
               type="button"
               onClick={() => setShapeType("circulo")}
-              className={`px-3 py-2 text-xs font-medium rounded-md transition ${
+              className={`w-20 px-2 py-2 text-xs font-medium rounded-md transition ${
                 shapeType === "circulo"
                   ? "bg-primary-blue text-white"
                   : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -524,7 +595,7 @@ export default function AreaPerimeterCalculator() {
             <button
               type="button"
               onClick={() => setShapeType("triangulo")}
-              className={`px-3 py-2 text-xs font-medium rounded-md transition ${
+              className={`w-20 px-2 py-2 text-xs font-medium rounded-md transition ${
                 shapeType === "triangulo"
                   ? "bg-primary-blue text-white"
                   : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -535,7 +606,7 @@ export default function AreaPerimeterCalculator() {
             <button
               type="button"
               onClick={() => setShapeType("quadrado")}
-              className={`px-3 py-2 text-xs font-medium rounded-md transition ${
+              className={`w-20 px-2 py-2 text-xs font-medium rounded-md transition ${
                 shapeType === "quadrado"
                   ? "bg-primary-blue text-white"
                   : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -546,7 +617,7 @@ export default function AreaPerimeterCalculator() {
             <button
               type="button"
               onClick={() => setShapeType("trapezio")}
-              className={`px-3 py-2 text-xs font-medium rounded-md transition ${
+              className={`w-20 px-2 py-2 text-xs font-medium rounded-md transition ${
                 shapeType === "trapezio"
                   ? "bg-primary-blue text-white"
                   : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
