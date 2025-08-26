@@ -1,1241 +1,1293 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  MoneyInput,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
-  RateInput,
 } from "~/components/ui";
+import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
+import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
-  calculateFixedIncome,
-  compareFixedIncomeInvestments,
-  getDefaultRate,
-  getInvestmentInfo,
-  type FixedIncomeParams,
-  type FixedIncomeResult,
-  type ComparativeResult,
-} from "~/utils/calculations";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora Comparativa de Renda Fixa 2025 - Compare CDB, LCI, Tesouro e Poupança - ${APP_NAME}`,
+      title: "Comparador Renda Fixa 2025 | CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, viewport-fit=cover",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      href: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+      as: "image",
+      type: "image/webp",
     },
     {
       name: "description",
       content:
-        "★ Calculadora GRATUITA para comparar investimentos em renda fixa! Compare CDB, LCI, LCA, Tesouro Direto e Poupança com taxas reais 2025. Ranking automático e análise completa de rendimentos.",
+        "Comparador completo de renda fixa 2025: CDB vs LCI/LCA vs Tesouro Direto vs Poupança. Compare rentabilidade líquida com IR, simule cenários e descubra o melhor investimento para seu perfil.",
     },
+    { name: "author", content: "Calculadora Online BR" },
+    { name: "publisher", content: "CalculadoraOnlineBR" },
+    { name: "article:modified_time", content: "2025-08-25T00:00:00-03:00" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
     {
       name: "keywords",
       content:
-        "calculadora renda fixa, comparar investimentos, CDB vs LCI, tesouro direto, poupança, CDI 2025, IR investimentos, simulador investimentos, ranking renda fixa, melhor investimento",
+        "renda fixa, comparador investimentos, CDB, LCI, LCA, Tesouro Direto, poupança, simulador, Brasil",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
-    { name: "googlebot", content: "index,follow" },
-    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+    },
     {
       property: "og:title",
-      content: `Comparador de Renda Fixa Oficial 2025 - Ranking Automático - ${APP_NAME}`,
+      content: "Comparador Renda Fixa 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Descubra qual investimento rende mais! Compare CDB, LCI, LCA, Tesouro e Poupança com cálculos precisos e ranking automático. Ferramenta gratuita e atualizada!",
+        "Comparador completo de renda fixa 2025: CDB vs LCI/LCA vs Tesouro Direto vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Comparador de Renda Fixa - Compare CDB, LCI, LCA, Tesouro Direto e Poupança com impostos",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/financas/renda-fixa-comparativa",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
+    { property: "og:article:modified_time", content: "2025-08-25T00:00:00-03:00" },
+    { property: "og:article:publisher", content: "https://www.facebook.com/CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: `Calculadora Comparativa Renda Fixa 2025 - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Comparador Renda Fixa 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "twitter:description",
       content:
-        "Compare investimentos lado a lado! Veja qual rende mais: CDB, LCI, Tesouro ou Poupança. Cálculo com taxas reais e IR 2025.",
+        "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos reais de IR. Descubra qual investimento oferece melhor rentabilidade líquida para seu perfil.",
     },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Comparador Renda Fixa - Compare investimentos e impostos",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Comparativa de Renda Fixa",
+        name: "Comparador de Renda Fixa - Simulador de Investimentos 2025",
         description:
-          "Calculadora online gratuita para comparar investimentos em renda fixa. Compare CDB, LCI, LCA, Tesouro Direto e Poupança com taxas oficiais 2025 e ranking automático.",
-        url: "https://calculadoraonline.com.br/calculadoras/financas/renda-fixa-comparativa",
+          "Comparador gratuito de renda fixa: CDB, LCI, LCA, Tesouro Direto e Poupança. Compare rendimentos com impostos e encontre o melhor investimento.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Finanças",
-              item: "https://calculadoraonline.com.br/calculadoras/financas",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Renda Fixa Comparativa",
-              item: "https://calculadoraonline.com.br/calculadoras/financas/renda-fixa-comparativa",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-25",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        author: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+          name: "Comparador de Renda Fixa 2025 - Simulador Completo",
+          description:
+            "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos precisos de IR. Descubra o investimento com melhor rentabilidade líquida.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Comparador Renda Fixa",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "FinancialProduct",
+          name: "Comparação de Renda Fixa",
+          description:
+            "Ferramenta para comparar rentabilidade líquida entre diferentes investimentos de renda fixa: CDB, LCI/LCA, Tesouro Direto e Poupança",
+          category: "Investment Analysis",
+        },
+        featureList: [
+          "Comparação entre CDB, LCI/LCA, Tesouro Direto e Poupança",
+          "Cálculo de rentabilidade líquida com IR regressivo",
+          "Simulação com taxas personalizáveis por produto",
+          "Análise de qual investimento oferece melhor retorno",
+          "Tabela comparativa detalhada com impostos",
+          "Cálculo baseado em juros compostos reais",
+          "Simulação por diferentes prazos em dias",
+          "Interface otimizada para mobile",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Qual é o melhor investimento em renda fixa?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Não existe um 'melhor' investimento único. Depende do seu perfil, prazo e objetivos. Para reserva de emergência, LCI/LCA com liquidez diária são ideais. Para longo prazo, CDB com boa rentabilidade ou Tesouro IPCA+ podem ser melhores opções.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como funciona a tabela regressiva do Imposto de Renda?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O IR sobre renda fixa diminui conforme o tempo: até 180 dias = 22,5%; 181-360 dias = 20%; 361-720 dias = 17,5%; acima de 720 dias = 15%. Investimentos mais longos têm menor tributação.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "LCI/LCA valem a pena mesmo com rentabilidade menor?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim, pois são isentas de IR. Uma LCI a 86% do CDI pode render mais líquido que um CDB a 110% do CDI (tributado), especialmente em prazos menores onde o IR é maior.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como diversificar investimentos em renda fixa?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Diversifique por prazos (curto, médio e longo), tipos de investimento (CDB, LCI/LCA, Tesouro), e emissor (diferentes bancos). Mantenha parte em produtos com liquidez diária para emergências.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como Comparar Investimentos em Renda Fixa",
+        description:
+          "Passo a passo para comparar CDB, LCI/LCA, Tesouro Direto e Poupança e encontrar o melhor investimento",
+        image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+        totalTime: "PT3M",
+        estimatedCost: {
+          "@type": "MonetaryAmount",
+          currency: "BRL",
+          value: "0",
+        },
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Comparador de Renda Fixa Online",
+          },
+        ],
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Inserir valor a investir",
+            text: "Digite o valor que deseja investir para comparar as opções",
+            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Definir prazo do investimento",
+            text: "Informe o prazo em dias que pretende manter o investimento",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Configurar taxas dos produtos",
+            text: "Ajuste as rentabilidades de CDB, LCI/LCA e Tesouro Direto conforme ofertado",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Comparar resultados",
+            text: "Clique em 'Calcular' para ver qual investimento oferece melhor rentabilidade líquida",
+          },
+        ],
       }),
     },
   ];
 };
 
-interface Investment {
+type PeriodType = "days";
+
+interface InvestmentOption {
   id: string;
-  enabled: boolean;
-  initialValue: string;
-  monthlyContribution: string;
-  periodInMonths: string;
-  investmentType:
-    | "poupanca"
-    | "cdb"
-    | "lci"
-    | "lca"
-    | "tesouro-selic"
-    | "tesouro-ipca"
-    | "tesouro-prefixado";
-  returnType: "pre-fixado" | "pos-cdi" | "selic" | "ipca-plus" | "poupanca";
-  annualRate: string;
+  name: string;
+  rate: number;
+  rateType: "percentage_cdi" | "fixed_rate";
+  hasIRExemption: boolean;
 }
 
-export default function FixedIncomeComparativeCalculator() {
-  const [result, setResult] = useState<ComparativeResult | null>(null);
-  const [isCalculating, setIsCalculating] = useState(false);
+interface ComparisonResult {
+  investment: InvestmentOption;
+  finalAmount: number;
+  totalInterest: number;
+  netAmount: number;
+  netInterest: number;
+  irAmount: number;
+  effectiveRate: number;
+}
 
-  // Estados dos investimentos (até 4 simultâneos)
-  const [investments, setInvestments] = useState<Investment[]>([
-    {
-      id: "1",
-      enabled: true,
-      initialValue: "10000",
-      monthlyContribution: "500",
-      periodInMonths: "24",
-      investmentType: "poupanca",
-      returnType: "poupanca",
-      annualRate: "6.17",
-    },
-    {
-      id: "2",
-      enabled: true,
-      initialValue: "10000",
-      monthlyContribution: "500",
-      periodInMonths: "24",
-      investmentType: "cdb",
-      returnType: "pos-cdi",
-      annualRate: "11.31",
-    },
-    {
-      id: "3",
-      enabled: false,
-      initialValue: "10000",
-      monthlyContribution: "500",
-      periodInMonths: "24",
-      investmentType: "lci",
-      returnType: "pos-cdi",
-      annualRate: "10.68",
-    },
-    {
-      id: "4",
-      enabled: false,
-      initialValue: "10000",
-      monthlyContribution: "500",
-      periodInMonths: "24",
-      investmentType: "tesouro-selic",
-      returnType: "selic",
-      annualRate: "10.50",
-    },
-  ]);
+interface FixedIncomeComparisonResult {
+  initialAmount: number;
+  period: number;
+  cdiRate: number;
+  results: ComparisonResult[];
+}
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "renda_fixa_comparativa",
-    category: "financas"
+interface ValidationErrors {
+  investedAmount?: string;
+  period?: string;
+}
+
+export default function FixedIncomeComparison() {
+  const [investedAmount, setInvestedAmount] = useState("");
+  const [period, setPeriod] = useState("");
+  const [cdbRate, setCdbRate] = useState("100");
+  const [lciLcaRate, setLciLcaRate] = useState("86");
+  const [tesouroSelicRate, setTesouroSelicRate] = useState("14.25");
+  const [tesouroIpcaRate, setTesouroIpcaRate] = useState("11.0");
+  const [result, setResult] = useState<FixedIncomeComparisonResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Função para criar opções de investimento baseadas nos inputs do usuário
+  const getInvestmentOptions = (): InvestmentOption[] => [
+    {
+      id: "poupanca",
+      name: "Poupança",
+      rate: 70, // 70% do CDI (fixo)
+      rateType: "percentage_cdi",
+      hasIRExemption: true,
+    },
+    {
+      id: "cdb",
+      name: "CDB",
+      rate: parseFloat(cdbRate.replace(",", ".")) || 100,
+      rateType: "percentage_cdi",
+      hasIRExemption: false,
+    },
+    {
+      id: "lci_lca",
+      name: "LCI/LCA",
+      rate: parseFloat(lciLcaRate.replace(",", ".")) || 86,
+      rateType: "percentage_cdi",
+      hasIRExemption: true,
+    },
+    {
+      id: "tesouro_selic",
+      name: "Tesouro Selic",
+      rate: parseFloat(tesouroSelicRate.replace(",", ".")) || 14.25,
+      rateType: "fixed_rate",
+      hasIRExemption: false,
+    },
+    {
+      id: "tesouro_ipca",
+      name: "Tesouro IPCA+",
+      rate: parseFloat(tesouroIpcaRate.replace(",", ".")) || 11.0,
+      rateType: "fixed_rate",
+      hasIRExemption: false,
+    },
+  ];
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "renda-fixa-comparativa",
+    category: "financas",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("renda_fixa_comparativa");
+  useFormTracking("renda-fixa-comparativa");
 
-  // Função para processar valor monetário
-  const parseMoneyValue = (value: string | number | undefined): number => {
-    if (!value && value !== 0) {
-      return 0;
-    }
-
-    if (typeof value === "number") {
-      return value;
-    }
-
-    const stringValue = String(value);
-    const cleanValue = stringValue.replace(/[^\d,.]/g, "");
-
-    if (!cleanValue) {
-      return 0;
-    }
-
-    if (cleanValue.includes(",")) {
-      return parseFloat(cleanValue.replace(/\./g, "").replace(",", ".")) || 0;
-    }
-
-    return parseFloat(cleanValue) || 0;
-  };
-
-  // Função para atualizar investimento
-  const updateInvestment = (index: number, field: keyof Investment, value: any) => {
-    setInvestments((prev) =>
-      prev.map((inv, i) => (i === index ? { ...inv, [field]: value } : inv))
-    );
-  };
-
-  // Função para ativar/desativar investimento
-  const toggleInvestment = (index: number) => {
-    setInvestments((prev) =>
-      prev.map((inv, i) => (i === index ? { ...inv, enabled: !inv.enabled } : inv))
-    );
-  };
-
-  // Função para atualizar taxa baseada no tipo de investimento
-  const updateInvestmentType = (index: number, type: string) => {
-    const defaultRate = getDefaultRate(type);
-    updateInvestment(index, "investmentType", type);
-    updateInvestment(index, "annualRate", defaultRate.toString());
-  };
-
-  // Cálculo em tempo real
+  // Inicializar valores padrão
   useEffect(() => {
-    const calculate = () => {
-      try {
-        const enabledInvestments = investments.filter((inv) => inv.enabled);
+    if (!period) {
+      setPeriod("365"); // 1 ano como padrão
+    }
+    if (!cdbRate) {
+      setCdbRate("100");
+    }
+    if (!lciLcaRate) {
+      setLciLcaRate("86");
+    }
+    if (!tesouroSelicRate) {
+      setTesouroSelicRate("14.25");
+    }
+    if (!tesouroIpcaRate) {
+      setTesouroIpcaRate("11.0");
+    }
+  }, []);
 
-        if (enabledInvestments.length === 0) {
-          setResult(null);
-          return;
-        }
+  const currencyBR = (v: number) => {
+    if (isNaN(v) || !isFinite(v)) return "R$ 0,00";
+    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
+  };
+  const percentBR = (v: number, digits = 2) => {
+    if (isNaN(v) || !isFinite(v)) return "0,00";
+    return new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+  };
 
-        const params: FixedIncomeParams[] = enabledInvestments.map((inv) => ({
-          initialValue: parseMoneyValue(inv.initialValue),
-          monthlyContribution: parseMoneyValue(inv.monthlyContribution),
-          periodInMonths: parseInt(inv.periodInMonths) || 0,
-          investmentType: inv.investmentType,
-          returnType: inv.returnType,
-          annualRate: parseFloat(inv.annualRate) || 0,
-        }));
+  const parseMoney = (v: string | number): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(/\./g, "").replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+  const parseRate = (v: string | number): number => parseMoney(v) / 100;
 
-        // Validação básica
-        const isValid = params.every(
-          (p) => p.initialValue > 0 && p.periodInMonths > 0 && p.annualRate >= 0
-        );
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
 
-        if (isValid) {
-          setIsCalculating(true);
-          const calculationResult = compareFixedIncomeInvestments(params);
-          setResult(calculationResult);
-          setTimeout(() => setIsCalculating(false), 100);
-        } else {
-          setResult(null);
-        }
-      } catch (error) {
-        console.error("Erro no cálculo:", error);
-        setResult(null);
-        setIsCalculating(false);
-      }
+    const amount = parseMoney(investedAmount);
+    if (amount <= 0) {
+      newErrors.investedAmount = "Valor investido obrigatório e maior que 0";
+      ok = false;
+    }
+
+    const periodDays = parseInt(period, 10);
+    if (!period || isNaN(periodDays) || periodDays <= 0) {
+      newErrors.period = "Prazo em dias obrigatório e maior que 0";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  // Função para calcular IR baseado na tabela regressiva
+  const calculateIRRate = (days: number): number => {
+    if (days <= 180) return 22.5; // Até 180 dias: 22,5%
+    if (days <= 360) return 20.0; // 181 a 360 dias: 20%
+    if (days <= 720) return 17.5; // 361 a 720 dias: 17,5%
+    return 15.0; // Acima de 720 dias: 15%
+  };
+
+  const calculateInvestmentResult = (
+    amount: number,
+    option: InvestmentOption,
+    periodDays: number,
+    cdiRate: number
+  ): ComparisonResult => {
+    let effectiveAnnualRate: number;
+
+    if (option.rateType === "percentage_cdi") {
+      effectiveAnnualRate = cdiRate * (option.rate / 100);
+    } else {
+      effectiveAnnualRate = option.rate / 100;
+    }
+
+    // Taxa diária composta
+    const dailyRate = Math.pow(1 + effectiveAnnualRate, 1 / 252) - 1;
+
+    // Cálculo do montante final
+    const finalAmount = amount * Math.pow(1 + dailyRate, periodDays);
+    const totalInterest = finalAmount - amount;
+
+    // Cálculo do IR se aplicável
+    let irAmount = 0;
+    let netAmount = finalAmount;
+    let netInterest = totalInterest;
+
+    if (!option.hasIRExemption) {
+      const irRate = calculateIRRate(periodDays);
+      irAmount = totalInterest * (irRate / 100);
+      netAmount = finalAmount - irAmount;
+      netInterest = totalInterest - irAmount;
+    }
+
+    return {
+      investment: option,
+      finalAmount,
+      totalInterest,
+      netAmount,
+      netInterest,
+      irAmount,
+      effectiveRate: effectiveAnnualRate,
     };
-
-    calculate();
-  }, [investments]);
+  };
 
   const handleCalculate = () => {
-    // Força recálculo
-    const enabledInvestments = investments.filter((inv) => inv.enabled);
-
-    if (enabledInvestments.length === 0) return;
-
-    const params: FixedIncomeParams[] = enabledInvestments.map((inv) => ({
-      initialValue: parseMoneyValue(inv.initialValue),
-      monthlyContribution: parseMoneyValue(inv.monthlyContribution),
-      periodInMonths: parseInt(inv.periodInMonths) || 0,
-      investmentType: inv.investmentType,
-      returnType: inv.returnType,
-      annualRate: parseFloat(inv.annualRate) || 0,
-    }));
+    if (!validateInputs()) return;
+    startCalculation("calcular");
 
     try {
-      setIsCalculating(true);
-      const calculationResult = compareFixedIncomeInvestments(params);
-      setResult(calculationResult);
-      setTimeout(() => setIsCalculating(false), 100);
-    } catch (error) {
-      console.error("Erro no cálculo manual:", error);
-      setResult(null);
-      setIsCalculating(false);
+      const amount = parseMoney(investedAmount);
+      const periodDays = parseInt(period, 10);
+
+      // Taxa CDI atual (baseada na SELIC)
+      const currentCdiRate = ECONOMIC_INDICATORS.SELIC.rate / 100;
+
+      // Calcular resultado para cada opção de investimento
+      const investmentOptions = getInvestmentOptions();
+      const results = investmentOptions.map((option) =>
+        calculateInvestmentResult(amount, option, periodDays, currentCdiRate)
+      );
+
+      // Ordenar por rentabilidade líquida (maior para menor)
+      results.sort((a, b) => b.netAmount - a.netAmount);
+
+      const comparisonResult: FixedIncomeComparisonResult = {
+        initialAmount: amount,
+        period: periodDays,
+        cdiRate: currentCdiRate,
+        results,
+      };
+
+      setResult(comparisonResult);
+      setErrors({});
+      setCurrentPage(1);
+
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ investedAmount: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setInvestments([
-      {
-        id: "1",
-        enabled: true,
-        initialValue: "10000",
-        monthlyContribution: "500",
-        periodInMonths: "24",
-        investmentType: "poupanca",
-        returnType: "poupanca",
-        annualRate: "6.17",
-      },
-      {
-        id: "2",
-        enabled: true,
-        initialValue: "10000",
-        monthlyContribution: "500",
-        periodInMonths: "24",
-        investmentType: "cdb",
-        returnType: "pos-cdi",
-        annualRate: "11.31",
-      },
-      {
-        id: "3",
-        enabled: false,
-        initialValue: "10000",
-        monthlyContribution: "500",
-        periodInMonths: "24",
-        investmentType: "lci",
-        returnType: "pos-cdi",
-        annualRate: "10.68",
-      },
-      {
-        id: "4",
-        enabled: false,
-        initialValue: "10000",
-        monthlyContribution: "500",
-        periodInMonths: "24",
-        investmentType: "tesouro-selic",
-        returnType: "selic",
-        annualRate: "10.50",
-      },
-    ]);
+    setInvestedAmount("");
+    setPeriod("");
+    setCdbRate("100");
+    setLciLcaRate("86");
+    setTesouroSelicRate("14.25");
+    setTesouroIpcaRate("11.5");
     setResult(null);
+    setErrors({});
+    setCurrentPage(1);
   };
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
-
-  const formatPercentage = (value: number): string => {
-    return `${value.toFixed(2)}%`;
-  };
-
-  const getRiskLevelColor = (level: string) => {
-    switch (level) {
-      case "baixo":
-        return "text-growth-green";
-      case "medio":
-        return "text-system-warning";
-      case "alto":
-        return "text-system-error";
-      default:
-        return "text-text-secondary";
-    }
-  };
-
-  const getRiskLevelLabel = (level: string) => {
-    switch (level) {
-      case "baixo":
-        return "Baixo";
-      case "medio":
-        return "Médio";
-      case "alto":
-        return "Alto";
-      default:
-        return "N/A";
-    }
-  };
-
-  const getLiquidityLabel = (liquidity: string) => {
-    switch (liquidity) {
-      case "diaria":
-        return "Diária";
-      case "mensal":
-        return "Mensal";
-      case "vencimento":
-        return "No Vencimento";
-      default:
-        return "N/A";
-    }
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 py-8 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem>Renda Fixa Comparativa</BreadcrumbItem>
+        <BreadcrumbItem isLast>Renda Fixa Comparativa</BreadcrumbItem>
       </Breadcrumb>
 
-      <div className="flex flex-col items-center space-y-8">
-        {/* S-Tier Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-          <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
-            <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-              <span className="mr-2">📊</span>
-              Comparativo Inteligente com Ranking Automático
-            </div>
-            
-            <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              Calculadora
-              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-                Renda Fixa Comparativa
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-              Compare <strong className="text-finance-gold-dark">CDB, LCI, LCA, Tesouro Direto e Poupança</strong>
-              lado a lado! Descubra <strong className="text-system-success">qual investimento rende mais</strong>
-              com taxas reais 2025.
-            </p>
-            
-            <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
-              <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
-                <div className="text-2xl font-bold text-finance-gold-dark">💰</div>
-                <div className="text-sm text-text-secondary">Taxas Reais 2025</div>
-              </div>
-              <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
-                <div className="text-2xl font-bold text-system-success">📈</div>
-                <div className="text-sm text-text-secondary">Ranking Automático</div>
-              </div>
-              <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
-                <div className="text-2xl font-bold text-primary-blue-dark">4</div>
-                <div className="text-sm text-text-secondary">Comparações</div>
-              </div>
-              <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
-                <div className="text-2xl font-bold text-system-warning">⚡</div>
-                <div className="text-sm text-text-secondary">Tempo Real</div>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Comparador de Renda Fixa 2025 – Compare Investimentos
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Compare <strong className="text-growth-green">CDB, LCI/LCA, Tesouro Direto e Poupança</strong> com
+          cálculos reais de IR. Descubra{" "}
+          <strong className="text-primary-blue-dark">qual investimento oferece melhor retorno líquido</strong> para
+          seu perfil e prazo.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🏦 <strong>IR Regressivo</strong> • 📈 <strong>Baseado no CDI</strong> • 💰{" "}
+            <strong>Garantia do FGC</strong> • ⏰ <strong>Menor IR = Maior Prazo</strong>
+          </p>
+        </div>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📋 Configure sua Comparação de Renda Fixa</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Linha 1: Valor a ser investido */}
+          <div className="mb-6">
+            <div>
+              <MoneyInput
+                label="Valor a Investir"
+                value={investedAmount}
+                onChange={setInvestedAmount}
+                placeholder="10.000,00"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.investedAmount} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Valor que deseja investir para comparar as opções
               </div>
             </div>
           </div>
-        </section>
 
-        {/* Formulário - Grid de Investimentos */}
-        <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
-          {investments.map((investment, index) => (
-            <Card
-              key={investment.id}
-              className={`${investment.enabled ? "border-primary-blue" : "border-neutral-stroke bg-neutral-surface/20"}`}
+          {/* Linha 2: Período */}
+          <div className="mb-6">
+            <div>
+              <Input
+                type="number"
+                label="Prazo (dias)"
+                value={period}
+                onChange={(e) => setPeriod(e.target.value)}
+                placeholder="365"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.period} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Prazo do investimento em dias corridos
+                <span className="ml-2 text-system-info">
+                  (CDI atual: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Linha 3: Configuração das taxas */}
+          <div className="mb-6">
+            <h3 className="mb-4 text-lg font-semibold text-text-primary">
+              ⚙️ Configure as Rentabilidades
+            </h3>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <Input
+                  type="text"
+                  label="CDB (% do CDI)"
+                  value={cdbRate}
+                  onChange={(e) => setCdbRate(e.target.value)}
+                  placeholder="100"
+                  fullWidth
+                  className="h-12 text-lg"
+                />
+                <div className="mt-1 text-xs text-text-secondary">
+                  Percentual do CDI oferecido pelo CDB
+                </div>
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  label="LCI/LCA (% do CDI)"
+                  value={lciLcaRate}
+                  onChange={(e) => setLciLcaRate(e.target.value)}
+                  placeholder="86"
+                  fullWidth
+                  className="h-12 text-lg"
+                />
+                <div className="mt-1 text-xs text-text-secondary">
+                  Percentual do CDI oferecido por LCI/LCA
+                </div>
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  label="Tesouro Selic (% a.a.)"
+                  value={tesouroSelicRate}
+                  onChange={(e) => setTesouroSelicRate(e.target.value)}
+                  placeholder="14.25"
+                  fullWidth
+                  className="h-12 text-lg"
+                />
+                <div className="mt-1 text-xs text-text-secondary">
+                  Taxa anual do Tesouro Selic (atual: ~14,25%)
+                </div>
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  label="Tesouro IPCA+ (% a.a.)"
+                  value={tesouroIpcaRate}
+                  onChange={(e) => setTesouroIpcaRate(e.target.value)}
+                  placeholder="11.0"
+                  fullWidth
+                  className="h-12 text-lg"
+                />
+                <div className="mt-1 text-xs text-text-secondary">
+                  Taxa anual do Tesouro IPCA+ (atual: ~11,0%)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle as="h3">
-                    Investimento {index + 1}
-                    {investment.enabled && result && (
-                      <span className="ml-2 text-sm font-normal text-growth-green">
-                        #
-                        {result.ranking.findIndex(
-                          (r) =>
-                            r.investmentInfo.name ===
-                            getInvestmentInfo(investment.investmentType)?.name
-                        ) + 1}{" "}
-                        no ranking
-                      </span>
-                    )}
-                  </CardTitle>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={investment.enabled}
-                      onChange={() => toggleInvestment(index)}
-                      className="border-neutral-stroke h-4 w-4 rounded text-primary-blue focus:ring-primary-blue"
-                    />
-                    <span className="text-sm">Ativo</span>
-                  </label>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid grid-cols-1 gap-4">
-                    <MoneyInput
-                      label="Valor Inicial"
-                      value={investment.initialValue}
-                      onChange={(value) => updateInvestment(index, "initialValue", value)}
-                      placeholder="R$ 10.000,00"
-                      disabled={!investment.enabled}
-                      fullWidth
-                    />
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-                    <MoneyInput
-                      label="Aportes Mensais"
-                      value={investment.monthlyContribution}
-                      onChange={(value) => updateInvestment(index, "monthlyContribution", value)}
-                      placeholder="R$ 500,00"
-                      disabled={!investment.enabled}
-                      fullWidth
-                    />
-
-                    <Input
-                      type="number"
-                      label="Período (meses)"
-                      value={investment.periodInMonths}
-                      onChange={(e) => updateInvestment(index, "periodInMonths", e.target.value)}
-                      placeholder="24"
-                      min="1"
-                      max="600"
-                      disabled={!investment.enabled}
-                      fullWidth
-                    />
-
-                    <Select
-                      label="Tipo de Investimento"
-                      value={investment.investmentType}
-                      onChange={(value) => updateInvestmentType(index, value)}
-                      options={[
-                        { value: "poupanca", label: "Poupança" },
-                        { value: "cdb", label: "CDB" },
-                        { value: "lci", label: "LCI" },
-                        { value: "lca", label: "LCA" },
-                        { value: "tesouro-selic", label: "Tesouro Selic" },
-                        { value: "tesouro-ipca", label: "Tesouro IPCA+" },
-                        { value: "tesouro-prefixado", label: "Tesouro Prefixado" },
-                      ]}
-                      disabled={!investment.enabled}
-                      fullWidth
-                    />
-
-                    <RateInput
-                      label="Taxa de Rentabilidade (% a.a.)"
-                      value={investment.annualRate}
-                      onChange={(value) => updateInvestment(index, "annualRate", value)}
-                      placeholder="10,50"
-                      min="0.1"
-                      max="50"
-                      disabled={!investment.enabled}
-                      fullWidth
-                    />
-                  </div>
-
-                  {investment.enabled && (
-                    <div className="rounded-lg bg-system-info/10 p-3 text-xs text-text-secondary">
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>
-                          <strong>Mínimo:</strong>{" "}
-                          {formatCurrency(
-                            getInvestmentInfo(investment.investmentType)?.minimumValue || 0
-                          )}
-                        </div>
-                        <div>
-                          <strong>Risco:</strong>{" "}
-                          <span
-                            className={getRiskLevelColor(
-                              getInvestmentInfo(investment.investmentType)?.riskLevel || "baixo"
-                            )}
-                          >
-                            {getRiskLevelLabel(
-                              getInvestmentInfo(investment.investmentType)?.riskLevel || "baixo"
-                            )}
-                          </span>
-                        </div>
-                        <div>
-                          <strong>Liquidez:</strong>{" "}
-                          {getLiquidityLabel(
-                            getInvestmentInfo(investment.investmentType)?.liquidity || "diaria"
-                          )}
-                        </div>
-                        <div>
-                          <strong>IR:</strong>{" "}
-                          {getInvestmentInfo(investment.investmentType)?.taxFree
-                            ? "Isento"
-                            : "Tributado"}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </form>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Action Buttons - Prominent S-Tier Design */}
-        <div className="mt-8 space-y-4">
-          <Button 
-            type="button"
-            onClick={handleCalculate} 
-            className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
-            fullWidth
-          >
-            📊 Comparar Investimentos
-          </Button>
-          <Button
-            type="button"
-            onClick={handleReset}
-            variant="outline"
-            className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
-            fullWidth
-          >
-            🔄 Limpar Campos
-          </Button>
-        </div>
-
-        {/* Resultado */}
-        {result && (
-          <>
-            {/* Ranking */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle as="h2">🏆 Ranking dos Melhores Investimentos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {result.ranking.map((investment, index) => (
-                    <div
-                      key={index}
-                      className={`rounded-lg border p-4 ${
-                        index === 0
-                          ? "border-growth-green bg-gradient-to-r from-growth-green/20 to-growth-green/5"
-                          : index === 1
-                            ? "border-primary-blue bg-gradient-to-r from-primary-blue/20 to-primary-blue/5"
-                            : index === 2
-                              ? "border-system-warning bg-gradient-to-r from-system-warning/20 to-system-warning/5"
-                              : "border-neutral-stroke bg-neutral-surface/20"
-                      }`}
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div
-                            className={`flex h-8 w-8 items-center justify-center rounded-full font-bold text-white ${
-                              index === 0
-                                ? "bg-growth-green"
-                                : index === 1
-                                  ? "bg-primary-blue"
-                                  : index === 2
-                                    ? "bg-system-warning"
-                                    : "bg-neutral-stroke"
-                            }`}
-                          >
-                            {index + 1}
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-text-primary">
-                              {investment.investmentInfo.name}
-                            </h4>
-                            <p className="text-sm text-text-secondary">
-                              {investment.investmentInfo.type}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-text-primary">
-                            {formatCurrency(investment.finalValue)}
-                          </div>
-                          <div className="text-sm text-text-secondary">
-                            Rendimento: {formatCurrency(investment.totalReturn)}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
-                        <div>
-                          <span className="text-text-secondary">Taxa Efetiva:</span>
-                          <div className="font-semibold">
-                            {formatPercentage(investment.effectiveRate)}
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-text-secondary">Rendimento Real:</span>
-                          <div className="font-semibold">
-                            {formatCurrency(investment.realReturn)}
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-text-secondary">IR Pago:</span>
-                          <div className="font-semibold">
-                            {formatCurrency(investment.incomeTax)}
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-text-secondary">ROI:</span>
-                          <div className="font-semibold">
-                            {formatPercentage(investment.returnOnInvestment)}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Comparação com Poupança */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle as="h2">💰 Vantagem sobre a Poupança</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  {result.poupancaComparison.map((comparison, index) => (
-                    <div
-                      key={index}
-                      className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4"
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <h4 className="font-semibold text-primary-blue-dark">
-                          {comparison.investment.investmentInfo.name}
-                        </h4>
-                        <div
-                          className={`font-bold ${comparison.additionalReturn > 0 ? "text-growth-green" : "text-system-error"}`}
-                        >
-                          {comparison.additionalReturn > 0 ? "+" : ""}
-                          {formatCurrency(comparison.additionalReturn)}
-                        </div>
-                      </div>
-                      <div className="text-sm text-text-secondary">
-                        <span>
-                          Rendimento {comparison.percentage > 0 ? "superior" : "inferior"} em{" "}
-                        </span>
-                        <span
-                          className={`font-semibold ${comparison.percentage > 0 ? "text-growth-green" : "text-system-error"}`}
-                        >
-                          {Math.abs(comparison.percentage).toFixed(1)}%
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Recomendações */}
-            {result.recommendations.length > 0 && (
-              <Card className="w-full">
-                <CardHeader>
-                  <CardTitle as="h2">💡 Recomendações Personalizadas</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {result.recommendations.map((recommendation, index) => (
-                      <div
-                        key={index}
-                        className="flex items-start space-x-3 rounded-lg border border-growth-green/20 bg-growth-green/10 p-3"
-                      >
-                        <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-growth-green text-xs font-bold text-white">
-                          {index + 1}
-                        </div>
-                        <p className="text-sm text-text-secondary">{recommendation}</p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Alertas sobre Mudanças Tributárias */}
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle as="h2">⚠️ Alertas Importantes - Mudanças 2025/2026</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      📋 MP 1.303/2025 - Nova Tributação
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      A partir de 2025, investimentos em renda fixa podem ter alíquota única de{" "}
-                      <strong>17,5%</strong> de IR, substituindo a tabela regressiva. Acompanhe as
-                      mudanças na legislação.
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-error">
-                      🚨 LCI/LCA - Fim da Isenção 2026
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>ATENÇÃO:</strong> A partir de 2026, LCI e LCA podem perder a isenção
-                      de IR. Aproveite os benefícios fiscais até o final de 2025.
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">📊 Taxas de Referência</h4>
-                    <div className="grid grid-cols-2 gap-3 text-sm md:grid-cols-4">
-                      <div className="text-center">
-                        <div className="font-semibold">CDI</div>
-                        <div className="text-primary-blue-dark">12,57% a.a.</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-semibold">Selic</div>
-                        <div className="text-growth-green">10,50% a.a.</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-semibold">IPCA</div>
-                        <div className="text-system-warning">4,20% a.a.</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-semibold">Poupança</div>
-                        <div className="text-text-secondary">6,17% a.a.</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </>
-        )}
-
-        {/* Conteúdo Educacional */}
-        <Card className="w-full">
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
-            <CardTitle as="h2">
-              📚 Guia Completo: Renda Fixa e Comparação de Investimentos
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Comparação de Investimentos em Renda Fixa
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6 text-text-secondary">
-              {/* O que é Renda Fixa */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  💰 O que é Renda Fixa?
-                </h3>
-                <p className="mb-4">
-                  <strong className="text-primary-blue-dark">Renda fixa</strong> são investimentos
-                  que possuem regras de remuneração definidas no momento da aplicação. Você sabe{" "}
-                  <strong className="text-growth-green">exatamente como</strong> seu dinheiro será
-                  remunerado, seja por uma{" "}
-                  <strong className="text-system-warning">
-                    taxa prefixada, pós-fixada ou híbrida
-                  </strong>
-                  .
-                </p>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      ✅ Vantagens da Renda Fixa:
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Previsibilidade:</strong> Rendimento conhecido antecipadamente
-                      </li>
-                      <li>
-                        • <strong>Baixo risco:</strong> Maioria protegida pelo FGC
-                      </li>
-                      <li>
-                        • <strong>Liquidez:</strong> Alguns permitem resgate a qualquer momento
-                      </li>
-                      <li>
-                        • <strong>Variedade:</strong> Opções para todos os perfis
-                      </li>
-                      <li>
-                        • <strong>Proteção:</strong> Boa proteção contra volatilidade
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      ⚠️ Pontos de Atenção:
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Inflação:</strong> Rendimento real pode ser baixo
-                      </li>
-                      <li>
-                        • <strong>Imposto de Renda:</strong> Tributação regressiva
-                      </li>
-                      <li>
-                        • <strong>Liquidez limitada:</strong> Alguns têm carência
-                      </li>
-                      <li>
-                        • <strong>Oportunidade:</strong> Menor potencial de ganho
-                      </li>
-                      <li>
-                        • <strong>Taxa fixa:</strong> Risco de juros em alta
-                      </li>
-                    </ul>
+            {/* Resumo Geral */}
+            <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-4 text-center">
+                <div className="text-2xl font-bold text-primary-blue">
+                  {currencyBR(result.initialAmount)}
+                </div>
+                <div className="text-sm text-text-secondary">Valor Investido</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-4 text-center">
+                <div className="text-2xl font-bold text-system-info">{result.period} dias</div>
+                <div className="text-sm text-text-secondary">Período</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-4 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {(result.cdiRate * 100).toFixed(2)}%
+                </div>
+                <div className="text-sm text-text-secondary">CDI Atual (a.a.)</div>
+              </div>
+            </div>
+
+            {/* Tabela de Comparação */}
+            <div className="overflow-x-auto">
+              <table className="bg-background-primary w-full rounded-lg">
+                <thead>
+                  <tr className="border-b border-neutral-surface-variant bg-gray-800">
+                    <th className="p-3 text-left text-sm font-semibold text-text-primary">
+                      Investimento
+                    </th>
+                    <th className="p-3 text-right text-sm font-semibold text-text-primary">
+                      Rentabilidade
+                    </th>
+                    <th className="p-3 text-right text-sm font-semibold text-text-primary">
+                      Montante Bruto
+                    </th>
+                    <th className="p-3 text-right text-sm font-semibold text-text-primary">IR</th>
+                    <th className="p-3 text-right text-sm font-semibold text-text-primary">
+                      Montante Líquido
+                    </th>
+                    <th className="p-3 text-right text-sm font-semibold text-text-primary">
+                      Rendimento
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.results.map((item, index) => (
+                    <tr
+                      key={item.investment.id}
+                      className={`border-b border-neutral-surface-variant ${
+                        index === 0
+                          ? "border-l-4 border-l-growth-green bg-gradient-to-r from-growth-green/20 to-growth-green/10"
+                          : "hover:bg-gray-800/50"
+                      }`}
+                    >
+                      <td className="p-3">
+                        <div
+                          className={`font-semibold ${index === 0 ? "text-growth-green" : "text-text-primary"}`}
+                        >
+                          {index === 0 && <span className="mr-2">🏆</span>}
+                          {item.investment.name}
+                        </div>
+                        <div className="text-xs text-text-secondary">
+                          {item.investment.rateType === "percentage_cdi"
+                            ? `${item.investment.rate}% do CDI`
+                            : `${item.investment.rate}% a.a.`}
+                          {item.investment.hasIRExemption && (
+                            <span className="ml-1 text-growth-green">• Isento IR</span>
+                          )}
+                          {index === 0 && (
+                            <span className="ml-1 font-semibold text-growth-green">
+                              MELHOR OPÇÃO
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-right">
+                        <div
+                          className={`font-semibold ${index === 0 ? "text-growth-green" : "text-text-primary"}`}
+                        >
+                          {(item.effectiveRate * 100).toFixed(2)}% a.a.
+                        </div>
+                      </td>
+                      <td className="p-3 text-right">
+                        <div
+                          className={`font-semibold ${index === 0 ? "text-growth-green" : "text-text-primary"}`}
+                        >
+                          {currencyBR(item.finalAmount)}
+                        </div>
+                      </td>
+                      <td className="p-3 text-right">
+                        <div className="font-semibold text-system-error">
+                          {item.irAmount > 0 ? currencyBR(item.irAmount) : "-"}
+                        </div>
+                        {item.irAmount > 0 && (
+                          <div className="text-xs text-text-secondary">
+                            {calculateIRRate(result.period)}% IR
+                          </div>
+                        )}
+                      </td>
+                      <td className="p-3 text-right">
+                        <div
+                          className={`text-lg font-bold ${index === 0 ? "text-xl text-growth-green" : "text-growth-green"}`}
+                        >
+                          {currencyBR(item.netAmount)}
+                          {index === 0 && <span className="ml-2 text-sm">🏆</span>}
+                        </div>
+                      </td>
+                      <td className="p-3 text-right">
+                        <div
+                          className={`font-semibold ${index === 0 ? "text-growth-green" : "text-primary-blue"}`}
+                        >
+                          {currencyBR(item.netInterest)}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Análise da Melhor Opção */}
+            <div className="mt-6 rounded-lg bg-growth-green/10 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">
+                🏆 Melhor Opção: {result.results[0].investment.name}
+              </h4>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div>
+                  <div className="text-sm text-text-secondary">Diferença para o 2º colocado:</div>
+                  <div className="text-lg font-bold text-growth-green">
+                    +{" "}
+                    {currencyBR(result.results[0].netAmount - (result.results[1]?.netAmount || 0))}
                   </div>
                 </div>
-              </section>
-
-              {/* Tipos de Investimento */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  🏦 Principais Tipos de Renda Fixa
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">🏛️ Poupança</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Rendimento:</strong> 6,17% ao ano (2025)
-                      </li>
-                      <li>
-                        • <strong>IR:</strong> Isento de imposto de renda
-                      </li>
-                      <li>
-                        • <strong>Liquidez:</strong> Diária (perde rendimento do mês)
-                      </li>
-                      <li>
-                        • <strong>Mínimo:</strong> R$ 1,00
-                      </li>
-                      <li>
-                        • <strong>Proteção:</strong> FGC até R$ 250 mil
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      🏪 CDB (Certificado de Depósito Bancário)
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Rendimento:</strong> 90% a 120% do CDI
-                      </li>
-                      <li>
-                        • <strong>IR:</strong> Tabela regressiva (22,5% a 15%)
-                      </li>
-                      <li>
-                        • <strong>Liquidez:</strong> Diária ou no vencimento
-                      </li>
-                      <li>
-                        • <strong>Mínimo:</strong> R$ 1.000 (varia por banco)
-                      </li>
-                      <li>
-                        • <strong>Proteção:</strong> FGC até R$ 250 mil
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">
-                      🏡 LCI/LCA (Letras de Crédito)
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Rendimento:</strong> 85% a 95% do CDI
-                      </li>
-                      <li>
-                        • <strong>IR:</strong> Isento até 2025
-                      </li>
-                      <li>
-                        • <strong>Liquidez:</strong> No vencimento (carência 90 dias)
-                      </li>
-                      <li>
-                        • <strong>Mínimo:</strong> R$ 30.000 (maioria)
-                      </li>
-                      <li>
-                        • <strong>Proteção:</strong> FGC até R$ 250 mil
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">🇧🇷 Tesouro Direto</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Selic:</strong> 10,50% a.a. + liquidez diária
-                      </li>
-                      <li>
-                        • <strong>IPCA+:</strong> Taxa fixa + inflação
-                      </li>
-                      <li>
-                        • <strong>Prefixado:</strong> Taxa definida na compra
-                      </li>
-                      <li>
-                        • <strong>IR:</strong> 17,5% (nova regra)
-                      </li>
-                      <li>
-                        • <strong>Custódia:</strong> 0,2% a.a.
-                      </li>
-                    </ul>
+                <div>
+                  <div className="text-sm text-text-secondary">Vantagem fiscal:</div>
+                  <div className="text-lg font-bold text-primary-blue">
+                    {result.results[0].investment.hasIRExemption
+                      ? "Isento de Imposto de Renda"
+                      : `IR: ${currencyBR(result.results[0].irAmount)}`}
                   </div>
                 </div>
-              </section>
+              </div>
+            </div>
 
-              {/* Como Escolher */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  🎯 Como Escolher o Melhor Investimento
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">💡 Para Iniciantes</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • Comece com <strong>Tesouro Selic</strong>
-                      </li>
-                      <li>• Liquidez diária para emergências</li>
-                      <li>• Baixo valor mínimo (R$ 30)</li>
-                      <li>• Risco baixíssimo (governo)</li>
-                      <li>• Boa rentabilidade vs poupança</li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      💰 Para Valores Altos
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>LCI/LCA</strong> até 2025 (isento IR)
-                      </li>
-                      <li>• CDB com taxa acima de 100% CDI</li>
-                      <li>• Diversificar entre bancos</li>
-                      <li>• Respeitar limite FGC (R$ 250 mil)</li>
-                      <li>• Negociar taxa com gerente</li>
-                    </ul>
-                  </div>
-
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      📈 Para Proteção Inflação
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Tesouro IPCA+</strong> para prazos longos
-                      </li>
-                      <li>• Proteção real do poder de compra</li>
-                      <li>• Ideal para aposentadoria</li>
-                      <li>• Taxa fixa + variação IPCA</li>
-                      <li>• Atenção à marcação a mercado</li>
-                    </ul>
+            {/* Explicação da Tabela Regressiva de IR */}
+            <div className="mt-6 rounded-lg border-l-4 border-system-info bg-system-info/10 p-4">
+              <h4 className="mb-3 font-semibold text-system-info">
+                📊 Tabela Regressiva do Imposto de Renda
+              </h4>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+                <div
+                  className={`rounded p-2 ${result.period <= 180 ? "border border-system-error bg-system-error/20" : "bg-gray-800"}`}
+                >
+                  <div className="text-sm font-semibold text-text-primary">Até 180 dias</div>
+                  <div
+                    className={`text-lg font-bold ${result.period <= 180 ? "text-system-error" : "text-text-secondary"}`}
+                  >
+                    22,5%
                   </div>
                 </div>
-              </section>
-
-              {/* Estratégias Avançadas */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  🚀 Estratégias de Diversificação
-                </h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      🎯 Estratégia de Liquidez
-                    </h4>
-                    <div className="space-y-2 text-sm">
-                      <p>
-                        <strong>Reserva de Emergência (40%):</strong>
-                      </p>
-                      <p className="ml-4">• Tesouro Selic ou CDB com liquidez diária</p>
-                      <p>
-                        <strong>Investimentos Médio Prazo (40%):</strong>
-                      </p>
-                      <p className="ml-4">• LCI/LCA com vencimentos escalonados</p>
-                      <p>
-                        <strong>Investimentos Longo Prazo (20%):</strong>
-                      </p>
-                      <p className="ml-4">• Tesouro IPCA+ para proteção inflacionária</p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      ⚖️ Estratégia de Prazo
-                    </h4>
-                    <div className="space-y-2 text-sm">
-                      <p>
-                        <strong>Escada de Vencimentos:</strong>
-                      </p>
-                      <p className="ml-4">• Divida aplicações em prazos diferentes</p>
-                      <p className="ml-4">• Renovação periódica com novas taxas</p>
-                      <p>
-                        <strong>Balanceamento:</strong>
-                      </p>
-                      <p className="ml-4">• 30% curto prazo (até 1 ano)</p>
-                      <p className="ml-4">• 50% médio prazo (1-3 anos)</p>
-                      <p className="ml-4">• 20% longo prazo (3+ anos)</p>
-                    </div>
+                <div
+                  className={`rounded p-2 ${result.period > 180 && result.period <= 360 ? "border border-system-warning bg-system-warning/20" : "bg-gray-800"}`}
+                >
+                  <div className="text-sm font-semibold text-text-primary">181 - 360 dias</div>
+                  <div
+                    className={`text-lg font-bold ${result.period > 180 && result.period <= 360 ? "text-system-warning" : "text-text-secondary"}`}
+                  >
+                    20,0%
                   </div>
                 </div>
-              </section>
-
-              {/* Mudanças 2025/2026 */}
-              <section>
-                <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  ⚠️ Importantes Mudanças 2025/2026
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-error">
-                      🚨 MP 1.303/2025 - Nova Tributação
-                    </h4>
-                    <p className="mb-2 text-sm">
-                      A Medida Provisória 1.303/2025 estabelece{" "}
-                      <strong>alíquota única de 17,5%</strong> para investimentos em renda fixa,
-                      substituindo a tabela regressiva atual.
-                    </p>
-                    <div className="text-sm">
-                      <p>
-                        <strong>Antes:</strong> 22,5% → 20% → 17,5% → 15% (regressiva)
-                      </p>
-                      <p>
-                        <strong>Depois:</strong> 17,5% fixo para todos os prazos
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      📅 Fim da Isenção LCI/LCA (2026)
-                    </h4>
-                    <p className="mb-2 text-sm">
-                      A partir de 2026, <strong>LCI e LCA perdem a isenção</strong> de Imposto de
-                      Renda. Investimentos realizados até 31/12/2025 mantêm o benefício.
-                    </p>
-                    <div className="text-sm">
-                      <p>
-                        <strong>Até 2025:</strong> Isenção total de IR
-                      </p>
-                      <p>
-                        <strong>A partir 2026:</strong> Tributação de 17,5%
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">
-                      💡 Estratégias para 2025
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>
-                        • <strong>Aproveite LCI/LCA</strong> até dezembro de 2025
-                      </li>
-                      <li>
-                        • <strong>Prefira prazos longos</strong> em LCI/LCA (mantêm isenção)
-                      </li>
-                      <li>
-                        • <strong>Diversifique</strong> entre isentos e tributados
-                      </li>
-                      <li>
-                        • <strong>Monitore</strong> aprovação final da MP no Congresso
-                      </li>
-                      <li>
-                        • <strong>Reavalie</strong> estratégia a partir de 2026
-                      </li>
-                    </ul>
+                <div
+                  className={`rounded p-2 ${result.period > 360 && result.period <= 720 ? "border border-primary-blue bg-primary-blue/20" : "bg-gray-800"}`}
+                >
+                  <div className="text-sm font-semibold text-text-primary">361 - 720 dias</div>
+                  <div
+                    className={`text-lg font-bold ${result.period > 360 && result.period <= 720 ? "text-primary-blue" : "text-text-secondary"}`}
+                  >
+                    17,5%
                   </div>
                 </div>
-              </section>
+                <div
+                  className={`rounded p-2 ${result.period > 720 ? "border border-growth-green bg-growth-green/20" : "bg-gray-800"}`}
+                >
+                  <div className="text-sm font-semibold text-text-primary">Acima de 720 dias</div>
+                  <div
+                    className={`text-lg font-bold ${result.period > 720 ? "text-growth-green" : "text-text-secondary"}`}
+                  >
+                    15,0%
+                  </div>
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-text-secondary">
+                💡 <strong>Seu período:</strong> {result.period} dias •{" "}
+                <strong>IR aplicado:</strong> {calculateIRRate(result.period)}%
+                {result.period <= 720 &&
+                  ` • Para chegar a ${result.period > 360 ? "15%" : result.period > 180 ? "17,5%" : "20%"}, invista por ${result.period > 360 ? "720+" : result.period > 180 ? "361+" : "181+"} dias`}
+              </p>
             </div>
           </CardContent>
         </Card>
+      )}
 
-        <FAQ
-          title="Perguntas Frequentes - Calculadora Comparativa de Renda Fixa"
-          items={[
-            {
-              question: "Qual investimento rende mais: CDB, LCI, Tesouro Direto ou Poupança?",
-              answer:
-                "Depende do <strong>prazo, valor e tributação</strong>. <strong>LCI/LCA são isentas de IR</strong>, CDB tem taxa maior mas paga IR, <strong>Tesouro tem liquidez diária</strong>, Poupança rende menos. Nossa calculadora compara automaticamente o rendimento líquido de todos!",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como funciona a tabela regressiva do Imposto de Renda?",
-              answer:
-                "IR decresce com tempo: <strong>22,5% até 180 dias</strong>, 20% até 360 dias, 17,5% até 720 dias, <strong>15% acima de 720 dias</strong>. <strong>Atenção:</strong> MP 1.303/2025 pode mudar para alíquota única de 17,5%. LCI/LCA continuam isentas!",
-              borderColor: "system-warning",
-            },
-            {
-              question: "O que é FGC e como protege meus investimentos?",
-              answer:
-                "<strong>Fundo Garantidor de Créditos</strong> protege até <strong>R$ 250.000 por CPF por banco</strong> em CDB, LCI, LCA e Poupança. Tesouro Direto é garantido pelo Governo Federal. Para valores maiores, diversifique entre instituições diferentes!",
-              borderColor: "system-success",
-            },
-            {
-              question: "Quando escolher Tesouro IPCA+ ao invés de Tesouro Selic?",
-              answer:
-                "<strong>Tesouro IPCA+:</strong> para prazo longo (+3 anos), proteção contra inflação, quando a taxa real é atrativa. <strong>Tesouro Selic:</strong> para reserva de emergência, prazo curto, necessidade de liquidez. Nossa calculadora mostra qual é melhor!",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Posso perder dinheiro investindo em renda fixa?",
-              answer:
-                "O risco é <strong>baixíssimo</strong> com proteção FGC/Governo. Porém, pode haver 'perda real' se: <strong>rendimento < inflação</strong>, venda antecipada do Tesouro com marcação a mercado, ou quebra de instituição acima do FGC. Compare sempre o rendimento real!",
-              borderColor: "system-error-dark",
-            },
-            {
-              question: "Vale a pena investir em renda fixa com a Selic atual?",
-              answer:
-                "<strong>Sim!</strong> Com Selic em 10,50% (2025), temos: <strong>rendimento real positivo</strong> (Selic > IPCA), CDBs pagando até 120% do CDI, segurança em cenário incerto. Momento excelente para renda fixa, mas mantenha diversificação!",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como migrar da poupança para investimentos melhores?",
-              answer:
-                "Transição <strong>gradual e segura</strong>: 1) Mantenha emergência em Tesouro Selic, 2) Migre 20-30% inicialmente, 3) Teste CDB/LCI com prazos diferentes, 4) Compare sempre com nossa calculadora, 5) Aumente gradualmente conforme experiência.",
-              borderColor: "system-info",
-            },
-            {
-              question: "Qual o valor mínimo para começar a investir?",
-              answer:
-                "<strong>Tesouro Direto: R$ 30</strong> (mais acessível), Poupança: R$ 1, <strong>CDB: R$ 1.000-5.000</strong>, LCI/LCA: R$ 30.000. <strong>Dica:</strong> Comece com Tesouro Selic se tem pouco dinheiro - seguro, rentável e líquido!",
-              borderColor: "primary-blue",
-            },
-          ]}
-          tipSection={{
-            title: "Dica de Especialista",
-            content:
-              "Para <strong>maximizar rendimentos</strong>, diversifique entre produtos: 40% Tesouro (liquidez), 30% CDB (rentabilidade), 30% LCI/LCA (isenção fiscal). Sempre compare o rendimento líquido final!",
-          }}
-          footerText="<strong>Quer a melhor escolha?</strong> Nossa calculadora compara automaticamente todos os investimentos e mostra o ranking dos melhores rendimentos líquidos para seu perfil!"
-        />
+      {/* Seção: Renda Fixa - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎯 Renda Fixa – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Conceito de Renda Fixa */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🏦 Conceito de Investimentos em Renda Fixa
+              </h3>
 
-        <RelatedCalculators category="financas" currentCalculatorId="renda-fixa-comparativa" />
-      </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Renda fixa são investimentos onde você empresta dinheiro e recebe de volta
+                    com juros. O retorno é mais previsível que na renda variável, sendo ideal
+                    para reserva de emergência e diversificação de carteira.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Rentabilidade mais previsível</li>
+                    <li>• Diferentes prazos de vencimento</li>
+                    <li>• Garantia do FGC até R$ 250 mil</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Segurança e estabilidade</li>
+                    <li>• Previsibilidade de retornos</li>
+                    <li>• Proteção contra volatilidade</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Fatores Importantes</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Tributação de Imposto de Renda</li>
+                    <li>• Inflação pode corroer ganhos</li>
+                    <li>• Liquidez varia por produto</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Tipos de Investimentos */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📈 Principais Tipos de Investimentos em Renda Fixa
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    🏦 CDB (Certificado de Depósito Bancário)
+                  </h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Título emitido por bancos com rentabilidade baseada no CDI. Possui garantia
+                    do FGC e diferentes prazos de vencimento.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">🏠 LCI/LCA</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Isenção de Imposto de Renda</li>
+                    <li>• Lastreados em crédito imobiliário/agronegócio</li>
+                    <li>• Rentabilidade baseada no CDI</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🏛️ Tesouro Direto</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Títulos do governo federal com alta segurança. Tesouro Selic acompanha
+                    a taxa básica de juros, enquanto IPCA+ protege contra inflação.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-success">💰 Poupança</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Isenção de IR e liquidez diária</li>
+                    <li>• Rentabilidade limitada (70% do CDI)</li>
+                    <li>• Garantia do FGC</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Estratégias de Investimento */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🎯 Estratégias para Otimizar Investimentos em Renda Fixa
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    📊 Diversificação de Prazos
+                  </h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Distribua investimentos em diferentes vencimentos para aproveitar
+                    melhores oportunidades e manter liquidez escalonada.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">⚖️ Balanceamento Tributário</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Combine produtos isentos e tributados</li>
+                    <li>• Aproveite prazo para reduzir IR</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">🔄 Reinvestimento</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Aproveite juros compostos</li>
+                    <li>• Reavalie opções periodicamente</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">
+                    📈 Acompanhamento de Mercado
+                  </h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Monitor taxa Selic e inflação</li>
+                    <li>• Ajuste estratégia conforme cenário</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Produtos de Renda Fixa */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Comparação: Produtos de Renda Fixa
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    CDB
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    LCI/LCA
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Tesouro Direto
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">
+                    Poupança
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Imposto de Renda</td>
+                  <td className="p-3 text-center text-system-error">15% a 22,5%</td>
+                  <td className="p-3 text-center text-growth-green">Isento</td>
+                  <td className="p-3 text-center text-system-error">15% a 22,5%</td>
+                  <td className="p-3 text-center text-growth-green">Isento</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Garantia FGC</td>
+                  <td className="p-3 text-center text-growth-green">Até R$ 250 mil</td>
+                  <td className="p-3 text-center text-growth-green">Até R$ 250 mil</td>
+                  <td className="p-3 text-center text-system-info">Governo Federal</td>
+                  <td className="p-3 text-center text-growth-green">Até R$ 250 mil</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Rentabilidade Típica</td>
+                  <td className="p-3 text-center">95-120% CDI</td>
+                  <td className="p-3 text-center">80-100% CDI</td>
+                  <td className="p-3 text-center">Selic ou IPCA+</td>
+                  <td className="p-3 text-center">70% CDI</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Liquidez</td>
+                  <td className="p-3 text-center">Varia por produto</td>
+                  <td className="p-3 text-center">Carência comum</td>
+                  <td className="p-3 text-center">Diária (Selic)</td>
+                  <td className="p-3 text-center">Diária</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Valor Mínimo</td>
+                  <td className="p-3 text-center">Varia por banco</td>
+                  <td className="p-3 text-center">R$ 1.000+</td>
+                  <td className="p-3 text-center">R$ 30+</td>
+                  <td className="p-3 text-center">Qualquer valor</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Complexidade</td>
+                  <td className="p-3 text-center text-system-warning">Média</td>
+                  <td className="p-3 text-center text-system-warning">Média</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Baixa</td>
+                  <td className="p-3 text-center text-growth-green">Muito baixa</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
+              <p className="text-sm text-text-secondary">
+                Comece com <strong>Tesouro Selic</strong> para aprender sobre renda fixa com
+                alta liquidez e segurança máxima.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">💰 Reserva de Emergência</h4>
+              <p className="text-sm text-text-secondary">
+                Use <strong>LCI/LCA</strong> com liquidez diária ou Tesouro Selic para manter
+                reservas isentas de IR com boa rentabilidade.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📈 Maximizar Ganhos</h4>
+              <p className="text-sm text-text-secondary">
+                Diversifique entre <strong>CDB premium, LCI/LCA e Tesouro IPCA+</strong>
+                para otimizar rentabilidade líquida.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <FAQ
+        title="Perguntas Frequentes - Comparador de Renda Fixa"
+        items={[
+          {
+            question: "Qual é o melhor investimento em renda fixa?",
+            answer:
+              "Não existe um 'melhor' investimento único. Depende do seu perfil, prazo e objetivos. Para reserva de emergência, LCI/LCA com liquidez diária são ideais. Para longo prazo, CDB com boa rentabilidade ou Tesouro IPCA+ podem ser melhores opções.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Como funciona a tabela regressiva do Imposto de Renda?",
+            answer:
+              "O IR sobre renda fixa diminui conforme o tempo: até 180 dias = 22,5%; 181-360 dias = 20%; 361-720 dias = 17,5%; acima de 720 dias = 15%. Investimentos mais longos têm menor tributação.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "LCI/LCA valem a pena mesmo com rentabilidade menor?",
+            answer:
+              "Sim, pois são isentas de IR. Uma LCI a 86% do CDI pode render mais líquido que um CDB a 110% do CDI (tributado), especialmente em prazos menores onde o IR é maior.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Tesouro Selic ou Tesouro IPCA+, qual escolher?",
+            answer:
+              "Tesouro Selic para reserva de emergência (liquidez diária e acompanha a Selic). Tesouro IPCA+ para proteção contra inflação em investimentos de longo prazo (mínimo 2-3 anos).",
+            borderColor: "system-warning",
+          },
+          {
+            question: "A poupança ainda vale a pena?",
+            answer:
+              "A poupança rende apenas 70% do CDI e tem regras específicas de aniversário. Com CDI alto, outros investimentos isentos como LCI/LCA ou Tesouro Selic oferecem melhor rentabilidade com mesma segurança.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Como diversificar investimentos em renda fixa?",
+            answer:
+              "Diversifique por prazos (curto, médio e longo), tipos de investimento (CDB, LCI/LCA, Tesouro), e emissor (diferentes bancos). Mantenha parte em produtos com liquidez diária para emergências.",
+            borderColor: "system-error-dark",
+          },
+        ]}
+        tipSection={{
+          title: "Dica Importante sobre Renda Fixa",
+          content:
+            "<strong>Para otimizar resultados:</strong> combine produtos isentos de IR (LCI/LCA) com tributados de alta rentabilidade (CDB premium), considerando sempre prazo e liquidez necessários.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Renda fixa não é sinônimo de baixa rentabilidade. Com escolha inteligente e diversificação adequada, pode superar a inflação e preservar seu poder de compra."
+      />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Este Comparador de Renda Fixa
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Este{" "}
+              <strong className="text-primary-blue-dark">
+                comparador de investimentos em renda fixa
+              </strong>{" "}
+              utiliza <strong className="text-growth-green">cálculos reais de juros compostos</strong>{" "}
+              e <strong className="text-system-warning">tabela regressiva do IR</strong> para 
+              determinar qual investimento oferece melhor rentabilidade líquida.
+            </p>
+            <p>
+              <strong>Funcionalidades disponíveis:</strong> Compare CDB, LCI/LCA, Tesouro Direto e Poupança 
+              configurando taxas personalizadas, visualize impacto do IR por prazo, analise qual investimento 
+              oferece melhor retorno líquido, e entenda as diferenças entre cada produto.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e simulação de cenários. Para decisões de investimento, considere
+              sempre <strong>análise de risco, liquidez necessária</strong> e consulte um assessor financeiro
+              qualificado.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              💰 Juros compostos • 📊 IR regressivo • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Interface otimizada
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <RelatedCalculators category="financas" currentCalculatorId="renda-fixa-comparativa" />
     </div>
   );
 }
