@@ -63,57 +63,195 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Tesouro Direto 2025 - Simulador Completo com Cupons - ${APP_NAME}` },
+    {
+      title: "Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora Tesouro Direto GRATUITA com simulação completa! Calcule rendimentos, cupons semestrais, impostos e compare todos os títulos: Selic, Prefixado, IPCA+. Indexadores reais atualizados e aportes mensais incluídos.",
+        "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado. Ferramenta gratuita e atualizada.",
     },
     {
       name: "keywords",
       content:
-        "calculadora tesouro direto, tesouro selic, tesouro prefixado, tesouro ipca, cupons semestrais, simulador títulos públicos, rendimento tesouro direto, imposto renda tesouro, taxa selic atual, ipca atual, tesouro nacional, investimento governo, renda fixa, titulo publico brasil, tesouro direto 2025",
+        "calculadora tesouro direto, simulador tesouro direto, tesouro selic, tesouro prefixado, tesouro ipca, resgate antecipado, custódia",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+    },
     {
       property: "og:title",
-      content: `Calculadora Tesouro Direto - Simulação Completa 2025 - ${APP_NAME}`,
+      content: "Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais",
     },
     {
       property: "og:description",
       content:
-        "★ Simule todos os títulos do Tesouro Direto! Calcule cupons, rendimentos, impostos e compare Selic, Prefixado e IPCA+. Indexadores reais e aportes mensais. 100% gratuito!",
+        "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora Tesouro Direto - Simule Tesouro Selic, Prefixado e IPCA+ com dados oficiais",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/financas/tesouro-direto",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora Tesouro Direto com Cupons - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais",
+    },
     {
       name: "twitter:description",
       content:
-        "Simule todos os títulos do Tesouro Direto com cálculo de cupons semestrais, impostos e comparações detalhadas!",
+        "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+. Calcule IR, custódia e resgate antecipado com precisão.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#1e40af" },
-    { name: "theme-color", content: "#1e40af" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora Tesouro Direto - Simule com dados oficiais",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora Tesouro Direto - Simulador com Dados Oficiais 2025",
+        description:
+          "Simulador gratuito de Tesouro Direto com dados oficiais: Tesouro Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, taxas de custódia e resgate antecipado.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-23",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+          name: "Calculadora Tesouro Direto 2025 - Simulador com Dados Oficiais",
+          description:
+            "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Finanças",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Tesouro Direto",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "FinancialProduct",
+          name: "Tesouro Direto",
+          description:
+            "Títulos públicos federais: Tesouro Selic, Prefixado e IPCA+, com segurança do governo",
+          category: "Investment",
+        },
+        featureList: [
+          "Simulação de Tesouro Selic (pós-fixado)",
+          "Simulação de Tesouro Prefixado",
+          "Simulação de Tesouro IPCA+ (híbrido)",
+          "Cálculo de IR regressivo e taxas de custódia",
+          "Simulação de resgate antecipado",
+          "Dados oficiais do Tesouro Nacional",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
+      }),
+    },
   ];
 };
 
@@ -154,18 +292,18 @@ export default function TreasuryDirectCalculator() {
   );
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "tesouro_direto",
-    category: "financas"
+    category: "financas",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("tesouro_direto");
 
   // Efeito para atualizar campos quando um título é selecionado
@@ -343,54 +481,31 @@ export default function TreasuryDirectCalculator() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem isLast>Tesouro Direto</BreadcrumbItem>
-      </Breadcrumb>
+      <nav aria-label="Navegação estrutural">
+        <Breadcrumb>
+          <BreadcrumbItem href="/">Início</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
+          <BreadcrumbItem isLast>Tesouro Direto</BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
 
-      {/* S-Tier Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-        <div className="relative mx-auto max-w-7xl px-6 py-16 text-center lg:px-8 lg:py-24">
-          <div className="mb-6 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-            <span className="mr-2">🏛️</span>
-            Simulador de Títulos Públicos com Cupons
-          </div>
-          
-          <h1 className="mx-auto max-w-4xl text-3xl font-bold tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-            Calculadora do
-            <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-              Tesouro Direto
-            </span>
-          </h1>
-          
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-secondary">
-            Simule investimentos em <strong className="text-finance-gold-dark">títulos públicos</strong> com
-            <strong className="text-system-success"> cálculo de cupons</strong>, impostos e
-            indexadores reais atualizados.
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Simule <strong className="text-growth-green">Tesouro Selic, Prefixado e IPCA+</strong>
+          com <strong className="text-primary-blue-dark">dados atualizados do governo</strong>.
+          Calcule IR, custódia, juros semestrais e resgate antecipado.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🏛️ <strong>Dados Oficiais</strong> • 📊 <strong>IR Regressivo</strong> • 💰{" "}
+            <strong>Custódia Real</strong> • 🔄 <strong>Resgate Antecipado</strong>
           </p>
-          
-          <div className="mt-8 grid grid-cols-1 gap-4 text-center sm:grid-cols-4 lg:gap-6">
-            <div className="rounded-xl bg-finance-gold/10 p-4 ring-1 ring-finance-gold/20">
-              <div className="text-2xl font-bold text-finance-gold-dark">5</div>
-              <div className="text-sm text-text-secondary">Títulos</div>
-            </div>
-            <div className="rounded-xl bg-system-success/10 p-4 ring-1 ring-system-success/20">
-              <div className="text-2xl font-bold text-system-success">💰</div>
-              <div className="text-sm text-text-secondary">Cupons Semestrais</div>
-            </div>
-            <div className="rounded-xl bg-primary-blue/10 p-4 ring-1 ring-primary-blue/20">
-              <div className="text-2xl font-bold text-primary-blue-dark">📊</div>
-              <div className="text-sm text-text-secondary">Selic + IPCA</div>
-            </div>
-            <div className="rounded-xl bg-system-warning/10 p-4 ring-1 ring-system-warning/20">
-              <div className="text-2xl font-bold text-system-warning">🎯</div>
-              <div className="text-sm text-text-secondary">Comparações</div>
-            </div>
-          </div>
         </div>
-      </section>
+      </header>
 
       {/* Calculator Section */}
       <div className="space-y-6">
@@ -704,9 +819,9 @@ export default function TreasuryDirectCalculator() {
               {/* Botões de Ação */}
               {/* Action Buttons - Prominent S-Tier Design */}
               <div className="mt-8 space-y-4">
-                <Button 
-                  onClick={handleCalculate} 
-                  className="h-14 px-12 text-lg font-semibold bg-finance-gold hover:bg-finance-gold-dark text-white shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-200"
+                <Button
+                  onClick={handleCalculate}
+                  className="h-14 transform bg-finance-gold px-12 text-lg font-semibold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:bg-finance-gold-dark hover:shadow-2xl"
                   fullWidth
                 >
                   🏛️ Simular Tesouro Direto
@@ -714,7 +829,7 @@ export default function TreasuryDirectCalculator() {
                 <Button
                   onClick={handleReset}
                   variant="outline"
-                  className="h-12 border-2 border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10 hover:border-finance-gold transition-all duration-200"
+                  className="h-12 border-2 border-finance-gold/30 text-finance-gold transition-all duration-200 hover:border-finance-gold hover:bg-finance-gold/10"
                   fullWidth
                 >
                   🔄 Limpar Campos
@@ -1081,169 +1196,6 @@ export default function TreasuryDirectCalculator() {
         )}
       </div>
 
-      {/* Step-by-step calculations */}
-      {result && (
-        <div className="space-y-6">
-          {/* Calculation Steps */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📊 Cálculo Passo a Passo
-                <Button
-                  onClick={() => setShowSteps(!showSteps)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showSteps ? "Ocultar" : "Mostrar"} Passos
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showSteps && (
-                <div className="space-y-3">
-                  <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      🧮 Cálculos Principais:
-                    </h4>
-                    {result.calculations.stepByStep.map((step, index) => (
-                      <p key={index} className="mb-1 font-mono text-sm text-text-secondary">
-                        {step}
-                      </p>
-                    ))}
-                  </div>
-
-                  {result.calculations.indexerDetails.length > 0 && (
-                    <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-success">
-                        📈 Detalhes dos Indexadores:
-                      </h4>
-                      {result.calculations.indexerDetails.map((detail, index) => (
-                        <p key={index} className="mb-1 font-mono text-sm text-text-secondary">
-                          {detail}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-error">💸 Impostos e Taxas:</h4>
-                    {result.calculations.taxCalculations.map((tax, index) => (
-                      <p key={index} className="mb-1 font-mono text-sm text-text-secondary">
-                        {tax}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Comparisons */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📊 Comparações
-                <Button
-                  onClick={() => setShowComparisons(!showComparisons)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showComparisons ? "Ocultar" : "Mostrar"} Comparações
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showComparisons && (
-                <div className="space-y-3">
-                  <div className="space-y-3">
-                    <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-warning">💰 vs. Poupança</h4>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                          <p className="text-text-secondary">Poupança:</p>
-                          <p className="font-bold">
-                            {result.comparisons.poupanca.finalAmount.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-text-secondary">Vantagem:</p>
-                          <p
-                            className={`font-bold ${result.comparisons.poupanca.difference > 0 ? "text-system-success" : "text-system-error"}`}
-                          >
-                            {result.comparisons.poupanca.difference > 0 ? "+" : ""}
-                            {result.comparisons.poupanca.difference.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">📈 vs. CDI (90%)</h4>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                          <p className="text-text-secondary">CDI 90%:</p>
-                          <p className="font-bold">
-                            {result.comparisons.cdi.finalAmount.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-text-secondary">Vantagem:</p>
-                          <p
-                            className={`font-bold ${result.comparisons.cdi.difference > 0 ? "text-system-success" : "text-system-error"}`}
-                          >
-                            {result.comparisons.cdi.difference > 0 ? "+" : ""}
-                            {result.comparisons.cdi.difference.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-info">📊 vs. IPCA</h4>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div>
-                          <p className="text-text-secondary">IPCA:</p>
-                          <p className="font-bold">
-                            {result.comparisons.ipca.finalAmount.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-text-secondary">Poder de Compra:</p>
-                          <p
-                            className={`font-bold ${result.comparisons.ipca.difference > 0 ? "text-system-success" : "text-system-error"}`}
-                          >
-                            {result.comparisons.ipca.difference > 0 ? "+" : ""}
-                            {result.comparisons.ipca.difference.toLocaleString("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
       {/* Analysis Section */}
       {result && (
         <div className="space-y-6">
@@ -1383,273 +1335,347 @@ export default function TreasuryDirectCalculator() {
         </div>
       )}
 
-      {/* Educational Content Section */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-system-success/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🏛️ Tesouro Direto: Investimento em Títulos Públicos
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
+      <section aria-labelledby="guia-completo-heading">
+        {/* Seção: Tesouro Direto - Guia Completo */}
+        <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+          <CardHeader>
+            <CardTitle
+              as="h2"
+              id="guia-completo-heading"
+              className="text-2xl font-bold text-text-primary"
+            >
+              🏛️ Tesouro Direto – Guia Completo 2025
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              {/* O que é o Tesouro Direto */}
+              <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                  🏛️ O que é o Tesouro Direto?
+                </h3>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div>
+                    <h4 className="mb-3 font-semibold text-growth-green">🔍 Conceito</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Programa que permite pessoas físicas comprarem títulos públicos federais
+                      diretamente do Tesouro Nacional via internet, com segurança máxima do governo.
+                    </p>
+
+                    <h4 className="mb-3 font-semibold text-system-info">📊 Por que Investir</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Segurança do governo federal</li>
+                      <li>• Baixo investimento mínimo (R$ 30)</li>
+                      <li>• Liquidez diária</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                    <ul className="mb-4 space-y-1 text-text-secondary">
+                      <li>• Risco praticamente zero</li>
+                      <li>• Rentabilidade superior à poupança</li>
+                      <li>• Diversas opções de títulos</li>
+                    </ul>
+
+                    <h4 className="mb-3 font-semibold text-system-warning">⚠️ Custos Envolvidos</h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Taxa Tesouro Nacional: 0,20% a.a.</li>
+                      <li>• Taxa da corretora: 0% a 0,50% a.a.</li>
+                      <li>• IR regressivo: 15% a 22,5%</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tipos de Títulos do Tesouro Direto */}
+              <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                  📈 Tipos de Títulos do Tesouro Direto
+                </h3>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div>
+                    <h4 className="mb-3 font-semibold text-primary-blue-dark">📊 Tesouro Selic</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Título pós-fixado que acompanha a taxa Selic. Ideal para reserva de
+                      emergência.
+                    </p>
+
+                    <h4 className="mb-3 font-semibold text-system-info">📈 Características</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Rentabilidade = Taxa Selic</li>
+                      <li>• Baixa volatilidade</li>
+                      <li>• Liquidez diária sem perda</li>
+                      <li>• Proteção contra alta de juros</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="mb-3 font-semibold text-growth-green">🎯 Tesouro Prefixado</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Título com taxa fixa até o vencimento. Ideal para quem quer rentabilidade
+                      garantida.
+                    </p>
+
+                    <h4 className="mb-3 font-semibold text-system-success">💡 Características</h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Taxa fixa conhecida na compra</li>
+                      <li>• Marcação a mercado</li>
+                      <li>• Melhor em cenário de queda de juros</li>
+                      <li>• Previsibilidade total no vencimento</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+                  <h4 className="mb-3 font-semibold text-system-warning">🛡️ Tesouro IPCA+</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Título híbrido que garante rentabilidade real (IPCA + taxa fixa). Protege contra
+                    inflação.
+                  </p>
+                  <ul className="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
+                    <li>• Rentabilidade = IPCA + taxa real</li>
+                    <li>• Proteção contra inflação</li>
+                    <li>• Ideal para longo prazo (5+ anos)</li>
+                    <li>• Versão com juros semestrais disponível</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Dicas para Investir no Tesouro Direto */}
+              <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                  💡 Dicas para Investir no Tesouro Direto
+                </h3>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-error">🚫 Erros Comuns</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Não diversificar entre tipos de títulos</li>
+                      <li>• Resgatar antecipadamente sem necessidade</li>
+                      <li>• Ignorar custos de custódia</li>
+                      <li>• Não considerar cenário econômico</li>
+                    </ul>
+
+                    <h4 className="mb-3 font-semibold text-system-info">💳 Escolha da Corretora</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Prefira corretoras com taxa zero</li>
+                      <li>• Verifique facilidade da plataforma</li>
+                      <li>• Considere investimento mínimo</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-success">✅ Boas Práticas</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Começar com Tesouro Selic</li>
+                      <li>• Diversificar prazos de vencimento</li>
+                      <li>• Acompanhar economia regularmente</li>
+                      <li>• Considerar títulos com juros</li>
+                    </ul>
+
+                    <h4 className="mb-3 font-semibold text-growth-green">
+                      🎯 Estratégias Inteligentes
+                    </h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Escada de vencimentos</li>
+                      <li>• Aproveitar momentos de alta de juros</li>
+                      <li>• Reinvestir juros automaticamente</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <section aria-labelledby="estrategias-heading">
+        {/* Seção: Comparação de Estratégias de Investimento */}
+        <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+          <CardHeader>
+            <CardTitle
+              as="h2"
+              id="estrategias-heading"
+              className="text-xl font-bold text-text-primary"
+            >
+              ⚖️ Comparação: Tesouro Direto vs Outros Investimentos
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b-2 border-neutral-surface-variant">
+                    <th className="p-3 text-left font-semibold">Critério</th>
+                    <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                      Tesouro Selic
+                    </th>
+                    <th className="p-3 text-center font-semibold text-growth-green">
+                      Tesouro Prefixado
+                    </th>
+                    <th className="p-3 text-center font-semibold text-system-warning">
+                      Tesouro IPCA+
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="space-y-2">
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Indexação</td>
+                    <td className="p-3 text-center text-primary-blue-dark">Taxa Selic</td>
+                    <td className="p-3 text-center text-growth-green">Taxa Fixa</td>
+                    <td className="p-3 text-center text-system-warning">IPCA + Taxa Real</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Volatilidade</td>
+                    <td className="p-3 text-center">⭐⭐⭐⭐⭐ (Baixa)</td>
+                    <td className="p-3 text-center">⭐⭐⭐ (Média)</td>
+                    <td className="p-3 text-center">⭐⭐⭐ (Média)</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Liquidez</td>
+                    <td className="p-3 text-center text-growth-green">Diária sem perda</td>
+                    <td className="p-3 text-center">Marcação a mercado</td>
+                    <td className="p-3 text-center">Marcação a mercado</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Valor Mínimo</td>
+                    <td className="p-3 text-center">R$ 100+</td>
+                    <td className="p-3 text-center">R$ 30+</td>
+                    <td className="p-3 text-center">R$ 50+</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Indicado para</td>
+                    <td className="p-3 text-center">Reserva emergência</td>
+                    <td className="p-3 text-center">Queda de juros</td>
+                    <td className="p-3 text-center">Proteção inflação</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-medium">Cenário Ideal</td>
+                    <td className="p-3 text-center text-primary-blue-dark">Juros altos/estáveis</td>
+                    <td className="p-3 text-center text-growth-green">Queda da Selic</td>
+                    <td className="p-3 text-center text-system-warning">Alta inflação</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+                <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
+                <p className="text-sm text-text-secondary">
+                  Comece com <strong>Tesouro Selic</strong> pela alta liquidez e baixa volatilidade.
+                  Perfeito para aprender sobre títulos públicos.
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+                <h4 className="mb-2 font-bold text-growth-green">💰 Reserva de Emergência</h4>
+                <p className="text-sm text-text-secondary">
+                  Use <strong>Tesouro Selic</strong> para reserva de emergência pela liquidez diária
+                  sem perda de rentabilidade.
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+                <h4 className="mb-2 font-bold text-system-warning">📈 Longo Prazo</h4>
+                <p className="text-sm text-text-secondary">
+                  Combine <strong>Tesouro IPCA+</strong> para proteger da inflação com
+                  <strong>Prefixado</strong> se acredita em queda de juros.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <section aria-labelledby="faq-heading">
+        <FAQ
+          id="faq-heading"
+          title="Perguntas Frequentes - Calculadora Tesouro Direto"
+          items={[
+            {
+              question: "Qual título do Tesouro Direto é melhor para iniciantes?",
+              answer:
+                "<strong>Tesouro Selic é ideal para iniciantes!</strong> Tem liquidez diária sem perda, baixa volatilidade e acompanha a taxa básica de juros. É perfeito para <strong>reserva de emergência</strong> e para quem está começando a investir.",
+              borderColor: "growth-green",
+            },
+            {
+              question: "Como funciona o resgate antecipado do Tesouro Direto?",
+              answer:
+                "Você pode resgatar qualquer título antes do vencimento, com liquidez diária. <strong>Tesouro Selic:</strong> praticamente sem perda. <strong>Prefixado e IPCA+:</strong> sujeitos à marcação a mercado (pode ter ganho ou perda conforme variação dos juros).",
+              borderColor: "primary-blue",
+            },
+            {
+              question: "Quais são os custos para investir no Tesouro Direto?",
+              answer:
+                "<strong>Taxa do Tesouro Nacional:</strong> 0,20% ao ano sobre o valor investido. <strong>Taxa da corretora:</strong> varia de 0% a 0,50% ao ano. <strong>Imposto de Renda:</strong> regressivo de 15% a 22,5% sobre o rendimento.",
+              borderColor: "system-info",
+            },
+            {
+              question: "Qual valor mínimo para investir no Tesouro Direto?",
+              answer:
+                "<strong>A partir de R$ 30!</strong> O investimento mínimo é R$ 30 ou 1% do valor do título, o que for maior. Isso torna o Tesouro Direto acessível para qualquer pessoa começar a investir.",
+              borderColor: "system-success",
+            },
+            {
+              question: "Tesouro IPCA+ protege mesmo contra a inflação?",
+              answer:
+                "<strong>Sim, totalmente!</strong> O Tesouro IPCA+ garante rentabilidade real (IPCA + taxa fixa). Se a inflação for 6% e a taxa real 5%, você terá aproximadamente 11,3% de rentabilidade nominal, mantendo seu poder de compra + ganho real.",
+              borderColor: "growth-green",
+            },
+            {
+              question: "É seguro investir no Tesouro Direto?",
+              answer:
+                "<strong>É o investimento mais seguro do Brasil!</strong> Tem garantia do Governo Federal - quem emite o Real e cobra impostos. O risco é praticamente zero, sendo considerado <strong>'livre de risco'</strong> pelos especialistas.",
+              borderColor: "primary-blue",
+            },
+          ]}
+          tipSection={{
+            title: "Dica de Especialista",
+            content:
+              "Para <strong>maximizar seus ganhos no Tesouro Direto</strong>, diversifique entre tipos de títulos: 40% Tesouro Selic (liquidez), 30% IPCA+ (inflação), 30% Prefixado (se acredita em queda de juros). Reinvista os juros automaticamente!",
+          }}
+          footerText="<strong>Pronto para simular?</strong> Nossa calculadora usa dados oficiais do Tesouro Nacional e calcula IR, custódia e todos os custos envolvidos!"
+        />
+
+        {/* Footer com informações adicionais */}
+        <Card className="mt-6 border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+          <CardHeader>
+            <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+              📚 Como Usar Esta Calculadora de Tesouro Direto
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3 text-sm text-text-secondary">
               <p>
-                O <strong className="text-primary-blue-dark">Tesouro Direto</strong> é o programa do
-                <strong className="text-system-success"> Tesouro Nacional</strong> para venda de
-                títulos públicos federais a pessoas físicas, oferecendo{" "}
-                <strong className="text-growth-green">segurança</strong> e
-                <strong className="text-system-info">rentabilidade</strong> superiores à poupança.
+                Esta{" "}
+                <strong className="text-primary-blue-dark">calculadora de Tesouro Direto</strong>{" "}
+                utiliza <strong className="text-growth-green">dados oficiais do governo</strong>{" "}
+                para simular rendimentos de títulos públicos: Selic, Prefixado e IPCA+.
+              </p>
+              <p>
+                <strong>Funcionalidades:</strong> Selecione títulos reais disponíveis para compra,
+                configure aportes mensais, simule resgate antecipado com marcação a mercado, calcule
+                IR regressivo e taxas de custódia.
+              </p>
+              <p>
+                <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+                fins educacionais e simulação de cenários. Para decisões de investimento, consulte
+                sempre um <strong>assessor financeiro qualificado</strong> e considere sua
+                tolerância ao risco.
+              </p>
+              <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+                🏛️ Dados oficiais • 💰 IR calculado • 🔒 Dados não armazenados • 📱 Compatível com
+                todos os dispositivos • 🌙 Interface otimizada
               </p>
             </div>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-primary-blue-dark">
-                  🎯 Tipos de Títulos
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded border border-primary-blue/20 bg-primary-blue/10 p-3">
-                    <p className="mb-1 font-semibold text-system-success">Tesouro Selic:</p>
-                    <p>
-                      Pós-fixado, acompanha 100% da taxa Selic. Ideal para reserva de emergência.
-                    </p>
-                  </div>
-                  <div className="rounded border border-primary-blue/20 bg-primary-blue/10 p-3">
-                    <p className="mb-1 font-semibold text-primary-blue-dark">Tesouro Prefixado:</p>
-                    <p>Taxa fixa definida na compra. Adequado para objetivos de longo prazo.</p>
-                  </div>
-                  <div className="rounded border border-primary-blue/20 bg-primary-blue/10 p-3">
-                    <p className="mb-1 font-semibold text-growth-green">Tesouro IPCA+:</p>
-                    <p>Taxa real + inflação. Proteção do poder de compra no longo prazo.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-system-success/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-system-success">💰 Vantagens</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
-                    <p className="mb-1 font-semibold text-system-success">Segurança Máxima:</p>
-                    <p>Garantido pelo Governo Federal, menor risco de crédito do país.</p>
-                  </div>
-                  <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
-                    <p className="mb-1 font-semibold text-growth-green">Liquidez Diária:</p>
-                    <p>Resgate a qualquer dia útil pelo Tesouro Direto.</p>
-                  </div>
-                  <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
-                    <p className="mb-1 font-semibold text-system-info">Baixo Investimento:</p>
-                    <p>A partir de R$ 30, acessível para todos os perfis.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <FAQ
-        title="Perguntas Frequentes - Calculadora do Tesouro Direto"
-        items={[
-          {
-            question: "O que é Tesouro Direto e por que é o investimento mais seguro?",
-            answer:
-              "Tesouro Direto é o programa do <strong>Governo Federal</strong> para venda de títulos públicos. É o investimento <strong>mais seguro do país</strong> pois tem garantia soberana, risco mínimo de crédito e supervisão do Banco Central. Mínimo R$ 30, liquidez diária!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Qual a diferença entre Tesouro Selic, Prefixado e IPCA+?",
-            answer:
-              "<strong>Tesouro Selic:</strong> 100% da taxa Selic (ideal para reserva). <strong>Tesouro Prefixado:</strong> taxa fixa definida na compra (ideal para objetivos). <strong>Tesouro IPCA+:</strong> taxa real + inflação (proteção contra alta de preços). Escolha conforme seu objetivo!",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Como funcionam os cupons semestrais dos títulos?",
-            answer:
-              "Títulos <strong>com juros semestrais</strong> pagam <strong>cupons a cada 6 meses</strong> na sua conta corrente + principal corrigido no vencimento. Ideais para <strong>renda periódica</strong>. Cupons do IPCA+ são corrigidos pela inflação. IR incide sobre cada cupom!",
-            borderColor: "growth-green",
-          },
-          {
-            question: "O que é marcação a mercado e quando me afeta?",
-            answer:
-              "<strong>Marcação a mercado</strong> = variação do preço conforme juros do mercado. Afeta quem vende <strong>antes do vencimento</strong>. Tesouro Selic quase não sofre, Prefixado sofre mais. <strong>Solução:</strong> manter até vencimento elimina o risco!",
-            borderColor: "system-warning",
-          },
-          {
-            question: "Como funciona a tributação do Tesouro Direto?",
-            answer:
-              "<strong>IR regressivo:</strong> 22,5% até 180 dias, 20% até 360 dias, 17,5% até 720 dias, <strong>15% acima de 720 dias</strong>. <strong>IOF</strong> só primeiros 30 dias. Taxa de custódia: 0,20% ao ano. Quanto mais tempo, menor o imposto!",
-            borderColor: "system-error-dark",
-          },
-          {
-            question: "Qual título escolher para cada objetivo?",
-            answer:
-              "<strong>Reserva emergência:</strong> Tesouro Selic (liquidez diária). <strong>Objetivos longo prazo:</strong> Tesouro Prefixado (taxa fixa). <strong>Proteção inflação:</strong> Tesouro IPCA+. <strong>Renda mensal:</strong> títulos com juros semestrais. Nossa calculadora ajuda a escolher!",
-            borderColor: "system-info",
-          },
-          {
-            question: "Vale a pena investir no Tesouro com a Selic atual?",
-            answer:
-              "<strong>Sim!</strong> Com Selic em 10,50% (2025), Tesouro oferece: <strong>rendimento real positivo</strong>, segurança máxima, liquidez diária (Selic), proteção contra volatilidade. Ideal para construir base sólida da carteira de investimentos!",
-            borderColor: "growth-green",
-          },
-          {
-            question: "Posso fazer aportes mensais no Tesouro Direto?",
-            answer:
-              "<strong>Claro!</strong> Aportes regulares são excelente estratégia para <strong>aproveitar juros compostos</strong> e criar disciplina. Configure débito automático, comece com R$ 30/mês. Nossa calculadora simula aportes mensais com precisão!",
-            borderColor: "primary-blue",
-          },
-        ]}
-        tipSection={{
-          title: "Dica de Especialista",
-          content:
-            "Para <strong>maximizar resultados</strong>, mantenha 30% em Tesouro Selic (liquidez), 40% IPCA+ (proteção inflação), 30% Prefixado (aproveitamento de juros altos). Diversifique prazos e mantenha aportes regulares!",
-        }}
-        footerText="<strong>Quer simular seu investimento?</strong> Nossa calculadora inclui todos os 5 tipos de títulos, cupons semestrais, impostos e comparações para você escolher a melhor estratégia!"
-      />
-
-      {/* Footer */}
-      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora do Tesouro Direto
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3 text-sm text-text-secondary">
-            <p>
-              Esta <strong className="text-primary-blue-dark">calculadora do Tesouro Direto</strong>{" "}
-              é<strong className="text-system-success"> 100% gratuita</strong> e oferece simulações
-              completas para todos os 5 tipos de títulos públicos, incluindo cálculo de cupons
-              semestrais, impostos e comparações.
-            </p>
-            <p>
-              <strong>Funcionalidades:</strong> Simulação de Tesouro Selic, Prefixado, IPCA+,
-              títulos com juros semestrais, cálculo de cupons, impostos (IR regressivo), taxa de
-              custódia, aportes mensais, comparações com outros investimentos e análise de riscos
-              detalhada.
-            </p>
-            <p>
-              <strong className="text-system-warning">Uso Profissional:</strong> Ideal para
-              investidores, consultores financeiros, estudantes de economia e qualquer pessoa
-              interessada em títulos públicos.
-              <strong>
-                Os indexadores podem ser ajustados conforme cenários econômicos atuais.
-              </strong>
-            </p>
-            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🏛️ Baseado nas regras oficiais do Tesouro Direto • 📊 Taxas e indexadores editáveis •
-              🔒 Seus dados não são armazenados • 📱 Interface responsiva • 🌙 Modo escuro
-              disponível • 💰 5 tipos de títulos • 📈 Cupons semestrais
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora do Tesouro Direto",
-            description:
-              "Calculadora online gratuita para simular investimentos em títulos do Tesouro Direto. Calcule cupons semestrais, impostos, rendimentos com indexadores reais atualizados.",
-            url: "https://calculadorasonline.com.br/calculadoras/financas/tesouro-direto",
-            applicationCategory: "FinanceApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Simulação de Tesouro Selic",
-              "Simulação de Tesouro Prefixado",
-              "Simulação de Tesouro IPCA+",
-              "Cálculo de títulos com juros semestrais",
-              "Cálculo de cupons semestrais detalhado",
-              "Cálculo de impostos (IR regressivo)",
-              "Taxa de custódia automática",
-              "Aportes mensais programados",
-              "Comparações com outros investimentos",
-              "Análise de riscos detalhada",
-              "Indexadores econômicos editáveis",
-              "Interface móvel responsiva",
-              "100% gratuito",
-            ],
-            educationalLevel: ["HighSchool", "College", "Professional"],
-            learningResourceType: "Interactive Tool",
-            about: [
-              {
-                "@type": "Thing",
-                name: "Tesouro Direto",
-                description:
-                  "Programa do Tesouro Nacional para venda de títulos públicos a pessoas físicas",
-              },
-              {
-                "@type": "Thing",
-                name: "Títulos Públicos",
-                description: "Investimentos em dívida do governo federal com garantia soberana",
-              },
-              {
-                "@type": "Thing",
-                name: "Cupons Semestrais",
-                description: "Pagamentos periódicos de juros realizados a cada 6 meses",
-              },
-              {
-                "@type": "Thing",
-                name: "Taxa Selic",
-                description: "Taxa básica de juros da economia brasileira",
-              },
-              {
-                "@type": "Thing",
-                name: "IPCA",
-                description: "Índice Nacional de Preços ao Consumidor Amplo - inflação oficial",
-              },
-            ],
-            teaches: [
-              "Como calcular rendimentos do Tesouro Direto",
-              "Diferenças entre tipos de títulos públicos",
-              "Funcionamento dos cupons semestrais",
-              "Cálculo de impostos em títulos públicos",
-              "Comparação entre investimentos de renda fixa",
-              "Análise de riscos em títulos públicos",
-            ],
-            audience: [
-              {
-                "@type": "Audience",
-                name: "Investidores Iniciantes",
-                description: "Pessoas físicas interessadas em começar a investir no Tesouro Direto",
-              },
-              {
-                "@type": "Audience",
-                name: "Investidores Experientes",
-                description: "Investidores que querem comparar diferentes títulos públicos",
-              },
-              {
-                "@type": "Audience",
-                name: "Consultores Financeiros",
-                description: "Profissionais que auxiliam clientes em investimentos",
-              },
-              {
-                "@type": "Audience",
-                name: "Estudantes",
-                description: "Estudantes de economia, administração e finanças",
-              },
-            ],
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
+          </CardContent>
+        </Card>
+      </section>
 
       <RelatedCalculators category="financas" currentCalculatorId="tesouro-direto" />
     </div>
