@@ -15,9 +15,9 @@
     "clean": "rm -rf build .cache",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "indexnow:config": "node scripts/indexnow-simple.js config",
-    "indexnow:main": "node scripts/indexnow-simple.js main",
-    "indexnow:submit": "node scripts/indexnow-simple.js"
+    "indexnow:config": "node scripts/indexnow-submit.js --config",
+    "indexnow:main": "node scripts/indexnow-submit.js --all-main-pages",
+    "indexnow:submit": "node scripts/indexnow-submit.js"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "1.1.12",
