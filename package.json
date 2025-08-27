@@ -14,7 +14,10 @@
     "typecheck": "tsc",
     "clean": "rm -rf build .cache",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "indexnow:config": "node scripts/indexnow-simple.js config",
+    "indexnow:main": "node scripts/indexnow-simple.js main",
+    "indexnow:submit": "node scripts/indexnow-simple.js"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "1.1.12",

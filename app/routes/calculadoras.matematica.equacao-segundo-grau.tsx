@@ -13,6 +13,7 @@ import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
@@ -317,6 +318,12 @@ export default function QuadraticEquationCalculator() {
     category: "matematica",
   });
   useFormTracking("equacao-segundo-grau");
+  
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
 
   const numberBR = (v: number, digits = 2) =>
     new Intl.NumberFormat("pt-BR", {
