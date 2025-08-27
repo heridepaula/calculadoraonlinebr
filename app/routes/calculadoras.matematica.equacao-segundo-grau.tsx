@@ -1,141 +1,458 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  calculateQuadraticEquation,
-  generateQuadraticExamples,
-  type QuadraticEquationParams,
-  type QuadraticEquationResult,
-} from "~/utils/calculations";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Equação 2º Grau Bhaskara 2025 - Resolução Passo a Passo - ${APP_NAME}` },
+    {
+      title:
+        "Calculadora de Equação de Segundo Grau ⚡ Grátis - Bhaskara e Delta | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora de Equação do 2º Grau GRATUITA com fórmula de Bhaskara! Resolva equações quadráticas passo a passo com análise do discriminante, vértice da parábola, raízes reais e complexas. Perfeita para estudantes e professores de matemática.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora equação segundo grau, bhaskara calculadora, equação quadrática, fórmula de bhaskara, discriminante, vértice parábola, raízes reais, raízes complexas, equação ax2+bx+c, resolução passo a passo, matemática ensino médio, função quadrática, delta discriminante, parábola matemática, bhaskara online, equação 2 grau exercícios, raízes equação, fatoração quadrática, gráfico parábola, calculadora matemática",
+        "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas. Ferramenta gratuita para estudantes.",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+    },
     {
       property: "og:title",
-      content: `Calculadora Equação 2º Grau - Fórmula de Bhaskara 2025 - ${APP_NAME}`,
+      content: "Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara",
     },
     {
       property: "og:description",
       content:
-        "★ Resolva equações do 2º grau com Bhaskara passo a passo! Análise completa do discriminante, vértice e raízes. 100% gratuito e educativo!",
+        "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara e Delta",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/matematica/equacao-segundo-grau",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora Bhaskara - Equação 2º Grau - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara",
+    },
     {
       name: "twitter:description",
       content:
-        "Aprenda e resolva equações quadráticas com explicações passo a passo! Discriminante, vértice e todas as propriedades.",
+        "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#3b82f6" },
-    { name: "theme-color", content: "#3b82f6" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2025",
+        description:
+          "Calculadora gratuita e precisa para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-26",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+          name: "Calculadora de Equação de Segundo Grau 2025 - Fórmula de Bhaskara",
+          description:
+            "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Matemática",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Equação de Segundo Grau",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Equações de Segundo Grau",
+          description: "Fórmulas matemáticas para resolver equações quadráticas usando Bhaskara",
+          category: "Mathematics",
+        },
+        featureList: [
+          "Cálculo do discriminante (delta)",
+          "Resolução de raízes reais",
+          "Resolução de raízes complexas",
+          "Fórmula de Bhaskara passo a passo",
+          "Classificação do tipo de raízes",
+          "Fórmulas matemáticas precisas",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é uma equação de segundo grau?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Uma equação de segundo grau é uma equação polinomial do tipo ax² + bx + c = 0, onde a ≠ 0. É chamada de segundo grau porque o maior expoente da variável x é 2.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "O que é o discriminante (Delta) e para que serve?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O discriminante (Δ) é calculado pela fórmula Δ = b² - 4ac. Ele determina a natureza das raízes: se Δ > 0, há duas raízes reais distintas; se Δ = 0, há uma raiz real dupla; se Δ < 0, há duas raízes complexas.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Por que o coeficiente 'a' não pode ser zero?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Se a = 0, a equação se torna bx + c = 0, que é uma equação de primeiro grau, não de segundo grau. Para ser classificada como equação de segundo grau, o termo x² deve estar presente.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "A fórmula de Bhaskara sempre funciona?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim, a fórmula de Bhaskara funciona para qualquer equação de segundo grau com coeficientes reais. É um método universal que sempre encontra as raízes, sejam elas reais ou complexas.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Equação de Segundo Grau",
+        description:
+          "Aprenda a resolver equações de segundo grau usando a fórmula de Bhaskara com nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Identifique os coeficientes",
+            text: "Na equação ax² + bx + c = 0, identifique os valores dos coeficientes a, b e c.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira os coeficientes",
+            text: "Digite os valores dos coeficientes a, b e c nos campos correspondentes. Lembre-se que a ≠ 0.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule a solução",
+            text: "Clique no botão 'Calcular' para obter o discriminante (Δ), as raízes e a resolução passo a passo.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja o valor do Delta, o tipo de raízes obtidas e acompanhe a resolução detalhada usando a fórmula de Bhaskara.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Equação de Segundo Grau Online",
+          },
+        ],
+      }),
+    },
   ];
 };
 
+interface QuadraticResult {
+  delta: number;
+  roots: {
+    x1: number | string;
+    x2: number | string;
+  };
+  rootType: "real_different" | "real_equal" | "complex";
+  equation: string;
+  steps: string[];
+  coefficients: {
+    a: number;
+    b: number;
+    c: number;
+  };
+}
+
+interface ValidationErrors {
+  a?: string;
+  b?: string;
+  c?: string;
+}
+
 export default function QuadraticEquationCalculator() {
+  // Inputs para coeficientes da equação de segundo grau
   const [a, setA] = useState("");
   const [b, setB] = useState("");
   const [c, setC] = useState("");
-  const [precision, setPrecision] = useState("4");
-  const [result, setResult] = useState<QuadraticEquationResult | null>(null);
-  const [showSteps, setShowSteps] = useState(true);
-  const [selectedExample, setSelectedExample] = useState("");
-  const [error, setError] = useState("");
-  const [showGraph, setShowGraph] = useState(false);
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "equacao_segundo_grau",
-    category: "matematica"
+  const [result, setResult] = useState<QuadraticResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "equacao-segundo-grau",
+    category: "matematica",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("equacao_segundo_grau");
+  useFormTracking("equacao-segundo-grau");
+
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const aValue = parseNumber(a);
+    const bValue = parseNumber(b);
+    const cValue = parseNumber(c);
+
+    if (aValue === 0) {
+      newErrors.a = "Coeficiente 'a' não pode ser zero (equação de segundo grau)";
+      ok = false;
+    }
+
+    if (a.trim() === "") {
+      newErrors.a = "Coeficiente 'a' é obrigatório";
+      ok = false;
+    }
+
+    if (b.trim() === "") {
+      newErrors.b = "Coeficiente 'b' é obrigatório";
+      ok = false;
+    }
+
+    if (c.trim() === "") {
+      newErrors.c = "Coeficiente 'c' é obrigatório";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculateQuadratic = (): QuadraticResult => {
+    const aValue = parseNumber(a);
+    const bValue = parseNumber(b);
+    const cValue = parseNumber(c);
+
+    // Calcular o discriminante (delta)
+    const delta = bValue * bValue - 4 * aValue * cValue;
+
+    // Determinar o tipo de raízes
+    let rootType: "real_different" | "real_equal" | "complex";
+    let roots: { x1: number | string; x2: number | string };
+
+    if (delta > 0) {
+      rootType = "real_different";
+      const x1 = (-bValue + Math.sqrt(delta)) / (2 * aValue);
+      const x2 = (-bValue - Math.sqrt(delta)) / (2 * aValue);
+      roots = { x1, x2 };
+    } else if (delta === 0) {
+      rootType = "real_equal";
+      const x = -bValue / (2 * aValue);
+      roots = { x1: x, x2: x };
+    } else {
+      rootType = "complex";
+      const realPart = -bValue / (2 * aValue);
+      const imagPart = Math.sqrt(-delta) / (2 * aValue);
+      roots = {
+        x1: `${numberBR(realPart, 4)} + ${numberBR(imagPart, 4)}i`,
+        x2: `${numberBR(realPart, 4)} - ${numberBR(imagPart, 4)}i`
+      };
+    }
+
+    // Montar a equação
+    let equation = `${aValue}x²`;
+    if (bValue >= 0) equation += ` + ${bValue}x`;
+    else equation += ` - ${Math.abs(bValue)}x`;
+    if (cValue >= 0) equation += ` + ${cValue}`;
+    else equation += ` - ${Math.abs(cValue)}`;
+    equation += " = 0";
+
+    // Passos da resolução
+    const steps = [
+      `Equação: ${equation}`,
+      `Coeficientes: a = ${aValue}, b = ${bValue}, c = ${cValue}`,
+      `Δ = b² - 4ac = (${bValue})² - 4(${aValue})(${cValue})`,
+      `Δ = ${bValue * bValue} - ${4 * aValue * cValue} = ${delta}`
+    ];
+
+    if (delta > 0) {
+      steps.push(
+        `Como Δ > 0, existem duas raízes reais e distintas`,
+        `x₁ = (-b + √Δ) / 2a = (${-bValue} + √${delta}) / ${2 * aValue} = ${numberBR(roots.x1 as number, 4)}`,
+        `x₂ = (-b - √Δ) / 2a = (${-bValue} - √${delta}) / ${2 * aValue} = ${numberBR(roots.x2 as number, 4)}`
+      );
+    } else if (delta === 0) {
+      steps.push(
+        `Como Δ = 0, existe uma raiz real dupla`,
+        `x = -b / 2a = ${-bValue} / ${2 * aValue} = ${numberBR(roots.x1 as number, 4)}`
+      );
+    } else {
+      steps.push(
+        `Como Δ < 0, existem duas raízes complexas conjugadas`,
+        `x₁ = ${roots.x1}`,
+        `x₂ = ${roots.x2}`
+      );
+    }
+
+    return {
+      delta,
+      roots,
+      rootType,
+      equation,
+      steps,
+      coefficients: { a: aValue, b: bValue, c: cValue }
+    };
+  };
 
   const handleCalculate = () => {
-    const aNum = parseFloat(a) || 0;
-    const bNum = parseFloat(b) || 0;
-    const cNum = parseFloat(c) || 0;
-    const precisionNum = parseInt(precision) || 4;
-
-    setError("");
-
-    if (aNum === 0) {
-      setError("O coeficiente 'a' não pode ser zero para uma equação do 2º grau");
-      setResult(null);
-      return;
-    }
-
-    if (isNaN(aNum) || isNaN(bNum) || isNaN(cNum)) {
-      setError("Por favor, insira valores numéricos válidos");
-      setResult(null);
-      return;
-    }
-
+    if (!validateInputs()) return;
+    startCalculation("calcular");
     try {
-      const params: QuadraticEquationParams = {
-        a: aNum,
-        b: bNum,
-        c: cNum,
-        precision: precisionNum,
-      };
-
-      const calculationResult = calculateQuadraticEquation(params);
-      setResult(calculationResult);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro no cálculo");
-      setResult(null);
+      const result = calculateQuadratic();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ a: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
@@ -143,78 +460,12 @@ export default function QuadraticEquationCalculator() {
     setA("");
     setB("");
     setC("");
-    setPrecision("4");
     setResult(null);
-    setError("");
-    setSelectedExample("");
-    setShowGraph(false);
+    setErrors({});
   };
 
-  const loadExample = (exampleId: string) => {
-    const examples = generateQuadraticExamples();
-    const example = examples.find((ex) => ex.type === exampleId || ex.title.includes(exampleId));
-
-    if (example) {
-      setA(example.params.a.toString());
-      setB(example.params.b.toString());
-      setC(example.params.c.toString());
-      setSelectedExample(exampleId);
-      setError("");
-    }
-  };
-
-  const formatNumber = (value: number) => {
-    if (value % 1 === 0) {
-      return value.toString();
-    } else {
-      return value.toFixed(4).replace(/\.?0+$/, "");
-    }
-  };
-
-  const formatEquation = (a: number, b: number, c: number) => {
-    let equation = "";
-
-    // Coefficient a
-    if (a === 1) equation += "x²";
-    else if (a === -1) equation += "-x²";
-    else equation += `${a}x²`;
-
-    // Coefficient b
-    if (b > 0) equation += ` + ${b === 1 ? "" : b}x`;
-    else if (b < 0) equation += ` - ${b === -1 ? "" : Math.abs(b)}x`;
-
-    // Coefficient c
-    if (c > 0) equation += ` + ${c}`;
-    else if (c < 0) equation += ` - ${Math.abs(c)}`;
-
-    return equation + " = 0";
-  };
-
-  const getRootTypeColor = (rootType: string) => {
-    switch (rootType) {
-      case "two_real":
-        return "border-system-success bg-system-success/10";
-      case "one_real":
-        return "border-system-warning bg-system-warning/10";
-      case "complex":
-        return "border-primary-blue bg-primary-blue-light";
-      default:
-        return "border-neutral-surface-variant bg-background-dark-secondary";
-    }
-  };
-
-  const getRootTypeIcon = (rootType: string) => {
-    switch (rootType) {
-      case "two_real":
-        return "✅";
-      case "one_real":
-        return "⚠️";
-      case "complex":
-        return "🔵";
-      default:
-        return "📊";
-    }
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
@@ -222,929 +473,475 @@ export default function QuadraticEquationCalculator() {
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
-        <BreadcrumbItem isLast>Equação do 2º Grau</BreadcrumbItem>
+        <BreadcrumbItem isLast>Equação de Segundo Grau</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-3 text-center sm:space-y-4">
-        <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">Calculadora de Equação do 2º Grau</span>
-          <span className="sm:hidden">Bhaskara</span>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara
         </h1>
-        <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-          Resolva <strong className="text-primary-blue-dark">equações quadráticas</strong> usando a
-          <strong className="text-system-success"> fórmula de Bhaskara</strong> com
-          <strong className="text-growth-green">resolução passo a passo</strong>. Perfeita para
-          estudantes do ensino médio e fundamental.
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Resolva <strong className="text-growth-green">equações de segundo grau</strong> usando a{" "}
+          fórmula de Bhaskara com precisão. Calcule delta, raízes reais e complexas com{" "}
+          <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
+          estudos.
         </p>
-        <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
-          <p className="text-xs font-medium text-text-primary sm:text-sm">
-            📐 <strong>Fórmula de Bhaskara</strong> • 📊 <strong>Análise do Discriminante</strong> •
-            📈 <strong>Propriedades da Parábola</strong>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🔢 <strong>Fórmula de Bhaskara</strong> • 📊 <strong>Delta e Raízes</strong> • 🧮{" "}
+            <strong>Resultados Instantâneos</strong>
           </p>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Left Column - Calculator Inputs */}
-        <div className="space-y-6 lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">🔢 Coeficientes da Equação</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                  <p className="mb-2 text-sm text-text-secondary">
-                    <strong className="text-system-info">Forma geral:</strong>
-                  </p>
-                  <div className="text-center">
-                    <p className="font-mono text-lg font-bold text-primary-blue-dark">
-                      ax² + bx + c = 0
-                    </p>
-                  </div>
-                  <p className="mt-2 text-center text-xs text-text-secondary">onde a ≠ 0</p>
-                </div>
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">🔢 Coeficientes da Equação ax² + bx + c = 0</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">
+              Insira os coeficientes da equação de segundo grau no formato:
+            </p>
+            <div className="mt-2 rounded-lg bg-primary-blue-light p-3">
+              <span className="text-xl font-bold text-primary-blue-dark">ax² + bx + c = 0</span>
+            </div>
+          </div>
 
-                {result && (
-                  <div className="rounded-lg border bg-background-dark-secondary p-4">
-                    <p className="mb-2 text-sm text-text-secondary">
-                      <strong>Sua equação:</strong>
-                    </p>
-                    <p className="text-center font-mono text-lg font-bold text-primary-blue-dark">
-                      {formatEquation(result.a, result.b, result.c)}
-                    </p>
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-text-primary">
-                      Coeficiente a
-                    </label>
-                    <Input
-                      type="number"
-                      value={a}
-                      onChange={(e) => setA(e.target.value)}
-                      placeholder="Ex: 1"
-                      step="any"
-                      required
-                      fullWidth
-                    />
-                    <p className="mt-1 text-xs text-text-secondary">Não pode ser zero</p>
-                  </div>
-
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-text-primary">
-                      Coeficiente b
-                    </label>
-                    <Input
-                      type="number"
-                      value={b}
-                      onChange={(e) => setB(e.target.value)}
-                      placeholder="Ex: -5"
-                      step="any"
-                      fullWidth
-                    />
-                    <p className="mt-1 text-xs text-text-secondary">Pode ser zero</p>
-                  </div>
-
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-text-primary">
-                      Coeficiente c
-                    </label>
-                    <Input
-                      type="number"
-                      value={c}
-                      onChange={(e) => setC(e.target.value)}
-                      placeholder="Ex: 6"
-                      step="any"
-                      fullWidth
-                    />
-                    <p className="mt-1 text-xs text-text-secondary">Pode ser zero</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-end gap-3 sm:flex-row">
-                  <div className="flex-1">
-                    <Select
-                      label="Precisão (casas decimais)"
-                      value={precision}
-                      onChange={(value) => setPrecision(value)}
-                      options={[
-                        { value: "2", label: "2 casas decimais" },
-                        { value: "4", label: "4 casas decimais" },
-                        { value: "6", label: "6 casas decimais" },
-                        { value: "8", label: "8 casas decimais" },
-                      ]}
-                      fullWidth
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="showGraph"
-                      checked={showGraph}
-                      onChange={(e) => setShowGraph(e.target.checked)}
-                      className="rounded border-gray-300"
-                    />
-                    <label
-                      htmlFor="showGraph"
-                      className="whitespace-nowrap text-xs font-medium text-text-primary"
-                    >
-                      Mostrar propriedades
-                    </label>
-                  </div>
-                </div>
-
-                {error && (
-                  <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-3">
-                    <p className="text-sm font-medium text-system-error">{error}</p>
-                  </div>
-                )}
+          {/* Campos de entrada para coeficientes */}
+          <div className="mb-6 flex flex-wrap justify-center gap-4">
+            <div className="w-48">
+              <Input
+                type="number"
+                label="Coeficiente a"
+                value={a}
+                onChange={(e) => setA(e.target.value)}
+                placeholder="1"
+                fullWidth
+                className="h-12 text-lg"
+                step="any"
+              />
+              <ErrorMessage error={errors.a} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Coeficiente do termo x² (não pode ser zero)
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">📚 Exemplos Práticos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <Button
-                  onClick={() => {
-                    setSelectedExample("two_real");
-                    loadExample("two_real");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-system-success">✅ Duas Raízes Reais</div>
-                    <div className="text-xs text-text-secondary">x² - 5x + 6 = 0</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("one_real");
-                    loadExample("one_real");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-system-warning">⚠️ Uma Raiz Real</div>
-                    <div className="text-xs text-text-secondary">x² - 6x + 9 = 0</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("complex");
-                    loadExample("complex");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-primary-blue-dark">🔵 Raízes Complexas</div>
-                    <div className="text-xs text-text-secondary">x² + 2x + 5 = 0</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("application");
-                    loadExample("Movimento projétil");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-growth-green">🚀 Aplicação Física</div>
-                    <div className="text-xs text-text-secondary">-5t² + 20t + 15 = 0</div>
-                  </div>
-                </Button>
+            </div>
+            <div className="w-48">
+              <Input
+                type="number"
+                label="Coeficiente b"
+                value={b}
+                onChange={(e) => setB(e.target.value)}
+                placeholder="0"
+                fullWidth
+                className="h-12 text-lg"
+                step="any"
+              />
+              <ErrorMessage error={errors.b} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Coeficiente do termo x
               </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="w-48">
+              <Input
+                type="number"
+                label="Coeficiente c"
+                value={c}
+                onChange={(e) => setC(e.target.value)}
+                placeholder="0"
+                fullWidth
+                className="h-12 text-lg"
+                step="any"
+              />
+              <ErrorMessage error={errors.c} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Termo independente
+              </div>
+            </div>
+          </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
-            <Button onClick={handleCalculate} className="px-6 sm:px-8" fullWidth>
-              Resolver Equação
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
-              className="border-system-error px-6 text-system-error hover:bg-system-error hover:text-white sm:px-8"
-              fullWidth
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
               Limpar
             </Button>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Right Column - Quick Results */}
-        {result && (
-          <div className="space-y-4">
-            <Card className={`border-2 duration-300 ${getRootTypeColor(result.rootType)}`}>
-              <CardHeader>
-                <CardTitle as="h3" className="text-lg">
-                  {getRootTypeIcon(result.rootType)} Resultado
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="text-center">
-                    <p className="mb-2 text-sm text-text-secondary">Discriminante (Δ)</p>
-                    <div className="mb-2 text-2xl font-bold tabular-nums">
-                      Δ = {formatNumber(result.discriminant)}
-                    </div>
-                  </div>
-
-                  {result.rootType === "two_real" && result.roots.x1 && result.roots.x2 && (
-                    <div className="space-y-2">
-                      <div className="text-center">
-                        <p className="mb-1 text-sm text-text-secondary">Raízes</p>
-                        <div className="font-mono text-lg font-bold text-system-success">
-                          x₁ = {result.roots.x1.formatted}
-                        </div>
-                        <div className="font-mono text-lg font-bold text-system-success">
-                          x₂ = {result.roots.x2.formatted}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {result.rootType === "one_real" && result.roots.x1 && (
-                    <div className="text-center">
-                      <p className="mb-1 text-sm text-text-secondary">Raiz Dupla</p>
-                      <div className="font-mono text-lg font-bold text-system-warning">
-                        x = {result.roots.x1.formatted}
-                      </div>
-                    </div>
-                  )}
-
-                  {result.rootType === "complex" && result.roots.complex && (
-                    <div className="space-y-2">
-                      <div className="text-center">
-                        <p className="mb-1 text-sm text-text-secondary">Raízes Complexas</p>
-                        <div className="font-mono text-sm font-bold text-primary-blue-dark">
-                          x₁ = {result.roots.complex.x1}
-                        </div>
-                        <div className="font-mono text-sm font-bold text-primary-blue-dark">
-                          x₂ = {result.roots.complex.x2}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="rounded bg-background-dark-secondary p-3 text-center">
-                    <p className="text-xs text-text-secondary">{result.interpretation}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {showGraph && (
-              <>
-                <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
-                  <CardHeader>
-                    <CardTitle as="h3" className="text-lg text-growth-green">
-                      📊 Vértice da Parábola
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      <div className="text-center">
-                        <div className="font-mono text-lg font-bold text-growth-green">
-                          V = {result.vertex.formatted}
-                        </div>
-                        <p className="mt-2 text-xs text-text-secondary">
-                          {result.parabola.opensUpward
-                            ? "Parábola para cima (mínimo)"
-                            : "Parábola para baixo (máximo)"}
-                        </p>
-                      </div>
-                      <div className="space-y-1 rounded bg-background-dark-secondary p-2 text-xs">
-                        <div className="flex justify-between">
-                          <span>Eixo de simetria:</span>
-                          <span className="font-mono">
-                            x = {formatNumber(result.parabola.axis)}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Intercepto y:</span>
-                          <span className="font-mono">y = {formatNumber(result.yIntercept)}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-2 border-system-info bg-system-info/10 duration-300">
-                  <CardHeader>
-                    <CardTitle as="h3" className="text-lg text-system-info">
-                      📈 Domínio e Imagem
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3 text-sm">
-                      <div>
-                        <p className="mb-1 font-semibold text-system-info">Domínio:</p>
-                        <p className="font-mono text-xs">{result.domainRange.domain}</p>
-                      </div>
-                      <div>
-                        <p className="mb-1 font-semibold text-system-info">Imagem:</p>
-                        <p className="font-mono text-xs">{result.domainRange.range}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {result.factorization && (
-                  <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-                    <CardHeader>
-                      <CardTitle as="h3" className="text-lg text-primary-blue-dark">
-                        🔧 Fatoração
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2 text-sm">
-                        <div>
-                          <p className="mb-1 text-text-secondary">Forma padrão:</p>
-                          <p className="rounded bg-background-dark-secondary p-2 font-mono text-xs">
-                            {result.factorization.standard}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="mb-1 text-text-secondary">Forma fatorada:</p>
-                          <p className="rounded bg-background-dark-secondary p-2 font-mono text-xs">
-                            {result.factorization.factored}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </>
-            )}
-          </div>
-        )}
-      </div>
-
+      {/* Resultado */}
       {result && (
-        <>
-          {/* Step-by-Step Solution */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📝 Resolução Passo a Passo
-                <Button
-                  onClick={() => setShowSteps(!showSteps)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showSteps ? "Ocultar" : "Mostrar"} Passos
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showSteps && (
-                <div className="space-y-4">
-                  {result.steps.map((step, index) => (
-                    <div
-                      key={index}
-                      className={`rounded-lg border-l-4 p-4 ${
-                        step.step === 1
-                          ? "border-primary-blue bg-primary-blue-light"
-                          : step.step === 2
-                            ? "border-system-info bg-system-info/10"
-                            : step.step === 3
-                              ? "border-growth-green bg-growth-green-soft"
-                              : "border-system-success bg-system-success/10"
-                      }`}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <div
-                          className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${
-                            step.step === 1
-                              ? "bg-primary-blue"
-                              : step.step === 2
-                                ? "bg-system-info"
-                                : step.step === 3
-                                  ? "bg-growth-green"
-                                  : "bg-system-success"
-                          }`}
-                        >
-                          {step.step}
-                        </div>
-                        <div className="flex-grow">
-                          <h4 className="mb-2 font-semibold text-text-primary">{step.title}</h4>
-                          <div className="space-y-2">
-                            <div className="rounded bg-gray-900 p-3 font-mono text-sm">
-                              <p className="mb-1 text-gray-300">Fórmula:</p>
-                              <p className="font-bold text-white">{step.formula}</p>
-                            </div>
-                            <div className="rounded bg-background-dark-secondary p-3">
-                              <p className="mb-1 text-sm text-text-secondary">Cálculo:</p>
-                              <p className="whitespace-pre-line font-semibold">
-                                {step.calculation}
-                              </p>
-                            </div>
-                            <div
-                              className={`rounded p-2 text-center font-bold ${
-                                step.step === 4 && result.hasRealRoots
-                                  ? "bg-system-success text-white"
-                                  : step.step === 4 && !result.hasRealRoots
-                                    ? "bg-primary-blue text-white"
-                                    : "bg-primary-blue-light text-primary-blue-dark"
-                              }`}
-                            >
-                              {step.result}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Equação de Segundo Grau
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary mb-2">Equação</div>
+                <div className="text-2xl font-bold text-primary-blue-dark">{result.equation}</div>
+              </div>
+            </div>
 
-          {/* Examples Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">
-                📖 Exemplos Similares -{" "}
-                {result.rootType === "two_real"
-                  ? "Duas Raízes Reais"
-                  : result.rootType === "one_real"
-                    ? "Uma Raiz Real"
-                    : "Raízes Complexas"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {result.examples.map((example, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4"
-                  >
-                    <h4 className="mb-2 font-bold text-primary-blue-dark">{example.title}</h4>
-                    <p className="mb-3 text-sm text-text-secondary">{example.description}</p>
-                    <div className="rounded bg-gray-900 p-2">
-                      <p className="font-mono text-xs text-gray-300">{example.equation}</p>
-                    </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-3xl font-bold text-system-warning">
+                  {numberBR(result.delta, 2)}
+                </div>
+                <div className="text-sm text-text-secondary">Delta (Δ)</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-xl font-bold text-growth-green">
+                  {typeof result.roots.x1 === 'number' ? numberBR(result.roots.x1, 4) : result.roots.x1}
+                </div>
+                <div className="text-sm text-text-secondary">Raiz x₁</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-xl font-bold text-primary-blue-dark">
+                  {typeof result.roots.x2 === 'number' ? numberBR(result.roots.x2, 4) : result.roots.x2}
+                </div>
+                <div className="text-sm text-text-secondary">Raiz x₂</div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Tipo de Raízes</h4>
+              <div className="text-sm text-text-secondary">
+                {result.rootType === "real_different" && "Duas raízes reais e distintas (Δ > 0)"}
+                {result.rootType === "real_equal" && "Uma raiz real dupla (Δ = 0)"}
+                {result.rootType === "complex" && "Duas raízes complexas conjugadas (Δ < 0)"}
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Resolução Passo a Passo</h4>
+              <div className="space-y-2">
+                {result.steps.map((step, index) => (
+                  <div key={index} className="text-sm text-text-secondary">
+                    <span className="font-medium text-primary-blue-dark">{index + 1}. </span>
+                    {step}
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
-      {/* Educational Content Sections */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-system-success/10 duration-300">
+      {/* Seção: Equações de Segundo Grau - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📐 Equação do 2º Grau: O Guia Completo da Fórmula de Bhaskara
+            🎯 Equações de Segundo Grau – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
-              <p>
-                A <strong className="text-primary-blue-dark">equação do 2º grau</strong> é uma das
-                mais importantes da matemática, representada pela forma{" "}
-                <strong className="text-system-success">ax² + bx + c = 0</strong> onde a ≠ 0. A{" "}
-                <strong className="text-growth-green">fórmula de Bhaskara</strong> é o método
-                clássico para encontrar suas raízes.
+          <div className="space-y-8">
+            {/* Fórmula de Bhaskara */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🔢 Fórmula de Bhaskara
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A fórmula de Bhaskara é utilizada para resolver equações de segundo grau do tipo
+                    ax² + bx + c = 0, onde a ≠ 0.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ = b² - 4ac (discriminante)</li>
+                    <li>• x = (-b ± √Δ) / 2a</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Resolve qualquer equação de 2º grau</li>
+                    <li>• Baseada no discriminante (Δ)</li>
+                    <li>• Determina natureza das raízes</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Física: movimento uniformemente variado</li>
+                    <li>• Economia: maximização de lucros</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Discriminante Delta */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📐 Discriminante (Δ)
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O discriminante determina a natureza das raízes da equação de segundo grau.
+                    Calculado pela fórmula Δ = b² - 4ac.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Interpretação</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ &gt; 0: Duas raízes reais distintas</li>
+                    <li>• Δ = 0: Uma raiz real dupla</li>
+                    <li>• Δ &lt; 0: Duas raízes complexas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Importância</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Determina quantidade de soluções</li>
+                    <li>• Indica se raízes são reais ou complexas</li>
+                    <li>• Facilita análise prévia da equação</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Análise gráfica de parábolas</li>
+                    <li>• Otimização em engenharia</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Tipos de Raízes */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔍 Tipos de Raízes
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Classificação</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    As raízes de uma equação de segundo grau podem ser reais ou complexas,
+                    dependendo do valor do discriminante.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Tipos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Reais distintas (Δ &gt; 0)</li>
+                    <li>• Real dupla (Δ = 0)</li>
+                    <li>• Complexas conjugadas (Δ &lt; 0)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Interpretação Gráfica</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ &gt; 0: Parábola corta eixo x em 2 pontos</li>
+                    <li>• Δ = 0: Parábola toca eixo x em 1 ponto</li>
+                    <li>• Δ &lt; 0: Parábola não toca eixo x</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Exemplos</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• x² - 5x + 6 = 0 (Δ = 1 &gt; 0)</li>
+                    <li>• x² - 4x + 4 = 0 (Δ = 0)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Métodos de Resolução */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Métodos de Resolução de Equações de 2º Grau
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Fórmula de Bhaskara
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Fatoração</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">Completar Quadrado</th>
+                  <th className="p-3 text-center font-semibold text-system-info">Gráfico</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicabilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Universal</td>
+                  <td className="p-3 text-center text-growth-green">Casos específicos</td>
+                  <td className="p-3 text-center text-system-warning">Universal</td>
+                  <td className="p-3 text-center text-system-info">Aproximado</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Dificuldade</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Exata</td>
+                  <td className="p-3 text-center text-growth-green">Exata</td>
+                  <td className="p-3 text-center text-system-warning">Exata</td>
+                  <td className="p-3 text-center text-system-info">Aproximada</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Tempo de Resolução</td>
+                  <td className="p-3 text-center">Rápido</td>
+                  <td className="p-3 text-center">Muito Rápido</td>
+                  <td className="p-3 text-center">Médio</td>
+                  <td className="p-3 text-center">Lento</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Requisitos</td>
+                  <td className="p-3 text-center">Fórmula memorizada</td>
+                  <td className="p-3 text-center">Reconhecer padrões</td>
+                  <td className="p-3 text-center">Técnica avançada</td>
+                  <td className="p-3 text-center">Papel milimetrado</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Melhor Uso</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Geral</td>
+                  <td className="p-3 text-center text-growth-green">Números inteiros</td>
+                  <td className="p-3 text-center text-system-warning">Demonstrações</td>
+                  <td className="p-3 text-center text-system-info">Visualização</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Bhaskara</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>mais confiável</strong> para resolver qualquer equação de segundo grau,
+                especialmente com coeficientes decimais.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-primary-blue-dark">
-                  📊 Fórmula de Bhaskara
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded bg-primary-blue-light p-4">
-                    <p className="mb-2 text-center font-semibold text-primary-blue-dark">
-                      Fórmula Completa:
-                    </p>
-                    <div className="space-y-2 text-center">
-                      <p className="font-mono text-lg">x = (-b ± √Δ) / (2a)</p>
-                      <p className="font-mono text-lg">Δ = b² - 4ac</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-primary-blue-dark">Onde:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>
-                        <strong>a</strong>: coeficiente do termo x² (a ≠ 0)
-                      </li>
-                      <li>
-                        <strong>b</strong>: coeficiente do termo x
-                      </li>
-                      <li>
-                        <strong>c</strong>: termo constante
-                      </li>
-                      <li>
-                        <strong>Δ</strong>: discriminante
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-system-info/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-system-info">
-                  🔍 Análise do Discriminante
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="space-y-3">
-                    <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
-                      <p className="font-semibold text-system-success">
-                        Δ &gt; 0: Duas raízes reais distintas
-                      </p>
-                      <p className="text-xs text-text-secondary">
-                        A parábola corta o eixo x em dois pontos
-                      </p>
-                    </div>
-
-                    <div className="rounded border border-system-warning/20 bg-system-warning/10 p-3">
-                      <p className="font-semibold text-system-warning">
-                        Δ = 0: Uma raiz real (dupla)
-                      </p>
-                      <p className="text-xs text-text-secondary">A parábola tangencia o eixo x</p>
-                    </div>
-
-                    <div className="rounded border border-primary-blue/20 bg-primary-blue-light p-3">
-                      <p className="font-semibold text-primary-blue-dark">
-                        Δ &lt; 0: Duas raízes complexas
-                      </p>
-                      <p className="text-xs text-text-secondary">A parábola não toca o eixo x</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Detailed Educational Content */}
-      <Card className="border-l-4 border-system-info bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🎯 Propriedades da Função Quadrática
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-primary-blue-dark">
-                  📈 Características da Parábola
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">🔄 Concavidade</h4>
-                    <p className="mb-2 text-sm text-text-secondary">
-                      <strong>a &gt; 0:</strong> Parábola para cima (∪) - tem ponto de mínimo
-                      <br />
-                      <strong>a &lt; 0:</strong> Parábola para baixo (∩) - tem ponto de máximo
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">📍 Vértice</h4>
-                    <p className="mb-2 text-sm text-text-secondary">
-                      <strong>Coordenadas:</strong> V = (-b/2a, -Δ/4a)
-                      <br />
-                      <strong>Significado:</strong> Ponto de máximo ou mínimo da função
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      📏 Eixo de Simetria
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Equação:</strong> x = -b/2a
-                      <br />
-                      <strong>Propriedade:</strong> Divide a parábola em duas partes iguais
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-system-success">
-                  🎯 Aplicações Práticas
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-success">
-                      🚀 Física - Movimento Projétil
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Exemplo:</strong> h(t) = -5t² + 20t + 25
-                      <br />
-                      <strong>Aplicação:</strong> Altura de um projétil ao longo do tempo
-                      <br />
-                      <strong>Raízes:</strong> Momentos em que o objeto toca o solo
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-success">
-                      💰 Economia - Lucro Máximo
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Exemplo:</strong> L(x) = -x² + 50x - 400
-                      <br />
-                      <strong>Aplicação:</strong> Lucro em função da quantidade produzida
-                      <br />
-                      <strong>Vértice:</strong> Ponto de lucro máximo
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-success">
-                      🏗️ Engenharia - Otimização
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Exemplo:</strong> A = x(20 - x)
-                      <br />
-                      <strong>Aplicação:</strong> Área máxima com perímetro fixo
-                      <br />
-                      <strong>Solução:</strong> Encontrar dimensões ótimas
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Method Steps Guide */}
-      <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            📋 Guia Passo a Passo para Resolver Equações do 2º Grau
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-              <h3 className="mb-4 text-xl font-bold text-growth-green">🔢 Método Sistemático</h3>
-              <div className="space-y-4">
-                <div className="rounded-lg bg-primary-blue-light p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-primary-blue-dark">
-                    <span className="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary-blue text-sm text-white">
-                      1
-                    </span>
-                    Identificar os Coeficientes
-                  </h4>
-                  <p className="ml-8 text-sm text-text-secondary">
-                    Na equação ax² + bx + c = 0, identifique os valores de a, b e c.
-                    <br />
-                    <strong>Importante:</strong> a ≠ 0 (senão não é equação do 2º grau)
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-system-info">
-                    <span className="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-system-info text-sm text-white">
-                      2
-                    </span>
-                    Calcular o Discriminante
-                  </h4>
-                  <p className="ml-8 text-sm text-text-secondary">
-                    Δ = b² - 4ac
-                    <br />
-                    <strong>Dica:</strong> O valor de Δ determinará o tipo de raízes
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-growth-green">
-                    <span className="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-growth-green text-sm text-white">
-                      3
-                    </span>
-                    Analisar o Discriminante
-                  </h4>
-                  <div className="ml-8 space-y-1 text-sm text-text-secondary">
-                    <p>
-                      <strong>Se Δ &gt; 0:</strong> Duas raízes reais diferentes
-                    </p>
-                    <p>
-                      <strong>Se Δ = 0:</strong> Uma raiz real (dupla)
-                    </p>
-                    <p>
-                      <strong>Se Δ &lt; 0:</strong> Duas raízes complexas (não reais)
-                    </p>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-system-success">
-                    <span className="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-system-success text-sm text-white">
-                      4
-                    </span>
-                    Aplicar a Fórmula de Bhaskara
-                  </h4>
-                  <div className="ml-8 text-sm text-text-secondary">
-                    <p className="mb-2">
-                      <strong>x = (-b ± √Δ) / (2a)</strong>
-                    </p>
-                    <p>
-                      <strong>Se Δ ≥ 0:</strong> x₁ = (-b + √Δ) / (2a) e x₂ = (-b - √Δ) / (2a)
-                    </p>
-                    <p>
-                      <strong>Se Δ &lt; 0:</strong> Raízes complexas com parte imaginária
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">⚡ Fatoração</h4>
+              <p className="text-sm text-text-secondary">
+                Ideal para equações com <strong>coeficientes inteiros</strong> pequenos que permitem
+                fatoração simples.
+              </p>
             </div>
 
             <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-              <h4 className="mb-3 font-semibold text-system-warning">⚠️ Dicas Importantes</h4>
-              <ul className="list-inside list-disc space-y-1 text-sm text-text-secondary">
-                <li>
-                  <strong>Sempre verifique</strong> se a ≠ 0 antes de começar
-                </li>
-                <li>
-                  <strong>Organize a equação</strong> na forma padrão ax² + bx + c = 0
-                </li>
-                <li>
-                  <strong>Cuidado com os sinais</strong> ao identificar os coeficientes
-                </li>
-                <li>
-                  <strong>Substitua as raízes</strong> na equação original para verificar
-                </li>
-                <li>
-                  <strong>Interprete o resultado</strong> no contexto do problema
-                </li>
-              </ul>
+              <h4 className="mb-2 font-bold text-system-warning">📐 Completar Quadrado</h4>
+              <p className="text-sm text-text-secondary">
+                Útil para <strong>compreender geometricamente</strong> e para demonstrações
+                matemáticas avançadas.
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Calculadora de Equação do 2º Grau"
+        title="Perguntas Frequentes - Calculadora de Equação de Segundo Grau"
         items={[
           {
-            question: "O que é uma equação do 2º grau e como resolvê-la?",
+            question: "O que é uma equação de segundo grau?",
             answer:
-              "É uma <strong>equação polinomial</strong> na forma ax² + bx + c = 0, onde a ≠ 0. Resolve-se usando a <strong>fórmula de Bhaskara</strong>: x = (-b ± √Δ)/2a, onde Δ = b² - 4ac. É fundamental para modelar situações que envolvem <strong>relações quadráticas</strong>!",
+              "Uma equação de segundo grau é uma equação polinomial do tipo ax² + bx + c = 0, onde a ≠ 0. É chamada de segundo grau porque o maior expoente da variável x é 2.",
             borderColor: "primary-blue",
           },
           {
-            question: "O que significa o discriminante (Δ) na equação do 2º grau?",
+            question: "O que é o discriminante (Delta) e para que serve?",
             answer:
-              "O <strong>discriminante Δ = b² - 4ac</strong> determina o tipo de raízes: <strong>Δ > 0:</strong> duas raízes reais diferentes, <strong>Δ = 0:</strong> uma raiz dupla, <strong>Δ < 0:</strong> raízes complexas. É essencial para entender o comportamento da parábola!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Como verificar se as raízes encontradas estão corretas?",
-            answer:
-              "<strong>Substitua as raízes na equação original</strong> - o resultado deve ser zero! Exemplo: para x² - 5x + 6 = 0, se x₁ = 2, então (2)² - 5(2) + 6 = 0 ✓. É o método mais confiável para <strong>validar sua solução</strong>!",
+              "O discriminante (Δ) é calculado pela fórmula Δ = b² - 4ac. Ele determina a natureza das raízes: se Δ > 0, há duas raízes reais distintas; se Δ = 0, há uma raiz real dupla; se Δ < 0, há duas raízes complexas.",
             borderColor: "growth-green",
           },
           {
-            question: "Quais são as aplicações práticas das equações do 2º grau?",
+            question: "Por que o coeficiente 'a' não pode ser zero?",
             answer:
-              "<strong>Física:</strong> trajetórias de projéteis, <strong>Economia:</strong> otimização de lucros, <strong>Engenharia:</strong> design de estruturas parabólicas, <strong>Arquitetura:</strong> arcos e pontes. São fundamentais para <strong>modelar fenômenos quadráticos</strong> em diversas áreas!",
+              "Se a = 0, a equação se torna bx + c = 0, que é uma equação de primeiro grau, não de segundo grau. Para ser classificada como equação de segundo grau, o termo x² deve estar presente.",
             borderColor: "system-info",
           },
           {
-            question: "Quando uma equação do 2º grau tem raízes complexas?",
+            question: "Como interpretar raízes complexas?",
             answer:
-              "Quando o <strong>discriminante é negativo (Δ < 0)</strong>. Isso significa que a parábola não toca o eixo x, ficando toda acima ou abaixo dele. As raízes são da forma a ± bi, onde i é a <strong>unidade imaginária</strong>!",
-            borderColor: "primary-blue",
+              "Raízes complexas aparecem quando Δ < 0. Elas são da forma a + bi e a - bi, onde i é a unidade imaginária. Isso significa que a parábola não cruza o eixo x no plano real.",
+            borderColor: "system-warning",
           },
           {
-            question: "Qual a diferença entre vértice e raízes da parábola?",
+            question: "Quais são as aplicações práticas da equação de segundo grau?",
             answer:
-              "<strong>Raízes:</strong> pontos onde a parábola corta o eixo x (f(x) = 0). <strong>Vértice:</strong> ponto de máximo ou mínimo da parábola V = (-b/2a, -Δ/4a). Raízes resolvem equações, vértice resolve <strong>problemas de otimização</strong>!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Como resolver equações do 2º grau sem a fórmula de Bhaskara?",
-            answer:
-              "<strong>Fatoração:</strong> x² - 5x + 6 = (x-2)(x-3) = 0. <strong>Completar quadrados:</strong> transformar em (x+h)² = k. <strong>Método gráfico:</strong> plotar a parábola e observar intersecções. Cada método tem suas <strong>vantagens específicas</strong>!",
+              "Equações de segundo grau são usadas em física (movimento de projéteis), engenharia (otimização de estruturas), economia (maximização de lucros), e geometria (problemas de área).",
             borderColor: "growth-green",
           },
           {
-            question: "A calculadora funciona para todos os tipos de equação do 2º grau?",
+            question: "A fórmula de Bhaskara sempre funciona?",
             answer:
-              "<strong>Sim, absolutamente!</strong> Resolve equações completas (ax² + bx + c = 0), incompletas (ax² + c = 0, ax² + bx = 0), com <strong>coeficientes positivos, negativos, decimais ou fracionários</strong>. Mostra passo a passo e análise completa!",
-            borderColor: "system-warning",
+              "Sim, a fórmula de Bhaskara funciona para qualquer equação de segundo grau com coeficientes reais. É um método universal que sempre encontra as raízes, sejam elas reais ou complexas.",
+            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica de Especialista",
+          title: "Dica Importante sobre Equações de Segundo Grau",
           content:
-            "Sempre <strong>organize a equação na forma padrão</strong> ax² + bx + c = 0 antes de aplicar Bhaskara. Verifique se a ≠ 0 e cuidado com os sinais dos coeficientes - são os erros mais comuns!",
+            "<strong>Para resultados precisos:</strong> sempre verifique se a ≠ 0 e calcule primeiro o discriminante para entender a natureza das raízes antes de aplicar a fórmula de Bhaskara.",
         }}
-        footerText="<strong>Precisa resolver mais equações?</strong> Use nossa calculadora quantas vezes quiser e explore os exemplos práticos para dominar completamente as equações do 2º grau!"
+        footerText="<strong>Lembre-se:</strong> O discriminante (Δ) determina o tipo de raízes. Bhaskara sempre funciona, mas analise primeiro o Δ para compreender o resultado."
       />
 
-      {/* Footer */}
+      {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de Equação do 2º Grau
+            📚 Como Usar Esta Calculadora de Equação de Segundo Grau
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de equação do 2º grau</strong>{" "}
-              é<strong className="text-system-success"> 100% gratuita</strong> e oferece resolução
-              passo a passo usando a fórmula de Bhaskara, com análise completa do discriminante e
-              propriedades da parábola.
+              <strong className="text-primary-blue-dark">calculadora de equação de segundo grau</strong>{" "}
+              utiliza a <strong className="text-growth-green">fórmula de Bhaskara</strong>{" "}
+              para resolver equações do tipo ax² + bx + c = 0 com precisão matemática e resultados
+              instantâneos.
             </p>
             <p>
-              <strong>Recursos inclusos:</strong> Cálculo do discriminante, identificação do tipo de
-              raízes, resolução passo a passo detalhada, análise do vértice e propriedades da
-              parábola, fatoração quando possível, e exemplos práticos contextualizados para
-              diferentes áreas.
+              <strong>Funcionalidades:</strong> Cálculo do discriminante (Δ), determinação do tipo de raízes,
+              resolução passo a passo e apresentação de raízes reais ou complexas conforme o caso.
             </p>
             <p>
-              <strong className="text-system-warning">Uso Educacional:</strong> Esta ferramenta é
-              ideal para estudantes do ensino fundamental e médio, professores de matemática, e
-              profissionais que trabalham com modelagem quadrática.{" "}
-              <strong>Sempre confira os resultados em situações críticas.</strong>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e resolução de exercícios. Para aplicações científicas ou de engenharia
+              que exigem alta precisão, consulte sempre um <strong>profissional qualificado</strong> e
+              considere limitações de precisão numérica.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚖️ Cálculos baseados na fórmula de Bhaskara padronizada • 🎓 Ferramenta educacional
-              gratuita • 🔒 Seus dados não são armazenados • 📱 Responsivo para todos os
-              dispositivos • 🌙 Modo escuro disponível • ✅ Verificação automática de resultados
+              🔎 Foco educacional • 🔢 Fórmula de Bhaskara • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
       </Card>
-
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora de Equação do 2º Grau - Bhaskara",
-            description:
-              "Calculadora online gratuita para resolver equações do 2º grau usando a fórmula de Bhaskara com explicações passo a passo. Ideal para estudantes e professores.",
-            url: "https://calculadorasonline.com.br/calculadoras/matematica/equacao-segundo-grau",
-            applicationCategory: "EducationalApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Fórmula de Bhaskara",
-              "Análise do discriminante",
-              "Resolução passo a passo",
-              "Propriedades da parábola",
-              "Raízes reais e complexas",
-              "Exemplos práticos",
-              "100% gratuito",
-            ],
-            educationalLevel: ["MiddleSchool", "HighSchool"],
-            learningResourceType: "Interactive Tool",
-            about: {
-              "@type": "Thing",
-              name: "Equação do Segundo Grau",
-              description: "Equação polinomial de grau 2 da forma ax² + bx + c = 0",
-            },
-            teaches: [
-              "Fórmula de Bhaskara",
-              "Discriminante",
-              "Função quadrática",
-              "Propriedades da parábola",
-            ],
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
 
       <RelatedCalculators category="matematica" currentCalculatorId="equacao-segundo-grau" />
     </div>
