@@ -18,8 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title:
-        "Calculadora de Equação de Segundo Grau ⚡ Grátis - Bhaskara e Delta | CalculadoraOnlineBR",
+      title: "Calculadora Equação 2º Grau - Bhaskara e Delta 2025 | CalculadoraOnlineBR",
     },
     {
       name: "description",
@@ -102,6 +101,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -475,7 +475,7 @@ export default function QuadraticEquationCalculator() {
     error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -845,7 +845,9 @@ export default function QuadraticEquationCalculator() {
               <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Bhaskara</h4>
               <p className="text-sm text-text-secondary">
                 Método <strong>mais confiável</strong> para resolver qualquer equação de segundo grau,
-                especialmente com coeficientes decimais.
+                especialmente com coeficientes decimais. Saiba mais sobre 
+                <a href="/calculadoras/matematica/porcentagem" className="text-primary-blue-dark underline hover:text-primary-blue font-medium">cálculos de porcentagem</a> 
+                ou explore nossa <a href="/calculadoras/matematica/fracoes" className="text-primary-blue-dark underline hover:text-primary-blue font-medium">calculadora de frações</a>.
               </p>
             </div>
 
@@ -940,7 +942,9 @@ export default function QuadraticEquationCalculator() {
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e resolução de exercícios. Para aplicações científicas ou de engenharia
               que exigem alta precisão, consulte sempre um <strong>profissional qualificado</strong> e
-              considere limitações de precisão numérica.
+              considere limitações de precisão numérica. Explore também nossas calculadoras de 
+              <a href="/calculadoras/matematica/area-perimetro" className="text-primary-blue-dark underline hover:text-primary-blue font-medium">área e perímetro</a> 
+              para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
               🔎 Foco educacional • 🔢 Fórmula de Bhaskara • 🔒 Dados não armazenados • 📱 Compatível
