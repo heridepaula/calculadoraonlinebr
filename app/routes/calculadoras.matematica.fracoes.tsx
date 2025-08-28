@@ -18,14 +18,14 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Frações - Soma, Subtração, Multiplicação e Divisão 2025 | CalculadoraOnlineBR",
+      title: "Calculadora de Frações Online Gratuita - Soma, Subtração, Multiplicação 2025",
     },
     {
       name: "description",
       content:
-        "Calculadora de frações online gratuita. Realize operações com frações: soma, subtração, multiplicação, divisão e simplificação. Ideal para estudantes.",
+        "🔢 Calculadora de frações gratuita e precisa. Realize soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos!",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -41,12 +41,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Frações 2025 – Soma, Subtração, Multiplicação e Divisão",
+      content: "Calculadora de Frações Online Gratuita - Operações Precisas 2025",
     },
     {
       property: "og:description",
       content:
-        "Calculadora de frações gratuita. Realize operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação automática.",
+        "Ferramenta online precisa para operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Gratuita para estudantes!",
     },
     {
       property: "og:image",
@@ -75,12 +75,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Frações 2025 – Operações com Frações",
+      content: "Calculadora de Frações Online Gratuita - Resultados Precisos",
     },
     {
       name: "twitter:description",
       content:
-        "Calculadora de frações online. Realize soma, subtração, multiplicação, divisão e simplificação de frações.",
+        "Ferramenta educacional gratuita para operações com frações. Soma, subtração, multiplicação, divisão e simplificação instantânea. Ideal para estudos!",
     },
     {
       name: "twitter:image",
@@ -98,24 +98,27 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Calculadora Frações" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "keywords", content: "calculadora frações, soma frações, divisão frações, simplificar frações, MMC, MDC" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Frações - Operações com Frações 2025",
+        name: "Calculadora de Frações Online Gratuita - Operações Matemáticas 2025",
         description:
-          "Calculadora gratuita e precisa para realizar operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Ideal para estudantes.",
+          "Ferramenta educacional online gratuita para realizar operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos com explicação passo a passo.",
         url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-26",
+        dateModified: "2025-08-28",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -139,9 +142,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
-          name: "Calculadora de Frações 2025 - Operações com Frações",
+          name: "Calculadora de Frações Online Gratuita - Matemática Educacional",
           description:
-            "Calculadora de frações online para realizar soma, subtração, multiplicação, divisão e simplificação automática de frações.",
+            "Ferramenta educacional online para operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática com explicação passo a passo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -197,8 +200,11 @@ export const meta: MetaFunction = () => {
           "Divisão de frações",
           "Simplificação automática",
           "Conversão para decimal",
+          "Número misto automático",
           "Interface móvel responsiva",
           "Resultados em tempo real",
+          "Explicação passo a passo",
+          "Cálculo de MMC e MDC",
         ],
       }),
     },
