@@ -1,458 +1,555 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useMemo, useCallback, useEffect } from "react";
-import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import {
-  addFractions,
-  subtractFractions,
-  multiplyFractions,
-  divideFractions,
-  parseFraction,
-  simplifyFraction,
-  decimalToFraction,
-  fractionToDecimal,
-  type Fraction,
-} from "~/utils/calculations";
-
-type FractionOperationResult = {
-  result: Fraction;
-  steps: string[];
-  explanation: string;
-};
-
-type FractionConversionResult = {
-  fraction: Fraction;
-  steps: string[];
-};
-
-// Component for real-time result preview
-const ResultPreview = ({ visible, result, label, type = "operation" }: {
-  visible: boolean;
-  result: any;
-  label: string;
-  type?: "operation" | "conversion" | "simplify";
-}) => {
-  if (!visible || !result) return null;
-
-  const formatFraction = (fraction: any): string => {
-    if (!fraction || typeof fraction.numerator !== 'number' || typeof fraction.denominator !== 'number') {
-      return "0/1";
-    }
-    
-    const sign = fraction.isNegative ? "-" : "";
-    return `${sign}${Math.abs(fraction.numerator)}/${Math.abs(fraction.denominator)}`;
-  };
-
-  const getDisplayValue = () => {
-    switch (type) {
-      case "operation":
-        return formatFraction(result.result);
-      case "conversion":
-        return formatFraction(result.fraction);
-      case "simplify":
-        return formatFraction(result.simplified);
-      default:
-        return "";
-    }
-  };
-
-  const getDecimalValue = () => {
-    switch (type) {
-      case "operation":
-        return result.result?.decimal;
-      case "conversion":
-        return result.fraction?.decimal;
-      case "simplify":
-        return result.simplified?.decimal;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className="mt-4 animate-in slide-in-from-top-2 duration-300">
-      <div className="rounded-lg border-2 border-system-success/30 bg-gradient-to-r from-system-success/10 to-growth-green/10 p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-2 h-2 bg-system-success rounded-full animate-pulse"></div>
-          <span className="text-sm font-medium text-system-success">
-            👁️ {label}
-          </span>
-        </div>
-        
-        <div className="text-center">
-          <div className="text-2xl font-bold text-growth-green font-mono">
-            {getDisplayValue()}
-          </div>
-          
-          {getDecimalValue() && (
-            <div className="text-sm text-text-secondary mt-1">
-              ≈ {getDecimalValue().toFixed(4)}
-            </div>
-          )}
-          
-          <div className="text-xs text-text-secondary mt-2 opacity-75">
-            Clique em "Calcular" para ver os passos detalhados
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Frações 2025 - Somar, Subtrair, Multiplicar e Dividir Frações - ${APP_NAME}`,
+      title: "Calculadora de Frações - Soma, Subtração, Multiplicação e Divisão 2025 | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "★ Calculadora de frações GRATUITA e completa! Some, subtraia, multiplique e divida frações com explicações passo a passo. Converta entre frações, decimais e números mistos. Simplifique frações automaticamente com métodos educativos.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora frações, somar frações, subtrair frações, multiplicar frações, dividir frações, simplificar frações, converter decimal fração, números mistos, matemática frações, educação matemática, frações equivalentes, denominador comum, numerador",
+        "Calculadora de frações online gratuita. Realize operações com frações: soma, subtração, multiplicação, divisão e simplificação. Ideal para estudantes.",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+    },
     {
       property: "og:title",
-      content: `Calculadora de Frações - Operações Completas com Explicações - ${APP_NAME}`,
+      content: "Calculadora de Frações 2025 – Soma, Subtração, Multiplicação e Divisão",
     },
     {
       property: "og:description",
       content:
-        "★ Resolva operações com frações passo a passo! Some, subtraia, multiplique, divida e converta frações com métodos educativos. Perfeita para estudos de matemática.",
+        "Calculadora de frações gratuita. Realize operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação automática.",
+    },
+    {
+      property: "og:image",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Frações - Operações Matemáticas com Frações",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/matematica/fracoes",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora de Frações Educativa - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Frações 2025 – Operações com Frações",
+    },
     {
       name: "twitter:description",
       content:
-        "Aprenda e resolva operações com frações! Explicações passo a passo, conversões e simplificações automáticas.",
+        "Calculadora de frações online. Realize soma, subtração, multiplicação, divisão e simplificação de frações.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#3b82f6" },
-    { name: "theme-color", content: "#3b82f6" },
+    {
+      name: "twitter:image",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Frações - Operações Matemáticas",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
-    { rel: "canonical", href: "https://calculadoraonline.com.br/calculadoras/matematica/fracoes" },
-
-    // Structured Data
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: "Calculadora de Frações",
+        "@type": "WebApplication",
+        name: "Calculadora de Frações - Operações com Frações 2025",
         description:
-          "Calculadora online gratuita para operações com frações, conversões e simplificações com explicações passo a passo",
-        url: "https://calculadoraonline.com.br/calculadoras/matematica/fracoes",
+          "Calculadora gratuita e precisa para realizar operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Ideal para estudantes.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-26",
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "BRL",
-          availability: "https://schema.org/InStock",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+          name: "Calculadora de Frações 2025 - Operações com Frações",
+          description:
+            "Calculadora de frações online para realizar soma, subtração, multiplicação, divisão e simplificação automática de frações.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Matemática",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Frações",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Frações",
+          description: "Operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação",
+          category: "Mathematics",
         },
         featureList: [
-          "Somar frações com denominadores diferentes",
-          "Subtrair frações com explicações",
-          "Multiplicar e dividir frações",
-          "Simplificar frações automaticamente",
-          "Converter decimais em frações",
-          "Converter frações em números mistos",
-          "Explicações passo a passo educativas",
+          "Soma de frações",
+          "Subtração de frações",
+          "Multiplicação de frações",
+          "Divisão de frações",
+          "Simplificação automática",
+          "Conversão para decimal",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
         ],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.9",
-          ratingCount: "320",
-          bestRating: "5",
-          worstRating: "1",
-        },
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é uma fração?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Uma fração é um número que representa uma ou mais partes iguais de um todo. É formada por numerador (número superior) e denominador (número inferior), onde o denominador indica em quantas partes o todo foi dividido.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Por que o denominador não pode ser zero?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O denominador zero tornaria a fração indefinida matematicamente, pois representaria uma divisão por zero, que não é permitida na matemática. Sempre verifique se o denominador é diferente de zero.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como somar e subtrair frações?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para somar ou subtrair frações, é necessário igualar os denominadores encontrando o MMC (Mínimo Múltiplo Comum). Depois, some ou subtraia apenas os numeradores, mantendo o denominador comum.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como multiplicar e dividir frações?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para multiplicar frações, multiplique numerador com numerador e denominador com denominador. Para dividir frações, multiplique a primeira fração pelo inverso da segunda.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Frações",
+        description:
+          "Aprenda a realizar operações com frações de forma simples e precisa com nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione a operação",
+            text: "Escolha a operação desejada: soma, subtração, multiplicação ou divisão de frações.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira as frações",
+            text: "Digite os numeradores e denominadores das duas frações nos campos correspondentes. Lembre-se que denominadores não podem ser zero.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule o resultado",
+            text: "Clique no botão 'Calcular' para obter o resultado da operação, a fração simplificada e a resolução passo a passo.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja a fração simplificada, o valor decimal equivalente, o número misto (quando aplicável) e acompanhe a resolução detalhada passo a passo.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Frações Online",
+          },
+        ],
       }),
     },
   ];
 };
 
+interface FractionResult {
+  originalFractions: {
+    fraction1: { numerator: number; denominator: number };
+    fraction2: { numerator: number; denominator: number };
+  };
+  operation: "soma" | "subtracao" | "multiplicacao" | "divisao";
+  result: {
+    numerator: number;
+    denominator: number;
+    decimal: number;
+    mixed?: { whole: number; numerator: number; denominator: number };
+  };
+  simplified: {
+    numerator: number;
+    denominator: number;
+  };
+  steps: string[];
+  commonDenominator?: number;
+}
+
+interface ValidationErrors {
+  numerator1?: string;
+  denominator1?: string;
+  numerator2?: string;
+  denominator2?: string;
+  operation?: string;
+}
+
 export default function FractionCalculator() {
-  const [fraction1Input, setFraction1Input] = useState("");
-  const [fraction2Input, setFraction2Input] = useState("");
-  const [operation, setOperation] = useState<"add" | "subtract" | "multiply" | "divide">("add");
-  const [decimalInput, setDecimalInput] = useState("");
-  const [simplifyInput, setSimplifyInput] = useState("");
+  // Inputs para frações
+  const [numerator1, setNumerator1] = useState("");
+  const [denominator1, setDenominator1] = useState("");
+  const [numerator2, setNumerator2] = useState("");
+  const [denominator2, setDenominator2] = useState("");
+  const [operation, setOperation] = useState<"soma" | "subtracao" | "multiplicacao" | "divisao">("soma");
 
-  const [operationResult, setOperationResult] = useState<FractionOperationResult | null>(null);
-  const [conversionResult, setConversionResult] = useState<FractionConversionResult | null>(null);
-  const [simplifyResult, setSimplifyResult] = useState<{
-    original: Fraction;
-    simplified: Fraction;
-    mixedNumber: string;
-  } | null>(null);
-  const [error, setError] = useState<string>("");
-  const [isCalculating, setIsCalculating] = useState(false);
-  const [showSteps, setShowSteps] = useState(false);
-  const [mobileSection, setMobileSection] = useState<'calculator' | 'result' | 'conversion'>('calculator');
+  const [result, setResult] = useState<FractionResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
     calculatorType: "fracoes",
-    category: "matematica"
+    category: "matematica",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("fracoes");
+  useFormTracking("fracoes");
 
-  // Real-time preview calculation
-  const previewResult = useMemo(() => {
-    if (!fraction1Input || !fraction2Input) return null;
-    
-    try {
-      const fraction1 = parseFraction(fraction1Input);
-      const fraction2 = parseFraction(fraction2Input);
-      
-      if (!fraction1 || !fraction2) return null;
-      
-      switch (operation) {
-        case "add":
-          return addFractions(fraction1, fraction2);
-        case "subtract":
-          return subtractFractions(fraction1, fraction2);
-        case "multiply":
-          return multiplyFractions(fraction1, fraction2);
-        case "divide":
-          return divideFractions(fraction1, fraction2);
-        default:
-          return null;
-      }
-    } catch {
-      return null;
-    }
-  }, [fraction1Input, fraction2Input, operation]);
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
 
-  const previewConversion = useMemo(() => {
-    if (!decimalInput) return null;
-    
-    try {
-      const decimal = parseFloat(decimalInput);
-      if (isNaN(decimal)) return null;
-      return decimalToFraction(decimal);
-    } catch {
-      return null;
-    }
-  }, [decimalInput]);
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
 
-  const previewSimplify = useMemo(() => {
-    if (!simplifyInput) return null;
-    
-    try {
-      const fraction = parseFraction(simplifyInput);
-      if (!fraction) return null;
-      
-      const simplified = simplifyFraction(fraction.numerator, fraction.denominator);
-      return { original: fraction, simplified };
-    } catch {
-      return null;
-    }
-  }, [simplifyInput]);
-
-  // Auto-switch to result section on mobile when result is available
-  useEffect(() => {
-    if (operationResult && window.innerWidth < 1024) {
-      setMobileSection('result');
-    }
-  }, [operationResult]);
-
-  const handleOperation = useCallback(async () => {
-    // Start tracking calculation
-    startCalculation();
-    trackFormSubmission();
-    
-    try {
-      setError("");
-      setIsCalculating(true);
-      
-      // Simular loading para feedback visual
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      const fraction1 = parseFraction(fraction1Input);
-      const fraction2 = parseFraction(fraction2Input);
-
-      if (!fraction1 || !fraction2) {
-        throw new Error("Frações inválidas. Verifique o formato (ex: 1/2, 3/4)");
-      }
-
-      let result: FractionOperationResult;
-
-      switch (operation) {
-        case "add":
-          result = addFractions(fraction1, fraction2);
-          break;
-        case "subtract":
-          result = subtractFractions(fraction1, fraction2);
-          break;
-        case "multiply":
-          result = multiplyFractions(fraction1, fraction2);
-          break;
-        case "divide":
-          result = divideFractions(fraction1, fraction2);
-          break;
-      }
-
-      setOperationResult(result);
-      setShowSteps(false); // Reset steps visibility
-      
-      // Track successful calculation
-      endCalculation(true);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Erro no cálculo";
-      setError(errorMessage);
-      setOperationResult(null);
-      
-      // Track failed calculation
-      endCalculation(false, errorMessage);
-    } finally {
-      setIsCalculating(false);
-    }
-  }, [fraction1Input, fraction2Input, operation, startCalculation, trackFormSubmission, endCalculation]);
-
-  const handleConversion = () => {
-    try {
-      setError("");
-      const decimal = parseFloat(decimalInput);
-      if (isNaN(decimal)) {
-        throw new Error("Digite um número decimal válido");
-      }
-      const result = decimalToFraction(decimal);
-      setConversionResult(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro na conversão");
-      setConversionResult(null);
-    }
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
   };
 
-  const handleSimplify = () => {
-    try {
-      setError("");
-      const fraction = parseFraction(simplifyInput);
-      
-      // Validate fraction object
-      if (!fraction || typeof fraction.numerator !== 'number' || typeof fraction.denominator !== 'number') {
-        throw new Error("Fração inválida. Verifique o formato de entrada.");
-      }
-      
-      const simplified = simplifyFraction(fraction.numerator, fraction.denominator);
-      
-      // Create mixed number if improper fraction
-      let mixedNumber: string;
-      if (simplified.isImproper && Math.abs(simplified.numerator) > simplified.denominator) {
-        const whole = Math.floor(Math.abs(simplified.numerator) / simplified.denominator);
-        const remainder = Math.abs(simplified.numerator) % simplified.denominator;
-        const sign = simplified.numerator < 0 ? '-' : '';
-        
-        if (remainder === 0) {
-          mixedNumber = `${sign}${whole}`;
-        } else {
-          mixedNumber = `${sign}${whole} ${remainder}/${simplified.denominator}`;
-        }
-      } else {
-        mixedNumber = formatFraction(simplified);
-      }
+  // Funções auxiliares para frações
+  const gcd = (a: number, b: number): number => {
+    return b === 0 ? Math.abs(a) : gcd(b, a % b);
+  };
 
-      setSimplifyResult({
-        original: fraction,
-        simplified,
-        mixedNumber,
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro na simplificação");
-      setSimplifyResult(null);
+  const lcm = (a: number, b: number): number => {
+    return Math.abs(a * b) / gcd(a, b);
+  };
+
+  const simplifyFraction = (num: number, den: number): { numerator: number; denominator: number } => {
+    const divisor = gcd(num, den);
+    let numerator = num / divisor;
+    let denominator = den / divisor;
+    
+    // Se o denominador for negativo, move o sinal para o numerador
+    if (denominator < 0) {
+      numerator = -numerator;
+      denominator = -denominator;
+    }
+    
+    return { numerator, denominator };
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const num1 = parseNumber(numerator1);
+    const den1 = parseNumber(denominator1);
+    const num2 = parseNumber(numerator2);
+    const den2 = parseNumber(denominator2);
+
+    if (numerator1.trim() === "") {
+      newErrors.numerator1 = "Numerador da primeira fração é obrigatório";
+      ok = false;
+    }
+
+    if (denominator1.trim() === "") {
+      newErrors.denominator1 = "Denominador da primeira fração é obrigatório";
+      ok = false;
+    } else if (den1 === 0) {
+      newErrors.denominator1 = "Denominador não pode ser zero";
+      ok = false;
+    }
+
+    if (numerator2.trim() === "") {
+      newErrors.numerator2 = "Numerador da segunda fração é obrigatório";
+      ok = false;
+    }
+
+    if (denominator2.trim() === "") {
+      newErrors.denominator2 = "Denominador da segunda fração é obrigatório";
+      ok = false;
+    } else if (den2 === 0) {
+      newErrors.denominator2 = "Denominador não pode ser zero";
+      ok = false;
+    }
+
+    // Validação especial para divisão: o segundo numerador não pode ser zero
+    if (operation === "divisao" && num2 === 0) {
+      newErrors.numerator2 = "Não é possível dividir por fração com numerador zero";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculateFractions = (): FractionResult => {
+    const num1 = parseNumber(numerator1);
+    const den1 = parseNumber(denominator1);
+    const num2 = parseNumber(numerator2);
+    const den2 = parseNumber(denominator2);
+
+    let resultNumerator: number;
+    let resultDenominator: number;
+    const steps: string[] = [];
+    let commonDenominator: number | undefined;
+
+    // Frações originais
+    const fraction1 = { numerator: num1, denominator: den1 };
+    const fraction2 = { numerator: num2, denominator: den2 };
+    
+    steps.push(`Fração 1: ${num1}/${den1}`);
+    steps.push(`Fração 2: ${num2}/${den2}`);
+    steps.push(`Operação: ${operation === "soma" ? "Soma" : operation === "subtracao" ? "Subtração" : operation === "multiplicacao" ? "Multiplicação" : "Divisão"}`);
+
+    switch (operation) {
+      case "soma":
+        commonDenominator = lcm(den1, den2);
+        const newNum1Sum = (num1 * commonDenominator) / den1;
+        const newNum2Sum = (num2 * commonDenominator) / den2;
+        resultNumerator = newNum1Sum + newNum2Sum;
+        resultDenominator = commonDenominator;
+        
+        steps.push(`MMC(${den1}, ${den2}) = ${commonDenominator}`);
+        steps.push(`${num1}/${den1} = ${newNum1Sum}/${commonDenominator}`);
+        steps.push(`${num2}/${den2} = ${newNum2Sum}/${commonDenominator}`);
+        steps.push(`${newNum1Sum}/${commonDenominator} + ${newNum2Sum}/${commonDenominator} = ${resultNumerator}/${resultDenominator}`);
+        break;
+
+      case "subtracao":
+        commonDenominator = lcm(den1, den2);
+        const newNum1Sub = (num1 * commonDenominator) / den1;
+        const newNum2Sub = (num2 * commonDenominator) / den2;
+        resultNumerator = newNum1Sub - newNum2Sub;
+        resultDenominator = commonDenominator;
+        
+        steps.push(`MMC(${den1}, ${den2}) = ${commonDenominator}`);
+        steps.push(`${num1}/${den1} = ${newNum1Sub}/${commonDenominator}`);
+        steps.push(`${num2}/${den2} = ${newNum2Sub}/${commonDenominator}`);
+        steps.push(`${newNum1Sub}/${commonDenominator} - ${newNum2Sub}/${commonDenominator} = ${resultNumerator}/${resultDenominator}`);
+        break;
+
+      case "multiplicacao":
+        resultNumerator = num1 * num2;
+        resultDenominator = den1 * den2;
+        
+        steps.push(`${num1}/${den1} × ${num2}/${den2} = (${num1} × ${num2})/(${den1} × ${den2})`);
+        steps.push(`= ${resultNumerator}/${resultDenominator}`);
+        break;
+
+      case "divisao":
+        // Divisão = multiplicação pelo inverso
+        resultNumerator = num1 * den2;
+        resultDenominator = den1 * num2;
+        
+        steps.push(`${num1}/${den1} ÷ ${num2}/${den2} = ${num1}/${den1} × ${den2}/${num2}`);
+        steps.push(`= (${num1} × ${den2})/(${den1} × ${num2})`);
+        steps.push(`= ${resultNumerator}/${resultDenominator}`);
+        break;
+    }
+
+    // Simplificar o resultado
+    const simplified = simplifyFraction(resultNumerator, resultDenominator);
+    if (simplified.numerator !== resultNumerator || simplified.denominator !== resultDenominator) {
+      const divisor = gcd(resultNumerator, resultDenominator);
+      steps.push(`Simplificando por MDC(${Math.abs(resultNumerator)}, ${Math.abs(resultDenominator)}) = ${divisor}`);
+      steps.push(`${resultNumerator}/${resultDenominator} = ${simplified.numerator}/${simplified.denominator}`);
+    }
+
+    // Calcular decimal
+    const decimal = simplified.numerator / simplified.denominator;
+    
+    // Calcular número misto se necessário
+    let mixed: { whole: number; numerator: number; denominator: number } | undefined;
+    if (Math.abs(simplified.numerator) > Math.abs(simplified.denominator) && simplified.denominator !== 1) {
+      const whole = Math.floor(Math.abs(simplified.numerator) / Math.abs(simplified.denominator));
+      const remainder = Math.abs(simplified.numerator) % Math.abs(simplified.denominator);
+      mixed = {
+        whole: simplified.numerator < 0 ? -whole : whole,
+        numerator: remainder,
+        denominator: Math.abs(simplified.denominator)
+      };
+    }
+
+    return {
+      originalFractions: { fraction1, fraction2 },
+      operation,
+      result: {
+        numerator: resultNumerator,
+        denominator: resultDenominator,
+        decimal,
+        mixed
+      },
+      simplified,
+      steps,
+      commonDenominator
+    };
+  };
+
+  const handleCalculate = () => {
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const result = calculateFractions();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ numerator1: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setFraction1Input("");
-    setFraction2Input("");
-    setDecimalInput("");
-    setSimplifyInput("");
-    setOperationResult(null);
-    setConversionResult(null);
-    setSimplifyResult(null);
-    setError("");
+    setNumerator1("");
+    setDenominator1("");
+    setNumerator2("");
+    setDenominator2("");
+    setOperation("soma");
+    setResult(null);
+    setErrors({});
   };
 
-  const formatFraction = (fraction: Fraction): string => {
-    if (!fraction || typeof fraction.numerator !== 'number' || typeof fraction.denominator !== 'number') {
-      return "0/1";
-    }
-    
-    const sign = fraction.isNegative ? "-" : "";
-    return `${sign}${Math.abs(fraction.numerator)}/${Math.abs(fraction.denominator)}`;
-  };
-
-  const formatMixedNumber = (mixedNumber: { whole: number; fraction: Fraction }): string => {
-    if (!mixedNumber || typeof mixedNumber.whole !== 'number' || !mixedNumber.fraction) {
-      return "0";
-    }
-    
-    if (!mixedNumber.fraction.numerator || !mixedNumber.fraction.denominator) {
-      return mixedNumber.whole.toString();
-    }
-    
-    if (mixedNumber.whole === 0) {
-      return `${mixedNumber.fraction.numerator}/${mixedNumber.fraction.denominator}`;
-    }
-
-    if (mixedNumber.fraction.numerator === 0) {
-      return mixedNumber.whole.toString();
-    }
-
-    const sign = mixedNumber.whole < 0 ? "-" : "";
-    const whole = Math.abs(mixedNumber.whole);
-
-    return `${sign}${whole} ${mixedNumber.fraction.numerator}/${mixedNumber.fraction.denominator}`;
-  };
-
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -462,747 +559,552 @@ export default function FractionCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          🧮 Calculadora de Frações Online
+          Calculadora de Frações 2025 – Soma, Subtração, Multiplicação e Divisão
         </h1>
-        <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark">
-          Resolva <strong className="text-primary-blue-dark">operações com frações</strong> de forma
-          educativa e precisa.
-          <strong className="text-growth-green">Some, subtraia, multiplique, divida</strong> e
-          converta frações com
-          <strong className="text-system-warning"> explicações passo a passo</strong> detalhadas.
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Realize <strong className="text-growth-green">operações com frações</strong> de forma simples e precisa. Calcule soma, subtração, multiplicação, divisão e simplificação com{" "}
+          <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
+          estudos.
         </p>
-        <div className="inline-block rounded-lg bg-gradient-to-r from-primary-blue-light via-growth-green-soft to-system-warning/20 p-4 duration-300">
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            📚 <strong>Método Educativo</strong> • ⚡ <strong>Cálculo Instantâneo</strong> • 🔄{" "}
-            <strong>Conversões Automáticas</strong> • 📊 <strong>Simplificação Inteligente</strong>
+            🔢 <strong>Operações com Frações</strong> • 📊 <strong>Simplificação Automática</strong> • 🧮{" "}
+            <strong>Resultados Instantâneos</strong>
           </p>
         </div>
       </header>
 
-      {error && (
-        <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4 text-center">
-          <p className="font-medium text-system-error">{error}</p>
-        </div>
-      )}
-
-      {/* Mobile Navigation */}
-      <div className="lg:hidden">
-        <div className="flex rounded-lg bg-background-dark-secondary p-1">
-          <button 
-            onClick={() => setMobileSection('calculator')}
-            className={`flex-1 py-2 px-3 text-center rounded-md text-sm font-medium transition-colors ${
-              mobileSection === 'calculator' 
-                ? 'bg-primary-blue text-white' 
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            🧮 Calcular
-          </button>
-          <button 
-            onClick={() => setMobileSection('result')}
-            className={`flex-1 py-2 px-3 text-center rounded-md text-sm font-medium transition-colors ${
-              mobileSection === 'result' 
-                ? 'bg-system-success text-white' 
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            📊 Resultado
-          </button>
-          <button 
-            onClick={() => setMobileSection('conversion')}
-            className={`flex-1 py-2 px-3 text-center rounded-md text-sm font-medium transition-colors ${
-              mobileSection === 'conversion' 
-                ? 'bg-system-warning text-white' 
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            🔄 Outros
-          </button>
-        </div>
-      </div>
-
-      {/* Layout Principal - UX Otimizado com 2 colunas principais */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        
-        {/* Coluna 1: Input e Controles (lg:col-span-1) */}
-        <div className={`${mobileSection !== 'calculator' ? 'hidden lg:block' : ''}`}>
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">🔢 Operações com Frações</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <Input
-                    label="Primeira Fração"
-                    value={fraction1Input}
-                    onChange={(e) => setFraction1Input(e.target.value)}
-                    placeholder="Ex: 3/4, 2 1/3, 5"
-                    fullWidth
-                  />
-                  <Input
-                    label="Segunda Fração"
-                    value={fraction2Input}
-                    onChange={(e) => setFraction2Input(e.target.value)}
-                    placeholder="Ex: 1/2, 3 2/5, 7"
-                    fullWidth
-                  />
-                </div>
-
-                <Select
-                  label="Operação"
-                  value={operation}
-                  onChange={(value) => setOperation(value as any)}
-                  options={[
-                    { value: "add", label: "➕ Somar (+)" },
-                    { value: "subtract", label: "➖ Subtrair (-)" },
-                    { value: "multiply", label: "✖️ Multiplicar (×)" },
-                    { value: "divide", label: "➗ Dividir (÷)" },
-                  ]}
-                  fullWidth
-                />
-
-                {/* Preview em tempo real - Posicionado estrategicamente */}
-                <ResultPreview 
-                  visible={!!previewResult}
-                  result={previewResult}
-                  label="⚡ Resultado Instantâneo"
-                  type="operation"
-                />
-
-                <div className="rounded-lg bg-system-info/10 p-3 text-xs text-text-secondary">
-                  <p>
-                    <strong>💡 Formatos aceitos:</strong>
-                  </p>
-                  <ul className="mt-1 list-inside list-disc space-y-1">
-                    <li>
-                      <strong>Fração simples:</strong> 3/4, 5/8, 7/2
-                    </li>
-                    <li>
-                      <strong>Número misto:</strong> 2 1/3, 3 2/5, 1 4/7
-                    </li>
-                    <li>
-                      <strong>Número inteiro:</strong> 5, 10, -3
-                    </li>
-                    <li>
-                      <strong>Frações negativas:</strong> -2/3, -1 1/2
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="flex gap-4">
-                  <Button 
-                    onClick={handleOperation} 
-                    className="flex-1"
-                    disabled={isCalculating || !fraction1Input || !fraction2Input}
-                  >
-                    {isCalculating ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Calculando...
-                      </div>
-                    ) : (
-                      "Calcular"
-                    )}
-                  </Button>
-                  <Button onClick={handleReset} variant="outline" className="flex-1">
-                    Limpar
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Coluna 2: Resultado Principal Unificado (lg:col-span-1) */}
-        <div className={`${mobileSection !== 'result' ? 'hidden lg:block' : ''}`}>
-          {/* Resultado Principal - Design UX Otimizado */}
-          {operationResult ? (
-            <Card className="sticky top-4 border-2 border-system-success/30 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-system-success/10 to-growth-green/10">
-                <CardTitle as="h3" className="flex items-center justify-between">
-                  <span className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-system-success rounded-full animate-pulse"></div>
-                    <span className="text-system-success">✅ Resultado Calculado</span>
-                  </span>
-                  <Button
-                    onClick={() => {
-                      const newShowSteps = !showSteps;
-                      setShowSteps(newShowSteps);
-                      trackStepsToggle(newShowSteps);
-                    }}
-                    variant="outline"
-                    className="text-sm border-system-success/30 hover:bg-system-success/10"
-                  >
-                    {showSteps ? "➖ Ocultar" : "➕ Ver"} Passos
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {/* Resultado Principal com hierarquia visual melhorada */}
-                  <div className="rounded-xl bg-gradient-to-br from-growth-green-soft/20 via-primary-blue-light/20 to-system-success/10 p-8 text-center border border-system-success/20 animate-in zoom-in-50 duration-500">
-                    
-                    {/* Expressão da operação */}
-                    <div className="mb-4 text-xl font-semibold text-text-primary bg-white/50 rounded-lg p-3 border">
-                      <span className="text-primary-blue-dark font-mono">{fraction1Input}</span>
-                      <span className="mx-3 text-2xl">
-                        {operation === "add"
-                          ? "➕"
-                          : operation === "subtract"
-                            ? "➖"
-                            : operation === "multiply"
-                              ? "✖️"
-                              : "➗"}
-                      </span>
-                      <span className="text-primary-blue-dark font-mono">{fraction2Input}</span>
-                      <span className="mx-3 text-2xl">=</span>
-                    </div>
-                    
-                    {/* Resultado principal - Hierarquia visual forte */}
-                    <div className="mb-4">
-                      <div className="text-5xl md:text-6xl font-bold text-growth-green font-mono mb-2 leading-tight">
-                        {formatFraction(operationResult.result)}
-                      </div>
-                      {operationResult.result.decimal && (
-                        <div className="text-xl text-text-secondary-dark font-medium">
-                          ≈ <span className="font-mono">{operationResult.result.decimal.toFixed(4)}</span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Explicação com melhor legibilidade */}
-                    <div className="bg-white/70 rounded-lg p-4 border border-system-success/20">
-                      <p className="text-sm font-medium text-text-primary">
-                        💡 {operationResult.explanation}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Passos detalhados com design melhorado */}
-                  {showSteps && (
-                    <div className="animate-in slide-in-from-top-2 duration-300">
-                      <div className="rounded-lg bg-system-info/10 border border-system-info/20 p-5">
-                        <h4 className="text-base font-semibold text-system-info mb-4 flex items-center gap-2">
-                          <span className="text-lg">📚</span>
-                          Passos da Resolução Detalhados:
-                        </h4>
-                        <ol className="space-y-3">
-                          {operationResult.steps.map((step, index) => (
-                            <li key={index} className="flex gap-3">
-                              <span className="flex-shrink-0 w-6 h-6 bg-system-info text-white rounded-full flex items-center justify-center text-sm font-bold">
-                                {index + 1}
-                              </span>
-                              <span className="text-text-primary font-medium leading-relaxed">
-                                {step}
-                              </span>
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ) : previewResult ? (
-            <Card className="sticky top-4 border-2 border-primary-blue/30">
-              <CardHeader className="bg-gradient-to-r from-primary-blue/10 to-system-info/10">
-                <CardTitle as="h3" className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-primary-blue rounded-full animate-bounce"></div>
-                  <span className="text-primary-blue">👁️ Preview do Resultado</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <div className="text-4xl font-bold text-primary-blue font-mono mb-3">
-                    {formatFraction(previewResult.result)}
-                  </div>
-                  {previewResult.result.decimal && (
-                    <div className="text-lg text-text-secondary mb-4">
-                      ≈ {previewResult.result.decimal.toFixed(4)}
-                    </div>
-                  )}
-                  <div className="bg-primary-blue/10 rounded-lg p-4 border border-primary-blue/20">
-                    <p className="text-sm font-medium text-primary-blue flex items-center justify-center gap-2">
-                      <span>🧠</span>
-                      Clique em "Calcular" para ver os passos detalhados
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <Card className="border-dashed border-2 border-text-secondary/30">
-              <CardContent className="text-center py-16">
-                <div className="text-8xl mb-6 opacity-50">🧮</div>
-                <h3 className="text-xl font-semibold text-text-primary mb-3">
-                  Resultado aparecerá aqui
-                </h3>
-                <p className="text-text-secondary max-w-sm mx-auto leading-relaxed">
-                  Digite duas frações na coluna ao lado e veja o resultado aparecer instantaneamente
-                </p>
-                <div className="mt-6 inline-flex items-center gap-2 text-sm text-primary-blue">
-                  <span>⚡</span>
-                  <span>Cálculo em tempo real ativado</span>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-
-      </div>
-      
-      {/* Seção de Conversões - Movida para baixo para não competir com foco principal */}
-      <div className={`space-y-6 ${mobileSection !== 'conversion' ? 'hidden lg:block' : ''}`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* Conversão Decimal para Fração */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2" className="text-base">🔄 Converter Decimal</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <Input
-                  label="Número Decimal"
-                  value={decimalInput}
-                  onChange={(e) => setDecimalInput(e.target.value)}
-                  placeholder="Ex: 0.75"
-                  type="number"
-                  step="any"
-                  fullWidth
-                />
-
-                {/* Preview em tempo real */}
-                <ResultPreview 
-                  visible={!!previewConversion}
-                  result={previewConversion}
-                  label="Preview da Conversão"
-                  type="conversion"
-                />
-
-                <div className="rounded-lg bg-growth-green-soft/10 p-2 text-xs text-text-secondary">
-                  <p><strong>🎯 Exemplos:</strong></p>
-                  <div className="mt-1 space-y-1">
-                    <div>0.5 = 1/2</div>
-                    <div>0.75 = 3/4</div>
-                    <div>1.25 = 1¼</div>
-                  </div>
-                </div>
-
-                <Button onClick={handleConversion} fullWidth className="text-sm">
-                  Converter
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Simplificar Fração */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2" className="text-base">📉 Simplificar Fração</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <Input
-                  label="Fração para Simplificar"
-                  value={simplifyInput}
-                  onChange={(e) => setSimplifyInput(e.target.value)}
-                  placeholder="Ex: 8/12"
-                  fullWidth
-                />
-
-                {/* Preview em tempo real */}
-                <ResultPreview 
-                  visible={!!previewSimplify}
-                  result={previewSimplify}
-                  label="Preview da Simplificação"
-                  type="simplify"
-                />
-
-                <div className="rounded-lg bg-primary-blue-light/20 p-2 text-xs text-text-secondary">
-                  <p><strong>🧠 Como funciona:</strong></p>
-                  <div className="mt-1 space-y-1">
-                    <div>• Encontra o MDC</div>
-                    <div>• Divide numerador e denominador</div>
-                    <div>• Converte para misto se necessário</div>
-                  </div>
-                </div>
-
-                <Button onClick={handleSimplify} fullWidth className="text-sm">
-                  Simplificar
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Calculadora Rápida */}
-          <Card className="border-system-warning/20 bg-system-warning/5">
-            <CardHeader>
-              <CardTitle as="h3" className="text-base text-system-warning">⚡ Calculadora Rápida</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <p className="text-xs text-text-secondary">
-                  Digite frações e veja o resultado instantaneamente na coluna ao lado!
-                </p>
-                
-                <div className="grid grid-cols-2 gap-2">
-                  <Button 
-                    onClick={() => {
-                      setFraction1Input("1/2");
-                      setFraction2Input("1/3");
-                      setOperation("add");
-                    }}
-                    variant="outline"
-                    className="text-xs p-2 h-auto"
-                  >
-                    1/2 + 1/3
-                  </Button>
-                  <Button 
-                    onClick={() => {
-                      setFraction1Input("3/4");
-                      setFraction2Input("1/2");
-                      setOperation("multiply");
-                    }}
-                    variant="outline"
-                    className="text-xs p-2 h-auto"
-                  >
-                    3/4 × 1/2
-                  </Button>
-                  <Button 
-                    onClick={() => {
-                      setFraction1Input("2/3");
-                      setFraction2Input("1/4");
-                      setOperation("divide");
-                    }}
-                    variant="outline"
-                    className="text-xs p-2 h-auto"
-                  >
-                    2/3 ÷ 1/4
-                  </Button>
-                  <Button 
-                    onClick={() => {
-                      setSimplifyInput("12/16");
-                    }}
-                    variant="outline"
-                    className="text-xs p-2 h-auto"
-                  >
-                    Simplificar 12/16
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Seção de Resultados das Conversões (quando existem) */}
-      {(conversionResult || simplifyResult) && (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          
-          {/* Resultado da Conversão */}
-          {conversionResult && (
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3">🔄 Resultado da Conversão</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-gradient-to-r from-system-warning/20 to-growth-green-soft/20 p-6 text-center">
-                    <p className="mb-2 text-lg font-semibold text-text-primary">
-                      {decimalInput} =
-                    </p>
-                    <div className="mb-2 text-3xl font-bold text-system-warning">
-                      {formatFraction(conversionResult.fraction)}
-                    </div>
-                    {conversionResult.fraction.decimal && (
-                      <p className="mt-2 text-sm text-text-secondary">
-                        Decimal: {conversionResult.fraction.decimal.toFixed(6)}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="rounded-lg bg-system-warning/10 p-4">
-                    <h4 className="text-sm font-semibold text-system-warning mb-3">
-                      📋 Passos da Conversão:
-                    </h4>
-                    <ol className="list-inside list-decimal space-y-2 text-sm">
-                      {conversionResult.steps.map((step, index) => (
-                        <li key={index} className="text-text-primary">
-                          {step}
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Resultado da Simplificação */}
-          {simplifyResult && (
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3">📉 Resultado da Simplificação</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-gradient-to-r from-primary-blue-light/20 to-system-info/20 p-6 text-center">
-                    <p className="mb-2 text-lg font-semibold text-text-primary">
-                      {formatFraction(simplifyResult.original)} =
-                    </p>
-                    <div className="mb-2 text-3xl font-bold text-primary-blue-dark">
-                      {formatFraction(simplifyResult.simplified)}
-                    </div>
-                    {simplifyResult.simplified.isImproper && (
-                      <p className="text-lg text-growth-green">= {simplifyResult.mixedNumber}</p>
-                    )}
-                    <p className="mt-2 text-base text-text-secondary-dark">
-                      ={" "}
-                      {(
-                        simplifyResult.simplified.numerator / simplifyResult.simplified.denominator
-                      ).toFixed(4)}{" "}
-                      (decimal)
-                    </p>
-                  </div>
-
-                  <div className="text-center">
-                    {formatFraction(simplifyResult.original) ===
-                    formatFraction(simplifyResult.simplified) ? (
-                      <div className="rounded-lg bg-growth-green-soft/20 p-4">
-                        <p className="font-semibold text-growth-green">
-                          ✅ Esta fração já está na forma mais simples!
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="rounded-lg bg-system-info/20 p-4">
-                        <p className="font-semibold text-system-info">
-                          ✨ Fração simplificada com sucesso!
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      )}
-
-
-      {/* Conteúdo Educacional */}
       <Card>
         <CardHeader>
-          <CardTitle as="h2">📚 Guia Educativo sobre Frações</CardTitle>
+          <CardTitle as="h2">🔢 Operações com Frações</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-              {/* O que são Frações */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-text-primary">🤔 O que são Frações?</h3>
-                <p className="text-text-secondary-dark">
-                  Uma <strong>fração</strong> representa uma parte de um todo. É composta por um{" "}
-                  <strong className="text-primary-blue-dark">numerador</strong> (parte de cima) que
-                  indica quantas partes temos, e um{" "}
-                  <strong className="text-growth-green">denominador</strong> (parte de baixo) que
-                  indica em quantas partes o todo foi dividido.
-                </p>
-                <div className="rounded-lg bg-system-info/10 p-4">
-                  <p className="text-sm">
-                    <strong>Exemplo:</strong> Na fração 3/4:
-                  </p>
-                  <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
-                    <li>
-                      <strong className="text-primary-blue-dark">3</strong> é o numerador (temos 3
-                      partes)
-                    </li>
-                    <li>
-                      <strong className="text-growth-green">4</strong> é o denominador (o todo foi
-                      dividido em 4 partes)
-                    </li>
-                    <li>
-                      Isso significa que temos <strong>3 de 4 partes</strong>, ou seja, três quartos
-                    </li>
-                  </ul>
-                </div>
-              </div>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">
+              Selecione a operação e insira as frações:
+            </p>
+            <div className="mt-4">
+              <select 
+                value={operation} 
+                onChange={(e) => setOperation(e.target.value as "soma" | "subtracao" | "multiplicacao" | "divisao")}
+                className="mx-auto block rounded-lg border border-neutral-surface-variant bg-gray-900 px-4 py-2 text-lg font-medium text-text-primary"
+              >
+                <option value="soma">+ Soma</option>
+                <option value="subtracao">- Subtração</option>
+                <option value="multiplicacao">× Multiplicação</option>
+                <option value="divisao">÷ Divisão</option>
+              </select>
+            </div>
+          </div>
 
-              {/* Tipos de Frações */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-text-primary">📊 Tipos de Frações</h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div className="rounded-lg bg-growth-green-soft/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">✅ Frações Próprias</h4>
-                    <p className="mb-2 text-sm text-text-secondary-dark">
-                      O numerador é menor que o denominador. Representa uma parte menor que o todo.
-                    </p>
-                    <p className="font-mono text-sm">Exemplos: 1/2, 3/4, 5/8</p>
-                  </div>
-                  <div className="rounded-lg bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      ⚠️ Frações Impróprias
-                    </h4>
-                    <p className="mb-2 text-sm text-text-secondary-dark">
-                      O numerador é maior ou igual ao denominador. Representa uma quantidade maior
-                      que o todo.
-                    </p>
-                    <p className="font-mono text-sm">Exemplos: 5/3, 7/4, 9/5</p>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">🔄 Números Mistos</h4>
-                    <p className="mb-2 text-sm text-text-secondary-dark">
-                      Combinação de um número inteiro com uma fração própria.
-                    </p>
-                    <p className="font-mono text-sm">Exemplos: 1 1/2, 2 3/4, 3 2/5</p>
+          {/* Campos de entrada para frações */}
+          <div className="mb-6 flex flex-wrap justify-center gap-8">
+            {/* Primeira Fração */}
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">Primeira Fração</h3>
+              <div className="space-y-3">
+                <div>
+                  <Input
+                    type="number"
+                    label="Numerador"
+                    value={numerator1}
+                    onChange={(e) => setNumerator1(e.target.value)}
+                    placeholder="1"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.numerator1} />
+                </div>
+                <div className="text-center text-2xl font-bold text-primary-blue-dark">―</div>
+                <div>
+                  <Input
+                    type="number"
+                    label="Denominador"
+                    value={denominator1}
+                    onChange={(e) => setDenominator1(e.target.value)}
+                    placeholder="2"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.denominator1} />
+                  <div className="mt-1 text-xs text-text-secondary">
+                    Não pode ser zero
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Operações com Frações */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-text-primary">
-                  🧮 Como Fazer Operações com Frações
-                </h3>
+            {/* Operação */}
+            <div className="flex items-center">
+              <div className="text-4xl font-bold text-system-warning">
+                {operation === "soma" ? "+" : operation === "subtracao" ? "−" : operation === "multiplicacao" ? "×" : "÷"}
+              </div>
+            </div>
 
-                <div className="space-y-4">
-                  {/* Adição e Subtração */}
-                  <div className="rounded-lg bg-growth-green-soft/10 p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">
-                      ➕➖ Adição e Subtração
-                    </h4>
-                    <ol className="list-inside list-decimal space-y-1 text-sm">
-                      <li>
-                        Encontre o <strong>denominador comum</strong> (MMC dos denominadores)
-                      </li>
-                      <li>Converta as frações para o denominador comum</li>
-                      <li>Some ou subtraia apenas os numeradores</li>
-                      <li>Simplifique o resultado se possível</li>
-                    </ol>
-                    <p className="mt-2 rounded bg-white/50 p-2 font-mono text-sm">
-                      Exemplo: 1/3 + 1/4 = 4/12 + 3/12 = 7/12
-                    </p>
-                  </div>
-
-                  {/* Multiplicação */}
-                  <div className="rounded-lg bg-primary-blue-light/10 p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">✖️ Multiplicação</h4>
-                    <ol className="list-inside list-decimal space-y-1 text-sm">
-                      <li>Multiplique numerador por numerador</li>
-                      <li>Multiplique denominador por denominador</li>
-                      <li>Simplifique o resultado se possível</li>
-                    </ol>
-                    <p className="mt-2 rounded bg-white/50 p-2 font-mono text-sm">
-                      Exemplo: 2/3 × 3/4 = (2×3)/(3×4) = 6/12 = 1/2
-                    </p>
-                  </div>
-
-                  {/* Divisão */}
-                  <div className="rounded-lg bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">➗ Divisão</h4>
-                    <ol className="list-inside list-decimal space-y-1 text-sm">
-                      <li>Inverta a segunda fração (reciproco)</li>
-                      <li>Multiplique as frações</li>
-                      <li>Simplifique o resultado se possível</li>
-                    </ol>
-                    <p className="mt-2 rounded bg-white/50 p-2 font-mono text-sm">
-                      Exemplo: 2/3 ÷ 1/4 = 2/3 × 4/1 = 8/3 = 2 2/3
-                    </p>
+            {/* Segunda Fração */}
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">Segunda Fração</h3>
+              <div className="space-y-3">
+                <div>
+                  <Input
+                    type="number"
+                    label="Numerador"
+                    value={numerator2}
+                    onChange={(e) => setNumerator2(e.target.value)}
+                    placeholder="1"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.numerator2} />
+                </div>
+                <div className="text-center text-2xl font-bold text-growth-green">―</div>
+                <div>
+                  <Input
+                    type="number"
+                    label="Denominador"
+                    value={denominator2}
+                    onChange={(e) => setDenominator2(e.target.value)}
+                    placeholder="3"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.denominator2} />
+                  <div className="mt-1 text-xs text-text-secondary">
+                    Não pode ser zero
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              {/* Dicas Práticas */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-text-primary">💡 Dicas Práticas</h3>
-                <div className="rounded-lg bg-system-info/10 p-4">
-                  <ul className="list-inside list-disc space-y-2 text-sm">
-                    <li>
-                      <strong>Sempre simplifique:</strong> Use o MDC (Máximo Divisor Comum) para
-                      reduzir frações
-                    </li>
-                    <li>
-                      <strong>Converta quando necessário:</strong> Números mistos podem ser mais
-                      fáceis de entender
-                    </li>
-                    <li>
-                      <strong>Verifique seus cálculos:</strong> Converta para decimal para verificar
-                      se o resultado faz sentido
-                    </li>
-                    <li>
-                      <strong>Use denominadores comuns:</strong> Para comparar frações, use o mesmo
-                      denominador
-                    </li>
-                    <li>
-                      <strong>Pratique com exemplos:</strong> Quanto mais praticar, mais fácil fica!
-                    </li>
-                  </ul>
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Operação com Frações
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="mb-2 text-sm text-text-secondary">Operação</div>
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {result.originalFractions.fraction1.numerator}/{result.originalFractions.fraction1.denominator}
+                  {" "}
+                  {result.operation === "soma" ? "+" : result.operation === "subtracao" ? "−" : result.operation === "multiplicacao" ? "×" : "÷"}
+                  {" "}
+                  {result.originalFractions.fraction2.numerator}/{result.originalFractions.fraction2.denominator}
+                  {" = "}
+                  {result.simplified.numerator}/{result.simplified.denominator}
                 </div>
+              </div>
+            </div>
+
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-3xl font-bold text-system-warning">
+                  {result.simplified.numerator}/{result.simplified.denominator}
+                </div>
+                <div className="text-sm text-text-secondary">Fração Simplificada</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-xl font-bold text-growth-green">
+                  {numberBR(result.result.decimal, 4)}
+                </div>
+                <div className="text-sm text-text-secondary">Decimal</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-xl font-bold text-primary-blue-dark">
+                  {result.result.mixed ? 
+                    `${result.result.mixed.whole} ${result.result.mixed.numerator}/${result.result.mixed.denominator}` : 
+                    "Não aplicável"
+                  }
+                </div>
+                <div className="text-sm text-text-secondary">Número Misto</div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Operação</h4>
+              <div className="text-sm text-text-secondary">
+                <div><strong>Operação:</strong> {result.operation === "soma" ? "Soma" : result.operation === "subtracao" ? "Subtração" : result.operation === "multiplicacao" ? "Multiplicação" : "Divisão"}</div>
+                {result.commonDenominator && (
+                  <div><strong>MMC dos denominadores:</strong> {result.commonDenominator}</div>
+                )}
+                <div><strong>Fração original:</strong> {result.result.numerator}/{result.result.denominator}</div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Resolução Passo a Passo</h4>
+              <div className="space-y-2">
+                {result.steps.map((step, index) => (
+                  <div key={index} className="text-sm text-text-secondary">
+                    <span className="font-medium text-primary-blue-dark">{index + 1}. </span>
+                    {step}
+                  </div>
+                ))}
               </div>
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {/* Seção: Equações de Segundo Grau - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎯 Frações – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Fórmula de Bhaskara */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🔢 Operações com Frações
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A fórmula de Bhaskara é utilizada para resolver equações de segundo grau do tipo
+                    ax² + bx + c = 0, onde a ≠ 0.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ = b² - 4ac (discriminante)</li>
+                    <li>• x = (-b ± √Δ) / 2a</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Resolve qualquer equação de 2º grau</li>
+                    <li>• Baseada no discriminante (Δ)</li>
+                    <li>• Determina natureza das raízes</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Física: movimento uniformemente variado</li>
+                    <li>• Economia: maximização de lucros</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Discriminante Delta */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📐 Discriminante (Δ)
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O discriminante determina a natureza das raízes da equação de segundo grau.
+                    Calculado pela fórmula Δ = b² - 4ac.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Interpretação</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ &gt; 0: Duas raízes reais distintas</li>
+                    <li>• Δ = 0: Uma raiz real dupla</li>
+                    <li>• Δ &lt; 0: Duas raízes complexas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Importância</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Determina quantidade de soluções</li>
+                    <li>• Indica se raízes são reais ou complexas</li>
+                    <li>• Facilita análise prévia da equação</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Análise gráfica de parábolas</li>
+                    <li>• Otimização em engenharia</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Tipos de Raízes */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔍 Tipos de Raízes
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Classificação</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    As raízes de uma equação de segundo grau podem ser reais ou complexas,
+                    dependendo do valor do discriminante.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Tipos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Reais distintas (Δ &gt; 0)</li>
+                    <li>• Real dupla (Δ = 0)</li>
+                    <li>• Complexas conjugadas (Δ &lt; 0)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ Interpretação Gráfica
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ &gt; 0: Parábola corta eixo x em 2 pontos</li>
+                    <li>• Δ = 0: Parábola toca eixo x em 1 ponto</li>
+                    <li>• Δ &lt; 0: Parábola não toca eixo x</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Exemplos</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• x² - 5x + 6 = 0 (Δ = 1 &gt; 0)</li>
+                    <li>• x² - 4x + 4 = 0 (Δ = 0)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Métodos de Resolução */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Métodos de Resolução de Equações de 2º Grau
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Fórmula de Bhaskara
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Fatoração</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Completar Quadrado
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">Gráfico</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicabilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Universal</td>
+                  <td className="p-3 text-center text-growth-green">Casos específicos</td>
+                  <td className="p-3 text-center text-system-warning">Universal</td>
+                  <td className="p-3 text-center text-system-info">Aproximado</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Dificuldade</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Exata</td>
+                  <td className="p-3 text-center text-growth-green">Exata</td>
+                  <td className="p-3 text-center text-system-warning">Exata</td>
+                  <td className="p-3 text-center text-system-info">Aproximada</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Tempo de Resolução</td>
+                  <td className="p-3 text-center">Rápido</td>
+                  <td className="p-3 text-center">Muito Rápido</td>
+                  <td className="p-3 text-center">Médio</td>
+                  <td className="p-3 text-center">Lento</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Requisitos</td>
+                  <td className="p-3 text-center">Fórmula memorizada</td>
+                  <td className="p-3 text-center">Reconhecer padrões</td>
+                  <td className="p-3 text-center">Técnica avançada</td>
+                  <td className="p-3 text-center">Papel milimetrado</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Melhor Uso</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Geral</td>
+                  <td className="p-3 text-center text-growth-green">Números inteiros</td>
+                  <td className="p-3 text-center text-system-warning">Demonstrações</td>
+                  <td className="p-3 text-center text-system-info">Visualização</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Bhaskara</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>mais confiável</strong> para resolver qualquer equação de segundo
+                grau, especialmente com coeficientes decimais. Saiba mais sobre
+                <a
+                  href="/calculadoras/matematica/porcentagem"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  cálculos de porcentagem
+                </a>
+                ou explore nossa{" "}
+                <a
+                  href="/calculadoras/matematica/fracoes"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  calculadora de frações
+                </a>
+                .
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">⚡ Fatoração</h4>
+              <p className="text-sm text-text-secondary">
+                Ideal para equações com <strong>coeficientes inteiros</strong> pequenos que permitem
+                fatoração simples.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📐 Completar Quadrado</h4>
+              <p className="text-sm text-text-secondary">
+                Útil para <strong>compreender geometricamente</strong> e para demonstrações
+                matemáticas avançadas.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <FAQ
         title="Perguntas Frequentes - Calculadora de Frações"
         items={[
           {
-            question: "Como somar e subtrair frações com denominadores diferentes?",
+            question: "O que é uma fração?",
             answer:
-              "Para somar/subtrair frações com denominadores diferentes, encontre o <strong>MMC dos denominadores</strong>, converta ambas para o denominador comum e opere apenas os numeradores. Exemplo: 1/3 + 1/4 = 4/12 + 3/12 = <strong>7/12</strong>. Nossa calculadora faz isso automaticamente!",
+              "Uma fração é um número que representa uma ou mais partes iguais de um todo. É formada por numerador (número superior) e denominador (número inferior), onde o denominador indica em quantas partes o todo foi dividido.",
             borderColor: "primary-blue",
           },
           {
-            question: "Qual a diferença entre fração própria e imprópria?",
+            question: "Por que o denominador não pode ser zero?",
             answer:
-              "<strong>Fração própria:</strong> numerador menor que denominador (3/4), representa menos que 1. <strong>Fração imprópria:</strong> numerador maior/igual ao denominador (5/4), representa 1 ou mais. Impróprias podem virar <strong>números mistos</strong> (1¼)!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Como converter decimais em frações e vice-versa?",
-            answer:
-              "<strong>Decimal → Fração:</strong> 0,75 = 75/100 = 3/4 (simplifique pelo MDC). <strong>Fração → Decimal:</strong> divida numerador pelo denominador (3÷4 = 0,75). Use nossa calculadora para <strong>conversões automáticas</strong> com simplificação!",
+              "O denominador zero tornaria a fração indefinida matematicamente, pois representaria uma divisão por zero, que não é permitida na matemática. Sempre verifique se o denominador é diferente de zero.",
             borderColor: "growth-green",
           },
           {
-            question: "Como multiplicar e dividir frações corretamente?",
+            question: "Como somar e subtrair frações?",
             answer:
-              "<strong>Multiplicação:</strong> multiplique numeradores entre si e denominadores entre si (2/3 × 3/4 = 6/12 = 1/2). <strong>Divisão:</strong> multiplique pela fração inversa (2/3 ÷ 3/4 = 2/3 × 4/3 = <strong>8/9</strong>). Sempre simplifique o resultado!",
+              "Para somar ou subtrair frações, é necessário igualar os denominadores encontrando o MMC (Mínimo Múltiplo Comum). Depois, some ou subtraia apenas os numeradores, mantendo o denominador comum.",
             borderColor: "system-info",
           },
           {
-            question: "Por que é importante simplificar frações?",
+            question: "Como multiplicar frações?",
             answer:
-              "Simplificar torna frações mais <strong>fáceis de entender e comparar</strong>. 8/12 = 2/3 é mais claro! Frações simplificadas são a <strong>forma padrão em matemática</strong>, facilitam cálculos e evitam erros. Nossa calculadora simplifica automaticamente!",
-            borderColor: "primary-blue",
+              "Para multiplicar frações, multiplique numerador com numerador e denominador com denominador: (a/b) × (c/d) = (a×c)/(b×d). Simplifique o resultado quando possível.",
+            borderColor: "system-warning",
           },
           {
-            question: "O que são frações equivalentes e como identificá-las?",
+            question: "Como dividir frações?",
             answer:
-              "São frações que representam o <strong>mesmo valor</strong>: 1/2 = 2/4 = 3/6 = 4/8. Para criar equivalentes, <strong>multiplique/divida numerador e denominador pelo mesmo número</strong>. Use para encontrar denominadores comuns ou simplificar!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Como usar frações no dia a dia e em receitas?",
-            answer:
-              "<strong>Receitas:</strong> dobrar (1/2 xícara × 2 = 1 xícara), reduzir pela metade. <strong>Medidas:</strong> 3/4 de metro, 2/3 de hora. <strong>Divisões:</strong> pizza em 8 fatias, cada uma é 1/8. Frações estão em <strong>situações cotidianas</strong>!",
+              "Para dividir frações, multiplique a primeira fração pelo inverso da segunda: (a/b) ÷ (c/d) = (a/b) × (d/c) = (a×d)/(b×c). É o famoso 'multiplicar pelo inverso'.",
             borderColor: "growth-green",
           },
           {
-            question: "A calculadora funciona com números mistos e negativos?",
+            question: "O que é simplificar uma fração?",
             answer:
-              "<strong>Sim, totalmente!</strong> Aceita números mistos (2½), frações negativas (-3/4), decimais (0,75) e inteiros (5). Converte automaticamente entre formatos e <strong>mostra todos os passos</strong>. Perfeita para qualquer tipo de cálculo com frações!",
-            borderColor: "system-warning",
+              "Simplificar uma fração significa reduzí-la à sua forma mais simples, dividindo numerador e denominador pelo seu MDC (Máximo Divisor Comum). Por exemplo: 6/8 = 3/4.",
+            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica de Especialista",
+          title: "Dica Importante sobre Frações",
           content:
-            "Para dominar frações, <strong>pratique a simplificação</strong> encontrando o MDC. Sempre verifique se o resultado pode ser simplificado - isso torna os números mais fáceis de trabalhar e interpretar!",
+            "<strong>Para resultados precisos:</strong> sempre verifique se os denominadores são diferentes de zero e simplifique o resultado final dividindo numerador e denominador pelo MDC.",
         }}
-        footerText="<strong>Precisa de mais cálculos com frações?</strong> Use nossa calculadora para somar, subtrair, multiplicar, dividir e converter frações com facilidade e precisão!"
+        footerText="<strong>Lembre-se:</strong> Em soma e subtração, iguale os denominadores. Em multiplicação e divisão, opere diretamente. Sempre simplifique o resultado."
       />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Frações
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta{" "}
+              <strong className="text-primary-blue-dark">
+                calculadora de frações
+              </strong>{" "}
+              permite realizar <strong className="text-growth-green">operações básicas com frações</strong>:
+              soma, subtração, multiplicação e divisão com precisão matemática e resultados
+              instantâneos.
+            </p>
+            <p>
+              <strong>Funcionalidades:</strong> Cálculo do discriminante (Δ), determinação do tipo
+              de raízes, resolução passo a passo e apresentação de raízes reais ou complexas
+              conforme o caso.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e resolução de exercícios. Para aplicações científicas ou de
+              engenharia que exigem alta precisão, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/matematica/area-perimetro"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                área e perímetro
+              </a>
+              para complementar seus estudos matemáticos.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🔎 Foco educacional • 🔢 Operações com Frações • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       <RelatedCalculators category="matematica" currentCalculatorId="fracoes" />
     </div>
