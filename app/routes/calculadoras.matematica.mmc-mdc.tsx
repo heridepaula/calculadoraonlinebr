@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora MMC e MDC Online Gratuita - Mínimo Múltiplo Comum 2025 | CalculadoraOnlineBR",
+      title: "Calculadora MMC e MDC 2025 - Mínimo Múltiplo Comum | CalculadoraOnlineBR",
     },
     {
       name: "description",
@@ -103,19 +103,23 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
+    { name: "keywords", content: "MMC, MDC, mínimo múltiplo comum, máximo divisor comum, fatoração prima, algoritmo euclides, matemática, calculadora" },
+    { name: "rating", content: "general" },
+    { name: "distribution", content: "global" },
+    { name: "revisit-after", content: "7 days" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2025",
+        name: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum 2025",
         description:
-          "Calculadora gratuita e precisa para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+          "Calculadora online gratuita para MMC e MDC com fatoração prima. Calcule Mínimo Múltiplo Comum e Máximo Divisor Comum com explicação passo a passo detalhada.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-26",
+        dateModified: "2025-08-28",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -138,10 +142,10 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
-          name: "Calculadora de Equação de Segundo Grau 2025 - Fórmula de Bhaskara",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+          name: "Calculadora MMC e MDC 2025 - Mínimo Múltiplo Comum e Máximo Divisor Comum",
           description:
-            "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+            "Calcule MMC e MDC com fatoração prima e algoritmo de Euclides. Explicação passo a passo dos métodos para encontrar Mínimo Múltiplo Comum e Máximo Divisor Comum.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -245,36 +249,68 @@ export const meta: MetaFunction = () => {
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Matemática",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "MMC e MDC",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
         "@type": "HowTo",
-        name: "Como usar a Calculadora de Equação de Segundo Grau",
+        name: "Como usar a Calculadora de MMC e MDC",
         description:
-          "Aprenda a resolver equações de segundo grau usando a fórmula de Bhaskara com nossa calculadora online gratuita",
+          "Aprenda a calcular MMC e MDC (Mínimo Múltiplo Comum e Máximo Divisor Comum) usando nossa calculadora online com fatoração prima",
         step: [
           {
             "@type": "HowToStep",
-            name: "Identifique os coeficientes",
-            text: "Na equação ax² + bx + c = 0, identifique os valores dos coeficientes a, b e c.",
+            name: "Digite os números",
+            text: "Insira 2 ou 3 números inteiros positivos nos campos correspondentes. Exemplo: 12, 18, 24.",
           },
           {
             "@type": "HowToStep",
-            name: "Insira os coeficientes",
-            text: "Digite os valores dos coeficientes a, b e c nos campos correspondentes. Lembre-se que a ≠ 0.",
+            name: "Clique em Calcular",
+            text: "Pressione o botão 'Calcular MMC e MDC' para processar os números e obter os resultados.",
           },
           {
             "@type": "HowToStep",
-            name: "Calcule a solução",
-            text: "Clique no botão 'Calcular' para obter o discriminante (Δ), as raízes e a resolução passo a passo.",
+            name: "Veja os resultados",
+            text: "Observe o MMC, MDC, fatoração prima de cada número e a explicação passo a passo dos cálculos.",
           },
           {
             "@type": "HowToStep",
-            name: "Analise os resultados",
-            text: "Veja o valor do Delta, o tipo de raízes obtidas e acompanhe a resolução detalhada usando a fórmula de Bhaskara.",
+            name: "Entenda os métodos",
+            text: "Acompanhe a resolução detalhada usando fatoração prima e algoritmo de Euclides para compreender os conceitos.",
           },
         ],
         tool: [
           {
             "@type": "HowToTool",
-            name: "Calculadora de Equação de Segundo Grau Online",
+            name: "Calculadora MMC e MDC Online Gratuita",
           },
         ],
       }),
@@ -559,22 +595,22 @@ export default function MMCMDCCalculator() {
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
-        <BreadcrumbItem isLast>Equação de Segundo Grau</BreadcrumbItem>
+        <BreadcrumbItem isLast>MMC e MDC</BreadcrumbItem>
       </Breadcrumb>
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara
+          Calculadora MMC e MDC 2025 – Mínimo Múltiplo Comum e Máximo Divisor Comum
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Resolva <strong className="text-growth-green">equações de segundo grau</strong> usando a{" "}
-          fórmula de Bhaskara com precisão. Calcule delta, raízes reais e complexas com{" "}
+          Calcule <strong className="text-growth-green">MMC e MDC</strong> com fatoração prima e{" "}
+          algoritmo de Euclides. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔢 <strong>Fórmula de Bhaskara</strong> • 📊 <strong>Delta e Raízes</strong> • 🧮{" "}
+            🔢 <strong>Fatoração Prima</strong> • 📊 <strong>MMC e MDC</strong> • 🧮{" "}
             <strong>Resultados Instantâneos</strong>
           </p>
         </div>
@@ -1056,7 +1092,7 @@ export default function MMCMDCCalculator() {
               para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 🔢 Fórmula de Bhaskara • 🔒 Dados não armazenados • 📱
+              🔎 Foco educacional • 🔢 Fatoração Prima • 🔒 Dados não armazenados • 📱
               Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
