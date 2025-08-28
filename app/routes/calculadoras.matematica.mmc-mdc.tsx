@@ -1,830 +1,859 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  calculateMMCMDC,
-  generateMMCMDCExamples,
-  type MMCMDCParams,
-  type MMCMDCResult,
-} from "~/utils/calculations";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora MMC e MDC 2025 - Fatores Primos Passo a Passo - ${APP_NAME}` },
+    {
+      title: "Calculadora MMC e MDC Online Gratuita - Mínimo Múltiplo Comum 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora de MMC e MDC GRATUITA com decomposição em fatores primos! Calcule Mínimo Múltiplo Comum e Máximo Divisor Comum passo a passo com explicações detalhadas, verificações automáticas e aplicações práticas. Perfeita para estudantes e professores.",
+        "Calcule MMC (Mínimo Múltiplo Comum) e MDC (Máximo Divisor Comum) de forma rápida e precisa. Fatoração completa com explicação passo a passo. Gratuito!",
+    },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "keywords",
-      content:
-        "calculadora mmc mdc, minimo multiplo comum, maximo divisor comum, fatores primos, mmc online, mdc online, decomposição fatores primos, algoritmo euclidiano, numeros primos, mmc mdc passo a passo, matemática básica, divisibilidade, multiplos comum, divisores comum, mmc tres numeros, mdc tres numeros, coprimos, números primos entre si, ensino fundamental, matematica escolar, exercicios mmc mdc",
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
-    { property: "og:title", content: `Calculadora MMC e MDC - Fatores Primos 2025 - ${APP_NAME}` },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+    },
+    {
+      property: "og:title",
+      content: "Calculadora MMC e MDC Online 2025 – Mínimo Múltiplo Comum e Máximo Divisor Comum",
+    },
     {
       property: "og:description",
       content:
-        "★ Calcule MMC e MDC com decomposição em fatores primos passo a passo! Explicações detalhadas, verificações automáticas e aplicações práticas. 100% gratuito!",
+        "Ferramenta online gratuita para calcular MMC e MDC com fatoração completa. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com explicação passo a passo.",
+    },
+    {
+      property: "og:image",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/matematica/mmc-mdc",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora MMC e MDC - Fatores Primos - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora MMC e MDC Online 2025 – Mínimo Múltiplo Comum",
+    },
     {
       name: "twitter:description",
       content:
-        "Aprenda e calcule MMC e MDC com explicações passo a passo! Decomposição em fatores primos e aplicações práticas.",
+        "Calculadora online para MMC e MDC. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com fatoração completa. Gratuito!"
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#3b82f6" },
-    { name: "theme-color", content: "#3b82f6" },
+    {
+      name: "twitter:image",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora MMC e MDC - Operações Matemáticas",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2025",
+        description:
+          "Calculadora gratuita e precisa para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-26",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+          name: "Calculadora de Equação de Segundo Grau 2025 - Fórmula de Bhaskara",
+          description:
+            "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Matemática",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "MMC e MDC",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "MMC e MDC",
+          description: "Cálculo de Mínimo Múltiplo Comum e Máximo Divisor Comum usando fatoração prima e algoritmo de Euclides",
+          category: "Mathematics",
+        },
+        featureList: [
+          "Cálculo de MMC (Mínimo Múltiplo Comum)",
+          "Cálculo de MDC (Máximo Divisor Comum)",
+          "Fatoração prima completa",
+          "Algoritmo de Euclides para MDC",
+          "Explicação passo a passo dos métodos",
+          "Demonstração da relação MMC × MDC = a × b",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é MMC (Mínimo Múltiplo Comum)?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O MMC é o menor número inteiro positivo que é múltiplo comum de dois ou mais números. Por exemplo, o MMC de 12 e 18 é 36, pois 36 é o menor número que é múltiplo tanto de 12 quanto de 18.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "O que é MDC (Máximo Divisor Comum)?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O MDC é o maior número que divide dois ou mais números sem deixar resto. Por exemplo, o MDC de 12 e 18 é 6, pois 6 é o maior número que divide tanto 12 quanto 18 completamente.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como calcular MMC usando fatoração prima?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Fatore cada número em números primos. Para o MMC, multiplique todos os fatores primos elevados aos seus maiores expoentes. Exemplo: MMC(12,18) = 12=2²×3, 18=2×3², então MMC = 2²×3² = 36.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a relação entre MMC e MDC?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Existe uma relação fundamental: MMC(a,b) × MDC(a,b) = a × b. Esta propriedade permite calcular um quando você conhece o outro. Por exemplo, se MMC(12,18) = 36 e MDC(12,18) = 6, então 36 × 6 = 12 × 18 = 216.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Equação de Segundo Grau",
+        description:
+          "Aprenda a resolver equações de segundo grau usando a fórmula de Bhaskara com nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Identifique os coeficientes",
+            text: "Na equação ax² + bx + c = 0, identifique os valores dos coeficientes a, b e c.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira os coeficientes",
+            text: "Digite os valores dos coeficientes a, b e c nos campos correspondentes. Lembre-se que a ≠ 0.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule a solução",
+            text: "Clique no botão 'Calcular' para obter o discriminante (Δ), as raízes e a resolução passo a passo.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja o valor do Delta, o tipo de raízes obtidas e acompanhe a resolução detalhada usando a fórmula de Bhaskara.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Equação de Segundo Grau Online",
+          },
+        ],
+      }),
+    },
   ];
 };
 
+interface MMCMDCResult {
+  numbers: number[];
+  mmc: number;
+  mdc: number;
+  factorizations: {
+    [key: number]: number[];
+  };
+  primeFactors: {
+    [key: number]: { [prime: number]: number };
+  };
+  steps: string[];
+  mmcSteps: string[];
+  mdcSteps: string[];
+}
+
+interface ValidationErrors {
+  number1?: string;
+  number2?: string;
+  number3?: string;
+}
+
 export default function MMCMDCCalculator() {
-  const [inputNumbers, setInputNumbers] = useState("");
-  const [numbers, setNumbers] = useState<number[]>([]);
+  // Inputs para números inteiros
+  const [number1, setNumber1] = useState("");
+  const [number2, setNumber2] = useState("");
+  const [number3, setNumber3] = useState("");
+
   const [result, setResult] = useState<MMCMDCResult | null>(null);
-  const [showMMCSteps, setShowMMCSteps] = useState(true);
-  const [showMDCSteps, setShowMDCSteps] = useState(true);
-  const [selectedExample, setSelectedExample] = useState("");
-  const [error, setError] = useState("");
-  const [activeTab, setActiveTab] = useState<"both" | "mmc" | "mdc">("both");
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "mmc_mdc",
-    category: "matematica"
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "mmc-mdc",
+    category: "matematica",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("mmc_mdc");
+  useFormTracking("mmc-mdc");
 
-  const handleCalculate = () => {
-    setError("");
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
 
-    if (numbers.length < 2) {
-      setError("Digite pelo menos dois números para calcular MMC e MDC");
-      setResult(null);
-      return;
-    }
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
 
-    if (numbers.some((n) => n <= 0 || !Number.isInteger(n))) {
-      setError("Todos os números devem ser inteiros positivos");
-      setResult(null);
-      return;
-    }
-
-    try {
-      const params: MMCMDCParams = {
-        numbers,
-      };
-
-      const calculationResult = calculateMMCMDC(params);
-      setResult(calculationResult);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro no cálculo");
-      setResult(null);
-    }
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
   };
 
-  const handleInputChange = (value: string) => {
-    setInputNumbers(value);
+  // Funções auxiliares para MMC e MDC
+  const isPrime = (n: number): boolean => {
+    if (n < 2) return false;
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+      if (n % i === 0) return false;
+    }
+    return true;
+  };
 
-    // Parse numbers from input
-    const parsedNumbers = value
-      .split(/[,;\s]+/)
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0)
-      .map((s) => parseInt(s, 10))
-      .filter((n) => !isNaN(n));
+  const getPrimeFactorization = (n: number): { [prime: number]: number } => {
+    const factors: { [prime: number]: number } = {};
+    let temp = n;
+    
+    for (let i = 2; i <= temp; i++) {
+      while (temp % i === 0) {
+        factors[i] = (factors[i] || 0) + 1;
+        temp /= i;
+      }
+    }
+    
+    return factors;
+  };
 
-    setNumbers(parsedNumbers);
+  const getFactorization = (n: number): number[] => {
+    const factors: number[] = [];
+    let temp = n;
+    
+    for (let i = 2; i <= temp; i++) {
+      while (temp % i === 0) {
+        factors.push(i);
+        temp /= i;
+      }
+    }
+    
+    return factors.length ? factors : [n];
+  };
+
+  const calculateGCD = (a: number, b: number): number => {
+    return b === 0 ? a : calculateGCD(b, a % b);
+  };
+
+  const calculateLCM = (a: number, b: number): number => {
+    return Math.abs(a * b) / calculateGCD(a, b);
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const num1 = parseNumber(number1);
+    const num2 = parseNumber(number2);
+    const num3 = parseNumber(number3);
+
+    if (number1.trim() === "") {
+      newErrors.number1 = "Primeiro número é obrigatório";
+      ok = false;
+    } else if (num1 <= 0 || !Number.isInteger(num1)) {
+      newErrors.number1 = "Deve ser um número inteiro positivo";
+      ok = false;
+    }
+
+    if (number2.trim() === "") {
+      newErrors.number2 = "Segundo número é obrigatório";
+      ok = false;
+    } else if (num2 <= 0 || !Number.isInteger(num2)) {
+      newErrors.number2 = "Deve ser um número inteiro positivo";
+      ok = false;
+    }
+
+    // Terceiro número é opcional
+    if (number3.trim() !== "" && (num3 <= 0 || !Number.isInteger(num3))) {
+      newErrors.number3 = "Deve ser um número inteiro positivo ou deixe vazio";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculateMMCMDC = (): MMCMDCResult => {
+    const num1 = parseNumber(number1);
+    const num2 = parseNumber(number2);
+    const num3 = number3.trim() ? parseNumber(number3) : null;
+    
+    const numbers = num3 ? [num1, num2, num3] : [num1, num2];
+    
+    // Calcular fatorações
+    const factorizations: { [key: number]: number[] } = {};
+    const primeFactors: { [key: number]: { [prime: number]: number } } = {};
+    
+    numbers.forEach(num => {
+      factorizations[num] = getFactorization(num);
+      primeFactors[num] = getPrimeFactorization(num);
+    });
+
+    // Calcular MDC
+    let mdc = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+      mdc = calculateGCD(mdc, numbers[i]);
+    }
+
+    // Calcular MMC
+    let mmc = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+      mmc = calculateLCM(mmc, numbers[i]);
+    }
+
+    // Passos gerais
+    const steps: string[] = [
+      `Números: ${numbers.join(', ')}`,
+      `Fatoração de cada número:`,
+    ];
+
+    numbers.forEach(num => {
+      const factors = factorizations[num];
+      if (factors.length === 1 && factors[0] === num) {
+        steps.push(`${num} = ${num} (número primo)`);
+      } else {
+        steps.push(`${num} = ${factors.join(' × ')}`);
+      }
+    });
+
+    // Passos para MDC
+    const mdcSteps: string[] = [
+      `MDC(${numbers.join(', ')}) - Máximo Divisor Comum`,
+      `Fatores primos comuns com menor expoente:`,
+    ];
+
+    // Encontrar fatores comuns para MDC
+    const allPrimes = new Set<number>();
+    numbers.forEach(num => {
+      Object.keys(primeFactors[num]).forEach(prime => {
+        allPrimes.add(parseInt(prime));
+      });
+    });
+
+    const commonFactors: { [prime: number]: number } = {};
+    allPrimes.forEach(prime => {
+      const exponents = numbers.map(num => primeFactors[num][prime] || 0);
+      const minExponent = Math.min(...exponents);
+      if (minExponent > 0) {
+        commonFactors[prime] = minExponent;
+      }
+    });
+
+    if (Object.keys(commonFactors).length > 0) {
+      const commonFactorsStr = Object.entries(commonFactors)
+        .map(([prime, exp]) => exp === 1 ? prime : `${prime}^${exp}`)
+        .join(' × ');
+      mdcSteps.push(`MDC = ${commonFactorsStr} = ${mdc}`);
+    } else {
+      mdcSteps.push(`Não há fatores primos comuns`);
+      mdcSteps.push(`MDC = 1`);
+    }
+
+    // Passos para MMC
+    const mmcSteps: string[] = [
+      `MMC(${numbers.join(', ')}) - Mínimo Múltiplo Comum`,
+      `Fatores primos com maior expoente:`,
+    ];
+
+    const allFactorsForMMC: { [prime: number]: number } = {};
+    allPrimes.forEach(prime => {
+      const exponents = numbers.map(num => primeFactors[num][prime] || 0);
+      const maxExponent = Math.max(...exponents);
+      if (maxExponent > 0) {
+        allFactorsForMMC[prime] = maxExponent;
+      }
+    });
+
+    const mmcFactorsStr = Object.entries(allFactorsForMMC)
+      .map(([prime, exp]) => exp === 1 ? prime : `${prime}^${exp}`)
+      .join(' × ');
+    mmcSteps.push(`MMC = ${mmcFactorsStr} = ${mmc}`);
+
+    return {
+      numbers,
+      mmc,
+      mdc,
+      factorizations,
+      primeFactors,
+      steps,
+      mmcSteps,
+      mdcSteps,
+    };
+  };
+
+  const handleCalculate = () => {
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const result = calculateMMCMDC();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ number1: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
+    }
   };
 
   const handleReset = () => {
-    setInputNumbers("");
-    setNumbers([]);
+    setNumber1("");
+    setNumber2("");
+    setNumber3("");
     setResult(null);
-    setError("");
-    setSelectedExample("");
+    setErrors({});
   };
 
-  const loadExample = (exampleType: string) => {
-    const examples = generateMMCMDCExamples();
-    const example = examples.find((ex) => ex.type === exampleType);
-
-    if (example) {
-      const numbersStr = example.numbers.join(", ");
-      setInputNumbers(numbersStr);
-      setNumbers([...example.numbers]);
-      setSelectedExample(exampleType);
-      setError("");
-    }
-  };
-
-  const formatNumber = (value: number) => {
-    return value.toString();
-  };
-
-  const addNumber = (num: number) => {
-    const newNumbers = [...numbers, num];
-    setNumbers(newNumbers);
-    setInputNumbers(newNumbers.join(", "));
-  };
-
-  const removeNumber = (index: number) => {
-    const newNumbers = numbers.filter((_, i) => i !== index);
-    setNumbers(newNumbers);
-    setInputNumbers(newNumbers.join(", "));
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
-        <BreadcrumbItem isLast>MMC e MDC</BreadcrumbItem>
+        <BreadcrumbItem isLast>Equação de Segundo Grau</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-3 text-center sm:space-y-4">
-        <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">Calculadora de MMC e MDC</span>
-          <span className="sm:hidden">MMC e MDC</span>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara
         </h1>
-        <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-          Calcule o <strong className="text-primary-blue-dark">Mínimo Múltiplo Comum (MMC)</strong>{" "}
-          e<strong className="text-system-success"> Máximo Divisor Comum (MDC)</strong> com
-          <strong className="text-growth-green">decomposição em fatores primos</strong> passo a
-          passo.
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Resolva <strong className="text-growth-green">equações de segundo grau</strong> usando a{" "}
+          fórmula de Bhaskara com precisão. Calcule delta, raízes reais e complexas com{" "}
+          <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
+          estudos.
         </p>
-        <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
-          <p className="text-xs font-medium text-text-primary sm:text-sm">
-            🔢 <strong>Fatores Primos</strong> • ➕ <strong>Múltiplos Números</strong> • ✅{" "}
-            <strong>Verificação Automática</strong>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            🔢 <strong>Fórmula de Bhaskara</strong> • 📊 <strong>Delta e Raízes</strong> • 🧮{" "}
+            <strong>Resultados Instantâneos</strong>
           </p>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Left Column - Calculator Inputs */}
-        <div className="space-y-6 lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">🔢 Números para Calcular</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                  <p className="mb-2 text-sm text-text-secondary">
-                    <strong className="text-system-info">Como usar:</strong>
-                  </p>
-                  <ul className="list-inside list-disc space-y-1 text-xs text-text-secondary">
-                    <li>Digite os números separados por vírgula, espaço ou ponto e vírgula</li>
-                    <li>Exemplo: 12, 18, 24 ou 15 20 30</li>
-                    <li>Mínimo de 2 números, máximo recomendado: 6 números</li>
-                  </ul>
-                </div>
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">🔢 Números para Cálculo de MMC e MDC</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">
+              Calcule o Mínimo Múltiplo Comum (MMC) e Máximo Divisor Comum (MDC):
+            </p>
+            <div className="mt-2 rounded-lg bg-primary-blue-light p-3">
+              <span className="text-xl font-bold text-primary-blue-dark">MMC e MDC</span>
+              <p className="text-sm text-primary-blue-dark mt-1">
+                Digite números inteiros positivos para calcular o MMC e MDC
+              </p>
+            </div>
+          </div>
 
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-text-primary">
-                    Números (separados por vírgula, espaço ou ponto e vírgula)
-                  </label>
-                  <Input
-                    type="text"
-                    value={inputNumbers}
-                    onChange={(e) => handleInputChange(e.target.value)}
-                    placeholder="Ex: 12, 18, 24"
-                    fullWidth
-                  />
-                  <p className="mt-1 text-xs text-text-secondary">
-                    {numbers.length > 0
-                      ? `${numbers.length} número(s) detectado(s): ${numbers.join(", ")}`
-                      : "Nenhum número válido detectado"}
-                  </p>
-                </div>
-
-                {numbers.length > 0 && (
-                  <div className="rounded-lg bg-background-dark-secondary p-4">
-                    <p className="mb-2 text-sm font-semibold text-text-primary">
-                      Números identificados:
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {numbers.map((num, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-2 rounded-full bg-primary-blue px-3 py-1 text-sm text-white"
-                        >
-                          <span>{num}</span>
-                          <button
-                            onClick={() => removeNumber(index)}
-                            className="font-bold text-white hover:text-red-200"
-                            title="Remover número"
-                          >
-                            ×
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  {[2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 16, 18, 20, 21, 24].map((num) => (
-                    <Button
-                      key={num}
-                      onClick={() => addNumber(num)}
-                      variant="outline"
-                      className="h-8 px-2 py-1 text-xs"
-                      disabled={numbers.includes(num)}
-                    >
-                      +{num}
-                    </Button>
-                  ))}
-                </div>
-
-                {error && (
-                  <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-3">
-                    <p className="text-sm font-medium text-system-error">{error}</p>
-                  </div>
-                )}
+          {/* Campos de entrada para números */}
+          <div className="mb-6 flex flex-wrap justify-center gap-4">
+            <div className="w-48">
+              <Input
+                type="number"
+                label="Número 1"
+                value={number1}
+                onChange={(e) => setNumber1(e.target.value)}
+                placeholder="12"
+                fullWidth
+                className="h-12 text-lg"
+                min="1"
+                step="1"
+              />
+              <ErrorMessage error={errors.number1} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Digite um número inteiro positivo
               </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="w-48">
+              <Input
+                type="number"
+                label="Número 2"
+                value={number2}
+                onChange={(e) => setNumber2(e.target.value)}
+                placeholder="18"
+                fullWidth
+                className="h-12 text-lg"
+                min="1"
+                step="1"
+              />
+              <ErrorMessage error={errors.number2} />
+              <div className="mt-1 text-xs text-text-secondary">Digite um número inteiro positivo</div>
+            </div>
+            <div className="w-48">
+              <Input
+                type="number"
+                label="Número 3 (opcional)"
+                value={number3}
+                onChange={(e) => setNumber3(e.target.value)}
+                placeholder="24"
+                fullWidth
+                className="h-12 text-lg"
+                min="1"
+                step="1"
+              />
+              <ErrorMessage error={errors.number3} />
+              <div className="mt-1 text-xs text-text-secondary">Número opcional para cálculo</div>
+            </div>
+          </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">📚 Exemplos Práticos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <Button
-                  onClick={() => {
-                    setSelectedExample("small_numbers");
-                    loadExample("small_numbers");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-primary-blue-dark">🔢 Números Pequenos</div>
-                    <div className="text-xs text-text-secondary">6, 8</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("three_numbers");
-                    loadExample("three_numbers");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-growth-green">🎯 Três Números</div>
-                    <div className="text-xs text-text-secondary">12, 18, 24</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("coprime");
-                    loadExample("coprime");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-system-warning">🔄 Números Coprimos</div>
-                    <div className="text-xs text-text-secondary">7, 11</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("multiples");
-                    loadExample("multiples");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-system-info">🔗 Múltiplos</div>
-                    <div className="text-xs text-text-secondary">8, 24</div>
-                  </div>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
-            <Button
-              onClick={handleCalculate}
-              className="px-6 sm:px-8"
-              fullWidth
-              disabled={numbers.length < 2}
-            >
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
               Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
-              className="border-system-error px-6 text-system-error hover:bg-system-error hover:text-white sm:px-8"
-              fullWidth
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
               Limpar
             </Button>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Right Column - Quick Results */}
-        {result && (
-          <div className="space-y-4">
-            <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-lg text-primary-blue-dark">
-                  📊 Resultados
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="text-center">
-                    <p className="mb-2 text-sm text-text-secondary">
-                      Números: {result.numbers.join(", ")}
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <div className="text-center">
-                      <p className="mb-1 text-sm text-text-secondary">
-                        MMC (Mínimo Múltiplo Comum)
-                      </p>
-                      <div className="text-2xl font-bold tabular-nums text-system-success">
-                        {formatNumber(result.mmc)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                    <div className="text-center">
-                      <p className="mb-1 text-sm text-text-secondary">MDC (Máximo Divisor Comum)</p>
-                      <div className="text-2xl font-bold tabular-nums text-growth-green">
-                        {formatNumber(result.mdc)}
-                      </div>
-                    </div>
-                  </div>
-
-                  {result.properties.coprimeNumbers && (
-                    <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-3">
-                      <p className="text-center text-xs font-semibold text-system-warning">
-                        ⭐ Números são coprimos (primos entre si)
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-system-info bg-system-info/10 duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-lg text-system-info">
-                  🔍 Decomposição em Fatores Primos
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-sm">
-                  {result.primeFactorizations.map((pf, index) => (
-                    <div key={index} className="rounded bg-background-dark-secondary p-3">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-primary-blue-dark">{pf.number}</span>
-                        <span className="font-mono text-system-info">
-                          {pf.representation}
-                          {pf.isPrime && (
-                            <span className="ml-2 text-xs text-system-warning">(primo)</span>
-                          )}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-neutral-surface-variant bg-background-dark-secondary duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-lg text-text-primary">
-                  ✅ Verificação
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-xs">
-                  <div>
-                    <p className="mb-1 font-semibold text-system-success">
-                      MMC {result.verification.mmcValid ? "✓" : "✗"}
-                    </p>
-                    <p className="font-mono text-text-secondary">{result.verification.mmcCheck}</p>
-                  </div>
-                  <div>
-                    <p className="mb-1 font-semibold text-growth-green">
-                      MDC {result.verification.mdcValid ? "✓" : "✗"}
-                    </p>
-                    <p className="font-mono text-text-secondary">{result.verification.mdcCheck}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </div>
-
+      {/* Resultado */}
       {result && (
-        <>
-          {/* Tab Navigation */}
-          <div className="flex justify-center">
-            <div className="inline-flex rounded-lg bg-background-dark-secondary p-1">
-              <button
-                onClick={() => setActiveTab("both")}
-                className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === "both"
-                    ? "bg-primary-blue text-white"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-              >
-                Ambos (MMC e MDC)
-              </button>
-              <button
-                onClick={() => setActiveTab("mmc")}
-                className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === "mmc"
-                    ? "bg-system-success text-white"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-              >
-                Apenas MMC
-              </button>
-              <button
-                onClick={() => setActiveTab("mdc")}
-                className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                  activeTab === "mdc"
-                    ? "bg-growth-green text-white"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-              >
-                Apenas MDC
-              </button>
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado MMC e MDC
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="mb-2 text-sm text-text-secondary">Números analisados</div>
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {result.numbers.join(", ")}
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* MMC Steps */}
-          {(activeTab === "both" || activeTab === "mmc") && (
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3" className="flex items-center justify-between">
-                  📝 Cálculo do MMC - Passo a Passo
-                  <Button
-                    onClick={() => setShowMMCSteps(!showMMCSteps)}
-                    variant="outline"
-                    className="text-sm"
-                  >
-                    {showMMCSteps ? "Ocultar" : "Mostrar"} Passos
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {showMMCSteps && (
-                  <div className="space-y-4">
-                    {result.mmcSteps.map((step, index) => (
-                      <div
-                        key={index}
-                        className={`rounded-lg border-l-4 p-4 ${
-                          step.step === 1
-                            ? "border-primary-blue bg-primary-blue-light"
-                            : step.step === 2
-                              ? "border-system-info bg-system-info/10"
-                              : "border-system-success bg-system-success/10"
-                        }`}
-                      >
-                        <div className="flex items-start space-x-3">
-                          <div
-                            className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${
-                              step.step === 1
-                                ? "bg-primary-blue"
-                                : step.step === 2
-                                  ? "bg-system-info"
-                                  : "bg-system-success"
-                            }`}
-                          >
-                            {step.step}
-                          </div>
-                          <div className="flex-grow">
-                            <h4 className="mb-2 font-semibold text-text-primary">{step.title}</h4>
-                            <p className="mb-3 text-sm text-text-secondary">{step.description}</p>
-                            <div className="rounded bg-background-dark-secondary p-3">
-                              <p className="whitespace-pre-line text-sm font-semibold">
-                                {step.calculation}
-                              </p>
-                            </div>
-                            <div className="mt-2 rounded bg-system-success/10 p-2 text-center font-bold text-system-success">
-                              {step.result}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-
-                    <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                      <h4 className="mb-2 font-semibold text-system-success">
-                        💡 Interpretação do MMC
-                      </h4>
-                      <p className="text-sm text-text-secondary">{result.mmcInterpretation}</p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
-
-          {/* MDC Steps */}
-          {(activeTab === "both" || activeTab === "mdc") && (
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3" className="flex items-center justify-between">
-                  📝 Cálculo do MDC - Passo a Passo
-                  <Button
-                    onClick={() => setShowMDCSteps(!showMDCSteps)}
-                    variant="outline"
-                    className="text-sm"
-                  >
-                    {showMDCSteps ? "Ocultar" : "Mostrar"} Passos
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {showMDCSteps && (
-                  <div className="space-y-4">
-                    {result.mdcSteps.map((step, index) => (
-                      <div
-                        key={index}
-                        className={`rounded-lg border-l-4 p-4 ${
-                          step.step === 1
-                            ? "border-primary-blue bg-primary-blue-light"
-                            : step.step === 2
-                              ? "border-system-warning bg-system-warning/10"
-                              : "border-growth-green bg-growth-green-soft"
-                        }`}
-                      >
-                        <div className="flex items-start space-x-3">
-                          <div
-                            className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${
-                              step.step === 1
-                                ? "bg-primary-blue"
-                                : step.step === 2
-                                  ? "bg-system-warning"
-                                  : "bg-growth-green"
-                            }`}
-                          >
-                            {step.step}
-                          </div>
-                          <div className="flex-grow">
-                            <h4 className="mb-2 font-semibold text-text-primary">{step.title}</h4>
-                            <p className="mb-3 text-sm text-text-secondary">{step.description}</p>
-                            <div className="rounded bg-background-dark-secondary p-3">
-                              <p className="whitespace-pre-line text-sm font-semibold">
-                                {step.calculation}
-                              </p>
-                            </div>
-                            <div className="mt-2 rounded bg-growth-green/10 p-2 text-center font-bold text-growth-green">
-                              {step.result}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-
-                    <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                      <h4 className="mb-2 font-semibold text-growth-green">
-                        💡 Interpretação do MDC
-                      </h4>
-                      <p className="text-sm text-text-secondary">{result.mdcInterpretation}</p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Applications Section */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3" className="text-xl text-system-success">
-                  🎯 Aplicações do MMC
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {result.applications.mmc.map((app, index) => (
-                    <div
-                      key={index}
-                      className="rounded-lg border border-system-success/20 bg-system-success/10 p-4"
-                    >
-                      <h4 className="mb-2 font-bold text-system-success">{app.title}</h4>
-                      <p className="mb-2 text-sm text-text-secondary">{app.description}</p>
-                      <div className="rounded bg-background-dark-secondary p-2 text-xs">
-                        <p className="font-semibold">Exemplo:</p>
-                        <p>{app.example}</p>
-                      </div>
-                    </div>
-                  ))}
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-3xl font-bold text-system-warning">
+                  {result.mmc}
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3" className="text-xl text-growth-green">
-                  🔧 Aplicações do MDC
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {result.applications.mdc.map((app, index) => (
-                    <div
-                      key={index}
-                      className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4"
-                    >
-                      <h4 className="mb-2 font-bold text-growth-green">{app.title}</h4>
-                      <p className="mb-2 text-sm text-text-secondary">{app.description}</p>
-                      <div className="rounded bg-background-dark-secondary p-2 text-xs">
-                        <p className="font-semibold">Exemplo:</p>
-                        <p>{app.example}</p>
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-sm text-text-secondary">MMC (Mínimo Múltiplo Comum)</div>
+                <div className="mt-2 text-xs text-gray-400">
+                  Menor múltiplo comum a todos os números
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Properties */}
-          {result.numbers.length === 2 && (
-            <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-xl text-primary-blue-dark">
-                  🔍 Propriedades Matemáticas (2 números)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg bg-background-dark-secondary p-4">
-                    <h4 className="mb-2 font-semibold text-text-primary">📊 Relação Fundamental</h4>
-                    <div className="space-y-2 text-sm">
-                      <p>
-                        <strong>MMC × MDC =</strong> {result.properties.mmcTimesGcd}
-                      </p>
-                      <p>
-                        <strong>a × b =</strong> {result.properties.productOfNumbers}
-                      </p>
-                      <p
-                        className={`font-semibold ${result.properties.relationshipValid ? "text-system-success" : "text-system-error"}`}
-                      >
-                        {result.properties.relationshipValid ? "✓" : "✗"} MMC × MDC = a × b
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg bg-background-dark-secondary p-4">
-                    <h4 className="mb-2 font-semibold text-text-primary">🔄 Classificação</h4>
-                    <div className="space-y-2 text-sm">
-                      <p>
-                        <strong>Números são coprimos:</strong>{" "}
-                        {result.properties.coprimeNumbers ? "Sim" : "Não"}
-                      </p>
-                      {result.properties.coprimeNumbers && (
-                        <p className="text-system-warning">⭐ MDC = 1 (primos entre si)</p>
-                      )}
-                      {!result.properties.coprimeNumbers && (
-                        <p className="text-system-info">🔗 Números têm fatores comuns</p>
-                      )}
-                    </div>
-                  </div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-3xl font-bold text-growth-green">
+                  {result.mdc}
                 </div>
-              </CardContent>
-            </Card>
-          )}
-        </>
+                <div className="text-sm text-text-secondary">MDC (Máximo Divisor Comum)</div>
+                <div className="mt-2 text-xs text-gray-400">
+                  Maior divisor comum a todos os números
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-3 font-semibold text-primary-blue-dark">Fatoração dos Números</h4>
+              <div className="space-y-2">
+                {Object.entries(result.factorizations).map(([num, factors]) => (
+                  <div key={num} className="text-sm">
+                    <span className="font-medium text-primary-blue-dark">{num} = </span>
+                    <span className="text-text-secondary">{factors.join(" × ")}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Resolução Passo a Passo</h4>
+              <div className="space-y-2">
+                {result.steps.map((step, index) => (
+                  <div key={index} className="text-sm text-text-secondary">
+                    <span className="font-medium text-primary-blue-dark">{index + 1}. </span>
+                    {step}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
-      {/* Educational Content Sections */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-system-success/10 duration-300">
+      {/* Seção: MMC e MDC - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📐 MMC e MDC: O Guia Completo para Múltiplos e Divisores
+            🎯 MMC e MDC – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
-              <p>
-                O <strong className="text-system-success">MMC (Mínimo Múltiplo Comum)</strong> e o{" "}
-                <strong className="text-growth-green">MDC (Máximo Divisor Comum)</strong> são
-                conceitos fundamentais da matemática, especialmente importantes para
-                <strong className="text-primary-blue-dark">
-                  {" "}
-                  operações com frações, resolução de problemas
-                </strong>{" "}
-                e aplicações práticas do dia a dia.
-              </p>
-            </div>
+          <div className="space-y-8">
+            {/* Conceitos Fundamentais */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🔢 Conceitos Fundamentais
+              </h3>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-system-success/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-system-success">
-                  📈 MMC - Mínimo Múltiplo Comum
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded border border-system-success/20 bg-system-success/10 p-4">
-                    <p className="mb-2 text-center font-semibold text-system-success">Definição:</p>
-                    <p className="text-center">
-                      O <strong>menor número positivo</strong> que é múltiplo de todos os números
-                      dados
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-system-success">Aplicações:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>Somar frações com denominadores diferentes</li>
-                      <li>Sincronizar eventos periódicos</li>
-                      <li>Coordenar processos de produção</li>
-                      <li>Encontrar padrões de repetição</li>
-                    </ul>
-                  </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 MMC - Mínimo Múltiplo Comum</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O MMC é o menor número inteiro positivo que é múltiplo comum de dois ou mais números.
+                    Usado para operações com frações e resolução de problemas matemáticos.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Cálculo</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Fatore os números em primos</li>
+                    <li>• Multiplique os fatores com maior expoente</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ MDC - Máximo Divisor Comum</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O MDC é o maior número que divide dois ou mais números sem deixar resto.
+                    Fundamental para simplificação de frações.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Simplificação de frações</li>
+                    <li>• Resolução de problemas do cotidiano</li>
+                    <li>• Organização em grupos iguais</li>
+                  </ul>
                 </div>
               </div>
+            </div>
 
-              <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-growth-green">
-                  📉 MDC - Máximo Divisor Comum
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded border border-growth-green/20 bg-growth-green-soft p-4">
-                    <p className="mb-2 text-center font-semibold text-growth-green">Definição:</p>
-                    <p className="text-center">
-                      O <strong>maior número positivo</strong> que divide todos os números dados
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-growth-green">Aplicações:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>Simplificar frações ao máximo</li>
-                      <li>Dividir quantidades em grupos iguais</li>
-                      <li>Resolver problemas de ladrilhamento</li>
-                      <li>Encontrar medidas comuns</li>
-                    </ul>
-                  </div>
+            {/* Métodos de Cálculo */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📐 Métodos de Cálculo
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Fatoração Prima</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Decomponha cada número em fatores primos. Para o MMC, use os fatores com maior expoente.
+                    Para o MDC, use os fatores comuns com menor expoente.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Exemplo</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• 12 = 2² × 3</li>
+                    <li>• 18 = 2 × 3²</li>
+                    <li>• MMC = 2² × 3² = 36</li>
+                    <li>• MDC = 2 × 3 = 6</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Algoritmo de Euclides</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Para calcular o MDC, divida o maior pelo menor e continue dividindo pelos restos
+                    até obter resto zero. O último divisor é o MDC.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Relação</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• MMC(a,b) × MDC(a,b) = a × b</li>
+                    <li>• MMC útil para frações</li>
+                    <li>• MDC útil para simplificação</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Aplicações Práticas */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔍 Aplicações Práticas
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Problemas do Cotidiano</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    MMC e MDC aparecem em diversas situações práticas da vida real,
+                    desde organização de objetos até cálculos financeiros.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Exemplos MMC</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Sincronização de eventos periódicos</li>
+                    <li>• Soma de frações com denominadores diferentes</li>
+                    <li>• Planejamento de horários</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ Exemplos MDC
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Divisão de grupos em partes iguais</li>
+                    <li>• Simplificação de frações</li>
+                    <li>• Organização de objetos em fileiras</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Situações Reais</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• 24 maçãs e 18 bananas em cestas iguais</li>
+                    <li>• Encontro de dois ônibus no mesmo ponto</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -832,90 +861,113 @@ export default function MMCMDCCalculator() {
         </CardContent>
       </Card>
 
-      {/* Methods Guide */}
-      <Card className="border-l-4 border-system-info bg-background-dark-secondary duration-300">
+      {/* Seção: Comparação de Métodos de Cálculo */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🔬 Métodos de Cálculo
+            ⚖️ Tabela Comparativa: Métodos de Cálculo de MMC e MDC
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-primary-blue-dark">
-                  🧮 Decomposição em Fatores Primos
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      📝 Método Principal
-                    </h4>
-                    <p className="mb-3 text-sm text-text-secondary">
-                      <strong>1.</strong> Decomponha cada número em fatores primos
-                      <br />
-                      <strong>2.</strong> Para MMC: tome o maior expoente de cada fator
-                      <br />
-                      <strong>3.</strong> Para MDC: tome o menor expoente dos fatores comuns
-                    </p>
-                    <div className="rounded bg-gray-900 p-2 text-xs">
-                      <p className="text-gray-300">Exemplo: 12 = 2² × 3, 18 = 2 × 3²</p>
-                      <p className="text-white">MMC = 2² × 3² = 36</p>
-                      <p className="text-white">MDC = 2¹ × 3¹ = 6</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Fatoração Prima
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Algoritmo de Euclides</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Divisões Sucessivas
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">Lista de Múltiplos</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicabilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">MMC e MDC</td>
+                  <td className="p-3 text-center text-growth-green">Apenas MDC</td>
+                  <td className="p-3 text-center text-system-warning">MMC e MDC</td>
+                  <td className="p-3 text-center text-system-info">Apenas MMC</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Dificuldade</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Eficiência</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Boa</td>
+                  <td className="p-3 text-center text-growth-green">Excelente</td>
+                  <td className="p-3 text-center text-system-warning">Boa</td>
+                  <td className="p-3 text-center text-system-info">Ruim</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Números Grandes</td>
+                  <td className="p-3 text-center">Funciona</td>
+                  <td className="p-3 text-center">Excelente</td>
+                  <td className="p-3 text-center">Funciona</td>
+                  <td className="p-3 text-center">Impraticável</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Vantagens</td>
+                  <td className="p-3 text-center">Compreensivo</td>
+                  <td className="p-3 text-center">Muito rápido</td>
+                  <td className="p-3 text-center">Didático</td>
+                  <td className="p-3 text-center">Números pequenos</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Melhor Uso</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Ensino</td>
+                  <td className="p-3 text-center text-growth-green">Cálculos rápidos</td>
+                  <td className="p-3 text-center text-system-warning">Prática</td>
+                  <td className="p-3 text-center text-system-info">Iniciantes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-system-warning">
-                  🔄 Algoritmo de Euclides (MDC)
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">⚡ Método Rápido</h4>
-                    <p className="mb-3 text-sm text-text-secondary">
-                      Para calcular MDC de dois números rapidamente:
-                      <br />
-                      <strong>1.</strong> Divida o maior pelo menor
-                      <br />
-                      <strong>2.</strong> Substitua o maior pelo menor e o menor pelo resto
-                      <br />
-                      <strong>3.</strong> Repita até o resto ser zero
-                    </p>
-                    <div className="rounded bg-gray-900 p-2 text-xs">
-                      <p className="text-gray-300">Exemplo: MDC(48, 18)</p>
-                      <p className="text-white">48 ÷ 18 = 2 resto 12</p>
-                      <p className="text-white">18 ÷ 12 = 1 resto 6</p>
-                      <p className="text-white">12 ÷ 6 = 2 resto 0 → MDC = 6</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Fatoração Prima</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>mais compreensivo</strong> para calcular MMC e MDC, ideal para 
+                ensino e compreensão dos conceitos. Saiba mais sobre
+                <a
+                  href="/calculadoras/matematica/porcentagem"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  cálculos de porcentagem
+                </a>
+                ou explore nossa{" "}
+                <a
+                  href="/calculadoras/matematica/fracoes"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  calculadora de frações
+                </a>
+                .
+              </p>
             </div>
 
-            <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-              <h4 className="mb-3 font-semibold text-system-info">💡 Relação Fundamental</h4>
-              <div className="grid grid-cols-1 gap-4 text-sm text-text-secondary md:grid-cols-2">
-                <div>
-                  <p className="mb-2">
-                    <strong>Para dois números a e b:</strong>
-                  </p>
-                  <p className="rounded bg-gray-900 p-2 text-center font-mono text-white">
-                    MMC(a,b) × MDC(a,b) = a × b
-                  </p>
-                </div>
-                <div>
-                  <p className="mb-2">
-                    <strong>Isso significa:</strong>
-                  </p>
-                  <ul className="list-inside list-disc space-y-1">
-                    <li>Se conhecemos MMC e um dos números, podemos calcular MDC</li>
-                    <li>Se conhecemos MDC e um dos números, podemos calcular MMC</li>
-                    <li>É uma forma de verificar nossos cálculos</li>
-                  </ul>
-                </div>
-              </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">⚡ Algoritmo de Euclides</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>mais eficiente</strong> para calcular MDC de números grandes,
+                especialmente útil em programação.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📐 Divisões Sucessivas</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>prático e visual</strong> para calcular MMC e MDC simultaneamente,
+                ideal para resolução manual.
+              </p>
             </div>
           </div>
         </CardContent>
@@ -925,162 +977,93 @@ export default function MMCMDCCalculator() {
         title="Perguntas Frequentes - Calculadora de MMC e MDC"
         items={[
           {
-            question:
-              "Qual a diferença entre MMC (Mínimo Múltiplo Comum) e MDC (Máximo Divisor Comum)?",
+            question: "O que é MMC (Mínimo Múltiplo Comum)?",
             answer:
-              "<strong>MMC:</strong> menor número que é múltiplo de todos os números dados. <strong>MDC:</strong> maior número que divide todos os números dados. Exemplo: MMC(6,8) = 24, MDC(6,8) = 2. São conceitos <strong>opostos mas complementares</strong>!",
+              "O MMC é o menor número inteiro positivo que é múltiplo comum de dois ou mais números. Por exemplo, o MMC de 12 e 18 é 36, pois 36 é o menor número que é múltiplo tanto de 12 quanto de 18.",
             borderColor: "primary-blue",
           },
           {
-            question: "Como usar MMC para somar frações com denominadores diferentes?",
+            question: "O que é MDC (Máximo Divisor Comum)?",
             answer:
-              "Encontre o <strong>MMC dos denominadores</strong> e converta todas as frações para esse denominador comum. Exemplo: 1/6 + 1/8 → MMC(6,8) = 24 → 4/24 + 3/24 = <strong>7/24</strong>. O MMC é essencial para operações com frações!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Como usar MDC para simplificar frações?",
-            answer:
-              "Divida numerador e denominador pelo <strong>MDC de ambos</strong>. Exemplo: 18/24 → MDC(18,24) = 6 → 18÷6 = 3, 24÷6 = 4 → resultado: <strong>3/4</strong>. O MDC reduz frações ao menor termo possível!",
+              "O MDC é o maior número que divide dois ou mais números sem deixar resto. Por exemplo, o MDC de 12 e 18 é 6, pois 6 é o maior número que divide tanto 12 quanto 18 completamente.",
             borderColor: "growth-green",
           },
           {
-            question: "O que são números coprimos e como identificá-los?",
+            question: "Como calcular MMC usando fatoração prima?",
             answer:
-              "Números são <strong>coprimos quando MDC = 1</strong>, ou seja, não têm fatores comuns além de 1. Exemplos: 7 e 11, 8 e 15. <strong>Propriedade especial:</strong> se a e b são coprimos, então MMC(a,b) = a × b!",
+              "Fatore cada número em números primos. Para o MMC, multiplique todos os fatores primos elevados aos seus maiores expoentes. Exemplo: MMC(12,18) = 12=2²×3, 18=2×3², então MMC = 2²×3² = 36.",
             borderColor: "system-info",
           },
           {
-            question: "Como calcular MMC e MDC de mais de dois números?",
+            question: "Qual a relação entre MMC e MDC?",
             answer:
-              "<strong>Método sucessivo:</strong> MMC(a,b,c) = MMC(MMC(a,b),c). <strong>Decomposição em primos:</strong> mais eficiente para muitos números. Exemplo: MMC(12,18,24) = MMC(36,24) = <strong>72</strong>. Use nossa calculadora para qualquer quantidade!",
-            borderColor: "primary-blue",
+              "Existe uma relação fundamental: MMC(a,b) × MDC(a,b) = a × b. Esta propriedade permite calcular um quando você conhece o outro. Por exemplo, se MMC(12,18) = 36 e MDC(12,18) = 6, então 36 × 6 = 12 × 18 = 216.",
+            borderColor: "system-warning",
           },
           {
-            question: "Qual é mais fácil de calcular: MMC ou MDC?",
+            question: "Quais são as aplicações práticas do MMC e MDC?",
             answer:
-              "<strong>MDC é geralmente mais rápido</strong> usando algoritmo de Euclides. Uma vez calculado o MDC, o MMC é fácil: MMC = (a × b) ÷ MDC. Para mais de 2 números, <strong>decomposição em primos</strong> é mais eficiente!",
-            borderColor: "system-success",
-          },
-          {
-            question: "Quais as aplicações práticas do MMC e MDC no dia a dia?",
-            answer:
-              "<strong>MMC:</strong> sincronizar horários, receitas culinárias, eventos periódicos. <strong>MDC:</strong> cortar materiais sem desperdício, organizar grupos iguais, dividir heranças. <strong>Ambos:</strong> arquitetura, música, programação e design!",
+              "MMC é usado para encontrar denominadores comuns em frações, sincronizar eventos periódicos e resolver problemas de tempo. MDC é usado para simplificar frações, dividir objetos em grupos iguais e encontrar medidas comuns.",
             borderColor: "growth-green",
           },
           {
-            question: "Quando MMC e MDC de números são iguais?",
+            question: "O algoritmo de Euclides é mais eficiente?",
             answer:
-              "<strong>Apenas quando todos os números são idênticos!</strong> Exemplo: MMC(5,5,5) = MDC(5,5,5) = 5. <strong>Regra geral:</strong> MMC ≥ maior número, MDC ≤ menor número. Para números diferentes, MMC > MDC sempre!",
-            borderColor: "system-warning",
+              "Sim, o algoritmo de Euclides é muito eficiente para calcular o MDC, especialmente com números grandes. Ele usa divisões sucessivas até encontrar resto zero. É amplamente usado em programação e criptografia.",
+            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica de Especialista",
+          title: "Dica Importante sobre MMC e MDC",
           content:
-            "Para calcular rapidamente, use a <strong>relação fundamental</strong>: MMC(a,b) × MDC(a,b) = a × b. Calcule primeiro o MDC (mais rápido) e depois use a fórmula para encontrar o MMC!",
+            "<strong>Para resultados precisos:</strong> sempre use números inteiros positivos e verifique se os números foram fatorados corretamente. A fatoração prima é o método mais confiável para entender os conceitos.",
         }}
-        footerText="<strong>Precisa de mais cálculos?</strong> Use nossa calculadora para MMC e MDC de qualquer quantidade de números, com decomposição em fatores primos inclusa!"
+        footerText="<strong>Lembre-se:</strong> MMC × MDC = produto dos números (para dois números). Use fatoração prima para compreender melhor os conceitos."
       />
 
-      {/* Footer */}
+      {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de MMC e MDC
+            📚 Como Usar Esta Calculadora de MMC e MDC
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de MMC e MDC</strong> é
-              <strong className="text-system-success"> 100% gratuita</strong> e oferece cálculo
-              completo com decomposição em fatores primos, verificação automática e aplicações
-              práticas detalhadas.
+              Esta{" "}
+              <strong className="text-primary-blue-dark">
+                calculadora de MMC e MDC
+              </strong>{" "}
+              utiliza <strong className="text-growth-green">fatoração prima e algoritmo de Euclides</strong> para
+              calcular o Mínimo Múltiplo Comum e Máximo Divisor Comum com precisão matemática e resultados
+              instantâneos.
             </p>
             <p>
-              <strong>Recursos inclusos:</strong> Suporte para múltiplos números, decomposição em
-              fatores primos passo a passo, verificação automática de resultados, detecção de
-              números coprimos, aplicações práticas contextualizadas, e propriedades matemáticas com
-              exemplos educativos.
+              <strong>Funcionalidades:</strong> Cálculo simultâneo de MMC e MDC, fatoração prima completa,
+              explicação passo a passo dos métodos utilizados e demonstração da relação fundamental entre os conceitos.
             </p>
             <p>
-              <strong className="text-system-warning">Uso Educacional:</strong> Esta ferramenta é
-              ideal para estudantes do ensino fundamental e médio, professores de matemática, e
-              profissionais que trabalham com frações, divisibilidade e problemas de otimização.{" "}
-              <strong>Sempre confira os resultados em situações críticas.</strong>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e resolução de exercícios matemáticos. Use números inteiros positivos para
+              obter resultados corretos. Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/matematica/area-perimetro"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                área e perímetro
+              </a>
+              para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚖️ Cálculos baseados em algoritmos matemáticos padrão • 🎓 Ferramenta educacional
-              gratuita • 🔒 Seus dados não são armazenados • 📱 Responsivo para todos os
-              dispositivos • 🌙 Modo escuro disponível • ✅ Verificação automática de resultados
+              🔎 Foco educacional • 🔢 Fórmula de Bhaskara • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora de MMC e MDC",
-            description:
-              "Calculadora online gratuita para calcular Mínimo Múltiplo Comum e Máximo Divisor Comum com decomposição em fatores primos passo a passo. Ideal para estudantes e professores.",
-            url: "https://calculadorasonline.com.br/calculadoras/matematica/mmc-mdc",
-            applicationCategory: "EducationalApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Cálculo de MMC (Mínimo Múltiplo Comum)",
-              "Cálculo de MDC (Máximo Divisor Comum)",
-              "Decomposição em fatores primos",
-              "Resolução passo a passo",
-              "Verificação automática",
-              "Múltiplos números simultâneos",
-              "Aplicações práticas",
-              "100% gratuito",
-            ],
-            educationalLevel: ["Elementary", "MiddleSchool", "HighSchool"],
-            learningResourceType: "Interactive Tool",
-            about: [
-              {
-                "@type": "Thing",
-                name: "Mínimo Múltiplo Comum",
-                description: "Menor número positivo que é múltiplo de todos os números dados",
-              },
-              {
-                "@type": "Thing",
-                name: "Máximo Divisor Comum",
-                description: "Maior número que divide todos os números dados",
-              },
-            ],
-            teaches: [
-              "MMC - Mínimo Múltiplo Comum",
-              "MDC - Máximo Divisor Comum",
-              "Decomposição em fatores primos",
-              "Algoritmo de Euclides",
-              "Números coprimos",
-            ],
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
-
-      <RelatedCalculators category="matematica" currentCalculatorId="mmc-mdc" />
+      <RelatedCalculators category="matematica" currentCalculatorId="equacao-segundo-grau" />
     </div>
   );
 }
