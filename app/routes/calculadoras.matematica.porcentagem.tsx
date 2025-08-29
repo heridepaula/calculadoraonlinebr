@@ -18,14 +18,16 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Porcentagem Online Gratuita - Cálculos Precisos 2025",
+      title: "Calculadora de Porcentagem 2025 | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "📊 Calculadora de porcentagem gratuita e precisa. Calcule aumentos, descontos, diferenças percentuais e regra de três. Resultados instantâneos!",
+        "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, precisa e com explicação passo a passo. Acesso instantâneo!",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
+    { name: "generator", content: "Remix" },
+    { name: "application-name", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -103,10 +105,13 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     {
       name: "keywords",
-      content: "calculadora porcentagem, aumento percentual, desconto percentual, diferença percentual, regra de três",
+      content: "calculadora porcentagem, porcentagem online, aumento percentual, desconto percentual, regra três, diferenca percentual, calculo porcentagem",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
+    { rel: "preconnect", href: "https://www.google-analytics.com" },
+    { rel: "preconnect", href: "https://www.googletagmanager.com" },
+    { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -285,6 +290,87 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Porcentagem Online",
           },
         ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Matemática",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Porcentagem",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Calculadora de Porcentagem Online - Aumentos, Descontos e Diferenças",
+        description: "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, precisa e com explicação passo a passo.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+        inLanguage: "pt-BR",
+        isPartOf: {
+          "@type": "WebSite",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+        },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Início",
+              item: "https://calculadoraonlinebr.com.br",
+            },
+            {
+              "@type": "ListItem", 
+              position: 2,
+              name: "Matemática",
+              item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+            },
+            {
+              "@type": "ListItem",
+              position: 3, 
+              name: "Porcentagem",
+              item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+            },
+          ],
+        },
+        mainEntity: {
+          "@type": "SoftwareApplication",
+          name: "Calculadora de Porcentagem",
+          applicationCategory: "EducationalApplication",
+          operatingSystem: "Web Browser",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "BRL",
+          },
+        },
       }),
     },
   ];
@@ -577,16 +663,18 @@ export default function PercentageCalculator() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
-        <BreadcrumbItem isLast>Porcentagem</BreadcrumbItem>
-      </Breadcrumb>
+      <nav aria-label="Navegação estrutural">
+        <Breadcrumb>
+          <BreadcrumbItem href="/">Início</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
+          <BreadcrumbItem isLast>Porcentagem</BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
 
-      <header className="space-y-4 text-center">
+      <header className="space-y-4 text-center" role="banner">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Porcentagem 2025 – Aumentos, Descontos e Diferenças
+          Calculadora de Porcentagem 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Realize <strong className="text-growth-green">cálculos de porcentagem</strong> de forma
@@ -602,11 +690,12 @@ export default function PercentageCalculator() {
         </div>
       </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2">📊 Cálculos de Porcentagem</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <main role="main">
+        <Card>
+          <CardHeader>
+            <CardTitle as="h2">📊 Cálculos de Porcentagem</CardTitle>
+          </CardHeader>
+          <CardContent>
           <div className="mb-6 text-center">
             <p className="text-lg text-text-secondary">Selecione o tipo de cálculo de porcentagem:</p>
             <div className="mt-4">
@@ -616,6 +705,7 @@ export default function PercentageCalculator() {
                   setOperation(e.target.value as "aumento" | "desconto" | "diferenca" | "valor-original" | "porcentagem-de")
                 }
                 className="mx-auto block rounded-lg border border-neutral-surface-variant bg-gray-900 px-4 py-2 text-lg font-medium text-text-primary"
+                aria-label="Selecionar tipo de cálculo de porcentagem"
               >
                 <option value="aumento">📈 Aumento Percentual</option>
                 <option value="desconto">📉 Desconto Percentual</option>
@@ -801,13 +891,18 @@ export default function PercentageCalculator() {
 
           {/* Botões */}
           <div className="margin-top-4 flex justify-center space-x-4">
-            <Button onClick={handleCalculate} className="px-8">
+            <Button 
+              onClick={handleCalculate} 
+              className="px-8"
+              aria-label="Calcular resultado da porcentagem"
+            >
               Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
               className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+              aria-label="Limpar todos os campos e reiniciar cálculo"
             >
               Limpar
             </Button>
@@ -893,11 +988,13 @@ export default function PercentageCalculator() {
           </CardContent>
         </Card>
       )}
+      </main>
 
       {/* Seção: Porcentagem - Guia Completo */}
+      <aside role="complementary" aria-labelledby="guia-porcentagem">
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
-          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary" id="guia-porcentagem">
             🎯 Porcentagem – Guia Completo 2025
           </CardTitle>
         </CardHeader>
@@ -1212,6 +1309,7 @@ export default function PercentageCalculator() {
           </div>
         </CardContent>
       </Card>
+      </aside>
 
       <RelatedCalculators category="matematica" currentCalculatorId="porcentagem" />
     </div>
