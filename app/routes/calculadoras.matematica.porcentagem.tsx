@@ -1,154 +1,582 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { calculatePercentage, calculatePercentageOf } from "~/utils/calculations";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Porcentagem Online Gratuita - Fácil e Precisa - ${APP_NAME}` },
+    {
+      title: "Calculadora de Porcentagem Online Gratuita - Cálculos Precisos 2025",
+    },
     {
       name: "description",
       content:
-        "Calculadora de porcentagem online gratuita e precisa. Calcule descontos, aumentos, juros e percentuais facilmente. Descubra quanto é X% de um valor ou que porcentagem representa um número. Resultados instantâneos!",
+        "📊 Calculadora de porcentagem gratuita e precisa. Calcule aumentos, descontos, diferenças percentuais e regra de três. Resultados instantâneos!",
+    },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "keywords",
-      content:
-        "calculadora porcentagem, calcular porcentagem, desconto, aumento, percentual, porcentagem online, cálculo percentual, matemática, regra de três, porcentagem de um valor",
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+    },
     {
       property: "og:title",
-      content: `Calculadora de Porcentagem - Descontos e Aumentos - ${APP_NAME}`,
+      content: "Calculadora de Porcentagem Online Gratuita - Cálculos Precisos 2025",
     },
     {
       property: "og:description",
       content:
-        "Calcule porcentagens, descontos e aumentos de forma rápida e gratuita. Ferramenta essencial para compras, negócios e estudos.",
+        "Ferramenta online precisa para cálculos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Gratuita para estudantes!",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-porcentagem.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Porcentagem - Cálculos Matemáticos com Porcentagem",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadora de Porcentagem Online Gratuita - ${APP_NAME}` },
+    {
+      property: "og:url",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+    },
+    { property: "og:site_name", content: APP_NAME },
+    { property: "og:locale", content: "pt_BR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Porcentagem Online Gratuita - Resultados Precisos",
+    },
     {
       name: "twitter:description",
       content:
-        "Calcule porcentagens, descontos e aumentos facilmente. Resultados precisos e instantâneos.",
+        "Ferramenta educacional gratuita para cálculos de porcentagem. Aumentos, descontos, diferenças percentuais e regra de três instantânea. Ideal para estudos!",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-porcentagem.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Porcentagem - Cálculos Matemáticos",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
+    { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Calculadora Porcentagem" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    {
+      name: "keywords",
+      content: "calculadora porcentagem, aumento percentual, desconto percentual, diferença percentual, regra de três",
+    },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Porcentagem Online Gratuita - Cálculos Matemáticos 2025",
+        description:
+          "Ferramenta educacional online gratuita para realizar cálculos precisos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Resultados instantâneos com explicação passo a passo.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-28",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+          name: "Calculadora de Porcentagem Online Gratuita - Matemática Educacional",
+          description:
+            "Ferramenta educacional online para cálculos precisos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três com explicação passo a passo.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Matemática",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Porcentagem",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Porcentagem",
+          description:
+            "Cálculos matemáticos com porcentagem: aumentos, descontos, diferenças percentuais e regra de três",
+          category: "Mathematics",
+        },
+        featureList: [
+          "Cálculo de aumento percentual",
+          "Cálculo de desconto percentual",
+          "Diferença percentual entre valores",
+          "Regra de três simples",
+          "Porcentagem de um valor",
+          "Valor original com desconto/aumento",
+          "Percentual de variação",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+          "Explicação passo a passo",
+          "Formatação brasileira",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é porcentagem?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Porcentagem é uma forma de expressar uma proporção ou fração em relação a 100. O símbolo % significa 'por cento' ou 'a cada 100 unidades'. Por exemplo, 25% significa 25 de cada 100 partes.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como calcular aumento percentual?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para calcular um aumento percentual, multiplique o valor original por (1 + porcentagem/100). Por exemplo: R$ 100 com aumento de 20% = R$ 100 × (1 + 20/100) = R$ 120.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como calcular desconto percentual?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para calcular um desconto percentual, multiplique o valor original por (1 - porcentagem/100). Por exemplo: R$ 100 com desconto de 15% = R$ 100 × (1 - 15/100) = R$ 85.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "O que é diferença percentual?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Diferença percentual compara dois valores mostrando a variação em porcentagem. Fórmula: ((Valor2 - Valor1) ÷ Valor1) × 100. Resultado positivo indica aumento, negativo indica redução.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Porcentagem",
+        description:
+          "Aprenda a realizar cálculos de porcentagem de forma simples e precisa com nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione o tipo de cálculo",
+            text: "Escolha o tipo de cálculo desejado: aumento percentual, desconto, diferença percentual, valor original ou porcentagem de um valor.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira os valores",
+            text: "Digite os valores necessários nos campos correspondentes. Para aumentos/descontos: valor inicial e porcentagem. Para diferenças: dois valores para comparação.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule o resultado",
+            text: "Clique no botão 'Calcular' para obter o resultado do cálculo e a resolução passo a passo com a fórmula utilizada.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja o resultado formatado em moeda ou porcentagem, a fórmula utilizada e acompanhe a resolução detalhada passo a passo.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Porcentagem Online",
+          },
+        ],
+      }),
     },
   ];
 };
 
+interface PercentageResult {
+  originalValues: {
+    value1: number;
+    value2?: number;
+    percentage?: number;
+  };
+  operation: "aumento" | "desconto" | "diferenca" | "valor-original" | "porcentagem-de";
+  result: {
+    value: number;
+    percentage?: number;
+    formatted: string;
+  };
+  steps: string[];
+  formula?: string;
+}
+
+interface ValidationErrors {
+  value1?: string;
+  value2?: string;
+  percentage?: string;
+  operation?: string;
+}
+
 export default function PercentageCalculator() {
-  const [value, setValue] = useState("");
+  // Inputs para porcentagem
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
   const [percentage, setPercentage] = useState("");
-  const [part, setPart] = useState("");
-  const [total, setTotal] = useState("");
-  const [result1, setResult1] = useState<number | null>(null);
-  const [result2, setResult2] = useState<number | null>(null);
-  const [errors1, setErrors1] = useState<{ value?: string; percentage?: string }>({});
-  const [errors2, setErrors2] = useState<{ part?: string; total?: string }>({});
+  const [operation, setOperation] = useState<"aumento" | "desconto" | "diferenca" | "valor-original" | "porcentagem-de">(
+    "aumento"
+  );
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+  const [result, setResult] = useState<PercentageResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
     calculatorType: "porcentagem",
-    category: "matematica"
+    category: "matematica",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("porcentagem");
+  useFormTracking("porcentagem");
 
-  const handleCalculatePercentage = () => {
-    const valueNum = parseFloat(value);
-    const percentageNum = parseFloat(percentage);
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
 
-    // Reset errors
-    setErrors1({});
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
 
-    // Validation
-    const newErrors: { value?: string; percentage?: string } = {};
-
-    if (!value || isNaN(valueNum)) {
-      newErrors.value = "Por favor, insira um valor válido";
-    }
-
-    if (!percentage || isNaN(percentageNum)) {
-      newErrors.percentage = "Por favor, insira uma porcentagem válida";
-    } else if (percentageNum < 0) {
-      newErrors.percentage = "A porcentagem não pode ser negativa";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors1(newErrors);
-      setResult1(null);
-      return;
-    }
-
-    // If validation passes, calculate
-    const calc = calculatePercentage(valueNum, percentageNum);
-    setResult1(calc.result);
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
   };
 
-  const handleCalculatePercentageOf = () => {
-    const partNum = parseFloat(part);
-    const totalNum = parseFloat(total);
+  // Funções auxiliares para porcentagem
+  const formatCurrency = (value: number): string => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
 
-    // Reset errors
-    setErrors2({});
+  const formatPercentage = (value: number): string => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "percent",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value / 100);
+  };
 
-    // Validation
-    const newErrors: { part?: string; total?: string } = {};
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
 
-    if (!part || isNaN(partNum)) {
-      newErrors.part = "Por favor, insira um valor parcial válido";
+    const val1 = parseNumber(value1);
+    const val2 = parseNumber(value2);
+    const perc = parseNumber(percentage);
+
+    // Validações específicas por tipo de operação
+    switch (operation) {
+      case "aumento":
+      case "desconto":
+        if (value1.trim() === "") {
+          newErrors.value1 = "Valor inicial é obrigatório";
+          ok = false;
+        } else if (val1 < 0) {
+          newErrors.value1 = "Valor inicial deve ser positivo";
+          ok = false;
+        }
+        if (percentage.trim() === "") {
+          newErrors.percentage = "Porcentagem é obrigatória";
+          ok = false;
+        } else if (perc < 0) {
+          newErrors.percentage = "Porcentagem deve ser positiva";
+          ok = false;
+        }
+        break;
+
+      case "diferenca":
+        if (value1.trim() === "") {
+          newErrors.value1 = "Primeiro valor é obrigatório";
+          ok = false;
+        }
+        if (value2.trim() === "") {
+          newErrors.value2 = "Segundo valor é obrigatório";
+          ok = false;
+        }
+        if (val1 === 0) {
+          newErrors.value1 = "Primeiro valor não pode ser zero para cálculo de diferença percentual";
+          ok = false;
+        }
+        break;
+
+      case "valor-original":
+        if (value1.trim() === "") {
+          newErrors.value1 = "Valor com desconto/aumento é obrigatório";
+          ok = false;
+        } else if (val1 < 0) {
+          newErrors.value1 = "Valor deve ser positivo";
+          ok = false;
+        }
+        if (percentage.trim() === "") {
+          newErrors.percentage = "Porcentagem é obrigatória";
+          ok = false;
+        }
+        break;
+
+      case "porcentagem-de":
+        if (value1.trim() === "") {
+          newErrors.value1 = "Valor parcial é obrigatório";
+          ok = false;
+        }
+        if (value2.trim() === "") {
+          newErrors.value2 = "Valor total é obrigatório";
+          ok = false;
+        } else if (val2 === 0) {
+          newErrors.value2 = "Valor total não pode ser zero";
+          ok = false;
+        }
+        break;
     }
 
-    if (!total || isNaN(totalNum)) {
-      newErrors.total = "Por favor, insira um valor total válido";
-    } else if (totalNum === 0) {
-      newErrors.total = "O valor total não pode ser zero";
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculatePercentage = (): PercentageResult => {
+    const val1 = parseNumber(value1);
+    const val2 = parseNumber(value2);
+    const perc = parseNumber(percentage);
+
+    let resultValue: number;
+    let resultPercentage: number | undefined;
+    const steps: string[] = [];
+    let formula = "";
+
+    const originalValues = { value1: val1, value2: val2, percentage: perc };
+
+    switch (operation) {
+      case "aumento":
+        resultValue = val1 + (val1 * perc / 100);
+        formula = "Valor Final = Valor Inicial + (Valor Inicial × Porcentagem ÷ 100)";
+        steps.push(`Valor inicial: ${formatCurrency(val1)}`);
+        steps.push(`Aumento de: ${formatPercentage(perc)}`);
+        steps.push(`Cálculo do aumento: ${formatCurrency(val1)} × ${perc}% = ${formatCurrency(val1 * perc / 100)}`);
+        steps.push(`Valor final: ${formatCurrency(val1)} + ${formatCurrency(val1 * perc / 100)} = ${formatCurrency(resultValue)}`);
+        break;
+
+      case "desconto":
+        resultValue = val1 - (val1 * perc / 100);
+        formula = "Valor Final = Valor Inicial - (Valor Inicial × Porcentagem ÷ 100)";
+        steps.push(`Valor inicial: ${formatCurrency(val1)}`);
+        steps.push(`Desconto de: ${formatPercentage(perc)}`);
+        steps.push(`Cálculo do desconto: ${formatCurrency(val1)} × ${perc}% = ${formatCurrency(val1 * perc / 100)}`);
+        steps.push(`Valor final: ${formatCurrency(val1)} - ${formatCurrency(val1 * perc / 100)} = ${formatCurrency(resultValue)}`);
+        break;
+
+      case "diferenca":
+        resultPercentage = ((val2 - val1) / Math.abs(val1)) * 100;
+        resultValue = resultPercentage;
+        formula = "Diferença % = ((Valor2 - Valor1) ÷ |Valor1|) × 100";
+        steps.push(`Primeiro valor: ${formatCurrency(val1)}`);
+        steps.push(`Segundo valor: ${formatCurrency(val2)}`);
+        steps.push(`Diferença absoluta: ${formatCurrency(val2)} - ${formatCurrency(val1)} = ${formatCurrency(val2 - val1)}`);
+        steps.push(`Diferença percentual: (${formatCurrency(val2 - val1)} ÷ ${formatCurrency(Math.abs(val1))}) × 100 = ${formatPercentage(resultPercentage)}`);
+        if (resultPercentage > 0) {
+          steps.push(`Resultado: Aumento de ${formatPercentage(Math.abs(resultPercentage))}`);
+        } else {
+          steps.push(`Resultado: Redução de ${formatPercentage(Math.abs(resultPercentage))}`);
+        }
+        break;
+
+      case "valor-original":
+        // Se é aumento: valor_original × (1 + perc/100) = valor_final
+        // Se é desconto: valor_original × (1 - perc/100) = valor_final
+        // Assumindo desconto por padrão, mas pode ser configurado
+        const isDiscount = true; // Pode ser configurado via interface
+        if (isDiscount) {
+          resultValue = val1 / (1 - perc / 100);
+          formula = "Valor Original = Valor com Desconto ÷ (1 - Porcentagem ÷ 100)";
+          steps.push(`Valor com desconto: ${formatCurrency(val1)}`);
+          steps.push(`Desconto aplicado: ${formatPercentage(perc)}`);
+          steps.push(`Fator de desconto: 1 - ${perc}% = ${(1 - perc / 100).toFixed(4)}`);
+          steps.push(`Valor original: ${formatCurrency(val1)} ÷ ${(1 - perc / 100).toFixed(4)} = ${formatCurrency(resultValue)}`);
+        } else {
+          resultValue = val1 / (1 + perc / 100);
+          formula = "Valor Original = Valor com Aumento ÷ (1 + Porcentagem ÷ 100)";
+          steps.push(`Valor com aumento: ${formatCurrency(val1)}`);
+          steps.push(`Aumento aplicado: ${formatPercentage(perc)}`);
+          steps.push(`Fator de aumento: 1 + ${perc}% = ${(1 + perc / 100).toFixed(4)}`);
+          steps.push(`Valor original: ${formatCurrency(val1)} ÷ ${(1 + perc / 100).toFixed(4)} = ${formatCurrency(resultValue)}`);
+        }
+        break;
+
+      case "porcentagem-de":
+        resultPercentage = (val1 / val2) * 100;
+        resultValue = resultPercentage;
+        formula = "Porcentagem = (Valor Parcial ÷ Valor Total) × 100";
+        steps.push(`Valor parcial: ${formatCurrency(val1)}`);
+        steps.push(`Valor total: ${formatCurrency(val2)}`);
+        steps.push(`Divisão: ${formatCurrency(val1)} ÷ ${formatCurrency(val2)} = ${(val1/val2).toFixed(6)}`);
+        steps.push(`Porcentagem: ${(val1/val2).toFixed(6)} × 100 = ${formatPercentage(resultPercentage)}`);
+        break;
+
+      default:
+        resultValue = 0;
+        steps.push("Operação não reconhecida");
     }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors2(newErrors);
-      setResult2(null);
-      return;
+    let formatted: string;
+    if (operation === "diferenca" || operation === "porcentagem-de") {
+      formatted = formatPercentage(resultValue);
+    } else {
+      formatted = formatCurrency(resultValue);
     }
 
-    // If validation passes, calculate
-    const result = calculatePercentageOf(partNum, totalNum);
-    setResult2(result);
+    return {
+      originalValues,
+      operation,
+      result: {
+        value: resultValue,
+        percentage: resultPercentage,
+        formatted,
+      },
+      steps,
+      formula,
+    };
+  };
+
+  const handleCalculate = () => {
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const result = calculatePercentage();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ numerator1: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
+    }
   };
 
   const handleReset = () => {
-    setValue("");
+    setValue1("");
+    setValue2("");
     setPercentage("");
-    setPart("");
-    setTotal("");
-    setResult1(null);
-    setResult2(null);
-    setErrors1({});
-    setErrors2({});
+    setOperation("aumento");
+    setResult(null);
+    setErrors({});
   };
 
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
+
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -156,581 +584,636 @@ export default function PercentageCalculator() {
         <BreadcrumbItem isLast>Porcentagem</BreadcrumbItem>
       </Breadcrumb>
 
-      <div className="flex flex-col items-center space-y-8">
-        <header className="space-y-4 text-center">
-          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Calculadora de Porcentagem Online
-          </h1>
-          <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-            Calcule{" "}
-            <strong className="text-primary-blue-dark">porcentagens, descontos e aumentos</strong>{" "}
-            de forma rápida e precisa. Ferramenta essencial para{" "}
-            <strong className="text-growth-green">compras, negócios e estudos</strong>.
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Porcentagem 2025 – Aumentos, Descontos e Diferenças
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Realize <strong className="text-growth-green">cálculos de porcentagem</strong> de forma
+          simples e precisa. Calcule aumentos, descontos, diferenças percentuais e regra de três com{" "}
+          <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
+          estudos.
+        </p>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            📊 <strong>Cálculos de Porcentagem</strong> • 📈 <strong>Aumentos e Descontos</strong>{" "}
+            • 🧮 <strong>Resultados Instantâneos</strong>
           </p>
-          <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
-            <p className="text-sm font-medium text-text-primary">
-              ⚡ <strong>Cálculo instantâneo</strong> • 📋 <strong>Múltiplas funções</strong> • 💰{" "}
-              <strong>Ideal para finanças</strong>
-            </p>
+        </div>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📊 Cálculos de Porcentagem</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">Selecione o tipo de cálculo de porcentagem:</p>
+            <div className="mt-4">
+              <select
+                value={operation}
+                onChange={(e) =>
+                  setOperation(e.target.value as "aumento" | "desconto" | "diferenca" | "valor-original" | "porcentagem-de")
+                }
+                className="mx-auto block rounded-lg border border-neutral-surface-variant bg-gray-900 px-4 py-2 text-lg font-medium text-text-primary"
+              >
+                <option value="aumento">📈 Aumento Percentual</option>
+                <option value="desconto">📉 Desconto Percentual</option>
+                <option value="diferenca">⚖️ Diferença Percentual</option>
+                <option value="valor-original">⬅️ Valor Original</option>
+                <option value="porcentagem-de">🔢 Porcentagem de um Valor</option>
+              </select>
+            </div>
           </div>
-        </header>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">Calcular X% de um valor</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-3">
-                  <p className="text-sm font-medium text-text-primary">
-                    Quanto é <strong>X%</strong> de um valor?
-                  </p>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <div>
-                      <Input
-                        type="number"
-                        label="Porcentagem (%)"
-                        value={percentage}
-                        onChange={(e) => setPercentage(e.target.value)}
-                        placeholder="Ex: 20"
-                        step="0.01"
-                        fullWidth
-                        className={errors1.percentage ? "border-red-500" : ""}
-                      />
-                      {errors1.percentage && (
-                        <p className="mt-1 text-sm text-red-500">{errors1.percentage}</p>
-                      )}
-                    </div>
-                    <div>
-                      <Input
-                        type="number"
-                        label="Valor total"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        placeholder="Ex: 100"
-                        step="0.01"
-                        fullWidth
-                        className={errors1.value ? "border-red-500" : ""}
-                      />
-                      {errors1.value && (
-                        <p className="mt-1 text-sm text-red-500">{errors1.value}</p>
-                      )}
-                    </div>
+          {/* Campos de entrada para porcentagem */}
+          <div className="mb-6 space-y-6">
+            {/* Campos dinâmicos baseados na operação */}
+            {(operation === "aumento" || operation === "desconto") && (
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">
+                    Valor Inicial
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Valor (R$)"
+                      value={value1}
+                      onChange={(e) => setValue1(e.target.value)}
+                      placeholder="1000"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.value1} />
                   </div>
                 </div>
-
-                <div className="flex justify-center">
-                  <Button onClick={handleCalculatePercentage} className="px-8">
-                    Calcular
-                  </Button>
-                </div>
-
-                {result1 !== null && (
-                  <div className="rounded-lg border-l-4 border-primary-blue bg-primary-blue-light p-4 text-center duration-300">
-                    <p className="mb-1 text-sm text-text-secondary">Resultado:</p>
-                    <p className="text-2xl font-bold tabular-nums text-primary-blue-dark">
-                      {result1}
-                    </p>
-                    {percentage && value && (
-                      <p className="mt-1 text-sm text-text-secondary">
-                        {percentage}% de {value} = {result1}
-                      </p>
-                    )}
+                
+                <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">
+                    {operation === "aumento" ? "Aumento" : "Desconto"} (%)
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Porcentagem (%)"
+                      value={percentage}
+                      onChange={(e) => setPercentage(e.target.value)}
+                      placeholder="15"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.percentage} />
                   </div>
-                )}
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            )}
 
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">Que % um valor representa</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-3">
-                  <p className="text-sm font-medium text-text-primary">
-                    Que <strong>porcentagem</strong> um valor representa?
-                  </p>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <div>
-                      <Input
-                        type="number"
-                        label="Valor parcial"
-                        value={part}
-                        onChange={(e) => setPart(e.target.value)}
-                        placeholder="Ex: 25"
-                        step="0.01"
-                        fullWidth
-                        className={errors2.part ? "border-red-500" : ""}
-                      />
-                      {errors2.part && <p className="mt-1 text-sm text-red-500">{errors2.part}</p>}
-                    </div>
-                    <div>
-                      <Input
-                        type="number"
-                        label="Valor total"
-                        value={total}
-                        onChange={(e) => setTotal(e.target.value)}
-                        placeholder="Ex: 100"
-                        step="0.01"
-                        fullWidth
-                        className={errors2.total ? "border-red-500" : ""}
-                      />
-                      {errors2.total && (
-                        <p className="mt-1 text-sm text-red-500">{errors2.total}</p>
-                      )}
-                    </div>
+            {operation === "diferenca" && (
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">
+                    Primeiro Valor
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Valor Inicial (R$)"
+                      value={value1}
+                      onChange={(e) => setValue1(e.target.value)}
+                      placeholder="100"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.value1} />
                   </div>
                 </div>
-
-                <div className="flex justify-center">
-                  <Button onClick={handleCalculatePercentageOf} className="px-8">
-                    Calcular
-                  </Button>
-                </div>
-
-                {result2 !== null && (
-                  <div className="rounded-lg border-l-4 border-growth-green bg-growth-green-soft p-4 text-center duration-300">
-                    <p className="mb-1 text-sm text-text-secondary">Resultado:</p>
-                    <p className="text-2xl font-bold tabular-nums text-growth-green">{result2}%</p>
-                    {part && total && (
-                      <p className="mt-1 text-sm text-text-secondary">
-                        {part} é {result2}% de {total}
-                      </p>
-                    )}
+                
+                <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">
+                    Segundo Valor
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Valor Final (R$)"
+                      value={value2}
+                      onChange={(e) => setValue2(e.target.value)}
+                      placeholder="120"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.value2} />
                   </div>
-                )}
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            )}
 
-        <div className="text-center">
-          <Button
-            onClick={handleReset}
-            variant="outline"
-            className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
-          >
-            Limpar Todos os Campos
-          </Button>
-        </div>
+            {operation === "valor-original" && (
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">
+                    Valor com Desconto/Aumento
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Valor Final (R$)"
+                      value={value1}
+                      onChange={(e) => setValue1(e.target.value)}
+                      placeholder="850"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.value1} />
+                  </div>
+                </div>
+                
+                <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">
+                    Porcentagem Aplicada
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Desconto/Aumento (%)"
+                      value={percentage}
+                      onChange={(e) => setPercentage(e.target.value)}
+                      placeholder="15"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.percentage} />
+                  </div>
+                </div>
+              </div>
+            )}
 
-        {/* Seção: O que é Porcentagem */}
-        <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
+            {operation === "porcentagem-de" && (
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">
+                    Valor Parcial
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Parte do Valor (R$)"
+                      value={value1}
+                      onChange={(e) => setValue1(e.target.value)}
+                      placeholder="250"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.value1} />
+                  </div>
+                </div>
+                
+                <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+                  <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">
+                    Valor Total
+                  </h3>
+                  <div>
+                    <Input
+                      type="number"
+                      label="Total (R$)"
+                      value={value2}
+                      onChange={(e) => setValue2(e.target.value)}
+                      placeholder="1000"
+                      fullWidth
+                      className="h-12 text-lg"
+                      step="0.01"
+                    />
+                    <ErrorMessage error={errors.value2} />
+                    <div className="mt-1 text-xs text-text-secondary">Não pode ser zero</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              📊 O que é Porcentagem e Como Calcular?
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado do Cálculo de Porcentagem
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 text-text-primary">
-              <p>
-                <strong className="text-growth-green">Porcentagem</strong> (símbolo: %) é uma forma
-                de expressar uma proporção ou fração de um total como um número entre 0 e 100. A
-                palavra "por cento" significa literalmente "por cem" ou "a cada cem".
-              </p>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="mb-2 text-sm text-text-secondary">
+                  {result.operation === "aumento" && "Aumento Percentual"}
+                  {result.operation === "desconto" && "Desconto Percentual"}
+                  {result.operation === "diferenca" && "Diferença Percentual"}
+                  {result.operation === "valor-original" && "Valor Original"}
+                  {result.operation === "porcentagem-de" && "Porcentagem de um Valor"}
+                </div>
+                <div className="text-3xl font-bold text-primary-blue-dark">
+                  {result.result.formatted}
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-system-warning">
+                  {(result.operation === "diferenca" || result.operation === "porcentagem-de") 
+                    ? formatPercentage(result.result.value)
+                    : formatCurrency(result.result.value)}
+                </div>
+                <div className="text-sm text-text-secondary">Resultado</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-xl font-bold text-growth-green">
+                  {result.formula && (
+                    <div className="text-xs text-text-secondary mb-2">Fórmula:</div>
+                  )}
+                  <div className="text-sm">{result.formula || "N/A"}</div>
+                </div>
+                <div className="text-sm text-text-secondary">Fórmula Utilizada</div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações do Cálculo</h4>
+              <div className="text-sm text-text-secondary">
                 <div>
-                  <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                    🔢 Fórmulas Básicas:
-                  </h4>
-                  <div className="space-y-2 rounded-lg bg-background-dark-secondary p-4 text-sm">
-                    <p>
-                      <strong>Calcular X% de um valor:</strong>
-                    </p>
-                    <p className="font-mono text-primary-blue-dark">
-                      Resultado = (Valor × Porcentagem) ÷ 100
-                    </p>
-                    <p>
-                      <strong>Descobrir que % é um valor:</strong>
-                    </p>
-                    <p className="font-mono text-primary-blue-dark">
-                      Porcentagem = (Parte ÷ Total) × 100
-                    </p>
-                  </div>
+                  <strong>Tipo de cálculo:</strong>{" "}
+                  {result.operation === "aumento" && "Aumento Percentual"}
+                  {result.operation === "desconto" && "Desconto Percentual"}
+                  {result.operation === "diferenca" && "Diferença Percentual"}
+                  {result.operation === "valor-original" && "Cálculo do Valor Original"}
+                  {result.operation === "porcentagem-de" && "Porcentagem de um Valor"}
                 </div>
                 <div>
-                  <h4 className="mb-2 font-semibold text-growth-green">🎯 Aplicações Práticas:</h4>
+                  <strong>Valores utilizados:</strong>{" "}
+                  {result.originalValues.value1 && `Valor 1: ${formatCurrency(result.originalValues.value1)}`}
+                  {result.originalValues.value2 && ` • Valor 2: ${formatCurrency(result.originalValues.value2)}`}
+                  {result.originalValues.percentage && ` • Porcentagem: ${formatPercentage(result.originalValues.percentage)}`}
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Resolução Passo a Passo</h4>
+              <div className="space-y-2">
+                {result.steps.map((step, index) => (
+                  <div key={index} className="text-sm text-text-secondary">
+                    <span className="font-medium text-primary-blue-dark">{index + 1}. </span>
+                    {step}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Seção: Porcentagem - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎯 Porcentagem – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Conceitos de Porcentagem */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                📊 Conceitos de Porcentagem
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Porcentagem é uma forma de expressar uma proporção em relação a 100. O símbolo % significa "por cento" ou "a cada 100 unidades".
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas Básicas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Porcentagem de um valor: (Valor × %) ÷ 100</li>
+                    <li>• Aumento: Valor × (1 + %/100)</li>
+                    <li>• Desconto: Valor × (1 - %/100)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Facilita comparações entre valores</li>
+                    <li>• Base 100 para facilitar cálculos</li>
+                    <li>• Universalmente utilizada</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Descontos em compras</strong>
-                    </li>
-                    <li>
-                      • <strong>Cálculo de impostos e taxas</strong>
-                    </li>
-                    <li>
-                      • <strong>Aumentos salariais</strong>
-                    </li>
-                    <li>
-                      • <strong>Rendimentos de investimentos</strong>
-                    </li>
-                    <li>
-                      • <strong>Notas e aproveitamento escolar</strong>
-                    </li>
-                    <li>
-                      • <strong>Estatísticas e pesquisas</strong>
-                    </li>
-                    <li>
-                      • <strong>Crescimento empresarial</strong>
-                    </li>
+                    <li>• Comércio: descontos e aumentos</li>
+                    <li>• Finanças: juros e rendimentos</li>
+                    <li>• Estatística: análise de dados</li>
                   </ul>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Seção: Exemplos Práticos Detalhados */}
-        <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              💼 Exemplos Práticos de Cálculos de Porcentagem
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <div className="space-y-4">
-                <div className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-growth-green">
-                    💰 <span className="ml-2">Desconto em Compras</span>
-                  </h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <p>
-                      <strong>Situação:</strong> Produto de R$ 250,00 com 30% de desconto
-                    </p>
-                    <p>
-                      <strong>Cálculo:</strong> 30% de 250 = (30 × 250) ÷ 100 = 75
-                    </p>
-                    <p>
-                      <strong>Desconto:</strong> R$ 75,00
-                    </p>
-                    <p className="font-semibold text-growth-green">
-                      <strong>Preço final:</strong> R$ 175,00
-                    </p>
-                  </div>
+            {/* Tipos de Cálculos de Porcentagem */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📈 Tipos de Cálculos de Porcentagem
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Aumentos e Descontos</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Cálculos para aplicar aumentos ou descontos sobre um valor inicial,
+                    comuns em vendas, impostos e reajustes.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Aumento: Valor × (1 + %/100)</li>
+                    <li>• Desconto: Valor × (1 - %/100)</li>
+                    <li>• Diferença: ((V2-V1)/V1) × 100</li>
+                  </ul>
                 </div>
 
-                <div className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-primary-blue-dark">
-                    📈 <span className="ml-2">Aumento Salarial</span>
-                  </h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <p>
-                      <strong>Situação:</strong> Salário de R$ 3.000 com aumento de 12%
-                    </p>
-                    <p>
-                      <strong>Cálculo:</strong> 12% de 3000 = (12 × 3000) ÷ 100 = 360
-                    </p>
-                    <p>
-                      <strong>Aumento:</strong> R$ 360,00
-                    </p>
-                    <p className="font-semibold text-primary-blue-dark">
-                      <strong>Novo salário:</strong> R$ 3.360,00
-                    </p>
-                  </div>
-                </div>
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Facilita comparações</li>
+                    <li>• Padrão universal de medida</li>
+                    <li>• Aplicação em diversas áreas</li>
+                  </ul>
 
-                <div className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-system-info">
-                    📊 <span className="ml-2">Aproveitamento Escolar</span>
-                  </h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <p>
-                      <strong>Situação:</strong> Acertou 42 questões de 50 em uma prova
-                    </p>
-                    <p>
-                      <strong>Cálculo:</strong> (42 ÷ 50) × 100 = 84%
-                    </p>
-                    <p className="font-semibold text-system-info">
-                      <strong>Aproveitamento:</strong> 84%
-                    </p>
-                    <p>
-                      <strong>Resultado:</strong> Aprovado com ótima nota!
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-system-warning">
-                    🏦 <span className="ml-2">Juros e Impostos</span>
-                  </h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <p>
-                      <strong>Situação:</strong> Compra de R$ 1.500 com 8% de juros
-                    </p>
-                    <p>
-                      <strong>Cálculo:</strong> 8% de 1500 = (8 × 1500) ÷ 100 = 120
-                    </p>
-                    <p>
-                      <strong>Juros:</strong> R$ 120,00
-                    </p>
-                    <p className="font-semibold text-system-warning">
-                      <strong>Valor total:</strong> R$ 1.620,00
-                    </p>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-growth-green">
-                    💹 <span className="ml-2">Rendimento de Investimento</span>
-                  </h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <p>
-                      <strong>Situação:</strong> Investimento de R$ 5.000 rendeu R$ 650
-                    </p>
-                    <p>
-                      <strong>Cálculo:</strong> (650 ÷ 5000) × 100 = 13%
-                    </p>
-                    <p className="font-semibold text-growth-green">
-                      <strong>Rentabilidade:</strong> 13%
-                    </p>
-                    <p>
-                      <strong>Resultado:</strong> Excelente retorno sobre investimento!
-                    </p>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4">
-                  <h4 className="mb-2 flex items-center font-semibold text-system-error-dark">
-                    📋 <span className="ml-2">Meta de Vendas</span>
-                  </h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <p>
-                      <strong>Situação:</strong> Vendeu R$ 18.000 de meta R$ 20.000
-                    </p>
-                    <p>
-                      <strong>Cálculo:</strong> (18000 ÷ 20000) × 100 = 90%
-                    </p>
-                    <p className="font-semibold text-system-error-dark">
-                      <strong>Meta atingida:</strong> 90%
-                    </p>
-                    <p>
-                      <strong>Faltam:</strong> R$ 2.000 (10%) para atingir 100%
-                    </p>
-                  </div>
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Comércio: preços e descontos</li>
+                    <li>• Finanças: juros e investimentos</li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Seção: Dicas e Truques */}
-        <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              💡 Dicas Rápidas para Cálculos de Porcentagem
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-3 font-semibold text-growth-green">⚡ Métodos Rápidos</h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    <strong>10%:</strong> Divida por 10 (move a vírgula uma casa)
-                  </li>
-                  <li>
-                    <strong>5%:</strong> Calcule 10% e divida por 2
-                  </li>
-                  <li>
-                    <strong>20%:</strong> Calcule 10% e multiplique por 2
-                  </li>
-                  <li>
-                    <strong>25%:</strong> Divida por 4 (1/4 do valor)
-                  </li>
-                  <li>
-                    <strong>50%:</strong> Divida por 2 (metade do valor)
-                  </li>
-                  <li>
-                    <strong>75%:</strong> Calcule 50% + 25%
-                  </li>
-                </ul>
-              </div>
+            {/* Regra de Três */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔢 Regra de Três e Porcentagem
+              </h3>
 
-              <div>
-                <h4 className="mb-3 font-semibold text-primary-blue-dark">🎯 Situações Comuns</h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    <strong>Gorjeta 10%:</strong> R$ 50,00 → R$ 5,00
-                  </li>
-                  <li>
-                    <strong>Desconto 20%:</strong> R$ 100,00 → R$ 20,00 off
-                  </li>
-                  <li>
-                    <strong>Imposto 15%:</strong> R$ 200,00 → + R$ 30,00
-                  </li>
-                  <li>
-                    <strong>Comissão 5%:</strong> R$ 1.000,00 → R$ 50,00
-                  </li>
-                  <li>
-                    <strong>Aumento 12%:</strong> R$ 2.500,00 → + R$ 300,00
-                  </li>
-                  <li>
-                    <strong>Juros 3%:</strong> R$ 10.000,00 → + R$ 300,00
-                  </li>
-                </ul>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Relação</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A regra de três é fundamental para resolver problemas de porcentagem,
+                    estabelecendo proporções entre valores.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Estrutura</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• 100% está para Valor Total</li>
+                    <li>• X% está para Valor Parcial</li>
+                    <li>• X = (Valor Parcial × 100) ÷ Valor Total</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ Casos de Uso
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Calcular descontos em compras</li>
+                    <li>• Determinar juros e rendimentos</li>
+                    <li>• Analisar crescimento e variações</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Exemplos</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• 20% de R$ 500 = R$ 100</li>
+                    <li>• R$ 80 é 25% de R$ 320</li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </CardContent>
+      </Card>
 
-        {/* Seção: Perguntas Frequentes */}
-        <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              ❓ Perguntas Frequentes sobre Cálculos de Porcentagem
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div>
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                  1. Como calcular desconto de 30% em R$ 150,00?
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Fórmula: 30% de 150 = (30 × 150) ÷ 100 = 45. Desconto: R$ 45,00. Preço final: R$
-                  105,00.
-                </p>
-              </div>
+      {/* Seção: Comparação de Métodos de Cálculo */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Métodos de Cálculo de Porcentagem
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Aumento/Desconto
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Diferença %</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Valor Original
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">Regra de Três</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicabilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Comercial</td>
+                  <td className="p-3 text-center text-growth-green">Análise</td>
+                  <td className="p-3 text-center text-system-warning">Investigativa</td>
+                  <td className="p-3 text-center text-system-info">Universal</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Dificuldade</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Exata</td>
+                  <td className="p-3 text-center text-growth-green">Exata</td>
+                  <td className="p-3 text-center text-system-warning">Exata</td>
+                  <td className="p-3 text-center text-system-info">Exata</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Tempo de Resolução</td>
+                  <td className="p-3 text-center">Rápido</td>
+                  <td className="p-3 text-center">Rápido</td>
+                  <td className="p-3 text-center">Médio</td>
+                  <td className="p-3 text-center">Rápido</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Requisitos</td>
+                  <td className="p-3 text-center">Valor e porcentagem</td>
+                  <td className="p-3 text-center">Dois valores</td>
+                  <td className="p-3 text-center">Valor final e %</td>
+                  <td className="p-3 text-center">Proporção</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Melhor Uso</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Vendas</td>
+                  <td className="p-3 text-center text-growth-green">Comparação</td>
+                  <td className="p-3 text-center text-system-warning">Investigação</td>
+                  <td className="p-3 text-center text-system-info">Educação</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <div>
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                  2. Se gastei R$ 80 de R$ 400, que porcentagem gastei?
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Fórmula: (80 ÷ 400) × 100 = 20%. Você gastou 20% do total disponível.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                  3. Como calcular aumento percentual entre dois valores?
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Fórmula: [(Valor Final - Valor Inicial) ÷ Valor Inicial] × 100. Ex: De R$ 100 para
-                  R$ 120 = [(120-100) ÷ 100] × 100 = 20% de aumento.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                  4. Qual a diferença entre porcentagem e pontos percentuais?
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Porcentagem é proporcional (de 20% para 25% = aumento de 25%). Pontos percentuais
-                  é a diferença absoluta (de 20% para 25% = aumento de 5 pontos percentuais).
-                </p>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                  5. Como usar porcentagem em investimentos?
-                </h4>
-                <p className="text-sm text-text-secondary">
-                  Para calcular retorno: (Valor Final - Investimento Inicial) ÷ Investimento Inicial
-                  × 100. Ex: Investiu R$ 1.000, resgatou R$ 1.100 = 10% de rentabilidade.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <FAQ
-          title="Perguntas Frequentes - Calculadora de Porcentagem"
-          items={[
-            {
-              question: "Como calcular porcentagem de um valor de forma simples?",
-              answer:
-                "Para calcular <strong>X% de um valor</strong>, multiplique o valor por X e divida por 100. Exemplo: 25% de R$ 200 = (200 × 25) ÷ 100 = <strong>R$ 50</strong>. Nossa calculadora faz isso automaticamente!",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Qual a diferença entre desconto e acréscimo percentual?",
-              answer:
-                "<strong>Desconto:</strong> Subtrai o percentual do valor original (R$ 100 - 20% = R$ 80). <strong>Acréscimo:</strong> Adiciona o percentual ao valor original (R$ 100 + 20% = R$ 120). Use nossa calculadora para ambos!",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como calcular que porcentagem um valor representa de outro?",
-              answer:
-                "Divida o <strong>valor menor pelo maior</strong> e multiplique por 100. Exemplo: 30 é que % de 120? (30 ÷ 120) × 100 = <strong>25%</strong>. Perfeito para análises financeiras e estatísticas!",
-              borderColor: "system-info",
-            },
-            {
-              question: "Como calcular variação percentual entre dois valores?",
-              answer:
-                "Fórmula: <strong>[(Valor Final - Valor Inicial) ÷ Valor Inicial] × 100</strong>. Se aumentou de R$ 100 para R$ 130: [(130-100) ÷ 100] × 100 = <strong>+30%</strong>. Se diminuiu, o resultado será negativo.",
-              borderColor: "system-warning",
-            },
-            {
-              question: "Posso usar para calcular descontos em compras?",
-              answer:
-                "<strong>Claro!</strong> Digite o preço original e a porcentagem de desconto. A calculadora mostra o <strong>valor do desconto</strong> e o <strong>preço final</strong>. Exemplo: Produto R$ 500 com 30% de desconto = R$ 150 de economia, pague R$ 350!",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como calcular porcentagem de aumento salarial ou lucro?",
-              answer:
-                "Para <strong>aumento</strong>: Digite salário atual e percentual de aumento. Para <strong>lucro sobre investimento</strong>: Use [(Valor Final - Investimento) ÷ Investimento] × 100. Nossa calculadora é perfeita para planejamento financeiro!",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Qual a diferença entre porcentagem e pontos percentuais?",
-              answer:
-                "<strong>Porcentagem:</strong> Proporção relativa (de 10% para 15% = aumento de 50%). <strong>Pontos percentuais:</strong> Diferença absoluta (de 10% para 15% = 5 pontos percentuais). Importante para juros e taxas!",
-              borderColor: "system-info",
-            },
-            {
-              question: "A calculadora funciona para qualquer tipo de porcentagem?",
-              answer:
-                "<strong>Sim!</strong> Funciona para descontos, acréscimos, comissões, impostos, juros, rendimentos, gorjetas, análises estatísticas e qualquer cálculo percentual. <strong>Interface simples e resultados precisos</strong> para todas as situações!",
-              borderColor: "system-success",
-            },
-          ]}
-          tipSection={{
-            title: "Dica de Especialista",
-            content:
-              "Para <strong>verificar seus cálculos</strong>, lembre-se: se aplicar um desconto de X% e depois um acréscimo de X%, o valor final será menor que o original! Exemplo: R$ 100 - 20% + 20% = R$ 96 (não R$ 100).",
-          }}
-          footerText="<strong>Precisa de mais cálculos?</strong> Nossa calculadora de porcentagem é <strong>100% gratuita</strong> e oferece resultados instantâneos para todas suas necessidades do dia a dia!"
-        />
-
-        {/* Footer com informações */}
-        <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-              📚 Sobre Esta Calculadora de Porcentagem
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3 text-sm text-text-secondary">
-              <p>
-                Esta calculadora de porcentagem online é{" "}
-                <strong className="text-primary-blue-dark">100% gratuita</strong> e foi desenvolvida
-                para facilitar cálculos do dia a dia. É perfeita para{" "}
-                <strong>compras, negócios, estudos e finanças pessoais</strong>.
-              </p>
-              <p>
-                Use nossa ferramenta para calcular{" "}
-                <strong className="text-growth-green">descontos em compras</strong>,
-                <strong className="text-primary-blue-dark">aumentos salariais</strong>,
-                <strong className="text-system-info">rendimentos de investimentos</strong> e muito
-                mais!
-              </p>
-              <p className="text-xs opacity-75">
-                Calculadora desenvolvida com precisão matemática • Resultados instantâneos •
-                Interface intuitiva
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">📈 Aumento/Desconto</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>mais comum</strong> para calcular preços finais com aumentos ou 
+                descontos percentuais em vendas e reajustes.
               </p>
             </div>
-          </CardContent>
-        </Card>
 
-        <RelatedCalculators category="matematica" currentCalculatorId="porcentagem" />
-      </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">📊 Diferença %</h4>
+              <p className="text-sm text-text-secondary">
+                Ideal para <strong>análise de variações</strong> entre dois valores,
+                comum em estatística e relatórios financeiros.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">🔍 Valor Original</h4>
+              <p className="text-sm text-text-secondary">
+                Útil para <strong>descobrir valores iniciais</strong> quando conhecemos
+                apenas o resultado final e a porcentagem aplicada.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <FAQ
+        title="Perguntas Frequentes - Calculadora de Porcentagem"
+        items={[
+          {
+            question: "O que é porcentagem?",
+            answer:
+              "Porcentagem é uma forma de expressar uma proporção ou fração em relação a 100. O símbolo % significa 'por cento' ou 'a cada 100 unidades'. Por exemplo, 25% significa 25 de cada 100 partes.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Como calcular aumento percentual?",
+            answer:
+              "Para calcular um aumento percentual, multiplique o valor original por (1 + porcentagem/100). Por exemplo: R$ 100 com aumento de 20% = R$ 100 × (1 + 20/100) = R$ 120.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "Como calcular desconto percentual?",
+            answer:
+              "Para calcular um desconto percentual, multiplique o valor original por (1 - porcentagem/100). Por exemplo: R$ 100 com desconto de 15% = R$ 100 × (1 - 15/100) = R$ 85.",
+            borderColor: "system-info",
+          },
+          {
+            question: "O que é diferença percentual?",
+            answer:
+              "Diferença percentual compara dois valores mostrando a variação em porcentagem. Fórmula: ((Valor2 - Valor1) ÷ Valor1) × 100. Resultado positivo indica aumento, negativo indica redução.",
+            borderColor: "system-warning",
+          },
+          {
+            question: "Como encontrar o valor original?",
+            answer:
+              "Para encontrar o valor original quando conhecemos o valor final e a porcentagem: Valor Original = Valor Final ÷ (1 ± porcentagem/100). Use '+' para aumento e '-' para desconto.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "O que é regra de três em porcentagem?",
+            answer:
+              "A regra de três relaciona proporções: se 100% corresponde ao valor total, então X% corresponde ao valor parcial. Fórmula: X = (Valor Parcial × 100) ÷ Valor Total.",
+            borderColor: "system-error-dark",
+          },
+        ]}
+        tipSection={{
+          title: "Dica Importante sobre Porcentagem",
+          content:
+            "<strong>Para resultados precisos:</strong> sempre verifique se os valores são positivos (exceto em diferenças percentuais) e use as fórmulas corretas para cada tipo de cálculo.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Em aumentos e descontos, use fatores multiplicativos. Para diferenças, compare valores. Sempre interprete o resultado no contexto do problema."
+      />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Porcentagem
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta <strong className="text-primary-blue-dark">calculadora de porcentagem</strong>{" "}
+              permite realizar{" "}
+              <strong className="text-growth-green">cálculos básicos com porcentagem</strong>: aumentos,
+              descontos, diferenças percentuais e regra de três com precisão matemática e resultados instantâneos.
+            </p>
+            <p>
+              <strong>Funcionalidades:</strong> Cálculo de aumentos e descontos, determinação de 
+              diferenças percentuais, busca do valor original, resolução passo a passo e aplicação
+              da regra de três em problemas de porcentagem.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e comerciais básicos. Para aplicações financeiras que exigem alta precisão, 
+              consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/matematica/fracoes"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                frações
+              </a>
+              para complementar seus estudos matemáticos.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🔎 Foco educacional • 📊 Cálculos de Porcentagem • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <RelatedCalculators category="matematica" currentCalculatorId="porcentagem" />
     </div>
   );
 }
