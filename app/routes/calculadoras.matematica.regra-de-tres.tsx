@@ -1,1163 +1,1034 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  calculateRuleOfThree,
-  generateRuleOfThreeExamples,
-  detectProportionType,
-  type RuleOfThreeParams,
-  type RuleOfThreeResult,
-} from "~/utils/calculations";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Regra de Três 2025 - Simples e Inversa Passo a Passo - ${APP_NAME}` },
+    {
+      title: "Calculadora de Regra de 3 Online 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora de regra de três GRATUITA com resolução passo a passo! Resolva regra de três simples e inversa com explicações detalhadas, exemplos práticos e verificação automática. Perfeita para estudantes, professores e uso profissional do dia a dia.",
+        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados precisos!",
+    },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "keywords",
-      content:
-        "calculadora regra de três, regra de três simples, regra de três inversa, regra de 3 passo a passo, como resolver regra de três, calculadora proporção, regra de três direta, regra de três indireta, exercícios regra de três, matemática básica, proporção matemática, cálculo proporção, regra de três online, resolver proporção, regra de três exemplos, regra três exercícios, matemática ensino fundamental, regra de três aplicada, problemas regra de três",
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+    },
     {
       property: "og:title",
-      content: `Calculadora Regra de Três - Resolução Passo a Passo 2025 - ${APP_NAME}`,
+      content: "Calculadora de Frações Online Gratuita - Operações Precisas 2025",
     },
     {
       property: "og:description",
       content:
-        "★ Resolva regra de três simples e inversa com explicações detalhadas! Ferramenta educativa com verificação automática e exemplos práticos. 100% gratuito!",
+        "Ferramenta online precisa para operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Gratuita para estudantes!",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Frações - Operações Matemáticas com Frações",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/matematica/regra-de-tres",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora Regra de Três Passo a Passo - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Frações Online Gratuita - Resultados Precisos",
+    },
     {
       name: "twitter:description",
       content:
-        "Aprenda e resolva regra de três com explicações detalhadas! Simples, inversa e exemplos práticos para todos os níveis.",
+        "Ferramenta educacional gratuita para operações com frações. Soma, subtração, multiplicação, divisão e simplificação instantânea. Ideal para estudos!",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#3b82f6" },
-    { name: "theme-color", content: "#3b82f6" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Frações - Operações Matemáticas",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Calculadora Frações" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    {
+      name: "keywords",
+      content: "calculadora frações, soma frações, divisão frações, simplificar frações, MMC, MDC",
+    },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Frações Online Gratuita - Operações Matemáticas 2025",
+        description:
+          "Ferramenta educacional online gratuita para realizar operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos com explicação passo a passo.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-28",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+          name: "Calculadora de Frações Online Gratuita - Matemática Educacional",
+          description:
+            "Ferramenta educacional online para operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática com explicação passo a passo.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Matemática",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Frações",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Frações",
+          description:
+            "Operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação",
+          category: "Mathematics",
+        },
+        featureList: [
+          "Soma de frações",
+          "Subtração de frações",
+          "Multiplicação de frações",
+          "Divisão de frações",
+          "Simplificação automática",
+          "Conversão para decimal",
+          "Número misto automático",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+          "Explicação passo a passo",
+          "Cálculo de MMC e MDC",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é uma fração?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Uma fração é um número que representa uma ou mais partes iguais de um todo. É formada por numerador (número superior) e denominador (número inferior), onde o denominador indica em quantas partes o todo foi dividido.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Por que o denominador não pode ser zero?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O denominador zero tornaria a fração indefinida matematicamente, pois representaria uma divisão por zero, que não é permitida na matemática. Sempre verifique se o denominador é diferente de zero.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como somar e subtrair frações?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para somar ou subtrair frações, é necessário igualar os denominadores encontrando o MMC (Mínimo Múltiplo Comum). Depois, some ou subtraia apenas os numeradores, mantendo o denominador comum.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como multiplicar e dividir frações?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para multiplicar frações, multiplique numerador com numerador e denominador com denominador. Para dividir frações, multiplique a primeira fração pelo inverso da segunda.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Frações",
+        description:
+          "Aprenda a realizar operações com frações de forma simples e precisa com nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione a operação",
+            text: "Escolha a operação desejada: soma, subtração, multiplicação ou divisão de frações.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira as frações",
+            text: "Digite os numeradores e denominadores das duas frações nos campos correspondentes. Lembre-se que denominadores não podem ser zero.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule o resultado",
+            text: "Clique no botão 'Calcular' para obter o resultado da operação, a fração simplificada e a resolução passo a passo.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja a fração simplificada, o valor decimal equivalente, o número misto (quando aplicável) e acompanhe a resolução detalhada passo a passo.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Frações Online",
+          },
+        ],
+      }),
+    },
   ];
 };
 
-export default function RuleOfThreeCalculator() {
-  const [a, setA] = useState("");
-  const [b, setB] = useState("");
-  const [c, setC] = useState("");
-  const [x, setX] = useState("");
-  const [mode, setMode] = useState<"simple_direct" | "simple_inverse">("simple_direct");
-  const [unitA, setUnitA] = useState("");
-  const [unitB, setUnitB] = useState("");
-  const [unitC, setUnitC] = useState("");
-  const [unitX, setUnitX] = useState("");
-  const [context, setContext] = useState("");
-  const [result, setResult] = useState<RuleOfThreeResult | null>(null);
-  const [showSteps, setShowSteps] = useState(true);
-  const [selectedExample, setSelectedExample] = useState("");
-  const [autoDetect, setAutoDetect] = useState(false);
+interface RuleTwoThreeResult {
+  originalValues: {
+    value1: number;
+    value2: number;
+    value3: number;
+    valueX: number; // the result
+  };
+  type: "simples-direta" | "simples-inversa";
+  result: {
+    value: number;
+    formatted: string;
+  };
+  steps: string[];
+  proportion: string;
+  verification?: string;
+}
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "regra_de_tres",
-    category: "matematica"
+interface ValidationErrors {
+  value1?: string;
+  value2?: string;
+  value3?: string;
+  type?: string;
+}
+
+export default function RuleOfThreeCalculator() {
+  // Inputs para regra de três
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
+  const [calculationType, setCalculationType] = useState<"simples-direta" | "simples-inversa">(
+    "simples-direta"
+  );
+
+  const [result, setResult] = useState<RuleTwoThreeResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "regra-de-tres",
+    category: "matematica",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("regra_de_tres");
+  useFormTracking("regra-de-tres");
+
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
+
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+
+  // Função auxiliar para formatação
+  const formatResult = (value: number): string => {
+    // Se for um número inteiro, exibir sem casas decimais
+    if (Number.isInteger(value)) {
+      return value.toString();
+    }
+    
+    // Se for decimal, mostrar até 4 casas decimais, removendo zeros desnecessários
+    return value.toFixed(4).replace(/\.?0+$/, '');
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const val1 = parseNumber(value1);
+    const val2 = parseNumber(value2);
+    const val3 = parseNumber(value3);
+
+    if (value1.trim() === "") {
+      newErrors.value1 = "Primeiro valor é obrigatório";
+      ok = false;
+    } else if (isNaN(val1)) {
+      newErrors.value1 = "Insira um número válido";
+      ok = false;
+    }
+
+    if (value2.trim() === "") {
+      newErrors.value2 = "Segundo valor é obrigatório";
+      ok = false;
+    } else if (isNaN(val2) || val2 === 0) {
+      newErrors.value2 = "Insira um número válido diferente de zero";
+      ok = false;
+    }
+
+    if (value3.trim() === "") {
+      newErrors.value3 = "Terceiro valor é obrigatório";
+      ok = false;
+    } else if (isNaN(val3)) {
+      newErrors.value3 = "Insira um número válido";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculateRuleOfThree = (): RuleTwoThreeResult => {
+    const val1 = parseNumber(value1);
+    const val2 = parseNumber(value2);
+    const val3 = parseNumber(value3);
+
+    let resultValue: number;
+    const steps: string[] = [];
+    let proportion: string;
+    let verification: string;
+
+    steps.push(`Valores informados:`);
+    steps.push(`A = ${val1}`);
+    steps.push(`B = ${val2}`);
+    steps.push(`C = ${val3}`);
+    steps.push(`X = ? (valor procurado)`);
+
+    if (calculationType === "simples-direta") {
+      // A está para B assim como C está para X
+      // A/B = C/X  =>  X = (B * C) / A
+      resultValue = (val2 * val3) / val1;
+      proportion = `${val1} : ${val2} :: ${val3} : X`;
+      
+      steps.push(`Montando a proporção (regra de 3 simples direta):`);
+      steps.push(`${val1} está para ${val2}`);
+      steps.push(`assim como ${val3} está para X`);
+      steps.push(`${val1} / ${val2} = ${val3} / X`);
+      steps.push(`X × ${val1} = ${val2} × ${val3}`);
+      steps.push(`X × ${val1} = ${val2 * val3}`);
+      steps.push(`X = ${val2 * val3} / ${val1}`);
+      steps.push(`X = ${resultValue}`);
+      
+      // Verificação
+      const ratio1 = val1 / val2;
+      const ratio2 = val3 / resultValue;
+      verification = `Verificação: ${val1}/${val2} = ${ratio1.toFixed(4)} e ${val3}/${resultValue} = ${ratio2.toFixed(4)}`;
+    } else {
+      // Regra de 3 simples inversa
+      // A está para X assim como B está para C (inversamente)
+      // A × C = B × X  =>  X = (A × C) / B
+      resultValue = (val1 * val3) / val2;
+      proportion = `${val1} : X :: ${val2} : ${val3}`;
+      
+      steps.push(`Montando a proporção (regra de 3 simples inversa):`);
+      steps.push(`${val1} está para X (inversamente)`);
+      steps.push(`assim como ${val2} está para ${val3}`);
+      steps.push(`${val1} × ${val3} = ${val2} × X`);
+      steps.push(`X = (${val1} × ${val3}) / ${val2}`);
+      steps.push(`X = ${val1 * val3} / ${val2}`);
+      steps.push(`X = ${resultValue}`);
+      
+      // Verificação
+      const prod1 = val1 * val3;
+      const prod2 = val2 * resultValue;
+      verification = `Verificação: ${val1} × ${val3} = ${prod1} e ${val2} × ${resultValue} = ${prod2.toFixed(4)}`;
+    }
+
+    return {
+      originalValues: { value1: val1, value2: val2, value3: val3, valueX: resultValue },
+      type: calculationType,
+      result: {
+        value: resultValue,
+        formatted: formatResult(resultValue),
+      },
+      steps,
+      proportion,
+      verification,
+    };
+  };
 
   const handleCalculate = () => {
-    const aNum = parseFloat(a) || 0;
-    const bNum = parseFloat(b) || 0;
-    const cNum = parseFloat(c) || 0;
-    const xNum = x ? parseFloat(x) : undefined;
-
-    if (aNum > 0 && bNum > 0 && cNum > 0) {
-      const params: RuleOfThreeParams = {
-        a: aNum,
-        b: bNum,
-        c: cNum,
-        x: xNum,
-        mode,
-        proportionType: mode === "simple_direct" ? "direct" : "inverse",
-        units:
-          unitA || unitB || unitC || unitX
-            ? {
-                a: unitA || "",
-                b: unitB || "",
-                c: unitC || "",
-                x: unitX || "",
-              }
-            : undefined,
-        context: context || undefined,
-      };
-
-      const calculationResult = calculateRuleOfThree(params);
-      setResult(calculationResult);
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const result = calculateRuleOfThree();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ value1: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setA("");
-    setB("");
-    setC("");
-    setX("");
-    setUnitA("");
-    setUnitB("");
-    setUnitC("");
-    setUnitX("");
-    setContext("");
+    setValue1("");
+    setValue2("");
+    setValue3("");
+    setCalculationType("simples-direta");
     setResult(null);
-    setSelectedExample("");
+    setErrors({});
   };
 
-  const handleAutoDetect = () => {
-    const aNum = parseFloat(a) || 0;
-    const bNum = parseFloat(b) || 0;
-    const cNum = parseFloat(c) || 0;
-    const xNum = parseFloat(x) || 0;
-
-    if (aNum > 0 && bNum > 0 && cNum > 0 && xNum > 0) {
-      const detectedType = detectProportionType(aNum, bNum, cNum, xNum);
-      setMode(detectedType === "direct" ? "simple_direct" : "simple_inverse");
-    }
-  };
-
-  const loadExample = (exampleId: string) => {
-    const examples = {
-      price: {
-        a: "3",
-        b: "12",
-        c: "5",
-        x: "",
-        unitA: "canetas",
-        unitB: "R$",
-        unitC: "canetas",
-        unitX: "R$",
-        context: "Compra de canetas",
-      },
-      fuel: {
-        a: "8",
-        b: "100",
-        c: "20",
-        x: "",
-        unitA: "litros",
-        unitB: "km",
-        unitC: "litros",
-        unitX: "km",
-        context: "Consumo de combustível",
-      },
-      workers: {
-        a: "6",
-        b: "12",
-        c: "9",
-        x: "",
-        unitA: "operários",
-        unitB: "dias",
-        unitC: "operários",
-        unitX: "dias",
-        context: "Trabalho em equipe",
-      },
-      speed: {
-        a: "80",
-        b: "3",
-        c: "120",
-        x: "",
-        unitA: "km/h",
-        unitB: "horas",
-        unitC: "km/h",
-        unitX: "horas",
-        context: "Velocidade e tempo",
-      },
-    };
-
-    const example = examples[exampleId as keyof typeof examples];
-    if (example) {
-      setA(example.a);
-      setB(example.b);
-      setC(example.c);
-      setX(example.x);
-      setUnitA(example.unitA);
-      setUnitB(example.unitB);
-      setUnitC(example.unitC);
-      setUnitX(example.unitX);
-      setContext(example.context);
-
-      // Auto-set mode based on example
-      if (exampleId === "price" || exampleId === "fuel") {
-        setMode("simple_direct");
-      } else {
-        setMode("simple_inverse");
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (autoDetect && x && a && b && c) {
-      handleAutoDetect();
-    }
-  }, [x, autoDetect]);
-
-  const formatNumber = (value: number) => {
-    if (value % 1 === 0) {
-      return value.toString();
-    } else {
-      return value.toFixed(4).replace(/\.?0+$/, "");
-    }
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
-        <BreadcrumbItem isLast>Regra de Três</BreadcrumbItem>
+        <BreadcrumbItem isLast>Regra de 3</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-3 text-center sm:space-y-4">
-        <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">Calculadora de Regra de Três</span>
-          <span className="sm:hidden">Regra de Três</span>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Regra de 3 Online 2025
         </h1>
-        <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-          Resolva{" "}
-          <strong className="text-primary-blue-dark">regra de três simples e inversa</strong> com
-          <strong className="text-system-success"> explicações passo a passo</strong>. Perfeita para{" "}
-          <strong className="text-growth-green">estudantes, professores</strong> e aplicações do dia
-          a dia.
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Resolva <strong className="text-growth-green">regra de três simples e composta</strong> de forma
+          simples e precisa. Calcule proporções matemáticas com{" "}
+          <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
+          estudos.
         </p>
-        <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
-          <p className="text-xs font-medium text-text-primary sm:text-sm">
-            📝 <strong>Passo a Passo</strong> • ✅ <strong>Verificação Automática</strong> • 🎯{" "}
-            <strong>Exemplos Práticos</strong>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            📏 <strong>Regra de Três</strong> • 🔄 <strong>Proporções Diretas/Inversas</strong>{" "}
+            • 🧮 <strong>Resultados Instantâneos</strong>
           </p>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Left Column - Calculator Inputs */}
-        <div className="space-y-6 lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle as="h2">🔢 Configuração da Proporção</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex flex-col items-center gap-2 sm:flex-row">
-                  <Select
-                    label="Tipo de Proporção"
-                    value={mode}
-                    onChange={(value) => setMode(value as typeof mode)}
-                    options={[
-                      { value: "simple_direct", label: "Regra de Três Simples (Direta)" },
-                      { value: "simple_inverse", label: "Regra de Três Inversa (Indireta)" },
-                    ]}
-                    fullWidth
-                  />
-                  <div className="mt-2 flex items-center space-x-2 sm:mt-6">
-                    <input
-                      type="checkbox"
-                      id="autoDetect"
-                      checked={autoDetect}
-                      onChange={(e) => setAutoDetect(e.target.checked)}
-                      className="rounded border-gray-300"
-                    />
-                    <label
-                      htmlFor="autoDetect"
-                      className="whitespace-nowrap text-xs font-medium text-text-primary"
-                    >
-                      Auto-detectar tipo
-                    </label>
-                  </div>
-                </div>
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📏 Calculadora de Regra de Três</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">Selecione o tipo e insira os valores:</p>
+            <div className="mt-4">
+              <select
+                value={calculationType}
+                onChange={(e) =>
+                  setCalculationType(e.target.value as "simples-direta" | "simples-inversa")
+                }
+                className="mx-auto block rounded-lg border border-neutral-surface-variant bg-gray-900 px-4 py-2 text-lg font-medium text-text-primary"
+              >
+                <option value="simples-direta">➡️ Regra de 3 Simples Direta</option>
+                <option value="simples-inversa">⬅️ Regra de 3 Simples Inversa</option>
+              </select>
+            </div>
+          </div>
 
-                <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                  <p className="mb-2 text-sm text-text-secondary">
-                    <strong className="text-system-info">Fórmula:</strong>
-                  </p>
-                  <div className="text-center">
-                    {mode === "simple_direct" ? (
-                      <p className="font-mono text-lg font-bold text-primary-blue-dark">
-                        a : b :: c : x → a/b = c/x
-                      </p>
-                    ) : (
-                      <p className="font-mono text-lg font-bold text-system-warning">
-                        a × b = c × x
-                      </p>
-                    )}
-                  </div>
-                  <p className="mt-2 text-center text-xs text-text-secondary">
-                    {mode === "simple_direct"
-                      ? "Proporção direta: quando uma grandeza aumenta, a outra também aumenta"
-                      : "Proporção inversa: quando uma grandeza aumenta, a outra diminui"}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="mb-1 block text-sm font-medium text-text-primary">
-                        Primeiro valor (a)
-                      </label>
-                      <div className="grid grid-cols-3 gap-1">
-                        <div className="col-span-2">
-                          <Input
-                            type="number"
-                            value={a}
-                            onChange={(e) => setA(e.target.value)}
-                            placeholder="Ex: 3"
-                            step="any"
-                            required
-                            fullWidth
-                          />
-                        </div>
-                        <Input
-                          type="text"
-                          value={unitA}
-                          onChange={(e) => setUnitA(e.target.value)}
-                          placeholder="unidade"
-                          fullWidth
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="mb-1 block text-sm font-medium text-text-primary">
-                        Segundo valor (b)
-                      </label>
-                      <div className="grid grid-cols-3 gap-1">
-                        <div className="col-span-2">
-                          <Input
-                            type="number"
-                            value={b}
-                            onChange={(e) => setB(e.target.value)}
-                            placeholder="Ex: 12"
-                            step="any"
-                            required
-                            fullWidth
-                          />
-                        </div>
-                        <Input
-                          type="text"
-                          value={unitB}
-                          onChange={(e) => setUnitB(e.target.value)}
-                          placeholder="unidade"
-                          fullWidth
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="mb-1 block text-sm font-medium text-text-primary">
-                        Terceiro valor (c)
-                      </label>
-                      <div className="grid grid-cols-3 gap-1">
-                        <div className="col-span-2">
-                          <Input
-                            type="number"
-                            value={c}
-                            onChange={(e) => setC(e.target.value)}
-                            placeholder="Ex: 5"
-                            step="any"
-                            required
-                            fullWidth
-                          />
-                        </div>
-                        <Input
-                          type="text"
-                          value={unitC}
-                          onChange={(e) => setUnitC(e.target.value)}
-                          placeholder="unidade"
-                          fullWidth
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="mb-1 block text-sm font-medium text-text-primary">
-                        Valor procurado (x)
-                      </label>
-                      <div className="grid grid-cols-3 gap-1">
-                        <div className="col-span-2">
-                          <Input
-                            type="number"
-                            value={x}
-                            onChange={(e) => setX(e.target.value)}
-                            placeholder="(opcional)"
-                            step="any"
-                            fullWidth
-                          />
-                        </div>
-                        <Input
-                          type="text"
-                          value={unitX}
-                          onChange={(e) => setUnitX(e.target.value)}
-                          placeholder="unidade"
-                          fullWidth
-                        />
-                      </div>
-                    </div>
-                  </div>
-
+          {/* Campos de entrada para regra de três */}
+          <div className="mb-6 space-y-6">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-6">
+              <h3 className="mb-4 text-center text-lg font-semibold text-primary-blue-dark">
+                Valores para Regra de Três
+              </h3>
+              
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div>
                   <Input
-                    type="text"
-                    label="Contexto do Problema (Opcional)"
-                    value={context}
-                    onChange={(e) => setContext(e.target.value)}
-                    placeholder="Ex: Cálculo de preços, consumo de combustível..."
+                    type="number"
+                    label="Primeiro Valor (A)"
+                    value={value1}
+                    onChange={(e) => setValue1(e.target.value)}
+                    placeholder="2"
                     fullWidth
+                    className="h-12 text-lg"
+                    step="any"
                   />
+                  <ErrorMessage error={errors.value1} />
+                  <div className="mt-1 text-xs text-text-secondary">Valor conhecido</div>
+                </div>
+
+                <div>
+                  <Input
+                    type="number"
+                    label="Segundo Valor (B)"
+                    value={value2}
+                    onChange={(e) => setValue2(e.target.value)}
+                    placeholder="4"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.value2} />
+                  <div className="mt-1 text-xs text-text-secondary">Valor conhecido</div>
+                </div>
+
+                <div>
+                  <Input
+                    type="number"
+                    label="Terceiro Valor (C)"
+                    value={value3}
+                    onChange={(e) => setValue3(e.target.value)}
+                    placeholder="6"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.value3} />
+                  <div className="mt-1 text-xs text-text-secondary">Valor conhecido</div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">📚 Exemplos Práticos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <Button
-                  onClick={() => {
-                    setSelectedExample("price");
-                    loadExample("price");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-primary-blue-dark">
-                      💰 Preços Proporcionais
-                    </div>
-                    <div className="text-xs text-text-secondary">3 canetas custam R$ 12...</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("fuel");
-                    loadExample("fuel");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-growth-green">⛽ Consumo de Combustível</div>
-                    <div className="text-xs text-text-secondary">8 litros para 100 km...</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("workers");
-                    loadExample("workers");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-system-warning">👷 Trabalho em Equipe</div>
-                    <div className="text-xs text-text-secondary">6 operários em 12 dias...</div>
-                  </div>
-                </Button>
-
-                <Button
-                  onClick={() => {
-                    setSelectedExample("speed");
-                    loadExample("speed");
-                  }}
-                  variant="outline"
-                  className="h-auto justify-start p-4 text-left"
-                >
-                  <div>
-                    <div className="font-semibold text-system-info">🚗 Velocidade e Tempo</div>
-                    <div className="text-xs text-text-secondary">80 km/h em 3 horas...</div>
-                  </div>
-                </Button>
+              <div className="mt-4 text-center">
+                <div className="text-lg text-text-secondary">
+                  {calculationType === "simples-direta" && (
+                    <span>Se <strong>A</strong> está para <strong>B</strong>, então <strong>C</strong> está para <strong>X</strong></span>
+                  )}
+                  {calculationType === "simples-inversa" && (
+                    <span>Se <strong>A</strong> está para <strong>X</strong>, então <strong>B</strong> está para <strong>C</strong> (inversa)</span>
+                  )}
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
-            <Button onClick={handleCalculate} className="px-6 sm:px-8" fullWidth>
-              Resolver Regra de Três
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
-              className="border-system-error px-6 text-system-error hover:bg-system-error hover:text-white sm:px-8"
-              fullWidth
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
               Limpar
             </Button>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Right Column - Quick Results */}
-        {result && (
-          <div className="space-y-4">
-            <Card className="border-2 border-primary-blue bg-primary-blue-light duration-300">
-              <CardHeader>
-                <CardTitle as="h3" className="text-lg text-primary-blue-dark">
-                  🎯 Resultado
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <div className="mb-2 text-2xl font-bold tabular-nums text-primary-blue-dark sm:text-3xl">
-                    x = {formatNumber(result.x)}
-                    {unitX && <span className="ml-1 text-lg">{unitX}</span>}
-                  </div>
-                  <p className="text-sm text-text-secondary">{result.interpretation}</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card
-              className={`border-2 duration-300 ${
-                result.verification.isCorrect
-                  ? "border-system-success bg-system-success/10"
-                  : "border-system-warning bg-system-warning/10"
-              }`}
-            >
-              <CardHeader>
-                <CardTitle
-                  as="h3"
-                  className={`text-lg ${
-                    result.verification.isCorrect ? "text-system-success" : "text-system-warning"
-                  }`}
-                >
-                  {result.verification.isCorrect ? "✅" : "⚠️"} Verificação
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span>Tipo de proporção:</span>
-                    <span className="font-bold">
-                      {result.proportionType === "direct" ? "Direta" : "Inversa"}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Lado esquerdo:</span>
-                    <span className="font-mono">{result.verification.leftSide.toFixed(4)}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Lado direito:</span>
-                    <span className="font-mono">{result.verification.rightSide.toFixed(4)}</span>
-                  </div>
-                  <div className="rounded bg-background-dark-secondary p-2 text-center text-xs">
-                    {result.verification.isCorrect
-                      ? "✓ A proporção está correta"
-                      : `⚠ Diferença: ${result.verification.difference.toFixed(6)}`}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {result.unitAnalysis && (
-              <Card
-                className={`border-2 duration-300 ${
-                  result.unitAnalysis.unitsMatch
-                    ? "border-system-success bg-system-success/10"
-                    : "border-system-warning bg-system-warning/10"
-                }`}
-              >
-                <CardHeader>
-                  <CardTitle
-                    as="h3"
-                    className={`text-lg ${
-                      result.unitAnalysis.unitsMatch ? "text-system-success" : "text-system-warning"
-                    }`}
-                  >
-                    📏 Análise de Unidades
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <p>
-                      <strong>Unidades de entrada:</strong> {result.unitAnalysis.inputUnits}
-                    </p>
-                    <p>
-                      <strong>Unidade de saída:</strong> {result.unitAnalysis.outputUnits}
-                    </p>
-                    <div className="rounded bg-background-dark-secondary p-2 text-xs">
-                      {result.unitAnalysis.recommendation}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        )}
-      </div>
-
+      {/* Resultado */}
       {result && (
-        <>
-          {/* Step-by-Step Solution */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📝 Resolução Passo a Passo
-                <Button
-                  onClick={() => setShowSteps(!showSteps)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showSteps ? "Ocultar" : "Mostrar"} Passos
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showSteps && (
-                <div className="space-y-4">
-                  {result.steps.map((step, index) => (
-                    <div
-                      key={index}
-                      className={`rounded-lg border-l-4 p-4 ${
-                        step.step === 1
-                          ? "border-primary-blue bg-primary-blue-light"
-                          : step.step === 2
-                            ? "border-growth-green bg-growth-green-soft"
-                            : step.step === 3
-                              ? "border-system-warning bg-system-warning/10"
-                              : "border-system-success bg-system-success/10"
-                      }`}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <div
-                          className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${
-                            step.step === 1
-                              ? "bg-primary-blue"
-                              : step.step === 2
-                                ? "bg-growth-green"
-                                : step.step === 3
-                                  ? "bg-system-warning"
-                                  : "bg-system-success"
-                          }`}
-                        >
-                          {step.step}
-                        </div>
-                        <div className="flex-grow">
-                          <h4 className="mb-2 font-semibold text-text-primary">
-                            {step.description}
-                          </h4>
-                          <div className="space-y-2">
-                            <div className="rounded bg-gray-900 p-3 font-mono text-sm">
-                              <p className="mb-1 text-gray-300">Fórmula:</p>
-                              <p className="font-bold text-white">{step.formula}</p>
-                            </div>
-                            <div className="rounded bg-background-dark-secondary p-3">
-                              <p className="mb-1 text-sm text-text-secondary">Cálculo:</p>
-                              <p className="font-semibold">{step.calculation}</p>
-                            </div>
-                            <div
-                              className={`rounded p-2 text-center font-bold ${
-                                step.step === 4 && result.verification.isCorrect
-                                  ? "bg-system-success text-white"
-                                  : step.step === 4 && !result.verification.isCorrect
-                                    ? "bg-system-warning text-white"
-                                    : "bg-primary-blue-light text-primary-blue-dark"
-                              }`}
-                            >
-                              {step.result}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado da Regra de Três
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="mb-2 text-sm text-text-secondary">Proporção</div>
+                <div className="text-xl font-bold text-primary-blue-dark">
+                  {result.proportion}
                 </div>
-              )}
-            </CardContent>
-          </Card>
+              </div>
+            </div>
 
-          {/* Examples Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">
-                📖 Exemplos Similares -{" "}
-                {result.proportionType === "direct" ? "Proporção Direta" : "Proporção Inversa"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {result.examples.map((example, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4"
-                  >
-                    <h4 className="mb-2 font-bold text-primary-blue-dark">{example.title}</h4>
-                    <p className="mb-3 text-sm text-text-secondary">{example.description}</p>
-                    <div className="rounded bg-gray-900 p-2">
-                      <p className="font-mono text-xs text-gray-300">{example.formula}</p>
-                    </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-system-warning">
+                  {result.result.formatted}
+                </div>
+                <div className="text-sm text-text-secondary">Valor de X</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-lg font-bold text-growth-green">
+                  {result.type === "simples-direta" 
+                    ? "Diretamente Proporcional"
+                    : "Inversamente Proporcional"}
+                </div>
+                <div className="text-sm text-text-secondary">Tipo de Proporção</div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Proporção</h4>
+              <div className="text-sm text-text-secondary">
+                <div>
+                  <strong>Tipo:</strong>{" "}
+                  {result.type === "simples-direta"
+                    ? "Regra de 3 Simples Direta"
+                    : "Regra de 3 Simples Inversa"}
+                </div>
+                <div>
+                  <strong>Valores:</strong> A = {result.originalValues.value1}, B = {result.originalValues.value2}, C = {result.originalValues.value3}
+                </div>
+                <div>
+                  <strong>Resultado:</strong> X = {result.result.formatted}
+                </div>
+                {result.verification && (
+                  <div>
+                    <strong>Verificação:</strong> {result.verification}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Resolução Passo a Passo</h4>
+              <div className="space-y-2">
+                {result.steps.map((step, index) => (
+                  <div key={index} className="text-sm text-text-secondary">
+                    <span className="font-medium text-primary-blue-dark">{index + 1}. </span>
+                    {step}
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
-      {/* Educational Content Sections */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-system-success/10 duration-300">
+      {/* Seção: Equações de Segundo Grau - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📐 Regra de Três: O Guia Completo para Resolver Proporções
+            🎯 Frações – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
-              <p>
-                A <strong className="text-primary-blue-dark">regra de três</strong> é um método
-                matemático usado para resolver problemas que envolvem
-                <strong className="text-system-success"> proporções entre grandezas</strong>. É uma
-                das ferramentas mais úteis da matemática básica, aplicada em situações do cotidiano
-                como <em>cálculos de preços, consumo, tempo e distância</em>.
+          <div className="space-y-8">
+            {/* Fórmula de Bhaskara */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                🔢 Operações com Frações
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A fórmula de Bhaskara é utilizada para resolver equações de segundo grau do tipo
+                    ax² + bx + c = 0, onde a ≠ 0.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ = b² - 4ac (discriminante)</li>
+                    <li>• x = (-b ± √Δ) / 2a</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Resolve qualquer equação de 2º grau</li>
+                    <li>• Baseada no discriminante (Δ)</li>
+                    <li>• Determina natureza das raízes</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Física: movimento uniformemente variado</li>
+                    <li>• Economia: maximização de lucros</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Discriminante Delta */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📐 Discriminante (Δ)
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O discriminante determina a natureza das raízes da equação de segundo grau.
+                    Calculado pela fórmula Δ = b² - 4ac.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Interpretação</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ &gt; 0: Duas raízes reais distintas</li>
+                    <li>• Δ = 0: Uma raiz real dupla</li>
+                    <li>• Δ &lt; 0: Duas raízes complexas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Importância</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Determina quantidade de soluções</li>
+                    <li>• Indica se raízes são reais ou complexas</li>
+                    <li>• Facilita análise prévia da equação</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Análise gráfica de parábolas</li>
+                    <li>• Otimização em engenharia</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Tipos de Raízes */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔍 Tipos de Raízes
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Classificação</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    As raízes de uma equação de segundo grau podem ser reais ou complexas,
+                    dependendo do valor do discriminante.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Tipos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Reais distintas (Δ &gt; 0)</li>
+                    <li>• Real dupla (Δ = 0)</li>
+                    <li>• Complexas conjugadas (Δ &lt; 0)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ Interpretação Gráfica
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Δ &gt; 0: Parábola corta eixo x em 2 pontos</li>
+                    <li>• Δ = 0: Parábola toca eixo x em 1 ponto</li>
+                    <li>• Δ &lt; 0: Parábola não toca eixo x</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Exemplos</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• x² - 5x + 6 = 0 (Δ = 1 &gt; 0)</li>
+                    <li>• x² - 4x + 4 = 0 (Δ = 0)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Métodos de Resolução */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Métodos de Resolução de Equações de 2º Grau
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Fórmula de Bhaskara
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Fatoração</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Completar Quadrado
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">Gráfico</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicabilidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Universal</td>
+                  <td className="p-3 text-center text-growth-green">Casos específicos</td>
+                  <td className="p-3 text-center text-system-warning">Universal</td>
+                  <td className="p-3 text-center text-system-info">Aproximado</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Dificuldade</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Exata</td>
+                  <td className="p-3 text-center text-growth-green">Exata</td>
+                  <td className="p-3 text-center text-system-warning">Exata</td>
+                  <td className="p-3 text-center text-system-info">Aproximada</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Tempo de Resolução</td>
+                  <td className="p-3 text-center">Rápido</td>
+                  <td className="p-3 text-center">Muito Rápido</td>
+                  <td className="p-3 text-center">Médio</td>
+                  <td className="p-3 text-center">Lento</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Requisitos</td>
+                  <td className="p-3 text-center">Fórmula memorizada</td>
+                  <td className="p-3 text-center">Reconhecer padrões</td>
+                  <td className="p-3 text-center">Técnica avançada</td>
+                  <td className="p-3 text-center">Papel milimetrado</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Melhor Uso</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Geral</td>
+                  <td className="p-3 text-center text-growth-green">Números inteiros</td>
+                  <td className="p-3 text-center text-system-warning">Demonstrações</td>
+                  <td className="p-3 text-center text-system-info">Visualização</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Bhaskara</h4>
+              <p className="text-sm text-text-secondary">
+                Método <strong>mais confiável</strong> para resolver qualquer equação de segundo
+                grau, especialmente com coeficientes decimais. Saiba mais sobre
+                <a
+                  href="/calculadoras/matematica/porcentagem"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  cálculos de porcentagem
+                </a>
+                ou explore nossa{" "}
+                <a
+                  href="/calculadoras/matematica/fracoes"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  calculadora de frações
+                </a>
+                .
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-primary-blue-dark">
-                  📈 Regra de Três Simples (Direta)
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <p>
-                    <strong>Quando usar:</strong> Quando as grandezas são diretamente proporcionais
-                  </p>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-primary-blue-dark">Características:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>Se uma grandeza aumenta, a outra também aumenta</li>
-                      <li>Se uma grandeza diminui, a outra também diminui</li>
-                      <li>A razão entre as grandezas permanece constante</li>
-                    </ul>
-                  </div>
-                  <div className="rounded bg-primary-blue-light p-3">
-                    <p className="font-semibold text-primary-blue-dark">Fórmula:</p>
-                    <p className="font-mono text-lg">a : b :: c : x</p>
-                    <p className="font-mono text-lg">a/b = c/x</p>
-                    <p className="font-mono text-lg">x = (b × c) / a</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-system-warning">
-                  📉 Regra de Três Inversa (Indireta)
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <p>
-                    <strong>Quando usar:</strong> Quando as grandezas são inversamente proporcionais
-                  </p>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-system-warning">Características:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>Se uma grandeza aumenta, a outra diminui</li>
-                      <li>Se uma grandeza diminui, a outra aumenta</li>
-                      <li>O produto das grandezas permanece constante</li>
-                    </ul>
-                  </div>
-                  <div className="rounded border border-system-warning/20 bg-system-warning/10 p-3">
-                    <p className="font-semibold text-system-warning">Fórmula:</p>
-                    <p className="font-mono text-lg">a × b = c × x</p>
-                    <p className="font-mono text-lg">x = (a × b) / c</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Detailed Educational Content */}
-      <Card className="border-l-4 border-system-info bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🎯 Como Identificar o Tipo de Proporção
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-primary-blue-dark">
-                  ➡️ Proporção Direta - Exemplos Práticos
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">🛒 Compras</h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Situação:</strong> Mais produtos = Mais dinheiro
-                      <br />
-                      <strong>Exemplo:</strong> "Se 2 kg de arroz custam R$ 8, quanto custam 5 kg?"
-                      <br />
-                      <strong>Lógica:</strong> Aumentando a quantidade, o preço aumenta
-                      proporcionalmente.
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      🚗 Distância e Combustível
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Situação:</strong> Mais distância = Mais combustível
-                      <br />
-                      <strong>Exemplo:</strong> "Para 100 km gasto 8 litros, para 250 km gasto
-                      quanto?"
-                      <br />
-                      <strong>Lógica:</strong> Mais quilômetros exigem mais combustível.
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      📏 Escalas e Mapas
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Situação:</strong> Maior escala = Maior distância real
-                      <br />
-                      <strong>Exemplo:</strong> "No mapa 2 cm = 50 km, então 7 cm = ?"
-                      <br />
-                      <strong>Lógica:</strong> Proporcionalidade direta entre mapa e realidade.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="mb-4 flex items-center text-lg font-bold text-system-warning">
-                  ⬅️ Proporção Inversa - Exemplos Práticos
-                </h3>
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      👷 Trabalho em Equipe
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Situação:</strong> Mais trabalhadores = Menos tempo
-                      <br />
-                      <strong>Exemplo:</strong> "6 operários fazem em 12 dias, 9 operários fazem em
-                      quanto tempo?"
-                      <br />
-                      <strong>Lógica:</strong> Mais pessoas trabalhando, menos tempo necessário.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      🏃 Velocidade e Tempo
-                    </h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Situação:</strong> Mais velocidade = Menos tempo
-                      <br />
-                      <strong>Exemplo:</strong> "A 60 km/h levo 4 horas, a 80 km/h levo quanto?"
-                      <br />
-                      <strong>Lógica:</strong> Velocidade maior reduz o tempo de viagem.
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">🍽️ Consumo e Duração</h4>
-                    <p className="text-sm text-text-secondary">
-                      <strong>Situação:</strong> Mais pessoas = Menos dias
-                      <br />
-                      <strong>Exemplo:</strong> "Para 10 pessoas a comida dura 15 dias, para 15
-                      pessoas dura quanto?"
-                      <br />
-                      <strong>Lógica:</strong> Mais consumidores esgotam o estoque mais rápido.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Method Recognition Guide */}
-      <Card className="border-l-4 border-system-success bg-system-success/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🔍 Guia de Identificação Rápida
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <div className="rounded-xl border border-system-success/20 bg-gray-900 p-6">
-              <h3 className="mb-4 text-xl font-bold text-system-success">
-                🤔 Perguntas para Identificar o Tipo
-              </h3>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-4">
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      ✅ É Proporção Direta se:
-                    </h4>
-                    <ul className="list-inside list-disc space-y-1 text-sm text-text-secondary">
-                      <li>Aumentando A, B também aumenta</li>
-                      <li>Diminuindo A, B também diminui</li>
-                      <li>A relação é "quanto mais... mais"</li>
-                      <li>A razão A/B é constante</li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg bg-primary-blue-light p-4">
-                    <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                      📊 Exemplos de Análise:
-                    </h4>
-                    <div className="space-y-1 text-sm text-text-secondary">
-                      <p>
-                        <strong>Preço × Quantidade:</strong> ✓ Direta
-                      </p>
-                      <p>
-                        <strong>Distância × Combustível:</strong> ✓ Direta
-                      </p>
-                      <p>
-                        <strong>Horas × Salário:</strong> ✓ Direta
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      ⚠️ É Proporção Inversa se:
-                    </h4>
-                    <ul className="list-inside list-disc space-y-1 text-sm text-text-secondary">
-                      <li>Aumentando A, B diminui</li>
-                      <li>Diminuindo A, B aumenta</li>
-                      <li>A relação é "quanto mais... menos"</li>
-                      <li>O produto A × B é constante</li>
-                    </ul>
-                  </div>
-                  <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">
-                      📊 Exemplos de Análise:
-                    </h4>
-                    <div className="space-y-1 text-sm text-text-secondary">
-                      <p>
-                        <strong>Velocidade × Tempo:</strong> ⚠️ Inversa
-                      </p>
-                      <p>
-                        <strong>Operários × Dias:</strong> ⚠️ Inversa
-                      </p>
-                      <p>
-                        <strong>Torneiras × Tempo:</strong> ⚠️ Inversa
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">⚡ Fatoração</h4>
+              <p className="text-sm text-text-secondary">
+                Ideal para equações com <strong>coeficientes inteiros</strong> pequenos que permitem
+                fatoração simples.
+              </p>
             </div>
 
-            <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-              <h4 className="mb-3 font-semibold text-system-info">
-                💡 Dica Prática para Não Errar
-              </h4>
-              <div className="space-y-2 text-sm text-text-secondary">
-                <p>
-                  <strong>1. Leia o problema e identifique as duas grandezas principais</strong>
-                  (ex: velocidade e tempo, preço e quantidade)
-                </p>
-                <p>
-                  <strong>2. Faça a pergunta:</strong> "Se eu aumentar a primeira grandeza, o que
-                  acontece com a segunda?"
-                </p>
-                <p>
-                  <strong>3. Se a resposta for:</strong>
-                </p>
-                <div className="ml-4 space-y-1">
-                  <p>
-                    • <strong className="text-primary-blue-dark">"Também aumenta"</strong> → Use
-                    regra de três DIRETA
-                  </p>
-                  <p>
-                    • <strong className="text-system-warning">"Diminui"</strong> → Use regra de três
-                    INVERSA
-                  </p>
-                </div>
-              </div>
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">📐 Completar Quadrado</h4>
+              <p className="text-sm text-text-secondary">
+                Útil para <strong>compreender geometricamente</strong> e para demonstrações
+                matemáticas avançadas.
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes sobre Regra de Três"
+        title="Perguntas Frequentes - Calculadora de Regra de Três"
         items={[
           {
-            question: "Qual a diferença entre regra de três simples e composta?",
+            question: "O que é regra de três?",
             answer:
-              "<strong>Regra de três simples</strong> envolve apenas duas grandezas. <strong>Regra de três composta</strong> envolve três ou mais grandezas relacionadas. <br><br><strong>Simples:</strong> preço × quantidade (2 grandezas)<br><strong>Composta:</strong> operários × horas × dias (3+ grandezas)",
-            borderColor: "system-info",
-          },
-          {
-            question: "Como saber se é direta ou inversa?",
-            answer:
-              "Analise o <strong>comportamento das grandezas</strong>: se uma aumenta e a outra também aumenta, é <strong>direta</strong>. Se uma aumenta e a outra diminui, é <strong>inversa</strong>. <br><br><strong>Direta:</strong><br>• Mais produtos → Mais dinheiro<br>• Mais horas → Mais salário<br>• Mais km → Mais combustível<br><br><strong>Inversa:</strong><br>• Mais velocidade → Menos tempo<br>• Mais operários → Menos dias<br>• Mais pessoas → Menos duração",
+              "A regra de três é um processo matemático usado para resolver problemas de proporcionalidade entre grandezas diretamente ou inversamente proporcionais, permitindo encontrar um valor desconhecido em uma proporção.",
             borderColor: "primary-blue",
           },
           {
-            question: "Posso usar regra de três para qualquer problema de proporção?",
+            question: "Qual a diferença entre regra de três simples direta e inversa?",
             answer:
-              "Sim, mas <strong>desde que as grandezas sejam proporcionais</strong>. Nem todas as relações matemáticas são proporcionais - algumas são exponenciais, logarítmicas, etc. <br><br><strong>Funcionam bem:</strong> preços, consumo, trabalho, velocidade<br><strong>Cuidado com:</strong> juros compostos, crescimento populacional, fenômenos físicos complexos",
-            borderColor: "system-success",
-          },
-          {
-            question: "Como verificar se meu resultado está correto?",
-            answer:
-              "<strong>Substitua o valor encontrado</strong> na proporção original e verifique se os <strong>dois lados ficam iguais</strong>. <br><br><strong>Exemplo:</strong> Se encontrei x = 20 em '3:12::5:x'<br><strong>Verificação:</strong> 3/12 = 5/20?<br><strong>Cálculo:</strong> 0,25 = 0,25 ✓ Correto!",
+              "Na regra de três direta, quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Na inversa, quando uma grandeza aumenta, a outra diminui proporcionalmente.",
             borderColor: "growth-green",
           },
           {
-            question: "E se as unidades forem diferentes?",
+            question: "Como montar uma regra de três?",
             answer:
-              "<strong>Sempre converta para as mesmas unidades</strong> antes de calcular. Em proporções diretas, unidades semelhantes ficam na mesma posição. <br><br><strong>Exemplo:</strong> '2 metros custam R$ 10, quantos centímetros custam R$ 5?'<br><strong>Converter:</strong> 2 metros = 200 centímetros<br><strong>Então:</strong> 200 cm : R$ 10 :: x cm : R$ 5",
+              "Identifique as grandezas envolvidas, determine se são diretamente ou inversamente proporcionais, monte a proporção (A:B :: C:X) e resolva através da multiplicação cruzada.",
+            borderColor: "system-info",
+          },
+          {
+            question: "O que é regra de três composta?",
+            answer:
+              "A regra de três composta envolve mais de duas grandezas proporcionais. É usada quando o problema apresenta três ou mais grandezas relacionadas entre si.",
             borderColor: "system-warning",
           },
           {
-            question: "Qual a aplicação prática da regra de três?",
+            question: "Como verificar se o resultado está correto?",
             answer:
-              "A regra de três está presente no <strong>cotidiano</strong>: compras no supermercado, cálculo de combustível, receitas culinárias, conversões, orçamentos. <br><br><strong>Na cozinha:</strong> 'Para 4 pessoas uso 2 xícaras de arroz, para 6 pessoas uso quantas?'<br><strong>No trabalho:</strong> 'Se produzo 50 peças em 8 horas, quantas em 12 horas?'<br><strong>Em viagens:</strong> 'Gastei 40 litros em 500 km, quanto gastarei em 800 km?'",
+              "Para verificar, substitua o valor encontrado na proporção original e verifique se as razões são iguais (para proporção direta) ou se os produtos são iguais (para proporção inversa).",
             borderColor: "growth-green",
           },
           {
-            question: "Como ensinar regra de três para crianças?",
+            question: "Quando usar cada tipo de regra de três?",
             answer:
-              "Use <strong>exemplos concretos</strong> do dia a dia delas: doces, brinquedos, tempo de brincadeira. <strong>Comece sempre com situações familiares</strong>. <br><br><strong>Exemplo didático:</strong> 'Se 2 sorvetes custam R$ 6, quanto custam 3 sorvetes?'<br><strong>Estratégia:</strong> Desenhe, use objetos concretos, faça eles 'sentirem' a proporção<br><strong>Verificação:</strong> 'Faz sentido? Mais sorvetes custam mais ou menos dinheiro?'",
-            borderColor: "system-success",
+              "Use regra de três direta quando as grandezas aumentam/diminuem juntas (ex: mais produtos, mais dinheiro). Use inversa quando uma aumenta e outra diminui (ex: mais velocidade, menos tempo).",
+            borderColor: "system-error-dark",
           },
         ]}
+        tipSection={{
+          title: "Dica Importante sobre Regra de Três",
+          content:
+            "<strong>Para resultados precisos:</strong> sempre identifique corretamente se as grandezas são direta ou inversamente proporcionais antes de montar a proporção.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Proporção direta: grandezas aumentam/diminuem juntas. Proporção inversa: uma aumenta quando a outra diminui. Sempre verifique o resultado."
       />
 
-      {/* Footer */}
+      {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de Regra de Três
+            📚 Como Usar Esta Calculadora de Regra de Três
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta <strong className="text-primary-blue-dark">calculadora de regra de três</strong>{" "}
-              é<strong className="text-system-success"> 100% gratuita</strong> e oferece resolução
-              passo a passo para problemas de proporção direta e inversa, com verificação automática
-              e exemplos educativos.
+              permite resolver{" "}
+              <strong className="text-growth-green">problemas de proporcionalidade</strong>: regra de 3 simples direta, inversa e composta com precisão matemática e resultados instantâneos.
             </p>
             <p>
-              <strong>Recursos inclusos:</strong> Detecção automática do tipo de proporção,
-              resolução passo a passo detalhada, verificação de resultados, análise de unidades,
-              exemplos práticos contextualizados, e guia educativo completo para estudantes e
-              professores.
+              <strong>Funcionalidades:</strong> Identificação automática do tipo de proporção, resolução passo a passo, verificação dos resultados e explicação detalhada do processo de cálculo.
             </p>
             <p>
-              <strong className="text-system-warning">Uso Educacional:</strong> Esta ferramenta é
-              ideal para estudantes do ensino fundamental e médio, professores de matemática, e
-              profissionais que trabalham com cálculos proporcionais no dia a dia.{" "}
-              <strong>Sempre confira os resultados em situações críticas.</strong>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e resolução de exercícios. Para aplicações científicas ou de
+              engenharia que exigem alta precisão, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/matematica/porcentagem"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                porcentagem
+              </a>
+              para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚖️ Cálculos baseados em fórmulas matemáticas padronizadas • 🎓 Ferramenta educacional
-              gratuita • 🔒 Seus dados não são armazenados • 📱 Responsivo para todos os
-              dispositivos • 🌙 Modo escuro disponível • ✅ Verificação automática de resultados
+              🔎 Foco educacional • 📏 Regra de Três • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
       </Card>
-
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora de Regra de Três",
-            description:
-              "Calculadora online gratuita para resolver regra de três simples e inversa com explicações passo a passo. Ideal para estudantes e aplicações práticas.",
-            url: "https://calculadorasonline.com.br/calculadoras/matematica/regra-de-tres",
-            applicationCategory: "EducationalApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Regra de três simples e inversa",
-              "Resolução passo a passo",
-              "Verificação automática",
-              "Detecção do tipo de proporção",
-              "Exemplos práticos",
-              "100% gratuito",
-            ],
-            educationalLevel: ["Elementary", "MiddleSchool", "HighSchool"],
-            learningResourceType: "Interactive Tool",
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
 
       <RelatedCalculators category="matematica" currentCalculatorId="regra-de-tres" />
     </div>
