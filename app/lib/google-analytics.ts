@@ -26,20 +26,31 @@ export const GA_TRACKING_ID = typeof window !== 'undefined'
   : process.env.VITE_GA_ID;
 
 /**
+ * Verifica se o usuário deu consentimento para analytics
+ */
+export const hasAnalyticsConsent = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  
+  const consent = localStorage.getItem('cookie-consent');
+  return consent === 'accepted';
+};
+
+/**
  * Verifica se o Google Analytics deve ser carregado
- * Ativo apenas em produção com ID válido configurado
+ * Ativo apenas em produção com ID válido configurado E com consentimento do usuário
  */
 export const isGAEnabled = (): boolean => {
   return (
     process.env.NODE_ENV === 'production' && 
     Boolean(GA_TRACKING_ID) &&
-    GA_TRACKING_ID.startsWith('G-')
+    GA_TRACKING_ID.startsWith('G-') &&
+    hasAnalyticsConsent()
   );
 };
 
 /**
- * Inicializa o Google Analytics
- * Carrega o script do GA4 e configura o tracking ID
+ * Inicializa o Google Analytics com configuração cookieless
+ * Usa apenas first-party storage e configurações GDPR/LGPD compliant
  */
 export const initGA = (): void => {
   if (!isGAEnabled() || typeof window === 'undefined') {
@@ -58,25 +69,35 @@ export const initGA = (): void => {
     // Configurar timestamp
     window.gtag('js', new Date());
 
-    // Configurar GA com políticas de privacidade para LGPD
+    // Configuração cookieless para GA4 - sem third-party cookies
     window.gtag('config', GA_TRACKING_ID, {
       // Configurações básicas
       page_title: document.title,
       page_location: window.location.href,
       
-      // Configurações de privacidade (LGPD compliance)
+      // Configurações de privacidade LGPD/GDPR compliant
       anonymize_ip: true,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
       
-      // Configurações de performance
+      // Configurações cookieless - remove dependência de third-party cookies
+      storage: 'none',
+      client_storage: 'none',
+      cookie_domain: 'none',
+      cookie_update: false,
+      cookie_expires: 0,
+      
+      // Usar apenas first-party storage local se necessário
+      transport_type: 'beacon',
       send_page_view: true,
+      
+      // Configurações de performance
       custom_map: {
         dimension1: 'user_type'
       }
     });
 
-    console.log('[GA] Google Analytics inicializado:', GA_TRACKING_ID);
+    console.log('[GA] Google Analytics inicializado (cookieless):', GA_TRACKING_ID);
   } catch (error) {
     console.error('[GA] Erro ao inicializar Google Analytics:', error);
   }
@@ -100,6 +121,13 @@ export const trackPageView = (url?: string, title?: string): void => {
       page_path: pageUrl,
       page_title: pageTitle,
       page_location: window.location.origin + pageUrl,
+      // Configurações cookieless
+      storage: 'none',
+      client_storage: 'none',
+      cookie_domain: 'none',
+      cookie_update: false,
+      cookie_expires: 0,
+      transport_type: 'beacon'
     });
 
     if (process.env.NODE_ENV === 'development') {
@@ -143,7 +171,13 @@ export const getGAScript = (): string => {
         anonymize_ip: true,
         allow_google_signals: false,
         allow_ad_personalization_signals: false,
-        send_page_view: true
+        send_page_view: true,
+        storage: 'none',
+        client_storage: 'none',
+        cookie_domain: 'none',
+        cookie_update: false,
+        cookie_expires: 0,
+        transport_type: 'beacon'
       });
     </script>
   `;
@@ -186,7 +220,13 @@ export const getGAMeta = (props: GAMetaProps = {}) => {
           anonymize_ip: true,
           allow_google_signals: false,
           allow_ad_personalization_signals: false,
-          send_page_view: true
+          send_page_view: true,
+          storage: 'none',
+          client_storage: 'none',
+          cookie_domain: 'none',
+          cookie_update: false,
+          cookie_expires: 0,
+          transport_type: 'beacon'
         });
       `,
       ...(nonce && { attributes: { nonce } })

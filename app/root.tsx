@@ -11,6 +11,7 @@ import { useGoogleAnalytics } from "~/hooks/useGoogleAnalytics";
 import { isGAEnabled, GA_TRACKING_ID } from "~/lib/google-analytics";
 import { useCloudflareAnalyticsSimple } from "~/hooks/useCloudflareAnalytics";
 import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytics";
+import { CookieConsent } from "~/components";
 
 import "./tailwind.css";
 import "./styles/globals.css";
@@ -162,7 +163,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                         anonymize_ip: true,
                         allow_google_signals: false,
                         allow_ad_personalization_signals: false,
-                        send_page_view: true
+                        send_page_view: true,
+                        storage: 'none',
+                        client_storage: 'none',
+                        cookie_domain: 'none',
+                        cookie_update: false,
+                        cookie_expires: 0,
+                        transport_type: 'beacon'
                       });
                     `
                   }}
@@ -293,6 +300,9 @@ export default function App() {
           </div>
         </footer>
           </div>
+          
+          {/* Cookie Consent Banner */}
+          <CookieConsent />
           
           {/* Vercel Analytics & Speed Insights */}
           <Analytics />
