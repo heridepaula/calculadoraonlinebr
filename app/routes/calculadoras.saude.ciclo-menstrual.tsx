@@ -607,48 +607,57 @@ export default function MenstrualCycleCalculator() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="text-2xl font-bold text-health-red">
+            <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-4 sm:p-6 text-center border-l-4 border-health-red">
+                <div className="text-xl sm:text-2xl font-bold text-health-red mb-1">
                   {formatDate(result.nextPeriod)}
                 </div>
                 <div className="text-sm text-text-secondary">Próxima Menstruação</div>
+                <div className="text-xs text-health-red mt-1">
+                  {daysBetween(new Date(), result.nextPeriod)} dias
+                </div>
               </div>
-              <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="text-2xl font-bold text-primary-blue-dark">
+              <div className="rounded-lg bg-gray-900 p-4 sm:p-6 text-center border-l-4 border-primary-blue-dark">
+                <div className="text-xl sm:text-2xl font-bold text-primary-blue-dark mb-1">
                   {formatDate(result.ovulationDate)}
                 </div>
                 <div className="text-sm text-text-secondary">Ovulação</div>
-              </div>
-              <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="text-lg font-bold text-system-success">
-                  {formatDate(result.fertileStart)} a {formatDate(result.fertileEnd)}
+                <div className="text-xs text-primary-blue-dark mt-1">
+                  {daysBetween(new Date(), result.ovulationDate) >= 0 ? `${daysBetween(new Date(), result.ovulationDate)} dias` : 'Passou'}
                 </div>
-                <div className="text-sm text-text-secondary">Período Fértil</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-4 sm:p-6 text-center border-l-4 border-system-success sm:col-span-2 lg:col-span-1">
+                <div className="text-base sm:text-lg font-bold text-system-success mb-1">
+                  {formatDate(result.fertileStart)}
+                </div>
+                <div className="text-base sm:text-lg font-bold text-system-success">
+                  a {formatDate(result.fertileEnd)}
+                </div>
+                <div className="text-sm text-text-secondary mt-1">Período Fértil</div>
               </div>
             </div>
 
-            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
-              <div className="text-center">
-                <div className="text-sm text-text-secondary">Ciclo Atual</div>
-                <div className="text-xl font-bold text-text-primary">
-                  {result.cycleLength} dias
+            <div className="mb-6 grid grid-cols-2 gap-3 rounded-lg bg-gray-900 p-4 sm:gap-6 md:grid-cols-3">
+              <div className="text-center p-2">
+                <div className="text-xs sm:text-sm text-text-secondary mb-1">Ciclo Atual</div>
+                <div className="text-lg sm:text-xl font-bold text-text-primary">
+                  {result.cycleLength}
                 </div>
-                <div className="text-sm text-text-secondary">Duração do ciclo</div>
+                <div className="text-xs text-text-secondary">dias</div>
               </div>
-              <div className="text-center">
-                <div className="text-sm text-text-secondary">Menstruação</div>
-                <div className="text-xl font-bold text-text-primary">
-                  {result.periodLength} dias
+              <div className="text-center p-2">
+                <div className="text-xs sm:text-sm text-text-secondary mb-1">Menstruação</div>
+                <div className="text-lg sm:text-xl font-bold text-text-primary">
+                  {result.periodLength}
                 </div>
-                <div className="text-sm text-text-secondary">Duração menstrual</div>
+                <div className="text-xs text-text-secondary">dias</div>
               </div>
-              <div className="text-center">
-                <div className="text-sm text-text-secondary">Dias até Próxima</div>
-                <div className="text-xl font-bold text-text-primary">
-                  {daysBetween(new Date(), result.nextPeriod)} dias
+              <div className="text-center p-2 col-span-2 md:col-span-1">
+                <div className="text-xs sm:text-sm text-text-secondary mb-1">Até Próxima</div>
+                <div className="text-lg sm:text-xl font-bold text-primary-blue-dark">
+                  {daysBetween(new Date(), result.nextPeriod)}
                 </div>
-                <div className="text-sm text-text-secondary">Próxima menstruação</div>
+                <div className="text-xs text-text-secondary">dias restantes</div>
               </div>
             </div>
 
@@ -682,7 +691,7 @@ export default function MenstrualCycleCalculator() {
       {/* Calendário e Gráficos */}
       {result && (
         <>
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             {/* Gráfico do Ciclo Menstrual */}
             <Card>
               <CardHeader>
@@ -691,7 +700,7 @@ export default function MenstrualCycleCalculator() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-80">
+                <div className="h-64 sm:h-80">
                   <Pie
                     data={{
                       labels: ["Menstruação", "Fase Folicular", "Ovulação", "Fase Lútea"],
@@ -753,20 +762,26 @@ export default function MenstrualCycleCalculator() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {result.upcomingPeriods.map((date, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between rounded-lg bg-gray-900 p-3"
+                      className="flex items-center justify-between rounded-lg bg-gray-900 p-2 sm:p-3 text-sm sm:text-base"
                     >
-                      <div className="font-medium text-text-primary">
-                        {index === 0 ? "Próxima" : `${index + 1}ª próxima`}
+                      <div className="font-medium text-text-primary min-w-0 flex-1">
+                        <div className="truncate">
+                          {index === 0 ? "Próxima" : `${index + 1}ª próxima`}
+                        </div>
                       </div>
-                      <div className="text-health-red font-bold">
-                        {formatDate(date)}
+                      <div className="text-health-red font-bold text-center flex-1">
+                        <div className="text-xs sm:text-sm">
+                          {formatDate(date)}
+                        </div>
                       </div>
-                      <div className="text-sm text-text-secondary">
-                        {daysBetween(new Date(), date)} dias
+                      <div className="text-xs sm:text-sm text-text-secondary text-right min-w-0 flex-1">
+                        <div className="truncate">
+                          {daysBetween(new Date(), date)} dias
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -783,50 +798,161 @@ export default function MenstrualCycleCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-7 gap-2 text-center text-sm">
-                {/* Cabeçalho dos dias da semana */}
-                {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].map((day) => (
-                  <div key={day} className="font-bold p-2 text-text-secondary">
-                    {day}
-                  </div>
-                ))}
-                
-                {/* Dias do calendário */}
+              {/* Versão Mobile - Lista Vertical */}
+              <div className="block md:hidden space-y-2">
+                <div className="text-sm text-text-secondary mb-4 text-center">
+                  Visualização otimizada para mobile
+                </div>
                 {result.cycleCalendar.map((day) => (
                   <div
                     key={day.dayOfCycle}
-                    className={`p-2 rounded-lg border text-xs ${
+                    className={`flex items-center justify-between p-3 rounded-lg border-l-4 ${
                       day.phase === "menstruation"
-                        ? "bg-health-red text-white border-health-red"
+                        ? "bg-health-red/10 border-l-health-red text-health-red"
                         : day.isOvulation
-                        ? "bg-system-success text-white border-system-success"
+                        ? "bg-system-success/10 border-l-system-success text-system-success"
                         : day.isFertile
-                        ? "bg-primary-blue text-white border-primary-blue"
-                        : "bg-gray-800 text-text-secondary border-gray-700"
+                        ? "bg-primary-blue/10 border-l-primary-blue text-primary-blue"
+                        : "bg-gray-800/30 border-l-gray-600 text-text-secondary"
                     }`}
                   >
-                    <div className="font-bold">{day.dayOfCycle}</div>
-                    <div className="text-xs mt-1">{day.description}</div>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                        day.phase === "menstruation"
+                          ? "bg-health-red text-white"
+                          : day.isOvulation
+                          ? "bg-system-success text-white"
+                          : day.isFertile
+                          ? "bg-primary-blue text-white"
+                          : "bg-gray-600 text-text-secondary"
+                      }`}>
+                        {day.dayOfCycle}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-sm">
+                          {formatDate(day.date)}
+                        </div>
+                        <div className="text-xs opacity-75">
+                          {day.description}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      day.phase === "menstruation"
+                        ? "bg-health-red text-white"
+                        : day.isOvulation
+                        ? "bg-system-success text-white"
+                        : day.isFertile
+                        ? "bg-primary-blue text-white"
+                        : "bg-gray-600 text-text-secondary"
+                    }`}>
+                      {day.phase === "menstruation" ? "🩸" : 
+                       day.isOvulation ? "🥚" : 
+                       day.isFertile ? "🌱" : "🌙"}
+                    </div>
                   </div>
                 ))}
               </div>
+
+              {/* Versão Desktop - Grid Tradicional */}
+              <div className="hidden md:block">
+                <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                  {/* Cabeçalho dos dias da semana */}
+                  {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].map((day) => (
+                    <div key={day} className="font-bold p-2 text-text-secondary">
+                      {day}
+                    </div>
+                  ))}
+                  
+                  {/* Dias do calendário */}
+                  {result.cycleCalendar.map((day) => (
+                    <div
+                      key={day.dayOfCycle}
+                      className={`p-2 rounded-lg border text-xs min-h-[60px] flex flex-col justify-between ${
+                        day.phase === "menstruation"
+                          ? "bg-health-red text-white border-health-red"
+                          : day.isOvulation
+                          ? "bg-system-success text-white border-system-success"
+                          : day.isFertile
+                          ? "bg-primary-blue text-white border-primary-blue"
+                          : "bg-gray-800 text-text-secondary border-gray-700"
+                      }`}
+                    >
+                      <div className="font-bold text-sm">{day.dayOfCycle}</div>
+                      <div className="text-xs mt-1 leading-tight">
+                        {day.phase === "menstruation" ? "🩸" : 
+                         day.isOvulation ? "🥚" : 
+                         day.isFertile ? "🌱" : "🌙"}
+                      </div>
+                      <div className="text-xs opacity-75 hidden lg:block">
+                        {day.description.split(' ')[0]}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
               
-              {/* Legenda */}
-              <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
+              {/* Legenda Mobile */}
+              <div className="mt-6 block md:hidden">
+                <h4 className="text-sm font-semibold text-text-primary mb-3 text-center">
+                  📋 Legenda do Ciclo
+                </h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-3 p-2 rounded-lg bg-health-red/10 border border-health-red/20">
+                    <span className="text-lg">🩸</span>
+                    <div>
+                      <div className="text-sm font-medium text-health-red">Menstruação</div>
+                      <div className="text-xs text-text-secondary">Dias 1-{result.periodLength}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-2 rounded-lg bg-system-success/10 border border-system-success/20">
+                    <span className="text-lg">🥚</span>
+                    <div>
+                      <div className="text-sm font-medium text-system-success">Ovulação</div>
+                      <div className="text-xs text-text-secondary">Dia ~14</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-2 rounded-lg bg-primary-blue/10 border border-primary-blue/20">
+                    <span className="text-lg">🌱</span>
+                    <div>
+                      <div className="text-sm font-medium text-primary-blue">Fértil</div>
+                      <div className="text-xs text-text-secondary">6 dias</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-700/10 border border-gray-600/20">
+                    <span className="text-lg">🌙</span>
+                    <div>
+                      <div className="text-sm font-medium text-text-secondary">Outras</div>
+                      <div className="text-xs text-text-secondary">Restante</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Legenda Desktop */}
+              <div className="mt-4 hidden md:grid grid-cols-2 gap-4 lg:grid-cols-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-health-red rounded"></div>
+                  <div className="w-4 h-4 bg-health-red rounded flex items-center justify-center">
+                    <span className="text-xs text-white">🩸</span>
+                  </div>
                   <span className="text-sm">Menstruação</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-system-success rounded"></div>
+                  <div className="w-4 h-4 bg-system-success rounded flex items-center justify-center">
+                    <span className="text-xs text-white">🥚</span>
+                  </div>
                   <span className="text-sm">Ovulação</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-primary-blue rounded"></div>
+                  <div className="w-4 h-4 bg-primary-blue rounded flex items-center justify-center">
+                    <span className="text-xs text-white">🌱</span>
+                  </div>
                   <span className="text-sm">Período Fértil</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-gray-800 rounded"></div>
+                  <div className="w-4 h-4 bg-gray-800 rounded flex items-center justify-center">
+                    <span className="text-xs text-text-secondary">🌙</span>
+                  </div>
                   <span className="text-sm">Outras fases</span>
                 </div>
               </div>
