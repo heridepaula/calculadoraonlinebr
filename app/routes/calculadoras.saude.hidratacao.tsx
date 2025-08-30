@@ -1,52 +1,68 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
-import {
-  calculateHydration,
-  type HydrationParams,
-  type HydrationResult,
-} from "~/utils/calculations";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Hidratação e Balanço Hídrico - Necessidade Diária de Água Personalizada - ${APP_NAME}`,
+      title: "Calculadora de Hidratação Diária 2025 | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "📊 Calculadora de hidratação online GRATUITA e completa com análise personalizada por peso, idade, atividade física e condições climáticas. Descubra sua necessidade diária de água, cronograma de hidratação, riscos de desidratação e recomendações científicas baseadas no Institute of Medicine.",
+        "💧 Calculadora de hidratação diária gratuita. Calcule quantidade ideal de água, necessidades hídricas personalizadas e plano de hidratação. Método científico!",
+    },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "keywords",
-      content:
-        "calculadora hidratação água diária, balanço hídrico personalizado, necessidade água exercício, hidratação gravidez amamentação, desidratação prevenção, água clima quente altitude, cronograma hidratação, Institute of Medicine água, calculadora água peso corporal, hidratação saúde renal",
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
-    { name: "googlebot", content: "index,follow" },
     { name: "bingbot", content: "index,follow" },
     {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+    },
+    {
       property: "og:title",
-      content: `Calculadora de Hidratação e Balanço Hídrico - Água Diária Personalizada - ${APP_NAME}`,
+      content: "Calculadora de Hidratação Diária 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "A calculadora de hidratação mais completa do Brasil: análise por peso, idade, atividade, clima e condições especiais. Cronograma personalizado e recomendações científicas.",
+        "💧 Calculadora de hidratação diária gratuita. Calcule quantidade ideal de água, necessidades hídricas personalizadas e plano de hidratação. Método científico!",
+    },
+    {
+      property: "og:image",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-hidratacao.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Hidratação - Cálculo de Água Diária",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
@@ -58,127 +74,584 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: `Calculadora Hidratação Online - Balanço Hídrico Personalizado - ${APP_NAME}`,
+      content: "Calculadora de Hidratação Diária 2025 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
       content:
-        "Ferramenta completa para calcular hidratação: análise por atividade, clima, gravidez e condições de saúde. Cronograma personalizado e prevenção de desidratação.",
+        "💧 Calculadora de hidratação diária gratuita. Calcule quantidade ideal de água, necessidades hídricas personalizadas e plano de hidratação. Método científico!",
     },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
+    {
+      name: "twitter:image",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-hidratacao.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Hidratação - Cálculo de Água Diária",
+    },
+    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
+    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#DC2626" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Hidratação" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
-    { name: "geo.placename", content: "Brazil" },
-    { name: "language", content: "Portuguese" },
-    // Structured Data
     {
-      name: "application/ld+json",
-      content: JSON.stringify({
+      name: "keywords",
+      content:
+        "calculadora hidratação, água diária, necessidade hídrica, quanto beber água, litros água por dia, hidratação corporal, sede, desidratação, agua calculator",
+    },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Saúde",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Hidratação",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Hidratação e Balanço Hídrico",
+        name: "Calculadora de Hidratação Diária Online 2025",
         description:
-          "Calculadora online gratuita para determinar necessidade diária de água personalizada com base em peso, idade, atividade física e condições ambientais.",
+          "Ferramenta gratuita para calcular necessidade hídrica diária personalizada. Cálculo científico de água ideal por peso, idade, atividade física e clima.",
         url: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
         applicationCategory: "HealthApplication",
-        operatingSystem: "Any",
-        permissions: "browser",
+        operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        creator: {
-          "@type": "Organization",
-          name: "Calculadora Online BR",
-        },
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-30",
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraOnlineBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+          name: "Calculadora de Hidratação - Cálculo de Água Diária",
+          description:
+            "Ferramenta gratuita para calcular necessidade hídrica diária personalizada com base no peso, idade, atividade física e condições climáticas.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Hidratação",
+          description:
+            "Necessidade diária de água para manter o corpo hidratado e funcionário de forma ótima",
+          category: "Health",
+        },
+        featureList: [
+          "Cálculo de necessidade hídrica diária",
+          "Personalização por peso e idade",
+          "Ajuste para atividade física",
+          "Consideração de fatores climáticos",
+          "Plano de hidratação horário",
+          "Alertas de desidratação",
+          "Recomendações personalizadas",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+          "Dicas de hidratação saudável",
+          "Base científica validada",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é gordura corporal?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual é o percentual de gordura corporal ideal?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O percentual ideal varia por idade e gênero. Para homens: 8-24% (dependendo da idade). Para mulheres: 16-31%. Atletas podem ter valores menores, enquanto níveis acima de 25% (homens) ou 32% (mulheres) indicam obesidade.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como calcular gordura corporal em casa?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Use fita métrica para medir pescoço, cintura e quadril (mulheres). Aplique o método US Navy ou use nossa calculadora online gratuita que faz os cálculos automaticamente com base nas suas medidas.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre método US Navy e Jackson-Pollock?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O método US Navy usa circunferências corporais (pescoço, cintura, quadril) e é mais acessível. O Jackson-Pollock tradicionalmente usa dobras cutâneas com adipômetro, mas nossa versão simplificada usa medidas corporais para maior praticidade.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Gordura Corporal",
+        description:
+          "Aprenda a calcular seu percentual de gordura corporal de forma precisa com métodos científicos usando nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione o método",
+            text: "Escolha entre método US Navy (mais acessível) ou Jackson-Pollock (simplificado), dependendo da sua preferência e disponibilidade de medidas.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira seus dados pessoais",
+            text: "Digite sua idade, peso, altura e selecione seu gênero. Essas informações são necessárias para cálculos precisos de composição corporal.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Faça as medidas corporais",
+            text: "Use fita métrica para medir circunferência do pescoço, cintura e quadril (se mulher). Siga as instruções de como medir corretamente.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja seu percentual de gordura, massa magra, massa gorda, classificação de saúde e comparação com valores ideais para sua idade e gênero.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Gordura Corporal Online",
+          },
+        ],
+      }),
+    },
+    // Adicionar WebPage Schema separado para melhor estruturação
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+        name: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
+        description:
+          "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal usando métodos científicos US Navy e Jackson-Pollock.",
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-30",
+        lastReviewed: "2025-08-30",
+        isPartOf: {
+          "@type": "WebSite",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+        },
+        about: [
+          {
+            "@type": "Thing",
+            name: "Gordura Corporal",
+            description: "Percentual de tecido adiposo no corpo humano",
+          },
+          {
+            "@type": "Thing",
+            name: "Composição Corporal",
+            description: "Análise da distribuição de massa magra e gorda",
+          },
+        ],
+        audience: {
+          "@type": "Audience",
+          audienceType: "Pessoas interessadas em saúde e fitness",
         },
       }),
     },
   ];
 };
 
-export default function HidratacaoCalculator() {
-  const [params, setParams] = useState<HydrationParams>({
-    weight: 70,
-    age: 30,
-    gender: "male",
-    activityLevel: "moderate",
-    climate: "temperate",
-    altitude: "sea_level",
-    pregnancy: false,
-    breastfeeding: false,
-    healthConditions: [],
-    currentIntake: 0,
-    startTime: "06:00",
-    endTime: "22:00",
-  });
+interface HydrationResult {
+  inputs: {
+    age: number;
+    weight: number;
+    height: number;
+    gender: "masculino" | "feminino";
+    activityLevel: "sedentario" | "leve" | "moderado" | "intenso";
+    climate: "temperado" | "quente" | "frio";
+    healthConditions: string[];
+  };
+  calculations: {
+    baseWaterNeeds: number; // ml
+    activityAdjustment: number; // ml
+    climateAdjustment: number; // ml
+    totalDailyNeeds: number; // ml
+    totalLiters: number;
+    hourlyIntake: number; // ml per hour
+  };
+  recommendations: {
+    hydrationStatus: string;
+    tips: string[];
+    schedule: Array<{ time: string; amount: number; description: string }>;
+  };
+}
+
+interface ValidationErrors {
+  age?: string;
+  weight?: string;
+  height?: string;
+  gender?: string;
+  activityLevel?: string;
+  climate?: string;
+}
+
+export default function HydrationCalculator() {
+  // Inputs para hidratação
+  const [age, setAge] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [gender, setGender] = useState<"masculino" | "feminino" | "">("");
+  const [activityLevel, setActivityLevel] = useState<"sedentario" | "leve" | "moderado" | "intenso">("sedentario");
+  const [climate, setClimate] = useState<"temperado" | "quente" | "frio">("temperado");
+  const [pregnancy, setPregnancy] = useState(false);
+  const [breastfeeding, setBreastfeeding] = useState(false);
 
   const [result, setResult] = useState<HydrationResult | null>(null);
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Global Analytics Tracking
-  const {
-    startCalculation,
-    endCalculation,
-    trackFeature,
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus,
-  } = useAutoCalculatorTracking({
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
     calculatorType: "hidratacao",
     category: "saude",
   });
+  useFormTracking("hidratacao");
 
-  const { trackInputChange, trackFormSubmission } = useFormTracking("hidratacao");
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
+
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  };
+
+  // Função auxiliar para formatação
+  const formatResult = (value: number): string => {
+    // Se for um número inteiro, exibir sem casas decimais
+    if (Number.isInteger(value)) {
+      return value.toString();
+    }
+
+    // Se for decimal, mostrar até 4 casas decimais, removendo zeros desnecessários
+    return value.toFixed(4).replace(/\.?0+$/, "");
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const ageNum = parseNumber(age);
+    const weightNum = parseNumber(weight);
+    const heightNum = parseNumber(height);
+
+    if (!age || ageNum < 1 || ageNum > 100) {
+      newErrors.age = "Idade deve estar entre 1 e 100 anos";
+      ok = false;
+    }
+
+    if (!weight || weightNum < 10 || weightNum > 300) {
+      newErrors.weight = "Peso deve estar entre 10 e 300 kg";
+      ok = false;
+    }
+
+    if (!height || heightNum < 50 || heightNum > 250) {
+      newErrors.height = "Altura deve estar entre 50 e 250 cm";
+      ok = false;
+    }
+
+    if (!gender) {
+      newErrors.gender = "Selecione o sexo";
+      ok = false;
+    }
+
+    if (!activityLevel) {
+      newErrors.activityLevel = "Selecione o nível de atividade";
+      ok = false;
+    }
+
+    if (!climate) {
+      newErrors.climate = "Selecione o tipo de clima";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculateHydration = (): HydrationResult => {
+    const ageNum = parseNumber(age);
+    const weightNum = parseNumber(weight);
+    const heightNum = parseNumber(height);
+    const isMale = gender === "masculino";
+
+    // Base water needs calculation (Formula baseada no peso corporal)
+    let baseWaterNeeds: number;
+    
+    if (ageNum < 13) {
+      // Crianças: 1-1.5L por 10kg de peso
+      baseWaterNeeds = (weightNum / 10) * 1200;
+    } else {
+      // Adultos: fórmula baseada no peso corporal
+      // Recomendação personalizada por peso
+      let mlPerKg = 35;
+      
+      // Ajustes por idade
+      if (ageNum < 19) {
+        mlPerKg = 40; // Adolescentes precisam de mais água
+      } else if (ageNum > 65) {
+        mlPerKg = 30; // Idosos têm menor necessidade base
+      }
+      
+      // Ajuste por gênero - usando 35ml/kg para mulheres e 37ml/kg para homens
+      if (!isMale) {
+        mlPerKg = 35; // Mulheres: 35ml/kg (70kg = 2450ml = 2.45L)
+      } else {
+        mlPerKg = 37; // Homens: 37ml/kg
+      }
+      
+      baseWaterNeeds = weightNum * mlPerKg;
+    }
+
+    // Adjustments for activity level
+    let activityAdjustment = 0;
+    switch (activityLevel) {
+      case "leve":
+        activityAdjustment = 300;
+        break;
+      case "moderado":
+        activityAdjustment = 600;
+        break;
+      case "intenso":
+        activityAdjustment = 1000;
+        break;
+    }
+
+    // Climate adjustments
+    let climateAdjustment = 0;
+    switch (climate) {
+      case "quente":
+        climateAdjustment = 500;
+        break;
+      case "frio":
+        climateAdjustment = -200;
+        break;
+    }
+
+    // Special conditions
+    let specialAdjustment = 0;
+    const healthConditions: string[] = [];
+    
+    if (gender === "feminino") {
+      if (pregnancy) {
+        specialAdjustment += 300;
+        healthConditions.push("Gravidez");
+      }
+      
+      if (breastfeeding) {
+        specialAdjustment += 700;
+        healthConditions.push("Amamentação");
+      }
+    }
+
+    const totalDailyNeeds = baseWaterNeeds + activityAdjustment + climateAdjustment + specialAdjustment;
+    const totalLiters = totalDailyNeeds / 1000;
+    const hourlyIntake = Math.round(totalDailyNeeds / 16); // 16 horas acordado
+
+    // Generate hydration schedule
+    const schedule = generateHydrationSchedule(totalDailyNeeds);
+    
+    // Get hydration status
+    const hydrationStatus = getHydrationStatus(totalLiters, ageNum, isMale);
+    
+    // Get personalized tips
+    const tips = getHydrationTips(activityLevel, climate, ageNum, healthConditions);
+
+    return {
+      inputs: {
+        age: ageNum,
+        weight: weightNum,
+        height: heightNum,
+        gender: gender as "masculino" | "feminino",
+        activityLevel,
+        climate,
+        healthConditions,
+      },
+      calculations: {
+        baseWaterNeeds,
+        activityAdjustment,
+        climateAdjustment,
+        totalDailyNeeds,
+        totalLiters,
+        hourlyIntake,
+      },
+      recommendations: {
+        hydrationStatus,
+        tips,
+        schedule,
+      },
+    };
+  };
+
+  const generateHydrationSchedule = (totalMl: number) => [
+    { time: "07:00", amount: Math.round(totalMl * 0.15), description: "Ao acordar - reidratação" },
+    { time: "09:00", amount: Math.round(totalMl * 0.10), description: "Manhã - manutenção" },
+    { time: "11:00", amount: Math.round(totalMl * 0.10), description: "Meio da manhã" },
+    { time: "13:00", amount: Math.round(totalMl * 0.12), description: "Almoço - digestão" },
+    { time: "15:00", amount: Math.round(totalMl * 0.10), description: "Tarde" },
+    { time: "17:00", amount: Math.round(totalMl * 0.10), description: "Final da tarde" },
+    { time: "19:00", amount: Math.round(totalMl * 0.12), description: "Jantar - digestão" },
+    { time: "21:00", amount: Math.round(totalMl * 0.08), description: "Noite - moderado" },
+  ];
+
+  const getHydrationStatus = (liters: number, age: number, isMale: boolean): string => {
+    const ideal = age < 19 ? (isMale ? 3.3 : 2.3) : age < 51 ? (isMale ? 3.7 : 2.7) : (isMale ? 3.5 : 2.5);
+    const percentage = (liters / ideal) * 100;
+    
+    if (percentage < 70) return "Desidratação severa";
+    if (percentage < 85) return "Desidratação leve";
+    if (percentage <= 115) return "Hidratação adequada";
+    return "Hidratação excessiva";
+  };
+
+  const getHydrationTips = (activity: string, climate: string, age: number, conditions: string[]): string[] => {
+    const tips = [
+      "Beba água regularmente ao longo do dia",
+      "Monitor a cor da urina - deve ser amarelo claro",
+    ];
+
+    if (activity !== "sedentario") {
+      tips.push("Hidrate-se antes, durante e após exercícios");
+    }
+
+    if (climate === "quente") {
+      tips.push("Aumente a ingestão em dias quentes e secos");
+    }
+
+    if (age > 65) {
+      tips.push("Idosos têm menor sensação de sede - mantenha horários regulares");
+    }
+
+    if (conditions.includes("Gravidez")) {
+      tips.push("Gestantes precisam de hidratação extra para o bebê");
+    }
+
+    return tips;
+  };
 
   const handleCalculate = () => {
-    const calculated = calculateHydration(params);
-    setResult(calculated);
-  };
-
-  const handleHealthConditionToggle = (condition: string) => {
-    const newConditions = params.healthConditions?.includes(condition)
-      ? params.healthConditions.filter((c) => c !== condition)
-      : [...(params.healthConditions || []), condition];
-
-    setParams({ ...params, healthConditions: newConditions });
-  };
-
-  const getRiskColor = (risk: string) => {
-    switch (risk) {
-      case "low":
-        return "text-green-600";
-      case "moderate":
-        return "text-yellow-600";
-      case "high":
-        return "text-red-600";
-      default:
-        return "text-gray-600";
+    if (!validateInputs()) return;
+    startCalculation();
+    try {
+      const result = calculateHydration();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation(true);
+    } catch (error) {
+      console.error("Erro no cálculo:", error);
+      setErrors({ age: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation(false, String(error));
     }
   };
 
-  const getRiskBadge = (risk: string) => {
-    switch (risk) {
-      case "low":
-        return "bg-green-100 text-green-800";
-      case "moderate":
-        return "bg-yellow-100 text-yellow-800";
-      case "high":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+  const handleReset = () => {
+    setAge("");
+    setWeight("");
+    setHeight("");
+    setGender("");
+    setActivityLevel("sedentario");
+    setClimate("temperado");
+    setPregnancy(false);
+    setBreastfeeding(false);
+    setResult(null);
+    setErrors({});
   };
+
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6 px-4 sm:space-y-8 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -186,580 +659,333 @@ export default function HidratacaoCalculator() {
         <BreadcrumbItem isLast>Hidratação</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-3 text-center sm:space-y-4">
-        <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">Calculadora de Hidratação e Balanço Hídrico</span>
-          <span className="sm:hidden">Calculadora de Hidratação</span>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Hidratação 2025
         </h1>
-        <p className="mx-auto max-w-3xl px-4 text-sm text-text-secondary-dark sm:text-base lg:text-lg">
-          Descubra sua{" "}
-          <strong className="text-health-red">necessidade diária personalizada de água</strong> com
-          base em peso, idade, atividade física, clima e condições especiais. Recomendações
-          científicas da OMS.
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule sua <strong className="text-health-red">necessidade diária de hidratação</strong> com
+          precisão científica. Análise completa de{" "}
+          <strong className="text-primary-blue-dark">consumo de água</strong> para sua saúde.
         </p>
-        <div className="inline-block rounded-lg bg-health-red/10 p-3 duration-300 sm:p-4">
-          <p className="text-xs font-medium text-text-primary sm:text-sm">
-            💧 <strong>Resultado instantâneo</strong> • 🔬 <strong>Baseado na OMS</strong> • 📱{" "}
-            <strong>100% gratuito</strong>
+        <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            💧 <strong>Base Científica</strong> • 📊 <strong>Análise Personalizada</strong> • ⏰{" "}
+            <strong>Cronograma de Hidratação</strong>
           </p>
         </div>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle as="h2">Dados para o Cálculo</CardTitle>
+          <CardTitle as="h2">💧 Calculadora de Hidratação</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Input
-                type="number"
-                label="Peso (kg)"
-                value={params.weight}
-                onChange={(e) => setParams({ ...params, weight: Number(e.target.value) })}
-                placeholder="Ex: 70"
-                min="30"
-                max="200"
-                required
-                fullWidth
-              />
-              <Input
-                type="number"
-                label="Idade (anos)"
-                value={params.age}
-                onChange={(e) => setParams({ ...params, age: Number(e.target.value) })}
-                placeholder="Ex: 30"
-                min="1"
-                max="120"
-                required
-                fullWidth
-              />
-            </div>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">Insira seus dados para calcular hidratação ideal:</p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Select
-                label="Sexo"
-                value={params.gender}
-                onChange={(value: "male" | "female") => setParams({ ...params, gender: value })}
-                options={[
-                  { value: "male", label: "Masculino" },
-                  { value: "female", label: "Feminino" },
-                ]}
-                fullWidth
-              />
-              <Select
-                label="Atividade Física"
-                value={params.activityLevel}
-                onChange={(value: any) => setParams({ ...params, activityLevel: value })}
-                options={[
-                  { value: "sedentary", label: "Sedentário" },
-                  { value: "light", label: "Leve (1-3x/sem)" },
-                  { value: "moderate", label: "Moderado (3-5x/sem)" },
-                  { value: "intense", label: "Intenso (6-7x/sem)" },
-                  { value: "extreme", label: "Extremo (2x/dia)" },
-                ]}
-                fullWidth
-              />
-            </div>
+          {/* Dados pessoais */}
+          <div className="mb-6 space-y-6">
+            <div className="bg-health-red-soft rounded-lg border border-health-red/20 p-6">
+              <h3 className="mb-4 text-center text-lg font-semibold text-health-red">
+                📋 Dados Pessoais
+              </h3>
 
-            <Select
-              label="Condições Climáticas"
-              value={params.climate}
-              onChange={(value: any) => setParams({ ...params, climate: value })}
-              options={[
-                { value: "cold", label: "Frio (< 10°C)" },
-                { value: "temperate", label: "Temperado (10-25°C)" },
-                { value: "hot", label: "Quente (25-35°C)" },
-                { value: "very_hot", label: "Muito Quente (> 35°C)" },
-              ]}
-              fullWidth
-            />
-
-            {/* Advanced Options Toggle */}
-            <Button
-              onClick={() => setShowAdvanced(!showAdvanced)}
-              variant="outline"
-              className="w-full"
-            >
-              {showAdvanced ? "Ocultar" : "Mostrar"} Opções Avançadas
-            </Button>
-
-            {/* Advanced Options */}
-            {showAdvanced && (
-              <div className="space-y-6 border-t border-gray-200 pt-4">
-                {/* Altitude Selection */}
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-text-primary">
-                    Altitude
-                  </label>
-                  <div className="grid grid-cols-1 gap-2">
-                    {[
-                      { value: "sea_level", label: "Nível do mar", sublabel: "0-1000m" },
-                      { value: "moderate", label: "Altitude moderada", sublabel: "1000-2500m" },
-                      { value: "high", label: "Alta altitude", sublabel: "> 2500m" },
-                    ].map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => setParams({ ...params, altitude: option.value as any })}
-                        className={`flex items-center justify-between rounded-lg border p-3 text-left transition-all ${
-                          params.altitude === option.value
-                            ? "border-health-red bg-health-red/5 text-health-red"
-                            : "border-gray-200 text-text-primary hover:border-gray-300"
-                        }`}
-                      >
-                        <div>
-                          <div className="font-medium">{option.label}</div>
-                          <div className="text-sm text-text-secondary">{option.sublabel}</div>
-                        </div>
-                        <div
-                          className={`h-4 w-4 rounded-full border-2 ${
-                            params.altitude === option.value
-                              ? "border-health-red bg-health-red"
-                              : "border-gray-300"
-                          }`}
-                        >
-                          {params.altitude === option.value && (
-                            <div className="m-0.5 h-2 w-2 rounded-full bg-white"></div>
-                          )}
-                        </div>
-                      </button>
-                    ))}
+              {/* Seleção de Sexo - Centralizada */}
+              <div className="mb-6 flex justify-center">
+                <div className="w-full max-w-md">
+                  <div className="mb-2 text-center">
+                    <label className="block text-sm font-medium text-text-primary">Sexo</label>
                   </div>
-                </div>
-
-                {/* Female Specific Options */}
-                {params.gender === "female" && (
-                  <div>
-                    <label className="mb-3 block text-sm font-medium text-text-primary">
-                      Condições Especiais
-                    </label>
-                    <div className="space-y-2">
-                      <button
-                        onClick={() => setParams({ ...params, pregnancy: !params.pregnancy })}
-                        className={`flex w-full items-center justify-between rounded-lg border p-3 text-left transition-all ${
-                          params.pregnancy
-                            ? "border-health-red bg-health-red/5 text-health-red"
-                            : "border-gray-200 text-text-primary hover:border-gray-300"
-                        }`}
-                      >
-                        <div>
-                          <div className="font-medium">Gravidez</div>
-                          <div className="text-sm text-text-secondary">+300ml necessários</div>
-                        </div>
-                        <div
-                          className={`flex h-5 w-5 items-center justify-center rounded border-2 ${
-                            params.pregnancy ? "border-health-red bg-health-red" : "border-gray-300"
-                          }`}
-                        >
-                          {params.pregnancy && (
-                            <svg
-                              className="h-3 w-3 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          )}
-                        </div>
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          setParams({ ...params, breastfeeding: !params.breastfeeding })
-                        }
-                        className={`flex w-full items-center justify-between rounded-lg border p-3 text-left transition-all ${
-                          params.breastfeeding
-                            ? "border-health-red bg-health-red/5 text-health-red"
-                            : "border-gray-200 text-text-primary hover:border-gray-300"
-                        }`}
-                      >
-                        <div>
-                          <div className="font-medium">Amamentação</div>
-                          <div className="text-sm text-text-secondary">+600ml necessários</div>
-                        </div>
-                        <div
-                          className={`flex h-5 w-5 items-center justify-center rounded border-2 ${
-                            params.breastfeeding
-                              ? "border-health-red bg-health-red"
-                              : "border-gray-300"
-                          }`}
-                        >
-                          {params.breastfeeding && (
-                            <svg
-                              className="h-3 w-3 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          )}
-                        </div>
-                      </button>
-                    </div>
+                  <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+                    <button
+                      type="button"
+                      onClick={() => setGender("masculino")}
+                      className={`flex-1 px-4 py-3 text-sm font-medium ${
+                        gender === "masculino"
+                          ? "bg-primary-blue text-white"
+                          : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                      }`}
+                    >
+                      👨 Masculino
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setGender("feminino")}
+                      className={`flex-1 px-4 py-3 text-sm font-medium ${
+                        gender === "feminino"
+                          ? "bg-primary-blue text-white"
+                          : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                      }`}
+                    >
+                      👩 Feminino
+                    </button>
                   </div>
-                )}
-
-                {/* Health Conditions */}
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-text-primary">
-                    Condições de Saúde
-                  </label>
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {[
-                      { id: "fever", label: "Febre", adjustment: "+500ml" },
-                      { id: "diarrhea", label: "Diarreia", adjustment: "+600ml" },
-                      { id: "vomiting", label: "Vômitos", adjustment: "+400ml" },
-                      { id: "kidney_stones", label: "Pedra nos rins", adjustment: "+800ml" },
-                      { id: "diabetes", label: "Diabetes", adjustment: "+300ml" },
-                    ].map((condition) => (
-                      <button
-                        key={condition.id}
-                        onClick={() => handleHealthConditionToggle(condition.id)}
-                        className={`flex items-center justify-between rounded-lg border p-3 text-left transition-all ${
-                          params.healthConditions?.includes(condition.id)
-                            ? "border-health-red bg-health-red/5 text-health-red"
-                            : "border-gray-200 text-text-primary hover:border-gray-300"
-                        }`}
-                      >
-                        <div>
-                          <div className="font-medium">{condition.label}</div>
-                          <div className="text-sm text-text-secondary">{condition.adjustment}</div>
-                        </div>
-                        <div
-                          className={`flex h-5 w-5 items-center justify-center rounded border-2 ${
-                            params.healthConditions?.includes(condition.id)
-                              ? "border-health-red bg-health-red"
-                              : "border-gray-300"
-                          }`}
-                        >
-                          {params.healthConditions?.includes(condition.id) && (
-                            <svg
-                              className="h-3 w-3 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          )}
-                        </div>
-                      </button>
-                    ))}
+                  <ErrorMessage error={errors.gender} />
+                  <div className="mt-1 text-center text-xs text-text-secondary">
+                    Necessário para cálculo
                   </div>
-                </div>
-
-                {/* Current Water Intake */}
-                {/* Horários de Hidratação */}
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-text-primary">
-                    Horário de Hidratação
-                  </label>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="mb-1 block text-xs text-text-secondary">
-                        Início do dia
-                      </label>
-                      <Input
-                        type="time"
-                        value={params.startTime || "06:00"}
-                        onChange={(e) => setParams({ ...params, startTime: e.target.value })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-xs text-text-secondary">Fim do dia</label>
-                      <Input
-                        type="time"
-                        value={params.endTime || "22:00"}
-                        onChange={(e) => setParams({ ...params, endTime: e.target.value })}
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                  <p className="mt-1 text-xs text-text-secondary">
-                    Define o período ativo para distribuição da hidratação
-                  </p>
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-text-primary">
-                    Ingestão atual de água (ml/dia)
-                  </label>
-                  <Input
-                    type="number"
-                    value={params.currentIntake || ""}
-                    onChange={(e) =>
-                      setParams({ ...params, currentIntake: Number(e.target.value) || 0 })
-                    }
-                    placeholder="Ex: 2000"
-                    min="0"
-                    max="10000"
-                    className="w-full"
-                  />
-                  <p className="mt-1 text-xs text-text-secondary">
-                    Opcional - para avaliação de risco de desidratação
-                  </p>
                 </div>
               </div>
-            )}
 
-            <div className="flex justify-center gap-4">
-              <Button onClick={handleCalculate} className="px-8">
-                Calcular
-              </Button>
-              <Button
-                onClick={() =>
-                  setParams({
-                    weight: 70,
-                    age: 30,
-                    gender: "male",
-                    activityLevel: "moderate",
-                    climate: "temperate",
-                    altitude: "sea_level",
-                    pregnancy: false,
-                    breastfeeding: false,
-                    healthConditions: [],
-                    currentIntake: 0,
-                    startTime: "06:00",
-                    endTime: "22:00",
-                  })
-                }
-                variant="outline"
-                className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
-              >
-                Limpar
-              </Button>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div>
+                  <Input
+                    type="number"
+                    label="Idade (anos)"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    placeholder="30"
+                    min="1"
+                    max="100"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.age} />
+                  <div className="mt-1 text-xs text-text-secondary">1 a 100 anos</div>
+                </div>
+
+                <div>
+                  <Input
+                    type="number"
+                    label="Peso (kg)"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                    placeholder="70"
+                    min="10"
+                    max="300"
+                    step="0.1"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.weight} />
+                  <div className="mt-1 text-xs text-text-secondary">Peso atual</div>
+                </div>
+
+                <div>
+                  <Input
+                    type="number"
+                    label="Altura (cm)"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    placeholder="175"
+                    min="50"
+                    max="250"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.height} />
+                  <div className="mt-1 text-xs text-text-secondary">Altura em cm</div>
+                </div>
+              </div>
             </div>
+
+            {/* Fatores de Hidratação */}
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-6">
+              <h3 className="mb-4 text-center text-lg font-semibold text-primary-blue-dark">
+                🌡️ Fatores que Afetam a Hidratação
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                {/* Nível de Atividade */}
+                <div>
+                  <div className="mb-2">
+                    <label className="block text-sm font-medium text-text-primary">Nível de Atividade Física</label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { value: "sedentario", label: "🪑 Sedentário", desc: "Pouco movimento" },
+                      { value: "leve", label: "🚶 Leve", desc: "Caminhadas" },
+                      { value: "moderado", label: "🏃 Moderado", desc: "Exercícios regulares" },
+                      { value: "intenso", label: "💪 Intenso", desc: "Treinos pesados" },
+                    ].map((item) => (
+                      <button
+                        key={item.value}
+                        type="button"
+                        onClick={() => setActivityLevel(item.value as any)}
+                        className={`rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+                          activityLevel === item.value
+                            ? "bg-primary-blue text-white"
+                            : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                        }`}
+                      >
+                        <div>{item.label}</div>
+                        <div className="text-xs opacity-75">{item.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                  <ErrorMessage error={errors.activityLevel} />
+                </div>
+
+                {/* Clima */}
+                <div>
+                  <div className="mb-2">
+                    <label className="block text-sm font-medium text-text-primary">Tipo de Clima</label>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { value: "frio", label: "🧊 Frio", desc: "< 15°C" },
+                      { value: "temperado", label: "🌤️ Temperado", desc: "15-25°C" },
+                      { value: "quente", label: "🔥 Quente", desc: "> 25°C" },
+                    ].map((item) => (
+                      <button
+                        key={item.value}
+                        type="button"
+                        onClick={() => setClimate(item.value as any)}
+                        className={`rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+                          climate === item.value
+                            ? "bg-primary-blue text-white"
+                            : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                        }`}
+                      >
+                        <div>{item.label}</div>
+                        <div className="text-xs opacity-75">{item.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                  <ErrorMessage error={errors.climate} />
+                </div>
+              </div>
+
+              {/* Condições Especiais */}
+              {gender === "feminino" && (
+                <div className="mt-6 rounded-lg bg-system-info/10 p-4">
+                  <h4 className="mb-3 text-sm font-semibold text-system-info">
+                    👶 Condições Especiais (Mulheres)
+                  </h4>
+                  <div className="flex flex-wrap gap-4">
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={pregnancy}
+                        onChange={(e) => setPregnancy(e.target.checked)}
+                        className="rounded border-gray-300"
+                      />
+                      <span className="text-sm text-text-secondary">🤰 Gestante (+300ml)</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={breastfeeding}
+                        onChange={(e) => setBreastfeeding(e.target.checked)}
+                        className="rounded border-gray-300"
+                      />
+                      <span className="text-sm text-text-secondary">🍼 Amamentando (+700ml)</span>
+                    </label>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
           </div>
         </CardContent>
       </Card>
 
+      {/* Resultado */}
       {result && (
-        <>
-          <Card className="result-success border-2 border-health-red bg-health-red/5">
-            <CardHeader>
-              <CardTitle as="h3">Resultado da Hidratação</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4 text-center">
-                <div className="text-4xl font-bold tabular-nums text-health-red">
-                  {result.totalDailyLiters} L
-                </div>
-                <div className="text-xl font-semibold text-text-primary">
-                  Necessidade Diária de Água
-                </div>
-                <p className="text-text-secondary">
-                  {result.totalDaily} ml • {result.perKg} ml/kg • {result.perHour} ml/hora
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Risk Assessment */}
-          {params.currentIntake && params.currentIntake > 0 && (
-            <Card
-              className={`border-l-4 ${
-                result.riskLevel === "low"
-                  ? "border-green-400 bg-green-50"
-                  : result.riskLevel === "moderate"
-                    ? "border-yellow-400 bg-yellow-50"
-                    : "border-red-400 bg-red-50"
-              }`}
-            >
-              <CardHeader>
-                <CardTitle
-                  as="h3"
-                  className={`flex items-center space-x-2 ${getRiskColor(result.riskLevel)}`}
-                >
-                  <span className="text-lg">
-                    {result.riskLevel === "low"
-                      ? "✅"
-                      : result.riskLevel === "moderate"
-                        ? "⚠️"
-                        : "🚨"}
-                  </span>
-                  <span>
-                    Risco de Desidratação:{" "}
-                    {result.riskLevel === "low"
-                      ? "Baixo"
-                      : result.riskLevel === "moderate"
-                        ? "Moderado"
-                        : "Alto"}
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-text-secondary">
-                  Ingestão atual: {params.currentIntake}ml (
-                  {Math.round((params.currentIntake / result.totalDaily) * 100)}% do recomendado)
-                </p>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Quick Stats */}
-          <Card className="border-l-4 border-system-info bg-system-info/10">
-            <CardHeader>
-              <CardTitle as="h3" className="text-system-info">
-                📊 Conversão Prática
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-system-info">{result.glassesPerDay}</div>
-                  <div className="text-sm text-text-secondary">Copos (250ml)</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-system-info">{result.bottlesPerDay}</div>
-                  <div className="text-sm text-text-secondary">Garrafas (500ml)</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Breakdown */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3">🧮 Detalhamento do Cálculo</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Base (peso corporal):</span>
-                  <span className="font-medium">{result.baseWater}ml</span>
-                </div>
-                {result.activityAdjustment > 0 && (
-                  <div className="flex justify-between text-blue-600">
-                    <span>Atividade física:</span>
-                    <span className="font-medium">+{result.activityAdjustment}ml</span>
-                  </div>
-                )}
-                {result.climateAdjustment !== 0 && (
-                  <div
-                    className={`flex justify-between ${result.climateAdjustment > 0 ? "text-orange-600" : "text-blue-600"}`}
-                  >
-                    <span>Clima:</span>
-                    <span className="font-medium">
-                      {result.climateAdjustment > 0 ? "+" : ""}
-                      {result.climateAdjustment}ml
-                    </span>
-                  </div>
-                )}
-                {result.altitudeAdjustment > 0 && (
-                  <div className="flex justify-between text-purple-600">
-                    <span>Altitude:</span>
-                    <span className="font-medium">+{result.altitudeAdjustment}ml</span>
-                  </div>
-                )}
-                {result.specialConditionsAdjustment > 0 && (
-                  <div className="flex justify-between text-red-600">
-                    <span>Condições especiais:</span>
-                    <span className="font-medium">+{result.specialConditionsAdjustment}ml</span>
-                  </div>
-                )}
-                <div className="flex justify-between border-t pt-2 font-semibold">
-                  <span>Total:</span>
-                  <span>{result.totalDaily}ml</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Recommendations */}
-          {result.recommendations.length > 0 && (
-            <Card className="border-l-4 border-blue-400 bg-blue-50">
-              <CardHeader>
-                <CardTitle as="h3" className="flex items-center text-blue-600">
-                  <span className="mr-2 text-lg">💡</span>
-                  Recomendações Personalizadas
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-1 text-sm">
-                  {result.recommendations.map((rec, index) => (
-                    <li key={index} className="flex items-start space-x-2">
-                      <span className="mt-1 text-blue-600">•</span>
-                      <span className="text-text-secondary">{rec}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          )}
-        </>
-      )}
-
-      {/* Hydration Schedule */}
-      {result && (
-        <Card className="border-l-4 border-amber-400 bg-amber-50">
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
-            <CardTitle as="h3" className="text-amber-600">
-              ⏰ Cronograma Completo de Hidratação Diária
+            <CardTitle as="h3" className="text-growth-green">
+              💧 Seu Plano de Hidratação
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <p className="text-center text-sm text-text-secondary">
-                <strong>
-                  Distribua {result.totalDailyLiters}L ao longo do dia seguindo este cronograma
-                  personalizado:
-                </strong>
-              </p>
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="mb-2 text-sm text-text-secondary">Necessidade Hídrica Diária</div>
+                <div className="text-xl font-bold text-primary-blue-dark">
+                  {result.calculations.totalLiters.toFixed(1)}L
+                </div>
+              </div>
+            </div>
 
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                {result.hydrationSchedule.map((schedule, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between rounded-lg border bg-white p-3 shadow-sm"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="text-lg font-bold text-amber-600">{schedule.time}</div>
-                      <div className="text-sm text-text-secondary">{schedule.description}</div>
-                    </div>
-                    <div className="rounded bg-amber-100 px-2 py-1 font-semibold text-text-primary">
-                      {schedule.amount}ml
-                    </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-system-warning">
+                  {result.calculations.hourlyIntake} ml
+                </div>
+                <div className="text-sm text-text-secondary">Por Hora (Acordado)</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-lg font-bold text-growth-green">
+                  {Math.round(result.calculations.totalDailyNeeds / 250)} copos
+                </div>
+                <div className="text-sm text-text-secondary">Copos de 250ml</div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Hidratação</h4>
+              <div className="text-sm text-text-secondary">
+                <div>
+                  <strong>Necessidade Base:</strong> {(result.calculations.baseWaterNeeds / 1000).toFixed(1)}L
+                </div>
+                <div>
+                  <strong>Ajuste Atividade:</strong> +{(result.calculations.activityAdjustment / 1000).toFixed(1)}L
+                </div>
+                <div>
+                  <strong>Ajuste Clima:</strong> {result.calculations.climateAdjustment >= 0 ? '+' : ''}{(result.calculations.climateAdjustment / 1000).toFixed(1)}L
+                </div>
+                <div>
+                  <strong>Status:</strong> {result.recommendations.hydrationStatus}
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Dicas Personalizadas</h4>
+              <div className="space-y-2">
+                {result.recommendations.tips.map((tip, index) => (
+                  <div key={index} className="text-sm text-text-secondary">
+                    <span className="font-medium text-primary-blue-dark">• </span>
+                    {tip}
                   </div>
                 ))}
               </div>
+            </div>
 
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-blue-600">
-                    💡 Dicas Importantes para Hidratação Ideal:
-                  </h4>
-                  <ul className="space-y-1 text-xs text-text-secondary">
-                    <li>
-                      • <strong>Ao acordar:</strong> Beba água em temperatura ambiente para
-                      reidratação após jejum noturno
-                    </li>
-                    <li>
-                      • <strong>Antes das refeições:</strong> 30-60ml ajudam na digestão e saciedade
-                    </li>
-                    <li>
-                      • <strong>Durante exercícios:</strong> 150-250ml a cada 15-20 minutos de
-                      atividade intensa
-                    </li>
-                    <li>
-                      • <strong>Antes de dormir:</strong> Evite grandes quantidades para não
-                      interromper o sono
-                    </li>
-                    <li>
-                      • <strong>Clima quente:</strong> Aumente a frequência, não o volume por vez
-                    </li>
-                  </ul>
+            {/* Cronograma de Hidratação */}
+            <div className="rounded-lg border border-growth-green/30 bg-growth-green-soft p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">
+                ⏰ Cronograma de Hidratação Sugerido
+              </h4>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {result.recommendations.schedule.map((item, index) => (
+                  <div key={index} className="rounded-lg bg-gray-900 p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-primary-blue">{item.time}</span>
+                        <span className="text-xs text-text-secondary">•</span>
+                        <span className="text-sm font-semibold text-growth-green">{item.amount}ml</span>
+                      </div>
+                    </div>
+                    <div className="mt-1 text-xs text-text-secondary">{item.description}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 rounded-lg bg-gray-800 p-3">
+                <div className="text-center">
+                  <div className="text-sm text-text-secondary">Total diário recomendado:</div>
+                  <div className="text-xl font-bold text-primary-blue">
+                    {result.calculations.totalLiters}L
+                  </div>
+                  <div className="text-xs text-text-secondary">
+                    ({result.calculations.totalDailyNeeds}ml)
+                  </div>
                 </div>
               </div>
             </div>
@@ -767,319 +993,145 @@ export default function HidratacaoCalculator() {
         </Card>
       )}
 
-      {/* Tabela de Necessidades Hídricas */}
-      <Card>
+      {/* Seção: Hidratação - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
-          <CardTitle as="h3">Tabela de Necessidades Diárias de Água</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2 text-left">Peso Corporal</th>
-                  <th className="py-2 text-left">Necessidade Base</th>
-                  <th className="py-2 text-left">Com Exercício</th>
-                  <th className="py-2 text-left">Clima Quente</th>
-                </tr>
-              </thead>
-              <tbody className="space-y-2">
-                <tr className="border-b">
-                  <td className="py-2">50 kg</td>
-                  <td className="py-2 font-medium text-health-red">1,75L</td>
-                  <td className="py-2">2,0 - 2,4L</td>
-                  <td className="py-2">2,0 - 2,25L</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2">60 kg</td>
-                  <td className="py-2 font-medium text-health-red">2,1L</td>
-                  <td className="py-2">2,4 - 2,8L</td>
-                  <td className="py-2">2,4 - 2,7L</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2">70 kg</td>
-                  <td className="py-2 font-medium text-health-red">2,45L</td>
-                  <td className="py-2">2,8 - 3,3L</td>
-                  <td className="py-2">2,8 - 3,15L</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-2">80 kg</td>
-                  <td className="py-2 font-medium text-health-red">2,8L</td>
-                  <td className="py-2">3,2 - 3,8L</td>
-                  <td className="py-2">3,2 - 3,6L</td>
-                </tr>
-                <tr>
-                  <td className="py-2">90 kg</td>
-                  <td className="py-2 font-medium text-health-red">3,15L</td>
-                  <td className="py-2">3,6 - 4,3L</td>
-                  <td className="py-2">3,6 - 4,05L</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-2 text-xs text-text-secondary">
-            * Valores baseados na fórmula OMS: 35ml por kg de peso corporal
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* Seção: O que é Hidratação */}
-      <Card className="border-l-4 border-health-red bg-health-red/5 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            💧 O que é Hidratação e Por que é Fundamental?
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            💧 Hidratação – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4 text-text-primary">
-            <p>
-              A <strong className="text-health-red">hidratação adequada</strong> é essencial para o
-              funcionamento ideal do organismo humano. A água representa cerca de 60% do peso
-              corporal em adultos e participa de praticamente todos os processos metabólicos.
-            </p>
-            <p>
-              Nossa calculadora utiliza as{" "}
-              <strong className="text-health-red">
-                diretrizes da Organização Mundial da Saúde (OMS)
-              </strong>{" "}
-              que recomendam{" "}
-              <strong className="rounded bg-background-dark-secondary px-2 py-1 font-mono text-health-red">
-                35ml de água por kg de peso corporal
-              </strong>{" "}
-              como base diária.
-            </p>
-            <p>
-              A necessidade hídrica varia conforme{" "}
-              <strong className="text-primary-blue-dark">
-                atividade física, clima, altitude, idade, condições de saúde e características
-                individuais
-              </strong>
-              , por isso nossa ferramenta considera todos esses fatores para um cálculo
-              personalizado.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+          <div className="space-y-8">
+            {/* Conceito de Hidratação */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                💧 Hidratação e Saúde
+              </h3>
 
-      {/* Seção: Como Interpretar seu Resultado */}
-      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            📊 Como Interpretar sua Necessidade de Hidratação
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <div className="h-4 w-4 rounded bg-green-500"></div>
-                  <span className="font-semibold text-text-primary">Hidratação Ideal</span>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A hidratação adequada é essencial para todas as funções corporais, desde a regulação
+                    da temperatura até o transporte de nutrientes e eliminação de toxinas.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fatores</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Idade e peso corporal</li>
+                    <li>• Nível de atividade física</li>
+                    <li>• Condições climáticas</li>
+                    <li>• Estado de saúde</li>
+                  </ul>
                 </div>
-                <p className="ml-6 text-sm text-text-secondary">
-                  Urina amarelo claro, sem sede constante, energia normal, pele elástica.
-                </p>
-              </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <div className="h-4 w-4 rounded bg-yellow-500"></div>
-                  <span className="font-semibold text-yellow-600">Desidratação Leve</span>
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Importância</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Regulação da temperatura corporal</li>
+                    <li>• Manutenção da pressão arterial</li>
+                    <li>• Transporte de nutrientes</li>
+                    <li>• Eliminação de toxinas</li>
+                    <li>• Lubrificação das articulações</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Sinais</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Sede é sinal tardio</li>
+                    <li>• Cor da urina indica hidratação</li>
+                    <li>• Pele ressecada e fadiga</li>
+                  </ul>
                 </div>
-                <p className="ml-6 text-sm text-text-secondary">
-                  Sede aumentada, urina amarela escura, boca seca, redução da energia.
-                </p>
               </div>
+            </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <div className="h-4 w-4 rounded bg-orange-500"></div>
-                  <span className="font-semibold text-orange-600">Desidratação Moderada</span>
+            {/* Valores de Referência */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📐 Necessidades Diárias
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">👨 Homens</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• 19-30 anos: 3,7L/dia</li>
+                    <li>• 31-50 anos: 3,7L/dia</li>
+                    <li>• 51+ anos: 3,5L/dia</li>
+                    <li>• Atletas: +500-1000ml</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Distribuição</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• 80% de líquidos</li>
+                    <li>• 20% de alimentos</li>
+                    <li>• Fracionado ao longo do dia</li>
+                  </ul>
                 </div>
-                <p className="ml-6 text-sm text-text-secondary">
-                  Urina muito escura, dor de cabeça, tontura, cansaço extremo.
-                </p>
-              </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <div className="h-4 w-4 rounded bg-red-500"></div>
-                  <span className="font-semibold text-red-600">Desidratação Severa</span>
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-warning">👩 Mulheres</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• 19-30 anos: 2,7L/dia</li>
+                    <li>• 31-50 anos: 2,7L/dia</li>
+                    <li>• 51+ anos: 2,5L/dia</li>
+                    <li>• Grávidas: +300ml</li>
+                    <li>• Lactantes: +500-700ml</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Crianças</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• 1-3 anos: 1,3L/dia</li>
+                    <li>• 4-8 anos: 1,7L/dia</li>
+                    <li>• 9-13 anos: 2,1-2,4L/dia</li>
+                  </ul>
                 </div>
-                <p className="ml-6 text-sm text-text-secondary">
-                  Confusão mental, pouca urina, pele sem elasticidade.{" "}
-                  <strong>Emergência médica!</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Fatores que Influenciam */}
-      <Card className="border-l-4 border-system-warning bg-system-warning/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🌡️ Fatores que Influenciam sua Necessidade de Água
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4 text-text-primary">
-            <p className="font-medium text-system-warning">
-              <strong>Importante:</strong> Vários fatores podem alterar significativamente sua
-              necessidade hídrica diária.
-            </p>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-2 font-semibold text-system-warning">
-                  🔥 Aumentam a Necessidade:
-                </h4>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Exercícios físicos:</strong> +12% a +35% da necessidade base
-                  </li>
-                  <li>
-                    • <strong>Clima quente:</strong> Até 45ml/kg (25% a mais)
-                  </li>
-                  <li>
-                    • <strong>Alta altitude:</strong> +15% a +25% acima de 2.500m
-                  </li>
-                  <li>
-                    • <strong>Febre:</strong> +500ml por dia
-                  </li>
-                  <li>
-                    • <strong>Diarreia/vômitos:</strong> +400ml a +600ml
-                  </li>
-                  <li>
-                    • <strong>Gravidez:</strong> +300ml diários
-                  </li>
-                  <li>
-                    • <strong>Amamentação:</strong> +600ml diários
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-semibold text-blue-600">❄️ Situações Especiais:</h4>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Clima frio:</strong> Redução de 5% da necessidade
-                  </li>
-                  <li>
-                    • <strong>Idosos:</strong> Menor sensação de sede, precisa atenção
-                  </li>
-                  <li>
-                    • <strong>Crianças:</strong> Maior proporção de água corporal
-                  </li>
-                  <li>
-                    • <strong>Atletas:</strong> Podem precisar de 6-8L em dias intensos
-                  </li>
-                  <li>
-                    • <strong>Diabetes:</strong> +300ml para compensar poliúria
-                  </li>
-                  <li>
-                    • <strong>Pedras nos rins:</strong> +800ml para prevenção
-                  </li>
-                </ul>
               </div>
             </div>
 
-            <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-              <p className="text-sm">
-                <strong className="text-system-info">💡 Dica Profissional:</strong>
-                Monitore a cor da urina como indicador de hidratação.{" "}
-                <strong>Amarelo claro indica hidratação adequada</strong>. Se estiver muito escura,
-                aumente gradualmente a ingestão de água.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+            {/* Como Hidratar Corretamente */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                💡 Como Hidratar Corretamente
+              </h3>
 
-      {/* Seção: Dicas para Manter Hidratação */}
-      <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            💪 Estratégias para Manter Hidratação Ideal
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div>
-              <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                🚰 <span className="ml-2">Hábitos de Hidratação</span>
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>• Beba água ao acordar para reidratar após jejum</li>
-                <li>• Mantenha uma garrafa de água sempre próxima</li>
-                <li>• Configure lembretes no celular a cada 2 horas</li>
-                <li>• Beba água antes, durante e após exercícios</li>
-                <li>• Prefira água em temperatura ambiente</li>
-                <li>• Aumente gradualmente se está bebendo pouco</li>
-              </ul>
-            </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">⏰ Horários Ideais</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Ao acordar: 1-2 copos</li>
+                    <li>• Antes das refeições: 1 copo</li>
+                    <li>• Durante exercícios: 200ml/15min</li>
+                    <li>• Antes de dormir: 1 copo</li>
+                  </ul>
 
-            <div>
-              <h4 className="mb-3 flex items-center font-semibold text-primary-blue">
-                🥤 <span className="ml-2">Alternativas Saudáveis</span>
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>• Água com fatias de limão, pepino ou hortelã</li>
-                <li>• Chás naturais sem açúcar (camomila, erva-doce)</li>
-                <li>• Água de coco natural (rica em eletrólitos)</li>
-                <li>• Sucos naturais diluídos (50% água, 50% suco)</li>
-                <li>• Sopas e caldos caseiros</li>
-                <li>• Frutas ricas em água (melancia, laranja)</li>
-              </ul>
-            </div>
-          </div>
+                  <h4 className="mb-3 font-semibold text-system-info">🌡️ Condições Especiais</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Calor intenso: +500-1000ml</li>
+                    <li>• Ar condicionado: +300ml</li>
+                    <li>• Febre: +500ml por grau</li>
+                    <li>• Altitudes elevadas: +300ml</li>
+                  </ul>
+                </div>
 
-          <div className="mt-6 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-            <h4 className="mb-2 font-semibold text-yellow-800">⚠️ Evite ou Limite:</h4>
-            <div className="grid grid-cols-1 gap-4 text-sm text-text-secondary md:grid-cols-3">
-              <div>
-                <p>
-                  <strong>Bebidas com Cafeína:</strong>
-                </p>
-                <p className="text-xs">
-                  Café, chá preto, refrigerantes - têm efeito diurético leve
-                </p>
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Dicas Práticas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Use garrafa marcada</li>
+                    <li>• Configure lembretes</li>
+                    <li>• Varie com chás e águas aromatizadas</li>
+                    <li>• Monitore a cor da urina</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Evite</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Beber grandes volumes de uma vez</li>
+                    <li>• Esperar sentir sede</li>
+                    <li>• Excesso de bebidas com cafeína</li>
+                    <li>• Substituir água por refrigerantes</li>
+                  </ul>
+                </div>
               </div>
-              <div>
-                <p>
-                  <strong>Bebidas Açucaradas:</strong>
-                </p>
-                <p className="text-xs">
-                  Refrigerantes, sucos industriais - não hidratam eficientemente
-                </p>
-              </div>
-              <div>
-                <p>
-                  <strong>Bebidas Alcoólicas:</strong>
-                </p>
-                <p className="text-xs">Aumentam a desidratação por efeito diurético</p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Medical Disclaimer */}
-      <Card className="border-blue-200 bg-blue-50">
-        <CardContent className="p-6">
-          <div className="flex items-start space-x-3">
-            <span className="text-2xl">⚕️</span>
-            <div>
-              <h3 className="mb-2 font-semibold text-text-primary">Aviso Médico Importante</h3>
-              <p className="text-sm leading-relaxed text-text-secondary">
-                Esta calculadora fornece estimativas baseadas em diretrizes científicas reconhecidas
-                da <strong>OMS e Institute of Medicine</strong>, mas
-                <strong> não substitui orientação médica profissional</strong>. Consulte um médico
-                ou nutricionista para avaliação personalizada, especialmente se você tem condições
-                de saúde específicas, toma medicamentos diuréticos ou tem histórico de problemas
-                renais.
-              </p>
             </div>
           </div>
         </CardContent>
@@ -1089,61 +1141,90 @@ export default function HidratacaoCalculator() {
         title="Perguntas Frequentes - Calculadora de Hidratação"
         items={[
           {
-            question: "Quanta água devo beber por dia para manter hidratação adequada?",
+            question: "Quanta água devo beber por dia?",
             answer:
-              "A <strong>necessidade diária de água</strong> varia conforme peso, idade, atividade física e clima. A fórmula base da OMS recomenda <strong>35ml por kg de peso corporal</strong>, mas pode chegar a 45ml/kg em climas quentes ou com exercícios intensos. Nossa calculadora personaliza esse cálculo considerando todos os fatores individuais.",
+              "A necessidade varia por idade, peso e atividade. Homens adultos precisam de cerca de 3,7L/dia e mulheres 2,7L/dia, incluindo água de alimentos. Use nossa calculadora para uma recomendação personalizada.",
             borderColor: "primary-blue",
           },
           {
-            question: "Como calcular minha necessidade diária de hidratação de forma precisa?",
+            question: "Como saber se estou bem hidratado?",
             answer:
-              "Para calcular com precisão, considere: <strong>peso corporal × 35ml</strong> como base, depois ajuste conforme <strong>atividade física</strong> (+12% a +35%), <strong>clima quente</strong> (+25%), <strong>altitude elevada</strong> (+15% a +25%) e <strong>condições especiais</strong> como gravidez (+300ml) ou amamentação (+600ml).",
+              "Monitore a cor da urina: amarelo claro indica boa hidratação, enquanto amarelo escuro sugere desidratação. Outros sinais: pele elástica, não sentir sede constante e disposição adequada.",
             borderColor: "growth-green",
           },
           {
-            question: "A atividade física influencia na quantidade de água necessária?",
+            question: "Quando devo beber mais água?",
             answer:
-              "Sim, significativamente. <strong>Exercícios leves</strong> aumentam a necessidade em 12%, <strong>moderados</strong> em 20%, <strong>intensos</strong> em 30% e <strong>extremos</strong> em 35%. Durante atividade física intensa, beba <strong>150-250ml a cada 15-20 minutos</strong> para repor as perdas pelo suor.",
+              "Aumente o consumo durante exercícios (+200ml a cada 15min), clima quente (+500-1000ml), febre (+500ml por grau), gestação (+300ml) e amamentação (+500-700ml).",
             borderColor: "system-info",
           },
           {
-            question: "Qual a diferença entre hidratação para homens e mulheres?",
+            question: "Posso beber outros líquidos além da água?",
             answer:
-              "Homens geralmente precisam de mais água devido ao <strong>maior peso corporal</strong> e <strong>massa muscular</strong>. Mulheres têm necessidades especiais durante <strong>gravidez</strong> (+300ml/dia), <strong>amamentação</strong> (+600ml/dia) e <strong>ciclo menstrual</strong>. A calculadora ajusta automaticamente conforme o sexo e condições especiais.",
+              "Sim! Chás, sucos naturais, água de coco e sopas contam para a hidratação. Evite excesso de bebidas com cafeína ou açúcar. Cerca de 20% da hidratação vem dos alimentos.",
             borderColor: "system-warning",
           },
           {
-            question: "Como o clima brasileiro afeta minha necessidade de água?",
+            question: "Qual o melhor horário para beber água?",
             answer:
-              "O <strong>clima tropical</strong> brasileiro aumenta a necessidade hídrica. Em temperaturas <strong>acima de 25°C</strong>, aumente 15-25% da necessidade base. Em <strong>clima muito quente</strong> (>35°C), pode ser necessário até 45ml/kg. O <strong>ar condicionado</strong> e <strong>ambientes secos</strong> também aumentam a desidratação.",
-            borderColor: "system-error-dark",
-          },
-          {
-            question: "Quais são os sinais de desidratação que devo observar?",
-            answer:
-              "<strong>Desidratação leve:</strong> sede, urina amarela escura, boca seca. <strong>Moderada:</strong> dor de cabeça, tontura, cansaço extremo. <strong>Severa:</strong> confusão mental, pouca urina, pele sem elasticidade. <strong>Dica:</strong> urina amarelo claro indica hidratação ideal.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Posso substituir água por outras bebidas para hidratação?",
-            answer:
-              "<strong>Melhores opções:</strong> água pura, água com limão, chás naturais sem açúcar, água de coco. <strong>Limite:</strong> bebidas com cafeína (têm efeito diurético leve) e <strong>evite:</strong> refrigerantes açucarados e álcool (desidratam). Frutas ricas em água como melancia também ajudam na hidratação.",
+              "Distribua ao longo do dia: ao acordar (1-2 copos), antes das refeições (1 copo), durante exercícios e antes de dormir. Evite grandes volumes de uma vez para melhor absorção.",
             borderColor: "growth-green",
           },
           {
-            question: "Como distribuir a ingestão de água ao longo do dia?",
-            answer:
-              "Distribua uniformemente: <strong>300ml ao acordar</strong>, <strong>200ml antes das refeições</strong>, <strong>pequenos goles frequentes</strong> durante o dia. Use nosso cronograma personalizado que considera seus horários de sono e atividades. Evite grandes volumes próximo ao horário de dormir.",
-            borderColor: "system-info",
+            question: "Posso beber água demais?",
+            answer: "Raramente, mas sim. Intoxicação por água (hiponatremia) pode ocorrer ao beber mais de 4-5L rapidamente. Distribua o consumo ao longo do dia e escute seu corpo para evitar excessos.",
+            borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica Importante para Hidratação Brasileira",
+          title: "Dica Importante sobre Hidratação",
           content:
-            "No <strong>clima tropical brasileiro</strong>, mantenha sempre uma garrafa de água próxima e beba pequenos goles frequentes ao invés de grandes volumes espaçados. Durante o verão ou atividades ao ar livre, <strong>aumente 25% da necessidade calculada</strong> e observe a cor da urina como indicador de hidratação.",
+            "<strong>Para melhor hidratação:</strong> distribua o consumo ao longo do dia, monitore a cor da urina e ajuste conforme atividade física e clima. Configure lembretes para criar o hábito.",
         }}
-        footerText="<strong>Precisa calcular sua hidratação ideal?</strong> Nossa calculadora oferece resultados personalizados e científicos baseados nas diretrizes da OMS."
+        footerText="<strong>Lembre-se:</strong> A hidratação adequada é essencial para saúde. Ajuste conforme suas necessidades individuais e consulte profissionais para orientações específicas."
       />
+
+      {/* Footer com informações adicionais */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Hidratação
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora de hidratação</strong>{" "}
+              permite calcular{" "}
+              <strong className="text-growth-green">necessidade diária de água</strong> personalizada
+              com base em fatores científicos como idade, peso, atividade e clima.
+            </p>
+            <p>
+              <strong>Funcionalidades:</strong> Cálculo baseado no Instituto de Medicina (EUA), ajustes
+              para atividade física e clima, cronograma personalizado de hidratação e dicas específicas
+              para sua rotina.
+            </p>
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins informativos e acompanhamento pessoal. Para avaliações médicas ou nutricionais
+              profissionais, consulte sempre um <strong>profissional de saúde qualificado</strong>.
+              Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/saude/imc"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                IMC
+              </a>
+              para complementar seu cuidado com a saúde.
+            </p>
+            <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
+              🔎 Foco em saúde • 💧 Hidratação • 🔒 Dados não armazenados • 📱 Compatível com
+              todos os dispositivos • 🌙 Suporte a modo escuro
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       <RelatedCalculators category="saude" currentCalculatorId="hidratacao" />
     </div>
