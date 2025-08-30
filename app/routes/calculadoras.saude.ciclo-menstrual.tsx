@@ -56,11 +56,17 @@ export const meta: MetaFunction = () => {
       crossOrigin: "anonymous",
     },
     {
+      rel: "preload",
+      href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+      as: "style",
+    },
+    {
       name: "description",
       content:
-        "Calcule seu ciclo menstrual com precisão. Acompanhe período fértil, ovulação e próximas menstruações. Visualize calendário menstrual completo. Ferramenta gratuita e precisa.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões precisas. Ferramenta gratuita para saúde feminina.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
+    { name: "keywords", content: "ciclo menstrual, período fértil, ovulação, calendário menstrual, saúde feminina" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -81,7 +87,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule seu ciclo menstrual com precisão. Acompanhe período fértil, ovulação e próximas menstruações. Visualize calendário menstrual completo. Ferramenta gratuita e precisa.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões precisas. Ferramenta gratuita para saúde feminina.",
     },
     {
       property: "og:image",
@@ -115,7 +121,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule seu ciclo menstrual com precisão. Acompanhe período fértil, ovulação e próximas menstruações. Visualize calendário menstrual completo. Ferramenta gratuita e precisa.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões precisas. Ferramenta gratuita para saúde feminina.",
     },
     {
       name: "twitter:image",
@@ -221,18 +227,23 @@ export const meta: MetaFunction = () => {
           "@type": "MedicalCondition",
           name: "Ciclo Menstrual",
           description:
-            "Processo biológico mensal do sistema reprodutivo feminino que inclui menstruação, fase folicular, ovulação e fase lútea",
+            "Processo fisiológico mensal do sistema reprodutivo feminino, caracterizado por 4 fases distintas: menstruação (dias 1-5), fase folicular (dias 1-13), ovulação (dia 14) e fase lútea (dias 15-28), com duração média de 28 dias",
           category: "Women's Health",
+          medicalCode: {
+            "@type": "MedicalCode",
+            code: "Z30.02",
+            codingSystem: "ICD-10"
+          },
         },
         featureList: [
-          "Cálculo preciso do período fértil e ovulação",
-          "Previsão de próximas menstruações",
-          "Calendário menstrual interativo",
-          "Acompanhamento visual do ciclo",
-          "Cálculos baseados em média de ciclos",
-          "Adaptável a diferentes durações de ciclo",
-          "Interface móvel responsiva otimizada",
-          "Resultados instantâneos e confiáveis",
+          "Cálculo preciso do período fértil e ovulação baseado em evidências científicas",
+          "Previsão confiável de próximas 6 menstruações",
+          "Calendário menstrual visual com código de cores por fase",
+          "Acompanhamento detalhado das 4 fases do ciclo menstrual",
+          "Algoritmo adaptável para ciclos de 21 a 45 dias",
+          "Interface responsiva otimizada para dispositivos móveis",
+          "Cálculos em tempo real sem armazenamento de dados pessoais",
+          "Ferramenta educativa com base em conhecimento médico atualizado",
         ],
       }),
     },
@@ -897,10 +908,11 @@ export default function MenstrualCycleCalculator() {
                     <li>• Ciclos podem variar naturalmente</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Atenção</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Atenção Médica</h4>
                   <p className="text-sm text-text-secondary">
-                    Esta calculadora é para fins informativos. Para planejamento familiar, 
-                    consulte um médico especialista.
+                    <strong>Importante:</strong> Esta calculadora é apenas informativa e educacional. 
+                    Para planejamento familiar, contracepção ou questões de saúde reprodutiva, 
+                    <strong>sempre consulte um médico ginecologista qualificado</strong>.
                   </p>
                 </div>
               </div>
@@ -950,11 +962,11 @@ export default function MenstrualCycleCalculator() {
           },
         ]}
         tipSection={{
-          title: "Dica Importante sobre Ciclo Menstrual",
+          title: "👩‍⚕️ Dica Médica para Acompanhamento Preciso",
           content:
-            "<strong>Para acompanhamento preciso:</strong> anote suas menstruações por alguns meses, observe sinais do seu corpo e mantenha consultas regulares com seu ginecologista.",
+            "<strong>Recomendação médica:</strong> Mantenha um diário menstrual por pelo menos 3-6 meses, anote sintomas e alterações, faça consultas preventivas anuais com ginecologista. Procure ajuda médica se houver ciclos muito irregulares, dor intensa ou sangramento anormal.",
         }}
-        footerText="<strong>Lembre-se:</strong> Cada mulher é única e os ciclos podem variar. Esta ferramenta é informativa e não substitui o acompanhamento médico profissional."
+        footerText="<strong>⚠️ Aviso Médico Importante:</strong> Esta ferramenta é apenas educacional. Cada mulher tem características únicas e ciclos naturalmente variáveis. Não substitui consulta médica profissional. Para questões de saúde reprodutiva, sempre procure um ginecologista."
       />
 
       {/* Footer com informações adicionais */}
@@ -978,9 +990,11 @@ export default function MenstrualCycleCalculator() {
               e duração da menstruação. A calculadora gera previsões para os próximos 6 ciclos.
             </p>
             <p>
-              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para 
-              fins educacionais e informativos. Para planejamento familiar, contracepção ou questões 
-              de saúde reprodutiva, consulte sempre um <strong>médico ginecologista qualificado</strong>.
+              <strong className="text-system-error">⚠️ Aviso Médico:</strong> Esta ferramenta é 
+              <strong>exclusivamente educacional e informativa</strong>. Não substitui consulta médica profissional. 
+              Para planejamento familiar, contracepção, diagnósticos ou questões de saúde reprodutiva, 
+              <strong>sempre consulte um médico ginecologista qualificado</strong>. Ciclos irregulares podem 
+              indicar condições que requerem avaliação médica.
             </p>
             <p className="mt-4 border-t border-health-red/20 pt-3 text-xs opacity-75">
               📅 Cálculo preciso • 🌱 Período fértil • 🔒 Dados não armazenados • 📱
