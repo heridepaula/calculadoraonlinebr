@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora de Área e Perímetro ⚡ Grátis - Retângulo, Círculo, Triângulo | CalculadoraOnlineBR",
+        "Calculadora de Área e Volume ⚡ Grátis - Cubo, Esfera, Cilindro | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos para estudos.",
+        "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas precisas 2D e 3D para estudos matemáticos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -37,25 +37,25 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
     },
     {
       property: "og:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Calculadora de Área e Volume 2025 – Formas Geométricas",
     },
     {
       property: "og:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas precisas e resultados instantâneos.",
+        "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas matemáticas precisas para formas 2D e 3D.",
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-volume.webp",
     },
     {
       property: "og:image:alt",
       content:
-        "Calculadora de Área e Perímetro - Formas geométricas: retângulo, círculo, triângulo",
+        "Calculadora de Área e Volume - Formas geométricas: cubo, esfera, cilindro",
     },
     {
       property: "og:image:width",
@@ -68,27 +68,27 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Calculadora de Área e Volume 2025 – Formas Geométricas",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas.",
+        "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas precisas 2D e 3D.",
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-volume.webp",
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Área e Perímetro - Formas geométricas",
+      content: "Calculadora de Área e Volume - Formas geométricas",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -105,10 +105,10 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Área e Perímetro - Formas Geométricas 2025",
+        name: "Calculadora de Área e Volume - Formas Geométricas 2025",
         description:
-          "Calculadora gratuita e precisa de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+          "Calculadora gratuita e precisa de área e volume para diferentes formas geométricas: cubo, esfera, cilindro, retângulo e círculo. Fórmulas matemáticas exatas 2D e 3D.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -136,10 +136,10 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
-          name: "Calculadora de Área e Perímetro 2025 - Formas Geométricas",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
+          name: "Calculadora de Área e Volume 2025 - Formas Geométricas",
           description:
-            "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos.",
+            "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas precisas 2D e 3D com resultados instantâneos.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -176,25 +176,25 @@ export const meta: MetaFunction = () => {
               {
                 "@type": "ListItem",
                 position: 4,
-                name: "Área e Perímetro",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+                name: "Área e Volume",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
               },
             ],
           },
         },
         about: {
           "@type": "Thing",
-          name: "Cálculos de Área e Perímetro",
-          description: "Fórmulas matemáticas para calcular área e perímetro de formas geométricas",
+          name: "Cálculos de Área e Volume",
+          description: "Fórmulas matemáticas para calcular área e volume de formas geométricas 2D e 3D",
           category: "Mathematics",
         },
         featureList: [
-          "Cálculo de área e perímetro de retângulos",
-          "Cálculo de área e perímetro de círculos",
-          "Cálculo de área e perímetro de triângulos",
-          "Cálculo de área e perímetro de quadrados",
-          "Cálculo de área e perímetro de trapézios",
-          "Fórmulas matemáticas precisas",
+          "Cálculo de área e volume de cubos",
+          "Cálculo de área e volume de esferas",
+          "Cálculo de área e volume de cilindros",
+          "Cálculo de área de retângulos e círculos",
+          "Fórmulas matemáticas precisas 2D e 3D",
+          "Suporte a formas bidimensionais e tridimensionais",
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
@@ -207,34 +207,34 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
-            name: "O que é área e perímetro?",
+            name: "O que é área e volume?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Área é a medida da superfície de uma figura geométrica (em unidades²). Perímetro é a soma das medidas de todos os lados da figura (em unidades lineares).",
+              text: "Área é a medida da superfície de uma figura geométrica (em unidades²). Volume é o espaço ocupado por um sólido tridimensional (em unidades³).",
             },
           },
           {
             "@type": "Question",
-            name: "Por que π (pi) é usado no círculo?",
+            name: "Qual a diferença entre formas 2D e 3D?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "π (pi) é a razão entre a circunferência e o diâmetro de qualquer círculo, sempre igual a aproximadamente 3,14159. É uma constante matemática fundamental para cálculos circulares.",
+              text: "Formas 2D (retângulo, círculo) têm apenas área. Formas 3D (cubo, esfera, cilindro) têm área da superfície e volume interno.",
             },
           },
           {
             "@type": "Question",
-            name: "Como calcular área de triângulos irregulares?",
+            name: "Como calcular volume de um cubo?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Para triângulos irregulares, use a fórmula da área: (base × altura) ÷ 2. A altura deve ser perpendicular à base escolhida. Para o perímetro, some todos os três lados.",
+              text: "Volume do cubo = lado³. Por exemplo, um cubo de 5cm tem volume = 5³ = 125 cm³. A área da superfície = 6 × lado² = 6 × 25 = 150 cm².",
             },
           },
           {
             "@type": "Question",
-            name: "Qual a diferença entre quadrado e retângulo?",
+            name: "Como calcular volume de uma esfera?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Quadrado tem todos os lados iguais, então área = lado² e perímetro = 4 × lado. Retângulo tem lados opostos iguais, então área = comprimento × largura e perímetro = 2 × (comprimento + largura).",
+              text: "Volume da esfera = (4/3) × π × raio³. Área da superfície = 4 × π × raio². Use π = 3,14159 para cálculos precisos.",
             },
           },
         ],
@@ -244,35 +244,35 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",
-        name: "Como usar a Calculadora de Área e Perímetro",
+        name: "Como usar a Calculadora de Área e Volume",
         description:
-          "Aprenda a calcular área e perímetro de formas geométricas usando nossa calculadora online gratuita",
+          "Aprenda a calcular área e volume de formas geométricas 2D e 3D usando nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
             name: "Selecione a forma geométrica",
-            text: "Escolha entre retângulo, círculo, triângulo, quadrado ou trapézio usando os botões de seleção.",
+            text: "Escolha entre cubo, esfera, cilindro (3D) ou retângulo, círculo (2D) usando os botões de seleção.",
           },
           {
             "@type": "HowToStep",
             name: "Insira as dimensões",
-            text: "Digite as medidas necessárias para a forma escolhida (comprimento, largura, raio, lados, etc.).",
+            text: "Digite as medidas necessárias: lado (cubo), raio (esfera), raio+altura (cilindro), comprimento+largura (retângulo) ou raio (círculo).",
           },
           {
             "@type": "HowToStep",
             name: "Calcule os resultados",
-            text: "Clique no botão 'Calcular' para obter instantaneamente a área, perímetro e fórmulas utilizadas.",
+            text: "Clique no botão 'Calcular' para obter instantaneamente a área da superfície, volume (se 3D) e fórmulas utilizadas.",
           },
           {
             "@type": "HowToStep",
             name: "Visualize os resultados",
-            text: "Veja os valores calculados com as fórmulas matemáticas e dimensões utilizadas no cálculo.",
+            text: "Veja os valores calculados com as fórmulas matemáticas específicas para formas 2D e 3D.",
           },
         ],
         tool: [
           {
             "@type": "HowToTool",
-            name: "Calculadora de Área e Perímetro Online",
+            name: "Calculadora de Área e Volume Online",
           },
         ],
       }),
@@ -980,72 +980,71 @@ export default function AreaVolumeCalculator() {
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Calculadora de Área e Perímetro"
+        title="Perguntas Frequentes - Calculadora de Área e Volume"
         items={[
           {
-            question: "O que é área e perímetro?",
+            question: "O que é área e volume?",
             answer:
-              "Área é a medida da superfície de uma figura geométrica (em unidades²). Perímetro é a soma das medidas de todos os lados da figura (em unidades lineares).",
+              "Área é a medida da superfície de uma figura geométrica (em unidades²). Volume é o espaço ocupado por um sólido tridimensional (em unidades³).",
             borderColor: "primary-blue",
           },
           {
-            question: "Por que π (pi) é usado no círculo?",
+            question: "Qual a diferença entre formas 2D e 3D?",
             answer:
-              "π (pi) é a razão entre a circunferência e o diâmetro de qualquer círculo, sempre igual a aproximadamente 3,14159. É uma constante matemática fundamental para cálculos circulares.",
+              "Formas 2D (retângulo, círculo) têm apenas área. Formas 3D (cubo, esfera, cilindro) têm área da superfície e volume interno.",
             borderColor: "growth-green",
           },
           {
-            question: "Como calcular área de triângulos irregulares?",
+            question: "Como calcular volume de um cubo?",
             answer:
-              "Para triângulos irregulares, use a fórmula da área: (base × altura) ÷ 2. A altura deve ser perpendicular à base escolhida. Para o perímetro, some todos os três lados.",
+              "Volume do cubo = lado³. Por exemplo, um cubo de 5cm tem volume = 5³ = 125 cm³. A área da superfície = 6 × lado² = 6 × 25 = 150 cm².",
             borderColor: "system-info",
           },
           {
-            question: "Qual a diferença entre quadrado e retângulo?",
+            question: "Como calcular volume de uma esfera?",
             answer:
-              "Quadrado tem todos os lados iguais, então área = lado² e perímetro = 4 × lado. Retângulo tem lados opostos iguais, então área = comprimento × largura e perímetro = 2 × (comprimento + largura).",
+              "Volume da esfera = (4/3) × π × raio³. Área da superfície = 4 × π × raio². Use π = 3,14159 para cálculos precisos.",
             borderColor: "system-warning",
           },
           {
-            question: "Como medir área em terrenos reais?",
+            question: "Para que serve calcular volume?",
             answer:
-              "Para terrenos retangulares, meça comprimento e largura em metros. Para formas irregulares, divida em formas geométricas simples, calcule cada área separadamente e some os resultados.",
+              "Volume é usado para calcular capacidade de recipientes, quantidade de material necessário, espaço de armazenamento e dimensões de objetos tridimensionais.",
             borderColor: "growth-green",
           },
           {
             question: "Posso usar qualquer unidade de medida?",
             answer:
-              "Sim, mas mantenha consistência. Se usar metros para as dimensões, a área será em metros² e perímetro em metros. Se usar centímetros, área será em cm² e perímetro em cm.",
+              "Sim, mas mantenha consistência. Se usar metros, área será em m² e volume em m³. Se usar centímetros, área será em cm² e volume em cm³.",
             borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica Importante sobre Cálculos Geométricos",
+          title: "Dica Importante sobre Cálculos de Área e Volume",
           content:
-            "<strong>Para resultados precisos:</strong> sempre use a mesma unidade de medida para todas as dimensões. Dobre-check suas medições e lembre-se que área é sempre em unidades².",
+            "<strong>Para resultados precisos:</strong> sempre use a mesma unidade de medida para todas as dimensões. Área é sempre em unidades² e volume em unidades³.",
         }}
-        footerText="<strong>Lembre-se:</strong> Área mede superfície (unidades²), perímetro mede contorno (unidades). Sempre confira suas medições antes de calcular."
+        footerText="<strong>Lembre-se:</strong> Área mede superfície (unidades²), volume mede espaço interno (unidades³). Formas 2D não têm volume."
       />
 
       {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Como Usar Esta Calculadora de Área e Perímetro
+            📚 Como Usar Esta Calculadora de Área e Volume
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de área e perímetro</strong>{" "}
+              <strong className="text-primary-blue-dark">calculadora de área e volume</strong>{" "}
               utiliza <strong className="text-growth-green">fórmulas matemáticas precisas</strong>{" "}
-              para calcular a área e o perímetro de diferentes formas geométricas com resultados
+              para calcular a área e o volume de diferentes formas geométricas 2D e 3D com resultados
               instantâneos.
             </p>
             <p>
-              <strong>Formas disponíveis:</strong> Retângulo, Círculo, Triângulo, Quadrado e
-              Trapézio. Cada forma tem suas próprias características e aplicações práticas
+              <strong>Formas disponíveis:</strong> Cubo, Esfera, Cilindro (3D com área e volume), Retângulo e Círculo (2D apenas com área). Cada forma tem suas próprias características e aplicações práticas
               específicas.
             </p>
             <p>
@@ -1055,7 +1054,7 @@ export default function AreaVolumeCalculator() {
               outras variáveis específicas do projeto.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📐 Fórmulas precisas • 🔒 Dados não armazenados • 📱 Compatível
+              🔎 Foco educacional • 📊 Área e Volume • 🔒 Dados não armazenados • 📱 Compatível
               com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
