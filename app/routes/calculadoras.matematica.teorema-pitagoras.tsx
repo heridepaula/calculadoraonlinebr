@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora de Área e Perímetro ⚡ Grátis - Retângulo, Círculo, Triângulo | CalculadoraOnlineBR",
+        "Calculadora do Teorema de Pitágoras ⚡ Grátis - Hipotenusa e Catetos | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos para estudos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -37,25 +37,25 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     {
       property: "og:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       property: "og:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas precisas e resultados instantâneos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos usando o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos.",
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
     },
     {
       property: "og:image:alt",
       content:
-        "Calculadora de Área e Perímetro - Formas geométricas: retângulo, círculo, triângulo",
+        "Calculadora do Teorema de Pitágoras - Triângulos retângulos: hipotenusa e catetos",
     },
     {
       property: "og:image:width",
@@ -68,27 +68,27 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas.",
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Área e Perímetro - Formas geométricas",
+      content: "Calculadora do Teorema de Pitágoras - Triângulos retângulos",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -184,17 +184,21 @@ export const meta: MetaFunction = () => {
         },
         about: {
           "@type": "Thing",
-          name: "Cálculos de Área e Perímetro",
-          description: "Fórmulas matemáticas para calcular área e perímetro de formas geométricas",
+          name: "Teorema de Pitágoras e Triângulos Retângulos",
+          description: "Fórmulas matemáticas para calcular hipotenusa e catetos usando o Teorema de Pitágoras",
           category: "Mathematics",
+          sameAs: [
+            "https://pt.wikipedia.org/wiki/Teorema_de_Pitágoras",
+            "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem"
+          ],
         },
         featureList: [
-          "Cálculo de área e perímetro de retângulos",
-          "Cálculo de área e perímetro de círculos",
-          "Cálculo de área e perímetro de triângulos",
-          "Cálculo de área e perímetro de quadrados",
-          "Cálculo de área e perímetro de trapézios",
-          "Fórmulas matemáticas precisas",
+          "Cálculo de hipotenusa usando h² = a² + b²",
+          "Cálculo de catetos usando c² = h² - a²",
+          "Verificação automática dos resultados",
+          "Cálculos passo a passo detalhados",
+          "Validação de triângulos retângulos",
+          "Fórmulas matemáticas precisas do teorema",
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
@@ -819,11 +823,11 @@ export default function PythagoreanTheoremCalculator() {
         </CardContent>
       </Card>
 
-      {/* Seção: Comparação de Formas Geométricas */}
+      {/* Seção: Exemplos Práticos do Teorema */}
       <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Tabela Comparativa: Características das Formas Geométricas
+            ⚖️ Exemplos Práticos: Aplicações do Teorema de Pitágoras
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -831,57 +835,50 @@ export default function PythagoreanTheoremCalculator() {
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b-2 border-neutral-surface-variant">
-                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-left font-semibold">Situação</th>
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    Retângulo
+                    Escada na Parede
                   </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Círculo</th>
-                  <th className="p-3 text-center font-semibold text-system-warning">Triângulo</th>
-                  <th className="p-3 text-center font-semibold text-system-info">Quadrado</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Diagonal TV</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">Distância GPS</th>
+                  <th className="p-3 text-center font-semibold text-system-info">Construção</th>
                 </tr>
               </thead>
               <tbody className="space-y-2">
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Número de Lados</td>
-                  <td className="p-3 text-center text-primary-blue-dark">4</td>
-                  <td className="p-3 text-center text-growth-green">0 (curvo)</td>
-                  <td className="p-3 text-center text-system-warning">3</td>
-                  <td className="p-3 text-center text-system-info">4</td>
+                  <td className="p-3 font-medium">Cateto 1</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Altura da parede</td>
+                  <td className="p-3 text-center text-growth-green">Largura</td>
+                  <td className="p-3 text-center text-system-warning">Distância Norte</td>
+                  <td className="p-3 text-center text-system-info">Comprimento base</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Complexidade do Cálculo</td>
-                  <td className="p-3 text-center">⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐</td>
+                  <td className="p-3 font-medium">Cateto 2</td>
+                  <td className="p-3 text-center">Distância da base</td>
+                  <td className="p-3 text-center">Altura</td>
+                  <td className="p-3 text-center">Distância Leste</td>
+                  <td className="p-3 text-center">Altura do telhado</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Fórmula da Área</td>
-                  <td className="p-3 text-center text-primary-blue-dark">C × L</td>
-                  <td className="p-3 text-center text-growth-green">π × r²</td>
-                  <td className="p-3 text-center text-system-warning">(B × A) ÷ 2</td>
-                  <td className="p-3 text-center text-system-info">L²</td>
+                  <td className="p-3 font-medium">Hipotenusa</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Comprimento escada</td>
+                  <td className="p-3 text-center text-growth-green">Diagonal da tela</td>
+                  <td className="p-3 text-center text-system-warning">Distância direta</td>
+                  <td className="p-3 text-center text-system-info">Viga diagonal</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Fórmula do Perímetro</td>
-                  <td className="p-3 text-center">2(C + L)</td>
-                  <td className="p-3 text-center">2πr</td>
-                  <td className="p-3 text-center">L1 + L2 + L3</td>
-                  <td className="p-3 text-center">4L</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Aplicações Comuns</td>
-                  <td className="p-3 text-center">Terrenos, salas</td>
-                  <td className="p-3 text-center">Jardins, rodas</td>
-                  <td className="p-3 text-center">Telhados, estruturas</td>
-                  <td className="p-3 text-center">Azulejos, praças</td>
+                  <td className="p-3 font-medium">Exemplo</td>
+                  <td className="p-3 text-center">3m + 4m = 5m</td>
+                  <td className="p-3 text-center">40" + 30" = 50"</td>
+                  <td className="p-3 text-center">60km + 80km = 100km</td>
+                  <td className="p-3 text-center">6m + 8m = 10m</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-medium">Estabilidade Estrutural</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Média</td>
-                  <td className="p-3 text-center text-growth-green">N/A</td>
-                  <td className="p-3 text-center text-system-warning">Alta</td>
-                  <td className="p-3 text-center text-system-info">Baixa</td>
+                  <td className="p-3 font-medium">Aplicação</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Segurança</td>
+                  <td className="p-3 text-center text-growth-green">Especificação</td>
+                  <td className="p-3 text-center text-system-warning">Navegação</td>
+                  <td className="p-3 text-center text-system-info">Estrutural</td>
                 </tr>
               </tbody>
             </table>
@@ -889,26 +886,23 @@ export default function PythagoreanTheoremCalculator() {
 
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-bold text-primary-blue-dark">🏠 Construção</h4>
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🏗️ Construção Civil</h4>
               <p className="text-sm text-text-secondary">
-                Use <strong>retângulos</strong> para calcular áreas de cômodos, terrenos e
-                construções em geral.
+                Use o <strong>Teorema de Pitágoras</strong> para verificar esquadros, calcular vigas diagonais e garantir ângulos retos em estruturas.
               </p>
             </div>
 
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h4 className="mb-2 font-bold text-growth-green">🌸 Paisagismo</h4>
+              <h4 className="mb-2 font-bold text-growth-green">📐 Engenharia</h4>
               <p className="text-sm text-text-secondary">
-                Prefira <strong>círculos</strong> para jardins, canteiros e áreas curvas que
-                precisam de cálculos de área.
+                Aplicação em <strong>cálculos de distâncias</strong>, dimensionamento de estruturas triangulares e verificação de medidas.
               </p>
             </div>
 
             <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-              <h4 className="mb-2 font-bold text-system-warning">🏗️ Estruturas</h4>
+              <h4 className="mb-2 font-bold text-system-warning">🗺️ Navegação</h4>
               <p className="text-sm text-text-secondary">
-                Escolha <strong>triângulos</strong> para calcular telhados, treliças e estruturas
-                triangulares.
+                Usado em <strong>sistemas GPS</strong> para calcular distâncias diretas entre dois pontos com coordenadas.
               </p>
             </div>
           </div>
