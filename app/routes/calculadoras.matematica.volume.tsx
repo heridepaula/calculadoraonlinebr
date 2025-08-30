@@ -1,1274 +1,1066 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useMemo, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
-  SmartInput,
   Button,
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { ShapePreview3D } from "~/components/calculators/ShapePreview3D";
-import { VolumeResultsComparison } from "~/components/calculators/VolumeResultsComparison";
-import { VolumeFormulasReference } from "~/components/calculators/VolumeFormulasReference";
 import { APP_NAME } from "~/lib/constants";
-import { calculateVolume, type VolumeParams, type VolumeResult } from "~/utils/calculations";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Volume 3D 2025 - Sólidos Geométricos - ${APP_NAME}` },
+    {
+      title:
+        "Calculadora de Área e Perímetro ⚡ Grátis - Retângulo, Círculo, Triângulo | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora de Volume 3D GRATUITA para sólidos geométricos! Cubo, esfera, cilindro, cone, pirâmide e mais. Fórmulas passo a passo, área superficial e aplicações práticas. Ideal para engenharia, arquitetura e construção.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora volume, volume cubo, volume esfera, volume cilindro, volume cone, volume piramide, calcular volume, area superficial, geometria espacial, solidos geometricos, matematica 3d, engenharia volume, arquitetura calculo, volume tanque, capacidade recipiente, metro cubico, litros volume, formula volume, calculo engenharia, construcao volume, prisma triangular, elipsoide volume, tronco cone, geometria solida",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-
-    // Open Graph tags
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+    },
     {
       property: "og:title",
-      content: `Calculadora de Volume 3D - Sólidos Geométricos 2025 - ${APP_NAME}`,
+      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
     },
     {
       property: "og:description",
       content:
-        "★ Calcule volume e área superficial de sólidos 3D! Cubo, esfera, cilindro, cone, pirâmide e mais. Fórmulas passo a passo para engenharia e arquitetura. 100% gratuito!",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas precisas e resultados instantâneos.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Área e Perímetro - Formas geométricas: retângulo, círculo, triângulo",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadorasonline.com.br/calculadoras/matematica/volume",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
-
-    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadora de Volume 3D - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+    },
     {
       name: "twitter:description",
       content:
-        "Calcule volume e área superficial de sólidos geométricos com explicações passo a passo! Fórmulas detalhadas para engenharia e arquitetura.",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas.",
     },
-
-    // Additional SEO tags
-    { name: "application-name", content: APP_NAME },
-    { name: "msapplication-TileColor", content: "#3b82f6" },
-    { name: "theme-color", content: "#3b82f6" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Área e Perímetro - Formas geométricas",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Área e Perímetro - Formas Geométricas 2025",
+        description:
+          "Calculadora gratuita e precisa de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-26",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+          name: "Calculadora de Área e Perímetro 2025 - Formas Geométricas",
+          description:
+            "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Matemática",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Área e Perímetro",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Cálculos de Área e Perímetro",
+          description: "Fórmulas matemáticas para calcular área e perímetro de formas geométricas",
+          category: "Mathematics",
+        },
+        featureList: [
+          "Cálculo de área e perímetro de retângulos",
+          "Cálculo de área e perímetro de círculos",
+          "Cálculo de área e perímetro de triângulos",
+          "Cálculo de área e perímetro de quadrados",
+          "Cálculo de área e perímetro de trapézios",
+          "Fórmulas matemáticas precisas",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é área e perímetro?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Área é a medida da superfície de uma figura geométrica (em unidades²). Perímetro é a soma das medidas de todos os lados da figura (em unidades lineares).",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Por que π (pi) é usado no círculo?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "π (pi) é a razão entre a circunferência e o diâmetro de qualquer círculo, sempre igual a aproximadamente 3,14159. É uma constante matemática fundamental para cálculos circulares.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como calcular área de triângulos irregulares?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para triângulos irregulares, use a fórmula da área: (base × altura) ÷ 2. A altura deve ser perpendicular à base escolhida. Para o perímetro, some todos os três lados.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre quadrado e retângulo?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Quadrado tem todos os lados iguais, então área = lado² e perímetro = 4 × lado. Retângulo tem lados opostos iguais, então área = comprimento × largura e perímetro = 2 × (comprimento + largura).",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Área e Perímetro",
+        description:
+          "Aprenda a calcular área e perímetro de formas geométricas usando nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione a forma geométrica",
+            text: "Escolha entre retângulo, círculo, triângulo, quadrado ou trapézio usando os botões de seleção.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira as dimensões",
+            text: "Digite as medidas necessárias para a forma escolhida (comprimento, largura, raio, lados, etc.).",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule os resultados",
+            text: "Clique no botão 'Calcular' para obter instantaneamente a área, perímetro e fórmulas utilizadas.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Visualize os resultados",
+            text: "Veja os valores calculados com as fórmulas matemáticas e dimensões utilizadas no cálculo.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Área e Perímetro Online",
+          },
+        ],
+      }),
+    },
   ];
 };
 
-export default function VolumeCalculator() {
-  const [selectedShape, setSelectedShape] = useState<VolumeParams["shape"]>("cube");
-  const [dimensions, setDimensions] = useState<Record<string, string>>({});
-  const [unit, setUnit] = useState("m");
-  const [result, setResult] = useState<VolumeResult | null>(null);
-  const [error, setError] = useState("");
-  const [calculationHistory, setCalculationHistory] = useState<VolumeResult[]>([]);
-  const [mobileSection, setMobileSection] = useState<'calculator' | 'preview' | 'theory'>('calculator');
-  const [showVolumeSteps, setShowVolumeSteps] = useState(true);
-  const [showSurfaceAreaSteps, setShowSurfaceAreaSteps] = useState(true);
+type ShapeType = "cubo" | "esfera" | "cilindro" | "retangulo" | "circulo";
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+interface GeometryResult {
+  area: number;
+  volume: number;
+  formula: {
+    area: string;
+    volume: string;
+  };
+  dimensions: Record<string, number>;
+}
+
+interface ValidationErrors {
+  comprimento?: string;
+  largura?: string;
+  altura?: string;
+  raio?: string;
+  lado?: string;
+  base?: string;
+}
+
+export default function AreaVolumeCalculator() {
+  const [shapeType, setShapeType] = useState<ShapeType>("cubo");
+
+  // Inputs para diferentes formas
+  const [comprimento, setComprimento] = useState("");
+  const [largura, setLargura] = useState("");
+  const [altura, setAltura] = useState("");
+  const [raio, setRaio] = useState("");
+  const [lado, setLado] = useState("");
+
+  const [result, setResult] = useState<GeometryResult | null>(null);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
     calculatorType: "volume",
-    category: "matematica"
+    category: "matematica",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("volume");
+  useFormTracking("volume");
 
-  const shapeOptions = useMemo(() => [
-    { value: "cube", label: "📦 Cubo", icon: "⬜" },
-    { value: "rectangular_prism", label: "📦 Prisma Retangular", icon: "▬" },
-    { value: "sphere", label: "🌐 Esfera", icon: "⚪" },
-    { value: "cylinder", label: "🛢️ Cilindro", icon: "⭕" },
-    { value: "cone", label: "🍦 Cone", icon: "🔺" },
-    { value: "pyramid", label: "🏛️ Pirâmide", icon: "🔺" },
-    { value: "triangular_prism", label: "📐 Prisma Triangular", icon: "▲" },
-    { value: "ellipsoid", label: "🥚 Elipsoide", icon: "⭕" },
-    { value: "frustum", label: "🪣 Tronco de Cone", icon: "🪣" },
-  ], []);
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
 
-  const unitOptions = useMemo(() => [
-    { value: "m", label: "metros (m)" },
-    { value: "cm", label: "centímetros (cm)" },
-    { value: "mm", label: "milímetros (mm)" },
-    { value: "km", label: "quilômetros (km)" },
-    { value: "in", label: "polegadas (in)" },
-    { value: "ft", label: "pés (ft)" },
-  ], []);
-
-  const handleCalculate = () => {
-    setError("");
-
-    try {
-      // Convert string inputs to numbers
-      const numericDimensions: any = {};
-      Object.keys(dimensions).forEach((key) => {
-        const value = parseFloat(dimensions[key]);
-        if (isNaN(value) || value <= 0) {
-          throw new Error(`${key} deve ser um número positivo`);
-        }
-        numericDimensions[key] = value;
-      });
-
-      // Validate required dimensions for each shape
-      validateShapeDimensions(selectedShape, numericDimensions);
-
-      const params: VolumeParams = {
-        shape: selectedShape,
-        dimensions: numericDimensions,
-        unit,
-      };
-
-      const calculationResult = calculateVolume(params);
-      setResult(calculationResult);
-      
-      // Adicionar ao histórico
-      if (calculationResult) {
-        setCalculationHistory(prev => [
-          calculationResult,
-          ...prev.slice(0, 4) // Manter apenas 5 últimos
-        ]);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro no cálculo");
-      setResult(null);
-    }
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
   };
 
-  const validateShapeDimensions = (shape: string, dims: any) => {
-    switch (shape) {
-      case "cube":
-        if (!dims.side) throw new Error("Lado é obrigatório para cubo");
-        break;
-      case "rectangular_prism":
-        if (!dims.length || !dims.width || !dims.height)
-          throw new Error("Comprimento, largura e altura são obrigatórios para prisma retangular");
-        break;
-      case "sphere":
-        if (!dims.radius && !dims.diameter)
-          throw new Error("Raio ou diâmetro é obrigatório para esfera");
-        break;
-      case "cylinder":
-        if ((!dims.radius && !dims.diameter) || !dims.height)
-          throw new Error("Raio (ou diâmetro) e altura são obrigatórios para cilindro");
-        break;
-      case "cone":
-        if ((!dims.radius && !dims.diameter) || !dims.height)
-          throw new Error("Raio (ou diâmetro) e altura são obrigatórios para cone");
-        break;
-      case "pyramid":
-        if (!dims.base || !dims.height)
-          throw new Error("Base e altura são obrigatórios para pirâmide");
-        break;
-      case "triangular_prism":
-        if (!dims.base || !dims.height || !dims.length)
-          throw new Error(
-            "Base, altura do triângulo e comprimento são obrigatórios para prisma triangular"
-          );
-        break;
-      case "ellipsoid":
-        if (!dims.semiAxisA || !dims.semiAxisB || !dims.semiAxisC)
-          throw new Error("Todos os semi-eixos (a, b, c) são obrigatórios para elipsoide");
-        break;
-      case "frustum":
-        if (!dims.topRadius || !dims.bottomRadius || !dims.height)
-          throw new Error(
-            "Raio superior, raio inferior e altura são obrigatórios para tronco de cone"
-          );
-        break;
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    if (shapeType === "cubo") {
+      const l = parseNumber(lado);
+      if (l <= 0) {
+        newErrors.lado = "Lado deve ser maior que 0";
+        ok = false;
+      }
+    }
+
+    if (shapeType === "esfera") {
+      const r = parseNumber(raio);
+      if (r <= 0) {
+        newErrors.raio = "Raio deve ser maior que 0";
+        ok = false;
+      }
+    }
+
+    if (shapeType === "cilindro") {
+      const r = parseNumber(raio);
+      const h = parseNumber(altura);
+      if (r <= 0) {
+        newErrors.raio = "Raio deve ser maior que 0";
+        ok = false;
+      }
+      if (h <= 0) {
+        newErrors.altura = "Altura deve ser maior que 0";
+        ok = false;
+      }
+    }
+
+    if (shapeType === "retangulo") {
+      const c = parseNumber(comprimento);
+      const l = parseNumber(largura);
+      if (c <= 0) {
+        newErrors.comprimento = "Comprimento deve ser maior que 0";
+        ok = false;
+      }
+      if (l <= 0) {
+        newErrors.largura = "Largura deve ser maior que 0";
+        ok = false;
+      }
+    }
+
+    if (shapeType === "circulo") {
+      const r = parseNumber(raio);
+      if (r <= 0) {
+        newErrors.raio = "Raio deve ser maior que 0";
+        ok = false;
+      }
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const calculateGeometry = (): GeometryResult => {
+    let area = 0;
+    let volume = 0;
+    let formula = { area: "", volume: "" };
+    let dimensions: Record<string, number> = {};
+
+    if (shapeType === "cubo") {
+      const l = parseNumber(lado);
+      area = 6 * l * l;
+      volume = l * l * l;
+      formula.area = "6 × Lado²";
+      formula.volume = "Lado³";
+      dimensions = { lado: l };
+    }
+
+    if (shapeType === "esfera") {
+      const r = parseNumber(raio);
+      area = 4 * Math.PI * r * r;
+      volume = (4 / 3) * Math.PI * r * r * r;
+      formula.area = "4 × π × Raio²";
+      formula.volume = "(4/3) × π × Raio³";
+      dimensions = { raio: r };
+    }
+
+    if (shapeType === "cilindro") {
+      const r = parseNumber(raio);
+      const h = parseNumber(altura);
+      area = 2 * Math.PI * r * (r + h);
+      volume = Math.PI * r * r * h;
+      formula.area = "2 × π × Raio × (Raio + Altura)";
+      formula.volume = "π × Raio² × Altura";
+      dimensions = { raio: r, altura: h };
+    }
+
+    if (shapeType === "retangulo") {
+      const c = parseNumber(comprimento);
+      const l = parseNumber(largura);
+      area = c * l;
+      volume = 0; // Retângulo é 2D, não tem volume
+      formula.area = "Comprimento × Largura";
+      formula.volume = "N/A (forma 2D)";
+      dimensions = { comprimento: c, largura: l };
+    }
+
+    if (shapeType === "circulo") {
+      const r = parseNumber(raio);
+      area = Math.PI * r * r;
+      volume = 0; // Círculo é 2D, não tem volume
+      formula.area = "π × Raio²";
+      formula.volume = "N/A (forma 2D)";
+      dimensions = { raio: r };
+    }
+
+    return { area, volume, formula, dimensions };
+  };
+
+  const handleCalculate = () => {
+    if (!validateInputs()) return;
+    startCalculation("calcular");
+    try {
+      const result = calculateGeometry();
+      setResult(result);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ comprimento: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setDimensions({});
+    setComprimento("");
+    setLargura("");
+    setAltura("");
+    setRaio("");
+    setLado("");
     setResult(null);
-    setError("");
+    setErrors({});
   };
 
-  const renderShapeInputs = () => {
-    switch (selectedShape) {
-      case "cube":
-        return (
-          <SmartInput
-            type="number"
-            field="side"
-            shape={selectedShape}
-            label="Lado (aresta)"
-            value={dimensions.side || ""}
-            onChange={(e) => setDimensions({ ...dimensions, side: e.target.value })}
-            placeholder="Ex: 3"
-            step="0.01"
-            unit={unit}
-            fullWidth
-          />
-        );
-
-      case "rectangular_prism":
-        return (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <SmartInput
-              type="number"
-              field="length"
-              shape={selectedShape}
-              label="Comprimento"
-              value={dimensions.length || ""}
-              onChange={(e) => setDimensions({ ...dimensions, length: e.target.value })}
-              placeholder="Ex: 5"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="width"
-              shape={selectedShape}
-              label="Largura"
-              value={dimensions.width || ""}
-              onChange={(e) => setDimensions({ ...dimensions, width: e.target.value })}
-              placeholder="Ex: 3"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="height"
-              shape={selectedShape}
-              label="Altura"
-              value={dimensions.height || ""}
-              onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
-              placeholder="Ex: 2"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      case "sphere":
-        return (
-          <div className="space-y-3">
-            <SmartInput
-              type="number"
-              field="radius"
-              shape={selectedShape}
-              label="Raio (prioritário)"
-              value={dimensions.radius || ""}
-              onChange={(e) =>
-                setDimensions({ ...dimensions, radius: e.target.value, diameter: "" })
-              }
-              placeholder="Ex: 2"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <div className="text-center">
-              <span className="inline-block rounded bg-background-dark-secondary px-2 py-1 text-xs text-text-secondary">
-                OU
-              </span>
-            </div>
-            <SmartInput
-              type="number"
-              field="diameter"
-              shape={selectedShape}
-              label="Diâmetro"
-              value={dimensions.diameter || ""}
-              onChange={(e) =>
-                setDimensions({ ...dimensions, diameter: e.target.value, radius: "" })
-              }
-              placeholder="Ex: 4"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      case "cylinder":
-        return (
-          <div className="space-y-3">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <SmartInput
-                type="number"
-                field="radius"
-                shape={selectedShape}
-                label="Raio da base"
-                value={dimensions.radius || ""}
-                onChange={(e) =>
-                  setDimensions({ ...dimensions, radius: e.target.value, diameter: "" })
-                }
-                placeholder="Ex: 1.5"
-                step="0.01"
-                unit={unit}
-                fullWidth
-              />
-              <SmartInput
-                type="number"
-                field="height"
-                shape={selectedShape}
-                label="Altura"
-                value={dimensions.height || ""}
-                onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
-                placeholder="Ex: 4"
-                step="0.01"
-                unit={unit}
-                fullWidth
-              />
-            </div>
-            <p className="text-center text-xs text-text-secondary">OU use o diâmetro:</p>
-            <SmartInput
-              type="number"
-              field="diameter"
-              shape={selectedShape}
-              label="Diâmetro da base (alternativo)"
-              value={dimensions.diameter || ""}
-              onChange={(e) =>
-                setDimensions({ ...dimensions, diameter: e.target.value, radius: "" })
-              }
-              placeholder="Ex: 3"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      case "cone":
-        return (
-          <div className="space-y-3">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <SmartInput
-                type="number"
-                field="radius"
-                shape={selectedShape}
-                label="Raio da base"
-                value={dimensions.radius || ""}
-                onChange={(e) =>
-                  setDimensions({ ...dimensions, radius: e.target.value, diameter: "" })
-                }
-                placeholder="Ex: 3"
-                step="0.01"
-                unit={unit}
-                fullWidth
-              />
-              <SmartInput
-                type="number"
-                field="height"
-                shape={selectedShape}
-                label="Altura"
-                value={dimensions.height || ""}
-                onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
-                placeholder="Ex: 6"
-                step="0.01"
-                unit={unit}
-                fullWidth
-              />
-            </div>
-            <p className="text-center text-xs text-text-secondary">OU use o diâmetro:</p>
-            <SmartInput
-              type="number"
-              field="diameter"
-              shape={selectedShape}
-              label="Diâmetro da base (alternativo)"
-              value={dimensions.diameter || ""}
-              onChange={(e) =>
-                setDimensions({ ...dimensions, diameter: e.target.value, radius: "" })
-              }
-              placeholder="Ex: 6"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      case "pyramid":
-        return (
-          <div className="space-y-3">
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <SmartInput
-                type="number"
-                field="base"
-                shape={selectedShape}
-                label="Base (lado)"
-                value={dimensions.base || ""}
-                onChange={(e) => setDimensions({ ...dimensions, base: e.target.value })}
-                placeholder="Ex: 4"
-                step="0.01"
-                unit={unit}
-                fullWidth
-              />
-              <SmartInput
-                type="number"
-                field="height"
-                shape={selectedShape}
-                label="Altura"
-                value={dimensions.height || ""}
-                onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
-                placeholder="Ex: 5"
-                step="0.01"
-                unit={unit}
-                fullWidth
-              />
-            </div>
-            <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-3">
-              <p className="mb-2 text-xs text-text-secondary">
-                <strong>Para base retangular (opcional):</strong>
-              </p>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                <SmartInput
-                  type="number"
-                  field="baseLength"
-                  shape={selectedShape}
-                  label="Comprimento da base"
-                  value={dimensions.baseLength || ""}
-                  onChange={(e) => setDimensions({ ...dimensions, baseLength: e.target.value })}
-                  placeholder="Ex: 4"
-                  step="0.01"
-                  unit={unit}
-                  validationConfig={{ required: false }}
-                  fullWidth
-                />
-                <SmartInput
-                  type="number"
-                  field="baseWidth"
-                  shape={selectedShape}
-                  label="Largura da base"
-                  value={dimensions.baseWidth || ""}
-                  onChange={(e) => setDimensions({ ...dimensions, baseWidth: e.target.value })}
-                  placeholder="Ex: 3"
-                  step="0.01"
-                  unit={unit}
-                  validationConfig={{ required: false }}
-                  fullWidth
-                />
-              </div>
-            </div>
-          </div>
-        );
-
-      case "triangular_prism":
-        return (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <SmartInput
-              type="number"
-              field="base"
-              shape={selectedShape}
-              label="Base do triângulo"
-              value={dimensions.base || ""}
-              onChange={(e) => setDimensions({ ...dimensions, base: e.target.value })}
-              placeholder="Ex: 3"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="height"
-              shape={selectedShape}
-              label="Altura do triângulo"
-              value={dimensions.height || ""}
-              onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
-              placeholder="Ex: 4"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="length"
-              shape={selectedShape}
-              label="Comprimento do prisma"
-              value={dimensions.length || ""}
-              onChange={(e) => setDimensions({ ...dimensions, length: e.target.value })}
-              placeholder="Ex: 8"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      case "ellipsoid":
-        return (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <SmartInput
-              type="number"
-              field="semiAxisA"
-              shape={selectedShape}
-              label="Semi-eixo A (maior)"
-              value={dimensions.semiAxisA || ""}
-              onChange={(e) => setDimensions({ ...dimensions, semiAxisA: e.target.value })}
-              placeholder="Ex: 3"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="semiAxisB"
-              shape={selectedShape}
-              label="Semi-eixo B (médio)"
-              value={dimensions.semiAxisB || ""}
-              onChange={(e) => setDimensions({ ...dimensions, semiAxisB: e.target.value })}
-              placeholder="Ex: 2"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="semiAxisC"
-              shape={selectedShape}
-              label="Semi-eixo C (menor)"
-              value={dimensions.semiAxisC || ""}
-              onChange={(e) => setDimensions({ ...dimensions, semiAxisC: e.target.value })}
-              placeholder="Ex: 1.5"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      case "frustum":
-        return (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <SmartInput
-              type="number"
-              field="topRadius"
-              shape={selectedShape}
-              label="Raio superior"
-              value={dimensions.topRadius || ""}
-              onChange={(e) => setDimensions({ ...dimensions, topRadius: e.target.value })}
-              placeholder="Ex: 2"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="bottomRadius"
-              shape={selectedShape}
-              label="Raio inferior"
-              value={dimensions.bottomRadius || ""}
-              onChange={(e) => setDimensions({ ...dimensions, bottomRadius: e.target.value })}
-              placeholder="Ex: 4"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-            <SmartInput
-              type="number"
-              field="height"
-              shape={selectedShape}
-              label="Altura"
-              value={dimensions.height || ""}
-              onChange={(e) => setDimensions({ ...dimensions, height: e.target.value })}
-              placeholder="Ex: 3"
-              step="0.01"
-              unit={unit}
-              fullWidth
-            />
-          </div>
-        );
-
-      default:
-        return null;
-    }
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 px-4">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/matematica">Matemática</BreadcrumbItem>
-        <BreadcrumbItem isLast>Volume</BreadcrumbItem>
+        <BreadcrumbItem isLast>Área e Perímetro</BreadcrumbItem>
       </Breadcrumb>
 
-      <header className="space-y-3 text-center sm:space-y-4">
-        <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">Calculadora de Volume 3D</span>
-          <span className="sm:hidden">Volume 3D</span>
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Área e Perímetro 2025 – Formas Geométricas
         </h1>
-        <p className="mx-auto max-w-4xl px-4 text-lg text-text-secondary-dark sm:text-sm md:text-base">
-          Calcule <strong className="text-primary-blue-dark">volume e área superficial</strong> de
-          <strong className="text-system-success"> sólidos geométricos</strong> com
-          <strong className="text-growth-green">fórmulas passo a passo</strong> e aplicações
-          práticas.
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Calcule a <strong className="text-growth-green">área e perímetro</strong> de diferentes{" "}
+          formas geométricas com precisão. Retângulo, círculo, triângulo, quadrado e trapézio com{" "}
+          <strong className="text-primary-blue-dark">fórmulas matemáticas exatas</strong> para seus
+          estudos.
         </p>
-        <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
-          <p className="text-xs font-medium text-text-primary sm:text-sm">
-            🟢 <strong>5 Básicos</strong> • 🟠 <strong>4 Avançados</strong> • 📊{" "}
-            <strong>Volume + Área</strong> • 🔬 <strong>Passo a Passo</strong>
+        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            📐 <strong>Fórmulas Precisas</strong> • 📊 <strong>Múltiplas Formas</strong> • 🧮{" "}
+            <strong>Cálculos Instantâneos</strong>
           </p>
         </div>
       </header>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden">
-        <div className="flex rounded-lg bg-background-dark-secondary p-1">
-          <button 
-            onClick={() => setMobileSection('calculator')}
-            className={`flex-1 py-2 px-3 text-center rounded-md text-sm font-medium transition-colors ${
-              mobileSection === 'calculator' 
-                ? 'bg-primary-blue text-white' 
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            🧮 Calcular
-          </button>
-          <button 
-            onClick={() => setMobileSection('preview')}
-            className={`flex-1 py-2 px-3 text-center rounded-md text-sm font-medium transition-colors ${
-              mobileSection === 'preview' 
-                ? 'bg-system-success text-white' 
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            👁️ Visualizar
-          </button>
-          <button 
-            onClick={() => setMobileSection('theory')}
-            className={`flex-1 py-2 px-3 text-center rounded-md text-sm font-medium transition-colors ${
-              mobileSection === 'theory' 
-                ? 'bg-growth-green text-white' 
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
-          >
-            📚 Aprender
-          </button>
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📐 Selecione a Forma Geométrica</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Seleção de Forma */}
+          <div className="mb-6 flex flex-wrap justify-center gap-1">
+            <button
+              type="button"
+              onClick={() => setShapeType("cubo")}
+              className={`w-20 rounded-md px-2 py-2 text-xs font-medium transition ${
+                shapeType === "cubo"
+                  ? "bg-primary-blue text-white"
+                  : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+              }`}
+            >
+              Cubo
+            </button>
+            <button
+              type="button"
+              onClick={() => setShapeType("esfera")}
+              className={`w-20 rounded-md px-2 py-2 text-xs font-medium transition ${
+                shapeType === "esfera"
+                  ? "bg-primary-blue text-white"
+                  : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+              }`}
+            >
+              Esfera
+            </button>
+            <button
+              type="button"
+              onClick={() => setShapeType("cilindro")}
+              className={`w-20 rounded-md px-2 py-2 text-xs font-medium transition ${
+                shapeType === "cilindro"
+                  ? "bg-primary-blue text-white"
+                  : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+              }`}
+            >
+              Cilindro
+            </button>
+            <button
+              type="button"
+              onClick={() => setShapeType("retangulo")}
+              className={`w-20 rounded-md px-2 py-2 text-xs font-medium transition ${
+                shapeType === "retangulo"
+                  ? "bg-primary-blue text-white"
+                  : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+              }`}
+            >
+              Retângulo
+            </button>
+            <button
+              type="button"
+              onClick={() => setShapeType("circulo")}
+              className={`w-20 rounded-md px-2 py-2 text-xs font-medium transition ${
+                shapeType === "circulo"
+                  ? "bg-primary-blue text-white"
+                  : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+              }`}
+            >
+              Círculo
+            </button>
+          </div>
 
-      {/* Layout Principal Unificado */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        
-        {/* Coluna 1: Calculadora (lg:col-span-4) */}
-        <div className={`space-y-4 lg:col-span-4 ${mobileSection !== 'calculator' ? 'hidden md:block' : ''}`}>
-            <Card>
-              <CardHeader>
-                <CardTitle as="h2">🔢 Selecionar Sólido Geométrico</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {shapeOptions.map((shape) => (
-                      <button
-                        key={shape.value}
-                        onClick={() => {
-                          setSelectedShape(shape.value as VolumeParams["shape"]);
-                          setDimensions({});
-                          setResult(null);
-                          setError("");
-                        }}
-                        className={`rounded-lg border p-3 text-center transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 ${
-                          selectedShape === shape.value
-                            ? "border-primary-blue bg-primary-blue-light text-primary-blue-dark shadow-lg"
-                            : "border-neutral-surface-variant hover:border-primary-blue/50 hover:bg-primary-blue-light/30"
-                        }`}
-                        aria-pressed={selectedShape === shape.value}
-                        aria-label={`Selecionar ${shape.label.replace(/^[^\s]+ /, "")}`}
-                      >
-                        <div className="mb-1 text-2xl">{shape.icon}</div>
-                        <div className="text-xs font-medium">
-                          {shape.label.replace(/^[^\s]+ /, "")}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+          {/* Campos de entrada conforme a forma */}
+          <div className="mb-6 flex flex-wrap justify-center gap-4">
+            {shapeType === "cubo" && (
+              <div className="w-48">
+                <Input
+                  type="number"
+                  label="Lado"
+                  value={lado}
+                  onChange={(e) => setLado(e.target.value)}
+                  placeholder="5"
+                  fullWidth
+                  className="h-12 text-lg"
+                  step="any"
+                />
+                <ErrorMessage error={errors.lado} />
+                <div className="mt-1 text-xs text-text-secondary">Medida de cada aresta</div>
+              </div>
+            )}
 
-                  <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <p className="mb-2 text-sm text-text-secondary">
-                      <strong className="text-system-info">Sólido selecionado:</strong>{" "}
-                      {shapeOptions.find((s) => s.value === selectedShape)?.label}
-                    </p>
-                  </div>
+            {shapeType === "esfera" && (
+              <div className="w-48">
+                <Input
+                  type="number"
+                  label="Raio"
+                  value={raio}
+                  onChange={(e) => setRaio(e.target.value)}
+                  placeholder="3"
+                  fullWidth
+                  className="h-12 text-lg"
+                  step="any"
+                />
+                <ErrorMessage error={errors.raio} />
+                <div className="mt-1 text-xs text-text-secondary">Distância do centro à superfície</div>
+              </div>
+            )}
+
+            {shapeType === "cilindro" && (
+              <>
+                <div className="w-48">
+                  <Input
+                    type="number"
+                    label="Raio"
+                    value={raio}
+                    onChange={(e) => setRaio(e.target.value)}
+                    placeholder="3"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.raio} />
+                  <div className="mt-1 text-xs text-text-secondary">Raio da base circular</div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle as="h2">📏 Dimensões</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-text-primary">
-                      Unidade de medida
-                    </label>
-                    <select
-                      value={unit}
-                      onChange={(e) => setUnit(e.target.value)}
-                      className="w-full rounded-lg border border-neutral-surface-variant bg-background-dark-secondary px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-blue"
-                    >
-                      {unitOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {renderShapeInputs()}
-
-                  {error && (
-                    <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-3">
-                      <p className="text-sm font-medium text-system-error">{error}</p>
-                    </div>
-                  )}
+                <div className="w-48">
+                  <Input
+                    type="number"
+                    label="Altura"
+                    value={altura}
+                    onChange={(e) => setAltura(e.target.value)}
+                    placeholder="8"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.altura} />
+                  <div className="mt-1 text-xs text-text-secondary">Altura do cilindro</div>
                 </div>
-              </CardContent>
-            </Card>
+              </>
+            )}
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <Button onClick={handleCalculate} className="px-6" fullWidth>
-                Calcular Volume e Área
-              </Button>
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                className="border-system-error px-6 text-system-error hover:bg-system-error hover:text-white"
-                fullWidth
-              >
-                Limpar
-              </Button>
-            </div>
-        </div>
+            {shapeType === "retangulo" && (
+              <>
+                <div className="w-48">
+                  <Input
+                    type="number"
+                    label="Comprimento"
+                    value={comprimento}
+                    onChange={(e) => setComprimento(e.target.value)}
+                    placeholder="10"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.comprimento} />
+                  <div className="mt-1 text-xs text-text-secondary">Medida do lado maior</div>
+                </div>
+                <div className="w-48">
+                  <Input
+                    type="number"
+                    label="Largura"
+                    value={largura}
+                    onChange={(e) => setLargura(e.target.value)}
+                    placeholder="5"
+                    fullWidth
+                    className="h-12 text-lg"
+                    step="any"
+                  />
+                  <ErrorMessage error={errors.largura} />
+                  <div className="mt-1 text-xs text-text-secondary">Medida do lado menor</div>
+                </div>
+              </>
+            )}
 
-        {/* Coluna 2: Preview + Resultados (lg:col-span-4) */}
-        <div className={`space-y-4 lg:col-span-4 ${mobileSection !== 'preview' ? 'hidden md:block' : ''}`}>
-          {/* Preview Visual 3D */}
-          <ShapePreview3D 
-            shape={selectedShape} 
-            dimensions={dimensions} 
-            unit={unit} 
-          />
-          
-          {/* Resultados */}
-          {result && (
-            <div className="space-y-4">
-              <Card className="border-2 border-primary-blue bg-primary-blue-light/50 duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-primary-blue-dark">
-                    📊 Resultados - {result.shape}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {/* Volume - Principal */}
-                    <Card className="border-2 border-system-success bg-gradient-to-r from-system-success/10 to-system-success/5">
-                      <div className="text-center p-6">
-                        <div className="text-4xl font-bold text-system-success mb-2">
-                          {result.volume} {result.volumeUnit}
-                        </div>
-                        <p className="text-sm text-text-secondary">Volume Total</p>
-                      </div>
-                    </Card>
+            {shapeType === "circulo" && (
+              <div className="w-48">
+                <Input
+                  type="number"
+                  label="Raio"
+                  value={raio}
+                  onChange={(e) => setRaio(e.target.value)}
+                  placeholder="5"
+                  fullWidth
+                  className="h-12 text-lg"
+                  step="any"
+                />
+                <ErrorMessage error={errors.raio} />
+                <div className="mt-1 text-xs text-text-secondary">Distância do centro à borda</div>
+              </div>
+            )}
+          </div>
 
-                    {/* Área Superficial - Secundário */}
-                    <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                      <div className="text-center">
-                        <p className="mb-1 text-sm text-text-secondary">Área Superficial</p>
-                        <div className="text-2xl font-bold tabular-nums text-growth-green">
-                          {result.surfaceArea} {result.surfaceAreaUnit}
-                        </div>
-                      </div>
-                    </div>
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-                    {/* Grid de medições auxiliares */}
-                    <div className="grid grid-cols-2 gap-3">
-
-                      {result.measurements.diagonal && (
-                        <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-2">
-                          <p className="text-center text-xs font-semibold text-system-info">
-                            📏 Diagonal
-                          </p>
-                          <p className="text-center text-sm font-bold text-text-primary">
-                            {result.measurements.diagonal.toFixed(2)} {result.unit}
-                          </p>
-                        </div>
-                      )}
-
-                      {result.measurements.baseArea && (
-                        <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-2">
-                          <p className="text-center text-xs font-semibold text-system-info">
-                            📐 Área Base
-                          </p>
-                          <p className="text-center text-sm font-bold text-text-primary">
-                            {result.measurements.baseArea.toFixed(2)} {result.surfaceAreaUnit}
-                          </p>
-                        </div>
-                      )}
-
-                      {result.measurements.lateralArea && (
-                        <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-2">
-                          <p className="text-center text-xs font-semibold text-system-info">
-                            🔄 Área Lateral
-                          </p>
-                          <p className="text-center text-sm font-bold text-text-primary">
-                            {result.measurements.lateralArea.toFixed(2)} {result.surfaceAreaUnit}
-                          </p>
-                        </div>
-                      )}
-
-                      {result.measurements.circumference && (
-                        <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-2">
-                          <p className="text-center text-xs font-semibold text-system-info">
-                            ⭕ Circunferência
-                          </p>
-                          <p className="text-center text-sm font-bold text-text-primary">
-                            {result.measurements.circumference.toFixed(2)} {result.unit}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-system-info bg-system-info/10 duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-system-info">
-                    📐 Fórmulas Utilizadas
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3 text-sm">
-                    <div className="rounded bg-background-dark-secondary p-3">
-                      <div className="mb-1 font-bold text-system-success">Volume:</div>
-                      <p className="font-mono text-system-success">{result.formulas.volume}</p>
-                    </div>
-                    <div className="rounded bg-background-dark-secondary p-3">
-                      <div className="mb-1 font-bold text-growth-green">Área Superficial:</div>
-                      <p className="font-mono text-growth-green">{result.formulas.surfaceArea}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-          
-          {/* Comparação de Resultados */}
-          <VolumeResultsComparison history={calculationHistory} />
-        </div>
-
-        {/* Coluna 3: Fórmulas + Teoria (lg:col-span-4) */}
-        <div className={`space-y-4 lg:col-span-4 ${mobileSection !== 'theory' ? 'hidden md:block' : ''}`}>
-          <VolumeFormulasReference selectedShape={selectedShape} />
-          
-          {/* Teoria contextual para a forma selecionada */}
-          {result && (
-            <div className="space-y-4">
-              <Card className="border-l-4 border-primary-blue bg-primary-blue-light/30 duration-300">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-primary-blue-dark">
-                    🏗️ Propriedades - {result.shape}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="mb-2 font-semibold text-text-primary text-sm">📝 Características:</h4>
-                      <ul className="list-inside list-disc space-y-1 text-xs text-text-secondary">
-                        {result.properties.characteristics.slice(0, 3).map((char, index) => (
-                          <li key={index}>{char}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h4 className="mb-2 font-semibold text-text-primary text-sm">🎯 Aplicações:</h4>
-                      <ul className="list-inside list-disc space-y-1 text-xs text-text-secondary">
-                        {result.properties.applications.slice(0, 3).map((app, index) => (
-                          <li key={index}>{app}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {result.relatedConcepts.length > 0 && (
-                <Card className="border-l-4 border-growth-green bg-growth-green-soft/30 duration-300">
-                  <CardHeader>
-                    <CardTitle as="h3" className="text-lg text-growth-green">
-                      💡 Conceitos Relacionados
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {result.relatedConcepts.slice(0, 2).map((concept, index) => (
-                        <div
-                          key={index}
-                          className="rounded-lg border border-growth-green/20 bg-background-dark-secondary p-3"
-                        >
-                          <h5 className="mb-1 font-bold text-growth-green text-sm">{concept.concept}</h5>
-                          <p className="mb-2 text-xs text-text-secondary">{concept.explanation}</p>
-                          <div className="rounded bg-growth-green/10 p-2 text-xs">
-                            <p className="font-semibold">Exemplo:</p>
-                            <p>{concept.example}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Step-by-step calculations section - only show when result exists */}
+      {/* Resultado */}
       {result && (
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {/* Volume Steps */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📊 Cálculo do Volume - Passo a Passo
-                <Button
-                  onClick={() => setShowVolumeSteps(!showVolumeSteps)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showVolumeSteps ? "Ocultar" : "Mostrar"} Passos
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showVolumeSteps && (
-                <div className="space-y-3">
-                  <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-success">
-                      🧮 Passos do Cálculo:
-                    </h4>
-                    {result.calculations.volumeSteps.map((step, index) => (
-                      <p key={index} className="mb-1 font-mono text-sm text-text-secondary">
-                        {step}
-                      </p>
-                    ))}
-                  </div>
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-growth-green">
+              📊 Resultado dos Cálculos de Área e Volume
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-4xl font-bold text-growth-green">
+                  {numberBR(result.area)} unidades²
                 </div>
-              )}
-            </CardContent>
-          </Card>
+                <div className="text-sm text-text-secondary">Área da Superfície</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {result.volume > 0 ? `${numberBR(result.volume)} unidades³` : "N/A"}
+                </div>
+                <div className="text-sm text-text-secondary">Volume</div>
+              </div>
+            </div>
 
-          {/* Surface Area Steps */}
-          <Card>
-            <CardHeader>
-              <CardTitle as="h3" className="flex items-center justify-between">
-                📐 Cálculo da Área Superficial - Passo a Passo
-                <Button
-                  onClick={() => setShowSurfaceAreaSteps(!showSurfaceAreaSteps)}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  {showSurfaceAreaSteps ? "Ocultar" : "Mostrar"} Passos
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {showSurfaceAreaSteps && (
-                <div className="space-y-3">
-                  <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                    <h4 className="mb-2 font-semibold text-growth-green">📏 Passos do Cálculo:</h4>
-                    {result.calculations.surfaceAreaSteps.map((step, index) => (
-                      <p key={index} className="mb-1 font-mono text-sm text-text-secondary">
-                        {step}
-                      </p>
-                    ))}
-                  </div>
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-2">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Fórmula da Área</div>
+                <div className="text-lg font-bold text-text-primary">{result.formula.area}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Fórmula do Volume</div>
+                <div className="text-lg font-bold text-text-primary">
+                  {result.formula.volume}
                 </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Dimensões Utilizadas</h4>
+              <div className="grid grid-cols-2 gap-4 text-sm text-text-secondary">
+                {Object.entries(result.dimensions).map(([key, value]) => (
+                  <div key={key} className="flex justify-between">
+                    <span className="capitalize">{key}:</span>
+                    <strong>{numberBR(value)} unidades</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
-
-
-      {/* Educational Content Sections */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-system-success/10 duration-300">
+      {/* Seção: Formas Geométricas - Guia Completo */}
+      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🏗️ Volume e Área Superficial: Geometria Espacial
+            🎯 Formas Geométricas – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6 text-text-primary">
-            <div className="text-lg leading-relaxed">
-              <p>
-                <strong className="text-system-success">Volume</strong> e{" "}
-                <strong className="text-growth-green">área superficial</strong> são conceitos
-                fundamentais da geometria espacial, essenciais para
-                <strong className="text-primary-blue-dark">
-                  {" "}
-                  engenharia, arquitetura, construção
-                </strong>{" "}
-                e aplicações industriais.
+          <div className="space-y-8">
+            {/* Retângulo */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                📐 Retângulo
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Quadrilátero com quatro ângulos retos (90°) e lados opostos iguais e paralelos.
+                    É uma das formas mais comuns na geometria.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Área: Comprimento × Largura</li>
+                    <li>• Perímetro: 2 × (Comprimento + Largura)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Quatro lados e quatro ângulos retos</li>
+                    <li>• Lados opostos são iguais</li>
+                    <li>• Diagonais são iguais</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Cálculo de área de terrenos</li>
+                    <li>• Dimensões de móveis e construção</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Círculo */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🔄 Círculo
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Figura plana formada por pontos equidistantes de um ponto central (centro). A
+                    distância do centro à borda é o raio.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Área: π × Raio²</li>
+                    <li>• Perímetro: 2 × π × Raio</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Todos os pontos equidistam do centro</li>
+                    <li>• Não possui lados nem vértices</li>
+                    <li>• π (pi) ≈ 3.14159...</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Cálculo de área de jardins circulares</li>
+                    <li>• Dimensões de rodas e tubulações</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Triângulo */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔺 Triângulo
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Polígono de três lados e três vértices. A soma dos ângulos internos sempre
+                    totaliza 180 graus.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Área: (Base × Altura) ÷ 2</li>
+                    <li>• Perímetro: Soma dos três lados</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Três lados e três vértices</li>
+                    <li>• Soma dos ângulos internos = 180°</li>
+                    <li>• Forma mais estável estruturalmente</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Cálculos de telhados e estruturas</li>
+                    <li>• Navegação e triangulação</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Formas Geométricas */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Características das Formas Geométricas
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Retângulo
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Círculo</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">Triângulo</th>
+                  <th className="p-3 text-center font-semibold text-system-info">Quadrado</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Número de Lados</td>
+                  <td className="p-3 text-center text-primary-blue-dark">4</td>
+                  <td className="p-3 text-center text-growth-green">0 (curvo)</td>
+                  <td className="p-3 text-center text-system-warning">3</td>
+                  <td className="p-3 text-center text-system-info">4</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Complexidade do Cálculo</td>
+                  <td className="p-3 text-center">⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Fórmula da Área</td>
+                  <td className="p-3 text-center text-primary-blue-dark">C × L</td>
+                  <td className="p-3 text-center text-growth-green">π × r²</td>
+                  <td className="p-3 text-center text-system-warning">(B × A) ÷ 2</td>
+                  <td className="p-3 text-center text-system-info">L²</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Fórmula do Perímetro</td>
+                  <td className="p-3 text-center">2(C + L)</td>
+                  <td className="p-3 text-center">2πr</td>
+                  <td className="p-3 text-center">L1 + L2 + L3</td>
+                  <td className="p-3 text-center">4L</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicações Comuns</td>
+                  <td className="p-3 text-center">Terrenos, salas</td>
+                  <td className="p-3 text-center">Jardins, rodas</td>
+                  <td className="p-3 text-center">Telhados, estruturas</td>
+                  <td className="p-3 text-center">Azulejos, praças</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Estabilidade Estrutural</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Média</td>
+                  <td className="p-3 text-center text-growth-green">N/A</td>
+                  <td className="p-3 text-center text-system-warning">Alta</td>
+                  <td className="p-3 text-center text-system-info">Baixa</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🏠 Construção</h4>
+              <p className="text-sm text-text-secondary">
+                Use <strong>retângulos</strong> para calcular áreas de cômodos, terrenos e
+                construções em geral.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-system-success/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-system-success">
-                  📊 Volume - Capacidade
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded border border-system-success/20 bg-system-success/10 p-4">
-                    <p className="mb-2 text-center font-semibold text-system-success">Definição:</p>
-                    <p className="text-center">
-                      Medida do <strong>espaço tridimensional</strong> ocupado por um sólido,
-                      expressa em unidades cúbicas (m³, cm³, etc.)
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-system-success">Aplicações:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>Capacidade de tanques e reservatórios</li>
-                      <li>Volume de concreto em construções</li>
-                      <li>Dimensionamento de embalagens</li>
-                      <li>Cálculo de materiais para fundição</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">🌸 Paisagismo</h4>
+              <p className="text-sm text-text-secondary">
+                Prefira <strong>círculos</strong> para jardins, canteiros e áreas curvas que
+                precisam de cálculos de área.
+              </p>
+            </div>
 
-              <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-                <h3 className="mb-4 text-xl font-bold text-growth-green">
-                  📐 Área Superficial - Revestimento
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="rounded border border-growth-green/20 bg-growth-green-soft p-4">
-                    <p className="mb-2 text-center font-semibold text-growth-green">Definição:</p>
-                    <p className="text-center">
-                      Medida da <strong>superfície externa</strong> de um sólido, expressa em
-                      unidades quadradas (m², cm², etc.)
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p>
-                      <strong className="text-growth-green">Aplicações:</strong>
-                    </p>
-                    <ul className="ml-4 list-inside list-disc space-y-1 text-text-secondary">
-                      <li>Quantidade de tinta para pintura</li>
-                      <li>Material para revestimento</li>
-                      <li>Cálculo de perda de calor</li>
-                      <li>Dimensionamento de embalagens</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+              <h4 className="mb-2 font-bold text-system-warning">🏗️ Estruturas</h4>
+              <p className="text-sm text-text-secondary">
+                Escolha <strong>triângulos</strong> para calcular telhados, treliças e estruturas
+                triangulares.
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes sobre Volume e Área Superficial"
+        title="Perguntas Frequentes - Calculadora de Área e Perímetro"
         items={[
           {
-            question: "Qual a diferença entre volume e área superficial?",
+            question: "O que é área e perímetro?",
             answer:
-              "<strong>Volume</strong> mede o espaço interno (em m³, litros, etc.), enquanto <strong>área superficial</strong> mede a superfície externa (em m², cm², etc.). <br><br><strong>Exemplo prático:</strong> Para um cubo 2×2×2 metros:<br><strong>Volume = 8 m³</strong> (capacidade interna)<br><strong>Área superficial = 24 m²</strong> (superfície total das faces)",
-            borderColor: "system-info",
-          },
-          {
-            question: "Como converter volume entre diferentes unidades?",
-            answer:
-              "Para unidades de volume, você <strong>eleva ao cubo</strong> o fator de conversão das unidades lineares. <strong>1 m³ = 1.000 litros</strong>. <br><br><strong>Conversões úteis:</strong><br>• 1 m³ = 1.000.000 cm³ (100³ cm³)<br>• 1 m³ = 1.000 litros<br>• 1 litro = 1.000 cm³ = 1 dm³<br>• 1 galão (US) ≈ 3,785 litros",
+              "Área é a medida da superfície de uma figura geométrica (em unidades²). Perímetro é a soma das medidas de todos os lados da figura (em unidades lineares).",
             borderColor: "primary-blue",
           },
           {
-            question: "Qual sólido tem maior volume com área superficial fixa?",
+            question: "Por que π (pi) é usado no círculo?",
             answer:
-              "A <strong>esfera</strong> sempre tem o maior volume para uma dada área superficial. Isso se chama <strong>problema isoperimétrico em 3D</strong>. <br><br><strong>Exemplo:</strong> Com área superficial de 100 m²:<br>• Esfera: ~94,3 m³<br>• Cubo: ~68,0 m³<br>• Cilindro ótimo: ~81,6 m³",
+              "π (pi) é a razão entre a circunferência e o diâmetro de qualquer círculo, sempre igual a aproximadamente 3,14159. É uma constante matemática fundamental para cálculos circulares.",
             borderColor: "growth-green",
           },
           {
-            question: "Como calcular volume de objetos irregulares?",
+            question: "Como calcular área de triângulos irregulares?",
             answer:
-              "Para objetos irregulares, use métodos como <strong>decomposição</strong>, <strong>integração</strong> ou <strong>princípio de Arquimedes</strong> (deslocamento de fluido). <br><br><strong>Métodos práticos:</strong><br>• <strong>Decomposição:</strong> Dividir em formas conhecidas<br>• <strong>Deslocamento:</strong> Mergulhar em água e medir volume deslocado<br>• <strong>Aproximação:</strong> Usar sólidos similares como estimativa",
-            borderColor: "system-warning",
-          },
-          {
-            question: "Para que serve o número π (pi) em volumes?",
-            answer:
-              "O <strong>π (pi)</strong> aparece em todos os cálculos envolvendo formas circulares: esferas, cilindros, cones e elipsoides. <br><br><strong>Fórmulas com π:</strong><br>• Volume da esfera: (4/3) × π × r³<br>• Volume do cilindro: π × r² × h<br>• Volume do cone: (1/3) × π × r² × h",
+              "Para triângulos irregulares, use a fórmula da área: (base × altura) ÷ 2. A altura deve ser perpendicular à base escolhida. Para o perímetro, some todos os três lados.",
             borderColor: "system-info",
           },
           {
-            question: "Como otimizar recipientes para menor gasto de material?",
+            question: "Qual a diferença entre quadrado e retângulo?",
             answer:
-              "Para <strong>minimizar área superficial com volume fixo</strong>, use formas esféricas. Para cilindros, a relação ótima é <strong>altura = diâmetro</strong>. <br><br><strong>Otimizações práticas:</strong><br>• Tanques esféricos para alta pressão<br>• Latas cilíndricas: h ≈ d para mínimo material<br>• Embalagens cúbicas para facilidade de empilhamento",
+              "Quadrado tem todos os lados iguais, então área = lado² e perímetro = 4 × lado. Retângulo tem lados opostos iguais, então área = comprimento × largura e perímetro = 2 × (comprimento + largura).",
+            borderColor: "system-warning",
+          },
+          {
+            question: "Como medir área em terrenos reais?",
+            answer:
+              "Para terrenos retangulares, meça comprimento e largura em metros. Para formas irregulares, divida em formas geométricas simples, calcule cada área separadamente e some os resultados.",
             borderColor: "growth-green",
           },
           {
-            question: "Qual a aplicação prática do cálculo de volumes?",
+            question: "Posso usar qualquer unidade de medida?",
             answer:
-              "Cálculo de volumes é <strong>essencial</strong> em engenharia, arquitetura, indústria e logística para dimensionamento correto de projetos. <br><br><strong>Aplicações por área:</strong><br>• <strong>Construção:</strong> Volume de concreto, escavações<br>• <strong>Indústria:</strong> Capacidade de tanques, silos<br>• <strong>Logística:</strong> Otimização de embalagens e transporte<br>• <strong>Medicina:</strong> Dosagem precisa de medicamentos",
-            borderColor: "system-success",
+              "Sim, mas mantenha consistência. Se usar metros para as dimensões, a área será em metros² e perímetro em metros. Se usar centímetros, área será em cm² e perímetro em cm.",
+            borderColor: "system-error-dark",
           },
         ]}
+        tipSection={{
+          title: "Dica Importante sobre Cálculos Geométricos",
+          content:
+            "<strong>Para resultados precisos:</strong> sempre use a mesma unidade de medida para todas as dimensões. Dobre-check suas medições e lembre-se que área é sempre em unidades².",
+        }}
+        footerText="<strong>Lembre-se:</strong> Área mede superfície (unidades²), perímetro mede contorno (unidades). Sempre confira suas medições antes de calcular."
       />
 
-      {/* Footer */}
+      {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de Volume 3D
+            📚 Como Usar Esta Calculadora de Área e Perímetro
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de volume 3D</strong> é
-              <strong className="text-system-success"> 100% gratuita</strong> e oferece cálculos
-              para 9 sólidos geométricos diferentes com fórmulas detalhadas, área superficial e
-              aplicações práticas profissionais.
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora de área e perímetro</strong>{" "}
+              utiliza <strong className="text-growth-green">fórmulas matemáticas precisas</strong>{" "}
+              para calcular a área e o perímetro de diferentes formas geométricas com resultados
+              instantâneos.
             </p>
             <p>
-              <strong>Sólidos suportados:</strong> Cubo, prisma retangular, esfera, cilindro, cone,
-              pirâmide, prisma triangular, elipsoide e tronco de cone. Cada forma inclui explicações
-              passo a passo, propriedades matemáticas e aplicações industriais.
+              <strong>Formas disponíveis:</strong> Retângulo, Círculo, Triângulo, Quadrado e
+              Trapézio. Cada forma tem suas próprias características e aplicações práticas
+              específicas.
             </p>
             <p>
-              <strong className="text-system-warning">Uso Profissional:</strong> Esta ferramenta é
-              ideal para engenheiros, arquitetos, designers, estudantes e profissionais que
-              trabalham com cálculos volumétricos e dimensionamento.
-              <strong>Sempre verifique os resultados em projetos críticos.</strong>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+              fins educacionais e cálculos básicos. Para projetos profissionais de engenharia ou
+              arquitetura, consulte sempre um <strong>profissional qualificado</strong> e considere
+              outras variáveis específicas do projeto.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚖️ Cálculos baseados em fórmulas geométricas padrão • 🎓 Ferramenta educacional
-              gratuita • 🔒 Seus dados não são armazenados • 📱 Responsivo para todos os
-              dispositivos • 🌙 Modo escuro disponível • 🏗️ 9 sólidos geométricos suportados • 📊
-              Volume + Área Superficial
+              🔎 Foco educacional • 📐 Fórmulas precisas • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
       </Card>
-
-      {/* Structured Data - JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Calculadora de Volume 3D",
-            description:
-              "Calculadora online gratuita para calcular volume e área superficial de sólidos geométricos com fórmulas passo a passo. Ideal para engenharia, arquitetura e educação.",
-            url: "https://calculadorasonline.com.br/calculadoras/matematica/volume",
-            applicationCategory: "EducationalApplication",
-            operatingSystem: "Web",
-            browserRequirements: "Requires JavaScript",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "BRL",
-            },
-            featureList: [
-              "Cálculo de volume para 9 sólidos geométricos",
-              "Cálculo de área superficial para 9 sólidos geométricos",
-              "Fórmulas matemáticas detalhadas",
-              "Explicações passo a passo",
-              "Aplicações práticas para cada sólido",
-              "Conversão de unidades",
-              "Medições auxiliares (diagonal, área lateral, etc.)",
-              "Interface móvel responsiva",
-              "100% gratuito",
-            ],
-            educationalLevel: ["MiddleSchool", "HighSchool", "College", "Professional"],
-            learningResourceType: "Interactive Tool",
-            about: [
-              {
-                "@type": "Thing",
-                name: "Volume de Sólidos Geométricos",
-                description: "Medida do espaço tridimensional ocupado por sólidos geométricos",
-              },
-              {
-                "@type": "Thing",
-                name: "Área Superficial",
-                description: "Medida da superfície externa de sólidos geométricos",
-              },
-              {
-                "@type": "Thing",
-                name: "Geometria Espacial",
-                description: "Estudo de formas tridimensionais e suas propriedades",
-              },
-            ],
-            teaches: [
-              "Cálculo de volume de sólidos geométricos",
-              "Cálculo de área superficial",
-              "Fórmulas de geometria espacial",
-              "Aplicações práticas de volume",
-              "Conversão entre unidades volumétricas",
-            ],
-            audience: [
-              {
-                "@type": "Audience",
-                name: "Estudantes",
-                description: "Estudantes do ensino médio ao superior",
-              },
-              {
-                "@type": "Audience",
-                name: "Profissionais",
-                description: "Engenheiros, arquitetos, designers e profissionais da construção",
-              },
-              {
-                "@type": "Audience",
-                name: "Educadores",
-                description: "Professores de matemática e geometria",
-              },
-              {
-                "@type": "Audience",
-                name: "Industriais",
-                description: "Profissionais da indústria e manufatura",
-              },
-            ],
-            author: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "Calculadora Online BR",
-            },
-          }),
-        }}
-      />
 
       <RelatedCalculators category="matematica" currentCalculatorId="volume" />
     </div>
