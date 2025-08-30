@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora de Área e Perímetro ⚡ Grátis - Retângulo, Círculo, Triângulo | CalculadoraOnlineBR",
+        "Calculadora do Teorema de Pitágoras ⚡ Grátis - Hipotenusa e Catetos | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos para estudos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -37,25 +37,24 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     {
       property: "og:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       property: "og:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas precisas e resultados instantâneos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos usando o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos.",
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
     },
     {
       property: "og:image:alt",
-      content:
-        "Calculadora de Área e Perímetro - Formas geométricas: retângulo, círculo, triângulo",
+      content: "Calculadora do Teorema de Pitágoras - Triângulos retângulos: hipotenusa e catetos",
     },
     {
       property: "og:image:width",
@@ -68,27 +67,27 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas.",
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-perimetro.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Área e Perímetro - Formas geométricas",
+      content: "Calculadora do Teorema de Pitágoras - Triângulos retângulos",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -113,7 +112,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-26",
+        dateModified: "2025-08-30",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -184,17 +183,22 @@ export const meta: MetaFunction = () => {
         },
         about: {
           "@type": "Thing",
-          name: "Cálculos de Área e Perímetro",
-          description: "Fórmulas matemáticas para calcular área e perímetro de formas geométricas",
+          name: "Teorema de Pitágoras e Triângulos Retângulos",
+          description:
+            "Fórmulas matemáticas para calcular hipotenusa e catetos usando o Teorema de Pitágoras",
           category: "Mathematics",
+          sameAs: [
+            "https://pt.wikipedia.org/wiki/Teorema_de_Pitágoras",
+            "https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-pythagorean-theorem",
+          ],
         },
         featureList: [
-          "Cálculo de área e perímetro de retângulos",
-          "Cálculo de área e perímetro de círculos",
-          "Cálculo de área e perímetro de triângulos",
-          "Cálculo de área e perímetro de quadrados",
-          "Cálculo de área e perímetro de trapézios",
-          "Fórmulas matemáticas precisas",
+          "Cálculo de hipotenusa usando h² = a² + b²",
+          "Cálculo de catetos usando c² = h² - a²",
+          "Verificação automática dos resultados",
+          "Cálculos passo a passo detalhados",
+          "Validação de triângulos retângulos",
+          "Fórmulas matemáticas precisas do teorema",
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
@@ -339,7 +343,7 @@ export default function PythagoreanTheoremCalculator() {
     if (calculationType === "hipotenusa") {
       const c1 = parseNumber(cathetus1);
       const c2 = parseNumber(cathetus2);
-      
+
       if (c1 <= 0) {
         newErrors.cathetus1 = "Cateto 1 deve ser maior que 0";
         ok = false;
@@ -353,7 +357,7 @@ export default function PythagoreanTheoremCalculator() {
     if (calculationType === "cateto") {
       const h = parseNumber(hypotenuse);
       const c1 = parseNumber(cathetus1);
-      
+
       if (h <= 0) {
         newErrors.hypotenuse = "Hipotenusa deve ser maior que 0";
         ok = false;
@@ -386,7 +390,7 @@ export default function PythagoreanTheoremCalculator() {
         hypotenuse: hypotenuseValue,
         formula: "h² = a² + b²",
         calculation: `h² = ${c1}² + ${c2}² = ${c1 * c1} + ${c2 * c2} = ${c1 * c1 + c2 * c2}`,
-        verification: `Verificação: ${c1}² + ${c2}² = ${Math.round((c1 * c1 + c2 * c2) * 10000) / 10000} e ${hypotenuseValue.toFixed(4)}² = ${Math.round((hypotenuseValue * hypotenuseValue) * 10000) / 10000}`,
+        verification: `Verificação: ${c1}² + ${c2}² = ${Math.round((c1 * c1 + c2 * c2) * 10000) / 10000} e ${hypotenuseValue.toFixed(4)}² = ${Math.round(hypotenuseValue * hypotenuseValue * 10000) / 10000}`,
         dimensions: {
           cathetus1: c1,
           cathetus2: c2,
@@ -454,14 +458,15 @@ export default function PythagoreanTheoremCalculator() {
           Calculadora do Teorema de Pitágoras 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule a <strong className="text-growth-green">hipotenusa ou cateto</strong> de triângulos
-          retângulos usando o <strong className="text-primary-blue-dark">Teorema de Pitágoras</strong>{" "}
-          com fórmulas matemáticas precisas para seus estudos.
+          Calcule a <strong className="text-growth-green">hipotenusa ou cateto</strong> de
+          triângulos retângulos usando o{" "}
+          <strong className="text-primary-blue-dark">Teorema de Pitágoras</strong> com fórmulas
+          matemáticas precisas para seus estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            📐 <strong>Teorema de Pitágoras</strong> • 🔺 <strong>Triângulos Retângulos</strong> • 🧮{" "}
-            <strong>Cálculos Precisos</strong>
+            📐 <strong>Teorema de Pitágoras</strong> • 🔺 <strong>Triângulos Retângulos</strong> •
+            🧮 <strong>Cálculos Precisos</strong>
           </p>
         </div>
       </header>
@@ -504,12 +509,11 @@ export default function PythagoreanTheoremCalculator() {
           <div className="mb-6">
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-6">
               <h3 className="mb-4 text-center text-lg font-semibold text-primary-blue-dark">
-                {calculationType === "hipotenusa" 
+                {calculationType === "hipotenusa"
                   ? "📐 Insira os dois catetos para calcular a hipotenusa"
-                  : "📏 Insira a hipotenusa e um cateto para calcular o cateto faltante"
-                }
+                  : "📏 Insira a hipotenusa e um cateto para calcular o cateto faltante"}
               </h3>
-              
+
               <div className="flex flex-wrap justify-center gap-4">
                 {calculationType === "hipotenusa" && (
                   <>
@@ -525,7 +529,9 @@ export default function PythagoreanTheoremCalculator() {
                         step="any"
                       />
                       <ErrorMessage error={errors.cathetus1} />
-                      <div className="mt-1 text-xs text-text-secondary">Primeiro lado perpendicular</div>
+                      <div className="mt-1 text-xs text-text-secondary">
+                        Primeiro lado perpendicular
+                      </div>
                     </div>
                     <div className="w-48">
                       <Input
@@ -539,7 +545,9 @@ export default function PythagoreanTheoremCalculator() {
                         step="any"
                       />
                       <ErrorMessage error={errors.cathetus2} />
-                      <div className="mt-1 text-xs text-text-secondary">Segundo lado perpendicular</div>
+                      <div className="mt-1 text-xs text-text-secondary">
+                        Segundo lado perpendicular
+                      </div>
                     </div>
                   </>
                 )}
@@ -558,7 +566,9 @@ export default function PythagoreanTheoremCalculator() {
                         step="any"
                       />
                       <ErrorMessage error={errors.hypotenuse} />
-                      <div className="mt-1 text-xs text-text-secondary">Lado oposto ao ângulo reto</div>
+                      <div className="mt-1 text-xs text-text-secondary">
+                        Lado oposto ao ângulo reto
+                      </div>
                     </div>
                     <div className="w-48">
                       <Input
@@ -572,18 +582,19 @@ export default function PythagoreanTheoremCalculator() {
                         step="any"
                       />
                       <ErrorMessage error={errors.cathetus1} />
-                      <div className="mt-1 text-xs text-text-secondary">Cateto que você já conhece</div>
+                      <div className="mt-1 text-xs text-text-secondary">
+                        Cateto que você já conhece
+                      </div>
                     </div>
                   </>
                 )}
               </div>
-              
+
               <div className="mt-4 text-center">
                 <div className="text-lg font-medium text-primary-blue-dark">
-                  {calculationType === "hipotenusa" 
+                  {calculationType === "hipotenusa"
                     ? "Fórmula: h² = a² + b²"
-                    : "Fórmula: c² = h² - a²"
-                  }
+                    : "Fórmula: c² = h² - a²"}
                 </div>
               </div>
             </div>
@@ -617,19 +628,16 @@ export default function PythagoreanTheoremCalculator() {
             <div className="mb-6 rounded-lg bg-gray-900 p-4">
               <div className="text-center">
                 <div className="mb-2 text-sm text-text-secondary">Fórmula Utilizada</div>
-                <div className="text-xl font-bold text-primary-blue-dark">
-                  {result.formula}
-                </div>
+                <div className="text-xl font-bold text-primary-blue-dark">{result.formula}</div>
               </div>
             </div>
 
             <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="rounded-lg bg-gray-900 p-6 text-center">
                 <div className="text-4xl font-bold text-system-warning">
-                  {result.hypotenuse 
+                  {result.hypotenuse
                     ? numberBR(result.hypotenuse, 4)
-                    : numberBR(result.missingCathetus!, 4)
-                  }
+                    : numberBR(result.missingCathetus!, 4)}
                 </div>
                 <div className="text-sm text-text-secondary">
                   {calculationType === "hipotenusa" ? "Hipotenusa (h)" : "Cateto Faltante (c)"}
@@ -650,16 +658,19 @@ export default function PythagoreanTheoremCalculator() {
                   <strong>Cálculo:</strong> {result.calculation}
                 </div>
                 <div>
-                  <strong>Resultado:</strong> √{Math.round((result.hypotenuse || result.missingCathetus!) ** 2 * 10000) / 10000} = {result.hypotenuse ? numberBR(result.hypotenusa, 4) : numberBR(result.missingCathetus!, 4)}
+                  <strong>Resultado:</strong> √
+                  {Math.round((result.hypotenuse || result.missingCathetus!) ** 2 * 10000) / 10000}{" "}
+                  ={" "}
+                  {result.hypotenuse
+                    ? numberBR(result.hypotenusa, 4)
+                    : numberBR(result.missingCathetus!, 4)}
                 </div>
               </div>
             </div>
 
             <div className="mb-6 rounded-lg bg-gray-900 p-4">
               <h4 className="mb-2 font-semibold text-growth-green">Verificação</h4>
-              <div className="text-sm text-text-secondary">
-                {result.verification}
-              </div>
+              <div className="text-sm text-text-secondary">{result.verification}</div>
             </div>
 
             <div className="rounded-lg bg-system-info/10 p-4">
@@ -708,7 +719,8 @@ export default function PythagoreanTheoremCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    O Teorema de Pitágoras estabelece que em um triângulo retângulo, o quadrado da hipotenusa é igual à soma dos quadrados dos catetos: h² = a² + b².
+                    O Teorema de Pitágoras estabelece que em um triângulo retângulo, o quadrado da
+                    hipotenusa é igual à soma dos quadrados dos catetos: h² = a² + b².
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
@@ -747,7 +759,8 @@ export default function PythagoreanTheoremCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Triângulo que possui um ângulo reto (90°). Os dois lados que formam o ângulo reto são os catetos, e o lado oposto é a hipotenusa.
+                    Triângulo que possui um ângulo reto (90°). Os dois lados que formam o ângulo
+                    reto são os catetos, e o lado oposto é a hipotenusa.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Elementos</h4>
@@ -786,7 +799,8 @@ export default function PythagoreanTheoremCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">📜 História</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Atribuído ao matemático grego Pitágoras (século VI a.C.), embora civilizações anteriores já conhecessem essa relação matemática.
+                    Atribuído ao matemático grego Pitágoras (século VI a.C.), embora civilizações
+                    anteriores já conhecessem essa relação matemática.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">🏛️ Civilizações Antigas</h4>
@@ -819,11 +833,11 @@ export default function PythagoreanTheoremCalculator() {
         </CardContent>
       </Card>
 
-      {/* Seção: Comparação de Formas Geométricas */}
+      {/* Seção: Exemplos Práticos do Teorema */}
       <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Tabela Comparativa: Características das Formas Geométricas
+            ⚖️ Exemplos Práticos: Aplicações do Teorema de Pitágoras
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -831,57 +845,52 @@ export default function PythagoreanTheoremCalculator() {
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b-2 border-neutral-surface-variant">
-                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-left font-semibold">Situação</th>
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    Retângulo
+                    Escada na Parede
                   </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Círculo</th>
-                  <th className="p-3 text-center font-semibold text-system-warning">Triângulo</th>
-                  <th className="p-3 text-center font-semibold text-system-info">Quadrado</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Diagonal TV</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Distância GPS
+                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">Construção</th>
                 </tr>
               </thead>
               <tbody className="space-y-2">
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Número de Lados</td>
-                  <td className="p-3 text-center text-primary-blue-dark">4</td>
-                  <td className="p-3 text-center text-growth-green">0 (curvo)</td>
-                  <td className="p-3 text-center text-system-warning">3</td>
-                  <td className="p-3 text-center text-system-info">4</td>
+                  <td className="p-3 font-medium">Cateto 1</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Altura da parede</td>
+                  <td className="p-3 text-center text-growth-green">Largura</td>
+                  <td className="p-3 text-center text-system-warning">Distância Norte</td>
+                  <td className="p-3 text-center text-system-info">Comprimento base</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Complexidade do Cálculo</td>
-                  <td className="p-3 text-center">⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐</td>
+                  <td className="p-3 font-medium">Cateto 2</td>
+                  <td className="p-3 text-center">Distância da base</td>
+                  <td className="p-3 text-center">Altura</td>
+                  <td className="p-3 text-center">Distância Leste</td>
+                  <td className="p-3 text-center">Altura do telhado</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Fórmula da Área</td>
-                  <td className="p-3 text-center text-primary-blue-dark">C × L</td>
-                  <td className="p-3 text-center text-growth-green">π × r²</td>
-                  <td className="p-3 text-center text-system-warning">(B × A) ÷ 2</td>
-                  <td className="p-3 text-center text-system-info">L²</td>
+                  <td className="p-3 font-medium">Hipotenusa</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Comprimento escada</td>
+                  <td className="p-3 text-center text-growth-green">Diagonal da tela</td>
+                  <td className="p-3 text-center text-system-warning">Distância direta</td>
+                  <td className="p-3 text-center text-system-info">Viga diagonal</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Fórmula do Perímetro</td>
-                  <td className="p-3 text-center">2(C + L)</td>
-                  <td className="p-3 text-center">2πr</td>
-                  <td className="p-3 text-center">L1 + L2 + L3</td>
-                  <td className="p-3 text-center">4L</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Aplicações Comuns</td>
-                  <td className="p-3 text-center">Terrenos, salas</td>
-                  <td className="p-3 text-center">Jardins, rodas</td>
-                  <td className="p-3 text-center">Telhados, estruturas</td>
-                  <td className="p-3 text-center">Azulejos, praças</td>
+                  <td className="p-3 font-medium">Exemplo</td>
+                  <td className="p-3 text-center">3m + 4m = 5m</td>
+                  <td className="p-3 text-center">40" + 30" = 50"</td>
+                  <td className="p-3 text-center">60km + 80km = 100km</td>
+                  <td className="p-3 text-center">6m + 8m = 10m</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-medium">Estabilidade Estrutural</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Média</td>
-                  <td className="p-3 text-center text-growth-green">N/A</td>
-                  <td className="p-3 text-center text-system-warning">Alta</td>
-                  <td className="p-3 text-center text-system-info">Baixa</td>
+                  <td className="p-3 font-medium">Aplicação</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Segurança</td>
+                  <td className="p-3 text-center text-growth-green">Especificação</td>
+                  <td className="p-3 text-center text-system-warning">Navegação</td>
+                  <td className="p-3 text-center text-system-info">Estrutural</td>
                 </tr>
               </tbody>
             </table>
@@ -889,26 +898,26 @@ export default function PythagoreanTheoremCalculator() {
 
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-bold text-primary-blue-dark">🏠 Construção</h4>
+              <h4 className="mb-2 font-bold text-primary-blue-dark">🏗️ Construção Civil</h4>
               <p className="text-sm text-text-secondary">
-                Use <strong>retângulos</strong> para calcular áreas de cômodos, terrenos e
-                construções em geral.
+                Use o <strong>Teorema de Pitágoras</strong> para verificar esquadros, calcular vigas
+                diagonais e garantir ângulos retos em estruturas.
               </p>
             </div>
 
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h4 className="mb-2 font-bold text-growth-green">🌸 Paisagismo</h4>
+              <h4 className="mb-2 font-bold text-growth-green">📐 Engenharia</h4>
               <p className="text-sm text-text-secondary">
-                Prefira <strong>círculos</strong> para jardins, canteiros e áreas curvas que
-                precisam de cálculos de área.
+                Aplicação em <strong>cálculos de distâncias</strong>, dimensionamento de estruturas
+                triangulares e verificação de medidas.
               </p>
             </div>
 
             <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-              <h4 className="mb-2 font-bold text-system-warning">🏗️ Estruturas</h4>
+              <h4 className="mb-2 font-bold text-system-warning">🗺️ Navegação</h4>
               <p className="text-sm text-text-secondary">
-                Escolha <strong>triângulos</strong> para calcular telhados, treliças e estruturas
-                triangulares.
+                Usado em <strong>sistemas GPS</strong> para calcular distâncias diretas entre dois
+                pontos com coordenadas.
               </p>
             </div>
           </div>
@@ -974,13 +983,17 @@ export default function PythagoreanTheoremCalculator() {
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora do Teorema de Pitágoras</strong>{" "}
+              <strong className="text-primary-blue-dark">
+                calculadora do Teorema de Pitágoras
+              </strong>{" "}
               utiliza <strong className="text-growth-green">fórmulas matemáticas precisas</strong>{" "}
               para calcular a hipotenusa ou cateto faltante em triângulos retângulos com resultados
               instantâneos.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo de hipotenusa (h² = a² + b²), cálculo de cateto faltante (c² = h² - a²), verificação automática dos resultados e explicação passo a passo.
+              <strong>Funcionalidades:</strong> Cálculo de hipotenusa (h² = a² + b²), cálculo de
+              cateto faltante (c² = h² - a²), verificação automática dos resultados e explicação
+              passo a passo.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
@@ -989,8 +1002,8 @@ export default function PythagoreanTheoremCalculator() {
               outras variáveis específicas do projeto.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📐 Teorema de Pitágoras • 🔒 Dados não armazenados • 📱 Compatível
-              com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 📐 Teorema de Pitágoras • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
