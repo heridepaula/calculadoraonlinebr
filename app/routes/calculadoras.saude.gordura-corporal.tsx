@@ -104,7 +104,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora gordura corporal, percentual gordura, massa magra, composição corporal, bioimpedancia",
+        "calculadora gordura corporal, percentual gordura, massa magra, composição corporal, bioimpedancia, US Navy, Jackson-Pollock, IMC, análise corporal, BF calculator, body fat",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
@@ -144,11 +144,11 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Regra de 3 Simples e Composta Online 2025",
+        name: "Calculadora de Gordura Corporal Online 2025",
         description:
-          "Ferramenta educacional online gratuita para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo e resultados instantâneos.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
-        applicationCategory: "EducationalApplication",
+          "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal. Métodos científicos US Navy e Jackson-Pollock com análise personalizada.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+        applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
@@ -175,10 +175,10 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
-          name: "Calculadora de Regra de 3 Simples e Composta - Matemática Educacional",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+          name: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
           description:
-            "Ferramenta educacional online para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo.",
+            "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal usando métodos científicos US Navy e Jackson-Pollock.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -194,23 +194,23 @@ export const meta: MetaFunction = () => {
         },
         about: {
           "@type": "Thing",
-          name: "Regra de Três",
+          name: "Gordura Corporal",
           description:
-            "Processo matemático para resolver problemas de proporcionalidade: regra de três simples direta, inversa e composta",
-          category: "Mathematics",
+            "Percentual de tecido adiposo no corpo humano, indicador importante de saúde e composição corporal",
+          category: "Health",
         },
         featureList: [
-          "Regra de 3 simples direta",
-          "Regra de 3 simples inversa",
-          "Regra de 3 composta",
-          "Resolução passo a passo",
-          "Verificação automática",
-          "Proporções matemáticas",
-          "Cálculos precisos",
+          "Cálculo de percentual de gordura corporal",
+          "Método US Navy científico",
+          "Método Jackson-Pollock",
+          "Análise de composição corporal",
+          "Cálculo de massa magra e gordura",
+          "Comparativo com pessoa saudável",
+          "Classificação por idade e gênero",
           "Interface móvel responsiva",
           "Resultados em tempo real",
-          "Explicação detalhada",
-          "Identificação de tipo automática",
+          "Análise de risco à saúde",
+          "Validação científica",
         ],
       }),
     },
@@ -221,34 +221,34 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
-            name: "O que é regra de três?",
+            name: "O que é gordura corporal?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A regra de três é um processo matemático usado para resolver problemas de proporcionalidade entre grandezas diretamente ou inversamente proporcionais, permitindo encontrar um valor desconhecido em uma proporção.",
+              text: "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
             },
           },
           {
             "@type": "Question",
-            name: "Qual a diferença entre regra de três simples direta e inversa?",
+            name: "Qual é o percentual de gordura corporal ideal?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Na regra de três direta, quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Na inversa, quando uma grandeza aumenta, a outra diminui proporcionalmente.",
+              text: "O percentual ideal varia por idade e gênero. Para homens: 8-24% (dependendo da idade). Para mulheres: 16-31%. Atletas podem ter valores menores, enquanto níveis acima de 25% (homens) ou 32% (mulheres) indicam obesidade.",
             },
           },
           {
             "@type": "Question",
-            name: "Como montar uma regra de três?",
+            name: "Como calcular gordura corporal em casa?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Identifique as grandezas envolvidas, determine se são diretamente ou inversamente proporcionais, monte a proporção (A:B :: C:X) e resolva através da multiplicação cruzada.",
+              text: "Use fita métrica para medir pescoço, cintura e quadril (mulheres). Aplique o método US Navy ou use nossa calculadora online gratuita que faz os cálculos automaticamente com base nas suas medidas.",
             },
           },
           {
             "@type": "Question",
-            name: "Como verificar se o resultado está correto?",
+            name: "Qual a diferença entre método US Navy e Jackson-Pollock?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Para verificar, substitua o valor encontrado na proporção original e verifique se as razões são iguais (para proporção direta) ou se os produtos são iguais (para proporção inversa).",
+              text: "O método US Navy usa circunferências corporais (pescoço, cintura, quadril) e é mais acessível. O Jackson-Pollock tradicionalmente usa dobras cutâneas com adipômetro, mas nossa versão simplificada usa medidas corporais para maior praticidade.",
             },
           },
         ],
@@ -258,37 +258,72 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",
-        name: "Como usar a Calculadora de Regra de Três",
+        name: "Como usar a Calculadora de Gordura Corporal",
         description:
-          "Aprenda a resolver problemas de regra de três simples e composta de forma simples e precisa com nossa calculadora online gratuita",
+          "Aprenda a calcular seu percentual de gordura corporal de forma precisa com métodos científicos usando nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
-            name: "Selecione o tipo",
-            text: "Escolha entre regra de três simples direta ou inversa, dependendo da relação entre as grandezas do problema.",
+            name: "Selecione o método",
+            text: "Escolha entre método US Navy (mais acessível) ou Jackson-Pollock (simplificado), dependendo da sua preferência e disponibilidade de medidas.",
           },
           {
             "@type": "HowToStep",
-            name: "Insira os valores conhecidos",
-            text: "Digite os três valores conhecidos nos campos A, B e C. Certifique-se de que todos são números válidos e diferentes de zero quando necessário.",
+            name: "Insira seus dados pessoais",
+            text: "Digite sua idade, peso, altura e selecione seu gênero. Essas informações são necessárias para cálculos precisos de composição corporal.",
           },
           {
             "@type": "HowToStep",
-            name: "Calcule o resultado",
-            text: "Clique no botão 'Calcular' para obter o valor de X, a proporção montada e a resolução passo a passo completa.",
+            name: "Faça as medidas corporais",
+            text: "Use fita métrica para medir circunferência do pescoço, cintura e quadril (se mulher). Siga as instruções de como medir corretamente.",
           },
           {
             "@type": "HowToStep",
             name: "Analise os resultados",
-            text: "Veja o valor de X calculado, a proporção matemática formada, a resolução detalhada passo a passo e a verificação do resultado.",
+            text: "Veja seu percentual de gordura, massa magra, massa gorda, classificação de saúde e comparação com valores ideais para sua idade e gênero.",
           },
         ],
         tool: [
           {
             "@type": "HowToTool",
-            name: "Calculadora de Regra de Três Online",
+            name: "Calculadora de Gordura Corporal Online",
           },
         ],
+      }),
+    },
+    // Adicionar WebPage Schema separado para melhor estruturação
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+        name: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
+        description:
+          "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal usando métodos científicos US Navy e Jackson-Pollock.",
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-30",
+        lastReviewed: "2025-08-30",
+        isPartOf: {
+          "@type": "WebSite",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+        },
+        about: [
+          {
+            "@type": "Thing", 
+            name: "Gordura Corporal",
+            description: "Percentual de tecido adiposo no corpo humano"
+          },
+          {
+            "@type": "Thing",
+            name: "Composição Corporal", 
+            description: "Análise da distribuição de massa magra e gorda"
+          }
+        ],
+        audience: {
+          "@type": "Audience",
+          audienceType: "Pessoas interessadas em saúde e fitness"
+        }
       }),
     },
   ];
@@ -1091,90 +1126,89 @@ export default function BodyFatCalculator() {
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Calculadora de Regra de Três"
+        title="Perguntas Frequentes - Calculadora de Gordura Corporal"
         items={[
           {
-            question: "O que é regra de três?",
+            question: "O que é gordura corporal?",
             answer:
-              "A regra de três é um processo matemático usado para resolver problemas de proporcionalidade entre grandezas diretamente ou inversamente proporcionais, permitindo encontrar um valor desconhecido em uma proporção.",
+              "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
             borderColor: "primary-blue",
           },
           {
-            question: "Qual a diferença entre regra de três simples direta e inversa?",
+            question: "Qual é o percentual de gordura corporal ideal?",
             answer:
-              "Na regra de três direta, quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Na inversa, quando uma grandeza aumenta, a outra diminui proporcionalmente.",
+              "O percentual ideal varia por idade e gênero. Para homens: 8-24% (dependendo da idade). Para mulheres: 16-31%. Atletas podem ter valores menores, enquanto níveis acima de 25% (homens) ou 32% (mulheres) indicam obesidade.",
             borderColor: "growth-green",
           },
           {
-            question: "Como montar uma regra de três?",
+            question: "Como calcular gordura corporal em casa?",
             answer:
-              "Identifique as grandezas envolvidas, determine se são diretamente ou inversamente proporcionais, monte a proporção (A:B :: C:X) e resolva através da multiplicação cruzada.",
+              "Use fita métrica para medir pescoço, cintura e quadril (mulheres). Aplique o método US Navy ou use nossa calculadora online gratuita que faz os cálculos automaticamente com base nas suas medidas.",
             borderColor: "system-info",
           },
           {
-            question: "O que é regra de três composta?",
+            question: "Qual a diferença entre método US Navy e Jackson-Pollock?",
             answer:
-              "A regra de três composta envolve mais de duas grandezas proporcionais. É usada quando o problema apresenta três ou mais grandezas relacionadas entre si.",
+              "O método US Navy usa circunferências corporais (pescoço, cintura, quadril) e é mais acessível. O Jackson-Pollock tradicionalmente usa dobras cutâneas com adipômetro, mas nossa versão simplificada usa medidas corporais para maior praticidade.",
             borderColor: "system-warning",
           },
           {
-            question: "Como verificar se o resultado está correto?",
+            question: "Como medir corretamente as circunferências?",
             answer:
-              "Para verificar, substitua o valor encontrado na proporção original e verifique se as razões são iguais (para proporção direta) ou se os produtos são iguais (para proporção inversa).",
+              "Use fita métrica flexível. Pescoço: logo abaixo do pomo de Adão. Cintura: ponto mais estreito do abdômen. Quadril (mulheres): ponto mais largo. Mantenha a fita paralela ao chão sem apertar demais.",
             borderColor: "growth-green",
           },
           {
-            question: "Quando usar cada tipo de regra de três?",
+            question: "Gordura corporal é mais importante que IMC?",
             answer:
-              "Use regra de três direta quando as grandezas aumentam/diminuem juntas (ex: mais produtos, mais dinheiro). Use inversa quando uma aumenta e outra diminui (ex: mais velocidade, menos tempo).",
+              "Sim, o percentual de gordura corporal é mais preciso que o IMC para avaliar saúde e fitness. O IMC não diferencia massa magra de gorda, enquanto a gordura corporal fornece informações específicas sobre composição corporal.",
             borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica Importante sobre Regra de Três",
+          title: "Dica Importante sobre Gordura Corporal",
           content:
-            "<strong>Para resultados precisos:</strong> sempre identifique corretamente se as grandezas são direta ou inversamente proporcionais antes de montar a proporção.",
+            "<strong>Para resultados precisos:</strong> meça sempre no mesmo horário, evite exercícios intensos antes da medição e mantenha postura ereta e relaxada durante as medidas.",
         }}
-        footerText="<strong>Lembre-se:</strong> Proporção direta: grandezas aumentam/diminuem juntas. Proporção inversa: uma aumenta quando a outra diminui. Sempre verifique o resultado."
+        footerText="<strong>Lembre-se:</strong> O percentual de gordura corporal é mais preciso que o IMC para avaliar saúde. Consulte profissionais de saúde para interpretação completa dos resultados."
       />
 
       {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Como Usar Esta Calculadora de Regra de Três
+            📚 Como Usar Esta Calculadora de Gordura Corporal
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de regra de três</strong>{" "}
-              permite resolver{" "}
-              <strong className="text-growth-green">problemas de proporcionalidade</strong>: regra
-              de 3 simples direta, inversa e composta com precisão matemática e resultados
-              instantâneos.
+              Esta <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
+              permite calcular{" "}
+              <strong className="text-growth-green">composição corporal precisa</strong>: percentual
+              de gordura, massa magra e análise de saúde com métodos científicos validados.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Identificação automática do tipo de proporção,
-              resolução passo a passo, verificação dos resultados e explicação detalhada do processo
-              de cálculo.
+              <strong>Funcionalidades:</strong> Métodos US Navy e Jackson-Pollock, análise por idade
+              e gênero, comparativo com pessoa saudável, classificação de risco à saúde e cálculo
+              de IMC integrado.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e resolução de exercícios. Para aplicações científicas ou de
-              engenharia que exigem alta precisão, consulte sempre um{" "}
-              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              fins informativos e acompanhamento pessoal. Para avaliações médicas ou nutricionais
+              profissionais, consulte sempre um{" "}
+              <strong>profissional de saúde qualificado</strong>. 
               Explore também nossas calculadoras de
               <a
-                href="/calculadoras/matematica/porcentagem"
+                href="/calculadoras/saude/imc"
                 className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
               >
-                porcentagem
+                IMC
               </a>
-              para complementar seus estudos matemáticos.
+              para complementar sua análise de saúde.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📏 Regra de Três • 🔒 Dados não armazenados • 📱 Compatível com
+              🔎 Foco em saúde • 📏 Gordura Corporal • 🔒 Dados não armazenados • 📱 Compatível com
               todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
