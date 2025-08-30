@@ -40,11 +40,6 @@ export const meta: MetaFunction = () => {
     },
     { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
     {
-      name: "keywords",
-      content:
-        "desenvolvimento infantil, crescimento criança, percentil altura peso, marcos desenvolvimento",
-    },
-    {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
@@ -69,7 +64,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+        "https://calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
     },
     {
       property: "og:image:alt",
@@ -103,7 +98,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+        "https://calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
     },
     {
       name: "twitter:image:alt",
@@ -117,9 +112,8 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -201,13 +195,24 @@ export const meta: MetaFunction = () => {
             ],
           },
         },
-        about: {
-          "@type": "MedicalCondition",
-          name: "Desenvolvimento Infantil",
-          description:
-            "Processo de crescimento físico, cognitivo, emocional e social das crianças, monitorado através de percentis de altura, peso e marcos do desenvolvimento",
-          category: "Pediatrics",
-        },
+        about: [
+          {
+            "@type": "MedicalCondition",
+            name: "Desenvolvimento Infantil",
+            description:
+              "Processo de crescimento físico, cognitivo, emocional e social das crianças, monitorado através de percentis de altura, peso e marcos do desenvolvimento",
+            category: "Pediatrics",
+          },
+          {
+            "@type": "MedicalTest",
+            name: "Avaliação de Percentis de Crescimento",
+            description: "Análise comparativa do crescimento infantil baseada em padrões da OMS",
+            usedToDiagnose: {
+              "@type": "MedicalCondition",
+              name: "Distúrbios de Crescimento Infantil",
+            },
+          },
+        ],
         featureList: [
           "Cálculo de percentis de altura e peso baseados na OMS",
           "Gráficos de crescimento interativos",
@@ -218,6 +223,32 @@ export const meta: MetaFunction = () => {
           "Dados não armazenados garantindo privacidade",
           "Ferramenta educacional para pais e profissionais",
         ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "MedicalWebPage",
+        name: "Calculadora de Desenvolvimento Infantil - Percentis e Crescimento",
+        description:
+          "Ferramenta médica educacional para monitoramento do crescimento infantil baseada em padrões da OMS",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+        inLanguage: "pt-BR",
+        medicalAudience: [
+          {
+            "@type": "MedicalAudience",
+            audienceType: "Pais e cuidadores",
+          },
+          {
+            "@type": "MedicalAudience",
+            audienceType: "Pediatras",
+          },
+        ],
+        lastReviewed: new Date().toISOString().split("T")[0],
+        reviewedBy: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR - Equipe Médica",
+        },
       }),
     },
     {
@@ -384,43 +415,42 @@ export default function ChildDevelopmentCalculator() {
     if (type === "height") {
       let expectedHeight: number;
       let standardDeviation: number;
-      
+
       if (ageMonths <= 24) {
         // 0-24 months: rapid growth (gender-specific)
         const birthHeight = isMale ? 50.0 : 49.0; // Male vs Female birth height
         const growthRate = isMale ? 2.3 : 2.1; // Slightly different growth rates
-        expectedHeight = birthHeight + (ageMonths * growthRate) - (ageMonths * ageMonths * 0.02);
-        standardDeviation = 2.5 + (ageMonths * 0.1);
+        expectedHeight = birthHeight + ageMonths * growthRate - ageMonths * ageMonths * 0.02;
+        standardDeviation = 2.5 + ageMonths * 0.1;
       } else {
         // 24-60 months: steady growth (gender-specific)
         const height24m = isMale ? 87.0 : 85.0; // Male vs Female at 24 months
         const growthRate = isMale ? 0.65 : 0.6; // Males grow slightly faster
-        expectedHeight = height24m + ((ageMonths - 24) * growthRate);
+        expectedHeight = height24m + (ageMonths - 24) * growthRate;
         standardDeviation = 4.0;
       }
-      
+
       const zScore = (value - expectedHeight) / standardDeviation;
       return Math.round(Math.max(1, Math.min(99, normalCDFToPercentile(zScore))));
-      
     } else {
       // Weight calculation (gender-specific)
       let expectedWeight: number;
       let standardDeviation: number;
-      
+
       if (ageMonths <= 24) {
         // 0-24 months: rapid weight gain (gender-specific)
         const birthWeight = isMale ? 3.4 : 3.2; // Male vs Female birth weight
         const weightGain = isMale ? 0.42 : 0.38; // Males gain weight slightly faster
-        expectedWeight = birthWeight + (ageMonths * weightGain) - (ageMonths * ageMonths * 0.005);
-        standardDeviation = 0.8 + (ageMonths * 0.05);
+        expectedWeight = birthWeight + ageMonths * weightGain - ageMonths * ageMonths * 0.005;
+        standardDeviation = 0.8 + ageMonths * 0.05;
       } else {
         // 24-60 months: slower weight gain (gender-specific)
         const weight24m = isMale ? 12.2 : 11.5; // Male vs Female at 24 months
-        const weightGain = isMale ? 0.22 : 0.20; // Males continue to gain slightly more
-        expectedWeight = weight24m + ((ageMonths - 24) * weightGain);
+        const weightGain = isMale ? 0.22 : 0.2; // Males continue to gain slightly more
+        expectedWeight = weight24m + (ageMonths - 24) * weightGain;
         standardDeviation = 2.0;
       }
-      
+
       const zScore = (value - expectedWeight) / standardDeviation;
       return Math.round(Math.max(1, Math.min(99, normalCDFToPercentile(zScore))));
     }
@@ -430,11 +460,12 @@ export default function ChildDevelopmentCalculator() {
   const normalCDFToPercentile = (z: number): number => {
     // Approximation of normal CDF for z-score to percentile conversion
     const t = 1 / (1 + 0.2316419 * Math.abs(z));
-    const d = 0.3989423 * Math.exp(-z * z / 2);
-    let prob = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
-    
+    const d = 0.3989423 * Math.exp((-z * z) / 2);
+    let prob =
+      d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+
     if (z > 0) prob = 1 - prob;
-    
+
     return prob * 100;
   };
 
@@ -442,24 +473,24 @@ export default function ChildDevelopmentCalculator() {
   const generateGrowthCurveData = (type: "height" | "weight", isMale: boolean) => {
     const months = [];
     const percentiles = { P3: [], P10: [], P25: [], P50: [], P75: [], P90: [], P97: [] };
-    
+
     // Generate data points for 0-60 months (every 3 months for smoother curves)
     for (let month = 0; month <= 60; month += 3) {
       months.push(month);
-      
+
       if (type === "height") {
         // Height curve values (cm) - gender-specific
         let baseHeight: number;
         if (month <= 24) {
           const birthHeight = isMale ? 50.0 : 49.0;
           const growthRate = isMale ? 2.3 : 2.1;
-          baseHeight = birthHeight + (month * growthRate) - (month * month * 0.02);
+          baseHeight = birthHeight + month * growthRate - month * month * 0.02;
         } else {
           const height24m = isMale ? 87.0 : 85.0;
           const growthRate = isMale ? 0.65 : 0.6;
-          baseHeight = height24m + ((month - 24) * growthRate);
+          baseHeight = height24m + (month - 24) * growthRate;
         }
-        
+
         const stdDev = 4.0;
         percentiles.P3.push(Math.round(baseHeight - 1.88 * stdDev));
         percentiles.P10.push(Math.round(baseHeight - 1.28 * stdDev));
@@ -474,13 +505,13 @@ export default function ChildDevelopmentCalculator() {
         if (month <= 24) {
           const birthWeight = isMale ? 3.4 : 3.2;
           const weightGain = isMale ? 0.42 : 0.38;
-          baseWeight = birthWeight + (month * weightGain) - (month * month * 0.005);
+          baseWeight = birthWeight + month * weightGain - month * month * 0.005;
         } else {
           const weight24m = isMale ? 12.2 : 11.5;
-          const weightGain = isMale ? 0.22 : 0.20;
-          baseWeight = weight24m + ((month - 24) * weightGain);
+          const weightGain = isMale ? 0.22 : 0.2;
+          baseWeight = weight24m + (month - 24) * weightGain;
         }
-        
+
         const stdDev = 2.0;
         percentiles.P3.push(parseFloat((baseWeight - 1.88 * stdDev).toFixed(1)));
         percentiles.P10.push(parseFloat((baseWeight - 1.28 * stdDev).toFixed(1)));
@@ -491,22 +522,27 @@ export default function ChildDevelopmentCalculator() {
         percentiles.P97.push(parseFloat((baseWeight + 1.88 * stdDev).toFixed(1)));
       }
     }
-    
+
     return { months, percentiles };
   };
 
   // Find child's position on the curve
-  const getChildPositionOnCurve = (value: number, percentile: number, type: "height" | "weight", isMale: boolean) => {
+  const getChildPositionOnCurve = (
+    value: number,
+    percentile: number,
+    type: "height" | "weight",
+    isMale: boolean
+  ) => {
     const curveData = generateGrowthCurveData(type, isMale);
     const childAge = result ? Math.round(result.ageInMonths / 3) * 3 : 0;
     const monthIndex = curveData.months.indexOf(childAge);
-    
+
     if (monthIndex === -1) return null;
-    
+
     return {
       x: monthIndex,
       y: parseFloat(value.toString()),
-      percentile
+      percentile,
     };
   };
 
@@ -949,24 +985,32 @@ export default function ChildDevelopmentCalculator() {
                 {/* Gráfico de Altura */}
                 <div className="rounded-lg bg-gray-900 p-4">
                   <h5 className="mb-3 text-center font-semibold text-system-success">
-                    Crescimento Estatural - {gender === "masculino" ? "Meninos" : "Meninas"} (0-5 anos)
+                    Crescimento Estatural - {gender === "masculino" ? "Meninos" : "Meninas"} (0-5
+                    anos)
                   </h5>
                   <div className="h-80">
                     <Line
                       data={(() => {
                         const isMale = gender === "masculino";
                         const heightCurve = generateGrowthCurveData("height", isMale);
-                        const childPos = getChildPositionOnCurve(parseNumber(height), result.heightPercentile, "height", isMale);
-                        
+                        const childPos = getChildPositionOnCurve(
+                          parseNumber(height),
+                          result.heightPercentile,
+                          "height",
+                          isMale
+                        );
+
                         // Create labels for months (convert to user-friendly format)
-                        const monthLabels = heightCurve.months.map(month => {
+                        const monthLabels = heightCurve.months.map((month) => {
                           if (month === 0) return "0";
                           if (month < 12) return `${month}m`;
                           const years = Math.floor(month / 12);
                           const remainingMonths = month % 12;
-                          return remainingMonths === 0 ? `${years}a` : `${years}a${remainingMonths}m`;
+                          return remainingMonths === 0
+                            ? `${years}a`
+                            : `${years}a${remainingMonths}m`;
                         });
-                        
+
                         return {
                           labels: monthLabels,
                           datasets: [
@@ -1033,15 +1077,24 @@ export default function ChildDevelopmentCalculator() {
                               pointRadius: 0,
                               tension: 0.3,
                             },
-                            ...(childPos ? [{
-                              label: `${isMale ? "Menino" : "Menina"}`,
-                              data: heightCurve.months.map((_, index) => index === childPos.x ? childPos.y : null),
-                              backgroundColor: result.heightPercentile >= 10 && result.heightPercentile <= 90 ? "#10B981" : "#EF4444",
-                              borderColor: "#FFFFFF",
-                              pointRadius: 6,
-                              pointBorderWidth: 2,
-                              showLine: false,
-                            }] : [])
+                            ...(childPos
+                              ? [
+                                  {
+                                    label: `${isMale ? "Menino" : "Menina"}`,
+                                    data: heightCurve.months.map((_, index) =>
+                                      index === childPos.x ? childPos.y : null
+                                    ),
+                                    backgroundColor:
+                                      result.heightPercentile >= 10 && result.heightPercentile <= 90
+                                        ? "#10B981"
+                                        : "#EF4444",
+                                    borderColor: "#FFFFFF",
+                                    pointRadius: 6,
+                                    pointBorderWidth: 2,
+                                    showLine: false,
+                                  },
+                                ]
+                              : []),
                           ],
                         };
                       })()}
@@ -1060,7 +1113,7 @@ export default function ChildDevelopmentCalculator() {
                           },
                           tooltip: {
                             callbacks: {
-                              title: (context) => `Idade: ${context[0]?.label || ''}`,
+                              title: (context) => `Idade: ${context[0]?.label || ""}`,
                               label: (context) => {
                                 if (context.datasetIndex === 7) {
                                   return `Sua criança: ${context.parsed.y} cm (P${result.heightPercentile})`;
@@ -1105,34 +1158,49 @@ export default function ChildDevelopmentCalculator() {
                     />
                   </div>
                   <div className="mt-2 text-center text-xs text-text-secondary">
-                    Altura: <strong>{height} cm</strong> • Percentil: 
-                    <strong className={result.heightPercentile >= 10 && result.heightPercentile <= 90 ? "text-system-success" : "text-system-error"}>
+                    Altura: <strong>{height} cm</strong> • Percentil:
+                    <strong
+                      className={
+                        result.heightPercentile >= 10 && result.heightPercentile <= 90
+                          ? "text-system-success"
+                          : "text-system-error"
+                      }
+                    >
                       P{result.heightPercentile}
-                    </strong> ({result.heightStatus})
+                    </strong>{" "}
+                    ({result.heightStatus})
                   </div>
                 </div>
 
                 {/* Gráfico de Peso */}
                 <div className="rounded-lg bg-gray-900 p-4">
                   <h5 className="mb-3 text-center font-semibold text-system-warning">
-                    Crescimento Ponderal - {gender === "masculino" ? "Meninos" : "Meninas"} (0-5 anos)
+                    Crescimento Ponderal - {gender === "masculino" ? "Meninos" : "Meninas"} (0-5
+                    anos)
                   </h5>
                   <div className="h-80">
                     <Line
                       data={(() => {
                         const isMale = gender === "masculino";
                         const weightCurve = generateGrowthCurveData("weight", isMale);
-                        const childPos = getChildPositionOnCurve(parseNumber(weight), result.weightPercentile, "weight", isMale);
-                        
+                        const childPos = getChildPositionOnCurve(
+                          parseNumber(weight),
+                          result.weightPercentile,
+                          "weight",
+                          isMale
+                        );
+
                         // Create labels for months (convert to user-friendly format)
-                        const monthLabels = weightCurve.months.map(month => {
+                        const monthLabels = weightCurve.months.map((month) => {
                           if (month === 0) return "0";
                           if (month < 12) return `${month}m`;
                           const years = Math.floor(month / 12);
                           const remainingMonths = month % 12;
-                          return remainingMonths === 0 ? `${years}a` : `${years}a${remainingMonths}m`;
+                          return remainingMonths === 0
+                            ? `${years}a`
+                            : `${years}a${remainingMonths}m`;
                         });
-                        
+
                         return {
                           labels: monthLabels,
                           datasets: [
@@ -1199,15 +1267,24 @@ export default function ChildDevelopmentCalculator() {
                               pointRadius: 0,
                               tension: 0.3,
                             },
-                            ...(childPos ? [{
-                              label: `${isMale ? "Menino" : "Menina"}`,
-                              data: weightCurve.months.map((_, index) => index === childPos.x ? childPos.y : null),
-                              backgroundColor: result.weightPercentile >= 10 && result.weightPercentile <= 90 ? "#10B981" : "#EF4444",
-                              borderColor: "#FFFFFF",
-                              pointRadius: 6,
-                              pointBorderWidth: 2,
-                              showLine: false,
-                            }] : [])
+                            ...(childPos
+                              ? [
+                                  {
+                                    label: `${isMale ? "Menino" : "Menina"}`,
+                                    data: weightCurve.months.map((_, index) =>
+                                      index === childPos.x ? childPos.y : null
+                                    ),
+                                    backgroundColor:
+                                      result.weightPercentile >= 10 && result.weightPercentile <= 90
+                                        ? "#10B981"
+                                        : "#EF4444",
+                                    borderColor: "#FFFFFF",
+                                    pointRadius: 6,
+                                    pointBorderWidth: 2,
+                                    showLine: false,
+                                  },
+                                ]
+                              : []),
                           ],
                         };
                       })()}
@@ -1226,7 +1303,7 @@ export default function ChildDevelopmentCalculator() {
                           },
                           tooltip: {
                             callbacks: {
-                              title: (context) => `Idade: ${context[0]?.label || ''}`,
+                              title: (context) => `Idade: ${context[0]?.label || ""}`,
                               label: (context) => {
                                 if (context.datasetIndex === 7) {
                                   return `Sua criança: ${context.parsed.y} kg (P${result.weightPercentile})`;
@@ -1271,10 +1348,17 @@ export default function ChildDevelopmentCalculator() {
                     />
                   </div>
                   <div className="mt-2 text-center text-xs text-text-secondary">
-                    Peso: <strong>{weight} kg</strong> • Percentil: 
-                    <strong className={result.weightPercentile >= 10 && result.weightPercentile <= 90 ? "text-system-success" : "text-system-error"}>
+                    Peso: <strong>{weight} kg</strong> • Percentil:
+                    <strong
+                      className={
+                        result.weightPercentile >= 10 && result.weightPercentile <= 90
+                          ? "text-system-success"
+                          : "text-system-error"
+                      }
+                    >
                       P{result.weightPercentile}
-                    </strong> ({result.weightStatus})
+                    </strong>{" "}
+                    ({result.weightStatus})
                   </div>
                 </div>
               </div>
@@ -1344,10 +1428,10 @@ export default function ChildDevelopmentCalculator() {
       {result && (
         <Card className="border-2 border-system-success bg-gradient-to-r from-system-success/5 to-primary-blue/5">
           <CardHeader>
-            <CardTitle as="h2" className="text-2xl font-bold text-center text-system-success">
+            <CardTitle as="h2" className="text-center text-2xl font-bold text-system-success">
               🎯 Marcos de Desenvolvimento - Checklist Interativo
             </CardTitle>
-            <p className="text-center text-sm text-text-secondary mt-2">
+            <p className="mt-2 text-center text-sm text-text-secondary">
               Acompanhe o progresso da sua criança nos marcos esperados para a idade
             </p>
           </CardHeader>
@@ -1356,7 +1440,7 @@ export default function ChildDevelopmentCalculator() {
               {/* Marcos Atuais */}
               <Card className="border-2 border-system-success bg-system-success/5">
                 <CardHeader>
-                  <CardTitle as="h3" className="text-system-success text-center">
+                  <CardTitle as="h3" className="text-center text-system-success">
                     🎯 Marcos Esperados para a Idade
                   </CardTitle>
                   <div className="text-center">
@@ -1368,21 +1452,26 @@ export default function ChildDevelopmentCalculator() {
                 <CardContent>
                   <div className="space-y-3">
                     {result.milestones.milestones.map((milestone, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-system-success/10 border border-system-success/20">
+                      <div
+                        key={index}
+                        className="flex items-center gap-3 rounded-lg border border-system-success/20 bg-system-success/10 p-3"
+                      >
                         <div className="flex-shrink-0">
-                          <div className="h-8 w-8 rounded-full bg-system-success flex items-center justify-center">
-                            <span className="text-white text-sm font-bold">✓</span>
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-system-success">
+                            <span className="text-sm font-bold text-white">✓</span>
                           </div>
                         </div>
-                        <span className="text-sm font-medium text-text-primary flex-1">{milestone}</span>
+                        <span className="flex-1 text-sm font-medium text-text-primary">
+                          {milestone}
+                        </span>
                       </div>
                     ))}
                   </div>
-                  
-                  <div className="mt-6 p-4 bg-system-success/15 rounded-lg border-l-4 border-system-success">
+
+                  <div className="mt-6 rounded-lg border-l-4 border-system-success bg-system-success/15 p-4">
                     <p className="text-sm text-system-success-dark">
-                      🎆 <strong>Parabéns!</strong> Estes são os marcos esperados para a idade atual da criança. 
-                      Cada conquista é uma vitória importante no desenvolvimento!
+                      🎆 <strong>Parabéns!</strong> Estes são os marcos esperados para a idade atual
+                      da criança. Cada conquista é uma vitória importante no desenvolvimento!
                     </p>
                   </div>
                 </CardContent>
@@ -1391,48 +1480,57 @@ export default function ChildDevelopmentCalculator() {
               {/* Próximos Marcos */}
               <Card className="border-2 border-primary-blue bg-primary-blue/5">
                 <CardHeader>
-                  <CardTitle as="h3" className="text-primary-blue-dark text-center">
+                  <CardTitle as="h3" className="text-center text-primary-blue-dark">
                     🔮 Próximos Marcos do Desenvolvimento
                   </CardTitle>
                   <div className="text-center">
                     <span className="inline-block rounded-lg bg-primary-blue/20 px-3 py-1 text-sm font-semibold text-primary-blue-dark">
-                      Aos {Math.floor(result.nextMilestones.age / 12)} anos e {result.nextMilestones.age % 12} meses
+                      Aos {Math.floor(result.nextMilestones.age / 12)} anos e{" "}
+                      {result.nextMilestones.age % 12} meses
                     </span>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
                     {result.nextMilestones.milestones.map((milestone, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-primary-blue/10 border border-primary-blue/20">
+                      <div
+                        key={index}
+                        className="flex items-center gap-3 rounded-lg border border-primary-blue/20 bg-primary-blue/10 p-3"
+                      >
                         <div className="flex-shrink-0">
-                          <div className="h-8 w-8 rounded-full bg-primary-blue flex items-center justify-center">
-                            <span className="text-white text-sm">⏳</span>
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-blue">
+                            <span className="text-sm text-white">⏳</span>
                           </div>
                         </div>
-                        <span className="text-sm font-medium text-text-primary flex-1">{milestone}</span>
+                        <span className="flex-1 text-sm font-medium text-text-primary">
+                          {milestone}
+                        </span>
                       </div>
                     ))}
                   </div>
-                  
-                  <div className="mt-6 p-4 bg-primary-blue/15 rounded-lg border-l-4 border-primary-blue">
+
+                  <div className="mt-6 rounded-lg border-l-4 border-primary-blue bg-primary-blue/15 p-4">
                     <p className="text-sm text-primary-blue-dark">
-                      🌱 <strong>Em breve:</strong> Estes marcos geralmente aparecem nos próximos meses. 
-                      Continue estimulando o desenvolvimento com amor e paciência!
+                      🌱 <strong>Em breve:</strong> Estes marcos geralmente aparecem nos próximos
+                      meses. Continue estimulando o desenvolvimento com amor e paciência!
                     </p>
                   </div>
                 </CardContent>
               </Card>
             </div>
-            
+
             {/* Alerta Educativo Destacado */}
-            <div className="mt-8 p-4 bg-gradient-to-r from-health-red/10 to-system-warning/10 border-l-4 border-health-red rounded-lg">
-              <h4 className="font-bold text-health-red mb-2 flex items-center gap-2">
+            <div className="mt-8 rounded-lg border-l-4 border-health-red bg-gradient-to-r from-health-red/10 to-system-warning/10 p-4">
+              <h4 className="mb-2 flex items-center gap-2 font-bold text-health-red">
                 ⚠️ Importante Lembrar
               </h4>
               <p className="text-sm text-text-secondary">
-                <strong>Cada criança é única!</strong> Estes marcos são referências gerais baseadas em padrões da OMS. 
-                Algumas crianças podem alcançar marcos mais cedo ou mais tarde, e isso é completamente normal. 
-                <strong className="text-health-red">Em caso de dúvidas, sempre consulte um pediatra.</strong>
+                <strong>Cada criança é única!</strong> Estes marcos são referências gerais baseadas
+                em padrões da OMS. Algumas crianças podem alcançar marcos mais cedo ou mais tarde, e
+                isso é completamente normal.
+                <strong className="text-health-red">
+                  Em caso de dúvidas, sempre consulte um pediatra.
+                </strong>
               </p>
             </div>
           </CardContent>
