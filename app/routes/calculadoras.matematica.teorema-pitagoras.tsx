@@ -19,12 +19,10 @@ export const meta: MetaFunction = () => {
     {
       title:
         "Calculadora do Teorema de Pitágoras ⚡ Grátis - Hipotenusa e Catetos | CalculadoraOnlineBR",
-        "Calculadora do Teorema de Pitágoras ⚡ Grátis - Hipotenusa e Catetos | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos para estudos.",
         "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
@@ -40,7 +38,6 @@ export const meta: MetaFunction = () => {
     {
       rel: "canonical",
       href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     {
       property: "og:title",
@@ -51,11 +48,9 @@ export const meta: MetaFunction = () => {
       property: "og:description",
       content:
         "Calcule hipotenusa e catetos de triângulos retângulos usando o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos.",
-        "Calcule hipotenusa e catetos de triângulos retângulos usando o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos.",
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
       content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
     },
     {
@@ -74,7 +69,6 @@ export const meta: MetaFunction = () => {
     {
       property: "og:url",
       content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -82,22 +76,18 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:title",
       content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
-      content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       name: "twitter:description",
       content:
         "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas.",
-        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas.",
     },
     {
       name: "twitter:image",
       content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-teorema-pitagoras.webp",
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora do Teorema de Pitágoras - Triângulos retângulos",
       content: "Calculadora do Teorema de Pitágoras - Triângulos retângulos",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
@@ -855,8 +845,8 @@ export default function PythagoreanTheoremCalculator() {
       <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Exemplos Práticos: Aplicações do Teorema de Pitágoras
-            ⚖️ Exemplos Práticos: Aplicações do Teorema de Pitágoras
+            ⚖️ Exemplos Práticos: Aplicações do Teorema de Pitágoras ⚖️ Exemplos Práticos:
+            Aplicações do Teorema de Pitágoras
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -867,8 +857,7 @@ export default function PythagoreanTheoremCalculator() {
                   <th className="p-3 text-left font-semibold">Situação</th>
                   <th className="p-3 text-left font-semibold">Situação</th>
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    Escada na Parede
-                    Escada na Parede
+                    Escada na Parede Escada na Parede
                   </th>
                   <th className="p-3 text-center font-semibold text-growth-green">Diagonal TV</th>
                   <th className="p-3 text-center font-semibold text-system-warning">
