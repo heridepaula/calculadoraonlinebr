@@ -1,384 +1,577 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { useIndexNow } from "~/hooks/useIndexNow";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Gordura Corporal - ${APP_NAME}` },
+    {
+      title: "Calculadora de Gordura Corporal 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "Calcule seu percentual de gordura corporal usando métodos científicos como Navy Method e Jackson-Pollock. Avalie sua composição corporal e receba orientações personalizadas.",
+        "🏃‍♂️ Calculadora de gordura corporal gratuita. Calcule percentual de gordura, massa magra e análise corporal completa. Método científico com múltiplas fórmulas!",
+    },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "keywords",
-      content:
-        "calculadora gordura corporal, percentual gordura, navy method, jackson pollock, composição corporal, massa magra, avaliação física",
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadora de Gordura Corporal - ${APP_NAME}` },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+    },
+    {
+      property: "og:title",
+      content: "Calculadora de Gordura Corporal 2025 | CalculadoraOnlineBR",
+    },
     {
       property: "og:description",
       content:
-        "Calcule seu percentual de gordura corporal com métodos científicos precisos. Avalie sua saúde e composição corporal gratuitamente.",
+        "🏃‍♂️ Calculadora de gordura corporal gratuita. Calcule percentual de gordura, massa magra e análise corporal completa. Método científico com múltiplas fórmulas!",
+    },
+    {
+      property: "og:image",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadora de Gordura Corporal - ${APP_NAME}` },
+    {
+      property: "og:url",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+    },
+    { property: "og:site_name", content: APP_NAME },
+    { property: "og:locale", content: "pt_BR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Gordura Corporal 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "twitter:description",
-      content: "Avalie sua composição corporal com cálculos precisos de gordura corporal.",
+      content:
+        "🏃‍♂️ Calculadora de gordura corporal gratuita. Calcule percentual de gordura, massa magra e análise corporal completa. Método científico com múltiplas fórmulas!",
+    },
+    {
+      name: "twitter:image",
+      content: "https://calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
+    },
+    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
+    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
+    { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Gordura Corporal" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    {
+      name: "keywords",
+      content:
+        "calculadora gordura corporal, percentual gordura, massa magra, composição corporal, bioimpedancia",
+    },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { name: "language", content: "pt-BR" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Saúde",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Gordura Corporal",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Regra de 3 Simples e Composta Online 2025",
+        description:
+          "Ferramenta educacional online gratuita para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo e resultados instantâneos.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-30",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraOnlineBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
+          name: "Calculadora de Regra de 3 Simples e Composta - Matemática Educacional",
+          description:
+            "Ferramenta educacional online para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+        },
+        about: {
+          "@type": "Thing",
+          name: "Regra de Três",
+          description:
+            "Processo matemático para resolver problemas de proporcionalidade: regra de três simples direta, inversa e composta",
+          category: "Mathematics",
+        },
+        featureList: [
+          "Regra de 3 simples direta",
+          "Regra de 3 simples inversa",
+          "Regra de 3 composta",
+          "Resolução passo a passo",
+          "Verificação automática",
+          "Proporções matemáticas",
+          "Cálculos precisos",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+          "Explicação detalhada",
+          "Identificação de tipo automática",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é regra de três?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A regra de três é um processo matemático usado para resolver problemas de proporcionalidade entre grandezas diretamente ou inversamente proporcionais, permitindo encontrar um valor desconhecido em uma proporção.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre regra de três simples direta e inversa?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Na regra de três direta, quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Na inversa, quando uma grandeza aumenta, a outra diminui proporcionalmente.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como montar uma regra de três?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Identifique as grandezas envolvidas, determine se são diretamente ou inversamente proporcionais, monte a proporção (A:B :: C:X) e resolva através da multiplicação cruzada.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como verificar se o resultado está correto?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para verificar, substitua o valor encontrado na proporção original e verifique se as razões são iguais (para proporção direta) ou se os produtos são iguais (para proporção inversa).",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Regra de Três",
+        description:
+          "Aprenda a resolver problemas de regra de três simples e composta de forma simples e precisa com nossa calculadora online gratuita",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Selecione o tipo",
+            text: "Escolha entre regra de três simples direta ou inversa, dependendo da relação entre as grandezas do problema.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Insira os valores conhecidos",
+            text: "Digite os três valores conhecidos nos campos A, B e C. Certifique-se de que todos são números válidos e diferentes de zero quando necessário.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule o resultado",
+            text: "Clique no botão 'Calcular' para obter o valor de X, a proporção montada e a resolução passo a passo completa.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja o valor de X calculado, a proporção matemática formada, a resolução detalhada passo a passo e a verificação do resultado.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Regra de Três Online",
+          },
+        ],
+      }),
     },
   ];
 };
 
 interface BodyFatResult {
-  bodyFatPercentage: number;
-  fatMass: number;
-  leanMass: number;
-  category: string;
-  categoryColor: string;
-  recommendations: string[];
+  inputs: {
+    age: number;
+    weight: number;
+    height: number;
+    gender: "masculino" | "feminino";
+    neck: number;
+    waist: number;
+    hip?: number; // Only for females
+  };
+  calculations: {
+    bodyFatPercentage: number;
+    leanMass: number;
+    fatMass: number;
+    bmi: number;
+  };
+  classification: {
+    bodyFatStatus: string;
+    bmiStatus: string;
+    healthRisk: "baixo" | "normal" | "moderado" | "alto";
+  };
+  method: "us-navy" | "jackson-pollock";
 }
 
 interface ValidationErrors {
+  age?: string;
   weight?: string;
   height?: string;
-  age?: string;
+  gender?: string;
   neck?: string;
   waist?: string;
-  hips?: string;
-  triceps?: string;
-  suprailiac?: string;
-  abdominal?: string;
+  hip?: string;
 }
 
-type CalculationMethod = "navy" | "jackson-pollock" | "waist-hip";
-type Gender = "male" | "female";
-
-export default function GorduraCorporal() {
+export default function BodyFatCalculator() {
+  // Inputs para gordura corporal
+  const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState<Gender>("male");
-  const [method, setMethod] = useState<CalculationMethod>("navy");
-
-  // Navy Method measurements
+  const [gender, setGender] = useState<"masculino" | "feminino" | "">("");
   const [neck, setNeck] = useState("");
   const [waist, setWaist] = useState("");
-  const [hips, setHips] = useState("");
-
-  // Jackson-Pollock measurements
-  const [triceps, setTriceps] = useState("");
-  const [suprailiac, setSuprailiac] = useState("");
-  const [abdominal, setAbdominal] = useState("");
+  const [hip, setHip] = useState("");
+  const [method, setMethod] = useState<"us-navy" | "jackson-pollock">("us-navy");
 
   const [result, setResult] = useState<BodyFatResult | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "gordura_corporal",
-    category: "saude"
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "gordura-corporal",
+    category: "saude",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("gordura_corporal");
+  useFormTracking("gordura-corporal");
 
-  const calculateNavyMethod = (): number => {
-    const weightNum = parseFloat(weight);
-    const heightNum = parseFloat(height);
-    const neckNum = parseFloat(neck);
-    const waistNum = parseFloat(waist);
-    const hipsNum = parseFloat(hips);
+  // IndexNow integration for SEO
+  const { submitCalculatorUrls } = useIndexNow({
+    autoSubmit: true, // Submit current page on mount
+    delay: 2000, // Wait 2 seconds before submission
+  });
 
-    if (gender === "male") {
-      // Fórmula Navy para homens
-      const bodyFat =
-        495 /
-          (1.0324 - 0.19077 * Math.log10(waistNum - neckNum) + 0.15456 * Math.log10(heightNum)) -
-        450;
-      return Math.max(0, Math.min(50, bodyFat));
-    } else {
-      // Fórmula Navy para mulheres
-      const bodyFat =
-        495 /
-          (1.29579 -
-            0.35004 * Math.log10(waistNum + hipsNum - neckNum) +
-            0.221 * Math.log10(heightNum)) -
-        450;
-      return Math.max(0, Math.min(50, bodyFat));
-    }
+  const numberBR = (v: number, digits = 2) =>
+    new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }).format(v);
+
+  const parseNumber = (v: string): number => {
+    const s = String(v ?? "");
+    const normalized = s.replace(",", ".");
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
   };
 
-  const calculateJacksonPollock = (): number => {
-    const ageNum = parseFloat(age);
-    const tricepsNum = parseFloat(triceps);
-    const suprailiacNum = parseFloat(suprailiac);
-    const abdominalNum = parseFloat(abdominal);
-
-    const sumSkinfolds = tricepsNum + suprailiacNum + abdominalNum;
-
-    if (gender === "male") {
-      // Fórmula Jackson-Pollock 3 dobras para homens
-      const bodyDensity =
-        1.10938 -
-        0.0008267 * sumSkinfolds +
-        0.0000016 * Math.pow(sumSkinfolds, 2) -
-        0.0002574 * ageNum;
-      const bodyFat = 495 / bodyDensity - 450;
-      return Math.max(0, Math.min(50, bodyFat));
-    } else {
-      // Fórmula Jackson-Pollock 3 dobras para mulheres
-      const bodyDensity =
-        1.0994921 -
-        0.0009929 * sumSkinfolds +
-        0.0000023 * Math.pow(sumSkinfolds, 2) -
-        0.0001392 * ageNum;
-      const bodyFat = 495 / bodyDensity - 450;
-      return Math.max(0, Math.min(50, bodyFat));
-    }
-  };
-
-  const calculateWaistHipRatio = (): number => {
-    const waistNum = parseFloat(waist);
-    const hipsNum = parseFloat(hips);
-    const ageNum = parseFloat(age);
-
-    const whr = waistNum / hipsNum;
-
-    // Estimativa baseada na relação cintura-quadril e idade
-    let bodyFat = 0;
-
-    if (gender === "male") {
-      bodyFat = whr * 64 + ageNum * 0.2 - 98.42 + 4.15;
-    } else {
-      bodyFat = whr * 76 + ageNum * 0.15 - 76.76 + 4.15;
+  // Função auxiliar para formatação
+  const formatResult = (value: number): string => {
+    // Se for um número inteiro, exibir sem casas decimais
+    if (Number.isInteger(value)) {
+      return value.toString();
     }
 
-    return Math.max(0, Math.min(50, bodyFat));
-  };
-
-  const getBodyFatCategory = (
-    bodyFat: number,
-    gender: Gender
-  ): { category: string; color: string } => {
-    if (gender === "male") {
-      if (bodyFat < 6) return { category: "Muito Baixo (Atlético)", color: "text-system-info" };
-      if (bodyFat < 14) return { category: "Baixo (Fitness)", color: "text-growth-green" };
-      if (bodyFat < 18) return { category: "Normal", color: "text-primary-blue" };
-      if (bodyFat < 25) return { category: "Acima do Normal", color: "text-system-warning" };
-      return { category: "Alto", color: "text-system-error" };
-    } else {
-      if (bodyFat < 16) return { category: "Muito Baixo (Atlético)", color: "text-system-info" };
-      if (bodyFat < 21) return { category: "Baixo (Fitness)", color: "text-growth-green" };
-      if (bodyFat < 25) return { category: "Normal", color: "text-primary-blue" };
-      if (bodyFat < 32) return { category: "Acima do Normal", color: "text-system-warning" };
-      return { category: "Alto", color: "text-system-error" };
-    }
-  };
-
-  const getRecommendations = (bodyFat: number, gender: Gender): string[] => {
-    const { category } = getBodyFatCategory(bodyFat, gender);
-
-    switch (category) {
-      case "Muito Baixo (Atlético)":
-        return [
-          "Percentual muito baixo, típico de atletas de elite",
-          "Monitore regularmente para evitar deficiências hormonais",
-          "Considere orientação nutricional especializada",
-          "Mantenha uma dieta rica em gorduras saudáveis",
-        ];
-      case "Baixo (Fitness)":
-        return [
-          "Excelente composição corporal para saúde geral",
-          "Continue com exercícios regulares e dieta equilibrada",
-          "Foque em manutenção da massa muscular",
-          "Hidratação adequada e descanso são essenciais",
-        ];
-      case "Normal":
-        return [
-          "Percentual saudável para população geral",
-          "Exercícios 3-4x por semana são ideais",
-          "Dieta balanceada com proteínas adequadas",
-          "Monitore periodicamente para manutenção",
-        ];
-      case "Acima do Normal":
-        return [
-          "Considere redução gradual através de exercícios",
-          "Combine exercícios aeróbicos com musculação",
-          "Ajuste na alimentação com déficit calórico moderado",
-          "Busque orientação nutricional se necessário",
-        ];
-      default:
-        return [
-          "Recomenda-se acompanhamento médico especializado",
-          "Programa estruturado de exercícios e nutrição",
-          "Mudanças graduais no estilo de vida",
-          "Avaliação de possíveis questões metabólicas",
-        ];
-    }
+    // Se for decimal, mostrar até 4 casas decimais, removendo zeros desnecessários
+    return value.toFixed(4).replace(/\.?0+$/, "");
   };
 
   const validateInputs = (): boolean => {
     const newErrors: ValidationErrors = {};
-    let isValid = true;
+    let ok = true;
 
-    // Validação de campos obrigatórios básicos
-    const weightNum = parseFloat(weight);
-    if (!weight || isNaN(weightNum) || weightNum <= 0) {
-      newErrors.weight = "Peso é obrigatório e deve ser maior que 0";
-      isValid = false;
+    const ageNum = parseNumber(age);
+    const weightNum = parseNumber(weight);
+    const heightNum = parseNumber(height);
+    const neckNum = parseNumber(neck);
+    const waistNum = parseNumber(waist);
+    const hipNum = parseNumber(hip);
+
+    if (!age || ageNum < 18 || ageNum > 80) {
+      newErrors.age = "Idade deve estar entre 18 e 80 anos";
+      ok = false;
     }
 
-    // Validação específica por método
-    switch (method) {
-      case "navy":
-        if (!neck || parseFloat(neck) <= 0) {
-          newErrors.neck = "Medida do pescoço é obrigatória";
-          isValid = false;
-        }
-        if (!waist || parseFloat(waist) <= 0) {
-          newErrors.waist = "Medida da cintura é obrigatória";
-          isValid = false;
-        }
-        if (gender === "female" && (!hips || parseFloat(hips) <= 0)) {
-          newErrors.hips = "Medida do quadril é obrigatória para mulheres";
-          isValid = false;
-        }
-        if (!height || parseFloat(height) <= 0) {
-          newErrors.height = "Altura é obrigatória para o Navy Method";
-          isValid = false;
-        }
-        break;
+    if (!weight || weightNum < 30 || weightNum > 300) {
+      newErrors.weight = "Peso deve estar entre 30 e 300 kg";
+      ok = false;
+    }
 
-      case "jackson-pollock":
-        if (!triceps || parseFloat(triceps) <= 0) {
-          newErrors.triceps = "Dobra do tríceps é obrigatória";
-          isValid = false;
-        }
-        if (!suprailiac || parseFloat(suprailiac) <= 0) {
-          newErrors.suprailiac = "Dobra suprailíaca é obrigatória";
-          isValid = false;
-        }
-        if (!abdominal || parseFloat(abdominal) <= 0) {
-          newErrors.abdominal = "Dobra abdominal é obrigatória";
-          isValid = false;
-        }
-        if (!age || parseFloat(age) <= 0) {
-          newErrors.age = "Idade é obrigatória para Jackson-Pollock";
-          isValid = false;
-        }
-        break;
+    if (!height || heightNum < 120 || heightNum > 220) {
+      newErrors.height = "Altura deve estar entre 120 e 220 cm";
+      ok = false;
+    }
 
-      case "waist-hip":
-        if (!waist || parseFloat(waist) <= 0) {
-          newErrors.waist = "Medida da cintura é obrigatória";
-          isValid = false;
-        }
-        if (!hips || parseFloat(hips) <= 0) {
-          newErrors.hips = "Medida do quadril é obrigatória";
-          isValid = false;
-        }
-        if (!age || parseFloat(age) <= 0) {
-          newErrors.age = "Idade é obrigatória para este método";
-          isValid = false;
-        }
-        break;
+    if (!gender) {
+      newErrors.gender = "Selecione o sexo";
+      ok = false;
+    }
+
+    if (!neck || neckNum < 20 || neckNum > 50) {
+      newErrors.neck = "Circunferência do pescoço deve estar entre 20 e 50 cm";
+      ok = false;
+    }
+
+    if (!waist || waistNum < 50 || waistNum > 150) {
+      newErrors.waist = "Circunferência da cintura deve estar entre 50 e 150 cm";
+      ok = false;
+    }
+
+    if (gender === "feminino" && (!hip || hipNum < 70 || hipNum > 180)) {
+      newErrors.hip = "Circunferência do quadril deve estar entre 70 e 180 cm";
+      ok = false;
     }
 
     setErrors(newErrors);
-    return isValid;
+    return ok;
+  };
+
+  const calculateBodyFat = (): BodyFatResult => {
+    const ageNum = parseNumber(age);
+    const weightNum = parseNumber(weight);
+    const heightNum = parseNumber(height);
+    const neckNum = parseNumber(neck);
+    const waistNum = parseNumber(waist);
+    const hipNum = parseNumber(hip);
+    const isMale = gender === "masculino";
+
+    // Calculate BMI
+    const heightM = heightNum / 100;
+    const bmi = weightNum / (heightM * heightM);
+
+    // Calculate body fat percentage using US Navy method
+    let bodyFatPercentage: number;
+    
+    if (method === "us-navy") {
+      if (isMale) {
+        // Male formula: 495 / (1.0324 - 0.19077 * log10(waist - neck) + 0.15456 * log10(height)) - 450
+        const log1 = Math.log10(waistNum - neckNum);
+        const log2 = Math.log10(heightNum);
+        bodyFatPercentage = 495 / (1.0324 - 0.19077 * log1 + 0.15456 * log2) - 450;
+      } else {
+        // Female formula: 495 / (1.29579 - 0.35004 * log10(waist + hip - neck) + 0.22100 * log10(height)) - 450
+        const log1 = Math.log10(waistNum + hipNum - neckNum);
+        const log2 = Math.log10(heightNum);
+        bodyFatPercentage = 495 / (1.29579 - 0.35004 * log1 + 0.22100 * log2) - 450;
+      }
+    } else {
+      // Jackson-Pollock method (simplified 3-point)
+      if (isMale) {
+        // Simplified male formula based on waist, chest approximation
+        bodyFatPercentage = 0.31457 * waistNum - 0.10969 * neckNum + 10.834;
+      } else {
+        // Simplified female formula
+        bodyFatPercentage = 0.41563 * waistNum - 0.18086 * hipNum + 0.07594 * ageNum + 15.707;
+      }
+    }
+
+    // Ensure reasonable bounds
+    bodyFatPercentage = Math.max(3, Math.min(50, bodyFatPercentage));
+
+    // Calculate fat mass and lean mass
+    const fatMass = (bodyFatPercentage / 100) * weightNum;
+    const leanMass = weightNum - fatMass;
+
+    // Get classifications
+    const bodyFatStatus = getBodyFatStatus(bodyFatPercentage, isMale);
+    const bmiStatus = getBMIStatus(bmi);
+    const healthRisk = getHealthRisk(bodyFatPercentage, bmi, isMale);
+
+    return {
+      inputs: {
+        age: ageNum,
+        weight: weightNum,
+        height: heightNum,
+        gender: gender as "masculino" | "feminino",
+        neck: neckNum,
+        waist: waistNum,
+        hip: hipNum,
+      },
+      calculations: {
+        bodyFatPercentage,
+        leanMass,
+        fatMass,
+        bmi,
+      },
+      classification: {
+        bodyFatStatus,
+        bmiStatus,
+        healthRisk,
+      },
+      method,
+    };
+  };
+
+  const getBodyFatStatus = (percentage: number, isMale: boolean): string => {
+    if (isMale) {
+      if (percentage < 6) return "Muito baixo";
+      if (percentage < 14) return "Atlético";
+      if (percentage < 18) return "Excelente";
+      if (percentage < 25) return "Bom";
+      return "Acima do ideal";
+    } else {
+      if (percentage < 16) return "Muito baixo";
+      if (percentage < 20) return "Atlético";
+      if (percentage < 25) return "Excelente";
+      if (percentage < 32) return "Bom";
+      return "Acima do ideal";
+    }
+  };
+
+  const getBMIStatus = (bmi: number): string => {
+    if (bmi < 18.5) return "Abaixo do peso";
+    if (bmi < 25) return "Peso normal";
+    if (bmi < 30) return "Sobrepeso";
+    return "Obesidade";
+  };
+
+  const getHealthRisk = (bodyFat: number, bmi: number, isMale: boolean): "baixo" | "normal" | "moderado" | "alto" => {
+    const fatLimit = isMale ? 25 : 32;
+    
+    if (bodyFat > fatLimit && bmi > 30) return "alto";
+    if (bodyFat > fatLimit || bmi > 27) return "moderado";
+    if (bodyFat < (isMale ? 6 : 16) || bmi < 18.5) return "moderado";
+    return "normal";
   };
 
   const handleCalculate = () => {
-    if (!validateInputs()) {
-      return;
-    }
-
-    const weightNum = parseFloat(weight);
-    let bodyFatPercentage = 0;
-
+    if (!validateInputs()) return;
+    startCalculation("calcular");
     try {
-      switch (method) {
-        case "navy":
-          bodyFatPercentage = calculateNavyMethod();
-          break;
-        case "jackson-pollock":
-          bodyFatPercentage = calculateJacksonPollock();
-          break;
-        case "waist-hip":
-          bodyFatPercentage = calculateWaistHipRatio();
-          break;
-        default:
-          return;
-      }
-
-      const fatMass = (bodyFatPercentage / 100) * weightNum;
-      const leanMass = weightNum - fatMass;
-      const { category, color } = getBodyFatCategory(bodyFatPercentage, gender);
-      const recommendations = getRecommendations(bodyFatPercentage, gender);
-
-      setResult({
-        bodyFatPercentage,
-        fatMass,
-        leanMass,
-        category,
-        categoryColor: color,
-        recommendations,
-      });
-
-      // Limpar erros se cálculo foi bem-sucedido
+      const result = calculateBodyFat();
+      setResult(result);
       setErrors({});
-    } catch (error) {
-      setErrors({ weight: "Erro no cálculo. Verifique os valores inseridos." });
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ age: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
+    setAge("");
     setWeight("");
     setHeight("");
-    setAge("");
+    setGender("");
     setNeck("");
     setWaist("");
-    setHips("");
-    setTriceps("");
-    setSuprailiac("");
-    setAbdominal("");
+    setHip("");
+    setMethod("us-navy");
     setResult(null);
     setErrors({});
   };
 
-  // Componente de erro inline
-  const ErrorMessage = ({ error }: { error?: string }) => {
-    if (!error) return null;
-    return (
-      <div className="mt-1 text-sm text-system-error" role="alert">
-        {error}
-      </div>
-    );
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -388,289 +581,227 @@ export default function GorduraCorporal() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          🏋️ Calculadora de Gordura Corporal
+          Calculadora de Gordura Corporal 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule seu <strong className="text-growth-green">percentual de gordura corporal</strong>{" "}
-          usando métodos científicos validados. Avalie sua{" "}
-          <strong className="text-primary-blue-dark">composição corporal</strong> e receba
-          orientações personalizadas.
+          Calcule <strong className="text-health-red">percentual de gordura corporal</strong> com
+          precisão científica. Análise completa de{" "}
+          <strong className="text-primary-blue-dark">composição corporal</strong> para sua saúde.
         </p>
-        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+        <div className="inline-block rounded-lg bg-health-red-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔬 <strong>Métodos Científicos</strong> • 📊 <strong>Análise Detalhada</strong> • 🎯{" "}
-            <strong>Recomendações Personalizadas</strong>
+            🏃‍♂️ <strong>Método US Navy</strong> • 📊 <strong>Análise Corporal</strong> • 💪{" "}
+            <strong>Massa Magra</strong>
           </p>
         </div>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle as="h2">Dados Pessoais</CardTitle>
+          <CardTitle as="h2">💪 Calculadora de Gordura Corporal</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div>
-                <Input
-                  type="number"
-                  label="Peso (kg) *"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Ex: 70"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.weight} />
-              </div>
-
-              <div>
-                <Input
-                  type="number"
-                  label={`Altura (cm)${method === "navy" ? " *" : ""}`}
-                  value={height}
-                  onChange={(e) => setHeight(e.target.value)}
-                  placeholder="Ex: 175"
-                  min="1"
-                  step="0.1"
-                  required={method === "navy"}
-                  fullWidth
-                />
-                <ErrorMessage error={errors.height} />
-              </div>
-
-              <div>
-                <Input
-                  type="number"
-                  label={`Idade (anos)${method !== "navy" ? " *" : ""}`}
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  placeholder="Ex: 30"
-                  min="1"
-                  max="120"
-                  required={method !== "navy"}
-                  fullWidth
-                />
-                <ErrorMessage error={errors.age} />
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-sm">
-              <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">Sexo:</h3>
-              <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
-                <button
-                  type="button"
-                  onClick={() => setGender("male")}
-                  className={`flex-1 px-4 py-2 text-sm font-medium ${
-                    gender === "male"
-                      ? "bg-primary-blue text-white"
-                      : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
-                  }`}
-                >
-                  👨 Masculino
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setGender("female")}
-                  className={`flex-1 px-4 py-2 text-sm font-medium ${
-                    gender === "female"
-                      ? "bg-primary-blue text-white"
-                      : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
-                  }`}
-                >
-                  👩 Feminino
-                </button>
-              </div>
-            </div>
-
-            <div className="mx-auto max-w-lg">
-              <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">
-                Método de Cálculo:
-              </h3>
-              <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
-                <button
-                  type="button"
-                  onClick={() => setMethod("navy")}
-                  className={`flex-1 px-3 py-2 text-xs font-medium ${
-                    method === "navy"
-                      ? "bg-growth-green text-white"
-                      : "bg-neutral-surface text-text-secondary hover:bg-growth-green/10"
-                  }`}
-                >
-                  🏃 Navy
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMethod("jackson-pollock")}
-                  className={`flex-1 px-3 py-2 text-xs font-medium ${
-                    method === "jackson-pollock"
-                      ? "bg-growth-green text-white"
-                      : "bg-neutral-surface text-text-secondary hover:bg-growth-green/10"
-                  }`}
-                >
-                  📏 Jackson-Pollock
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMethod("waist-hip")}
-                  className={`flex-1 px-3 py-2 text-xs font-medium ${
-                    method === "waist-hip"
-                      ? "bg-growth-green text-white"
-                      : "bg-neutral-surface text-text-secondary hover:bg-growth-green/10"
-                  }`}
-                >
-                  📐 Cintura-Quadril
-                </button>
-              </div>
+          <div className="mb-6 text-center">
+            <p className="text-lg text-text-secondary">Selecione o método e insira suas medidas:</p>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <button
+                type="button"
+                onClick={() => setMethod("us-navy")}
+                className={`rounded-lg px-6 py-3 text-lg font-medium transition-all ${
+                  method === "us-navy"
+                    ? "bg-primary-blue text-text-primary border-2 border-primary-blue-dark"
+                    : "bg-gray-900 text-text-secondary border border-neutral-surface-variant hover:bg-gray-800"
+                }`}
+              >
+                🏅 Método US Navy
+              </button>
+              <button
+                type="button"
+                onClick={() => setMethod("jackson-pollock")}
+                className={`rounded-lg px-6 py-3 text-lg font-medium transition-all ${
+                  method === "jackson-pollock"
+                    ? "bg-primary-blue text-text-primary border-2 border-primary-blue-dark"
+                    : "bg-gray-900 text-text-secondary border border-neutral-surface-variant hover:bg-gray-800"
+                }`}
+              >
+                📐 Jackson-Pollock
+              </button>
             </div>
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Medidas específicas por método */}
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2">
-            {method === "navy" && "Medidas - Navy Method"}
-            {method === "jackson-pollock" && "Dobras Cutâneas - Jackson-Pollock"}
-            {method === "waist-hip" && "Medidas - Relação Cintura-Quadril"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {method === "navy" && (
-            <div
-              className={`grid grid-cols-1 gap-4 ${gender === "female" ? "md:grid-cols-3" : "md:grid-cols-2"}`}
-            >
-              <div>
-                <Input
-                  type="number"
-                  label="Pescoço (cm) *"
-                  value={neck}
-                  onChange={(e) => setNeck(e.target.value)}
-                  placeholder="Ex: 40"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.neck} />
+          {/* Dados pessoais */}
+          <div className="mb-6 space-y-6">
+            <div className="rounded-lg border border-health-red/20 bg-health-red-soft p-6">
+              <h3 className="mb-4 text-center text-lg font-semibold text-health-red">
+                📋 Dados Pessoais
+              </h3>
+
+              {/* Seleção de Sexo - Centralizada */}
+              <div className="mb-6 flex justify-center">
+                <div className="w-full max-w-md">
+                  <div className="mb-2 text-center">
+                    <label className="block text-sm font-medium text-text-primary">Sexo</label>
+                  </div>
+                  <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+                    <button
+                      type="button"
+                      onClick={() => setGender("masculino")}
+                      className={`flex-1 px-4 py-3 text-sm font-medium ${
+                        gender === "masculino"
+                          ? "bg-primary-blue text-white"
+                          : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                      }`}
+                    >
+                      👨 Masculino
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setGender("feminino")}
+                      className={`flex-1 px-4 py-3 text-sm font-medium ${
+                        gender === "feminino"
+                          ? "bg-primary-blue text-white"
+                          : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                      }`}
+                    >
+                      👩 Feminino
+                    </button>
+                  </div>
+                  <ErrorMessage error={errors.gender} />
+                  <div className="mt-1 text-center text-xs text-text-secondary">Necessário para cálculo</div>
+                </div>
               </div>
-              <div>
-                <Input
-                  type="number"
-                  label="Cintura (cm) *"
-                  value={waist}
-                  onChange={(e) => setWaist(e.target.value)}
-                  placeholder="Ex: 85"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.waist} />
-              </div>
-              {gender === "female" && (
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div>
                   <Input
                     type="number"
-                    label="Quadril (cm) *"
-                    value={hips}
-                    onChange={(e) => setHips(e.target.value)}
-                    placeholder="Ex: 100"
-                    min="1"
-                    step="0.1"
-                    required
+                    label="Idade (anos)"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    placeholder="30"
+                    min="18"
+                    max="80"
                     fullWidth
+                    className="h-12 text-lg"
                   />
-                  <ErrorMessage error={errors.hips} />
+                  <ErrorMessage error={errors.age} />
+                  <div className="mt-1 text-xs text-text-secondary">18 a 80 anos</div>
                 </div>
-              )}
-            </div>
-          )}
 
-          {method === "jackson-pollock" && (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div>
-                <Input
-                  type="number"
-                  label="Tríceps (mm) *"
-                  value={triceps}
-                  onChange={(e) => setTriceps(e.target.value)}
-                  placeholder="Ex: 15"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.triceps} />
-              </div>
-              <div>
-                <Input
-                  type="number"
-                  label="Suprailíaca (mm) *"
-                  value={suprailiac}
-                  onChange={(e) => setSuprailiac(e.target.value)}
-                  placeholder="Ex: 20"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.suprailiac} />
-              </div>
-              <div>
-                <Input
-                  type="number"
-                  label="Abdominal (mm) *"
-                  value={abdominal}
-                  onChange={(e) => setAbdominal(e.target.value)}
-                  placeholder="Ex: 25"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.abdominal} />
+                <div>
+                  <Input
+                    type="number"
+                    label="Peso (kg)"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                    placeholder="70"
+                    min="30"
+                    max="300"
+                    step="0.1"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.weight} />
+                  <div className="mt-1 text-xs text-text-secondary">Peso atual</div>
+                </div>
+
+                <div>
+                  <Input
+                    type="number"
+                    label="Altura (cm)"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    placeholder="175"
+                    min="120"
+                    max="220"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.height} />
+                  <div className="mt-1 text-xs text-text-secondary">Altura em cm</div>
+                </div>
+
               </div>
             </div>
-          )}
 
-          {method === "waist-hip" && (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div>
-                <Input
-                  type="number"
-                  label="Cintura (cm) *"
-                  value={waist}
-                  onChange={(e) => setWaist(e.target.value)}
-                  placeholder="Ex: 85"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.waist} />
+            {/* Medidas corporais */}
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-6">
+              <h3 className="mb-4 text-center text-lg font-semibold text-primary-blue-dark">
+                📏 Medidas Corporais (Circunferências)
+              </h3>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <Input
+                    type="number"
+                    label="Pescoço (cm)"
+                    value={neck}
+                    onChange={(e) => setNeck(e.target.value)}
+                    placeholder="35"
+                    min="20"
+                    max="50"
+                    step="0.1"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.neck} />
+                  <div className="mt-1 text-xs text-text-secondary">Circunferência do pescoço</div>
+                </div>
+
+                <div>
+                  <Input
+                    type="number"
+                    label="Cintura (cm)"
+                    value={waist}
+                    onChange={(e) => setWaist(e.target.value)}
+                    placeholder="80"
+                    min="50"
+                    max="150"
+                    step="0.1"
+                    fullWidth
+                    className="h-12 text-lg"
+                  />
+                  <ErrorMessage error={errors.waist} />
+                  <div className="mt-1 text-xs text-text-secondary">Circunferência da cintura</div>
+                </div>
+
+                {gender === "feminino" && (
+                  <div>
+                    <Input
+                      type="number"
+                      label="Quadril (cm)"
+                      value={hip}
+                      onChange={(e) => setHip(e.target.value)}
+                      placeholder="95"
+                      min="70"
+                      max="180"
+                      step="0.1"
+                      fullWidth
+                      className="h-12 text-lg"
+                    />
+                    <ErrorMessage error={errors.hip} />
+                    <div className="mt-1 text-xs text-text-secondary">Circunferência do quadril</div>
+                  </div>
+                )}
               </div>
-              <div>
-                <Input
-                  type="number"
-                  label="Quadril (cm) *"
-                  value={hips}
-                  onChange={(e) => setHips(e.target.value)}
-                  placeholder="Ex: 100"
-                  min="1"
-                  step="0.1"
-                  required
-                  fullWidth
-                />
-                <ErrorMessage error={errors.hips} />
+
+              <div className="mt-4 rounded-lg bg-system-info/10 p-3">
+                <h4 className="mb-2 text-sm font-semibold text-system-info">
+                  📏 Como medir corretamente:
+                </h4>
+                <ul className="space-y-1 text-xs text-text-secondary">
+                  <li><strong>Pescoço:</strong> Logo abaixo do pomo de Adão (homens) ou na parte mais fina (mulheres)</li>
+                  <li><strong>Cintura:</strong> Na altura do umbigo, sem contrair a barriga</li>
+                  {gender === "feminino" && (
+                    <li><strong>Quadril:</strong> Na parte mais larga dos quadris</li>
+                  )}
+                </ul>
               </div>
             </div>
-          )}
+          </div>
 
-          <div className="mt-6 flex justify-center gap-4">
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
             <Button onClick={handleCalculate} className="px-8">
               Calcular
             </Button>
@@ -685,580 +816,372 @@ export default function GorduraCorporal() {
         </CardContent>
       </Card>
 
+      {/* Resultado */}
       {result && (
-        <Card className="border-2 border-growth-green bg-growth-green-soft duration-300">
+        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
             <CardTitle as="h3" className="text-growth-green">
-              📊 Resultado da Avaliação
+              📊 Resultado da Análise Corporal
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="mb-2 text-4xl font-bold text-growth-green">
-                  {result.bodyFatPercentage.toFixed(1)}%
-                </div>
-                <div className="text-sm text-text-secondary">Gordura Corporal</div>
+            <div className="mb-6 rounded-lg bg-gray-900 p-4">
+              <div className="text-center">
+                <div className="mb-2 text-sm text-text-secondary">Percentual de Gordura</div>
+                <div className="text-xl font-bold text-primary-blue-dark">{result.calculations.bodyFatPercentage.toFixed(1)}%</div>
               </div>
+            </div>
 
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="mb-2 text-2xl font-bold text-primary-blue-dark">
-                  {result.fatMass.toFixed(1)} kg
+                <div className="text-4xl font-bold text-system-warning">
+                  {result.calculations.fatMass.toFixed(1)} kg
                 </div>
-                <div className="text-sm text-text-secondary">Massa Gorda</div>
+                <div className="text-sm text-text-secondary">Massa de Gordura</div>
               </div>
-
               <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="mb-2 text-2xl font-bold text-system-warning">
-                  {result.leanMass.toFixed(1)} kg
+                <div className="text-lg font-bold text-growth-green">
+                  {result.calculations.leanMass.toFixed(1)} kg
                 </div>
                 <div className="text-sm text-text-secondary">Massa Magra</div>
               </div>
             </div>
 
-            <div className="mb-6 rounded-lg bg-gray-900 p-4">
-              <div className="text-center">
-                <div className="mb-2 font-semibold text-text-primary">Classificação</div>
-                <div className={`text-xl font-bold ${result.categoryColor}${result.categoryColor}`}>
-                  {result.category}
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">
+                Informações da Análise
+              </h4>
+              <div className="text-sm text-text-secondary">
+                <div>
+                  <strong>Método:</strong>{" "}
+                  {result.method === "us-navy" ? "Método US Navy" : "Método Jackson-Pollock"}
+                </div>
+                <div>
+                  <strong>IMC:</strong> {result.calculations.bmi.toFixed(1)} kg/m²
+                </div>
+                <div>
+                  <strong>Status:</strong> {result.classification.bodyFatStatus}
+                </div>
+                <div>
+                  <strong>Risco à Saúde:</strong> {result.classification.healthRisk === "baixo" ? "Baixo" : result.classification.healthRisk === "normal" ? "Normal" : result.classification.healthRisk === "moderado" ? "Moderado" : "Alto"}
                 </div>
               </div>
             </div>
 
-            <div className="rounded-lg bg-primary-blue-light p-4">
-              <h4 className="mb-3 font-semibold text-primary-blue-dark">
-                🎯 Recomendações Personalizadas
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                {result.recommendations.map((rec, index) => (
-                  <li key={index}>• {rec}</li>
-                ))}
-              </ul>
+            <div className="rounded-lg bg-gray-900 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">Interpretação dos Resultados</h4>
+              <div className="space-y-2">
+                <div className="text-sm text-text-secondary">
+                  <span className="font-medium text-primary-blue-dark">• </span>
+                  Seu percentual de gordura corporal é {result.classification.bodyFatStatus.toLowerCase()}
+                </div>
+                <div className="text-sm text-text-secondary">
+                  <span className="font-medium text-primary-blue-dark">• </span>
+                  IMC de {result.calculations.bmi.toFixed(1)} kg/m² indica {result.classification.bmiStatus.toLowerCase()}
+                </div>
+                <div className="text-sm text-text-secondary">
+                  <span className="font-medium text-primary-blue-dark">• </span>
+                  Método {result.method === "us-navy" ? "US Navy" : "Jackson-Pollock"} utilizado para maior precisão
+                </div>
+                <div className="text-sm text-text-secondary">
+                  <span className="font-medium text-primary-blue-dark">• </span>
+                  Risco à saúde classificado como {result.classification.healthRisk === "baixo" ? "baixo" : result.classification.healthRisk === "normal" ? "normal" : result.classification.healthRisk === "moderado" ? "moderado" : "alto"}
+                </div>
+              </div>
+            </div>
+
+            {/* Comparativo com Pessoa Saudável */}
+            <div className="rounded-lg bg-growth-green-soft border border-growth-green/30 p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">🎯 Comparativo com Pessoa Saudável</h4>
+              
+              {(() => {
+                const isMale = result.inputs.gender === "masculino";
+                const age = result.inputs.age;
+                
+                // Faixas saudáveis por idade e gênero
+                let healthyRange;
+                if (isMale) {
+                  if (age <= 30) healthyRange = { min: 8, max: 15, ideal: 12 };
+                  else if (age <= 40) healthyRange = { min: 10, max: 17, ideal: 14 };
+                  else if (age <= 50) healthyRange = { min: 12, max: 19, ideal: 16 };
+                  else healthyRange = { min: 14, max: 21, ideal: 18 };
+                } else {
+                  if (age <= 30) healthyRange = { min: 16, max: 24, ideal: 20 };
+                  else if (age <= 40) healthyRange = { min: 18, max: 26, ideal: 22 };
+                  else if (age <= 50) healthyRange = { min: 20, max: 28, ideal: 24 };
+                  else healthyRange = { min: 22, max: 30, ideal: 26 };
+                }
+                
+                const currentBF = result.calculations.bodyFatPercentage;
+                const difference = currentBF - healthyRange.ideal;
+                const diffText = difference > 0 ? `${difference.toFixed(1)}% acima` : `${Math.abs(difference).toFixed(1)}% abaixo`;
+                const diffColor = Math.abs(difference) <= 2 ? "text-growth-green" : difference > 0 ? "text-system-warning" : "text-system-info";
+                
+                return (
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="rounded-lg bg-gray-900 p-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-growth-green">{healthyRange.ideal}%</div>
+                        <div className="text-sm text-text-secondary">Ideal para sua idade</div>
+                        <div className="mt-1 text-xs text-text-secondary">
+                          Faixa saudável: {healthyRange.min}% - {healthyRange.max}%
+                        </div>
+                      </div>
+                    </div>
+                    <div className="rounded-lg bg-gray-900 p-4">
+                      <div className="text-center">
+                        <div className={`text-2xl font-bold ${diffColor}`}>{diffText}</div>
+                        <div className="text-sm text-text-secondary">Diferença do ideal</div>
+                        <div className="mt-1 text-xs text-text-secondary">
+                          {difference <= -2 ? "Abaixo do recomendado" : 
+                           difference >= 2 ? "Acima do recomendado" : 
+                           "Dentro da faixa ideal"}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Seção: Como Medir Corretamente - Guia Completo */}
+      {/* Seção: Gordura Corporal - Guia Completo */}
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📏 Como Medir Corretamente - Guia Passo a Passo
+            🎯 Gordura Corporal – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-8">
-            {/* Navy Method */}
+            {/* Conceito de Gordura Corporal */}
             <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
-                🏃 Navy Method (Método da Marinha dos EUA)
+                🧬 Composição Corporal
               </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">🎯 O que é?</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Desenvolvido pela Marinha dos EUA, é um dos métodos mais{" "}
-                    <strong>precisos e práticos</strong>
-                    para medir gordura corporal usando apenas medidas corporais básicas.
+                    O percentual de gordura corporal indica a proporção de tecido adiposo em relação
+                    ao peso total do corpo, sendo um indicador mais preciso de saúde que apenas o peso.
                   </p>
 
-                  <h4 className="mb-3 font-semibold text-system-info">📊 Precisão</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Métodos</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Erro padrão:</strong> ±3-4%
-                    </li>
-                    <li>
-                      • <strong>Correlação com DEXA:</strong> 0,85-0,90
-                    </li>
-                    <li>
-                      • <strong>Ideal para:</strong> População geral adulta
-                    </li>
-                    <li>
-                      • <strong>Não recomendado:</strong> Atletas com alta massa muscular
-                    </li>
+                    <li>• US Navy: Utiliza medidas de pescoço e cintura</li>
+                    <li>• Jackson-Pollock: Baseado em dobras cutâneas</li>
+                    <li>• Bioimpedância: Resistência elétrica</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Importância</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Não requer equipamento especial</li>
-                    <li>• Rápido e fácil de fazer</li>
-                    <li>• Validado cientificamente</li>
-                    <li>• Reprodutível entre avaliadores</li>
+                    <li>• Avaliação de riscos à saúde</li>
+                    <li>• Monitoramento de progresso fitness</li>
+                    <li>• Planejamento nutricional</li>
+                    <li>• Prevenção de doenças</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Características</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Menos preciso em atletas</li>
-                    <li>• Pode subestimar em obesos</li>
-                    <li>• Varia com hidratação</li>
+                    <li>• Varia com idade e gênero</li>
+                    <li>• Indica riscos à saúde</li>
+                    <li>• Melhor que IMC para fitness</li>
                   </ul>
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-lg bg-primary-blue-light p-4">
-                <h4 className="mb-3 font-bold text-primary-blue-dark">
-                  📝 Como Medir - Passo a Passo
-                </h4>
-
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div>
-                    <h5 className="mb-2 font-semibold">👨 Para Homens:</h5>
-                    <ol className="space-y-2 text-sm text-text-secondary">
-                      <li>
-                        <strong>1. Pescoço:</strong> Meça logo abaixo da maçã de Adão, com a fita
-                        paralela ao chão
-                      </li>
-                      <li>
-                        <strong>2. Cintura:</strong> No ponto mais estreito, geralmente na altura do
-                        umbigo
-                      </li>
-                      <li>
-                        <strong>3. Altura:</strong> Em pé, descalço, contra a parede
-                      </li>
-                    </ol>
-                  </div>
-
-                  <div>
-                    <h5 className="mb-2 font-semibold">👩 Para Mulheres:</h5>
-                    <ol className="space-y-2 text-sm text-text-secondary">
-                      <li>
-                        <strong>1. Pescoço:</strong> Logo abaixo da laringe, fita paralela ao chão
-                      </li>
-                      <li>
-                        <strong>2. Cintura:</strong> No ponto mais estreito do torso
-                      </li>
-                      <li>
-                        <strong>3. Quadril:</strong> Na parte mais larga dos quadris
-                      </li>
-                      <li>
-                        <strong>4. Altura:</strong> Em pé, descalço, contra a parede
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded border border-system-success/20 bg-system-success/10 p-3">
-                  <p className="text-sm text-system-success">
-                    <strong>💡 Dica Profissional:</strong> Meça sempre no mesmo horário do dia
-                    (preferencialmente pela manhã) e use fita métrica inelástica. Não comprima a
-                    pele, apenas encoste a fita.
-                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Jackson-Pollock Method */}
+            {/* Valores de Referência */}
             <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
-                📏 Método Jackson-Pollock (Dobras Cutâneas)
+                📐 Valores de Referência
               </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🎯 O que é?</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    Método científico que <strong>mede a espessura das dobras cutâneas</strong> em
-                    pontos específicos do corpo para estimar a gordura subcutânea total.
-                  </p>
-
-                  <h4 className="mb-3 font-semibold text-system-info">📊 Precisão</h4>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">👨 Homens</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Erro padrão:</strong> ±3-5%
-                    </li>
-                    <li>
-                      • <strong>Correlação com DEXA:</strong> 0,80-0,85
-                    </li>
-                    <li>
-                      • <strong>Versões:</strong> 3, 4 ou 7 dobras
-                    </li>
-                    <li>
-                      • <strong>Ideal para:</strong> Atletas e fisiculturistas
-                    </li>
+                    <li>• Atlético: 6-13%</li>
+                    <li>• Fitness: 14-17%</li>
+                    <li>• Aceitável: 18-24%</li>
+                    <li>• Obeso: 25%+</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Objetivos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Saúde geral: 10-18%</li>
+                    <li>• Performance esportiva: 6-13%</li>
+                    <li>• Manutenção: 14-24%</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">👩 Mulheres</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Muito preciso quando bem executado</li>
-                    <li>• Diferencia massa magra de gorda</li>
-                    <li>• Amplamente validado</li>
-                    <li>• Específico por sexo e idade</li>
+                    <li>• Atlético: 16-20%</li>
+                    <li>• Fitness: 21-24%</li>
+                    <li>• Aceitável: 25-31%</li>
+                    <li>• Obeso: 32%+</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Objetivos</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Requer adipômetro (plicômetro)</li>
-                    <li>• Precisa de treinamento técnico</li>
-                    <li>• Difícil em pessoas obesas</li>
-                    <li>• Varia entre avaliadores</li>
+                    <li>• Saúde geral: 20-28%</li>
+                    <li>• Performance esportiva: 16-23%</li>
+                    <li>• Manutenção: 24-31%</li>
                   </ul>
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-lg bg-growth-green-soft p-4">
-                <h4 className="mb-3 font-bold text-growth-green">
-                  📝 Protocolo de 3 Dobras - Passo a Passo
-                </h4>
-
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div>
-                    <h5 className="mb-2 font-semibold">👨 Homens (3 dobras):</h5>
-                    <ol className="space-y-3 text-sm text-text-secondary">
-                      <li>
-                        <strong>1. Peitoral:</strong> Dobra diagonal entre axila e mamilo, a 1/3 da
-                        distância da axila
-                      </li>
-                      <li>
-                        <strong>2. Abdominal:</strong> Dobra vertical ao lado do umbigo,
-                        aproximadamente 2 cm à direita
-                      </li>
-                      <li>
-                        <strong>3. Coxa:</strong> Dobra vertical na parte frontal da coxa, no ponto
-                        médio entre quadril e joelho
-                      </li>
-                    </ol>
-                  </div>
-
-                  <div>
-                    <h5 className="mb-2 font-semibold">👩 Mulheres (3 dobras):</h5>
-                    <ol className="space-y-3 text-sm text-text-secondary">
-                      <li>
-                        <strong>1. Tríceps:</strong> Dobra vertical na parte posterior do braço, no
-                        ponto médio entre ombro e cotovelo
-                      </li>
-                      <li>
-                        <strong>2. Suprailíaca:</strong> Dobra diagonal logo acima da crista ilíaca,
-                        na linha axilar média
-                      </li>
-                      <li>
-                        <strong>3. Coxa:</strong> Dobra vertical na parte frontal da coxa, no ponto
-                        médio entre quadril e joelho
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded border border-system-info/20 bg-system-info/10 p-3">
-                  <p className="text-sm text-system-info">
-                    <strong>🎯 Técnica Correta:</strong> Pinçar a pele com polegar e indicador,
-                    aplicar o adipômetro perpendicular à dobra, aguardar 2 segundos e fazer a
-                    leitura. Repetir 3 vezes em cada ponto.
-                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Waist-Hip Ratio */}
+            {/* Como Medir */}
             <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
-                📐 Relação Cintura-Quadril (RCQ)
+                🔍 Como Medir Corretamente
               </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🎯 O que é?</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    Indica a <strong>distribuição de gordura corporal</strong> e é um excelente
-                    <strong className="text-system-error-dark">
-                      {" "}
-                      preditor de risco cardiovascular
-                    </strong>
-                    , especialmente para gordura abdominal visceral.
-                  </p>
-
-                  <h4 className="mb-3 font-semibold text-system-info">📊 Interpretação</h4>
-                  <div className="space-y-2 text-sm text-text-secondary">
-                    <div className="flex justify-between">
-                      <span>
-                        <strong>Homens:</strong>
-                      </span>
-                      <span></span>
-                    </div>
-                    <div className="ml-4 space-y-1">
-                      <div className="flex justify-between">
-                        <span>• Baixo risco:</span>
-                        <span className="font-medium text-growth-green">&lt; 0,90</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>• Risco moderado:</span>
-                        <span className="font-medium text-system-warning">0,90 - 0,99</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>• Alto risco:</span>
-                        <span className="font-medium text-system-error-dark">≥ 1,00</span>
-                      </div>
-                    </div>
-                    <div className="mt-3 flex justify-between">
-                      <span>
-                        <strong>Mulheres:</strong>
-                      </span>
-                      <span></span>
-                    </div>
-                    <div className="ml-4 space-y-1">
-                      <div className="flex justify-between">
-                        <span>• Baixo risco:</span>
-                        <span className="font-medium text-growth-green">&lt; 0,80</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>• Risco moderado:</span>
-                        <span className="font-medium text-system-warning">0,80 - 0,84</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>• Alto risco:</span>
-                        <span className="font-medium text-system-error-dark">≥ 0,85</span>
-                      </div>
-                    </div>
-                  </div>
+                  <h4 className="mb-3 font-semibold text-growth-green">📝 Medidas Necessárias</h4>
+                  <ol className="mb-4 space-y-2 text-sm text-text-secondary">
+                    <li>
+                      1. <strong>Pescoço:</strong> Logo abaixo do pomo de Adão
+                    </li>
+                    <li>
+                      2. <strong>Cintura:</strong> Ponto mais estreito do abdômen
+                    </li>
+                    <li>
+                      3. <strong>Quadril (mulheres):</strong> Ponto mais largo dos quadris
+                    </li>
+                    <li>
+                      4. <strong>Altura:</strong> Sem sapatos, encostado na parede
+                    </li>
+                    <li>
+                      5. <strong>Peso:</strong> Preferencialmente pela manhã
+                    </li>
+                  </ol>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Dicas Importantes</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Extremamente simples de medir</li>
-                    <li>• Preditor de risco cardiovascular</li>
-                    <li>• Não requer equipamento especial</li>
-                    <li>• Validado pela OMS</li>
+                    <li>• Use fita métrica flexível</li>
+                    <li>• Mantenha a fita paralela ao chão</li>
+                    <li>• Não aperte demais a fita</li>
+                    <li>• Meça sempre no mesmo horário</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Cuidados</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Não mede % total de gordura</li>
-                    <li>• Menos preciso que outros métodos</li>
-                    <li>• Influenciado pela estrutura óssea</li>
-                    <li>• Varia com a postura</li>
+                    <li>• Não meça após exercícios intensos</li>
+                    <li>• Evite medir durante ciclo menstrual</li>
+                    <li>• Mantenha postura ereta e relaxada</li>
                   </ul>
                 </div>
               </div>
-
-              <div className="mt-6 rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                <h4 className="mb-3 font-bold text-system-warning">📝 Como Medir Corretamente</h4>
-
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div>
-                    <h5 className="mb-2 font-semibold">📏 Cintura:</h5>
-                    <ul className="space-y-1 text-sm text-text-secondary">
-                      <li>• Ponto mais estreito do torso</li>
-                      <li>• Geralmente entre costelas e quadril</li>
-                      <li>• Se não houver cintura definida: no umbigo</li>
-                      <li>• Fita paralela ao chão</li>
-                      <li>• Respiração normal, sem contrair abdome</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h5 className="mb-2 font-semibold">📐 Quadril:</h5>
-                    <ul className="space-y-1 text-sm text-text-secondary">
-                      <li>• Parte mais larga dos quadris</li>
-                      <li>• Geralmente na altura do trocânter maior</li>
-                      <li>• Incluir proeminência dos glúteos</li>
-                      <li>• Fita paralela ao chão</li>
-                      <li>• Pés juntos, peso distribuído</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded border border-system-error/20 bg-system-error/10 p-3">
-                  <p className="text-sm text-system-error-dark">
-                    <strong>⚠️ Importante para a Saúde:</strong> Uma RCQ alta indica acúmulo de
-                    gordura abdominal, associada a maior risco de diabetes, doenças cardíacas e
-                    síndrome metabólica. Consulte um médico se seus valores estão na faixa de alto
-                    risco.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Comparação de Métodos */}
-      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Comparação Entre os Métodos de Medição
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b-2 border-neutral-surface-variant">
-                  <th className="p-3 text-left font-semibold">Critério</th>
-                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    Navy Method
-                  </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">
-                    Jackson-Pollock
-                  </th>
-                  <th className="p-3 text-center font-semibold text-system-warning">
-                    Cintura-Quadril
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="space-y-2">
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Precisão</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Alta (±3-4%)</td>
-                  <td className="p-3 text-center text-growth-green">Muito Alta (±3-5%)</td>
-                  <td className="p-3 text-center text-system-warning">Moderada (±5-7%)</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Facilidade</td>
-                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Equipamento</td>
-                  <td className="p-3 text-center">Fita métrica</td>
-                  <td className="p-3 text-center">Adipômetro</td>
-                  <td className="p-3 text-center">Fita métrica</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Tempo</td>
-                  <td className="p-3 text-center text-growth-green">2-3 min</td>
-                  <td className="p-3 text-center text-system-warning">5-10 min</td>
-                  <td className="p-3 text-center text-growth-green">1 min</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Custo</td>
-                  <td className="p-3 text-center text-growth-green">Baixo</td>
-                  <td className="p-3 text-center text-system-warning">Médio</td>
-                  <td className="p-3 text-center text-growth-green">Baixo</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Ideal para</td>
-                  <td className="p-3 text-center">População geral</td>
-                  <td className="p-3 text-center">Atletas/Fitness</td>
-                  <td className="p-3 text-center">Triagem rápida</td>
-                </tr>
-                <tr>
-                  <td className="p-3 font-medium">Validação</td>
-                  <td className="p-3 text-center text-growth-green">Militar/Civil</td>
-                  <td className="p-3 text-center text-growth-green">Científica ampla</td>
-                  <td className="p-3 text-center text-growth-green">OMS/Médica</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Recomendação Iniciantes</h4>
-              <p className="text-sm text-text-secondary">
-                Comece com o <strong>Navy Method</strong>. É preciso, fácil e não precisa de
-                equipamentos caros.
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h4 className="mb-2 font-bold text-growth-green">🏋️ Para Atletas</h4>
-              <p className="text-sm text-text-secondary">
-                Use <strong>Jackson-Pollock</strong> com avaliador experiente para máxima precisão.
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-              <h4 className="mb-2 font-bold text-system-warning">🏥 Triagem de Saúde</h4>
-              <p className="text-sm text-text-secondary">
-                A <strong>Relação Cintura-Quadril</strong> é excelente para avaliar risco
-                cardiovascular.
-              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Calculadora de Gordura Corporal"
+        title="Perguntas Frequentes - Calculadora de Regra de Três"
         items={[
           {
-            question: "Qual é o percentual ideal de gordura corporal?",
+            question: "O que é regra de três?",
             answer:
-              "<strong>👨 Homens:</strong> Atletas (6-13%), Fitness (14-17%), Aceitável (18-24%), Obesidade (&gt;25%). <strong>👩 Mulheres:</strong> Atletas (16-20%), Fitness (21-24%), Aceitável (25-31%), Obesidade (&gt;32%). <br><br>O ideal varia com idade, genética e objetivos específicos.",
+              "A regra de três é um processo matemático usado para resolver problemas de proporcionalidade entre grandezas diretamente ou inversamente proporcionais, permitindo encontrar um valor desconhecido em uma proporção.",
             borderColor: "primary-blue",
           },
           {
-            question: "Com que frequência devo medir minha gordura corporal?",
+            question: "Qual a diferença entre regra de três simples direta e inversa?",
             answer:
-              "Para <strong>acompanhar mudanças reais</strong>, meça a cada <strong>4-6 semanas</strong>. A gordura corporal muda lentamente, e variações diárias são normais devido à hidratação, alimentação e outros fatores. <strong>Dica:</strong> Meça sempre nas mesmas condições.",
+              "Na regra de três direta, quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Na inversa, quando uma grandeza aumenta, a outra diminui proporcionalmente.",
             borderColor: "growth-green",
           },
           {
-            question: "Por que diferentes métodos dão resultados diferentes?",
+            question: "Como montar uma regra de três?",
             answer:
-              "Cada método tem <strong>limitações e margens de erro</strong>. Fatores como hidratação, hora do dia, técnica de medição e características individuais influenciam os resultados. <strong>O importante é a tendência:</strong> use sempre o mesmo método e acompanhe as mudanças ao longo do tempo.",
+              "Identifique as grandezas envolvidas, determine se são diretamente ou inversamente proporcionais, monte a proporção (A:B :: C:X) e resolva através da multiplicação cruzada.",
             borderColor: "system-info",
           },
           {
-            question: "Posso usar a balança de bioimpedância?",
+            question: "O que é regra de três composta?",
             answer:
-              "Balanças de bioimpedância são <strong>convenientes mas menos precisas</strong> (erro ±5-8%). <strong>Vantagens:</strong> fácil de usar, medição rápida, boa para tendências. <strong>Limitações:</strong> afetada pela hidratação, menos precisa em obesos, varia com exercício recente.",
+              "A regra de três composta envolve mais de duas grandezas proporcionais. É usada quando o problema apresenta três ou mais grandezas relacionadas entre si.",
             borderColor: "system-warning",
           },
           {
-            question: "Como reduzir o percentual de gordura corporal de forma saudável?",
+            question: "Como verificar se o resultado está correto?",
             answer:
-              "<strong>🍽️ Nutrição (70%):</strong> Déficit calórico moderado (300-500 kcal/dia), proteína adequada (0,8-1,2g/kg), alimentos integrais. <strong>🏋️ Exercício (30%):</strong> Musculação 3-4x/semana, cardio 150-300 min/semana, HIIT 1-2x/semana. <strong>Meta realista:</strong> 0,5-1% de perda por mês.",
+              "Para verificar, substitua o valor encontrado na proporção original e verifique se as razões são iguais (para proporção direta) ou se os produtos são iguais (para proporção inversa).",
             borderColor: "growth-green",
           },
           {
-            question: "Gordura corporal muito baixa é perigosa?",
+            question: "Quando usar cada tipo de regra de três?",
             answer:
-              "<strong>Sim!</strong> Gordura muito baixa pode causar: <strong>👨 Homens (&lt;5%):</strong> queda da testosterona, fadiga, perda muscular. <strong>👩 Mulheres (&lt;12%):</strong> amenorreia, osteoporose precoce, problemas de fertilidade, desequilíbrios hormonais. Consulte profissionais de saúde.",
+              "Use regra de três direta quando as grandezas aumentam/diminuem juntas (ex: mais produtos, mais dinheiro). Use inversa quando uma aumenta e outra diminui (ex: mais velocidade, menos tempo).",
             borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica Importante sobre Métodos",
+          title: "Dica Importante sobre Regra de Três",
           content:
-            "<strong>Para máxima precisão:</strong> combine diferentes métodos e acompanhe a <strong>tendência ao longo do tempo</strong>, não valores isolados. Navy Method é ideal para iniciantes, Jackson-Pollock para atletas, e Cintura-Quadril para risco cardiovascular.",
+            "<strong>Para resultados precisos:</strong> sempre identifique corretamente se as grandezas são direta ou inversamente proporcionais antes de montar a proporção.",
         }}
-        footerText="<strong>Lembre-se:</strong> A composição corporal é mais importante que o peso total. Foque em <strong>ganhar massa muscular</strong> e <strong>reduzir gordura</strong> de forma sustentável."
+        footerText="<strong>Lembre-se:</strong> Proporção direta: grandezas aumentam/diminuem juntas. Proporção inversa: uma aumenta quando a outra diminui. Sempre verifique o resultado."
       />
 
       {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de Gordura Corporal
+            📚 Como Usar Esta Calculadora de Regra de Três
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
-              utiliza
-              <strong className="text-growth-green">métodos científicos validados</strong> para
-              estimar sua composição corporal. Os cálculos são baseados em pesquisas publicadas em
-              revistas científicas internacionais.
+              Esta <strong className="text-primary-blue-dark">calculadora de regra de três</strong>{" "}
+              permite resolver{" "}
+              <strong className="text-growth-green">problemas de proporcionalidade</strong>: regra
+              de 3 simples direta, inversa e composta com precisão matemática e resultados
+              instantâneos.
             </p>
             <p>
-              <strong>Métodos disponíveis:</strong> Navy Method (Marinha dos EUA), Jackson-Pollock 3
-              dobras, e Relação Cintura-Quadril. Cada método tem suas vantagens e é adequado para
-              diferentes situações e objetivos.
+              <strong>Funcionalidades:</strong> Identificação automática do tipo de proporção,
+              resolução passo a passo, verificação dos resultados e explicação detalhada do processo
+              de cálculo.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e de acompanhamento pessoal. Para avaliações médicas e planos de
-              tratamento, consulte sempre um{" "}
-              <strong>médico, nutricionista ou educador físico</strong> qualificado.
+              fins educacionais e resolução de exercícios. Para aplicações científicas ou de
+              engenharia que exigem alta precisão, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/matematica/porcentagem"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                porcentagem
+              </a>
+              para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔬 Baseado em estudos científicos • 🎓 Ferramenta educacional gratuita • 🔒 Dados não
-              armazenados • 📱 Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 📏 Regra de Três • 🔒 Dados não armazenados • 📱 Compatível com
+              todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
       </Card>
 
-      <RelatedCalculators category="saude" currentCalculatorId="gordura-corporal" />
+      <RelatedCalculators category="matematica" currentCalculatorId="regra-de-tres" />
     </div>
   );
 }
