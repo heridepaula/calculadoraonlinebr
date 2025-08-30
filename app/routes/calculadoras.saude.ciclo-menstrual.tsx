@@ -1,233 +1,490 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
-  calculateMenstrualCycle,
-  type MenstrualCycleParams,
-  type MenstrualCycleResult,
-} from "~/utils/calculations";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
 
-// Interface para validação de erros
-interface ValidationErrors {
-  lastPeriodDate?: string;
-  cycleLength?: string;
-  periodLength?: string;
-  general?: string;
-}
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Ciclo Menstrual - Período Fértil e Ovulação Online - ${APP_NAME}` },
+    {
+      title: "Calculadora de Ciclo Menstrual 2025 | CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, viewport-fit=cover",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
     {
       name: "description",
       content:
-        "Calculadora de ciclo menstrual gratuita e precisa. Calcule seu período fértil, data de ovulação, próxima menstruação e acompanhe suas fases do ciclo. Calendário menstrual completo com projeções.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora ciclo menstrual, período fértil, ovulação, calendário menstrual, menstruação, fertilidade, tabelinha, ciclo feminino, saúde da mulher",
+        "Calcule seu ciclo menstrual com precisão. Acompanhe período fértil, ovulação e próximas menstruações. Visualize calendário menstrual completo. Ferramenta gratuita e precisa.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
+    },
+    {
       property: "og:title",
-      content: `Calculadora de Ciclo Menstrual - Período Fértil e Ovulação - ${APP_NAME}`,
+      content: "Calculadora de Ciclo Menstrual 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Calcule gratuitamente seu período fértil e acompanhe seu ciclo menstrual. Ferramenta completa para saúde feminina.",
+        "Calcule seu ciclo menstrual com precisão. Acompanhe período fértil, ovulação e próximas menstruações. Visualize calendário menstrual completo. Ferramenta gratuita e precisa.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-ciclo-menstrual.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Ciclo Menstrual - Acompanhe período fértil, ovulação e próximas menstruações",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadora de Ciclo Menstrual Online - ${APP_NAME}` },
+    {
+      property: "og:url",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
+    },
+    { property: "og:site_name", content: APP_NAME },
+    { property: "og:locale", content: "pt_BR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Ciclo Menstrual 2025 | CalculadoraOnlineBR",
+    },
     {
       name: "twitter:description",
-      content: "Acompanhe seu ciclo menstrual e calcule período fértil com precisão.",
+      content:
+        "Calcule seu ciclo menstrual com precisão. Acompanhe período fértil, ovulação e próximas menstruações. Visualize calendário menstrual completo. Ferramenta gratuita e precisa.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-ciclo-menstrual.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Ciclo Menstrual - Acompanhe seu ciclo menstrual",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
+    { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Calculadora de Ciclo Menstrual - Acompanhe Período Fértil 2025",
+        description:
+          "Calculadora gratuita e precisa de ciclo menstrual. Acompanhe período fértil, ovulação, próximas menstruações e visualize calendário completo do seu ciclo.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
+        applicationCategory: "HealthApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-30",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
+          name: "Calculadora de Ciclo Menstrual 2025 - Período Fértil e Ovulação",
+          description:
+            "Acompanhe seu ciclo menstrual com precisão. Calcule período fértil, ovulação, próximas menstruações e visualize calendário completo. Ferramenta confiável para saúde feminina.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Saúde",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Calculadora de Ciclo Menstrual",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "MedicalCondition",
+          name: "Ciclo Menstrual",
+          description:
+            "Processo biológico mensal do sistema reprodutivo feminino que inclui menstruação, fase folicular, ovulação e fase lútea",
+          category: "Women's Health",
+        },
+        featureList: [
+          "Cálculo preciso do período fértil e ovulação",
+          "Previsão de próximas menstruações",
+          "Calendário menstrual interativo",
+          "Acompanhamento visual do ciclo",
+          "Cálculos baseados em média de ciclos",
+          "Adaptável a diferentes durações de ciclo",
+          "Interface móvel responsiva otimizada",
+          "Resultados instantâneos e confiáveis",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Como calcular o ciclo menstrual?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O ciclo menstrual é calculado do primeiro dia da menstruação até o dia anterior ao início da próxima menstruação. A duração média é de 28 dias, mas pode variar entre 21 e 35 dias.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como saber o período fértil?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O período fértil ocorre geralmente entre 5 dias antes e 1 dia após a ovulação. A ovulação acontece aproximadamente 14 dias antes da próxima menstruação.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Quando acontece a ovulação?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A ovulação ocorre aproximadamente no meio do ciclo menstrual, cerca de 14 dias antes do início da próxima menstruação, independentemente da duração total do ciclo.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "O que é considerado um ciclo normal?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Um ciclo menstrual normal tem duração entre 21 e 35 dias, com menstruação durando de 3 a 7 dias. Variações ocasionais são normais, mas mudanças significativas devem ser avaliadas por um médico.",
+            },
+          },
+        ],
+      }),
     },
   ];
 };
 
+interface CycleDay {
+  date: Date;
+  dayOfCycle: number;
+  phase: "menstruation" | "follicular" | "ovulation" | "luteal";
+  isFertile: boolean;
+  isOvulation: boolean;
+  description: string;
+}
+
+interface MenstrualCycleResult {
+  lastPeriod: Date;
+  cycleLength: number;
+  periodLength: number;
+  nextPeriod: Date;
+  ovulationDate: Date;
+  fertileStart: Date;
+  fertileEnd: Date;
+  cycleCalendar: CycleDay[];
+  upcomingPeriods: Date[];
+}
+
+interface ValidationErrors {
+  lastPeriod?: string;
+  cycleLength?: string;
+  periodLength?: string;
+}
+
 export default function MenstrualCycleCalculator() {
-  const [lastPeriodDate, setLastPeriodDate] = useState("");
+  const [lastPeriod, setLastPeriod] = useState("");
   const [cycleLength, setCycleLength] = useState("28");
   const [periodLength, setPeriodLength] = useState("5");
-  const [cycleType, setCycleType] = useState<"regular" | "irregular">("regular");
-  const [goal, setGoal] = useState<"track" | "conceive">("track");
   const [result, setResult] = useState<MenstrualCycleResult | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
-  const [isCalculating, setIsCalculating] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
-    calculatorType: "ciclo_menstrual",
-    category: "saude"
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "ciclo-menstrual",
+    category: "saude",
   });
-  
-  const { trackInputChange, trackFormSubmission } = useFormTracking("ciclo_menstrual");
-  const resultsRef = useRef<HTMLDivElement>(null);
+  useFormTracking("ciclo-menstrual");
 
+  // Função auxiliar para formatar datas
   const formatDate = (date: Date): string => {
-    return date.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    return new Intl.DateTimeFormat("pt-BR").format(date);
   };
 
-  const formatDateShort = (date: Date): string => {
-    return date.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "short",
-    });
+  // Função para calcular diferença entre datas em dias
+  const daysBetween = (date1: Date, date2: Date): number => {
+    const diffTime = Math.abs(date2.getTime() - date1.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  const handleCalculate = async () => {
-    setIsCalculating(true);
-    setErrors({});
+  // Função para adicionar dias a uma data
+  const addDays = (date: Date, days: number): Date => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  };
 
-    // Validação robusta de campos obrigatórios
+  const parseNumber = (v: string): number => {
+    const n = parseInt(v, 10);
+    return isNaN(n) ? 0 : n;
+  };
+
+  const parseDate = (dateString: string): Date | null => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? null : date;
+  };
+
+  const validateInputs = (): boolean => {
     const newErrors: ValidationErrors = {};
-    const today = new Date();
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(today.getFullYear() - 1);
-
-    // Validação da data da última menstruação (OBRIGATÓRIO)
+    let ok = true;
+    
+    const lastPeriodDate = parseDate(lastPeriod);
     if (!lastPeriodDate) {
-      newErrors.lastPeriodDate = "Por favor, informe a data da última menstruação";
-    } else {
-      const selectedDate = new Date(lastPeriodDate);
-      if (selectedDate > today) {
-        newErrors.lastPeriodDate = "A data não pode ser no futuro";
-      } else if (selectedDate < oneYearAgo) {
-        newErrors.lastPeriodDate = "A data não pode ser anterior a 12 meses";
-      }
+      newErrors.lastPeriod = "Data da última menstruação é obrigatória";
+      ok = false;
+    } else if (lastPeriodDate > new Date()) {
+      newErrors.lastPeriod = "Data não pode ser no futuro";
+      ok = false;
     }
-
-    // Validação da duração do ciclo (OBRIGATÓRIO)
-    const cycleLengthNum = parseInt(cycleLength);
-    if (!cycleLength || cycleLength.trim() === "") {
-      newErrors.cycleLength = "Por favor, informe a duração do ciclo";
-    } else if (isNaN(cycleLengthNum)) {
-      newErrors.cycleLength = "Por favor, informe um número válido";
-    } else if (cycleLengthNum < 21 || cycleLengthNum > 45) {
-      newErrors.cycleLength = "A duração do ciclo deve estar entre 21 e 45 dias";
+    
+    const cycle = parseNumber(cycleLength);
+    if (cycle < 21 || cycle > 45) {
+      newErrors.cycleLength = "Ciclo deve ter entre 21 e 45 dias";
+      ok = false;
     }
-
-    // Validação da duração da menstruação (OBRIGATÓRIO)
-    const periodLengthNum = parseInt(periodLength);
-    if (!periodLength || periodLength.trim() === "") {
-      newErrors.periodLength = "Por favor, informe a duração da menstruação";
-    } else if (isNaN(periodLengthNum)) {
-      newErrors.periodLength = "Por favor, informe um número válido";
-    } else if (periodLengthNum < 1 || periodLengthNum > 15) {
-      newErrors.periodLength = "A duração da menstruação deve estar entre 1 e 15 dias";
+    
+    const period = parseNumber(periodLength);
+    if (period < 2 || period > 10) {
+      newErrors.periodLength = "Menstruação deve durar entre 2 e 10 dias";
+      ok = false;
     }
+    
+    setErrors(newErrors);
+    return ok;
+  };
 
-    // Validação lógica: menstruação não pode ser maior que o ciclo
-    if (cycleLengthNum > 0 && periodLengthNum > 0 && periodLengthNum >= cycleLengthNum) {
-      newErrors.periodLength = "A menstruação não pode durar mais que o ciclo";
-    }
-
-    // Se há erros, exibir e parar execução
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setResult(null);
-      setIsCalculating(false);
-      return;
-    }
-
-    // Simular loading para melhor UX
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
+  const handleCalculate = () => {
+    if (!validateInputs()) return;
+    startCalculation("calcular");
     try {
-      const lastPeriod = new Date(lastPeriodDate);
-      const params: MenstrualCycleParams = {
-        lastPeriodDate: lastPeriod,
-        cycleLength: cycleLengthNum,
-        periodLength: periodLengthNum,
-        cycleHistory: cycleType === "irregular" ? [25, 30, 27, 32, 28] : undefined,
+      const lastPeriodDate = parseDate(lastPeriod)!;
+      const cycle = parseNumber(cycleLength);
+      const period = parseNumber(periodLength);
+
+      // Calcular próxima menstruação
+      const nextPeriod = addDays(lastPeriodDate, cycle);
+      
+      // Calcular ovulação (14 dias antes da próxima menstruação)
+      const ovulationDate = addDays(nextPeriod, -14);
+      
+      // Calcular período fértil (5 dias antes e 1 dia após ovulação)
+      const fertileStart = addDays(ovulationDate, -5);
+      const fertileEnd = addDays(ovulationDate, 1);
+
+      // Gerar calendário do ciclo
+      const cycleCalendar: CycleDay[] = [];
+      
+      for (let i = 0; i < cycle; i++) {
+        const currentDate = addDays(lastPeriodDate, i);
+        const dayOfCycle = i + 1;
+        
+        let phase: CycleDay['phase'];
+        let description: string;
+        let isFertile = false;
+        let isOvulation = false;
+        
+        if (dayOfCycle <= period) {
+          phase = "menstruation";
+          description = `Menstruação - Dia ${dayOfCycle}`;
+        } else if (dayOfCycle <= 13) {
+          phase = "follicular";
+          description = "Fase folicular";
+        } else if (dayOfCycle === 14) {
+          phase = "ovulation";
+          description = "Ovulação";
+          isOvulation = true;
+          isFertile = true;
+        } else {
+          phase = "luteal";
+          description = "Fase lútea";
+        }
+        
+        // Determinar se está no período fértil
+        if (currentDate >= fertileStart && currentDate <= fertileEnd) {
+          isFertile = true;
+          if (!isOvulation) {
+            description += " - Período fértil";
+          }
+        }
+        
+        cycleCalendar.push({
+          date: currentDate,
+          dayOfCycle,
+          phase,
+          isFertile,
+          isOvulation,
+          description,
+        });
+      }
+      
+      // Calcular próximas 6 menstruações
+      const upcomingPeriods: Date[] = [];
+      for (let i = 1; i <= 6; i++) {
+        upcomingPeriods.push(addDays(lastPeriodDate, cycle * i));
+      }
+
+      const res: MenstrualCycleResult = {
+        lastPeriod: lastPeriodDate,
+        cycleLength: cycle,
+        periodLength: period,
+        nextPeriod,
+        ovulationDate,
+        fertileStart,
+        fertileEnd,
+        cycleCalendar,
+        upcomingPeriods,
       };
 
-      const cycleResult = calculateMenstrualCycle(params);
-      setResult(cycleResult);
-    } catch (error) {
-      setErrors({ general: "Erro ao calcular o ciclo. Tente novamente." });
-    } finally {
-      setIsCalculating(false);
+      setResult(res);
+      setErrors({});
+      setCurrentPage(1);
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ lastPeriod: "Erro no cálculo. Verifique os valores inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
-    setLastPeriodDate("");
+    setLastPeriod("");
     setCycleLength("28");
     setPeriodLength("5");
-    setCycleType("regular");
-    setGoal("track");
     setResult(null);
     setErrors({});
-    setIsCalculating(false);
+    setCurrentPage(1);
   };
 
-  // Scroll automático para resultados
-  useEffect(() => {
-    if (result) {
-      resultsRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [result]);
-
-  const getPhaseColor = (phase: string) => {
-    switch (phase) {
-      case "Menstrual":
-        return "system-error";
-      case "Folicular":
-        return "primary-blue";
-      case "Ovulação":
-        return "growth-green";
-      case "Lútea":
-        return "system-warning";
-      default:
-        return "neutral";
-    }
-  };
-
-  const getPhaseEmoji = (phase: string) => {
-    switch (phase) {
-      case "Menstrual":
-        return "🩸";
-      case "Folicular":
-        return "🌱";
-      case "Ovulação":
-        return "🥚";
-      case "Lútea":
-        return "🌙";
-      default:
-        return "📅";
-    }
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
@@ -240,852 +497,413 @@ export default function MenstrualCycleCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Ciclo Menstrual
+          Calculadora de Ciclo Menstrual 2025 – Período Fértil e Ovulação
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Acompanhe seu <strong className="text-system-error-dark">ciclo menstrual</strong>, calcule
-          seu <strong className="text-growth-green">período fértil</strong> e saiba quando será sua
-          próxima <strong className="text-primary-blue-dark">ovulação</strong>.
+          Acompanhe seu <strong className="text-health-red">ciclo menstrual</strong> com precisão.
+          Calcule <strong className="text-primary-blue-dark">período fértil</strong>, ovulação e
+          próximas menstruações com nossa ferramenta confiável.
         </p>
-        <div className="bg-growth-green-light inline-block rounded-lg p-4 duration-300">
+        <div className="inline-block rounded-lg bg-health-red-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🩸 <strong>Calendário completo</strong> • 🥚 <strong>Período fértil</strong> • 📅{" "}
-            <strong>Próximos 6 meses</strong>
+            📅 <strong>Calendário Menstrual</strong> • 🌱 <strong>Período Fértil</strong> •
+            🔴 <strong>Ovulação Precisa</strong>
           </p>
         </div>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle as="h2">Dados do seu Ciclo</CardTitle>
+          <CardTitle as="h2">📋 Configure seu Ciclo Menstrual</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            <div className="space-y-6">
-              <div className="mx-auto max-w-sm">
-                <Input
-                  type="date"
-                  label="Data da última menstruação"
-                  value={lastPeriodDate}
-                  onChange={(e) => setLastPeriodDate(e.target.value)}
-                  required
-                  fullWidth
-                />
-                <p className="mt-1 text-center text-xs text-text-secondary">
-                  Primeiro dia da sua última menstruação
-                </p>
-              </div>
-
-              <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:grid-cols-2">
-                <div>
-                  <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">
-                    Seu objetivo:
-                  </h3>
-                  <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
-                    <button
-                      type="button"
-                      onClick={() => setGoal("track")}
-                      className={`flex-1 px-4 py-3 text-sm font-medium ${
-                        goal === "track"
-                          ? "bg-primary-blue text-white"
-                          : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
-                      }`}
-                    >
-                      📅 Acompanhar ciclo
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setGoal("conceive")}
-                      className={`flex-1 px-4 py-3 text-sm font-medium ${
-                        goal === "conceive"
-                          ? "bg-growth-green text-white"
-                          : "hover:bg-growth-green/10-dark/10 bg-neutral-surface text-text-secondary"
-                      }`}
-                    >
-                      👶 Tentando engravidar
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">
-                    Tipo de ciclo:
-                  </h3>
-                  <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
-                    <button
-                      type="button"
-                      onClick={() => setCycleType("regular")}
-                      className={`flex-1 px-4 py-3 text-sm font-medium ${
-                        cycleType === "regular"
-                          ? "bg-system-info text-white"
-                          : "hover:bg-system-info/10:bg-system-info-dark/10 bg-neutral-surface text-text-secondary"
-                      }`}
-                    >
-                      📊 Regular
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCycleType("irregular")}
-                      className={`flex-1 px-4 py-3 text-sm font-medium ${
-                        cycleType === "irregular"
-                          ? "bg-system-warning text-white"
-                          : "hover:bg-system-warning/10:bg-system-warning-dark/10 bg-neutral-surface text-text-secondary"
-                      }`}
-                    >
-                      📈 Irregular
-                    </button>
-                  </div>
-                </div>
-              </div>
+          {/* Linha 1: Data da última menstruação */}
+          <div className="mb-6">
+            <div>
+              <Input
+                type="date"
+                label="Data da Última Menstruação"
+                value={lastPeriod}
+                onChange={(e) => setLastPeriod(e.target.value)}
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.lastPeriod} />
+              <div className="mt-1 text-xs text-text-secondary">Data do primeiro dia da sua última menstruação</div>
             </div>
+          </div>
 
-            <div className="mx-auto grid max-w-lg grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Linha 2: Duração do ciclo e menstruação */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
               <Input
                 type="number"
-                label="Duração do ciclo (dias)"
+                label="Duração do Ciclo (dias)"
                 value={cycleLength}
                 onChange={(e) => setCycleLength(e.target.value)}
-                placeholder="Ex: 28"
+                placeholder="28"
                 min="21"
                 max="45"
-                step="1"
-                required
                 fullWidth
+                className="h-12 text-lg"
               />
-
+              <ErrorMessage error={errors.cycleLength} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Número de dias do seu ciclo completo (21 a 45 dias)
+              </div>
+            </div>
+            <div>
               <Input
                 type="number"
-                label="Duração da menstruação (dias)"
+                label="Duração da Menstruação (dias)"
                 value={periodLength}
                 onChange={(e) => setPeriodLength(e.target.value)}
-                placeholder="Ex: 5"
-                min="3"
+                placeholder="5"
+                min="2"
                 max="10"
-                step="1"
-                required
                 fullWidth
+                className="h-12 text-lg"
               />
+              <ErrorMessage error={errors.periodLength} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Quantos dias dura sua menstruação (2 a 10 dias)
+              </div>
             </div>
+          </div>
 
-            <div
-              className={`${goal === "conceive" ? "border border-growth-green/20 bg-growth-green/10" : "border border-system-info/20 bg-system-info/10"} rounded-lg p-4`}
+          {/* Botões */}
+          <div className="margin-top-4 flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
             >
-              <h3
-                className={`font-semibold ${goal === "conceive" ? "text-growth-green" : "text-system-info"} mb-2`}
-              >
-                {goal === "conceive"
-                  ? "👶 Dicas para Engravidar"
-                  : "💡 Dicas para usar a calculadora"}
-              </h3>
-              {goal === "conceive" ? (
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Melhor momento:</strong> 2-3 dias antes da ovulação até 1 dia após
-                  </li>
-                  <li>
-                    • <strong>Frequência:</strong> Relações a cada 2-3 dias durante período fértil
-                  </li>
-                  <li>
-                    • <strong>Sinais de ovulação:</strong> Observe muco cervical e temperatura basal
-                  </li>
-                  <li>
-                    • <strong>Estilo de vida:</strong> Mantenha alimentação saudável e evite
-                    estresse
-                  </li>
-                  <li>
-                    • <strong>Paciência:</strong> Pode levar até 12 meses para casais saudáveis
-                  </li>
-                </ul>
-              ) : (
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Ciclo regular:</strong> Sempre tem a mesma duração (±2 dias)
-                  </li>
-                  <li>
-                    • <strong>Ciclo irregular:</strong> A duração varia mais de 2 dias entre os
-                    meses
-                  </li>
-                  <li>
-                    • <strong>Duração normal:</strong> Ciclo de 21 a 35 dias, menstruação de 3 a 7
-                    dias
-                  </li>
-                  <li>
-                    • <strong>Para maior precisão:</strong> Anote suas datas por alguns meses
-                  </li>
-                </ul>
-              )}
-            </div>
-
-            <div className="flex justify-center gap-4">
-              <Button onClick={handleCalculate} className="px-8">
-                Calcular
-              </Button>
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
-              >
-                Limpar
-              </Button>
-            </div>
+              Limpar
+            </Button>
           </div>
         </CardContent>
       </Card>
 
-      <div ref={resultsRef}>
-        {result && (
-          <>
-            {/* Resumo atual */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card
-                className={`bg-${getPhaseColor(result.currentPhase)}/10${getPhaseColor(result.currentPhase)}-dark/10 border-l-4 border-${getPhaseColor(result.currentPhase)}${getPhaseColor(result.currentPhase)}-dark`}
-              >
-                <CardHeader>
-                  <CardTitle
-                    as="h3"
-                    className={`text-${getPhaseColor(result.currentPhase)}${getPhaseColor(result.currentPhase)}-dark text-lg`}
-                  >
-                    {getPhaseEmoji(result.currentPhase)} Fase Atual
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center">
-                    <div
-                      className={`text-2xl font-bold text-${getPhaseColor(result.currentPhase)}${getPhaseColor(result.currentPhase)}-dark`}
-                    >
-                      {result.currentPhase}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-system-error-dark bg-system-error/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-system-error-dark">
-                    🩸 Próxima Menstruação
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div className="text-lg font-semibold text-text-primary">
-                      {formatDate(result.nextPeriodDate)}
-                    </div>
-                    <div className="text-sm text-system-error-dark">
-                      em {result.daysToNextPeriod} dias
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-growth-green bg-growth-green/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-growth-green">
-                    🥚 Ovulação
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div className="text-lg font-semibold text-text-primary">
-                      {formatDate(result.ovulationDate)}
-                    </div>
-                    <div className="text-sm text-growth-green">
-                      {result.daysToOvulation === 0 ? "hoje" : `em ${result.daysToOvulation} dias`}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card
-                className={`${goal === "conceive" ? "border-l-4 border-growth-green bg-growth-green/20 ring-2 ring-growth-green/30" : "border-l-4 border-primary-blue bg-primary-blue/10"}`}
-              >
-                <CardHeader>
-                  <CardTitle
-                    as="h3"
-                    className={`${goal === "conceive" ? "text-growth-green" : "text-primary-blue-dark"} text-lg`}
-                  >
-                    {goal === "conceive" ? "🎯 Melhor Período para Conceber" : "💕 Período Fértil"}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div className="text-sm text-text-primary">
-                      <div className="font-semibold">
-                        {formatDateShort(result.fertileWindowStart)}
-                      </div>
-                      <div className="text-xs text-text-secondary">até</div>
-                      <div className="font-semibold">
-                        {formatDateShort(result.fertileWindowEnd)}
-                      </div>
-                    </div>
-                    {goal === "conceive" && (
-                      <div className="mt-1 text-xs font-medium text-growth-green">
-                        {result.daysToOvulation <= 6 && result.daysToOvulation >= -1
-                          ? "✨ Período ideal!"
-                          : "Próximo período em breve"}
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef as any} className="border-2 border-health-red bg-health-red-soft">
+          <CardHeader>
+            <CardTitle as="h3" className="text-health-red">
+              📊 Resultado do Cálculo do Ciclo Menstrual
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-health-red">
+                  {formatDate(result.nextPeriod)}
+                </div>
+                <div className="text-sm text-text-secondary">Próxima Menstruação</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-2xl font-bold text-primary-blue-dark">
+                  {formatDate(result.ovulationDate)}
+                </div>
+                <div className="text-sm text-text-secondary">Ovulação</div>
+              </div>
+              <div className="rounded-lg bg-gray-900 p-6 text-center">
+                <div className="text-lg font-bold text-system-success">
+                  {formatDate(result.fertileStart)} a {formatDate(result.fertileEnd)}
+                </div>
+                <div className="text-sm text-text-secondary">Período Fértil</div>
+              </div>
             </div>
 
-            {/* Calendário visual dos próximos ciclos */}
+            <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Ciclo Atual</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {result.cycleLength} dias
+                </div>
+                <div className="text-sm text-text-secondary">Duração do ciclo</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Menstruação</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {result.periodLength} dias
+                </div>
+                <div className="text-sm text-text-secondary">Duração menstrual</div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-text-secondary">Dias até Próxima</div>
+                <div className="text-xl font-bold text-text-primary">
+                  {daysBetween(new Date(), result.nextPeriod)} dias
+                </div>
+                <div className="text-sm text-text-secondary">Próxima menstruação</div>
+              </div>
+            </div>
+
+            <div className="rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo do Ciclo</h4>
+              <ul className="space-y-1 text-sm text-text-secondary">
+                <li>
+                  Última menstruação: <strong>{formatDate(result.lastPeriod)}</strong>
+                </li>
+                <li>
+                  Duração do ciclo: <strong>{result.cycleLength} dias</strong>
+                </li>
+                <li>
+                  Duração da menstruação: <strong>{result.periodLength} dias</strong>
+                </li>
+                <li>
+                  Próxima menstruação: <strong>{formatDate(result.nextPeriod)}</strong>
+                </li>
+                <li>
+                  Ovulação: <strong>{formatDate(result.ovulationDate)}</strong>
+                </li>
+                <li>
+                  Período fértil: <strong>{formatDate(result.fertileStart)} a {formatDate(result.fertileEnd)}</strong>
+                </li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Calendário e Gráficos */}
+      {result && (
+        <>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Gráfico do Ciclo Menstrual */}
             <Card>
               <CardHeader>
-                <CardTitle as="h3">
-                  {goal === "conceive"
-                    ? "🎯 Próximas Oportunidades de Concepção"
-                    : "📅 Próximos 6 Ciclos"}
+                <CardTitle as="h3" className="text-health-red">
+                  📈 Fases do Ciclo Menstrual
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="py-3 text-left">Ciclo</th>
-                        <th className="py-3 text-left">🩸 Menstruação</th>
-                        <th className="py-3 text-left">
-                          {goal === "conceive" ? "🎯 Melhor Período" : "💕 Período Fértil"}
-                        </th>
-                        <th className="py-3 text-left">🥚 Ovulação</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-growth-green/5/5 border-b">
-                        <td className="py-3 font-semibold">Atual</td>
-                        <td className="py-3">{formatDate(new Date(lastPeriodDate))}</td>
-                        <td className="py-3">
-                          {formatDateShort(result.fertileWindowStart)} -{" "}
-                          {formatDateShort(result.fertileWindowEnd)}
-                        </td>
-                        <td className="py-3">{formatDate(result.ovulationDate)}</td>
-                      </tr>
-                      {result.nextSixCycles.map((cycle) => (
-                        <tr
-                          key={cycle.cycleNumber}
-                          className="hover:bg-neutral-surface/50:bg-background-dark-secondary/50 border-b"
-                        >
-                          <td className="py-3 font-medium">{cycle.cycleNumber}</td>
-                          <td className="py-3">{formatDate(cycle.periodStart)}</td>
-                          <td className="py-3">
-                            {formatDateShort(cycle.fertileStart)} -{" "}
-                            {formatDateShort(cycle.fertileEnd)}
-                          </td>
-                          <td className="py-3">{formatDate(cycle.ovulation)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="h-80">
+                  <Pie
+                    data={{
+                      labels: ["Menstruação", "Fase Folicular", "Ovulação", "Fase Lútea"],
+                      datasets: [
+                        {
+                          data: [
+                            result.periodLength,
+                            13 - result.periodLength,
+                            1,
+                            result.cycleLength - 14,
+                          ],
+                          backgroundColor: [
+                            "#DC2626", // Red for menstruation
+                            "#3B82F6", // Blue for follicular
+                            "#10B981", // Green for ovulation
+                            "#F59E0B", // Orange for luteal
+                          ],
+                          borderColor: ["#991B1B", "#1D4ED8", "#047857", "#D97706"],
+                          borderWidth: 2,
+                        },
+                      ],
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: "bottom" as const,
+                          labels: {
+                            color: "#E5E5E5",
+                            padding: 20,
+                          },
+                        },
+                        tooltip: {
+                          backgroundColor: "#1A1A1A",
+                          titleColor: "#E5E5E5",
+                          bodyColor: "#E5E5E5",
+                          callbacks: {
+                            label: function (context) {
+                              const value = context.parsed;
+                              const total = result.cycleLength;
+                              const percentage = ((value / total) * 100).toFixed(1);
+                              return `${context.label}: ${value} dias (${percentage}%)`;
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  />
                 </div>
-
-                {result.isIrregularCycle && (
-                  <div className="mt-4 rounded-lg border border-system-warning/20 bg-system-warning/10 p-3">
-                    <p className="text-sm text-system-warning">
-                      <strong>⚠️ Ciclo Irregular Detectado:</strong> As datas podem variar. Para
-                      maior precisão, acompanhe seu ciclo por alguns meses e consulte um
-                      ginecologista.
-                    </p>
-                  </div>
-                )}
               </CardContent>
             </Card>
 
-            {/* Fases do ciclo */}
+            {/* Próximas Menstruações */}
             <Card>
               <CardHeader>
-                <CardTitle as="h3">🔄 Fases do seu Ciclo Atual</CardTitle>
+                <CardTitle as="h3" className="text-primary-blue-dark">
+                  📅 Próximas Menstruações
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                  <div className="bg-system-error/5/5 rounded-lg border border-system-error/20 p-4">
-                    <h4 className="mb-2 flex items-center font-semibold text-system-error-dark">
-                      🩸 <span className="ml-2">Menstrual</span>
-                    </h4>
-                    <p className="mb-2 text-xs text-text-secondary">
-                      {formatDateShort(result.cyclePhases.menstrual.start)} -{" "}
-                      {formatDateShort(result.cyclePhases.menstrual.end)}
-                    </p>
-                    <p className="text-xs text-text-secondary">
-                      Descamação do endométrio. É normal sentir cólicas e mudanças de humor.
-                    </p>
-                  </div>
-
-                  <div className="bg-primary-blue/5/5 rounded-lg border border-primary-blue/20 p-4">
-                    <h4 className="mb-2 flex items-center font-semibold text-primary-blue-dark">
-                      🌱 <span className="ml-2">Folicular</span>
-                    </h4>
-                    <p className="mb-2 text-xs text-text-secondary">
-                      {formatDateShort(result.cyclePhases.follicular.start)} -{" "}
-                      {formatDateShort(result.cyclePhases.follicular.end)}
-                    </p>
-                    <p className="text-xs text-text-secondary">
-                      Os folículos se desenvolvem. Energia aumenta e humor melhora.
-                    </p>
-                  </div>
-
-                  <div className="bg-growth-green/5/5 rounded-lg border border-growth-green/20 p-4">
-                    <h4 className="mb-2 flex items-center font-semibold text-growth-green">
-                      🥚 <span className="ml-2">Ovulação</span>
-                    </h4>
-                    <p className="mb-2 text-xs text-text-secondary">
-                      {formatDateShort(result.cyclePhases.ovulation.start)} -{" "}
-                      {formatDateShort(result.cyclePhases.ovulation.end)}
-                    </p>
-                    <p className="text-xs text-text-secondary">
-                      Período mais fértil. Pode haver aumento da libido e energia.
-                    </p>
-                  </div>
-
-                  <div className="bg-system-warning/5/5 rounded-lg border border-system-warning/20 p-4">
-                    <h4 className="mb-2 flex items-center font-semibold text-system-warning">
-                      🌙 <span className="ml-2">Lútea</span>
-                    </h4>
-                    <p className="mb-2 text-xs text-text-secondary">
-                      {formatDateShort(result.cyclePhases.luteal.start)} -{" "}
-                      {formatDateShort(result.cyclePhases.luteal.end)}
-                    </p>
-                    <p className="text-xs text-text-secondary">
-                      Preparo para menstruação. Possível TPM e sintomas pré-menstruais.
-                    </p>
-                  </div>
+                <div className="space-y-3">
+                  {result.upcomingPeriods.map((date, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between rounded-lg bg-gray-900 p-3"
+                    >
+                      <div className="font-medium text-text-primary">
+                        {index === 0 ? "Próxima" : `${index + 1}ª próxima`}
+                      </div>
+                      <div className="text-health-red font-bold">
+                        {formatDate(date)}
+                      </div>
+                      <div className="text-sm text-text-secondary">
+                        {daysBetween(new Date(), date)} dias
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          </>
-        )}
-      </div>
+          </div>
 
-      {/* Seção específica para quem quer engravidar */}
-      {goal === "conceive" && result && (
-        <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              👶 Guia Para Engravidar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          {/* Calendário Menstrual */}
+          <Card>
+            <CardHeader>
+              <CardTitle as="h3" className="text-system-success">
+                🗓️ Calendário do Ciclo Atual
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                {/* Cabeçalho dos dias da semana */}
+                {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].map((day) => (
+                  <div key={day} className="font-bold p-2 text-text-secondary">
+                    {day}
+                  </div>
+                ))}
+                
+                {/* Dias do calendário */}
+                {result.cycleCalendar.map((day) => (
+                  <div
+                    key={day.dayOfCycle}
+                    className={`p-2 rounded-lg border text-xs ${
+                      day.phase === "menstruation"
+                        ? "bg-health-red text-white border-health-red"
+                        : day.isOvulation
+                        ? "bg-system-success text-white border-system-success"
+                        : day.isFertile
+                        ? "bg-primary-blue text-white border-primary-blue"
+                        : "bg-gray-800 text-text-secondary border-gray-700"
+                    }`}
+                  >
+                    <div className="font-bold">{day.dayOfCycle}</div>
+                    <div className="text-xs mt-1">{day.description}</div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Legenda */}
+              <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-health-red rounded"></div>
+                  <span className="text-sm">Menstruação</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-system-success rounded"></div>
+                  <span className="text-sm">Ovulação</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-primary-blue rounded"></div>
+                  <span className="text-sm">Período Fértil</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-gray-800 rounded"></div>
+                  <span className="text-sm">Outras fases</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+
+      {/* Seção: Ciclo Menstrual - Guia Completo */}
+      <Card className="border-l-4 border-health-red bg-gradient-to-r from-health-red-soft to-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎯 Ciclo Menstrual – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Fases do Ciclo Menstrual */}
+            <div className="rounded-xl border border-health-red/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-health-red">
+                🔄 Fases do Ciclo Menstrual
+              </h3>
+
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                    🎯 <span className="ml-2">Timing Perfeito</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>3 dias antes da ovulação:</strong> Maior chance de concepção
-                    </li>
-                    <li>
-                      • <strong>Dia da ovulação:</strong> Momento de pico de fertilidade
-                    </li>
-                    <li>
-                      • <strong>1 dia após ovulação:</strong> Ainda possível engravidar
-                    </li>
-                    <li>
-                      • <strong>Evite pressão:</strong> Sexo prazeroso aumenta as chances
-                    </li>
+                  <h4 className="mb-3 font-semibold text-system-error">🩸 Menstruação (Dias 1-5)</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Período em que ocorre o sangramento menstrual. O revestimento uterino é eliminado 
+                    quando não há gravidez.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🌱 Fase Folicular (Dias 1-13)</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Os folículos ovarianos se desenvolvem e os níveis de estrogênio aumentam, 
+                    preparando o útero para uma possível gravidez.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">🥚 Ovulação (Dia 14)</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Liberação do óvulo maduro do ovário. É o momento de maior fertilidade do ciclo.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">🌙 Fase Lútea (Dias 15-28)</h4>
+                  <p className="text-sm text-text-secondary">
+                    O corpo se prepara para uma possível gravidez ou para o próximo ciclo menstrual.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Período Fértil */}
+            <div className="rounded-xl border border-system-success/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-success">
+                🌱 Entendendo o Período Fértil
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">📅 Duração</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    O período fértil dura aproximadamente 6 dias: 5 dias antes da ovulação e 1 dia após.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Identificação</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Aumento da temperatura basal</li>
+                    <li>• Mudança na consistência do muco cervical</li>
+                    <li>• Possível dor pélvica leve</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 flex items-center font-semibold text-primary-blue-dark">
-                    📈 <span className="ml-2">Maximize suas Chances</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Ácido fólico:</strong> Comece a tomar 400mcg por dia
-                    </li>
-                    <li>
-                      • <strong>Peso ideal:</strong> IMC entre 18,5 e 24,9
-                    </li>
-                    <li>
-                      • <strong>Pare de fumar:</strong> Reduz fertilidade em ambos
-                    </li>
-                    <li>
-                      • <strong>Limite álcool:</strong> Máximo 1-2 drinks por semana
-                    </li>
+                  <h4 className="mb-3 font-semibold text-system-success">💡 Importante Saber</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Espermatozoides sobrevivem até 5 dias</li>
+                    <li>• Óvulo sobrevive 12-24 horas</li>
+                    <li>• Ciclos podem variar naturalmente</li>
                   </ul>
-                </div>
-              </div>
 
-              <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                <h4 className="mb-2 font-semibold text-growth-green">
-                  📊 Suas Próximas Oportunidades
-                </h4>
-                <div className="text-sm text-text-secondary">
-                  <p>
-                    <strong>Próxima ovulação:</strong> {formatDate(result.ovulationDate)}
-                    {result.daysToOvulation === 0
-                      ? " (hoje!)"
-                      : ` (em ${result.daysToOvulation} dias)`}
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Atenção</h4>
+                  <p className="text-sm text-text-secondary">
+                    Esta calculadora é para fins informativos. Para planejamento familiar, 
+                    consulte um médico especialista.
                   </p>
-                  <p className="mt-1">
-                    <strong>Janela fértil:</strong> {formatDate(result.fertileWindowStart)} até{" "}
-                    {formatDate(result.fertileWindowEnd)}
-                  </p>
-                  {result.daysToOvulation <= 6 && result.daysToOvulation >= -1 && (
-                    <p className="mt-2 font-medium text-growth-green">
-                      ✨ Você está na janela fértil! Este é o momento ideal para tentar engravidar.
-                    </p>
-                  )}
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Seção adicional para quem quer engravidar - quando procurar ajuda */}
-      {goal === "conceive" && (
-        <Card className="border-l-4 border-system-info bg-system-info/10 duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🏥 Quando Procurar Ajuda Médica
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-warning">
-                  ⏰ <span className="ml-2">Tempo de Tentativas</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Mulheres &lt; 35 anos:</strong> Após 12 meses tentando
-                  </li>
-                  <li>
-                    • <strong>Mulheres ≥ 35 anos:</strong> Após 6 meses tentando
-                  </li>
-                  <li>
-                    • <strong>Mulheres ≥ 40 anos:</strong> Procure ajuda imediatamente
-                  </li>
-                  <li>
-                    • <strong>Histórico familiar:</strong> Infertilidade ou menopausa precoce
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-error-dark">
-                  🚩 <span className="ml-2">Sinais de Alerta</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>• Ciclos muito irregulares (variação &gt; 7 dias)</li>
-                  <li>• Ausência de menstruação por &gt; 3 meses</li>
-                  <li>• Dor pélvica severa</li>
-                  <li>• Histórico de DSTs ou cirurgias pélvicas</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-              <h4 className="mb-2 font-semibold text-growth-green">💡 Dica Importante</h4>
-              <p className="text-sm text-text-secondary">
-                Não espere o tempo "recomendado" se você tem preocupações. Um check-up
-                pré-concepcional pode identificar e resolver problemas antes mesmo de tentar
-                engravidar, aumentando suas chances de sucesso.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Seção: O que é o ciclo menstrual */}
-      <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🌸 O que é o Ciclo Menstrual?
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4 text-text-primary">
-            <p>
-              O <strong className="text-growth-green">ciclo menstrual</strong> é um processo natural
-              que ocorre no corpo feminino, preparando-o mensalmente para uma possível gravidez. Ele
-              é controlado por hormônios e dura em média 28 dias, mas pode variar de 21 a 35 dias.
-            </p>
-            <p>
-              O ciclo é contado a partir do primeiro dia da menstruação até o dia anterior à próxima
-              menstruação. Durante este período, o corpo passa por mudanças hormonais que afetam não
-              apenas o sistema reprodutivo, mas também o humor, energia e bem-estar geral.
-            </p>
-            <p>
-              Conhecer seu ciclo é fundamental para a{" "}
-              <strong className="text-primary-blue-dark">saúde feminina</strong>, planejamento
-              familiar e autoconhecimento corporal.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Como usar a calculadora */}
-      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🧮 Como Usar a Calculadora de Ciclo Menstrual
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-growth-green text-sm font-bold text-white">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-text-primary">Data da Última Menstruação</h3>
-                    <p className="text-sm text-text-secondary">
-                      Informe o primeiro dia da sua última menstruação. Esta é a data base para
-                      todos os cálculos.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary-blue text-sm font-bold text-white">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-text-primary">Duração do Ciclo</h3>
-                    <p className="text-sm text-text-secondary">
-                      Conte quantos dias passam entre o primeiro dia de uma menstruação até o
-                      primeiro dia da próxima.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-system-warning text-sm font-bold text-white">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-text-primary">Duração da Menstruação</h3>
-                    <p className="text-sm text-text-secondary">
-                      Quantos dias você fica menstruada, desde o primeiro dia com fluxo até parar
-                      completamente.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-system-error text-sm font-bold text-white">
-                    4
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-text-primary">Tipo de Ciclo</h3>
-                    <p className="text-sm text-text-secondary">
-                      Escolha "regular" se seu ciclo sempre tem a mesma duração, ou "irregular" se
-                      varia muito.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Entendendo o período fértil */}
-      <Card className="border-l-4 border-system-info bg-system-info/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            💕 Entendendo o Período Fértil
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4 text-text-primary">
-            <p>
-              O <strong className="text-system-info">período fértil</strong> é a fase do ciclo
-              menstrual em que a mulher tem maior probabilidade de engravidar. Geralmente dura cerca
-              de 6 dias, incluindo o dia da ovulação e os 5 dias que a antecedem.
-            </p>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-2 font-semibold text-growth-green">🥚 Ovulação</h4>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>• Ocorre aproximadamente 14 dias antes da próxima menstruação</li>
-                  <li>• É quando o óvulo é liberado pelo ovário</li>
-                  <li>• O óvulo vive cerca de 24 horas após a liberação</li>
-                  <li>• É o momento de maior fertilidade</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">📅 Janela Fértil</h4>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>• Espermatozoides vivem até 5 dias no corpo feminino</li>
-                  <li>• Por isso, relações 5 dias antes da ovulação podem resultar em gravidez</li>
-                  <li>• O período mais fértil é de 2 dias antes até o dia da ovulação</li>
-                  <li>• Usar múltiplos métodos aumenta a precisão</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-              <h4 className="mb-2 font-semibold text-growth-green">🎯 Sinais de Ovulação</h4>
-              <ul className="space-y-1 text-sm text-text-secondary">
-                <li>
-                  • <strong>Muco cervical:</strong> Torna-se claro, elástico, semelhante à clara do
-                  ovo
-                </li>
-                <li>
-                  • <strong>Temperatura basal:</strong> Pequeno aumento de 0,2-0,5°C após a ovulação
-                </li>
-                <li>
-                  • <strong>Dor pélvica leve:</strong> Algumas mulheres sentem dor do lado do ovário
-                  que ovula
-                </li>
-                <li>
-                  • <strong>Aumento da libido:</strong> Desejo sexual pode aumentar naturalmente
-                </li>
-                <li>
-                  • <strong>Sensibilidade nos seios:</strong> Podem ficar mais sensíveis
-                </li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Limitações e cuidados */}
-      <Card className="border-l-4 border-system-warning bg-system-warning/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚠️ Limitações e Cuidados Importantes
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4 text-text-primary">
-            <p className="font-medium text-system-warning">
-              <strong>Importante:</strong> Esta calculadora fornece estimativas baseadas em médias
-              estatísticas e não substitui acompanhamento médico.
-            </p>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-2 font-semibold text-system-warning">
-                  ⚠️ A Calculadora PODE ser menos precisa em:
-                </h4>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Ciclos irregulares:</strong> Variação maior que 4 dias entre ciclos
-                  </li>
-                  <li>
-                    • <strong>Pós-parto:</strong> Ciclo ainda não regularizou
-                  </li>
-                  <li>
-                    • <strong>Amamentação:</strong> Hormônios podem afetar o ciclo
-                  </li>
-                  <li>
-                    • <strong>Uso de anticoncepcionais:</strong> Alteram o padrão natural
-                  </li>
-                  <li>
-                    • <strong>Estresse ou doença:</strong> Podem atrasar a ovulação
-                  </li>
-                  <li>
-                    • <strong>Mudanças de peso:</strong> Alterações hormonais
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-semibold text-growth-green">
-                  ✅ Consulte um Ginecologista se:
-                </h4>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>• Ciclos menores que 21 dias ou maiores que 35 dias</li>
-                  <li>• Ausência de menstruação por mais de 3 meses</li>
-                  <li>• Sangramento entre menstruações</li>
-                  <li>• Dores muito intensas durante a menstruação</li>
-                  <li>
-                    • Tentativas de engravidar há mais de 6 meses (mulheres &gt;35) ou 12 meses
-                    (mulheres &lt;35)
-                  </li>
-                  <li>• Qualquer mudança súbita no padrão menstrual</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-              <p className="text-sm">
-                <strong className="text-system-info">💡 Para maior precisão:</strong>
-                Combine esta calculadora com métodos como{" "}
-                <strong>temperatura basal corporal</strong>, <strong>testes de ovulação</strong> e{" "}
-                <strong>observação do muco cervical</strong>. Anote seus ciclos por pelo menos 3
-                meses para identificar padrões.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Seção: Dicas para saúde menstrual */}
-      <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            🌺 Dicas para uma Saúde Menstrual Ideal
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div>
-              <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                🥗 <span className="ml-2">Alimentação e Estilo de Vida</span>
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>• Mantenha uma dieta balanceada rica em ferro</li>
-                <li>• Beba bastante água durante todo o ciclo</li>
-                <li>• Pratique exercícios regulares (adaptados a cada fase)</li>
-                <li>• Durma entre 7-9 horas por noite</li>
-                <li>• Gerencie o estresse com técnicas de relaxamento</li>
-                <li>• Evite excesso de cafeína e álcool</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="mb-3 flex items-center font-semibold text-primary-blue-dark">
-                📱 <span className="ml-2">Monitoramento e Cuidados</span>
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>• Mantenha um diário menstrual ou use apps</li>
-                <li>• Anote sintomas, humor e energia de cada fase</li>
-                <li>• Use produtos menstruais adequados ao seu fluxo</li>
-                <li>• Troque absorventes/coletores conforme recomendado</li>
-                <li>• Faça exames ginecológicos anuais</li>
-                <li>• Converse abertamente sobre saúde menstrual</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="mb-3 flex items-center font-semibold text-system-info">
-                💊 <span className="ml-2">Alívio de Sintomas</span>
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>• Use compressas quentes para cólicas</li>
-                <li>• Pratique yoga ou alongamento suave</li>
-                <li>• Considere suplementos de magnésio (consulte médico)</li>
-                <li>• Massagens abdominais podem ajudar</li>
-                <li>• Chás de camomila ou erva-doce relaxam</li>
-                <li>• Mantenha rotina de autocuidado em cada fase</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="mb-3 flex items-center font-semibold text-system-warning">
-                📋 <span className="ml-2">Quando Buscar Ajuda</span>
-              </h4>
-              <ul className="space-y-2 text-sm text-text-secondary">
-                <li>• Dor que interfere nas atividades diárias</li>
-                <li>• Fluxo muito intenso (mais de 80ml/ciclo)</li>
-                <li>• TPM severa que afeta qualidade de vida</li>
-                <li>• Mudanças súbitas no padrão menstrual</li>
-                <li>• Dificuldades para engravidar</li>
-                <li>• Sintomas incomuns ou preocupantes</li>
-              </ul>
             </div>
           </div>
         </CardContent>
@@ -1095,86 +913,78 @@ export default function MenstrualCycleCalculator() {
         title="Perguntas Frequentes - Calculadora de Ciclo Menstrual"
         items={[
           {
-            question: "Como calcular meu período fértil de forma precisa?",
+            question: "Como calcular o ciclo menstrual?",
             answer:
-              "O <strong>período fértil</strong> dura cerca de 6 dias: <strong>5 dias antes da ovulação + dia da ovulação</strong>. A ovulação ocorre aproximadamente 14 dias antes da próxima menstruação. Para ciclo de 28 dias, o período fértil vai do 9º ao 14º dia. Nossa calculadora ajusta conforme <strong>seu ciclo específico</strong> e histórico menstrual.",
+              "O ciclo menstrual é calculado do primeiro dia da menstruação até o dia anterior ao início da próxima menstruação. A duração média é de 28 dias, mas pode variar entre 21 e 35 dias.",
+            borderColor: "health-red",
+          },
+          {
+            question: "Como saber o período fértil?",
+            answer:
+              "O período fértil ocorre geralmente entre 5 dias antes e 1 dia após a ovulação. A ovulação acontece aproximadamente 14 dias antes da próxima menstruação.",
+            borderColor: "system-success",
+          },
+          {
+            question: "Quando acontece a ovulação?",
+            answer:
+              "A ovulação ocorre aproximadamente no meio do ciclo menstrual, cerca de 14 dias antes do início da próxima menstruação, independentemente da duração total do ciclo.",
             borderColor: "primary-blue",
           },
           {
-            question: "Qual a diferença entre ciclo menstrual regular e irregular?",
+            question: "O que é considerado um ciclo normal?",
             answer:
-              "<strong>Ciclo regular:</strong> variação de até 2 dias entre os ciclos (ex: sempre 28-30 dias). <strong>Ciclo irregular:</strong> variação superior a 7 dias ou ausência de padrão. Ciclos normais variam de <strong>21 a 35 dias</strong>. Nossa calculadora adapta os cálculos conforme o tipo de ciclo informado.",
-            borderColor: "growth-green",
-          },
-          {
-            question: "Como identificar o dia da ovulação no meu ciclo?",
-            answer:
-              "A <strong>ovulação</strong> acontece cerca de 14 dias antes da próxima menstruação. <strong>Sinais físicos:</strong> muco cervical claro e elástico, leve aumento da temperatura basal (+0,2-0,5°C), dor pélvica leve. <strong>Testes de ovulação</strong> detectam o pico hormonal 24-48h antes da liberação do óvulo.",
+              "Um ciclo menstrual normal tem duração entre 21 e 35 dias, com menstruação durando de 3 a 7 dias. Variações ocasionais são normais, mas mudanças significativas devem ser avaliadas por um médico.",
             borderColor: "system-info",
           },
           {
-            question: "O que é janela fértil e como calcular corretamente?",
+            question: "A calculadora é confiável para contracepção?",
             answer:
-              "A <strong>janela fértil</strong> é o período com maior probabilidade de gravidez. Inclui os <strong>5 dias antes da ovulação</strong> (espermatozoides vivem até 5 dias) <strong>+ dia da ovulação</strong> (óvulo vive 24h). Para engravidar, o período mais fértil é de <strong>2 dias antes até o dia da ovulação</strong>.",
-            borderColor: "system-warning",
-          },
-          {
-            question: "Quais fatores podem alterar meu ciclo menstrual?",
-            answer:
-              "<strong>Fatores comuns:</strong> estresse, mudanças de peso, exercícios excessivos, doenças, viagens, alterações hormonais. <strong>Medicamentos</strong> como anticoncepcionais, antidepressivos e corticoides também afetam. <strong>Condições médicas:</strong> SOP, distúrbios da tireoide, diabetes podem causar irregularidades.",
+              "Não! Esta calculadora é apenas informativa. Para contracepção ou planejamento familiar, consulte sempre um médico ginecologista para orientação adequada e métodos seguros.",
             borderColor: "system-error-dark",
           },
           {
-            question: "Como usar a calculadora para planejamento familiar?",
+            question: "Ciclos irregulares afetam o cálculo?",
             answer:
-              "<strong>Para engravidar:</strong> foque nas datas da janela fértil, tenha relações 2-3 dias antes da ovulação. <strong>Para evitar gravidez:</strong> evite relações no período fértil (método não 100% confiável). <strong>Acompanhamento:</strong> anote pelo menos 3 ciclos para maior precisão dos cálculos.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Posso confiar na calculadora se meu ciclo é irregular?",
-            answer:
-              "Para <strong>ciclos irregulares</strong>, a calculadora oferece estimativas baseadas na média, mas a precisão é menor. <strong>Recomendamos:</strong> combine com observação do muco cervical, temperatura basal e testes de ovulação. <strong>Consulte um ginecologista</strong> para investigar causas da irregularidade.",
-            borderColor: "growth-green",
-          },
-          {
-            question: "Quando devo procurar ajuda médica sobre meu ciclo?",
-            answer:
-              "<strong>Procure ginecologista se:</strong> ciclos menores que 21 dias ou maiores que 35 dias, ausência de menstruação por >3 meses, sangramento entre ciclos, dores muito intensas. <strong>Para engravidar:</strong> após 6 meses tentando (>35 anos) ou 12 meses (<35 anos). <strong>Mudanças súbitas</strong> no padrão também merecem avaliação.",
-            borderColor: "system-info",
+              "Sim. Ciclos muito irregulares podem tornar as previsões menos precisas. Recomenda-se acompanhar vários ciclos e consultar um profissional de saúde para avaliação adequada.",
+            borderColor: "system-warning",
           },
         ]}
         tipSection={{
-          title: "Dica Importante para Saúde Feminina",
+          title: "Dica Importante sobre Ciclo Menstrual",
           content:
-            "Para <strong>maior precisão</strong> nos cálculos, mantenha um <strong>diário menstrual</strong> por pelo menos 3 meses. Anote data de início/fim da menstruação, sintomas e características do fluxo. Combine nossa calculadora com <strong>métodos naturais</strong> como observação do muco cervical para resultados mais confiáveis.",
+            "<strong>Para acompanhamento preciso:</strong> anote suas menstruações por alguns meses, observe sinais do seu corpo e mantenha consultas regulares com seu ginecologista.",
         }}
-        footerText="<strong>Quer acompanhar seu ciclo completo?</strong> Nossa calculadora oferece projeções para os próximos 6 meses e análise detalhada das fases do ciclo."
+        footerText="<strong>Lembre-se:</strong> Cada mulher é única e os ciclos podem variar. Esta ferramenta é informativa e não substitui o acompanhamento médico profissional."
       />
 
       {/* Footer com informações adicionais */}
-      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+      <Card className="border-l-4 border-health-red bg-health-red-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Sobre Esta Calculadora de Ciclo Menstrual
+            📚 Como Usar Esta Calculadora de Ciclo Menstrual
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta calculadora de ciclo menstrual é totalmente{" "}
-              <strong className="text-primary-blue-dark">gratuita</strong> e foi desenvolvida com
-              base em conhecimentos científicos sobre fisiologia feminina. Os cálculos seguem
-              padrões médicos reconhecidos para estimativa de ovulação e período fértil.
+              Esta{" "}
+              <strong className="text-health-red">calculadora de ciclo menstrual</strong>{" "}
+              utiliza <strong className="text-system-success">métodos baseados na duração média dos ciclos</strong>{" "}
+              para estimar ovulação e período fértil. Os cálculos consideram que a ovulação ocorre 
+              14 dias antes da próxima menstruação.
             </p>
             <p>
-              <strong className="text-growth-green">Importante:</strong> Esta ferramenta é apenas
-              para fins informativos e educacionais sobre saúde menstrual. Para planejamento
-              familiar, tratamento de infertilidade ou questões médicas, sempre consulte um
-              ginecologista.
+              <strong>Configurações disponíveis:</strong> Data da última menstruação, duração do ciclo 
+              e duração da menstruação. A calculadora gera previsões para os próximos 6 ciclos.
             </p>
-            <p className="text-xs opacity-75">
-              Última atualização: Dezembro 2024 • Baseado em diretrizes médicas atualizadas •
-              Privacidade garantida
+            <p>
+              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para 
+              fins educacionais e informativos. Para planejamento familiar, contracepção ou questões 
+              de saúde reprodutiva, consulte sempre um <strong>médico ginecologista qualificado</strong>.
+            </p>
+            <p className="mt-4 border-t border-health-red/20 pt-3 text-xs opacity-75">
+              📅 Cálculo preciso • 🌱 Período fértil • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>
