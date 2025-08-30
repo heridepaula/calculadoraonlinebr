@@ -1,69 +1,87 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  Input,
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Select,
 } from "~/components/ui";
+import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { GrowthChart } from "~/components/GrowthChart";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { useIndexNow } from "~/hooks/useIndexNow";
 import {
-  calculateChildDevelopment,
-  calculateChildPercentiles,
-  type ChildDevelopmentParams,
-  type ChildDevelopmentResult,
-  type ChildPercentilesParams,
-  type ChildPercentilesResult,
-  type DevelopmentMilestone,
-} from "~/utils/calculations";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
-// Interface para validação de erros
-interface ValidationErrors {
-  birthDate?: string;
-  gender?: string;
-  weight?: string;
-  height?: string;
-  headCircumference?: string;
-  motherHeight?: string;
-  fatherHeight?: string;
-  general?: string;
-}
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Desenvolvimento Infantil com Percentis WHO/CDC - Gráficos Interativos 0-5 Anos - ${APP_NAME}`,
+      title: "Calculadora Desenvolvimento Infantil 2025 | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calculadora completa de desenvolvimento infantil com percentis WHO/CDC, gráficos interativos de crescimento, previsão de altura adulta e marcos de desenvolvimento. Baseada em padrões médicos internacionais para crianças de 0 a 5 anos. Suporte completo a prematuros com idade corrigida.",
+        "Acompanhe o desenvolvimento da criança com gráficos de crescimento. Calcule percentis de altura e peso, marcos do desenvolvimento. Ferramenta gratuita para pais e pediatras.",
     },
+    { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
     {
       name: "keywords",
       content:
-        "calculadora desenvolvimento infantil, percentis WHO CDC, gráficos crescimento interativos, marcos do bebê, previsão altura adulta, percentil peso altura, curvas crescimento, desenvolvimento motor bebê, linguagem infantil, marcos cognitivos, crescimento bebê, prematuros idade corrigida, consulta pediatra, desenvolvimento social bebê, marcos 0-5 anos, acompanhamento pediátrico, perímetro cefálico, desenvolvimento neuropsicomotor, estimulação precoce",
+        "desenvolvimento infantil, crescimento criança, percentil altura peso, marcos desenvolvimento",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
-    { name: "googlebot", content: "index,follow" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "bingbot", content: "index,follow" },
     {
+      rel: "canonical",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+    },
+    {
       property: "og:title",
-      content: `Calculadora de Desenvolvimento Infantil - Acompanhe Marcos do Bebê - ${APP_NAME}`,
+      content: "Calculadora Desenvolvimento Infantil 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Monitore gratuitamente o desenvolvimento do seu bebê com 25+ marcos interativos, cronograma pediátrico personalizado e suporte completo a prematuros. Baseado em diretrizes médicas.",
+        "Acompanhe o desenvolvimento da criança com gráficos de crescimento. Calcule percentis de altura e peso, marcos do desenvolvimento. Ferramenta gratuita para pais e pediatras.",
+    },
+    {
+      property: "og:image",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Desenvolvimento Infantil - Gráficos de Crescimento e Percentis",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
@@ -75,92 +93,206 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: `Calculadora Desenvolvimento Infantil Online - Marcos 0-36 Meses - ${APP_NAME}`,
+      content: "Calculadora Desenvolvimento Infantil 2025 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
       content:
-        "Ferramenta completa para pais: marcos interativos, cronograma médico, idade corrigida para prematuros e análise por categorias de desenvolvimento.",
+        "Acompanhe o desenvolvimento da criança com gráficos de crescimento. Calcule percentis de altura e peso, marcos do desenvolvimento. Ferramenta gratuita para pais e pediatras.",
     },
+    {
+      name: "twitter:image",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Desenvolvimento Infantil - Acompanhe o crescimento",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "MedicalWebPage",
-        name: "Calculadora de Desenvolvimento Infantil",
+        "@type": "WebApplication",
+        name: "Calculadora de Desenvolvimento Infantil 2025",
         description:
-          "Ferramenta online gratuita para acompanhar marcos de desenvolvimento de bebês de 0 a 36 meses, com suporte a prematuros e cronograma pediátrico personalizado.",
+          "Ferramenta gratuita para acompanhar o crescimento e desenvolvimento de crianças. Calcule percentis de altura e peso, marcos do desenvolvimento baseados em padrões da OMS.",
         url: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
-        mainEntity: {
-          "@type": "MedicalCalculator",
-          name: "Calculadora de Marcos de Desenvolvimento Infantil",
-          description:
-            "Calculadora interativa que monitora marcos de desenvolvimento motor, cognitivo, linguagem e social em bebês e crianças de 0 a 36 meses.",
-          medicalSpecialty: "Pediatria",
-          mainEntityOfPage: {
-            "@type": "WebPage",
-            "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
-          },
-        },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonlinebr.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonlinebr.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Saúde",
-              item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Desenvolvimento Infantil",
-            },
-          ],
+        applicationCategory: "HealthApplication",
+        operatingSystem: "Web Browser",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-30",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
+          name: "CalculadoraOnlineBR",
           url: "https://calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
-        inLanguage: "pt-BR",
-        isAccessibleForFree: true,
-        hasPart: [
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+          name: "Calculadora de Desenvolvimento Infantil 2025 - Percentis e Crescimento",
+          description:
+            "Monitore o crescimento infantil com precisão. Calcule percentis de altura e peso, acompanhe marcos do desenvolvimento baseados em padrões da OMS. Ferramenta essencial para pais e profissionais da saúde.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Saúde",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Desenvolvimento Infantil",
+                item: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "MedicalCondition",
+          name: "Desenvolvimento Infantil",
+          description:
+            "Processo de crescimento físico, cognitivo, emocional e social das crianças, monitorado através de percentis de altura, peso e marcos do desenvolvimento",
+          category: "Pediatrics",
+        },
+        featureList: [
+          "Cálculo de percentis de altura e peso baseados na OMS",
+          "Gráficos de crescimento interativos",
+          "Marcos do desenvolvimento por idade",
+          "Comparação com padrões de referência",
+          "Análise de tendências de crescimento",
+          "Interface otimizada para mobile",
+          "Dados não armazenados garantindo privacidade",
+          "Ferramenta educacional para pais e profissionais",
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
           {
-            "@type": "MedicalTest",
-            name: "Marcos de Desenvolvimento Motor",
+            "@type": "Question",
+            name: "O que são percentis de crescimento?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Percentis de crescimento comparam o tamanho da sua criança com outras crianças da mesma idade e sexo. Por exemplo, se a criança está no percentil 50 de altura, significa que é mais alta que 50% das crianças da mesma idade.",
+            },
           },
           {
-            "@type": "MedicalTest",
-            name: "Marcos de Desenvolvimento Cognitivo",
+            "@type": "Question",
+            name: "Qual percentil é considerado normal?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Percentis entre 10 e 90 são considerados dentro da normalidade. O mais importante é que a criança mantenha um padrão de crescimento consistente ao longo do tempo, independente do percentil específico.",
+            },
           },
           {
-            "@type": "MedicalTest",
-            name: "Marcos de Desenvolvimento da Linguagem",
+            "@type": "Question",
+            name: "Com que frequência devo monitorar o crescimento?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para bebês: mensalmente até 6 meses, depois a cada 2-3 meses. Para crianças maiores: a cada 3-6 meses. Consulte sempre um pediatra para acompanhamento profissional regular.",
+            },
           },
           {
-            "@type": "MedicalTest",
-            name: "Marcos de Desenvolvimento Social",
+            "@type": "Question",
+            name: "Esta calculadora substitui consulta médica?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Não! Esta ferramenta é apenas educacional e informativa. Para avaliação adequada do desenvolvimento infantil, diagnósticos ou orientações de saúde, sempre consulte um pediatra qualificado.",
+            },
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "Como usar a Calculadora de Desenvolvimento Infantil",
+        description:
+          "Aprenda a monitorar o crescimento da criança usando nossa calculadora de percentis baseada em padrões da OMS",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Insira dados da criança",
+            text: "Digite a data de nascimento, altura atual, peso atual e selecione o sexo da criança.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Calcule os percentis",
+            text: "Clique em 'Calcular' para obter os percentis de altura e peso comparados aos padrões da OMS.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Analise os resultados",
+            text: "Veja os gráficos de crescimento, percentis atuais e marcos do desenvolvimento esperados para a idade.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Consulte um pediatra",
+            text: "Use os resultados como referência para discussão com o pediatra da criança durante consultas regulares.",
+          },
+        ],
+        tool: [
+          {
+            "@type": "HowToTool",
+            name: "Calculadora de Desenvolvimento Infantil Online",
           },
         ],
       }),
@@ -168,286 +300,445 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+interface DevelopmentMilestone {
+  age: number; // in months
+  milestones: string[];
+}
+
+interface ChildDevelopmentResult {
+  ageInMonths: number;
+  ageDisplay: string;
+  heightPercentile: number;
+  weightPercentile: number;
+  heightStatus: "baixa" | "normal" | "alta";
+  weightStatus: "baixo" | "normal" | "alto" | "sobrepeso";
+  milestones: DevelopmentMilestone;
+  bmi: number;
+  bmiStatus: string;
+  nextMilestones: DevelopmentMilestone;
+  growthTrend: "normal" | "attention" | "concern";
+}
+
+interface ValidationErrors {
+  birthDate?: string;
+  height?: string;
+  weight?: string;
+  gender?: string;
+}
+
 export default function ChildDevelopmentCalculator() {
-  // Estados básicos
   const [birthDate, setBirthDate] = useState("");
-  const [gender, setGender] = useState<"male" | "female">("male");
-  const [isPremature, setIsPremature] = useState(false);
-  const [gestationalWeeks, setGestationalWeeks] = useState("40");
-
-  // Estados para percentis
-  const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
-  const [headCircumference, setHeadCircumference] = useState("");
-  const [motherHeight, setMotherHeight] = useState("");
-  const [fatherHeight, setFatherHeight] = useState("");
-
-  // Estados de resultado e validação
+  const [weight, setWeight] = useState("");
+  const [gender, setGender] = useState("");
   const [result, setResult] = useState<ChildDevelopmentResult | null>(null);
-  const [percentilesResult, setPercentilesResult] = useState<ChildPercentilesResult | null>(null);
-  const [completedMilestones, setCompletedMilestones] = useState<Set<string>>(new Set());
   const [errors, setErrors] = useState<ValidationErrors>({});
-  const [isCalculating, setIsCalculating] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Global Analytics Tracking
-  const {
-    startCalculation,
-    endCalculation,
-    trackFeature,
-    trackButtonClick,
-    trackStepsToggle,
-    trackInputFocus,
-  } = useAutoCalculatorTracking({
-    calculatorType: "desenvolvimento_infantil",
+  const { startCalculation, endCalculation } = useAutoCalculatorTracking({
+    calculatorType: "desenvolvimento-infantil",
     category: "saude",
   });
+  useFormTracking("desenvolvimento-infantil");
+  useIndexNow("/calculadoras/saude/desenvolvimento-infantil");
 
-  const { trackInputChange, trackFormSubmission } = useFormTracking("desenvolvimento_infantil");
-  const resultsRef = useRef<HTMLDivElement>(null);
-
-  const formatDate = (date: Date): string => {
-    return date.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+  const parseNumber = (v: string): number => {
+    const n = parseFloat(v.replace(",", "."));
+    return isNaN(n) ? 0 : n;
   };
 
-  const formatAge = (months: number): string => {
+  const parseDate = (dateString: string): Date | null => {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? null : date;
+  };
+
+  const calculateAgeInMonths = (birthDate: Date): number => {
+    const today = new Date();
+    const ageInMs = today.getTime() - birthDate.getTime();
+    return ageInMs / (1000 * 60 * 60 * 24 * 30.44); // approximate months
+  };
+
+  const formatAgeDisplay = (months: number): string => {
     const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
+    const remainingMonths = Math.floor(months % 12);
 
     if (years === 0) {
-      return `${months} ${months === 1 ? "mês" : "meses"}`;
-    } else if (remainingMonths === 0) {
-      return `${years} ${years === 1 ? "ano" : "anos"}`;
+      return `${remainingMonths} meses`;
+    } else if (years === 1) {
+      return remainingMonths === 0 ? "1 ano" : `1 ano e ${remainingMonths} meses`;
     } else {
-      return `${years} ${years === 1 ? "ano" : "anos"} e ${remainingMonths} ${remainingMonths === 1 ? "mês" : "meses"}`;
+      return remainingMonths === 0 ? `${years} anos` : `${years} anos e ${remainingMonths} meses`;
     }
   };
 
-  const handleCalculate = async () => {
-    setIsCalculating(true);
-    setErrors({});
+  // Gender-specific percentile calculation for 0-5 years (0-60 months)
+  const calculatePercentile = (
+    value: number,
+    ageMonths: number,
+    type: "height" | "weight",
+    isMale: boolean
+  ): number => {
+    // WHO-based growth curves for 0-60 months with gender distinction
 
-    // Validação robusta de campos obrigatórios
-    const newErrors: ValidationErrors = {};
-    const today = new Date();
-    const fiveYearsAgo = new Date();
-    fiveYearsAgo.setFullYear(today.getFullYear() - 5);
-
-    // Validação da data de nascimento (OBRIGATÓRIO)
-    if (!birthDate) {
-      newErrors.birthDate = "Por favor, informe a data de nascimento";
-    } else {
-      const birth = new Date(birthDate);
-      if (birth > today) {
-        newErrors.birthDate = "A data não pode ser no futuro";
-      } else if (birth < fiveYearsAgo) {
-        newErrors.birthDate = "Esta calculadora é para crianças de 0 a 5 anos";
-      }
-    }
-
-    // Validação do peso (OBRIGATÓRIO para percentis)
-    if (!weight || weight.trim() === "") {
-      newErrors.weight = "Por favor, informe o peso atual da criança";
-    } else {
-      const weightNum = parseFloat(weight);
-      if (isNaN(weightNum) || weightNum <= 0) {
-        newErrors.weight = "Por favor, informe um peso válido";
-      } else if (weightNum < 0.5 || weightNum > 50) {
-        newErrors.weight = "Peso deve estar entre 0,5kg e 50kg";
-      }
-    }
-
-    // Validação da altura (OBRIGATÓRIO para percentis)
-    if (!height || height.trim() === "") {
-      newErrors.height = "Por favor, informe a altura atual da criança";
-    } else {
-      const heightNum = parseFloat(height);
-      if (isNaN(heightNum) || heightNum <= 0) {
-        newErrors.height = "Por favor, informe uma altura válida";
-      } else if (heightNum < 30 || heightNum > 150) {
-        newErrors.height = "Altura deve estar entre 30cm e 150cm";
-      }
-    }
-
-    // Validação da circunferência da cabeça (OBRIGATÓRIO para crianças até 2 anos)
-    const birth = new Date(birthDate);
-    const ageInMonths = birthDate
-      ? Math.floor((today.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24 * 30.44))
-      : 0;
-
-    if (ageInMonths <= 24) {
-      if (!headCircumference || headCircumference.trim() === "") {
-        newErrors.headCircumference = "Circunferência da cabeça é obrigatória até 2 anos";
+    if (type === "height") {
+      let expectedHeight: number;
+      let standardDeviation: number;
+      
+      if (ageMonths <= 24) {
+        // 0-24 months: rapid growth (gender-specific)
+        const birthHeight = isMale ? 50.0 : 49.0; // Male vs Female birth height
+        const growthRate = isMale ? 2.3 : 2.1; // Slightly different growth rates
+        expectedHeight = birthHeight + (ageMonths * growthRate) - (ageMonths * ageMonths * 0.02);
+        standardDeviation = 2.5 + (ageMonths * 0.1);
       } else {
-        const headNum = parseFloat(headCircumference);
-        if (isNaN(headNum) || headNum <= 0) {
-          newErrors.headCircumference = "Por favor, informe uma circunferência válida";
-        } else if (headNum < 25 || headNum > 60) {
-          newErrors.headCircumference = "Circunferência deve estar entre 25cm e 60cm";
+        // 24-60 months: steady growth (gender-specific)
+        const height24m = isMale ? 87.0 : 85.0; // Male vs Female at 24 months
+        const growthRate = isMale ? 0.65 : 0.6; // Males grow slightly faster
+        expectedHeight = height24m + ((ageMonths - 24) * growthRate);
+        standardDeviation = 4.0;
+      }
+      
+      const zScore = (value - expectedHeight) / standardDeviation;
+      return Math.round(Math.max(1, Math.min(99, normalCDFToPercentile(zScore))));
+      
+    } else {
+      // Weight calculation (gender-specific)
+      let expectedWeight: number;
+      let standardDeviation: number;
+      
+      if (ageMonths <= 24) {
+        // 0-24 months: rapid weight gain (gender-specific)
+        const birthWeight = isMale ? 3.4 : 3.2; // Male vs Female birth weight
+        const weightGain = isMale ? 0.42 : 0.38; // Males gain weight slightly faster
+        expectedWeight = birthWeight + (ageMonths * weightGain) - (ageMonths * ageMonths * 0.005);
+        standardDeviation = 0.8 + (ageMonths * 0.05);
+      } else {
+        // 24-60 months: slower weight gain (gender-specific)
+        const weight24m = isMale ? 12.2 : 11.5; // Male vs Female at 24 months
+        const weightGain = isMale ? 0.22 : 0.20; // Males continue to gain slightly more
+        expectedWeight = weight24m + ((ageMonths - 24) * weightGain);
+        standardDeviation = 2.0;
+      }
+      
+      const zScore = (value - expectedWeight) / standardDeviation;
+      return Math.round(Math.max(1, Math.min(99, normalCDFToPercentile(zScore))));
+    }
+  };
+
+  // Helper function to convert z-score to percentile
+  const normalCDFToPercentile = (z: number): number => {
+    // Approximation of normal CDF for z-score to percentile conversion
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = 0.3989423 * Math.exp(-z * z / 2);
+    let prob = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    
+    if (z > 0) prob = 1 - prob;
+    
+    return prob * 100;
+  };
+
+  // Generate growth curve data for clinical chart (0-60 months) - Gender-specific
+  const generateGrowthCurveData = (type: "height" | "weight", isMale: boolean) => {
+    const months = [];
+    const percentiles = { P3: [], P10: [], P25: [], P50: [], P75: [], P90: [], P97: [] };
+    
+    // Generate data points for 0-60 months (every 3 months for smoother curves)
+    for (let month = 0; month <= 60; month += 3) {
+      months.push(month);
+      
+      if (type === "height") {
+        // Height curve values (cm) - gender-specific
+        let baseHeight: number;
+        if (month <= 24) {
+          const birthHeight = isMale ? 50.0 : 49.0;
+          const growthRate = isMale ? 2.3 : 2.1;
+          baseHeight = birthHeight + (month * growthRate) - (month * month * 0.02);
+        } else {
+          const height24m = isMale ? 87.0 : 85.0;
+          const growthRate = isMale ? 0.65 : 0.6;
+          baseHeight = height24m + ((month - 24) * growthRate);
         }
+        
+        const stdDev = 4.0;
+        percentiles.P3.push(Math.round(baseHeight - 1.88 * stdDev));
+        percentiles.P10.push(Math.round(baseHeight - 1.28 * stdDev));
+        percentiles.P25.push(Math.round(baseHeight - 0.67 * stdDev));
+        percentiles.P50.push(Math.round(baseHeight));
+        percentiles.P75.push(Math.round(baseHeight + 0.67 * stdDev));
+        percentiles.P90.push(Math.round(baseHeight + 1.28 * stdDev));
+        percentiles.P97.push(Math.round(baseHeight + 1.88 * stdDev));
+      } else {
+        // Weight curve values (kg) - gender-specific
+        let baseWeight: number;
+        if (month <= 24) {
+          const birthWeight = isMale ? 3.4 : 3.2;
+          const weightGain = isMale ? 0.42 : 0.38;
+          baseWeight = birthWeight + (month * weightGain) - (month * month * 0.005);
+        } else {
+          const weight24m = isMale ? 12.2 : 11.5;
+          const weightGain = isMale ? 0.22 : 0.20;
+          baseWeight = weight24m + ((month - 24) * weightGain);
+        }
+        
+        const stdDev = 2.0;
+        percentiles.P3.push(parseFloat((baseWeight - 1.88 * stdDev).toFixed(1)));
+        percentiles.P10.push(parseFloat((baseWeight - 1.28 * stdDev).toFixed(1)));
+        percentiles.P25.push(parseFloat((baseWeight - 0.67 * stdDev).toFixed(1)));
+        percentiles.P50.push(parseFloat(baseWeight.toFixed(1)));
+        percentiles.P75.push(parseFloat((baseWeight + 0.67 * stdDev).toFixed(1)));
+        percentiles.P90.push(parseFloat((baseWeight + 1.28 * stdDev).toFixed(1)));
+        percentiles.P97.push(parseFloat((baseWeight + 1.88 * stdDev).toFixed(1)));
       }
     }
+    
+    return { months, percentiles };
+  };
 
-    // Validação da altura dos pais (OPCIONAL, mas se preenchida deve ser válida)
-    if (motherHeight && motherHeight.trim() !== "") {
-      const motherNum = parseFloat(motherHeight);
-      if (isNaN(motherNum) || motherNum < 120 || motherNum > 220) {
-        newErrors.motherHeight = "Altura da mãe deve estar entre 120cm e 220cm";
+  // Find child's position on the curve
+  const getChildPositionOnCurve = (value: number, percentile: number, type: "height" | "weight", isMale: boolean) => {
+    const curveData = generateGrowthCurveData(type, isMale);
+    const childAge = result ? Math.round(result.ageInMonths / 3) * 3 : 0;
+    const monthIndex = curveData.months.indexOf(childAge);
+    
+    if (monthIndex === -1) return null;
+    
+    return {
+      x: monthIndex,
+      y: parseFloat(value.toString()),
+      percentile
+    };
+  };
+
+  const getHeightStatus = (percentile: number): "baixa" | "normal" | "alta" => {
+    if (percentile < 10) return "baixa";
+    if (percentile > 90) return "alta";
+    return "normal";
+  };
+
+  const getWeightStatus = (percentile: number): "baixo" | "normal" | "alto" | "sobrepeso" => {
+    if (percentile < 10) return "baixo";
+    if (percentile > 85 && percentile <= 95) return "alto";
+    if (percentile > 95) return "sobrepeso";
+    return "normal";
+  };
+
+  const getDevelopmentMilestones = (ageInMonths: number): DevelopmentMilestone => {
+    const milestoneData: DevelopmentMilestone[] = [
+      {
+        age: 2,
+        milestones: [
+          "Sorri responsivamente",
+          "Acompanha objetos com os olhos",
+          "Sustenta cabeça por breves momentos",
+        ],
+      },
+      {
+        age: 4,
+        milestones: [
+          "Sorri espontaneamente",
+          "Sustenta cabeça firmemente",
+          "Emite sons e balbucios",
+        ],
+      },
+      {
+        age: 6,
+        milestones: [
+          "Senta com apoio",
+          "Transfere objetos de uma mão para outra",
+          "Reconhece pessoas familiares",
+        ],
+      },
+      { age: 9, milestones: ["Senta sem apoio", "Engatinha", "Diz 'mama' e 'papa' específicos"] },
+      { age: 12, milestones: ["Anda com apoio", "Diz primeiras palavras", "Imita gestos simples"] },
+      { age: 18, milestones: ["Anda sozinho", "Fala 10-20 palavras", "Usa colher para comer"] },
+      { age: 24, milestones: ["Corre", "Combina 2 palavras", "Imita atividades domésticas"] },
+      {
+        age: 36,
+        milestones: [
+          "Sobe escadas alternando os pés",
+          "Fala em frases",
+          "Brinca com outras crianças",
+        ],
+      },
+      { age: 48, milestones: ["Pula em um pé", "Conta até 10", "Desenha figuras simples"] },
+      { age: 60, milestones: ["Anda de bicicleta", "Conhece cores e formas", "Brinca em grupos"] },
+    ];
+
+    // Find closest milestone age
+    let closest = milestoneData[0];
+    for (const milestone of milestoneData) {
+      if (Math.abs(milestone.age - ageInMonths) < Math.abs(closest.age - ageInMonths)) {
+        closest = milestone;
       }
     }
+    return closest;
+  };
 
-    if (fatherHeight && fatherHeight.trim() !== "") {
-      const fatherNum = parseFloat(fatherHeight);
-      if (isNaN(fatherNum) || fatherNum < 120 || fatherNum > 220) {
-        newErrors.fatherHeight = "Altura do pai deve estar entre 120cm e 220cm";
+  const getNextMilestones = (ageInMonths: number): DevelopmentMilestone => {
+    const milestoneData: DevelopmentMilestone[] = [
+      {
+        age: 2,
+        milestones: [
+          "Sorri responsivamente",
+          "Acompanha objetos com os olhos",
+          "Sustenta cabeça por breves momentos",
+        ],
+      },
+      {
+        age: 4,
+        milestones: [
+          "Sorri espontaneamente",
+          "Sustenta cabeça firmemente",
+          "Emite sons e balbucios",
+        ],
+      },
+      {
+        age: 6,
+        milestones: [
+          "Senta com apoio",
+          "Transfere objetos de uma mão para outra",
+          "Reconhece pessoas familiares",
+        ],
+      },
+      { age: 9, milestones: ["Senta sem apoio", "Engatinha", "Diz 'mama' e 'papa' específicos"] },
+      { age: 12, milestones: ["Anda com apoio", "Diz primeiras palavras", "Imita gestos simples"] },
+      { age: 18, milestones: ["Anda sozinho", "Fala 10-20 palavras", "Usa colher para comer"] },
+      { age: 24, milestones: ["Corre", "Combina 2 palavras", "Imita atividades domésticas"] },
+      {
+        age: 36,
+        milestones: [
+          "Sobe escadas alternando os pés",
+          "Fala em frases",
+          "Brinca com outras crianças",
+        ],
+      },
+      { age: 48, milestones: ["Pula em um pé", "Conta até 10", "Desenha figuras simples"] },
+      { age: 60, milestones: ["Anda de bicicleta", "Conhece cores e formas", "Brinca em grupos"] },
+    ];
+
+    for (const milestone of milestoneData) {
+      if (milestone.age > ageInMonths) {
+        return milestone;
       }
     }
+    return milestoneData[milestoneData.length - 1];
+  };
 
-    // Se há erros, exibir e parar execução
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      setResult(null);
-      setPercentilesResult(null);
-      setIsCalculating(false);
-      return;
+  const calculateBMI = (weightKg: number, heightCm: number): number => {
+    const heightM = heightCm / 100;
+    return weightKg / (heightM * heightM);
+  };
+
+  const getBMIStatus = (bmi: number, ageInMonths: number): string => {
+    if (ageInMonths < 24) return "IMC não aplicável para menores de 2 anos";
+    if (bmi < 15) return "Abaixo do peso";
+    if (bmi < 18.5) return "Peso normal";
+    if (bmi < 25) return "Sobrepeso";
+    return "Obesidade";
+  };
+
+  const validateInputs = (): boolean => {
+    const newErrors: ValidationErrors = {};
+    let ok = true;
+
+    const birth = parseDate(birthDate);
+    if (!birth) {
+      newErrors.birthDate = "Data de nascimento é obrigatória";
+      ok = false;
+    } else if (birth > new Date()) {
+      newErrors.birthDate = "Data não pode ser no futuro";
+      ok = false;
+    } else if (calculateAgeInMonths(birth) > 60) {
+      newErrors.birthDate = "Calculadora adequada para crianças de 0 a 5 anos apenas";
+      ok = false;
     }
 
-    // Simular loading para melhor UX
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    const h = parseNumber(height);
+    if (!h || h < 40 || h > 150) {
+      newErrors.height = "Altura deve estar entre 40 e 150 cm";
+      ok = false;
+    }
+
+    const w = parseNumber(weight);
+    if (!w || w < 2 || w > 50) {
+      newErrors.weight = "Peso deve estar entre 2 e 50 kg";
+      ok = false;
+    }
+
+    if (!gender) {
+      newErrors.gender = "Selecione o sexo da criança";
+      ok = false;
+    }
+
+    setErrors(newErrors);
+    return ok;
+  };
+
+  const handleCalculate = () => {
+    if (!validateInputs()) return;
+    startCalculation("calcular");
 
     try {
-      const gestationalWeeksNum = parseInt(gestationalWeeks);
+      const birthDateObj = parseDate(birthDate)!;
+      const h = parseNumber(height);
+      const w = parseNumber(weight);
+      const isMale = gender === "masculino";
 
-      // Calcular marcos de desenvolvimento
-      const params: ChildDevelopmentParams = {
-        birthDate: birth,
-        isPremature,
-        gestationalWeeks: gestationalWeeksNum,
-      };
-      const developmentResult = calculateChildDevelopment(params);
-      setResult(developmentResult);
+      const ageInMonths = calculateAgeInMonths(birthDateObj);
+      const heightPercentile = calculatePercentile(h, ageInMonths, "height", isMale);
+      const weightPercentile = calculatePercentile(w, ageInMonths, "weight", isMale);
 
-      // Calcular percentis
-      const percentilesParams: ChildPercentilesParams = {
-        birthDate: birth,
-        gender,
-        weight: parseFloat(weight),
-        height: parseFloat(height),
-        headCircumference: headCircumference ? parseFloat(headCircumference) : undefined,
-        motherHeight: motherHeight ? parseFloat(motherHeight) : undefined,
-        fatherHeight: fatherHeight ? parseFloat(fatherHeight) : undefined,
-        isPremature,
-        gestationalWeeks: gestationalWeeksNum,
+      const bmi = calculateBMI(w, h);
+      const milestones = getDevelopmentMilestones(ageInMonths);
+      const nextMilestones = getNextMilestones(ageInMonths);
+
+      const res: ChildDevelopmentResult = {
+        ageInMonths,
+        ageDisplay: formatAgeDisplay(ageInMonths),
+        heightPercentile,
+        weightPercentile,
+        heightStatus: getHeightStatus(heightPercentile),
+        weightStatus: getWeightStatus(weightPercentile),
+        milestones,
+        bmi,
+        bmiStatus: getBMIStatus(bmi, ageInMonths),
+        nextMilestones,
+        growthTrend:
+          heightPercentile >= 10 &&
+          heightPercentile <= 90 &&
+          weightPercentile >= 10 &&
+          weightPercentile <= 90
+            ? "normal"
+            : "attention",
       };
-      const percentilesCalc = calculateChildPercentiles(percentilesParams);
-      setPercentilesResult(percentilesCalc);
-    } catch (error) {
-      setErrors({ general: "Erro ao calcular o desenvolvimento. Tente novamente." });
-    } finally {
-      setIsCalculating(false);
+
+      setResult(res);
+      setErrors({});
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      endCalculation("calcular", { success: true });
+    } catch {
+      setErrors({ birthDate: "Erro no cálculo. Verifique os dados inseridos." });
+      endCalculation("calcular", { success: false });
     }
   };
 
   const handleReset = () => {
     setBirthDate("");
-    setGender("male");
-    setIsPremature(false);
-    setGestationalWeeks("40");
-    setWeight("");
     setHeight("");
-    setHeadCircumference("");
-    setMotherHeight("");
-    setFatherHeight("");
+    setWeight("");
+    setGender("");
     setResult(null);
-    setPercentilesResult(null);
-    setCompletedMilestones(new Set());
     setErrors({});
-    setIsCalculating(false);
   };
 
-  // Scroll automático para resultados
-  useEffect(() => {
-    if (result && percentilesResult) {
-      resultsRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [result, percentilesResult]);
-
-  const toggleMilestone = (milestoneId: string) => {
-    const newCompletedMilestones = new Set(completedMilestones);
-    if (newCompletedMilestones.has(milestoneId)) {
-      newCompletedMilestones.delete(milestoneId);
-    } else {
-      newCompletedMilestones.add(milestoneId);
-    }
-    setCompletedMilestones(newCompletedMilestones);
-  };
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "motor":
-        return "primary-blue";
-      case "cognitive":
-        return "growth-green";
-      case "language":
-        return "system-info";
-      case "social":
-        return "system-warning";
-      case "physical":
-        return "system-error";
-      default:
-        return "neutral";
-    }
-  };
-
-  const getCategoryEmoji = (category: string) => {
-    switch (category) {
-      case "motor":
-        return "🏃";
-      case "cognitive":
-        return "🧠";
-      case "language":
-        return "💬";
-      case "social":
-        return "👥";
-      case "physical":
-        return "📏";
-      default:
-        return "📋";
-    }
-  };
-
-  const getCategoryName = (category: string) => {
-    switch (category) {
-      case "motor":
-        return "Motor";
-      case "cognitive":
-        return "Cognitivo";
-      case "language":
-        return "Linguagem";
-      case "social":
-        return "Social";
-      case "physical":
-        return "Físico";
-      default:
-        return "Outros";
-    }
-  };
-
-  const getDevelopmentStatus = (score: number) => {
-    if (score >= 90) return { status: "Excelente", color: "growth-green", emoji: "🌟" };
-    if (score >= 75) return { status: "Bom", color: "primary-blue", emoji: "✅" };
-    if (score >= 60) return { status: "Atenção", color: "system-warning", emoji: "⚠️" };
-    return { status: "Consulte Pediatra", color: "system-error", emoji: "🏥" };
-  };
+  const ErrorMessage = ({ error }: { error?: string }) =>
+    error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-full px-4 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -455,1537 +746,884 @@ export default function ChildDevelopmentCalculator() {
         <BreadcrumbItem isLast>Desenvolvimento Infantil</BreadcrumbItem>
       </Breadcrumb>
 
-      <div className="flex flex-col items-center space-y-6 sm:space-y-8">
-        <header className="space-y-3 text-center sm:space-y-4">
-          <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-            <span className="hidden sm:inline">Calculadora de Desenvolvimento Infantil 👶</span>
-            <span className="sm:hidden">Desenvolvimento Infantil 👶</span>
-          </h1>
-          <p className="mx-auto max-w-3xl px-4 text-sm text-text-secondary-dark sm:text-base lg:text-lg">
-            Acompanhe o{" "}
-            <strong className="text-primary-blue-dark">crescimento e desenvolvimento</strong> do seu
-            bebê com nossa calculadora baseada em{" "}
-            <strong className="text-growth-green">padrões médicos internacionais WHO/CDC</strong>.
-            Avalie percentis de peso, altura e marcos de desenvolvimento.
+      <header className="space-y-4 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+          Calculadora de Desenvolvimento Infantil 2025 – Percentis e Crescimento
+        </h1>
+        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+          Monitore o <strong className="text-health-red">crescimento da criança</strong> com
+          precisão. Calcule{" "}
+          <strong className="text-primary-blue-dark">percentis de altura e peso</strong>, acompanhe
+          marcos do desenvolvimento baseados em padrões da OMS.
+        </p>
+        <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
+          <p className="text-sm font-medium text-text-primary">
+            👶 <strong>Percentis OMS</strong> • 📊 <strong>Gráficos de Crescimento</strong> • 🎯{" "}
+            <strong>Marcos do Desenvolvimento</strong>
           </p>
-          <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
-            <p className="text-xs font-medium text-text-primary sm:text-sm">
-              ⚡ <strong>Percentis WHO/CDC</strong> • 🔬 <strong>Marcos de desenvolvimento</strong>{" "}
-              • 📱 <strong>100% gratuito</strong>
-            </p>
-          </div>
-        </header>
+        </div>
+      </header>
 
-        <Card className="w-full max-w-full sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
+      <Card>
+        <CardHeader>
+          <CardTitle as="h2">📋 Dados da Criança</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Linha 1: Data de nascimento */}
+          <div className="mb-6">
+            <div className="mx-auto max-w-md">
+              <Input
+                type="date"
+                label="Data de Nascimento"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.birthDate} />
+              <div className="mt-1 text-center text-xs text-text-secondary">
+                Data de nascimento da criança
+              </div>
+            </div>
+          </div>
+
+          {/* Linha 2: Sexo da criança */}
+          <div className="mb-6">
+            <div className="mx-auto max-w-sm">
+              <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">
+                👶 Sexo da Criança:
+              </h3>
+              <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+                <button
+                  type="button"
+                  onClick={() => setGender("masculino")}
+                  className={`flex-1 px-4 py-2 text-sm font-medium ${
+                    gender === "masculino"
+                      ? "bg-primary-blue text-white"
+                      : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
+                  }`}
+                >
+                  👦 Masculino
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setGender("feminino")}
+                  className={`flex-1 px-4 py-2 text-sm font-medium ${
+                    gender === "feminino"
+                      ? "bg-primary-blue text-white"
+                      : "hover:bg-primary-blue/10-dark/10 bg-neutral-surface text-text-secondary"
+                  }`}
+                >
+                  👧 Feminino
+                </button>
+              </div>
+              <ErrorMessage error={errors.gender} />
+              <div className="mt-1 text-center text-xs text-text-secondary">
+                Necessário para cálculo dos percentis
+              </div>
+            </div>
+          </div>
+
+          {/* Linha 3: Altura e peso */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <Input
+                type="number"
+                label="Altura Atual (cm)"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                placeholder="70"
+                min="40"
+                max="150"
+                step="0.1"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.height} />
+              <div className="mt-1 text-xs text-text-secondary">
+                Altura da criança em centímetros
+              </div>
+            </div>
+            <div>
+              <Input
+                type="number"
+                label="Peso Atual (kg)"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                placeholder="8.5"
+                min="2"
+                max="50"
+                step="0.1"
+                fullWidth
+                className="h-12 text-lg"
+              />
+              <ErrorMessage error={errors.weight} />
+              <div className="mt-1 text-xs text-text-secondary">Peso da criança em quilogramas</div>
+            </div>
+          </div>
+
+          {/* Botões */}
+          <div className="flex justify-center space-x-4">
+            <Button onClick={handleCalculate} className="px-8">
+              Calcular
+            </Button>
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+            >
+              Limpar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Resultado */}
+      {result && (
+        <Card ref={resultRef} className="bg-health-red-soft border-2 border-health-red">
           <CardHeader>
-            <CardTitle as="h2">Dados para o Cálculo</CardTitle>
+            <CardTitle as="h3" className="text-health-red">
+              📊 Análise do Desenvolvimento Infantil
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
-              {/* Data de nascimento e sexo */}
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <Input
-                    type="date"
-                    label="Data de nascimento"
-                    value={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
-                    required
-                    fullWidth
-                    className={errors.birthDate ? "border-system-error" : ""}
-                    aria-describedby="birth-date-help"
-                    aria-invalid={!!errors.birthDate}
-                  />
-                  <div id="birth-date-help" className="mt-1 text-xs text-text-secondary">
-                    Data de nascimento da criança
-                  </div>
-                  {errors.birthDate && (
-                    <div role="alert" className="mt-1 text-sm text-system-error">
-                      {errors.birthDate}
-                    </div>
-                  )}
+            {/* Informações básicas */}
+            <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-lg border-l-4 border-primary-blue-dark bg-gray-900 p-4 text-center">
+                <div className="mb-1 text-xl font-bold text-primary-blue-dark">
+                  {result.ageDisplay}
                 </div>
-
-                <div>
-                  <Select
-                    label="Sexo"
-                    value={gender}
-                    onChange={(value) => setGender(value as "male" | "female")}
-                    options={[
-                      { value: "male", label: "👦 Menino" },
-                      { value: "female", label: "👧 Menina" },
-                    ]}
-                    fullWidth
-                  />
-                  <div className="mt-1 text-xs text-text-secondary">
-                    Necessário para cálculos de percentil
-                  </div>
+                <div className="text-sm text-text-secondary">Idade Atual</div>
+              </div>
+              <div className="rounded-lg border-l-4 border-system-success bg-gray-900 p-4 text-center">
+                <div className="mb-1 text-xl font-bold text-system-success">
+                  P{result.heightPercentile}
+                </div>
+                <div className="text-sm text-text-secondary">Percentil Altura</div>
+                <div className="mt-1 text-xs text-system-success">
+                  Status: {result.heightStatus}
                 </div>
               </div>
+              <div className="rounded-lg border-l-4 border-system-warning bg-gray-900 p-4 text-center sm:col-span-2 lg:col-span-1">
+                <div className="mb-1 text-xl font-bold text-system-warning">
+                  P{result.weightPercentile}
+                </div>
+                <div className="text-sm text-text-secondary">Percentil Peso</div>
+                <div className="mt-1 text-xs text-system-warning">
+                  Status: {result.weightStatus}
+                </div>
+              </div>
+            </div>
 
-              {/* Medidas atuais - seção principal */}
-              <Card className="border-2 border-dashed border-primary-blue bg-primary-blue-light">
-                <CardContent className="pt-6">
-                  <h3 className="mb-4 text-center text-lg font-semibold text-text-primary">
-                    📏 Medidas Atuais da Criança
-                  </h3>
-
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div>
-                      <Input
-                        type="number"
-                        label="Peso (kg)"
-                        value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
-                        placeholder="Ex: 10.5"
-                        step="0.1"
-                        min="0.5"
-                        max="50"
-                        required
-                        fullWidth
-                        className={errors.weight ? "border-system-error" : ""}
-                        aria-describedby="weight-help"
-                        aria-invalid={!!errors.weight}
-                      />
-                      <div id="weight-help" className="mt-1 text-xs text-text-secondary">
-                        Peso atual em quilogramas
-                      </div>
-                      {errors.weight && (
-                        <div role="alert" className="mt-1 text-sm text-system-error">
-                          {errors.weight}
-                        </div>
-                      )}
-                    </div>
-
-                    <div>
-                      <Input
-                        type="number"
-                        label="Altura (cm)"
-                        value={height}
-                        onChange={(e) => setHeight(e.target.value)}
-                        placeholder="Ex: 75"
-                        step="0.5"
-                        min="30"
-                        max="150"
-                        required
-                        fullWidth
-                        className={errors.height ? "border-system-error" : ""}
-                        aria-describedby="height-help"
-                        aria-invalid={!!errors.height}
-                      />
-                      <div id="height-help" className="mt-1 text-xs text-text-secondary">
-                        Altura atual em centímetros
-                      </div>
-                      {errors.height && (
-                        <div role="alert" className="mt-1 text-sm text-system-error">
-                          {errors.height}
-                        </div>
-                      )}
-                    </div>
-
-                    <div>
-                      <Input
-                        type="number"
-                        label="Perímetro Cefálico (cm)"
-                        value={headCircumference}
-                        onChange={(e) => setHeadCircumference(e.target.value)}
-                        placeholder="Ex: 45"
-                        step="0.5"
-                        min="25"
-                        max="60"
-                        fullWidth
-                        className={errors.headCircumference ? "border-system-error" : ""}
-                        aria-describedby="head-help"
-                        aria-invalid={!!errors.headCircumference}
-                      />
-                      <div id="head-help" className="mt-1 text-xs text-text-secondary">
-                        Obrigatório até 2 anos
-                      </div>
-                      {errors.headCircumference && (
-                        <div role="alert" className="mt-1 text-sm text-system-error">
-                          {errors.headCircumference}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Altura dos pais para previsão */}
+            {/* Resumo e IMC */}
+            <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Resumo da Análise</h4>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Input
-                    type="number"
-                    label="Altura da Mãe (cm)"
-                    value={motherHeight}
-                    onChange={(e) => setMotherHeight(e.target.value)}
-                    placeholder="Ex: 165"
-                    step="1"
-                    min="120"
-                    max="220"
-                    fullWidth
-                    className={errors.motherHeight ? "border-system-error" : ""}
-                    aria-describedby="mother-height-help"
-                    aria-invalid={!!errors.motherHeight}
-                  />
-                  <div id="mother-height-help" className="mt-1 text-xs text-text-secondary">
-                    Opcional - para previsão de altura adulta
-                  </div>
-                  {errors.motherHeight && (
-                    <div role="alert" className="mt-1 text-sm text-system-error">
-                      {errors.motherHeight}
-                    </div>
-                  )}
-                </div>
-
-                <div>
-                  <Input
-                    type="number"
-                    label="Altura do Pai (cm)"
-                    value={fatherHeight}
-                    onChange={(e) => setFatherHeight(e.target.value)}
-                    placeholder="Ex: 180"
-                    step="1"
-                    min="120"
-                    max="220"
-                    fullWidth
-                    className={errors.fatherHeight ? "border-system-error" : ""}
-                    aria-describedby="father-height-help"
-                    aria-invalid={!!errors.fatherHeight}
-                  />
-                  <div id="father-height-help" className="mt-1 text-xs text-text-secondary">
-                    Opcional - para previsão de altura adulta
-                  </div>
-                  {errors.fatherHeight && (
-                    <div role="alert" className="mt-1 text-sm text-system-error">
-                      {errors.fatherHeight}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Dados de prematuridade */}
-              <div className="mx-auto max-w-lg">
-                <h3 className="mb-3 text-center text-sm font-semibold text-text-primary">
-                  Criança prematura?
-                </h3>
-                <div className="flex overflow-hidden rounded-lg border border-neutral-surface-variant">
-                  <button
-                    type="button"
-                    onClick={() => setIsPremature(false)}
-                    className={`flex-1 px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                      !isPremature
-                        ? "bg-blue-500 text-white shadow-md"
-                        : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
-                    }`}
-                  >
-                    👶 Não (≥ 37 semanas)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsPremature(true)}
-                    className={`flex-1 px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                      isPremature
-                        ? "bg-orange-500 text-white shadow-md"
-                        : "bg-neutral-surface text-text-secondary hover:bg-system-warning/10"
-                    }`}
-                  >
-                    🍼 Sim (&lt; 37 semanas)
-                  </button>
-                </div>
-              </div>
-
-              {isPremature && (
-                <div className="mx-auto max-w-xs">
-                  <Input
-                    type="number"
-                    label="Semanas de gestação"
-                    value={gestationalWeeks}
-                    onChange={(e) => setGestationalWeeks(e.target.value)}
-                    placeholder="Ex: 34"
-                    min="24"
-                    max="42"
-                    step="1"
-                    required
-                    fullWidth
-                  />
-                  <p className="mt-1 text-center text-xs text-text-secondary">
-                    Semanas de gestação ao nascer
+                  <p className="mb-2 text-sm text-text-secondary">
+                    <strong>Altura:</strong> {height} cm (Percentil {result.heightPercentile}) -{" "}
+                    {result.heightStatus}
                   </p>
-                </div>
-              )}
-
-              <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                <h3 className="mb-2 font-semibold text-system-info">💡 Como usar a calculadora</h3>
-                <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Percentis WHO/CDC:</strong> Compare crescimento com padrões mundiais
-                  </li>
-                  <li>
-                    • <strong>Marcos interativos:</strong> Marque os marcos que a criança já
-                    alcançou
-                  </li>
-                  <li>
-                    • <strong>Previsão de altura:</strong> Altura adulta estimada pelos pais
-                  </li>
-                  <li>
-                    • <strong>Gráficos visuais:</strong> Curvas de crescimento personalizadas
-                  </li>
-                  <li>
-                    • <strong>Idade corrigida:</strong> Ajustes automáticos para prematuros
-                  </li>
-                </ul>
-              </div>
-
-              {errors.general && (
-                <div
-                  role="alert"
-                  className="mx-auto max-w-md rounded-lg border border-system-error bg-system-error/10 p-4 text-center text-sm text-system-error"
-                >
-                  {errors.general}
-                </div>
-              )}
-
-              <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                <Button
-                  onClick={handleCalculate}
-                  disabled={isCalculating}
-                  className="w-full bg-primary-blue px-8 py-3 text-white transition-all duration-200 hover:bg-primary-blue-dark disabled:opacity-50 sm:w-auto"
-                >
-                  {isCalculating ? "Calculando..." : "Calcular"}
-                </Button>
-                <Button
-                  onClick={handleReset}
-                  variant="outline"
-                  disabled={isCalculating}
-                  className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
-                >
-                  Limpar
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {result && percentilesResult && (
-          <div className="w-full max-w-full space-y-6 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
-            {/* Resultados Principais */}
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <Card className="border-l-4 border-primary-blue bg-primary-blue/10 lg:col-span-1">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-primary-blue">
-                    📊 Peso
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-center">
-                    <div className="text-2xl font-bold text-primary-blue">
-                      P{percentilesResult.weightPercentile}
-                    </div>
-                    <p className="text-sm text-text-secondary">{percentilesResult.weightStatus}</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-growth-green bg-growth-green/10 lg:col-span-1">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-growth-green">
-                    📏 Altura
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-center">
-                    <div className="text-2xl font-bold text-growth-green">
-                      P{percentilesResult.heightPercentile}
-                    </div>
-                    <p className="text-sm text-text-secondary">{percentilesResult.heightStatus}</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {percentilesResult.headCircumferencePercentile && (
-                <Card className="border-l-4 border-system-info bg-system-info/10 lg:col-span-1">
-                  <CardHeader>
-                    <CardTitle as="h3" className="text-system-info">
-                      🧠 Perímetro Cefálico
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2 text-center">
-                      <div className="text-2xl font-bold text-system-info">
-                        P{percentilesResult.headCircumferencePercentile}
-                      </div>
-                      <p className="text-sm text-text-secondary">
-                        {percentilesResult.headCircumferenceStatus}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-
-            {/* Previsão de Altura Adulta */}
-            {percentilesResult.adultHeightPrediction && (
-              <Card className="w-full max-w-full border-l-4 border-math-purple bg-math-purple-light sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-center text-math-purple">
-                    🎯 Previsão de Altura Adulta
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 text-center">
-                    <div className="text-3xl font-bold text-math-purple">
-                      {percentilesResult.adultHeightPrediction.target.toFixed(0)} cm
-                    </div>
-                    <p className="text-sm text-text-secondary">
-                      Faixa prevista: {percentilesResult.adultHeightPrediction.range.min.toFixed(0)}{" "}
-                      - {percentilesResult.adultHeightPrediction.range.max.toFixed(0)} cm
-                    </p>
-                    <p className="text-xs text-text-secondary">
-                      {percentilesResult.adultHeightPrediction.method}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Seção de Gráficos de Crescimento */}
-            <Card className="w-full max-w-full sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
-              <CardHeader>
-                <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-                  📈 Curvas de Crescimento WHO/CDC
-                </CardTitle>
-                <p className="text-sm text-text-secondary">
-                  Gráficos baseados nos padrões internacionais de crescimento
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-8">
-                  {/* Gráfico de Peso */}
-                  <div>
-                    <GrowthChart
-                      title="Peso por Idade"
-                      chartData={percentilesResult.chartData.weightChart}
-                      childPosition={percentilesResult.chartData.childPosition.weight}
-                      unit="Peso (kg)"
-                      color="#3b82f6"
-                      height={350}
-                    />
-                    <div className="mt-3 text-center">
-                      <p className="text-sm text-text-secondary">
-                        <strong>Peso atual:</strong> {weight}kg |
-                        <strong className="mx-2">Percentil:</strong> P
-                        {percentilesResult.weightPercentile} |
-                        <strong className="mx-2">Status:</strong> {percentilesResult.weightStatus}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Gráfico de Altura */}
-                  <div>
-                    <GrowthChart
-                      title="Altura por Idade"
-                      chartData={percentilesResult.chartData.heightChart}
-                      childPosition={percentilesResult.chartData.childPosition.height}
-                      unit="Altura (cm)"
-                      color="#8b5cf6"
-                      height={350}
-                    />
-                    <div className="mt-3 text-center">
-                      <p className="text-sm text-text-secondary">
-                        <strong>Altura atual:</strong> {height}cm |
-                        <strong className="mx-2">Percentil:</strong> P
-                        {percentilesResult.heightPercentile} |
-                        <strong className="mx-2">Status:</strong> {percentilesResult.heightStatus}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Gráfico de Perímetro Cefálico */}
-                  {percentilesResult.chartData.headCircumferenceChart &&
-                    percentilesResult.chartData.childPosition.headCircumference && (
-                      <div>
-                        <GrowthChart
-                          title="Perímetro Cefálico por Idade"
-                          chartData={percentilesResult.chartData.headCircumferenceChart}
-                          childPosition={
-                            percentilesResult.chartData.childPosition.headCircumference
-                          }
-                          unit="Perímetro (cm)"
-                          color="#ec4899"
-                          height={350}
-                        />
-                        <div className="mt-3 text-center">
-                          <p className="text-sm text-text-secondary">
-                            <strong>Perímetro atual:</strong> {headCircumference}cm |
-                            <strong className="mx-2">Percentil:</strong> P
-                            {percentilesResult.headCircumferencePercentile} |
-                            <strong className="mx-2">Status:</strong>{" "}
-                            {percentilesResult.headCircumferenceStatus}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Status Nutricional */}
-            <Card className="w-full max-w-full border-l-4 border-growth-green bg-growth-green/10 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
-              <CardHeader>
-                <CardTitle as="h3" className="text-center text-growth-green">
-                  🍎 Status Nutricional
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4 text-center">
-                  <div className="text-2xl font-bold text-growth-green">
-                    {percentilesResult.nutritionalStatus.classification}
-                  </div>
-                  {percentilesResult.nutritionalStatus.bmi && (
-                    <p className="text-sm text-text-secondary">
-                      IMC: {percentilesResult.nutritionalStatus.bmi}
-                    </p>
-                  )}
                   <p className="text-sm text-text-secondary">
-                    <strong>Recomendação:</strong>{" "}
-                    {percentilesResult.nutritionalStatus.recommendation}
+                    <strong>Peso:</strong> {weight} kg (Percentil {result.weightPercentile}) -{" "}
+                    {result.weightStatus}
                   </p>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+                <div>
+                  <p className="mb-2 text-sm text-text-secondary">
+                    <strong>IMC:</strong> {result.bmi.toFixed(1)} kg/m²
+                  </p>
+                  <p className="text-sm text-text-secondary">
+                    <strong>Status IMC:</strong> {result.bmiStatus}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        {/* Marcos de Desenvolvimento */}
-        {result && (
-          <div className="w-full max-w-full space-y-6 sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
-            {/* Resumo da idade e desenvolvimento */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card className="border-l-4 border-primary-blue bg-primary-blue/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-primary-blue-dark">
-                    👶 Idade Atual
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div className="text-lg font-semibold text-text-primary">
-                      {formatAge(result.ageInMonths)}
-                    </div>
-                    <div className="text-sm text-text-secondary">{result.ageInWeeks} semanas</div>
-                    {result.correctedAge !== undefined && (
-                      <div className="text-xs text-system-warning">
-                        Idade corrigida: {formatAge(result.correctedAge)}
-                      </div>
-                    )}
+            {/* Gráficos de Crescimento */}
+            <div className="mb-6">
+              <h4 className="mb-4 text-lg font-semibold text-text-primary">
+                📈 Gráficos de Crescimento
+              </h4>
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                {/* Gráfico de Altura */}
+                <div className="rounded-lg bg-gray-900 p-4">
+                  <h5 className="mb-3 text-center font-semibold text-system-success">
+                    Crescimento Estatural - {gender === "masculino" ? "Meninos" : "Meninas"} (0-5 anos)
+                  </h5>
+                  <div className="h-80">
+                    <Line
+                      data={(() => {
+                        const isMale = gender === "masculino";
+                        const heightCurve = generateGrowthCurveData("height", isMale);
+                        const childPos = getChildPositionOnCurve(parseNumber(height), result.heightPercentile, "height", isMale);
+                        
+                        // Create labels for months (convert to user-friendly format)
+                        const monthLabels = heightCurve.months.map(month => {
+                          if (month === 0) return "0";
+                          if (month < 12) return `${month}m`;
+                          const years = Math.floor(month / 12);
+                          const remainingMonths = month % 12;
+                          return remainingMonths === 0 ? `${years}a` : `${years}a${remainingMonths}m`;
+                        });
+                        
+                        return {
+                          labels: monthLabels,
+                          datasets: [
+                            {
+                              label: "P3",
+                              data: heightCurve.percentiles.P3,
+                              borderColor: "#EF4444",
+                              backgroundColor: "transparent",
+                              borderWidth: 1.5,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P10",
+                              data: heightCurve.percentiles.P10,
+                              borderColor: "#F59E0B",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P25",
+                              data: heightCurve.percentiles.P25,
+                              borderColor: "#10B981",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P50",
+                              data: heightCurve.percentiles.P50,
+                              borderColor: "#3B82F6",
+                              backgroundColor: "transparent",
+                              borderWidth: 3,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P75",
+                              data: heightCurve.percentiles.P75,
+                              borderColor: "#10B981",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P90",
+                              data: heightCurve.percentiles.P90,
+                              borderColor: "#F59E0B",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P97",
+                              data: heightCurve.percentiles.P97,
+                              borderColor: "#EF4444",
+                              backgroundColor: "transparent",
+                              borderWidth: 1.5,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            ...(childPos ? [{
+                              label: `${isMale ? "Menino" : "Menina"}`,
+                              data: heightCurve.months.map((_, index) => index === childPos.x ? childPos.y : null),
+                              backgroundColor: result.heightPercentile >= 10 && result.heightPercentile <= 90 ? "#10B981" : "#EF4444",
+                              borderColor: "#FFFFFF",
+                              pointRadius: 6,
+                              pointBorderWidth: 2,
+                              showLine: false,
+                            }] : [])
+                          ],
+                        };
+                      })()}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                            labels: {
+                              color: "#9CA3AF",
+                              font: { size: 10 },
+                              usePointStyle: true,
+                            },
+                          },
+                          tooltip: {
+                            callbacks: {
+                              title: (context) => `Idade: ${context[0]?.label || ''}`,
+                              label: (context) => {
+                                if (context.datasetIndex === 7) {
+                                  return `Sua criança: ${context.parsed.y} cm (P${result.heightPercentile})`;
+                                }
+                                return `${context.dataset.label}: ${context.parsed.y} cm`;
+                              },
+                            },
+                          },
+                        },
+                        scales: {
+                          y: {
+                            min: 45,
+                            max: 125,
+                            title: {
+                              display: true,
+                              text: "Altura (cm)",
+                              color: "#9CA3AF",
+                            },
+                            ticks: {
+                              color: "#9CA3AF",
+                              stepSize: 5,
+                            },
+                            grid: {
+                              color: "#374151",
+                            },
+                          },
+                          x: {
+                            title: {
+                              display: true,
+                              text: "Idade (meses)",
+                              color: "#9CA3AF",
+                            },
+                            ticks: {
+                              color: "#9CA3AF",
+                            },
+                            grid: {
+                              color: "#374151",
+                            },
+                          },
+                        },
+                      }}
+                    />
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="mt-2 text-center text-xs text-text-secondary">
+                    Altura: <strong>{height} cm</strong> • Percentil: 
+                    <strong className={result.heightPercentile >= 10 && result.heightPercentile <= 90 ? "text-system-success" : "text-system-error"}>
+                      P{result.heightPercentile}
+                    </strong> ({result.heightStatus})
+                  </div>
+                </div>
 
-              <Card
-                className={`bg-${getDevelopmentStatus(result.developmentScore).color}/10${getDevelopmentStatus(result.developmentScore).color}-dark/10 border-l-4 border-${getDevelopmentStatus(result.developmentScore).color}${getDevelopmentStatus(result.developmentScore).color}-dark`}
+                {/* Gráfico de Peso */}
+                <div className="rounded-lg bg-gray-900 p-4">
+                  <h5 className="mb-3 text-center font-semibold text-system-warning">
+                    Crescimento Ponderal - {gender === "masculino" ? "Meninos" : "Meninas"} (0-5 anos)
+                  </h5>
+                  <div className="h-80">
+                    <Line
+                      data={(() => {
+                        const isMale = gender === "masculino";
+                        const weightCurve = generateGrowthCurveData("weight", isMale);
+                        const childPos = getChildPositionOnCurve(parseNumber(weight), result.weightPercentile, "weight", isMale);
+                        
+                        // Create labels for months (convert to user-friendly format)
+                        const monthLabels = weightCurve.months.map(month => {
+                          if (month === 0) return "0";
+                          if (month < 12) return `${month}m`;
+                          const years = Math.floor(month / 12);
+                          const remainingMonths = month % 12;
+                          return remainingMonths === 0 ? `${years}a` : `${years}a${remainingMonths}m`;
+                        });
+                        
+                        return {
+                          labels: monthLabels,
+                          datasets: [
+                            {
+                              label: "P3",
+                              data: weightCurve.percentiles.P3,
+                              borderColor: "#EF4444",
+                              backgroundColor: "transparent",
+                              borderWidth: 1.5,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P10",
+                              data: weightCurve.percentiles.P10,
+                              borderColor: "#F59E0B",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P25",
+                              data: weightCurve.percentiles.P25,
+                              borderColor: "#10B981",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P50",
+                              data: weightCurve.percentiles.P50,
+                              borderColor: "#3B82F6",
+                              backgroundColor: "transparent",
+                              borderWidth: 3,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P75",
+                              data: weightCurve.percentiles.P75,
+                              borderColor: "#10B981",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P90",
+                              data: weightCurve.percentiles.P90,
+                              borderColor: "#F59E0B",
+                              backgroundColor: "transparent",
+                              borderWidth: 2,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            {
+                              label: "P97",
+                              data: weightCurve.percentiles.P97,
+                              borderColor: "#EF4444",
+                              backgroundColor: "transparent",
+                              borderWidth: 1.5,
+                              pointRadius: 0,
+                              tension: 0.3,
+                            },
+                            ...(childPos ? [{
+                              label: `${isMale ? "Menino" : "Menina"}`,
+                              data: weightCurve.months.map((_, index) => index === childPos.x ? childPos.y : null),
+                              backgroundColor: result.weightPercentile >= 10 && result.weightPercentile <= 90 ? "#10B981" : "#EF4444",
+                              borderColor: "#FFFFFF",
+                              pointRadius: 6,
+                              pointBorderWidth: 2,
+                              showLine: false,
+                            }] : [])
+                          ],
+                        };
+                      })()}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                            labels: {
+                              color: "#9CA3AF",
+                              font: { size: 10 },
+                              usePointStyle: true,
+                            },
+                          },
+                          tooltip: {
+                            callbacks: {
+                              title: (context) => `Idade: ${context[0]?.label || ''}`,
+                              label: (context) => {
+                                if (context.datasetIndex === 7) {
+                                  return `Sua criança: ${context.parsed.y} kg (P${result.weightPercentile})`;
+                                }
+                                return `${context.dataset.label}: ${context.parsed.y} kg`;
+                              },
+                            },
+                          },
+                        },
+                        scales: {
+                          y: {
+                            min: 2,
+                            max: 25,
+                            title: {
+                              display: true,
+                              text: "Peso (kg)",
+                              color: "#9CA3AF",
+                            },
+                            ticks: {
+                              color: "#9CA3AF",
+                              stepSize: 2,
+                            },
+                            grid: {
+                              color: "#374151",
+                            },
+                          },
+                          x: {
+                            title: {
+                              display: true,
+                              text: "Idade (meses)",
+                              color: "#9CA3AF",
+                            },
+                            ticks: {
+                              color: "#9CA3AF",
+                            },
+                            grid: {
+                              color: "#374151",
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                  <div className="mt-2 text-center text-xs text-text-secondary">
+                    Peso: <strong>{weight} kg</strong> • Percentil: 
+                    <strong className={result.weightPercentile >= 10 && result.weightPercentile <= 90 ? "text-system-success" : "text-system-error"}>
+                      P{result.weightPercentile}
+                    </strong> ({result.weightStatus})
+                  </div>
+                </div>
+              </div>
+
+              {/* Legenda dos gráficos */}
+              <div className="mt-4 rounded-lg bg-primary-blue/10 p-3">
+                <h6 className="mb-3 text-sm font-semibold text-text-primary">
+                  📋 Como interpretar os gráficos:
+                </h6>
+                <div className="grid grid-cols-1 gap-2 text-xs text-text-secondary sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-primary-blue"></span>
+                    <span>Curva de referência (OMS)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-8 rounded border border-system-success/40 bg-system-success/20"></span>
+                    <span>Faixa normal (P10-P90)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`h-3 w-3 rounded-full ${result.heightPercentile >= 10 && result.heightPercentile <= 90 ? "bg-system-success" : "bg-system-warning"}`}
+                    ></span>
+                    <span>Posição da sua criança</span>
+                  </div>
+                  <div className="col-span-full mt-2 space-y-1">
+                    <div>
+                      <strong>P10-P90:</strong> Faixa considerada normal
+                    </div>
+                    <div>
+                      <strong>P50:</strong> Mediana (50% acima, 50% abaixo)
+                    </div>
+                    <div className="text-xs text-text-secondary/80">
+                      🟢 <strong>Verde:</strong> Dentro da normalidade • 🟡{" "}
+                      <strong>Laranja:</strong> Atenção necessária
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Status geral */}
+            <div
+              className={`mb-6 rounded-lg p-4 ${
+                result.growthTrend === "normal"
+                  ? "border border-system-success/20 bg-system-success/10"
+                  : "border border-system-warning/20 bg-system-warning/10"
+              }`}
+            >
+              <h4
+                className={`mb-2 font-semibold ${
+                  result.growthTrend === "normal" ? "text-system-success" : "text-system-warning"
+                }`}
               >
-                <CardHeader>
-                  <CardTitle
-                    as="h3"
-                    className={`text-${getDevelopmentStatus(result.developmentScore).color}${getDevelopmentStatus(result.developmentScore).color}-dark text-lg`}
-                  >
-                    {getDevelopmentStatus(result.developmentScore).emoji} Score Desenvolvimento
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div
-                      className={`text-2xl font-bold text-${getDevelopmentStatus(result.developmentScore).color}${getDevelopmentStatus(result.developmentScore).color}-dark`}
-                    >
-                      {result.developmentScore}%
-                    </div>
-                    <div
-                      className={`text-sm text-${getDevelopmentStatus(result.developmentScore).color}${getDevelopmentStatus(result.developmentScore).color}-dark font-medium`}
-                    >
-                      {getDevelopmentStatus(result.developmentScore).status}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-growth-green bg-growth-green/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-growth-green">
-                    🎯 Marcos Atuais
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div className="text-2xl font-bold text-text-primary">
-                      {result.currentMilestones.length}
-                    </div>
-                    <div className="text-sm text-growth-green">marcos para sua idade</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-system-info bg-system-info/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-lg text-system-info">
-                    🏥 Próxima Consulta
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-1 text-center">
-                    <div className="text-sm font-semibold text-text-primary">
-                      {formatDate(result.nextCheckupDate)}
-                    </div>
-                    <div className="text-xs text-system-info">consulta pediátrica</div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Progresso por categoria */}
-            <Card>
-              <CardHeader>
-                <CardTitle as="h3">📊 Progresso por Área de Desenvolvimento</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                  {Object.entries(result.categories).map(([key, category]) => (
-                    <div
-                      key={key}
-                      className={`rounded-lg border p-4 border-${getCategoryColor(key)}/20${getCategoryColor(key)}-dark/20 bg-${getCategoryColor(key)}/5${getCategoryColor(key)}-dark/5`}
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <h4
-                          className={`font-semibold text-${getCategoryColor(key)}${getCategoryColor(key)}-dark flex items-center`}
-                        >
-                          {getCategoryEmoji(key)}{" "}
-                          <span className="ml-2">{getCategoryName(key)}</span>
-                        </h4>
-                        <span
-                          className={`text-lg font-bold text-${getCategoryColor(key)}${getCategoryColor(key)}-dark`}
-                        >
-                          {category.percentage}%
-                        </span>
-                      </div>
-                      <div className="text-xs text-text-secondary">
-                        {category.achieved}/{category.total} marcos
-                      </div>
-                      <div className="mt-2 h-2 rounded-full bg-light">
-                        <div
-                          className={`h-2 rounded-full bg-${getCategoryColor(key)}${getCategoryColor(key)}-dark transition-all duration-300`}
-                          style={{ width: `${category.percentage}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Marcos atuais - Interativos */}
-            {result.currentMilestones.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle as="h3">
-                    🎯 Marcos para sua Idade ({formatAge(result.correctedAge || result.ageInMonths)}
-                    )
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {result.currentMilestones.map((milestone) => (
-                      <div
-                        key={milestone.id}
-                        className={`cursor-pointer rounded-lg border-2 p-4 transition-all duration-200 ${
-                          completedMilestones.has(milestone.id)
-                            ? `border-growth-green bg-growth-green/10`
-                            : `bg-background border-light hover:border-${getCategoryColor(milestone.category)}/50 ${getCategoryColor(milestone.category)}-dark/50`
-                        }`}
-                        onClick={() => toggleMilestone(milestone.id)}
-                      >
-                        <div className="flex items-start space-x-3">
-                          <div
-                            className={`mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 ${
-                              completedMilestones.has(milestone.id)
-                                ? "border-growth-green bg-growth-green"
-                                : "border-neutral-surface-variant"
-                            }`}
-                          >
-                            {completedMilestones.has(milestone.id) && (
-                              <span className="text-xs text-white">✓</span>
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <div className="mb-1 flex items-center space-x-2">
-                              <h4 className="font-semibold text-text-primary">{milestone.title}</h4>
-                              <span
-                                className={`rounded px-2 py-1 text-xs font-medium text-${getCategoryColor(milestone.category)}${getCategoryColor(milestone.category)}-dark bg-${getCategoryColor(milestone.category)}/10${getCategoryColor(milestone.category)}-dark/10`}
-                              >
-                                {getCategoryEmoji(milestone.category)}{" "}
-                                {getCategoryName(milestone.category)}
-                              </span>
-                              {milestone.priority === "high" && (
-                                <span className="rounded bg-system-error/10 px-2 py-1 text-xs font-medium text-system-error-dark">
-                                  🚨 Importante
-                                </span>
-                              )}
-                            </div>
-                            <p className="text-sm text-text-secondary">{milestone.description}</p>
-                            <p className="mt-1 text-xs text-text-secondary">
-                              Idade esperada: {formatAge(milestone.expectedAgeMonths)}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 text-center">
-                    <p className="text-sm text-text-secondary">
-                      💡 <strong>Dica:</strong> Clique nos marcos para marcar como alcançados
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Próximos marcos */}
-            {result.upcomingMilestones.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle as="h3">⏳ Próximos Marcos de Desenvolvimento</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    {result.upcomingMilestones.map((milestone) => (
-                      <div
-                        key={milestone.id}
-                        className="bg-background rounded-lg border border-neutral-surface-variant p-4"
-                      >
-                        <div className="mb-2 flex items-center space-x-2">
-                          <h4 className="font-semibold text-text-primary">{milestone.title}</h4>
-                          <span
-                            className={`rounded px-2 py-1 text-xs font-medium text-${getCategoryColor(milestone.category)}${getCategoryColor(milestone.category)}-dark bg-${getCategoryColor(milestone.category)}/10${getCategoryColor(milestone.category)}-dark/10`}
-                          >
-                            {getCategoryEmoji(milestone.category)}{" "}
-                            {getCategoryName(milestone.category)}
-                          </span>
-                        </div>
-                        <p className="mb-2 text-sm text-text-secondary">{milestone.description}</p>
-                        <p className="text-xs text-system-info">
-                          📅 Previsto para: {formatAge(milestone.expectedAgeMonths)}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Marcos em atraso - se houver */}
-            {result.overdueMilestones.length > 0 && (
-              <Card className="border-l-4 border-system-warning bg-system-warning/10">
-                <CardHeader>
-                  <CardTitle as="h3" className="text-system-warning">
-                    ⚠️ Marcos que Merecem Atenção
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {result.overdueMilestones.map((milestone) => (
-                      <div
-                        key={milestone.id}
-                        className="bg-system-warning/5/5 rounded-lg border border-system-warning/20 p-4"
-                      >
-                        <div className="mb-2 flex items-center space-x-2">
-                          <h4 className="font-semibold text-text-primary">{milestone.title}</h4>
-                          <span
-                            className={`rounded px-2 py-1 text-xs font-medium text-${getCategoryColor(milestone.category)}${getCategoryColor(milestone.category)}-dark bg-${getCategoryColor(milestone.category)}/10${getCategoryColor(milestone.category)}-dark/10`}
-                          >
-                            {getCategoryEmoji(milestone.category)}{" "}
-                            {getCategoryName(milestone.category)}
-                          </span>
-                        </div>
-                        <p className="mb-2 text-sm text-text-secondary">{milestone.description}</p>
-                        <p className="text-xs text-system-warning">
-                          Era esperado aos: {formatAge(milestone.expectedAgeMonths)}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 rounded-lg border border-system-info/20 bg-system-info/10 p-3">
-                    <p className="text-sm text-system-info">
-                      <strong>💡 Importante:</strong> Cada bebê se desenvolve em seu próprio ritmo.
-                      Se você tem preocupações, consulte seu pediatra para uma avaliação
-                      individualizada.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        )}
-
-        {/* Seção: Entendendo Percentis de Crescimento */}
-        <Card className="border-l-4 border-math-purple bg-math-purple-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              📊 Entendendo os Percentis de Crescimento WHO/CDC
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <p className="text-text-primary">
-                Os <strong className="text-math-purple">percentis de crescimento</strong> são a
-                ferramenta mais importante para avaliar se uma criança está crescendo adequadamente.
-                Nossa calculadora utiliza os padrões oficiais da{" "}
-                <strong>Organização Mundial da Saúde (WHO)</strong> e{" "}
-                <strong>Centers for Disease Control (CDC)</strong>.
-              </p>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                  <h4 className="mb-3 flex items-center font-semibold text-system-info">
-                    🌍 <span className="ml-2">Padrões WHO (0-24 meses)</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Base de dados:</strong> Estudo multicêntrico com 8.440 crianças
-                    </li>
-                    <li>
-                      • <strong>Países:</strong> Brasil, Ghana, Índia, Noruega, Omã e EUA
-                    </li>
-                    <li>
-                      • <strong>Critérios:</strong> Crianças saudáveis, amamentadas, sem restrições
-                    </li>
-                    <li>
-                      • <strong>Diferencial:</strong> Representa o potencial de crescimento ótimo
-                    </li>
-                    <li>
-                      • <strong>Atualização:</strong> Última revisão em 2006
-                    </li>
-                  </ul>
-                  <div className="mt-3 rounded bg-system-info/10 p-2 text-xs text-system-info">
-                    <strong>Por que WHO?</strong> Padrão-ouro internacional que considera a
-                    diversidade genética e mostra como as crianças DEVEM crescer em condições
-                    ideais.
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-                  <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                    🇺🇸 <span className="ml-2">Referências CDC (2-5 anos)</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Base de dados:</strong> National Health and Nutrition Examination
-                      Survey
-                    </li>
-                    <li>
-                      • <strong>População:</strong> Crianças americanas representativas
-                    </li>
-                    <li>
-                      • <strong>Método:</strong> Suavização LMS (Lambda-Mu-Sigma)
-                    </li>
-                    <li>
-                      • <strong>Aplicação:</strong> Pré-escolares e escolares
-                    </li>
-                    <li>
-                      • <strong>Complemento:</strong> Continuidade após padrões WHO
-                    </li>
-                  </ul>
-                  <div className="mt-3 rounded bg-growth-green/10 p-2 text-xs text-growth-green">
-                    <strong>Transição:</strong> Aos 24 meses mudamos para CDC mantendo continuidade
-                    nas avaliações de crescimento.
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                <h4 className="mb-3 font-semibold text-system-warning">
-                  🎯 Como Interpretar os Percentis
-                </h4>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-system-error">P3</div>
-                    <div className="text-sm text-text-secondary">
-                      Apenas 3% das crianças estão abaixo
-                    </div>
-                    <div className="mt-1 text-xs text-system-error">⚠️ Merece atenção médica</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-growth-green">P50</div>
-                    <div className="text-sm text-text-secondary">
-                      Mediana - 50% acima, 50% abaixo
-                    </div>
-                    <div className="mt-1 text-xs text-growth-green">✅ Valor típico/esperado</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-system-error">P97</div>
-                    <div className="text-sm text-text-secondary">
-                      Apenas 3% das crianças estão acima
-                    </div>
-                    <div className="mt-1 text-xs text-system-error">
-                      ⚠️ Pode necessitar avaliação
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-math-purple/20 bg-math-purple-light p-4">
-                <h4 className="mb-3 font-semibold text-math-purple">
-                  📈 Fórmula de Previsão de Altura Adulta
-                </h4>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div>
-                    <h5 className="font-medium text-text-primary">Para Meninos:</h5>
-                    <div className="mt-1 rounded border border-neutral-surface-variant bg-background-dark-secondary p-2 font-mono text-sm text-text-secondary">
-                      (Altura Mãe + Altura Pai + 13cm) ÷ 2
-                    </div>
-                    <div className="mt-1 text-xs text-math-purple">
-                      Margem de erro: ±8,5cm (95% das crianças)
-                    </div>
-                  </div>
-                  <div>
-                    <h5 className="font-medium text-text-primary">Para Meninas:</h5>
-                    <div className="mt-1 rounded border border-neutral-surface-variant bg-background-dark-secondary p-2 font-mono text-sm text-text-secondary">
-                      (Altura Mãe + Altura Pai - 13cm) ÷ 2
-                    </div>
-                    <div className="mt-1 text-xs text-math-purple">
-                      Considera diferenças hormonais entre sexos
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                <h4 className="mb-2 font-semibold text-system-info">
-                  🧮 Algoritmo de Interpolação
-                </h4>
-                <p className="mb-3 text-sm text-text-secondary">
-                  Nossa calculadora usa <strong>interpolação linear</strong> para calcular percentis
-                  precisos em qualquer idade:
-                </p>
-                <div className="grid grid-cols-1 gap-3 text-xs text-system-info md:grid-cols-2">
-                  <div>
-                    <strong>1. Localização:</strong> Encontra os dois pontos de dados mais próximos
-                    da idade da criança
-                  </div>
-                  <div>
-                    <strong>2. Interpolação:</strong> Calcula valores intermediários
-                    proporcionalmente
-                  </div>
-                  <div>
-                    <strong>3. Percentil:</strong> Determina onde a medida da criança se posiciona
-                  </div>
-                  <div>
-                    <strong>4. Validação:</strong> Aplica limites de 1-99% para resultados realistas
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Seção: Métodos de Avaliação do Desenvolvimento Infantil */}
-        <Card className="border-l-4 border-system-info bg-system-info/10 duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🔬 Métodos Científicos de Avaliação do Desenvolvimento Infantil
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <p className="text-text-primary">
-                Nossa calculadora combina diferentes{" "}
-                <strong className="text-system-info">métodos científicos reconhecidos</strong> para
-                oferecer uma avaliação abrangente do desenvolvimento infantil. Entenda cada método
-                utilizado:
-              </p>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="bg-primary-blue/5/5 rounded-lg border border-primary-blue/20 p-4">
-                  <h4 className="mb-3 flex items-center font-semibold text-primary-blue-dark">
-                    📋 <span className="ml-2">Escala de Marcos Desenvolvimentais</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Baseado em:</strong> Academia Americana de Pediatria (AAP)
-                    </li>
-                    <li>
-                      • <strong>Referência:</strong> Sociedade Brasileira de Pediatria (SBP)
-                    </li>
-                    <li>
-                      • <strong>Metodologia:</strong> Marcos padronizados por idade
-                    </li>
-                    <li>
-                      • <strong>Precisão:</strong> 95% de confiabilidade para população geral
-                    </li>
-                    <li>
-                      • <strong>Categorias:</strong> Motor, Cognitivo, Linguagem, Social
-                    </li>
-                  </ul>
-                  <div className="mt-3 rounded bg-primary-blue/10 p-2 text-xs text-primary-blue-dark">
-                    <strong>Vantagens:</strong> Padronização internacional, fácil aplicação,
-                    monitoramento longitudinal
-                  </div>
-                </div>
-
-                <div className="bg-growth-green/5/5 rounded-lg border border-growth-green/20 p-4">
-                  <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                    ⏱️ <span className="ml-2">Idade Corrigida para Prematuros</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Cálculo:</strong> Semanas de prematuridade descontadas
-                    </li>
-                    <li>
-                      • <strong>Aplicação:</strong> Bebês nascidos &lt; 37 semanas
-                    </li>
-                    <li>
-                      • <strong>Período:</strong> Até 24 meses de idade cronológica
-                    </li>
-                    <li>
-                      • <strong>Precisão:</strong> Ajuste baseado em evidências científicas
-                    </li>
-                    <li>
-                      • <strong>Importância:</strong> Expectativas realistas de desenvolvimento
-                    </li>
-                  </ul>
-                  <div className="mt-3 rounded bg-growth-green/10 p-2 text-xs text-growth-green">
-                    <strong>Exemplo:</strong> Bebê de 6 meses nascido com 32 semanas usa idade
-                    corrigida de 4 meses
-                  </div>
-                </div>
-
-                <div className="bg-system-warning/5/5 rounded-lg border border-system-warning/20 p-4">
-                  <h4 className="mb-3 flex items-center font-semibold text-system-warning">
-                    📊 <span className="ml-2">Sistema de Pontuação Ponderada</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Prioridade Alta:</strong> Marcos críticos (peso 3x)
-                    </li>
-                    <li>
-                      • <strong>Prioridade Média:</strong> Marcos importantes (peso 2x)
-                    </li>
-                    <li>
-                      • <strong>Prioridade Baixa:</strong> Marcos complementares (peso 1x)
-                    </li>
-                    <li>
-                      • <strong>Tolerância:</strong> Variação por categoria de prioridade
-                    </li>
-                    <li>
-                      • <strong>Score Final:</strong> Percentual ponderado de desenvolvimento
-                    </li>
-                  </ul>
-                  <div className="mt-3 rounded bg-system-warning/10 p-2 text-xs text-system-warning">
-                    <strong>Benefício:</strong> Identifica rapidamente marcos que necessitam atenção
-                    especial
-                  </div>
-                </div>
-
-                <div className="bg-system-info/5/5 rounded-lg border border-system-info/20 p-4">
-                  <h4 className="mb-3 flex items-center font-semibold text-system-info">
-                    🎯 <span className="ml-2">Análise Multidimensional</span>
-                  </h4>
-                  <ul className="space-y-2 text-sm text-text-secondary">
-                    <li>
-                      • <strong>4 Domínios:</strong> Análise separada por área
-                    </li>
-                    <li>
-                      • <strong>Progresso Individual:</strong> Percentual por categoria
-                    </li>
-                    <li>
-                      • <strong>Identificação Precoce:</strong> Atrasos específicos
-                    </li>
-                    <li>
-                      • <strong>Intervenção Dirigida:</strong> Foco nas áreas necessárias
-                    </li>
-                    <li>
-                      • <strong>Acompanhamento:</strong> Evolução temporal do progresso
-                    </li>
-                  </ul>
-                  <div className="mt-3 rounded bg-system-info/10 p-2 text-xs text-system-info">
-                    <strong>Diferencial:</strong> Visão holística e específica simultaneamente
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                <h4 className="mb-2 font-semibold text-growth-green">
-                  🏆 Por que Nossa Metodologia se Destaca?
-                </h4>
-                <div className="grid grid-cols-1 gap-4 text-sm text-text-secondary md:grid-cols-3">
-                  <div>
-                    <strong className="text-growth-green">1. Precisão Científica</strong>
-                    <p>
-                      Baseada nas diretrizes mais atuais da pediatria mundial, com marcos validados
-                      por pesquisas longitudinais.
-                    </p>
-                  </div>
-                  <div>
-                    <strong className="text-growth-green">2. Personalização Total</strong>
-                    <p>
-                      Considera prematuridade, prioridades de marcos e oferece análise
-                      individualizada por área de desenvolvimento.
-                    </p>
-                  </div>
-                  <div>
-                    <strong className="text-growth-green">3. Interatividade Única</strong>
-                    <p>
-                      Interface que permite acompanhamento dinâmico, marcação de conquistas e
-                      visualização do progresso em tempo real.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Seção: O que é desenvolvimento infantil */}
-        <Card className="border-l-4 border-growth-green bg-growth-green-soft duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🌱 O que é Desenvolvimento Infantil?
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 text-text-primary">
-              <p>
-                O <strong className="text-growth-green">desenvolvimento infantil</strong> é o
-                processo contínuo de mudanças físicas, cognitivas, emocionais e sociais que ocorrem
-                nos primeiros anos de vida. É fundamental acompanhar os marcos de desenvolvimento
-                para identificar precocemente qualquer necessidade de intervenção.
-              </p>
-              <p>
-                Os marcos são habilidades que a maioria das crianças desenvolve em idades
-                específicas. Eles servem como{" "}
-                <strong className="text-primary-blue-dark">guias gerais</strong>, mas é importante
-                lembrar que cada criança é única e pode alcançar esses marcos em momentos
-                diferentes.
-              </p>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-2 font-semibold text-growth-green">
-                    🧠 Áreas de Desenvolvimento
-                  </h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>
-                      • <strong>Motor:</strong> Movimentos e coordenação física
-                    </li>
-                    <li>
-                      • <strong>Cognitivo:</strong> Pensamento, aprendizado e resolução de problemas
-                    </li>
-                    <li>
-                      • <strong>Linguagem:</strong> Comunicação e compreensão
-                    </li>
-                    <li>
-                      • <strong>Social:</strong> Interação e relacionamentos
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                    📅 Importância do Acompanhamento
-                  </h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Identificação precoce de atrasos</li>
-                    <li>• Orientação para estímulos adequados</li>
-                    <li>• Tranquilidade para os pais</li>
-                    <li>• Cronograma de consultas pediátricas</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Seção: Inovações diferenciais */}
-        <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🚀 Recursos Exclusivos da Nossa Calculadora
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-primary-blue-dark">
-                  ✅ <span className="ml-2">Marcos Interativos</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Check-list dinâmico:</strong> Marque marcos alcançados em tempo real
-                  </li>
-                  <li>
-                    • <strong>Progresso visual:</strong> Acompanhe o desenvolvimento por categorias
-                  </li>
-                  <li>
-                    • <strong>Priorização:</strong> Marcos críticos destacados
-                  </li>
-                  <li>
-                    • <strong>Histórico:</strong> Registre quando cada marco foi atingido
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                  👶 <span className="ml-2">Suporte a Prematuros</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Idade corrigida:</strong> Cálculo automático para prematuros
-                  </li>
-                  <li>
-                    • <strong>Marcos ajustados:</strong> Expectativas realistas baseadas na idade
-                    corrigida
-                  </li>
-                  <li>
-                    • <strong>Acompanhamento especializado:</strong> Cronograma específico de
-                    consultas
-                  </li>
-                  <li>
-                    • <strong>Tolerância personalizada:</strong> Consideração da prematuridade nos
-                    prazos
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-info">
-                  📊 <span className="ml-2">Analytics Avançados</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Score de desenvolvimento:</strong> Avaliação percentual geral
-                  </li>
-                  <li>
-                    • <strong>Análise por categoria:</strong> Progresso detalhado por área
-                  </li>
-                  <li>
-                    • <strong>Alertas inteligentes:</strong> Identificação de marcos em atraso
-                  </li>
-                  <li>
-                    • <strong>Tendências:</strong> Visualização do progresso ao longo do tempo
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-warning">
-                  🏥 <span className="ml-2">Cronograma Médico</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Consultas automáticas:</strong> Sugestão de datas por faixa etária
-                  </li>
-                  <li>
-                    • <strong>Lembretes importantes:</strong> Vacinas e exames por idade
-                  </li>
-                  <li>
-                    • <strong>Preparação:</strong> O que esperar em cada consulta
-                  </li>
-                  <li>
-                    • <strong>Perguntas sugeridas:</strong> Para discutir com o pediatra
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Seção: Como estimular o desenvolvimento */}
-        <Card className="border-l-4 border-system-info bg-system-info/10 duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🎯 Como Estimular o Desenvolvimento do Bebê
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-primary-blue-dark">
-                  🏃 <span className="ml-2">Desenvolvimento Motor</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Tummy time:</strong> Tempo de barriga para baixo supervisionado
-                  </li>
-                  <li>
-                    • <strong>Brinquedos texturizados:</strong> Diferentes materiais para explorar
-                  </li>
-                  <li>
-                    • <strong>Espaço seguro:</strong> Ambiente livre para movimentação
-                  </li>
-                  <li>
-                    • <strong>Brincadeiras físicas:</strong> Puxar para sentar, rolar
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-growth-green">
-                  🧠 <span className="ml-2">Desenvolvimento Cognitivo</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Contraste visual:</strong> Livros e brinquedos com alto contraste
-                  </li>
-                  <li>
-                    • <strong>Causa e efeito:</strong> Brinquedos que respondem a ações
-                  </li>
-                  <li>
-                    • <strong>Música e sons:</strong> Diferentes estímulos sonoros
-                  </li>
-                  <li>
-                    • <strong>Esconde-esconde:</strong> Jogos de permanência do objeto
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-info">
-                  💬 <span className="ml-2">Desenvolvimento da Linguagem</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Conversar sempre:</strong> Narrar atividades do dia a dia
-                  </li>
-                  <li>
-                    • <strong>Leitura diária:</strong> Livros adequados para a idade
-                  </li>
-                  <li>
-                    • <strong>Canções e rimas:</strong> Musicas infantis e parlendas
-                  </li>
-                  <li>
-                    • <strong>Responder aos balbucios:</strong> Manter "conversas" com o bebê
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-warning">
-                  👥 <span className="ml-2">Desenvolvimento Social</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Contato visual:</strong> Olhar nos olhos durante atividades
-                  </li>
-                  <li>
-                    • <strong>Expressões faciais:</strong> Sorrir e fazer caretas
-                  </li>
-                  <li>
-                    • <strong>Rotinas sociais:</strong> Cumprimentos, despedidas
-                  </li>
-                  <li>
-                    • <strong>Interação com outros:</strong> Socialização supervisionada
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-6 rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-              <h4 className="mb-2 font-semibold text-growth-green">💡 Dica Importante</h4>
+                {result.growthTrend === "normal" ? "✅ Crescimento Normal" : "⚠️ Requer Atenção"}
+              </h4>
               <p className="text-sm text-text-secondary">
-                <strong>O melhor estímulo é o amor e a atenção!</strong> Brincadeiras simples,
-                carinho e interação são mais importantes que brinquedos caros. Respeite o ritmo do
-                seu bebê e celebre cada pequena conquista.
+                {result.growthTrend === "normal"
+                  ? "Os percentis de altura e peso estão dentro da faixa normal. Continue monitorando o crescimento regularmente."
+                  : "Alguns valores estão fora da faixa típica. Recomenda-se consultar um pediatra para avaliação mais detalhada."}
               </p>
             </div>
           </CardContent>
         </Card>
+      )}
 
-        {/* Seção: Quando procurar ajuda */}
-        <Card className="border-l-4 border-system-warning bg-system-warning/10 duration-300">
+      {/* Marcos do Desenvolvimento - Destaque Principal */}
+      {result && (
+        <Card className="border-2 border-system-success bg-gradient-to-r from-system-success/5 to-primary-blue/5">
           <CardHeader>
-            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-              🏥 Quando Procurar Ajuda Profissional
+            <CardTitle as="h2" className="text-2xl font-bold text-center text-system-success">
+              🎯 Marcos de Desenvolvimento - Checklist Interativo
             </CardTitle>
+            <p className="text-center text-sm text-text-secondary mt-2">
+              Acompanhe o progresso da sua criança nos marcos esperados para a idade
+            </p>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-error-dark">
-                  🚨 <span className="ml-2">Sinais de Alerta por Idade</span>
-                </h4>
-                <div className="space-y-3">
-                  <div>
-                    <h5 className="font-medium text-text-primary">2 meses:</h5>
-                    <ul className="ml-4 text-sm text-text-secondary">
-                      <li>• Não sorri socialmente</li>
-                      <li>• Não acompanha objetos com os olhos</li>
-                      <li>• Não levanta a cabeça</li>
-                    </ul>
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+              {/* Marcos Atuais */}
+              <Card className="border-2 border-system-success bg-system-success/5">
+                <CardHeader>
+                  <CardTitle as="h3" className="text-system-success text-center">
+                    🎯 Marcos Esperados para a Idade
+                  </CardTitle>
+                  <div className="text-center">
+                    <span className="inline-block rounded-lg bg-system-success/20 px-3 py-1 text-sm font-semibold text-system-success-dark">
+                      {result.ageDisplay} ({result.milestones.age} meses)
+                    </span>
                   </div>
-                  <div>
-                    <h5 className="font-medium text-text-primary">6 meses:</h5>
-                    <ul className="ml-4 text-sm text-text-secondary">
-                      <li>• Não rola</li>
-                      <li>• Não emite sons</li>
-                      <li>• Muito mole ou rígido</li>
-                    </ul>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {result.milestones.milestones.map((milestone, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-system-success/10 border border-system-success/20">
+                        <div className="flex-shrink-0">
+                          <div className="h-8 w-8 rounded-full bg-system-success flex items-center justify-center">
+                            <span className="text-white text-sm font-bold">✓</span>
+                          </div>
+                        </div>
+                        <span className="text-sm font-medium text-text-primary flex-1">{milestone}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <h5 className="font-medium text-text-primary">12 meses:</h5>
-                    <ul className="ml-4 text-sm text-text-secondary">
-                      <li>• Não aponta ou acena</li>
-                      <li>• Não fala "mamá" ou "papá"</li>
-                      <li>• Não fica em pé com apoio</li>
-                    </ul>
+                  
+                  <div className="mt-6 p-4 bg-system-success/15 rounded-lg border-l-4 border-system-success">
+                    <p className="text-sm text-system-success-dark">
+                      🎆 <strong>Parabéns!</strong> Estes são os marcos esperados para a idade atual da criança. 
+                      Cada conquista é uma vitória importante no desenvolvimento!
+                    </p>
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* Próximos Marcos */}
+              <Card className="border-2 border-primary-blue bg-primary-blue/5">
+                <CardHeader>
+                  <CardTitle as="h3" className="text-primary-blue-dark text-center">
+                    🔮 Próximos Marcos do Desenvolvimento
+                  </CardTitle>
+                  <div className="text-center">
+                    <span className="inline-block rounded-lg bg-primary-blue/20 px-3 py-1 text-sm font-semibold text-primary-blue-dark">
+                      Aos {Math.floor(result.nextMilestones.age / 12)} anos e {result.nextMilestones.age % 12} meses
+                    </span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {result.nextMilestones.milestones.map((milestone, index) => (
+                      <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-primary-blue/10 border border-primary-blue/20">
+                        <div className="flex-shrink-0">
+                          <div className="h-8 w-8 rounded-full bg-primary-blue flex items-center justify-center">
+                            <span className="text-white text-sm">⏳</span>
+                          </div>
+                        </div>
+                        <span className="text-sm font-medium text-text-primary flex-1">{milestone}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-6 p-4 bg-primary-blue/15 rounded-lg border-l-4 border-primary-blue">
+                    <p className="text-sm text-primary-blue-dark">
+                      🌱 <strong>Em breve:</strong> Estes marcos geralmente aparecem nos próximos meses. 
+                      Continue estimulando o desenvolvimento com amor e paciência!
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Alerta Educativo Destacado */}
+            <div className="mt-8 p-4 bg-gradient-to-r from-health-red/10 to-system-warning/10 border-l-4 border-health-red rounded-lg">
+              <h4 className="font-bold text-health-red mb-2 flex items-center gap-2">
+                ⚠️ Importante Lembrar
+              </h4>
+              <p className="text-sm text-text-secondary">
+                <strong>Cada criança é única!</strong> Estes marcos são referências gerais baseadas em padrões da OMS. 
+                Algumas crianças podem alcançar marcos mais cedo ou mais tarde, e isso é completamente normal. 
+                <strong className="text-health-red">Em caso de dúvidas, sempre consulte um pediatra.</strong>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Seção: Desenvolvimento Infantil - Guia Completo */}
+      <Card className="from-health-red-soft border-l-4 border-health-red bg-gradient-to-r to-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            📚 Desenvolvimento Infantil – Guia Completo 2025
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Percentis de Crescimento */}
+            <div className="rounded-xl border border-health-red/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-health-red">
+                📊 Entendendo os Percentis de Crescimento
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">📏 Percentil de Altura</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Compara a altura da sua criança com outras da mesma idade e sexo. Percentil 50
+                    significa que a criança é mais alta que 50% das crianças da mesma idade.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚖️ Percentil de Peso</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Avalia se o peso está adequado para a idade. Importante analisar junto com a
+                    altura para uma avaliação completa do crescimento.
+                  </p>
                 </div>
-              </div>
 
-              <div>
-                <h4 className="mb-3 flex items-center font-semibold text-system-info">
-                  👨‍⚕️ <span className="ml-2">Profissionais Especializados</span>
-                </h4>
-                <ul className="space-y-2 text-sm text-text-secondary">
-                  <li>
-                    • <strong>Pediatra:</strong> Primeira avaliação e encaminhamentos
-                  </li>
-                  <li>
-                    • <strong>Neuropediatra:</strong> Desenvolvimento neurológico
-                  </li>
-                  <li>
-                    • <strong>Fisioterapeuta:</strong> Desenvolvimento motor
-                  </li>
-                  <li>
-                    • <strong>Fonoaudiólogo:</strong> Linguagem e comunicação
-                  </li>
-                  <li>
-                    • <strong>Terapeuta Ocupacional:</strong> Habilidades funcionais
-                  </li>
-                  <li>
-                    • <strong>Psicólogo infantil:</strong> Desenvolvimento socioemocional
-                  </li>
-                </ul>
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    📈 Faixas de Normalidade
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>
+                      • <strong>Percentil 10-90:</strong> Faixa normal
+                    </li>
+                    <li>
+                      • <strong>Percentil 50:</strong> Mediana (padrão médio)
+                    </li>
+                    <li>
+                      • <strong>Abaixo P10:</strong> Requer avaliação
+                    </li>
+                    <li>
+                      • <strong>Acima P90:</strong> Requer acompanhamento
+                    </li>
+                  </ul>
 
-                <div className="mt-4 rounded-lg border border-growth-green/20 bg-growth-green/10 p-3">
-                  <h5 className="mb-1 font-semibold text-growth-green">✅ Lembre-se</h5>
-                  <p className="text-xs text-text-secondary">
-                    A <strong>intervenção precoce</strong> é fundamental. Não hesite em procurar
-                    ajuda se tiver dúvidas. É melhor uma avaliação desnecessária do que perder uma
-                    oportunidade de ajudar seu bebê.
+                  <h4 className="mb-3 font-semibold text-system-info">⚠️ Importante Lembrar</h4>
+                  <p className="text-sm text-text-secondary">
+                    O percentil não indica "melhor" ou "pior". Uma criança no percentil 20 pode ser
+                    perfeitamente saudável se mantiver crescimento consistente.
                   </p>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        <FAQ
-          title="Perguntas Frequentes - Desenvolvimento e Percentis Infantis"
-          items={[
-            {
-              question: "O que significam os percentis de crescimento P3, P50 e P97?",
-              answer:
-                "<strong>P3:</strong> Apenas 3% das crianças estão abaixo deste valor - pode necessitar atenção médica. <strong>P50 (mediana):</strong> Valor típico onde 50% das crianças estão acima e 50% abaixo. <strong>P97:</strong> Apenas 3% das crianças estão acima - geralmente normal, mas pode necessitar avaliação se houver mudança brusca no padrão de crescimento.",
-              borderColor: "system-info",
-            },
-            {
-              question: "Qual a diferença entre padrões WHO e CDC na nossa calculadora?",
-              answer:
-                "<strong>WHO (0-24 meses):</strong> Padrão internacional baseado em crianças amamentadas de 6 países, incluindo o Brasil. Representa como as crianças DEVEM crescer em condições ótimas. <strong>CDC (2-5 anos):</strong> Referência americana que complementa os dados WHO. Fazemos a transição automaticamente aos 24 meses mantendo continuidade.",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Como a previsão de altura adulta é calculada?",
-              answer:
-                "Usamos a <strong>fórmula da altura média dos pais</strong>: Para meninos = (altura mãe + altura pai + 13cm) ÷ 2. Para meninas = (altura mãe + altura pai - 13cm) ÷ 2. A margem de erro é de ±8,5cm para 95% das crianças. Esta é uma <strong>estimativa</strong> - outros fatores como nutrição e saúde também influenciam.",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Quando devo me preocupar com atrasos no desenvolvimento?",
-              answer:
-                "Marcos de <strong>alta prioridade</strong> com atraso superior a 2 meses merecem atenção. Para marcos de média prioridade, a tolerância é de 3-4 meses. Sempre consulte um pediatra se tiver dúvidas ou se múltiplos marcos estiverem atrasados. <strong>Intervenção precoce</strong> é fundamental.",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Como funciona o cálculo da idade corrigida para prematuros?",
-              answer:
-                "Subtraímos as semanas de prematuridade da idade atual. <strong>Exemplo:</strong> bebê de 10 meses nascido com 32 semanas (8 semanas antes das 40) tem idade corrigida de 8 meses. Usamos essa idade para avaliar marcos e percentis até os <strong>24 meses</strong>. Isso garante expectativas realistas.",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Meu filho está no P10 de peso. Isso é motivo de preocupação?",
-              answer:
-                "Não necessariamente! <strong>P10 significa que 90% das crianças pesam mais</strong>, mas se seu filho sempre esteve nesta faixa e está crescendo consistentemente, pode ser seu padrão normal. O importante é a <strong>consistência do crescimento</strong>, não apenas o valor absoluto. Consulte o pediatra se houver quedas bruscas nos percentis.",
-              borderColor: "system-warning",
-            },
-            {
-              question: "Posso usar a calculadora para crianças com deficiência?",
-              answer:
-                "A calculadora oferece uma <strong>referência geral</strong>, mas crianças com deficiências podem ter padrões únicos de desenvolvimento. Recomendamos usar como <strong>complemento ao acompanhamento especializado</strong>, não como substituto. Consulte sempre profissionais especializados.",
-              borderColor: "system-info",
-            },
-            {
-              question: "Por que o perímetro cefálico só é medido até 24 meses?",
-              answer:
-                "O <strong>perímetro cefálico</strong> é crítico nos primeiros 2 anos quando o cérebro cresce mais rapidamente (80% do tamanho adulto). Após 24 meses, o crescimento desacelera significativamente e outras medidas se tornam mais relevantes. Monitoramento precoce ajuda detectar problemas neurológicos.",
-              borderColor: "system-error-dark",
-            },
-            {
-              question: "A calculadora substitui consultas pediátricas?",
-              answer:
-                "<strong>Definitivamente não!</strong> Nossa ferramenta é complementar. Use-a para se preparar para consultas, fazer perguntas direcionadas e acompanhar progresso entre consultas. O pediatra sempre deve ser consultado para <strong>avaliação completa e profissional</strong>.",
-              borderColor: "growth-green",
-            },
-            {
-              question: "Como os gráficos interativos ajudam no acompanhamento?",
-              answer:
-                "Os <strong>gráficos mostram visualmente</strong> onde sua criança se posiciona em relação aos padrões mundiais. Você pode ver as curvas de percentis (P3, P15, P50, P85, P97) e a posição exata do seu filho. Isso facilita entender se o crescimento está acelerado, típico ou necessita atenção.",
-              borderColor: "system-success",
-            },
-          ]}
-          tipSection={{
-            title: "Dica para Pais de Primeira Viagem",
-            content:
-              "<strong>Relaxe e observe!</strong> Cada bebê é único. Use nossa calculadora como uma <strong>bússola, não um cronômetro</strong>. O mais importante é o amor, a interação e o acompanhamento médico regular. Desenvolvimento saudável acontece no ritmo certo para cada criança.",
-          }}
-          footerText="<strong>Tem outras dúvidas?</strong> Nossa calculadora oferece explicações detalhadas para cada marco e categoria de desenvolvimento."
-        />
+            {/* Marcos do Desenvolvimento */}
+            <div className="rounded-xl border border-system-success/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-success">
+                🎯 Marcos do Desenvolvimento por Idade
+              </h3>
 
-        {/* Footer informativo */}
-        <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-          <CardHeader>
-            <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-              📚 Sobre Esta Calculadora de Desenvolvimento Infantil
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3 text-sm text-text-secondary">
-              <p>
-                Esta calculadora de desenvolvimento infantil é{" "}
-                <strong className="text-primary-blue-dark">gratuita</strong> e foi desenvolvida com
-                base em diretrizes pediátricas reconhecidas internacionalmente. Os marcos incluem
-                referências da Academia Americana de Pediatria (AAP) e Sociedade Brasileira de
-                Pediatria (SBP).
-              </p>
-              <p>
-                <strong className="text-growth-green">Diferencial único:</strong> Nossa calculadora
-                oferece recursos exclusivos como marcos interativos, suporte completo a prematuros,
-                cronograma médico personalizado e análise visual do progresso por categorias.
-              </p>
-              <p>
-                <strong className="text-system-warning">Importante:</strong> Esta ferramenta é
-                apenas para fins educacionais e informativos. Não substitui consultas médicas
-                regulares. Sempre discuta o desenvolvimento do seu bebê com um pediatra qualificado.
-              </p>
-              <p className="text-xs opacity-75">
-                Última atualização: Dezembro 2024 • Baseado em diretrizes pediátricas atualizadas •
-                Dados processados localmente para privacidade
-              </p>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                  <h4 className="mb-3 font-semibold text-health-red">👶 0-12 meses</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Sustentação da cabeça (2-4 meses)</li>
+                    <li>• Sentar sem apoio (6-8 meses)</li>
+                    <li>• Engatinhar (8-10 meses)</li>
+                    <li>• Primeiros passos (10-15 meses)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">👦 1-3 anos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Caminhar sozinho (12-18 meses)</li>
+                    <li>• Falar palavras simples (15-20 meses)</li>
+                    <li>• Correr e pular (2-3 anos)</li>
+                    <li>• Frases de 2-3 palavras (2 anos)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-warning">🧒 3-6 anos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Subir escadas alternadamente (3 anos)</li>
+                    <li>• Desenhar figuras simples (4 anos)</li>
+                    <li>• Andar de bicicleta (5 anos)</li>
+                    <li>• Preparação escolar (6 anos)</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </CardContent>
+      </Card>
 
-        <RelatedCalculators category="saude" currentCalculatorId="desenvolvimento-infantil" />
-      </div>
+      <FAQ
+        title="Perguntas Frequentes - Desenvolvimento Infantil"
+        items={[
+          {
+            question: "O que são percentis de crescimento?",
+            answer:
+              "Percentis de crescimento comparam o tamanho da sua criança com outras crianças da mesma idade e sexo. Por exemplo, se a criança está no percentil 50 de altura, significa que é mais alta que 50% das crianças da mesma idade.",
+            borderColor: "health-red",
+          },
+          {
+            question: "Qual percentil é considerado normal?",
+            answer:
+              "Percentis entre 10 e 90 são considerados dentro da normalidade. O mais importante é que a criança mantenha um padrão de crescimento consistente ao longo do tempo, independente do percentil específico.",
+            borderColor: "system-success",
+          },
+          {
+            question: "Com que frequência devo monitorar o crescimento?",
+            answer:
+              "Para bebês: mensalmente até 6 meses, depois a cada 2-3 meses. Para crianças maiores: a cada 3-6 meses. Consulte sempre um pediatra para acompanhamento profissional regular.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Minha criança não atingiu um marco esperado. Devo me preocupar?",
+            answer:
+              "Cada criança se desenvolve no seu próprio ritmo. Variações de alguns meses são normais. Se houver atraso significativo em múltiplas áreas ou preocupações persistentes, consulte um pediatra.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Esta calculadora substitui consulta médica?",
+            answer:
+              "Não! Esta ferramenta é apenas educacional e informativa. Para avaliação adequada do desenvolvimento infantil, diagnósticos ou orientações de saúde, sempre consulte um pediatra qualificado.",
+            borderColor: "system-error-dark",
+          },
+          {
+            question: "Como interpretar percentis muito altos ou baixos?",
+            answer:
+              "Percentis extremos (abaixo de 10 ou acima de 90) podem indicar necessidade de avaliação, mas não necessariamente problemas. O mais importante é a consistência do padrão de crescimento ao longo do tempo.",
+            borderColor: "system-warning",
+          },
+        ]}
+        tipSection={{
+          title: "👨‍⚕️ Dica Pediátrica Importante",
+          content:
+            "<strong>Acompanhamento regular:</strong> Mantenha um registro do crescimento, observe marcos do desenvolvimento e faça consultas preventivas regulares. O pediatra é o profissional mais adequado para avaliar o desenvolvimento global da criança.",
+        }}
+        footerText="<strong>⚠️ Aviso Médico:</strong> Esta ferramenta é educacional. Cada criança é única e se desenvolve em seu próprio ritmo. Para avaliação profissional do desenvolvimento infantil, sempre consulte um pediatra."
+      />
+
+      {/* Footer com informações adicionais */}
+      <Card className="bg-health-red-soft border-l-4 border-health-red duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Desenvolvimento
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta{" "}
+              <strong className="text-health-red">calculadora de desenvolvimento infantil</strong>{" "}
+              utiliza{" "}
+              <strong className="text-system-success">padrões de referência baseados na OMS</strong>{" "}
+              para calcular percentis de crescimento e marcos esperados. Os cálculos consideram
+              idade, sexo e medidas atuais da criança.
+            </p>
+            <p>
+              <strong>Configurações disponíveis:</strong> Data de nascimento, altura e peso atuais,
+              sexo da criança. A calculadora gera análise completa de percentis e marcos do
+              desenvolvimento.
+            </p>
+            <p>
+              <strong className="text-system-error">⚠️ Importante:</strong> Esta ferramenta é para
+              fins educacionais. Para diagnósticos, intervenções ou preocupações sobre o
+              desenvolvimento, consulte sempre um <strong>pediatra qualificado</strong>. Cada
+              criança se desenvolve em seu próprio ritmo único.
+            </p>
+            <p className="mt-4 border-t border-health-red/20 pt-3 text-xs opacity-75">
+              👶 Percentis OMS • 📊 Gráficos crescimento • 🔒 Dados não armazenados • 📱 Interface
+              responsiva • 🎯 Marcos desenvolvimento
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <RelatedCalculators category="saude" currentCalculatorId="desenvolvimento-infantil" />
     </div>
   );
 }
