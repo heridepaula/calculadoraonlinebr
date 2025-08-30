@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Regra de 3 Online 2025 | CalculadoraOnlineBR",
+      title: "Calculadora de Regra de 3 Simples 2025 | CalculadoraOnlineBR",
     },
     {
       name: "description",
@@ -37,24 +37,24 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
     },
     {
       property: "og:title",
-      content: "Calculadora de Frações Online Gratuita - Operações Precisas 2025",
+      content: "Calculadora de Regra de 3 Simples 2025 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Ferramenta online precisa para operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Gratuita para estudantes!",
+        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados precisos!",
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-regra-de-tres.webp",
     },
     {
       property: "og:image:alt",
-      content: "Calculadora de Frações - Operações Matemáticas com Frações",
+      content: "Calculadora de Regra de Três - Proporções Matemáticas",
     },
     {
       property: "og:image:width",
@@ -67,59 +67,92 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Frações Online Gratuita - Resultados Precisos",
+      content: "Calculadora de Regra de 3 Simples 2025 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
       content:
-        "Ferramenta educacional gratuita para operações com frações. Soma, subtração, multiplicação, divisão e simplificação instantânea. Ideal para estudos!",
+        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados precisos!",
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-regra-de-tres.webp",
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Frações - Operações Matemáticas",
+      content: "Calculadora de Regra de Três - Proporções Matemáticas",
     },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
+    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
+    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
     { name: "msapplication-TileColor", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Calculadora Frações" },
+    { name: "apple-mobile-web-app-title", content: "Regra de Três" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
     {
       name: "keywords",
-      content: "calculadora frações, soma frações, divisão frações, simplificar frações, MMC, MDC",
+      content:
+        "calculadora regra de três, regra de 3 simples, proporção direta, proporção inversa, regra de três composta",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Matemática",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Regra de Três",
+            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
+          },
+        ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Frações Online Gratuita - Operações Matemáticas 2025",
+        name: "Calculadora de Regra de 3 Simples e Composta Online 2025",
         description:
-          "Ferramenta educacional online gratuita para realizar operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos com explicação passo a passo.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+          "Ferramenta educacional online gratuita para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo e resultados instantâneos.",
+        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-28",
+        dateModified: "2025-08-30",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -136,16 +169,16 @@ export const meta: MetaFunction = () => {
             height: 180,
           },
           sameAs: [
-            "https://twitter.com/CalculadoraBR",
+            "https://twitter.com/CalculadoraOnlineBR",
             "https://www.facebook.com/CalculadoraOnlineBR",
           ],
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
-          name: "Calculadora de Frações Online Gratuita - Matemática Educacional",
+          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
+          name: "Calculadora de Regra de 3 Simples e Composta - Matemática Educacional",
           description:
-            "Ferramenta educacional online para operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática com explicação passo a passo.",
+            "Ferramenta educacional online para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -158,55 +191,26 @@ export const meta: MetaFunction = () => {
               "query-input": "required name=search_term_string",
             },
           },
-          breadcrumb: {
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: "Matemática",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
-              },
-              {
-                "@type": "ListItem",
-                position: 4,
-                name: "Frações",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
-              },
-            ],
-          },
         },
         about: {
           "@type": "Thing",
-          name: "Frações",
+          name: "Regra de Três",
           description:
-            "Operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação",
+            "Processo matemático para resolver problemas de proporcionalidade: regra de três simples direta, inversa e composta",
           category: "Mathematics",
         },
         featureList: [
-          "Soma de frações",
-          "Subtração de frações",
-          "Multiplicação de frações",
-          "Divisão de frações",
-          "Simplificação automática",
-          "Conversão para decimal",
-          "Número misto automático",
+          "Regra de 3 simples direta",
+          "Regra de 3 simples inversa",
+          "Regra de 3 composta",
+          "Resolução passo a passo",
+          "Verificação automática",
+          "Proporções matemáticas",
+          "Cálculos precisos",
           "Interface móvel responsiva",
           "Resultados em tempo real",
-          "Explicação passo a passo",
-          "Cálculo de MMC e MDC",
+          "Explicação detalhada",
+          "Identificação de tipo automática",
         ],
       }),
     },
@@ -217,34 +221,34 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
-            name: "O que é uma fração?",
+            name: "O que é regra de três?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Uma fração é um número que representa uma ou mais partes iguais de um todo. É formada por numerador (número superior) e denominador (número inferior), onde o denominador indica em quantas partes o todo foi dividido.",
+              text: "A regra de três é um processo matemático usado para resolver problemas de proporcionalidade entre grandezas diretamente ou inversamente proporcionais, permitindo encontrar um valor desconhecido em uma proporção.",
             },
           },
           {
             "@type": "Question",
-            name: "Por que o denominador não pode ser zero?",
+            name: "Qual a diferença entre regra de três simples direta e inversa?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O denominador zero tornaria a fração indefinida matematicamente, pois representaria uma divisão por zero, que não é permitida na matemática. Sempre verifique se o denominador é diferente de zero.",
+              text: "Na regra de três direta, quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Na inversa, quando uma grandeza aumenta, a outra diminui proporcionalmente.",
             },
           },
           {
             "@type": "Question",
-            name: "Como somar e subtrair frações?",
+            name: "Como montar uma regra de três?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Para somar ou subtrair frações, é necessário igualar os denominadores encontrando o MMC (Mínimo Múltiplo Comum). Depois, some ou subtraia apenas os numeradores, mantendo o denominador comum.",
+              text: "Identifique as grandezas envolvidas, determine se são diretamente ou inversamente proporcionais, monte a proporção (A:B :: C:X) e resolva através da multiplicação cruzada.",
             },
           },
           {
             "@type": "Question",
-            name: "Como multiplicar e dividir frações?",
+            name: "Como verificar se o resultado está correto?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Para multiplicar frações, multiplique numerador com numerador e denominador com denominador. Para dividir frações, multiplique a primeira fração pelo inverso da segunda.",
+              text: "Para verificar, substitua o valor encontrado na proporção original e verifique se as razões são iguais (para proporção direta) ou se os produtos são iguais (para proporção inversa).",
             },
           },
         ],
@@ -254,35 +258,35 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",
-        name: "Como usar a Calculadora de Frações",
+        name: "Como usar a Calculadora de Regra de Três",
         description:
-          "Aprenda a realizar operações com frações de forma simples e precisa com nossa calculadora online gratuita",
+          "Aprenda a resolver problemas de regra de três simples e composta de forma simples e precisa com nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
-            name: "Selecione a operação",
-            text: "Escolha a operação desejada: soma, subtração, multiplicação ou divisão de frações.",
+            name: "Selecione o tipo",
+            text: "Escolha entre regra de três simples direta ou inversa, dependendo da relação entre as grandezas do problema.",
           },
           {
             "@type": "HowToStep",
-            name: "Insira as frações",
-            text: "Digite os numeradores e denominadores das duas frações nos campos correspondentes. Lembre-se que denominadores não podem ser zero.",
+            name: "Insira os valores conhecidos",
+            text: "Digite os três valores conhecidos nos campos A, B e C. Certifique-se de que todos são números válidos e diferentes de zero quando necessário.",
           },
           {
             "@type": "HowToStep",
             name: "Calcule o resultado",
-            text: "Clique no botão 'Calcular' para obter o resultado da operação, a fração simplificada e a resolução passo a passo.",
+            text: "Clique no botão 'Calcular' para obter o valor de X, a proporção montada e a resolução passo a passo completa.",
           },
           {
             "@type": "HowToStep",
             name: "Analise os resultados",
-            text: "Veja a fração simplificada, o valor decimal equivalente, o número misto (quando aplicável) e acompanhe a resolução detalhada passo a passo.",
+            text: "Veja o valor de X calculado, a proporção matemática formada, a resolução detalhada passo a passo e a verificação do resultado.",
           },
         ],
         tool: [
           {
             "@type": "HowToTool",
-            name: "Calculadora de Frações Online",
+            name: "Calculadora de Regra de Três Online",
           },
         ],
       }),
@@ -358,9 +362,9 @@ export default function RuleOfThreeCalculator() {
     if (Number.isInteger(value)) {
       return value.toString();
     }
-    
+
     // Se for decimal, mostrar até 4 casas decimais, removendo zeros desnecessários
-    return value.toFixed(4).replace(/\.?0+$/, '');
+    return value.toFixed(4).replace(/\.?0+$/, "");
   };
 
   const validateInputs = (): boolean => {
@@ -420,7 +424,7 @@ export default function RuleOfThreeCalculator() {
       // A/B = C/X  =>  X = (B * C) / A
       resultValue = (val2 * val3) / val1;
       proportion = `${val1} : ${val2} :: ${val3} : X`;
-      
+
       steps.push(`Montando a proporção (regra de 3 simples direta):`);
       steps.push(`${val1} está para ${val2}`);
       steps.push(`assim como ${val3} está para X`);
@@ -429,7 +433,7 @@ export default function RuleOfThreeCalculator() {
       steps.push(`X × ${val1} = ${val2 * val3}`);
       steps.push(`X = ${val2 * val3} / ${val1}`);
       steps.push(`X = ${resultValue}`);
-      
+
       // Verificação
       const ratio1 = val1 / val2;
       const ratio2 = val3 / resultValue;
@@ -440,7 +444,7 @@ export default function RuleOfThreeCalculator() {
       // A × C = B × X  =>  X = (A × C) / B
       resultValue = (val1 * val3) / val2;
       proportion = `${val1} : X :: ${val2} : ${val3}`;
-      
+
       steps.push(`Montando a proporção (regra de 3 simples inversa):`);
       steps.push(`${val1} está para X (inversamente)`);
       steps.push(`assim como ${val2} está para ${val3}`);
@@ -448,7 +452,7 @@ export default function RuleOfThreeCalculator() {
       steps.push(`X = (${val1} × ${val3}) / ${val2}`);
       steps.push(`X = ${val1 * val3} / ${val2}`);
       steps.push(`X = ${resultValue}`);
-      
+
       // Verificação
       const prod1 = val1 * val3;
       const prod2 = val2 * resultValue;
@@ -511,15 +515,15 @@ export default function RuleOfThreeCalculator() {
           Calculadora de Regra de 3 Online 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Resolva <strong className="text-growth-green">regra de três simples e composta</strong> de forma
-          simples e precisa. Calcule proporções matemáticas com{" "}
+          Resolva <strong className="text-growth-green">regra de três simples e composta</strong> de
+          forma simples e precisa. Calcule proporções matemáticas com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            📏 <strong>Regra de Três</strong> • 🔄 <strong>Proporções Diretas/Inversas</strong>{" "}
-            • 🧮 <strong>Resultados Instantâneos</strong>
+            📏 <strong>Regra de Três</strong> • 🔄 <strong>Proporções Diretas/Inversas</strong> • 🧮{" "}
+            <strong>Resultados Instantâneos</strong>
           </p>
         </div>
       </header>
@@ -551,7 +555,7 @@ export default function RuleOfThreeCalculator() {
               <h3 className="mb-4 text-center text-lg font-semibold text-primary-blue-dark">
                 Valores para Regra de Três
               </h3>
-              
+
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div>
                   <Input
@@ -602,10 +606,16 @@ export default function RuleOfThreeCalculator() {
               <div className="mt-4 text-center">
                 <div className="text-lg text-text-secondary">
                   {calculationType === "simples-direta" && (
-                    <span>Se <strong>A</strong> está para <strong>B</strong>, então <strong>C</strong> está para <strong>X</strong></span>
+                    <span>
+                      Se <strong>A</strong> está para <strong>B</strong>, então <strong>C</strong>{" "}
+                      está para <strong>X</strong>
+                    </span>
                   )}
                   {calculationType === "simples-inversa" && (
-                    <span>Se <strong>A</strong> está para <strong>X</strong>, então <strong>B</strong> está para <strong>C</strong> (inversa)</span>
+                    <span>
+                      Se <strong>A</strong> está para <strong>X</strong>, então <strong>B</strong>{" "}
+                      está para <strong>C</strong> (inversa)
+                    </span>
                   )}
                 </div>
               </div>
@@ -640,9 +650,7 @@ export default function RuleOfThreeCalculator() {
             <div className="mb-6 rounded-lg bg-gray-900 p-4">
               <div className="text-center">
                 <div className="mb-2 text-sm text-text-secondary">Proporção</div>
-                <div className="text-xl font-bold text-primary-blue-dark">
-                  {result.proportion}
-                </div>
+                <div className="text-xl font-bold text-primary-blue-dark">{result.proportion}</div>
               </div>
             </div>
 
@@ -655,7 +663,7 @@ export default function RuleOfThreeCalculator() {
               </div>
               <div className="rounded-lg bg-gray-900 p-6 text-center">
                 <div className="text-lg font-bold text-growth-green">
-                  {result.type === "simples-direta" 
+                  {result.type === "simples-direta"
                     ? "Diretamente Proporcional"
                     : "Inversamente Proporcional"}
                 </div>
@@ -664,7 +672,9 @@ export default function RuleOfThreeCalculator() {
             </div>
 
             <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Proporção</h4>
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">
+                Informações da Proporção
+              </h4>
               <div className="text-sm text-text-secondary">
                 <div>
                   <strong>Tipo:</strong>{" "}
@@ -673,7 +683,8 @@ export default function RuleOfThreeCalculator() {
                     : "Regra de 3 Simples Inversa"}
                 </div>
                 <div>
-                  <strong>Valores:</strong> A = {result.originalValues.value1}, B = {result.originalValues.value2}, C = {result.originalValues.value3}
+                  <strong>Valores:</strong> A = {result.originalValues.value1}, B ={" "}
+                  {result.originalValues.value2}, C = {result.originalValues.value3}
                 </div>
                 <div>
                   <strong>Resultado:</strong> X = {result.result.formatted}
@@ -701,243 +712,141 @@ export default function RuleOfThreeCalculator() {
         </Card>
       )}
 
-      {/* Seção: Equações de Segundo Grau - Guia Completo */}
+      {/* Seção: Regra de Três - Guia Completo */}
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Frações – Guia Completo 2025
+            🎯 Regra de Três – Guia Completo 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-8">
-            {/* Fórmula de Bhaskara */}
+            {/* Conceito de Regra de Três */}
             <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
-                🔢 Operações com Frações
+                🔢 Conceito de Regra de Três
               </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    A fórmula de Bhaskara é utilizada para resolver equações de segundo grau do tipo
-                    ax² + bx + c = 0, onde a ≠ 0.
-                  </p>
-
-                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmulas</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Δ = b² - 4ac (discriminante)</li>
-                    <li>• x = (-b ± √Δ) / 2a</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Características</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Resolve qualquer equação de 2º grau</li>
-                    <li>• Baseada no discriminante (Δ)</li>
-                    <li>• Determina natureza das raízes</li>
-                  </ul>
-
-                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Física: movimento uniformemente variado</li>
-                    <li>• Economia: maximização de lucros</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Discriminante Delta */}
-            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
-                📐 Discriminante (Δ)
-              </h3>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 O que é?</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    O discriminante determina a natureza das raízes da equação de segundo grau.
-                    Calculado pela fórmula Δ = b² - 4ac.
-                  </p>
-
-                  <h4 className="mb-3 font-semibold text-system-info">📊 Interpretação</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Δ &gt; 0: Duas raízes reais distintas</li>
-                    <li>• Δ = 0: Uma raiz real dupla</li>
-                    <li>• Δ &lt; 0: Duas raízes complexas</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Importância</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Determina quantidade de soluções</li>
-                    <li>• Indica se raízes são reais ou complexas</li>
-                    <li>• Facilita análise prévia da equação</li>
-                  </ul>
-
-                  <h4 className="mb-3 font-semibold text-system-warning">📝 Aplicações</h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Análise gráfica de parábolas</li>
-                    <li>• Otimização em engenharia</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Tipos de Raízes */}
-            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
-                🔍 Tipos de Raízes
-              </h3>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Classificação</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    As raízes de uma equação de segundo grau podem ser reais ou complexas,
-                    dependendo do valor do discriminante.
+                    A regra de três é um processo matemático usado para resolver problemas de
+                    proporcionalidade entre grandezas, permitindo encontrar um valor desconhecido
+                    através de proporções.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Tipos</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Reais distintas (Δ &gt; 0)</li>
-                    <li>• Real dupla (Δ = 0)</li>
-                    <li>• Complexas conjugadas (Δ &lt; 0)</li>
+                    <li>• Simples Direta: A/B = C/X</li>
+                    <li>• Simples Inversa: A×X = B×C</li>
+                    <li>• Composta: Multiple grandezas</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">
-                    ✅ Interpretação Gráfica
-                  </h4>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Aplicações</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Δ &gt; 0: Parábola corta eixo x em 2 pontos</li>
-                    <li>• Δ = 0: Parábola toca eixo x em 1 ponto</li>
-                    <li>• Δ &lt; 0: Parábola não toca eixo x</li>
+                    <li>• Problemas de velocidade e tempo</li>
+                    <li>• Cálculos de quantidade e preço</li>
+                    <li>• Conversões de unidades</li>
+                    <li>• Receitas culinárias</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">📝 Exemplos</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">📝 Características</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• x² - 5x + 6 = 0 (Δ = 1 &gt; 0)</li>
-                    <li>• x² - 4x + 4 = 0 (Δ = 0)</li>
+                    <li>• Baseada em proporcionalidade</li>
+                    <li>• Requer identificação do tipo</li>
+                    <li>• Resolução por multiplicação cruzada</li>
                   </ul>
                 </div>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* Seção: Comparação de Métodos de Resolução */}
-      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Tabela Comparativa: Métodos de Resolução de Equações de 2º Grau
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b-2 border-neutral-surface-variant">
-                  <th className="p-3 text-left font-semibold">Critério</th>
-                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    Fórmula de Bhaskara
-                  </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Fatoração</th>
-                  <th className="p-3 text-center font-semibold text-system-warning">
-                    Completar Quadrado
-                  </th>
-                  <th className="p-3 text-center font-semibold text-system-info">Gráfico</th>
-                </tr>
-              </thead>
-              <tbody className="space-y-2">
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Aplicabilidade</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Universal</td>
-                  <td className="p-3 text-center text-growth-green">Casos específicos</td>
-                  <td className="p-3 text-center text-system-warning">Universal</td>
-                  <td className="p-3 text-center text-system-info">Aproximado</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Dificuldade</td>
-                  <td className="p-3 text-center">⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Precisão</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Exata</td>
-                  <td className="p-3 text-center text-growth-green">Exata</td>
-                  <td className="p-3 text-center text-system-warning">Exata</td>
-                  <td className="p-3 text-center text-system-info">Aproximada</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Tempo de Resolução</td>
-                  <td className="p-3 text-center">Rápido</td>
-                  <td className="p-3 text-center">Muito Rápido</td>
-                  <td className="p-3 text-center">Médio</td>
-                  <td className="p-3 text-center">Lento</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Requisitos</td>
-                  <td className="p-3 text-center">Fórmula memorizada</td>
-                  <td className="p-3 text-center">Reconhecer padrões</td>
-                  <td className="p-3 text-center">Técnica avançada</td>
-                  <td className="p-3 text-center">Papel milimetrado</td>
-                </tr>
-                <tr>
-                  <td className="p-3 font-medium">Melhor Uso</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Geral</td>
-                  <td className="p-3 text-center text-growth-green">Números inteiros</td>
-                  <td className="p-3 text-center text-system-warning">Demonstrações</td>
-                  <td className="p-3 text-center text-system-info">Visualização</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            {/* Identificando o Tipo */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                📐 Como Identificar o Tipo
+              </h3>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Bhaskara</h4>
-              <p className="text-sm text-text-secondary">
-                Método <strong>mais confiável</strong> para resolver qualquer equação de segundo
-                grau, especialmente com coeficientes decimais. Saiba mais sobre
-                <a
-                  href="/calculadoras/matematica/porcentagem"
-                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
-                >
-                  cálculos de porcentagem
-                </a>
-                ou explore nossa{" "}
-                <a
-                  href="/calculadoras/matematica/fracoes"
-                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
-                >
-                  calculadora de frações
-                </a>
-                .
-              </p>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">➡️ Proporção Direta</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Quando uma grandeza aumenta, a outra também aumenta na mesma proporção. Exemplo:
+                    mais produtos = mais dinheiro.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Exemplos</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Distância e combustível</li>
+                    <li>• Horas trabalhadas e salário</li>
+                    <li>• Quantidade e preço total</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-warning">⬅️ Proporção Inversa</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Quando uma grandeza aumenta, a outra diminui proporcionalmente. Exemplo: mais
+                    velocidade = menos tempo.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Exemplos</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Velocidade e tempo</li>
+                    <li>• Número de pessoas e tempo de trabalho</li>
+                    <li>• Força aplicada e distância</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
-            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h4 className="mb-2 font-bold text-growth-green">⚡ Fatoração</h4>
-              <p className="text-sm text-text-secondary">
-                Ideal para equações com <strong>coeficientes inteiros</strong> pequenos que permitem
-                fatoração simples.
-              </p>
-            </div>
+            {/* Passo a Passo */}
+            <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
+                🔍 Passo a Passo da Resolução
+              </h3>
 
-            <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-              <h4 className="mb-2 font-bold text-system-warning">📐 Completar Quadrado</h4>
-              <p className="text-sm text-text-secondary">
-                Útil para <strong>compreender geometricamente</strong> e para demonstrações
-                matemáticas avançadas.
-              </p>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">📝 Etapas</h4>
+                  <ol className="mb-4 space-y-2 text-sm text-text-secondary">
+                    <li>
+                      1. <strong>Identificar</strong> as grandezas do problema
+                    </li>
+                    <li>
+                      2. <strong>Determinar</strong> se são direta ou inversamente proporcionais
+                    </li>
+                    <li>
+                      3. <strong>Montar</strong> a proporção (A:B :: C:X)
+                    </li>
+                    <li>
+                      4. <strong>Resolver</strong> por multiplicação cruzada
+                    </li>
+                    <li>
+                      5. <strong>Verificar</strong> o resultado obtido
+                    </li>
+                  </ol>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Dicas Importantes</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Leia o problema com atenção</li>
+                    <li>• Identifique as unidades de medida</li>
+                    <li>• Verifique se o resultado faz sentido</li>
+                    <li>• Considere o contexto do problema</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Cuidados</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Não confundir proporção direta com inversa</li>
+                    <li>• Verificar se grandezas são realmente proporcionais</li>
+                    <li>• Atenção às unidades de medida</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -1003,10 +912,14 @@ export default function RuleOfThreeCalculator() {
             <p>
               Esta <strong className="text-primary-blue-dark">calculadora de regra de três</strong>{" "}
               permite resolver{" "}
-              <strong className="text-growth-green">problemas de proporcionalidade</strong>: regra de 3 simples direta, inversa e composta com precisão matemática e resultados instantâneos.
+              <strong className="text-growth-green">problemas de proporcionalidade</strong>: regra
+              de 3 simples direta, inversa e composta com precisão matemática e resultados
+              instantâneos.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Identificação automática do tipo de proporção, resolução passo a passo, verificação dos resultados e explicação detalhada do processo de cálculo.
+              <strong>Funcionalidades:</strong> Identificação automática do tipo de proporção,
+              resolução passo a passo, verificação dos resultados e explicação detalhada do processo
+              de cálculo.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
@@ -1023,8 +936,8 @@ export default function RuleOfThreeCalculator() {
               para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📏 Regra de Três • 🔒 Dados não armazenados • 📱
-              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 📏 Regra de Três • 🔒 Dados não armazenados • 📱 Compatível com
+              todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
