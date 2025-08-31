@@ -7,7 +7,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
-import { RelatedCalculators } from "~/components/RelatedCalculators";
+import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "★ Calculadoras financeiras GRATUITAS para planejamento e investimentos. Juros simples, compostos, primeiro milhão e muito mais. Ferramentas precisas para decisões financeiras inteligentes com conteúdo educativo completo.",
+        "★ Calculadoras financeiras GRATUITAS para planejamento e investimentos. Juros simples, compostos, primeiro milhão e muito mais. Ferramentas úteis para decisões financeiras inteligentes com conteúdo educativo completo.",
     },
     {
       name: "keywords",
@@ -61,66 +61,113 @@ export default function FinancasIndex() {
         </div>
       </div>
 
-      {/* Hero Section with Financial Theme */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-finance-gold/5 via-surface to-surface-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-finance-gold/10 via-transparent to-transparent"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <div className="text-center">
-            <div className="mb-8 inline-flex items-center rounded-full bg-finance-gold/10 px-4 py-2 text-sm font-medium text-finance-gold-dark ring-1 ring-inset ring-finance-gold/20">
-              <span className="mr-2">💰</span>
-              Ferramentas Financeiras para Decisões Inteligentes
-            </div>
-            
-            <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
-              Calculadoras
-              <span className="block bg-gradient-to-r from-finance-gold via-finance-gold-light to-finance-gold bg-clip-text text-transparent">
-                Financeiras
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-text-secondary-dark sm:text-xl">
-              Planeje seu futuro financeiro com ferramentas especializadas para{" "}
-              <strong className="text-finance-gold-dark">investimentos, financiamentos e planejamento</strong>.
-              Tome decisões inteligentes baseadas em dados precisos.
+      <CategoryHero
+        category="financas"
+        title="Calculadoras"
+        subtitle="Financeiras"
+        description="Planeje seu futuro financeiro com ferramentas especializadas para **investimentos, financiamentos e planejamento**. Tome decisões mais informadas com simulações detalhadas."
+        badge={{
+          icon: "💰",
+          text: "Ferramentas Financeiras para Decisões Inteligentes"
+        }}
+        trustIndicators={[
+          { color: "bg-system-success", text: "Ferramentas Completas" },
+          { color: "bg-finance-gold", text: "Simulações Avançadas" },
+          { color: "bg-primary-blue", text: "Educação Financeira" }
+        ]}
+      />
+
+      {/* Quick Access to Most Used Calculators */}
+      <section className="bg-surface-dark/30 py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+              🚀 Acesso Rápido - Mais Usadas
+            </h2>
+            <p className="mt-2 text-text-secondary">
+              Comece por aqui: as calculadoras mais populares para decisões financeiras
             </p>
-            
-            {/* Finance-specific Trust Indicators */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">Cálculos Precisos</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-finance-gold"></div>
-                <span className="font-medium">Simulações Avançadas</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
-                <span className="font-medium">Educação Financeira</span>
-              </div>
-            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <QuickAccessCard
+              title="Juros Compostos"
+              description="Descubra o poder dos juros compostos e simule o crescimento dos seus investimentos ao longo do tempo."
+              icon="📈"
+              href="/calculadoras/financas/juros-compostos"
+              category="financas"
+              isPopular={true}
+              complexity="basic"
+            />
+            <QuickAccessCard
+              title="Primeiro Milhão"
+              description="Calcule quanto tempo e dinheiro você precisa para conquistar seu primeiro milhão de reais."
+              icon="🎯"
+              href="/calculadoras/financas/primeiro-milhao"
+              category="financas"
+              isPopular={true}
+              complexity="intermediate"
+            />
+            <QuickAccessCard
+              title="Financiamento Imobiliário"
+              description="Simule diferentes condições de financiamento e encontre a melhor opção para seu imóvel."
+              icon="🏠"
+              href="/calculadoras/financas/financiamento-imobiliario"
+              category="financas"
+              complexity="intermediate"
+            />
           </div>
         </div>
       </section>
 
+      {/* Financial Stats Section */}
+      <CategoryStats
+        category="financas"
+        stats={[
+          {
+            icon: "💰",
+            number: "12+",
+            label: "Calculadoras",
+            description: "Ferramentas especializadas"
+          },
+          {
+            icon: "📊",
+            number: "100%",
+            label: "Qualidade",
+            description: "Ferramentas testadas"
+          },
+          {
+            icon: "⚡",
+            number: "<1s",
+            label: "Velocidade",
+            description: "Resultados instantâneos"
+          },
+          {
+            icon: "🎓",
+            number: "+FAQ",
+            label: "Educativo",
+            description: "Conteúdo completo"
+          }
+        ]}
+      />
+
       {/* Investment vs Other Categories */}
-      <section className="bg-surface-dark/30 py-12">
+      <section className="py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
+          <div className="text-center mb-12">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              Calculadoras por Tipo
+              Calculadoras por Especialidade
             </h2>
             <p className="mt-2 text-text-secondary">
-              Escolha a categoria que melhor atende sua necessidade
+              Organize sua vida financeira por área de atuação
             </p>
           </div>
           
-          <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             {/* Investments */}
-            <div className="rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-8">
+            <div className="group rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-finance-gold/25">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <span className="text-xl">📈</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Investimentos</h3>
@@ -132,7 +179,7 @@ export default function FinancasIndex() {
                 {financasCalculators.filter(calc => 
                   ['juros-compostos', 'primeiro-milhao', 'lci-lca', 'cdb', 'preco-medio', 'tesouro-direto', 'renda-fixa-comparativa'].includes(calc.id)
                 ).slice(0, 3).map(calc => (
-                  <div key={calc.id} className="text-sm">
+                  <div key={calc.id} className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                     <span className="text-finance-gold-dark">•</span> {calc.name.replace('Calculadora de ', '').replace('Calculadora ', '')}
                   </div>
                 ))}
@@ -140,9 +187,9 @@ export default function FinancasIndex() {
             </div>
 
             {/* Financing */}
-            <div className="rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-8">
+            <div className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-blue/25">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <span className="text-xl">🏠</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Financiamentos</h3>
@@ -154,7 +201,7 @@ export default function FinancasIndex() {
                 {financasCalculators.filter(calc => 
                   ['financiamento-imobiliario', 'emprestimo-consignado', 'consorcio'].includes(calc.id)
                 ).map(calc => (
-                  <div key={calc.id} className="text-sm">
+                  <div key={calc.id} className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                     <span className="text-primary-blue-dark">•</span> {calc.name.replace('Calculadora de ', '').replace('Calculadora ', '')}
                   </div>
                 ))}
@@ -162,9 +209,9 @@ export default function FinancasIndex() {
             </div>
 
             {/* Planning */}
-            <div className="rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-8">
+            <div className="group rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-success/25">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <span className="text-xl">🎯</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Planejamento</h3>
@@ -176,15 +223,15 @@ export default function FinancasIndex() {
                 {financasCalculators.filter(calc => 
                   ['juros-simples'].includes(calc.id)
                 ).map(calc => (
-                  <div key={calc.id} className="text-sm">
+                  <div key={calc.id} className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                     <span className="text-system-success-dark">•</span> {calc.name.replace('Calculadora de ', '').replace('Calculadora ', '')}
                   </div>
                 ))}
-                <div className="text-sm">
-                  <span className="text-system-success-dark">•</span> Planejamento de Aposentadoria
+                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
+                  <span className="text-system-success-dark">•</span> Análise de Orçamento
                 </div>
-                <div className="text-sm">
-                  <span className="text-system-success-dark">•</span> Orçamento Familiar
+                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
+                  <span className="text-system-success-dark">•</span> Metas Financeiras
                 </div>
               </div>
             </div>
@@ -265,24 +312,57 @@ export default function FinancasIndex() {
         </div>
       </section>
 
-      {/* CTA Section for Financial Success */}
-      <section className="bg-gradient-to-r from-finance-gold-dark to-finance-gold py-16">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Comece a Planejar seu Futuro Financeiro
+      {/* Interactive CTA Section for Financial Success */}
+      <section className="bg-gradient-to-r from-finance-gold-dark to-finance-gold py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="h-full w-full bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+        </div>
+        
+        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl animate-pulse">
+            🚀 Comece sua Jornada Financeira Agora
           </h2>
           <p className="mt-4 text-lg text-finance-gold-light">
-            Use nossas calculadoras para simular investimentos e descobrir o caminho para sua independência financeira
+            Ferramentas gratuitas e úteis para <strong>decisões financeiras inteligentes</strong> e planejamento do seu futuro
           </p>
           
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <a 
-              href="#calculadoras"
-              className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-finance-gold-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-finance-gold-dark"
-              aria-label="Ver todas as calculadoras financeiras"
+              href="/calculadoras/financas/juros-compostos"
+              className="group inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-finance-gold-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-finance-gold-dark transform"
+              aria-label="Começar com juros compostos"
             >
-              📈 Ver Todas as Calculadoras
+              <span className="mr-2 text-xl group-hover:animate-bounce">💰</span>
+              Começar com Juros Compostos
+              <svg className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </a>
+            
+            <a 
+              href="/calculadoras/financas/primeiro-milhao"
+              className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-finance-gold-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-finance-gold-dark transform"
+              aria-label="Simular primeiro milhão"
+            >
+              <span className="mr-2 text-xl group-hover:animate-spin">🎯</span>
+              Meu Primeiro Milhão
+            </a>
+          </div>
+          
+          {/* Trust indicators */}
+          <div className="mt-8 flex items-center justify-center gap-8 text-sm text-finance-gold-light">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white animate-pulse"></div>
+              <span>Resultados Instantâneos</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white animate-pulse" style={{animationDelay: '0.5s'}}></div>
+              <span>100% Gratuito</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-white animate-pulse" style={{animationDelay: '1s'}}></div>
+              <span>Sem Cadastro</span>
+            </div>
           </div>
         </div>
       </section>

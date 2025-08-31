@@ -7,7 +7,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
@@ -87,7 +87,7 @@ export default function MatematicaIndex() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">Algoritmos Validados</span>
+                <span className="font-medium">Métodos Testados</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-math-purple"></div>
@@ -102,23 +102,97 @@ export default function MatematicaIndex() {
         </div>
       </section>
 
-      {/* Math Calculator Categories */}
+      {/* Quick Access - Math Essentials */}
       <section className="bg-surface-dark/30 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
+          <div className="text-center mb-12">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              Tipos de Cálculos
+              🚀 Essenciais da Matemática
             </h2>
             <p className="mt-2 text-text-secondary">
-              Ferramentas organizadas por área de aplicação
+              Começar por aqui: as calculadoras mais usadas no dia a dia
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <QuickAccessCard
+              title="Calculadora de Porcentagem"
+              description="Calcule descontos, aumentos, diferenças percentuais e muito mais. Ideal para compras e estudos."
+              icon="%"
+              href="/calculadoras/matematica/porcentagem"
+              category="matematica"
+              isPopular={true}
+              complexity="basic"
+            />
+            <QuickAccessCard
+              title="Regra de Três"
+              description="Resolva proporções e regra de três simples e composta com explicações passo a passo."
+              icon="🔢"
+              href="/calculadoras/matematica/regra-de-tres"
+              category="matematica"
+              isPopular={true}
+              complexity="basic"
+            />
+            <QuickAccessCard
+              title="Frações"
+              description="Some, subtraia, multiplique e divida frações com resultados simplificados automaticamente."
+              icon="½"
+              href="/calculadoras/matematica/fracoes"
+              category="matematica"
+              complexity="intermediate"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Math Stats Section */}
+      <CategoryStats
+        category="matematica"
+        stats={[
+          {
+            icon: "🧠",
+            number: "15+",
+            label: "Calculadoras",
+            description: "Ferramentas completas"
+          },
+          {
+            icon: "⚙️",
+            number: "100%",
+            label: "Qualidade",
+            description: "Métodos testados"
+          },
+          {
+            icon: "📚",
+            number: "Passo",
+            label: "Detalhado",
+            description: "Explicações completas"
+          },
+          {
+            icon: "🎓",
+            number: "Edu",
+            label: "Educativo",
+            description: "Aprenda fazendo"
+          }
+        ]}
+      />
+
+      {/* Math Calculator Categories */}
+      <section className="py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+              Categorias por Área de Estudo
+            </h2>
+            <p className="mt-2 text-text-secondary">
+              Organize seus estudos por tema matemático
             </p>
           </div>
           
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Basic Operations */}
-            <div className="rounded-2xl bg-gradient-to-br from-math-purple/10 to-math-purple/5 p-8">
+            <div className="group rounded-2xl bg-gradient-to-br from-math-purple/10 to-math-purple/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-math-purple/25">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                   <span className="text-xl">%</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Operações Básicas</h3>
@@ -127,13 +201,13 @@ export default function MatematicaIndex() {
                 Cálculos fundamentais para o dia a dia
               </p>
               <div className="space-y-2">
-                <div className="text-sm">
+                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                   <span className="text-math-purple-dark">•</span> Porcentagem
                 </div>
-                <div className="text-sm">
+                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300" style={{transitionDelay: '0.1s'}}>
                   <span className="text-math-purple-dark">•</span> Regra de Três
                 </div>
-                <div className="text-sm">
+                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300" style={{transitionDelay: '0.2s'}}>
                   <span className="text-math-purple-dark">•</span> Frações
                 </div>
               </div>
@@ -256,35 +330,78 @@ export default function MatematicaIndex() {
         </div>
       </section>
 
-      {/* Speed & Accuracy Section */}
-      <section className="bg-gradient-to-r from-math-purple-dark to-math-purple py-16">
-        <div className="mx-auto max-w-6xl px-6 text-center lg:px-8">
+      {/* Interactive Learning Section */}
+      <section className="bg-gradient-to-r from-math-purple-dark to-math-purple py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="h-full w-full bg-gradient-to-tl from-transparent via-white/8 to-transparent"></div>
+        </div>
+        
+        <div className="relative mx-auto max-w-6xl px-6 text-center lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-left lg:text-left">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Rapidez e Precisão em Cada Cálculo
+              <h2 className="text-3xl font-bold text-white sm:text-4xl animate-pulse">
+                🧠 Aprenda Matemática Praticando
               </h2>
               <p className="mt-4 text-lg text-math-purple-light">
-                Algoritmos matemáticos validados que garantem resultados instantâneos e confiáveis
+                Aprenda matemática na prática com <strong>métodos testados e explicações passo a passo</strong> para estudantes e profissionais
               </p>
+              
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+                <a 
+                  href="/calculadoras/matematica/porcentagem"
+                  className="group inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-math-purple-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-math-purple-dark transform"
+                >
+                  <span className="mr-2 text-xl group-hover:animate-spin">%</span>
+                  Calcular Porcentagem
+                  <svg className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                
+                <a 
+                  href="/calculadoras/matematica/fracoes"
+                  className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-math-purple-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-math-purple-dark transform"
+                >
+                  <span className="mr-2 text-xl group-hover:animate-bounce">½</span>
+                  Frações
+                </a>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">⚡</span>
+                  <span className="text-2xl group-hover:animate-bounce">⚡</span>
                   <div>
                     <h3 className="font-semibold text-white">Instantâneo</h3>
                     <p className="text-sm text-math-purple-light">Resultados em Tempo Real</p>
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">🎯</span>
+                  <span className="text-2xl group-hover:animate-pulse">🎯</span>
                   <div>
-                    <h3 className="font-semibold text-white">Preciso</h3>
-                    <p className="text-sm text-math-purple-light">Algoritmos Validados</p>
+                    <h3 className="font-semibold text-white">Confiável</h3>
+                    <p className="text-sm text-math-purple-light">Métodos Testados</p>
+                  </div>
+                </div>
+              </div>
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl group-hover:animate-spin">📚</span>
+                  <div>
+                    <h3 className="font-semibold text-white">Educativo</h3>
+                    <p className="text-sm text-math-purple-light">Explicações Detalhadas</p>
+                  </div>
+                </div>
+              </div>
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl group-hover:animate-bounce">🎓</span>
+                  <div>
+                    <h3 className="font-semibold text-white">Para Todos</h3>
+                    <p className="text-sm text-math-purple-light">Estudantes e Profissionais</p>
                   </div>
                 </div>
               </div>

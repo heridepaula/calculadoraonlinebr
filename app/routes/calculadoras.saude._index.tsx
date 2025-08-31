@@ -7,7 +7,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
-import { RelatedCalculators } from "~/components/RelatedCalculators";
+import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
@@ -57,71 +57,94 @@ export default function SaudeIndex() {
         </div>
       </div>
 
-      {/* Hero Section with Category-Specific Branding */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-health-red/5 via-surface to-surface-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-health-red/10 via-transparent to-transparent"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <div className="text-center">
-            <div className="mb-8 inline-flex items-center rounded-full bg-health-red/10 px-4 py-2 text-sm font-medium text-health-red-dark ring-1 ring-inset ring-health-red/20">
-              <span className="mr-2">🏥</span>
-              Ferramentas de Saúde Baseadas em Padrões Médicos
-            </div>
-            
-            <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
-              Calculadoras de
-              <span className="block bg-gradient-to-r from-health-red via-health-red-light to-health-red bg-clip-text text-transparent">
-                Saúde
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-text-secondary-dark sm:text-xl">
-              Monitore sua saúde e bem-estar com calculadoras baseadas em{" "}
-              <strong className="text-health-red-dark">padrões médicos reconhecidos pela OMS</strong>.
-              Ferramentas confiáveis para acompanhar indicadores vitais da sua saúde.
+      <CategoryHero
+        category="saude"
+        title="Calculadoras de"
+        subtitle="Saúde"
+        description="Monitore sua saúde e bem-estar com calculadoras baseadas em **padrões médicos reconhecidos pela OMS**. Ferramentas confiáveis para acompanhar indicadores vitais da sua saúde."
+        badge={{
+          icon: "🏥",
+          text: "Ferramentas de Saúde Baseadas em Padrões Médicos"
+        }}
+        trustIndicators={[
+          { color: "bg-system-success", text: "Baseado na OMS" },
+          { color: "bg-health-red", text: "Padrões Médicos" },
+          { color: "bg-primary-blue", text: "Baseado em Pesquisas" }
+        ]}
+      />
+
+      {/* Quick Access - Health Monitoring */}
+      <section className="bg-surface-dark/30 py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+              🎯 Monitore Sua Saúde Agora
+            </h2>
+            <p className="mt-2 text-text-secondary">
+              Começe com as ferramentas mais importantes para acompanhar seu bem-estar
             </p>
-            
-            {/* Health-specific Trust Indicators */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">Baseado na OMS</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-health-red"></div>
-                <span className="font-medium">Padrões Médicos</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
-                <span className="font-medium">Cientificamente Validado</span>
-              </div>
-            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <QuickAccessCard
+              title="Calculadora de IMC"
+              description="Descubra se seu peso está dentro da faixa ideal usando os padrões da Organização Mundial da Saúde (OMS)."
+              icon="⚖️"
+              href="/calculadoras/saude/imc"
+              category="saude"
+              isPopular={true}
+              complexity="basic"
+            />
+            <QuickAccessCard
+              title="Hidratação Diária"
+              description="Calcule a quantidade ideal de água que você deve beber por dia baseado no seu peso e atividade."
+              icon="💧"
+              href="/calculadoras/saude/hidratacao"
+              category="saude"
+              complexity="basic"
+            />
+            <QuickAccessCard
+              title="Taxa Metabólica"
+              description="Descubra quantas calorias seu corpo queima em repouso e planeje melhor sua alimentação."
+              icon="🔥"
+              href="/calculadoras/saude/metabolismo"
+              category="saude"
+              complexity="intermediate"
+            />
           </div>
         </div>
       </section>
 
-      {/* Featured/Popular Health Calculators */}
-      <section className="bg-surface-dark/30 py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              Calculadoras Mais Usadas
-            </h2>
-            <p className="mt-2 text-text-secondary">
-              Ferramentas essenciais para monitoramento da saúde
-            </p>
-          </div>
-          
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {saudeCalculators.slice(0, 3).map((calculator: Calculator) => (
-              <div key={calculator.id} className="group relative">
-                <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-health-red to-health-red-light opacity-20 blur transition duration-300 group-hover:opacity-40"></div>
-                <CalculatorCard calculator={calculator} category="saude" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Health Stats Section */}
+      <CategoryStats
+        category="saude"
+        stats={[
+          {
+            icon: "🏥",
+            number: "OMS",
+            label: "Padrões",
+            description: "Diretrizes oficiais"
+          },
+          {
+            icon: "📊",
+            number: "100%",
+            label: "Confiável",
+            description: "Métodos testados"
+          },
+          {
+            icon: "⚡",
+            number: "<3s",
+            label: "Rápido",
+            description: "Resultados instantâneos"
+          },
+          {
+            icon: "🔒",
+            number: "Seguro",
+            label: "Privacidade",
+            description: "Dados não armazenados"
+          }
+        ]}
+      />
 
       {/* All Health Calculators */}
       <section className="py-16">
@@ -171,7 +194,7 @@ export default function SaudeIndex() {
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Controle</h3>
               <p className="mt-4 text-text-secondary">
                 Acompanhe a evolução dos seus indicadores de saúde ao longo do tempo. 
-                Dados precisos para melhores decisões.
+                Informações úteis para melhores decisões.
               </p>
             </div>
             
@@ -189,35 +212,78 @@ export default function SaudeIndex() {
         </div>
       </section>
 
-      {/* Medical Standards & Credibility */}
-      <section className="bg-gradient-to-r from-health-red-dark to-health-red py-16">
-        <div className="mx-auto max-w-6xl px-6 text-center lg:px-8">
+      {/* Interactive Health Journey */}
+      <section className="bg-gradient-to-r from-health-red-dark to-health-red py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="h-full w-full bg-gradient-to-br from-transparent via-white/10 to-transparent"></div>
+        </div>
+        
+        <div className="relative mx-auto max-w-6xl px-6 text-center lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-left lg:text-left">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Baseado em Padrões Médicos Internacionais
+              <h2 className="text-3xl font-bold text-white sm:text-4xl animate-pulse">
+                🌟 Sua Jornada de Saúde Começa Aqui
               </h2>
               <p className="mt-4 text-lg text-health-red-light">
-                Todas as nossas calculadoras seguem diretrizes da OMS e protocolos médicos reconhecidos mundialmente
+                Monitore sua saúde com <strong>ferramentas baseadas em padrões médicos reconhecidos</strong> pela Organização Mundial da Saúde
               </p>
+              
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+                <a 
+                  href="/calculadoras/saude/imc"
+                  className="group inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-health-red-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-health-red-dark transform"
+                >
+                  <span className="mr-2 text-xl group-hover:animate-bounce">⚖️</span>
+                  Calcular Meu IMC
+                  <svg className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+                
+                <a 
+                  href="/calculadoras/saude/hidratacao"
+                  className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-health-red-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-health-red-dark transform"
+                >
+                  <span className="mr-2 text-xl group-hover:animate-bounce">💧</span>
+                  Hidratação
+                </a>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">⚕️</span>
+                  <span className="text-2xl group-hover:animate-spin">⚕️</span>
                   <div>
                     <h3 className="font-semibold text-white">OMS</h3>
                     <p className="text-sm text-health-red-light">Diretrizes Oficiais</p>
                   </div>
                 </div>
               </div>
-              <div className="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl">🔬</span>
+                  <span className="text-2xl group-hover:animate-pulse">🔬</span>
                   <div>
-                    <h3 className="font-semibold text-white">Validação</h3>
+                    <h3 className="font-semibold text-white">Baseado</h3>
                     <p className="text-sm text-health-red-light">Métodos Científicos</p>
+                  </div>
+                </div>
+              </div>
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl group-hover:animate-bounce">📈</span>
+                  <div>
+                    <h3 className="font-semibold text-white">Progresso</h3>
+                    <p className="text-sm text-health-red-light">Acompanhe Evolução</p>
+                  </div>
+                </div>
+              </div>
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl group-hover:animate-pulse">🔒</span>
+                  <div>
+                    <h3 className="font-semibold text-white">Privado</h3>
+                    <p className="text-sm text-health-red-light">100% Seguro</p>
                   </div>
                 </div>
               </div>
