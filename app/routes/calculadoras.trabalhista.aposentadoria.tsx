@@ -84,95 +84,229 @@ interface RetirementResult {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Aposentadoria INSS 2025 - Múltiplas Modalidades - ${APP_NAME}` },
+    {
+      title: "Calculadora de Aposentadoria INSS 2025 – Todas as Modalidades | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora INSS COMPLETA 2025! Calcule TODAS as modalidades: idade, pontos, pedágio 50% e 100%, regras de transição. Compare opções, veja a melhor para você e planeje sua aposentadoria com precisão.",
+        "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
     },
     {
       name: "keywords",
       content:
-        "calculadora inss aposentadoria, aposentadoria por idade, regra de transicao, pedagogio 50 100, pontos aposentadoria, simulador inss, tempo contribuicao, beneficio inss, aposentadoria 2025, reforma previdencia",
+        "calculadora aposentadoria inss, simulador inss, pedágio 50 100, regra transição, pontos aposentadoria",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "googlebot", content: "index,follow" },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "bingbot", content: "index,follow" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
+    },
     {
       property: "og:title",
-      content: `Calculadora Aposentadoria INSS 2025 - Todas as Modalidades - ${APP_NAME}`,
+      content: "Calculadora de Aposentadoria INSS 2025 – Todas as Modalidades",
     },
     {
       property: "og:description",
       content:
-        "Calcule TODAS as modalidades de aposentadoria INSS: idade, pontos, pedágio. Compare opções e descubra a melhor para você!",
+        "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-aposentadoria.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Aposentadoria INSS - Simule todas as modalidades: idade, pontos, pedágio 50% e 100%",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/inss/aposentadoria",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: `Calculadora INSS 2025 - Todas as Modalidades de Aposentadoria - ${APP_NAME}`,
+      content: "Calculadora de Aposentadoria INSS 2025 – Todas as Modalidades",
     },
     {
       name: "twitter:description",
       content:
-        "Ferramenta completa para calcular todas as modalidades de aposentadoria INSS. Compare e escolha a melhor opção!",
+        "Simule aposentadoria INSS: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção.",
     },
-    { rel: "canonical", href: "https://calculadoraonline.com.br/calculadoras/inss/aposentadoria" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-aposentadoria.webp",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Aposentadoria INSS - Simule modalidades e compare opções",
+    },
+    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
+    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
+    { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Aposentadoria INSS" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Aposentadoria INSS - Múltiplas Modalidades",
+        name: "Calculadora de Aposentadoria INSS - Simulador de Modalidades 2025",
         description:
-          "Calculadora completa para todas as modalidades de aposentadoria INSS: por idade, pontos, pedágio 50% e 100%, regras de transição. Compare opções e planeje sua aposentadoria.",
-        url: "https://calculadoraonline.com.br/calculadoras/inss/aposentadoria",
+          "Simulador gratuito e preciso de aposentadoria INSS com todas as modalidades: idade, pontos, pedágio 50% e 100%, regras de transição. Compare opções e descubra a melhor para você.",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Trabalhista",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Calculadora Aposentadoria INSS",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista/aposentadoria",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-31",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraOnlineBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
+          name: "Calculadora de Aposentadoria INSS 2025 - Simulador de Modalidades",
+          description:
+            "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://www.calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://www.calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Trabalhista",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Aposentadoria INSS",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "GovernmentService",
+          name: "Aposentadoria INSS",
+          description: "Benefício previdenciário pago pelo Instituto Nacional do Seguro Social",
+          category: "SocialSecurity",
+        },
+        featureList: [
+          "Simulação de aposentadoria por idade",
+          "Simulação de aposentadoria por pontos",
+          "Cálculo de pedágio 50%",
+          "Cálculo de pedágio 100%",
+          "Regras de transição da reforma",
+          "Comparação de modalidades",
+          "Cálculo de tempo restante",
+          "Estimativa de valor do benefício",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Como calcular aposentadoria pelo INSS?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para calcular a aposentadoria INSS, considere: tempo de contribuição, idade, média salarial e modalidade (idade, pontos, pedágio 50% ou 100%). Use nossa calculadora para simular todas as opções disponíveis."
+            }
+          },
+          {
+            "@type": "Question", 
+            name: "Qual a melhor modalidade de aposentadoria?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A melhor modalidade depende da sua situação: aposentadoria por idade (65H/62M), por pontos (96H/86M), pedágio 50% ou 100%. Nossa calculadora compara todas e mostra a mais vantajosa."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Como funciona o pedágio da aposentadoria?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Pedágio 50%: pague metade do tempo que faltava em 2019. Pedágio 100%: pague o dobro do tempo restante, mas sem idade mínima. Nossa calculadora simula ambas as opções."
+            }
+          }
+        ]
+      })
+    }
   ];
 };
 

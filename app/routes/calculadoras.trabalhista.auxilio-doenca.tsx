@@ -83,95 +83,228 @@ interface AuxilioDoencaResult {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Auxílio-Doença INSS 2025 - Cálculo Preciso do Benefício - ${APP_NAME}` },
+    {
+      title: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Preciso | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora Auxílio-Doença INSS 2025 GRATUITA! Calcule o valor do benefício por incapacidade temporária com precisão. Verifica carência, isenções e aplica regras atualizadas do INSS.",
+        "Calcule auxílio-doença INSS 2025 com precisão: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
     },
     {
       name: "keywords",
       content:
-        "calculadora auxilio doença, auxilio doença inss, beneficio incapacidade temporaria, calculo auxilio doença, carencia auxilio doença, isencao carencia, auxilio doenca 2025, beneficio inss doença",
+        "calculadora auxílio doença inss, benefício incapacidade, carência auxílio, isenção carência, simulador inss, benefício incapacidade temporária",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index, follow" },
-    { name: "googlebot", content: "index,follow" },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "bingbot", content: "index,follow" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
+    },
     {
       property: "og:title",
-      content: `Calculadora Auxílio-Doença INSS 2025 - Cálculo Preciso - ${APP_NAME}`,
+      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Preciso",
     },
     {
       property: "og:description",
       content:
-        "Calcule o valor exato do auxílio-doença INSS com verificação de carência e isenções. Ferramenta oficial e atualizada.",
+        "Calcule auxílio-doença INSS 2025 com precisão: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-auxilio-doenca.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Auxílio-Doença INSS - Calcule benefício por incapacidade com verificação de carência",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/trabalhista/auxilio-doenca",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: `Calculadora Auxílio-Doença INSS 2025 - ${APP_NAME}` },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Preciso",
+    },
     {
       name: "twitter:description",
       content:
-        "Ferramenta precisa para calcular auxílio-doença com verificação de carência e todas as regras do INSS.",
+        "Calcule auxílio-doença INSS: valor do benefício, carência e isenções. Resultado preciso e instantâneo.",
     },
     {
-      rel: "canonical",
-      href: "https://calculadoraonline.com.br/calculadoras/trabalhista/auxilio-doenca",
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-auxilio-doenca.webp",
     },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Auxílio-Doença INSS - Cálculo preciso de benefício",
+    },
+    { name: "twitter:site", content: "@CalculadoraBR" },
+    { name: "twitter:creator", content: "@CalculadoraBR" },
+    { name: "format-detection", content: "telephone=no" },
+    { name: "mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
+    { name: "apple-mobile-web-app-title", content: "Auxílio-Doença" },
+    { httpEquiv: "content-language", content: "pt-br" },
+    { name: "geo.region", content: "BR" },
+    { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Auxílio-Doença INSS",
+        name: "Calculadora de Auxílio-Doença INSS - Simulador de Benefício 2025",
         description:
-          "Calculadora online para auxílio-doença INSS com verificação de carência e cálculo preciso do benefício por incapacidade temporária.",
-        url: "https://calculadoraonline.com.br/calculadoras/trabalhista/auxilio-doenca",
+          "Simulador gratuito e preciso de auxílio-doença INSS com verificação automática de carência, isenções e cálculo do benefício por incapacidade temporária.",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Trabalhista",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Auxílio-Doença",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista/auxilio-doenca",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-31",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
+          name: "Calculadora de Auxílio-Doença INSS 2025 - Simulador de Benefício",
+          description:
+            "Calcule auxílio-doença INSS 2025 com precisão: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://www.calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://www.calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Trabalhista",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Auxílio-Doença INSS",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "GovernmentService",
+          name: "Auxílio-Doença INSS",
+          description: "Benefício previdenciário por incapacidade temporária para o trabalho",
+          category: "SocialSecurity",
+        },
+        featureList: [
+          "Cálculo de auxílio-doença por incapacidade",
+          "Verificação automática de carência",
+          "Identificação de doenças com isenção",
+          "Cálculo da média salarial",
+          "Simulação de diferentes cenários",
+          "Análise de elegibilidade",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Como calcular auxílio-doença INSS?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Para calcular auxílio-doença INSS, considere: carência de 12 contribuições, média dos 12 últimos salários ou média geral (o que for maior), aplicar 91% sobre a média. Algumas doenças têm isenção de carência."
+            }
+          },
+          {
+            "@type": "Question", 
+            name: "Quais doenças têm isenção de carência?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Doenças com isenção: tuberculose ativa, hanseníase, transtorno mental grave, neoplasia maligna, cegueira, paralisia irreversível, cardiopatia grave, Parkinson, AIDS, contaminação por radiação."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Qual o valor do auxílio-doença em 2025?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "O auxílio-doença é calculado como 91% da média salarial, limitado ao teto INSS (R$ 8.157,41) e não pode ser inferior ao salário mínimo (R$ 1.518,00)."
+            }
+          }
+        ]
+      })
+    }
   ];
 };
 

@@ -19,20 +19,21 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Rescisão Trabalhista 2025 - Direitos Trabalhistas Completos - ${APP_NAME}`,
+      title: `Calculadora Rescisão Trabalhista 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "★ Calculadora de rescisão trabalhista 2025 GRATUITA e completa! Calcule valores de demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego, férias, 13º e todos os direitos trabalhistas com tabelas atualizadas para 2025.",
+        "📄 Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º. Valores atualizados!",
     },
     {
       name: "keywords",
       content:
-        "calculadora rescisão trabalhista, demissão sem justa causa, demissão com justa causa, acordo mútuo, pedido demissão, direitos trabalhistas, FGTS multa 40%, seguro desemprego, aviso prévio, férias proporcionais, 13º salário proporcional, cálculo rescisão, trabalhista CLT",
+        "calculadora rescisão trabalhista, demissão sem justa causa, acordo mútuo, FGTS multa, seguro desemprego, CLT",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
+    { name: "robots", content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "googlebot", content: "index,follow" },
     { name: "bingbot", content: "index,follow" },
     {
@@ -47,7 +48,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/trabalhista/rescisao",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -65,58 +66,144 @@ export const meta: MetaFunction = () => {
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Rescisão Trabalhista",
+        name: "Calculadora de Rescisão Trabalhista - Simulador CLT 2025",
         description:
-          "Calculadora online gratuita para calcular todos os valores de rescisão trabalhista conforme a CLT.",
-        url: "https://calculadoraonline.com.br/calculadoras/trabalhista/rescisao",
+          "Simulador gratuito e completo de rescisão trabalhista conforme CLT 2025: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º salário.",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Trabalhista",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Rescisão Trabalhista",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista/rescisao",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-31",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
+          name: "Calculadora de Rescisão Trabalhista 2025 - Simulador CLT",
+          description:
+            "Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º. Valores atualizados!",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://www.calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://www.calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Trabalhista",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Rescisão Trabalhista",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Service",
+          name: "Rescisão Trabalhista CLT",
+          description: "Direitos trabalhistas em caso de rescisão do contrato de trabalho",
+          category: "LaborRights",
+        },
+        featureList: [
+          "Cálculo completo de rescisão trabalhista",
+          "Demissão sem justa causa e com justa causa",
+          "Acordo mútuo e pedido de demissão",
+          "FGTS e multa rescisória (40%)",
+          "Seguro desemprego",
+          "Férias e 13º salário proporcionais",
+          "Aviso prévio trabalhado e indenizado",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Como calcular rescisão trabalhista?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Rescisão inclui: saldo salário, aviso prévio, férias + 1/3, 13º proporcional, FGTS + multa (se demissão sem justa causa). Descontos: INSS e IRRF."
+            }
+          },
+          {
+            "@type": "Question", 
+            name: "Qual a diferença entre demissão e acordo mútuo?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Demissão sem justa causa: todos os direitos + multa FGTS 40%. Acordo mútuo: metade do aviso prévio, metade da multa FGTS (20%), pode sacar 80% do FGTS."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Quando tenho direito ao seguro desemprego?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Seguro desemprego: demissão sem justa causa ou acordo mútuo. Mínimo 12 meses trabalhados (primeira solicitação) ou 9 meses (solicitações seguintes)."
+            }
+          }
+        ]
+      })
+    }
   ];
 };
 

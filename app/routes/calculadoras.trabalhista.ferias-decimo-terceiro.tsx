@@ -26,34 +26,49 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Férias e 13º Salário 2025 - CLT com Tabelas Oficiais - ${APP_NAME}` },
+    {
+      title: "Calculadora de Férias e 13º Salário 2025 – CLT Atualizada | CalculadoraOnlineBR",
+    },
     {
       name: "description",
       content:
-        "★ Calculadora OFICIAL de férias e décimo terceiro salário! Calcule valores líquidos com INSS e IRRF 2025, abono pecuniário, adiantamentos. Precisa e atualizada conforme CLT.",
+        "Calcule férias e 13º salário 2025 com precisão: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
     },
     {
       name: "keywords",
       content:
-        "calculadora férias, calculadora 13º salário, décimo terceiro, abono pecuniário, terço constitucional, INSS 2025, IRRF 2025, CLT, direitos trabalhistas, férias proporcionais",
+        "calculadora férias 13 salário, décimo terceiro, abono pecuniário, terço constitucional, CLT, direitos trabalhistas",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    {
+      name: "googlebot",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
+    { name: "bingbot", content: "index,follow" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+    },
     { name: "googlebot", content: "index,follow" },
     { name: "bingbot", content: "index,follow" },
     {
       property: "og:title",
-      content: `Calculadora de Férias e 13º Salário Oficial 2025 - ${APP_NAME}`,
+      content: "Calculadora de Férias e 13º Salário 2025 – CLT Atualizada",
     },
     {
       property: "og:description",
       content:
-        "Calcule férias e décimo terceiro com precisão! Inclui INSS, IRRF, abono pecuniário e todas as regras da CLT. Ferramenta oficial e gratuita!",
+        "Calcule férias e 13º salário 2025 com precisão: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
     },
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -71,58 +86,143 @@ export const meta: MetaFunction = () => {
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Férias e 13º Salário",
+        name: "Calculadora de Férias e 13º Salário - Simulador CLT 2025",
         description:
-          "Calculadora oficial de férias e décimo terceiro salário com tabelas INSS e IRRF 2025. Calcule valores líquidos, abono pecuniário e adiantamentos conforme CLT.",
-        url: "https://calculadoraonline.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
-        applicationCategory: "BusinessApplication",
+          "Simulador gratuito e preciso de férias e décimo terceiro salário com tabelas INSS e IRRF 2025. Calcule valores líquidos, abono pecuniário e adiantamentos conforme CLT.",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+        applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Trabalhista",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Férias e 13º Salário",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-31",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+          name: "Calculadora de Férias e 13º Salário 2025 - Simulador CLT",
+          description:
+            "Calcule férias e 13º salário 2025 com precisão: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://www.calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://www.calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Trabalhista",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Férias e 13º Salário",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Service",
+          name: "Férias e Décimo Terceiro Salário CLT",
+          description: "Direitos trabalhistas garantidos pela CLT para trabalhadores com carteira assinada",
+          category: "LaborRights",
+        },
+        featureList: [
+          "Cálculo de férias proporcionais e integrais",
+          "Cálculo de décimo terceiro salário",
+          "Terço constitucional de férias",
+          "Abono pecuniário (venda de férias)",
+          "Descontos de INSS e IRRF",
+          "Simulação de adiantamentos",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Como calcular férias e 13º salário?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Férias: salário + 1/3 constitucional. 13º salário: salário ÷ 12 × meses trabalhados. Ambos têm descontos de INSS e IRRF conforme tabelas 2025."
+            }
+          },
+          {
+            "@type": "Question", 
+            name: "Quando tenho direito a férias integrais?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Direito a 30 dias de férias após 12 meses de trabalho. Férias proporcionais para período menor. Pode vender até 10 dias (abono pecuniário)."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Como funciona o abono pecuniário?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Venda de até 1/3 das férias (10 dias). Valor: salário ÷ 30 × dias vendidos + 1/3 constitucional sobre o valor vendido."
+            }
+          }
+        ]
+      })
+    }
   ];
 };
 

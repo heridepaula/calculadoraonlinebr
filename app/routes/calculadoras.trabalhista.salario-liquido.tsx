@@ -24,19 +24,20 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Salário Líquido 2025 - INSS e IRRF Atualizados - ${APP_NAME}` },
+    { title: `Calculadora Salário Líquido 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "★ Calculadora de salário líquido 2025 GRATUITA e precisa! Calcule seu salário líquido com descontos de INSS e IRRF atualizados. Inclui tabelas 2025, dedução por dependentes, CLT e PJ. Resultado instantâneo e detalhado.",
+        "💰 Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo!",
     },
     {
       name: "keywords",
       content:
-        "calculadora salário líquido, salário líquido 2025, calcular salário líquido, INSS 2025, IRRF 2025, desconto salário, tabela INSS, tabela imposto renda, salário bruto líquido, CLT PJ, dependentes IRRF, calculadora trabalhista",
+        "calculadora salário líquido, INSS IRRF 2025, desconto salário, tabela INSS, imposto renda, CLT PJ",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow" },
+    { name: "robots", content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "googlebot", content: "index,follow" },
     { name: "bingbot", content: "index,follow" },
     {
@@ -51,7 +52,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonline.com.br/calculadoras/trabalhista/salario-liquido",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -69,58 +70,143 @@ export const meta: MetaFunction = () => {
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "default" },
-    { name: "theme-color", content: "#3B82F6" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+    { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
+    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Salário Líquido",
+        name: "Calculadora de Salário Líquido - Simulador INSS e IRRF 2025",
         description:
-          "Calculadora online gratuita para calcular salário líquido com descontos de INSS e IRRF conforme tabelas 2025.",
-        url: "https://calculadoraonline.com.br/calculadoras/trabalhista/salario-liquido",
+          "Simulador gratuito de salário líquido com tabelas INSS e IRRF 2025 atualizadas. Calcula descontos CLT, PJ e MEI com precisão.",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Início",
-              item: "https://calculadoraonline.com.br",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculadoras",
-              item: "https://calculadoraonline.com.br/calculadoras",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Trabalhista",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Salário Líquido",
-              item: "https://calculadoraonline.com.br/calculadoras/trabalhista/salario-liquido",
-            },
-          ],
+        inLanguage: "pt-BR",
+        dateModified: "2025-08-31",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
         },
         publisher: {
           "@type": "Organization",
-          name: "Calculadora Online BR",
-          url: "https://calculadoraonline.com.br",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            width: 180,
+            height: 180,
+          },
+          sameAs: [
+            "https://twitter.com/CalculadoraBR",
+            "https://www.facebook.com/CalculadoraOnlineBR",
+          ],
         },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
+          name: "Calculadora de Salário Líquido 2025 - Simulador INSS e IRRF",
+          description:
+            "Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo!",
+          inLanguage: "pt-BR",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "CalculadoraOnlineBR",
+            url: "https://www.calculadoraonlinebr.com.br",
+            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Início",
+                item: "https://www.calculadoraonlinebr.com.br",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Trabalhista",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
+              },
+              {
+                "@type": "ListItem",
+                position: 4,
+                name: "Salário Líquido",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
+              },
+            ],
+          },
+        },
+        about: {
+          "@type": "Service",
+          name: "Cálculo de Salário Líquido",
+          description: "Cálculo de descontos trabalhistas INSS e IRRF sobre salário bruto",
+          category: "TaxCalculation",
+        },
+        featureList: [
+          "Cálculo de salário líquido CLT",
+          "Descontos INSS e IRRF 2025",
+          "Simulação para CLT, PJ e MEI",
+          "Cálculo com dependentes",
+          "Horas extras e adições salariais",
+          "Comparação entre regimes",
+          "Interface móvel responsiva",
+          "Resultados em tempo real",
+        ],
       }),
     },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Como calcular salário líquido?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Use tabelas 2025: INSS até 8,14% e IRRF de 7,5% a 27,5% conforme faixa salarial."
+            }
+          },
+          {
+            "@type": "Question", 
+            name: "Qual a diferença entre CLT, PJ e MEI?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "CLT: descontos INSS e IRRF obrigatórios. PJ: tributac£ão variável por regime. MEI: taxa fixa mensal até R$ 81 mil/ano, sem INSS nem IRRF sobre receita."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Como dependentes afetam o IRRF?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Cada dependente deduz R$ 189,59 mensais da base de cálculo do IRRF, reduzindo o imposto. São considerados: filhos até 21 anos, cônjuge, pais etc."
+            }
+          }
+        ]
+      })
+    }
   ];
 };
 
