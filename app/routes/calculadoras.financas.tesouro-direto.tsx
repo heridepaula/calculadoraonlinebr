@@ -906,22 +906,17 @@ export default function TreasuryDirectCalculator() {
               )}
 
               {/* Botões de Ação */}
-              {/* Action Buttons - Prominent S-Tier Design */}
-              <div className="mt-8 space-y-4">
-                <Button
-                  onClick={handleCalculate}
-                  className="h-14 transform bg-finance-gold px-12 text-lg font-semibold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:bg-finance-gold-dark hover:shadow-2xl"
-                  fullWidth
-                >
-                  🏛️ Simular Tesouro Direto
+              {/* Botões */}
+              <div className="margin-top-4 flex justify-center space-x-4">
+                <Button onClick={handleCalculate} className="px-8">
+                  Calcular
                 </Button>
                 <Button
                   onClick={handleReset}
                   variant="outline"
-                  className="h-12 border-2 border-finance-gold/30 text-finance-gold transition-all duration-200 hover:border-finance-gold hover:bg-finance-gold/10"
-                  fullWidth
+                  className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
                 >
-                  🔄 Limpar Campos
+                  Limpar
                 </Button>
               </div>
             </div>
