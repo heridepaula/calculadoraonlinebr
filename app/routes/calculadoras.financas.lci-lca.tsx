@@ -79,10 +79,13 @@ export const meta: MetaFunction = () => {
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     { name: "bingbot", content: "index,follow" },
-    { name: "keywords", content: "LCI, LCA, calculadora, investimentos, CDI, renda fixa, isento IR, Brasil" },
+    {
+      name: "keywords",
+      content: "LCI, LCA, calculadora, investimentos, CDI, renda fixa, isento IR, Brasil",
+    },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
     },
     {
       property: "og:title",
@@ -113,7 +116,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -155,7 +158,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de LCI e LCA - Simulador de Rendimentos 2025",
         description:
           "Calculadora gratuita de LCI e LCA com cálculos baseados no CDI. Simule rendimentos isentos de IR, compare opções e otimize seus investimentos.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -169,10 +172,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -184,11 +187,11 @@ export const meta: MetaFunction = () => {
         author: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br"
+          url: "https://www.calculadoraonlinebr.com.br",
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
           name: "Calculadora de LCI e LCA 2025 - Simulador Preciso",
           description:
             "Simule rendimentos de LCI e LCA baseados no CDI. Calcule ganhos isentos de IR, compare rentabilidade e tome decisões de investimento mais inteligentes.",
@@ -196,11 +199,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -211,25 +214,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Calculadora de LCI e LCA",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
               },
             ],
           },
@@ -298,43 +301,44 @@ export const meta: MetaFunction = () => {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como Calcular Rendimentos de LCI e LCA",
-        description: "Passo a passo para simular rendimentos de investimentos em LCI e LCA com base no CDI",
+        description:
+          "Passo a passo para simular rendimentos de investimentos em LCI e LCA com base no CDI",
         image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
         totalTime: "PT2M",
         estimatedCost: {
           "@type": "MonetaryAmount",
           currency: "BRL",
-          value: "0"
+          value: "0",
         },
         tool: [
           {
             "@type": "HowToTool",
-            name: "Calculadora de LCI e LCA Online"
-          }
+            name: "Calculadora de LCI e LCA Online",
+          },
         ],
         step: [
           {
             "@type": "HowToStep",
             name: "Inserir valor a investir",
             text: "Digite o valor que deseja aplicar em LCI ou LCA",
-            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp"
+            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
           },
           {
-            "@type": "HowToStep", 
+            "@type": "HowToStep",
             name: "Definir percentual do CDI",
-            text: "Informe o percentual do CDI oferecido pela instituição financeira"
+            text: "Informe o percentual do CDI oferecido pela instituição financeira",
           },
           {
             "@type": "HowToStep",
             name: "Escolher prazo em dias",
-            text: "Selecione o prazo de vencimento da LCI/LCA em dias corridos"
+            text: "Selecione o prazo de vencimento da LCI/LCA em dias corridos",
           },
           {
             "@type": "HowToStep",
             name: "Calcular rendimentos",
-            text: "Clique em 'Calcular' para ver o resultado completo com evolução diária"
-          }
-        ]
+            text: "Clique em 'Calcular' para ver o resultado completo com evolução diária",
+          },
+        ],
       }),
     },
   ];
@@ -442,17 +446,17 @@ export default function LciLcaCalculator() {
       const amount = parseMoney(investedAmount);
       const cdiPercent = parseFloat(cdiPercentage.replace(",", ".")) / 100;
       const numberOfDays = parseInt(days, 10);
-      
+
       // Taxa CDI atual (baseada na SELIC)
       const currentCdiRate = ECONOMIC_INDICATORS.SELIC.rate / 100; // CDI aproximadamente igual à SELIC
       const effectiveAnnualRate = currentCdiRate * cdiPercent;
-      
+
       // Verificar se as taxas são válidas
       if (!isFinite(currentCdiRate) || !isFinite(effectiveAnnualRate)) {
         throw new Error("Taxa inválida");
       }
-      
-      const dailyRate = Math.pow(1 + effectiveAnnualRate, 1/252) - 1; // 252 dias úteis no ano
+
+      const dailyRate = Math.pow(1 + effectiveAnnualRate, 1 / 252) - 1; // 252 dias úteis no ano
 
       // Calcular evolução dia a dia para LCI/LCA
       const dailyData: DailyData[] = [];
@@ -529,14 +533,15 @@ export default function LciLcaCalculator() {
           Calculadora de LCI e LCA 2025 – Simulador de Rendimentos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule os <strong className="text-growth-green">rendimentos de LCI e LCA</strong> isentos de IR.
-          Simule investimentos baseados no CDI e descubra{" "}
-          <strong className="text-primary-blue-dark">quanto seu dinheiro vai render</strong> livre de impostos.
+          Calcule os <strong className="text-growth-green">rendimentos de LCI e LCA</strong> isentos
+          de IR. Simule investimentos baseados no CDI e descubra{" "}
+          <strong className="text-primary-blue-dark">quanto seu dinheiro vai render</strong> livre
+          de impostos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🏦 <strong>Isento de IR</strong> • 📈 <strong>Baseado no CDI</strong> •
-            💰 <strong>Garantia do FGC</strong>
+            🏦 <strong>Isento de IR</strong> • 📈 <strong>Baseado no CDI</strong> • 💰{" "}
+            <strong>Garantia do FGC</strong>
           </p>
         </div>
       </header>
@@ -546,7 +551,6 @@ export default function LciLcaCalculator() {
           <CardTitle as="h2">📋 Configure sua Simulação de LCI/LCA</CardTitle>
         </CardHeader>
         <CardContent>
-
           {/* Linha 1: Valor a ser investido */}
           <div className="mb-6">
             <div>
@@ -559,7 +563,9 @@ export default function LciLcaCalculator() {
                 className="h-12 text-lg"
               />
               <ErrorMessage error={errors.investedAmount} />
-              <div className="mt-1 text-xs text-text-secondary">Valor que deseja aplicar em LCI ou LCA</div>
+              <div className="mt-1 text-xs text-text-secondary">
+                Valor que deseja aplicar em LCI ou LCA
+              </div>
             </div>
           </div>
 
@@ -689,9 +695,7 @@ export default function LciLcaCalculator() {
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Prazo</div>
-                <div className="text-xl font-bold text-text-primary">
-                  {result.days} dias
-                </div>
+                <div className="text-xl font-bold text-text-primary">{result.days} dias</div>
                 <div className="text-sm text-text-secondary">
                   {Math.round(result.days / 30)} meses aprox.
                 </div>
@@ -714,7 +718,8 @@ export default function LciLcaCalculator() {
                   </strong>
                 </li>
                 <li>
-                  Rendimento bruto: <strong>{currencyBR(result.totalInterest)}</strong> (isento de IR)
+                  Rendimento bruto: <strong>{currencyBR(result.totalInterest)}</strong> (isento de
+                  IR)
                 </li>
                 <li>
                   Montante final: <strong>{currencyBR(result.finalAmount)}</strong>
@@ -889,8 +894,7 @@ export default function LciLcaCalculator() {
                     <div className="mb-4 flex items-center justify-between text-sm text-text-secondary">
                       <div>
                         Mostrando dias {startIndex + 1} a{" "}
-                        {Math.min(endIndex, result.dailyData.length)} de{" "}
-                        {result.dailyData.length}
+                        {Math.min(endIndex, result.dailyData.length)} de {result.dailyData.length}
                       </div>
                       <div>
                         Página {currentPage} de {totalPages}
@@ -1046,12 +1050,17 @@ export default function LciLcaCalculator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">📋 LCI - Letra de Crédito Imobiliário</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    📋 LCI - Letra de Crédito Imobiliário
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Título de renda fixa lastreado em créditos imobiliários. Oferece isenção de IR para pessoa física e garantia do FGC até R$ 250 mil.
+                    Título de renda fixa lastreado em créditos imobiliários. Oferece isenção de IR
+                    para pessoa física e garantia do FGC até R$ 250 mil.
                   </p>
 
-                  <h4 className="mb-3 font-semibold text-system-info">🌾 LCA - Letra de Crédito do Agronegócio</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">
+                    🌾 LCA - Letra de Crédito do Agronegócio
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Lastreada em créditos do agronegócio</li>
                     <li>• Mesmos benefícios da LCI</li>
@@ -1085,8 +1094,8 @@ export default function LciLcaCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">💹 O que é CDI?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Certificado de Depósito Interbancário - taxa de referência para empréstimos entre bancos. 
-                    Base para remuneração de LCI/LCA.
+                    Certificado de Depósito Interbancário - taxa de referência para empréstimos
+                    entre bancos. Base para remuneração de LCI/LCA.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📈 Como funciona</h4>
@@ -1097,7 +1106,9 @@ export default function LciLcaCalculator() {
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">💰 Faixas de Rentabilidade</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    💰 Faixas de Rentabilidade
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Grandes bancos: 80-95% do CDI</li>
                     <li>• Bancos médios: 90-110% do CDI</li>
@@ -1123,7 +1134,7 @@ export default function LciLcaCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 Pesquise Taxas</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Compare percentuais do CDI entre instituições. Corretoras geralmente oferecem 
+                    Compare percentuais do CDI entre instituições. Corretoras geralmente oferecem
                     melhores condições que grandes bancos.
                   </p>
 
@@ -1141,7 +1152,9 @@ export default function LciLcaCalculator() {
                     <li>• Aloque conforme seus objetivos</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚖️ Compare Alternativas</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">
+                    ⚖️ Compare Alternativas
+                  </h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
                     <li>• Considere CDB (se taxa compensar IR)</li>
                     <li>• Avalie Tesouro Direto também</li>
@@ -1166,12 +1179,8 @@ export default function LciLcaCalculator() {
               <thead>
                 <tr className="border-b-2 border-neutral-surface-variant">
                   <th className="p-3 text-left font-semibold">Critério</th>
-                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    LCI/LCA
-                  </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">
-                    CDB
-                  </th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">LCI/LCA</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">CDB</th>
                   <th className="p-3 text-center font-semibold text-system-warning">
                     Tesouro Direto
                   </th>
@@ -1222,7 +1231,7 @@ export default function LciLcaCalculator() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 LCI/LCA</h4>
               <p className="text-sm text-text-secondary">
-                Ideal para <strong>médio prazo</strong> com isenção de IR. Melhor que CDB líquido 
+                Ideal para <strong>médio prazo</strong> com isenção de IR. Melhor que CDB líquido
                 por não ter taxa regressiva.
               </p>
             </div>
@@ -1230,16 +1239,16 @@ export default function LciLcaCalculator() {
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
               <h4 className="mb-2 font-bold text-growth-green">💰 CDB</h4>
               <p className="text-sm text-text-secondary">
-                Use <strong>CDB com liquidez</strong> para reserva de emergência. 
-                Só vale se o CDI compensar o IR.
+                Use <strong>CDB com liquidez</strong> para reserva de emergência. Só vale se o CDI
+                compensar o IR.
               </p>
             </div>
 
             <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
               <h4 className="mb-2 font-bold text-system-warning">📈 Tesouro Direto</h4>
               <p className="text-sm text-text-secondary">
-                Para <strong>iniciantes</strong> pelo valor mínimo baixo e facilidade. 
-                Boa para objetivos de longo prazo.
+                Para <strong>iniciantes</strong> pelo valor mínimo baixo e facilidade. Boa para
+                objetivos de longo prazo.
               </p>
             </div>
           </div>
@@ -1304,25 +1313,25 @@ export default function LciLcaCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de LCI e LCA</strong>{" "}
-              utiliza <strong className="text-growth-green">cálculos baseados no CDI</strong>{" "}
-              para simular rendimentos de investimentos isentos de IR. Os cálculos consideram
+              Esta <strong className="text-primary-blue-dark">calculadora de LCI e LCA</strong>{" "}
+              utiliza <strong className="text-growth-green">cálculos baseados no CDI</strong> para
+              simular rendimentos de investimentos isentos de IR. Os cálculos consideram
               capitalização mensal composta para maior precisão.
             </p>
             <p>
-              <strong>Configurações disponíveis:</strong> Valor a investir, percentual do CDI oferecido 
-              e prazo em meses ou anos. A calculadora usa a taxa CDI atual ({ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.) 
-              como base para os cálculos.
+              <strong>Configurações disponíveis:</strong> Valor a investir, percentual do CDI
+              oferecido e prazo em meses ou anos. A calculadora usa a taxa CDI atual (
+              {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.) como base para os cálculos.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e comparativos. As taxas reais podem variar entre instituições.
-              Para decisões de investimento, consulte sempre um <strong>assessor financeiro qualificado</strong>.
+              fins educacionais e comparativos. As taxas reais podem variar entre instituições. Para
+              decisões de investimento, consulte sempre um{" "}
+              <strong>assessor financeiro qualificado</strong>.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🏦 Baseado no CDI • 📈 Isenção de IR • 🔒 Dados não armazenados • 📱
-              Compatível com todos os dispositivos • 🌙 Interface otimizada
+              🏦 Baseado no CDI • 📈 Isenção de IR • 🔒 Dados não armazenados • 📱 Compatível com
+              todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>

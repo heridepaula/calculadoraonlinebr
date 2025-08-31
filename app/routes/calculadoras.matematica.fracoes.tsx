@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
     },
     {
       property: "og:title",
@@ -50,8 +50,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
     },
     {
       property: "og:image:alt",
@@ -68,7 +67,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -84,8 +83,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
     },
     {
       name: "twitter:image:alt",
@@ -103,7 +101,10 @@ export const meta: MetaFunction = () => {
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
-    { name: "keywords", content: "calculadora frações, soma frações, divisão frações, simplificar frações, MMC, MDC" },
+    {
+      name: "keywords",
+      content: "calculadora frações, soma frações, divisão frações, simplificar frações, MMC, MDC",
+    },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
@@ -113,7 +114,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Frações Online Gratuita - Operações Matemáticas 2025",
         description:
           "Ferramenta educacional online gratuita para realizar operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos com explicação passo a passo.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -127,10 +128,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -141,7 +142,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
           name: "Calculadora de Frações Online Gratuita - Matemática Educacional",
           description:
             "Ferramenta educacional online para operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática com explicação passo a passo.",
@@ -149,11 +150,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -164,25 +165,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Matemática",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Frações",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
               },
             ],
           },
@@ -190,7 +191,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "Frações",
-          description: "Operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação",
+          description:
+            "Operações matemáticas com frações: soma, subtração, multiplicação, divisão e simplificação",
           category: "Mathematics",
         },
         featureList: [
@@ -322,7 +324,9 @@ export default function FractionCalculator() {
   const [denominator1, setDenominator1] = useState("");
   const [numerator2, setNumerator2] = useState("");
   const [denominator2, setDenominator2] = useState("");
-  const [operation, setOperation] = useState<"soma" | "subtracao" | "multiplicacao" | "divisao">("soma");
+  const [operation, setOperation] = useState<"soma" | "subtracao" | "multiplicacao" | "divisao">(
+    "soma"
+  );
 
   const [result, setResult] = useState<FractionResult | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -362,17 +366,20 @@ export default function FractionCalculator() {
     return Math.abs(a * b) / gcd(a, b);
   };
 
-  const simplifyFraction = (num: number, den: number): { numerator: number; denominator: number } => {
+  const simplifyFraction = (
+    num: number,
+    den: number
+  ): { numerator: number; denominator: number } => {
     const divisor = gcd(num, den);
     let numerator = num / divisor;
     let denominator = den / divisor;
-    
+
     // Se o denominador for negativo, move o sinal para o numerador
     if (denominator < 0) {
       numerator = -numerator;
       denominator = -denominator;
     }
-    
+
     return { numerator, denominator };
   };
 
@@ -435,10 +442,12 @@ export default function FractionCalculator() {
     // Frações originais
     const fraction1 = { numerator: num1, denominator: den1 };
     const fraction2 = { numerator: num2, denominator: den2 };
-    
+
     steps.push(`Fração 1: ${num1}/${den1}`);
     steps.push(`Fração 2: ${num2}/${den2}`);
-    steps.push(`Operação: ${operation === "soma" ? "Soma" : operation === "subtracao" ? "Subtração" : operation === "multiplicacao" ? "Multiplicação" : "Divisão"}`);
+    steps.push(
+      `Operação: ${operation === "soma" ? "Soma" : operation === "subtracao" ? "Subtração" : operation === "multiplicacao" ? "Multiplicação" : "Divisão"}`
+    );
 
     switch (operation) {
       case "soma":
@@ -447,11 +456,13 @@ export default function FractionCalculator() {
         const newNum2Sum = (num2 * commonDenominator) / den2;
         resultNumerator = newNum1Sum + newNum2Sum;
         resultDenominator = commonDenominator;
-        
+
         steps.push(`MMC(${den1}, ${den2}) = ${commonDenominator}`);
         steps.push(`${num1}/${den1} = ${newNum1Sum}/${commonDenominator}`);
         steps.push(`${num2}/${den2} = ${newNum2Sum}/${commonDenominator}`);
-        steps.push(`${newNum1Sum}/${commonDenominator} + ${newNum2Sum}/${commonDenominator} = ${resultNumerator}/${resultDenominator}`);
+        steps.push(
+          `${newNum1Sum}/${commonDenominator} + ${newNum2Sum}/${commonDenominator} = ${resultNumerator}/${resultDenominator}`
+        );
         break;
 
       case "subtracao":
@@ -460,17 +471,19 @@ export default function FractionCalculator() {
         const newNum2Sub = (num2 * commonDenominator) / den2;
         resultNumerator = newNum1Sub - newNum2Sub;
         resultDenominator = commonDenominator;
-        
+
         steps.push(`MMC(${den1}, ${den2}) = ${commonDenominator}`);
         steps.push(`${num1}/${den1} = ${newNum1Sub}/${commonDenominator}`);
         steps.push(`${num2}/${den2} = ${newNum2Sub}/${commonDenominator}`);
-        steps.push(`${newNum1Sub}/${commonDenominator} - ${newNum2Sub}/${commonDenominator} = ${resultNumerator}/${resultDenominator}`);
+        steps.push(
+          `${newNum1Sub}/${commonDenominator} - ${newNum2Sub}/${commonDenominator} = ${resultNumerator}/${resultDenominator}`
+        );
         break;
 
       case "multiplicacao":
         resultNumerator = num1 * num2;
         resultDenominator = den1 * den2;
-        
+
         steps.push(`${num1}/${den1} × ${num2}/${den2} = (${num1} × ${num2})/(${den1} × ${den2})`);
         steps.push(`= ${resultNumerator}/${resultDenominator}`);
         break;
@@ -479,7 +492,7 @@ export default function FractionCalculator() {
         // Divisão = multiplicação pelo inverso
         resultNumerator = num1 * den2;
         resultDenominator = den1 * num2;
-        
+
         steps.push(`${num1}/${den1} ÷ ${num2}/${den2} = ${num1}/${den1} × ${den2}/${num2}`);
         steps.push(`= (${num1} × ${den2})/(${den1} × ${num2})`);
         steps.push(`= ${resultNumerator}/${resultDenominator}`);
@@ -490,22 +503,29 @@ export default function FractionCalculator() {
     const simplified = simplifyFraction(resultNumerator, resultDenominator);
     if (simplified.numerator !== resultNumerator || simplified.denominator !== resultDenominator) {
       const divisor = gcd(resultNumerator, resultDenominator);
-      steps.push(`Simplificando por MDC(${Math.abs(resultNumerator)}, ${Math.abs(resultDenominator)}) = ${divisor}`);
-      steps.push(`${resultNumerator}/${resultDenominator} = ${simplified.numerator}/${simplified.denominator}`);
+      steps.push(
+        `Simplificando por MDC(${Math.abs(resultNumerator)}, ${Math.abs(resultDenominator)}) = ${divisor}`
+      );
+      steps.push(
+        `${resultNumerator}/${resultDenominator} = ${simplified.numerator}/${simplified.denominator}`
+      );
     }
 
     // Calcular decimal
     const decimal = simplified.numerator / simplified.denominator;
-    
+
     // Calcular número misto se necessário
     let mixed: { whole: number; numerator: number; denominator: number } | undefined;
-    if (Math.abs(simplified.numerator) > Math.abs(simplified.denominator) && simplified.denominator !== 1) {
+    if (
+      Math.abs(simplified.numerator) > Math.abs(simplified.denominator) &&
+      simplified.denominator !== 1
+    ) {
       const whole = Math.floor(Math.abs(simplified.numerator) / Math.abs(simplified.denominator));
       const remainder = Math.abs(simplified.numerator) % Math.abs(simplified.denominator);
       mixed = {
         whole: simplified.numerator < 0 ? -whole : whole,
         numerator: remainder,
-        denominator: Math.abs(simplified.denominator)
+        denominator: Math.abs(simplified.denominator),
       };
     }
 
@@ -516,11 +536,11 @@ export default function FractionCalculator() {
         numerator: resultNumerator,
         denominator: resultDenominator,
         decimal,
-        mixed
+        mixed,
       },
       simplified,
       steps,
-      commonDenominator
+      commonDenominator,
     };
   };
 
@@ -568,14 +588,15 @@ export default function FractionCalculator() {
           Calculadora de Frações 2025 – Soma, Subtração, Multiplicação e Divisão
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Realize <strong className="text-growth-green">operações com frações</strong> de forma simples e precisa. Calcule soma, subtração, multiplicação, divisão e simplificação com{" "}
+          Realize <strong className="text-growth-green">operações com frações</strong> de forma
+          simples e precisa. Calcule soma, subtração, multiplicação, divisão e simplificação com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔢 <strong>Operações com Frações</strong> • 📊 <strong>Simplificação Automática</strong> • 🧮{" "}
-            <strong>Resultados Instantâneos</strong>
+            🔢 <strong>Operações com Frações</strong> • 📊 <strong>Simplificação Automática</strong>{" "}
+            • 🧮 <strong>Resultados Instantâneos</strong>
           </p>
         </div>
       </header>
@@ -586,13 +607,13 @@ export default function FractionCalculator() {
         </CardHeader>
         <CardContent>
           <div className="mb-6 text-center">
-            <p className="text-lg text-text-secondary">
-              Selecione a operação e insira as frações:
-            </p>
+            <p className="text-lg text-text-secondary">Selecione a operação e insira as frações:</p>
             <div className="mt-4">
-              <select 
-                value={operation} 
-                onChange={(e) => setOperation(e.target.value as "soma" | "subtracao" | "multiplicacao" | "divisao")}
+              <select
+                value={operation}
+                onChange={(e) =>
+                  setOperation(e.target.value as "soma" | "subtracao" | "multiplicacao" | "divisao")
+                }
                 className="mx-auto block rounded-lg border border-neutral-surface-variant bg-gray-900 px-4 py-2 text-lg font-medium text-text-primary"
               >
                 <option value="soma">+ Soma</option>
@@ -607,7 +628,9 @@ export default function FractionCalculator() {
           <div className="mb-6 flex flex-wrap justify-center gap-8">
             {/* Primeira Fração */}
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
-              <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">Primeira Fração</h3>
+              <h3 className="mb-3 text-center text-lg font-semibold text-primary-blue-dark">
+                Primeira Fração
+              </h3>
               <div className="space-y-3">
                 <div>
                   <Input
@@ -635,9 +658,7 @@ export default function FractionCalculator() {
                     step="any"
                   />
                   <ErrorMessage error={errors.denominator1} />
-                  <div className="mt-1 text-xs text-text-secondary">
-                    Não pode ser zero
-                  </div>
+                  <div className="mt-1 text-xs text-text-secondary">Não pode ser zero</div>
                 </div>
               </div>
             </div>
@@ -645,13 +666,21 @@ export default function FractionCalculator() {
             {/* Operação */}
             <div className="flex items-center">
               <div className="text-4xl font-bold text-system-warning">
-                {operation === "soma" ? "+" : operation === "subtracao" ? "−" : operation === "multiplicacao" ? "×" : "÷"}
+                {operation === "soma"
+                  ? "+"
+                  : operation === "subtracao"
+                    ? "−"
+                    : operation === "multiplicacao"
+                      ? "×"
+                      : "÷"}
               </div>
             </div>
 
             {/* Segunda Fração */}
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">Segunda Fração</h3>
+              <h3 className="mb-3 text-center text-lg font-semibold text-growth-green">
+                Segunda Fração
+              </h3>
               <div className="space-y-3">
                 <div>
                   <Input
@@ -679,9 +708,7 @@ export default function FractionCalculator() {
                     step="any"
                   />
                   <ErrorMessage error={errors.denominator2} />
-                  <div className="mt-1 text-xs text-text-secondary">
-                    Não pode ser zero
-                  </div>
+                  <div className="mt-1 text-xs text-text-secondary">Não pode ser zero</div>
                 </div>
               </div>
             </div>
@@ -716,11 +743,17 @@ export default function FractionCalculator() {
               <div className="text-center">
                 <div className="mb-2 text-sm text-text-secondary">Operação</div>
                 <div className="text-2xl font-bold text-primary-blue-dark">
-                  {result.originalFractions.fraction1.numerator}/{result.originalFractions.fraction1.denominator}
-                  {" "}
-                  {result.operation === "soma" ? "+" : result.operation === "subtracao" ? "−" : result.operation === "multiplicacao" ? "×" : "÷"}
-                  {" "}
-                  {result.originalFractions.fraction2.numerator}/{result.originalFractions.fraction2.denominator}
+                  {result.originalFractions.fraction1.numerator}/
+                  {result.originalFractions.fraction1.denominator}{" "}
+                  {result.operation === "soma"
+                    ? "+"
+                    : result.operation === "subtracao"
+                      ? "−"
+                      : result.operation === "multiplicacao"
+                        ? "×"
+                        : "÷"}{" "}
+                  {result.originalFractions.fraction2.numerator}/
+                  {result.originalFractions.fraction2.denominator}
                   {" = "}
                   {result.simplified.numerator}/{result.simplified.denominator}
                 </div>
@@ -742,10 +775,9 @@ export default function FractionCalculator() {
               </div>
               <div className="rounded-lg bg-gray-900 p-6 text-center">
                 <div className="text-xl font-bold text-primary-blue-dark">
-                  {result.result.mixed ? 
-                    `${result.result.mixed.whole} ${result.result.mixed.numerator}/${result.result.mixed.denominator}` : 
-                    "Não aplicável"
-                  }
+                  {result.result.mixed
+                    ? `${result.result.mixed.whole} ${result.result.mixed.numerator}/${result.result.mixed.denominator}`
+                    : "Não aplicável"}
                 </div>
                 <div className="text-sm text-text-secondary">Número Misto</div>
               </div>
@@ -754,11 +786,25 @@ export default function FractionCalculator() {
             <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
               <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Operação</h4>
               <div className="text-sm text-text-secondary">
-                <div><strong>Operação:</strong> {result.operation === "soma" ? "Soma" : result.operation === "subtracao" ? "Subtração" : result.operation === "multiplicacao" ? "Multiplicação" : "Divisão"}</div>
+                <div>
+                  <strong>Operação:</strong>{" "}
+                  {result.operation === "soma"
+                    ? "Soma"
+                    : result.operation === "subtracao"
+                      ? "Subtração"
+                      : result.operation === "multiplicacao"
+                        ? "Multiplicação"
+                        : "Divisão"}
+                </div>
                 {result.commonDenominator && (
-                  <div><strong>MMC dos denominadores:</strong> {result.commonDenominator}</div>
+                  <div>
+                    <strong>MMC dos denominadores:</strong> {result.commonDenominator}
+                  </div>
                 )}
-                <div><strong>Fração original:</strong> {result.result.numerator}/{result.result.denominator}</div>
+                <div>
+                  <strong>Fração original:</strong> {result.result.numerator}/
+                  {result.result.denominator}
+                </div>
               </div>
             </div>
 
@@ -1077,13 +1123,10 @@ export default function FractionCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">
-                calculadora de frações
-              </strong>{" "}
-              permite realizar <strong className="text-growth-green">operações básicas com frações</strong>:
-              soma, subtração, multiplicação e divisão com precisão matemática e resultados
-              instantâneos.
+              Esta <strong className="text-primary-blue-dark">calculadora de frações</strong>{" "}
+              permite realizar{" "}
+              <strong className="text-growth-green">operações básicas com frações</strong>: soma,
+              subtração, multiplicação e divisão com precisão matemática e resultados instantâneos.
             </p>
             <p>
               <strong>Funcionalidades:</strong> Cálculo do discriminante (Δ), determinação do tipo

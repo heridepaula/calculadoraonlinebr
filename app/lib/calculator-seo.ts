@@ -186,7 +186,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de consórcio GRATUITA e completa! Simule parcelas de consórcio de imóveis, veículos e motos. Calcule taxa de administração, contemplação e compare grupos. Ferramenta essencial para decidir seu consórcio.",
     keywords:
       "calculadora consórcio, simulador consórcio, consórcio imóvel, consórcio veículo, consórcio moto, parcelas consórcio, contemplação consórcio, taxa administração, grupos consórcio, lance consórcio, sorteio consórcio",
-    canonicalUrl: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
     priority: 0.8,
     changeFreq: "monthly",
   },

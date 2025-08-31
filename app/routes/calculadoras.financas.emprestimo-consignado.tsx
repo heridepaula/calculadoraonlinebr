@@ -32,7 +32,7 @@ export const meta: MetaFunction = () => {
     },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
     },
     {
       property: "og:title",
@@ -63,7 +63,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -105,7 +105,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Empréstimo Consignado - Simulador Completo 2025",
         description:
           "Simulador gratuito de empréstimo consignado com cálculo de parcelas, CET, IOF e taxas para aposentados, pensionistas e servidores públicos.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -119,10 +119,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -133,7 +133,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
           name: "Calculadora de Empréstimo Consignado 2025 - Simulador Completo",
           description:
             "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas para aposentados, pensionistas e servidores públicos.",
@@ -141,11 +142,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -156,25 +157,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Calculadora de Empréstimo Consignado",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
               },
             ],
           },

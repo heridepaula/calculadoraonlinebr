@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
     },
     {
       property: "og:title",
@@ -50,8 +50,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
     },
     {
       property: "og:image:alt",
@@ -68,7 +67,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -80,12 +79,11 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calculadora online para MMC e MDC. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com fatoração completa. Gratuito!"
+        "Calculadora online para MMC e MDC. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com fatoração completa. Gratuito!",
     },
     {
       name: "twitter:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
     },
     {
       name: "twitter:image:alt",
@@ -103,7 +101,11 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
-    { name: "keywords", content: "MMC, MDC, mínimo múltiplo comum, máximo divisor comum, fatoração prima, algoritmo euclides, matemática, calculadora" },
+    {
+      name: "keywords",
+      content:
+        "MMC, MDC, mínimo múltiplo comum, máximo divisor comum, fatoração prima, algoritmo euclides, matemática, calculadora",
+    },
     { name: "rating", content: "general" },
     { name: "distribution", content: "global" },
     { name: "revisit-after", content: "7 days" },
@@ -114,7 +116,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum 2025",
         description:
           "Calculadora online gratuita para MMC e MDC com fatoração prima. Calcule Mínimo Múltiplo Comum e Máximo Divisor Comum com explicação passo a passo detalhada.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -128,10 +130,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -142,7 +144,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
           name: "Calculadora MMC e MDC 2025 - Mínimo Múltiplo Comum e Máximo Divisor Comum",
           description:
             "Calcule MMC e MDC com fatoração prima e algoritmo de Euclides. Explicação passo a passo dos métodos para encontrar Mínimo Múltiplo Comum e Máximo Divisor Comum.",
@@ -150,11 +152,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -165,25 +167,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Matemática",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "MMC e MDC",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
               },
             ],
           },
@@ -191,7 +193,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "MMC e MDC",
-          description: "Cálculo de Mínimo Múltiplo Comum e Máximo Divisor Comum usando fatoração prima e algoritmo de Euclides",
+          description:
+            "Cálculo de Mínimo Múltiplo Comum e Máximo Divisor Comum usando fatoração prima e algoritmo de Euclides",
           category: "Mathematics",
         },
         featureList: [
@@ -255,25 +258,25 @@ export const meta: MetaFunction = () => {
             "@type": "ListItem",
             position: 1,
             name: "Início",
-            item: "https://calculadoraonlinebr.com.br",
+            item: "https://www.calculadoraonlinebr.com.br",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Calculadoras",
-            item: "https://calculadoraonlinebr.com.br/calculadoras",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Matemática",
-            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
           },
           {
             "@type": "ListItem",
             position: 4,
             name: "MMC e MDC",
-            item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
           },
         ],
       }),
@@ -386,28 +389,28 @@ export default function MMCMDCCalculator() {
   const getPrimeFactorization = (n: number): { [prime: number]: number } => {
     const factors: { [prime: number]: number } = {};
     let temp = n;
-    
+
     for (let i = 2; i <= temp; i++) {
       while (temp % i === 0) {
         factors[i] = (factors[i] || 0) + 1;
         temp /= i;
       }
     }
-    
+
     return factors;
   };
 
   const getFactorization = (n: number): number[] => {
     const factors: number[] = [];
     let temp = n;
-    
+
     for (let i = 2; i <= temp; i++) {
       while (temp % i === 0) {
         factors.push(i);
         temp /= i;
       }
     }
-    
+
     return factors.length ? factors : [n];
   };
 
@@ -457,14 +460,14 @@ export default function MMCMDCCalculator() {
     const num1 = parseNumber(number1);
     const num2 = parseNumber(number2);
     const num3 = number3.trim() ? parseNumber(number3) : null;
-    
+
     const numbers = num3 ? [num1, num2, num3] : [num1, num2];
-    
+
     // Calcular fatorações
     const factorizations: { [key: number]: number[] } = {};
     const primeFactors: { [key: number]: { [prime: number]: number } } = {};
-    
-    numbers.forEach(num => {
+
+    numbers.forEach((num) => {
       factorizations[num] = getFactorization(num);
       primeFactors[num] = getPrimeFactorization(num);
     });
@@ -482,37 +485,34 @@ export default function MMCMDCCalculator() {
     }
 
     // Passos gerais
-    const steps: string[] = [
-      `Números: ${numbers.join(', ')}`,
-      `Fatoração de cada número:`,
-    ];
+    const steps: string[] = [`Números: ${numbers.join(", ")}`, `Fatoração de cada número:`];
 
-    numbers.forEach(num => {
+    numbers.forEach((num) => {
       const factors = factorizations[num];
       if (factors.length === 1 && factors[0] === num) {
         steps.push(`${num} = ${num} (número primo)`);
       } else {
-        steps.push(`${num} = ${factors.join(' × ')}`);
+        steps.push(`${num} = ${factors.join(" × ")}`);
       }
     });
 
     // Passos para MDC
     const mdcSteps: string[] = [
-      `MDC(${numbers.join(', ')}) - Máximo Divisor Comum`,
+      `MDC(${numbers.join(", ")}) - Máximo Divisor Comum`,
       `Fatores primos comuns com menor expoente:`,
     ];
 
     // Encontrar fatores comuns para MDC
     const allPrimes = new Set<number>();
-    numbers.forEach(num => {
-      Object.keys(primeFactors[num]).forEach(prime => {
+    numbers.forEach((num) => {
+      Object.keys(primeFactors[num]).forEach((prime) => {
         allPrimes.add(parseInt(prime));
       });
     });
 
     const commonFactors: { [prime: number]: number } = {};
-    allPrimes.forEach(prime => {
-      const exponents = numbers.map(num => primeFactors[num][prime] || 0);
+    allPrimes.forEach((prime) => {
+      const exponents = numbers.map((num) => primeFactors[num][prime] || 0);
       const minExponent = Math.min(...exponents);
       if (minExponent > 0) {
         commonFactors[prime] = minExponent;
@@ -521,8 +521,8 @@ export default function MMCMDCCalculator() {
 
     if (Object.keys(commonFactors).length > 0) {
       const commonFactorsStr = Object.entries(commonFactors)
-        .map(([prime, exp]) => exp === 1 ? prime : `${prime}^${exp}`)
-        .join(' × ');
+        .map(([prime, exp]) => (exp === 1 ? prime : `${prime}^${exp}`))
+        .join(" × ");
       mdcSteps.push(`MDC = ${commonFactorsStr} = ${mdc}`);
     } else {
       mdcSteps.push(`Não há fatores primos comuns`);
@@ -531,13 +531,13 @@ export default function MMCMDCCalculator() {
 
     // Passos para MMC
     const mmcSteps: string[] = [
-      `MMC(${numbers.join(', ')}) - Mínimo Múltiplo Comum`,
+      `MMC(${numbers.join(", ")}) - Mínimo Múltiplo Comum`,
       `Fatores primos com maior expoente:`,
     ];
 
     const allFactorsForMMC: { [prime: number]: number } = {};
-    allPrimes.forEach(prime => {
-      const exponents = numbers.map(num => primeFactors[num][prime] || 0);
+    allPrimes.forEach((prime) => {
+      const exponents = numbers.map((num) => primeFactors[num][prime] || 0);
       const maxExponent = Math.max(...exponents);
       if (maxExponent > 0) {
         allFactorsForMMC[prime] = maxExponent;
@@ -545,8 +545,8 @@ export default function MMCMDCCalculator() {
     });
 
     const mmcFactorsStr = Object.entries(allFactorsForMMC)
-      .map(([prime, exp]) => exp === 1 ? prime : `${prime}^${exp}`)
-      .join(' × ');
+      .map(([prime, exp]) => (exp === 1 ? prime : `${prime}^${exp}`))
+      .join(" × ");
     mmcSteps.push(`MMC = ${mmcFactorsStr} = ${mmc}`);
 
     return {
@@ -627,7 +627,7 @@ export default function MMCMDCCalculator() {
             </p>
             <div className="mt-2 rounded-lg bg-primary-blue-light p-3">
               <span className="text-xl font-bold text-primary-blue-dark">MMC e MDC</span>
-              <p className="text-sm text-primary-blue-dark mt-1">
+              <p className="mt-1 text-sm text-primary-blue-dark">
                 Digite números inteiros positivos para calcular o MMC e MDC
               </p>
             </div>
@@ -665,7 +665,9 @@ export default function MMCMDCCalculator() {
                 step="1"
               />
               <ErrorMessage error={errors.number2} />
-              <div className="mt-1 text-xs text-text-secondary">Digite um número inteiro positivo</div>
+              <div className="mt-1 text-xs text-text-secondary">
+                Digite um número inteiro positivo
+              </div>
             </div>
             <div className="w-48">
               <Input
@@ -720,18 +722,14 @@ export default function MMCMDCCalculator() {
 
             <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="text-3xl font-bold text-system-warning">
-                  {result.mmc}
-                </div>
+                <div className="text-3xl font-bold text-system-warning">{result.mmc}</div>
                 <div className="text-sm text-text-secondary">MMC (Mínimo Múltiplo Comum)</div>
                 <div className="mt-2 text-xs text-gray-400">
                   Menor múltiplo comum a todos os números
                 </div>
               </div>
               <div className="rounded-lg bg-gray-900 p-6 text-center">
-                <div className="text-3xl font-bold text-growth-green">
-                  {result.mdc}
-                </div>
+                <div className="text-3xl font-bold text-growth-green">{result.mdc}</div>
                 <div className="text-sm text-text-secondary">MDC (Máximo Divisor Comum)</div>
                 <div className="mt-2 text-xs text-gray-400">
                   Maior divisor comum a todos os números
@@ -783,10 +781,12 @@ export default function MMCMDCCalculator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">🔍 MMC - Mínimo Múltiplo Comum</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    🔍 MMC - Mínimo Múltiplo Comum
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    O MMC é o menor número inteiro positivo que é múltiplo comum de dois ou mais números.
-                    Usado para operações com frações e resolução de problemas matemáticos.
+                    O MMC é o menor número inteiro positivo que é múltiplo comum de dois ou mais
+                    números. Usado para operações com frações e resolução de problemas matemáticos.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Cálculo</h4>
@@ -797,7 +797,9 @@ export default function MMCMDCCalculator() {
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ MDC - Máximo Divisor Comum</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ MDC - Máximo Divisor Comum
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
                     O MDC é o maior número que divide dois ou mais números sem deixar resto.
                     Fundamental para simplificação de frações.
@@ -823,8 +825,8 @@ export default function MMCMDCCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Fatoração Prima</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Decomponha cada número em fatores primos. Para o MMC, use os fatores com maior expoente.
-                    Para o MDC, use os fatores comuns com menor expoente.
+                    Decomponha cada número em fatores primos. Para o MMC, use os fatores com maior
+                    expoente. Para o MDC, use os fatores comuns com menor expoente.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Exemplo</h4>
@@ -837,7 +839,9 @@ export default function MMCMDCCalculator() {
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Algoritmo de Euclides</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ Algoritmo de Euclides
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
                     Para calcular o MDC, divida o maior pelo menor e continue dividindo pelos restos
                     até obter resto zero. O último divisor é o MDC.
@@ -861,10 +865,12 @@ export default function MMCMDCCalculator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Problemas do Cotidiano</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    🔍 Problemas do Cotidiano
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    MMC e MDC aparecem em diversas situações práticas da vida real,
-                    desde organização de objetos até cálculos financeiros.
+                    MMC e MDC aparecem em diversas situações práticas da vida real, desde
+                    organização de objetos até cálculos financeiros.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Exemplos MMC</h4>
@@ -876,9 +882,7 @@ export default function MMCMDCCalculator() {
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">
-                    ✅ Exemplos MDC
-                  </h4>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Exemplos MDC</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Divisão de grupos em partes iguais</li>
                     <li>• Simplificação de frações</li>
@@ -913,11 +917,15 @@ export default function MMCMDCCalculator() {
                   <th className="p-3 text-center font-semibold text-primary-blue-dark">
                     Fatoração Prima
                   </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">Algoritmo de Euclides</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">
+                    Algoritmo de Euclides
+                  </th>
                   <th className="p-3 text-center font-semibold text-system-warning">
                     Divisões Sucessivas
                   </th>
-                  <th className="p-3 text-center font-semibold text-system-info">Lista de Múltiplos</th>
+                  <th className="p-3 text-center font-semibold text-system-info">
+                    Lista de Múltiplos
+                  </th>
                 </tr>
               </thead>
               <tbody className="space-y-2">
@@ -971,8 +979,8 @@ export default function MMCMDCCalculator() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Fatoração Prima</h4>
               <p className="text-sm text-text-secondary">
-                Método <strong>mais compreensivo</strong> para calcular MMC e MDC, ideal para 
-                ensino e compreensão dos conceitos. Saiba mais sobre
+                Método <strong>mais compreensivo</strong> para calcular MMC e MDC, ideal para ensino
+                e compreensão dos conceitos. Saiba mais sobre
                 <a
                   href="/calculadoras/matematica/porcentagem"
                   className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
@@ -1067,22 +1075,21 @@ export default function MMCMDCCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">
-                calculadora de MMC e MDC
-              </strong>{" "}
-              utiliza <strong className="text-growth-green">fatoração prima e algoritmo de Euclides</strong> para
-              calcular o Mínimo Múltiplo Comum e Máximo Divisor Comum com precisão matemática e resultados
-              instantâneos.
+              Esta <strong className="text-primary-blue-dark">calculadora de MMC e MDC</strong>{" "}
+              utiliza{" "}
+              <strong className="text-growth-green">fatoração prima e algoritmo de Euclides</strong>{" "}
+              para calcular o Mínimo Múltiplo Comum e Máximo Divisor Comum com precisão matemática e
+              resultados instantâneos.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo simultâneo de MMC e MDC, fatoração prima completa,
-              explicação passo a passo dos métodos utilizados e demonstração da relação fundamental entre os conceitos.
+              <strong>Funcionalidades:</strong> Cálculo simultâneo de MMC e MDC, fatoração prima
+              completa, explicação passo a passo dos métodos utilizados e demonstração da relação
+              fundamental entre os conceitos.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e resolução de exercícios matemáticos. Use números inteiros positivos para
-              obter resultados corretos. Explore também nossas calculadoras de
+              fins educacionais e resolução de exercícios matemáticos. Use números inteiros
+              positivos para obter resultados corretos. Explore também nossas calculadoras de
               <a
                 href="/calculadoras/matematica/area-perimetro"
                 className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
@@ -1092,8 +1099,8 @@ export default function MMCMDCCalculator() {
               para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 🔢 Fatoração Prima • 🔒 Dados não armazenados • 📱
-              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 🔢 Fatoração Prima • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>

@@ -92,7 +92,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
     },
     {
       property: "og:title",
@@ -123,7 +123,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -163,7 +163,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora Tesouro Direto - Simulador com Dados Oficiais 2025",
         description:
           "Simulador gratuito de Tesouro Direto com dados oficiais: Tesouro Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, taxas de custódia e resgate antecipado.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -177,10 +177,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -191,7 +191,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
           name: "Calculadora Tesouro Direto 2025 - Simulador com Dados Oficiais",
           description:
             "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado.",
@@ -199,11 +199,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -214,25 +214,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Tesouro Direto",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
               },
             ],
           },
@@ -270,7 +270,7 @@ export const meta: MetaFunction = () => {
             },
           },
           {
-            "@type": "Question", 
+            "@type": "Question",
             name: "Como funciona o resgate antecipado do Tesouro Direto?",
             acceptedAnswer: {
               "@type": "Answer",
@@ -301,7 +301,8 @@ export const meta: MetaFunction = () => {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como Calcular Rendimentos do Tesouro Direto",
-        description: "Passo a passo para simular investimentos em títulos do Tesouro Direto com dados oficiais",
+        description:
+          "Passo a passo para simular investimentos em títulos do Tesouro Direto com dados oficiais",
         image: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
         totalTime: "PT3M",
         estimatedCost: {
@@ -311,7 +312,7 @@ export const meta: MetaFunction = () => {
         },
         tool: [
           {
-            "@type": "HowToTool", 
+            "@type": "HowToTool",
             name: "Calculadora Tesouro Direto Online",
           },
         ],

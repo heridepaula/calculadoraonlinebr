@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
     },
     {
       property: "og:title",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt-BR" },
@@ -148,7 +148,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Juros Simples - Simulador Preciso 2025",
         description:
           "Calculadora gratuita e precisa de juros simples. Simule o crescimento linear do seu capital, visualize gráficos e tabela detalhada com resultados claros.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -162,10 +162,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -176,7 +176,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
           name: "Calculadora de Juros Simples 2025 - Simulador Preciso",
           description:
             "Simule crescimento linear do capital com juros simples. Visualize gráficos claros, tabela detalhada e entenda como funciona o cálculo de juros simples.",
@@ -184,11 +184,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -199,25 +199,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Calculadora de Juros Simples",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
               },
             ],
           },
@@ -402,19 +402,19 @@ export default function SimpleInterestCalculator() {
       // Taxa e período para juros simples
       const rate = periodType === "months" ? r : r / 12; // taxa por período
       const totalPeriods = periodType === "months" ? n : n * 12;
-      
+
       // Cálculo de juros simples: M = C + (C × i × t)
       const totalInterest = p * rate * totalPeriods;
       const finalAmount = p + totalInterest;
-      
+
       // Evolução mensal para juros simples
       const monthlyData: MonthlyData[] = [];
       const monthlyInterestAmount = totalInterest / totalPeriods;
-      
+
       for (let month = 1; month <= totalPeriods; month++) {
         const accumulatedInterest = monthlyInterestAmount * month;
         const currentBalance = p + accumulatedInterest;
-        
+
         monthlyData.push({
           month,
           balance: currentBalance,
@@ -476,14 +476,14 @@ export default function SimpleInterestCalculator() {
           Calculadora de Juros Simples 2025 – Simulador Preciso
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule o <strong className="text-growth-green">crescimento linear do seu capital</strong> com
-          juros simples. Entenda como funciona o cálculo direto e descubra{" "}
+          Calcule o <strong className="text-growth-green">crescimento linear do seu capital</strong>{" "}
+          com juros simples. Entenda como funciona o cálculo direto e descubra{" "}
           <strong className="text-primary-blue-dark">o montante final</strong> de forma simples.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🧮 <strong>Fórmula Simples</strong> • 📈 <strong>Crescimento Linear</strong> •
-            💰 <strong>Resultados Precisos</strong>
+            🧮 <strong>Fórmula Simples</strong> • 📈 <strong>Crescimento Linear</strong> • 💰{" "}
+            <strong>Resultados Precisos</strong>
           </p>
         </div>
       </header>
@@ -619,7 +619,9 @@ export default function SimpleInterestCalculator() {
                 <div className="text-2xl font-bold text-system-warning">
                   {percentBR(result.rate)}%
                 </div>
-                <div className="text-sm text-text-secondary">Taxa {result.periodType === "months" ? "Mensal" : "Anual"}</div>
+                <div className="text-sm text-text-secondary">
+                  Taxa {result.periodType === "months" ? "Mensal" : "Anual"}
+                </div>
               </div>
             </div>
 
@@ -665,7 +667,9 @@ export default function SimpleInterestCalculator() {
                 <div className="text-sm text-text-secondary">Valor aplicado</div>
               </div>
               <div className="text-center">
-                <div className="text-sm text-text-secondary">Taxa {result.periodType === "months" ? "Mensal" : "Anual"}</div>
+                <div className="text-sm text-text-secondary">
+                  Taxa {result.periodType === "months" ? "Mensal" : "Anual"}
+                </div>
                 <div className="text-xl font-bold text-text-primary">
                   {percentBR(result.rate, 3)}%
                 </div>
@@ -696,7 +700,8 @@ export default function SimpleInterestCalculator() {
                   Período:{" "}
                   <strong>
                     {result.periodType === "months" ? result.periods : result.periods / 12}{" "}
-                    {result.periodType === "months" ? "meses" : "anos"} ({result.periods} {result.periodType === "months" ? "meses" : "meses"})
+                    {result.periodType === "months" ? "meses" : "anos"} ({result.periods}{" "}
+                    {result.periodType === "months" ? "meses" : "meses"})
                   </strong>
                 </li>
                 <li>
@@ -807,10 +812,7 @@ export default function SimpleInterestCalculator() {
                       labels: ["Capital Inicial", "Juros Simples"],
                       datasets: [
                         {
-                          data: [
-                            result.initialAmount,
-                            result.totalInterest,
-                          ],
+                          data: [result.initialAmount, result.totalInterest],
                           backgroundColor: [
                             "#64B5F6", // Primary blue
                             "#66BB6A", // Green
@@ -1108,10 +1110,12 @@ export default function SimpleInterestCalculator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">📈 Investimentos de Curto Prazo</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">
+                    📈 Investimentos de Curto Prazo
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Juros simples são ideais para aplicações de curto prazo onde a simplicidade
-                    do cálculo é mais importante que o crescimento exponencial.
+                    Juros simples são ideais para aplicações de curto prazo onde a simplicidade do
+                    cálculo é mais importante que o crescimento exponencial.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">💰 Situações Comuns</h4>
@@ -1291,15 +1295,14 @@ export default function SimpleInterestCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de juros simples</strong>{" "}
-              utiliza <strong className="text-growth-green">a fórmula matemática clássica</strong>{" "}
-              M = C + (C × i × t) para calcular o crescimento linear do capital ao longo do tempo.
+              Esta <strong className="text-primary-blue-dark">calculadora de juros simples</strong>{" "}
+              utiliza <strong className="text-growth-green">a fórmula matemática clássica</strong> M
+              = C + (C × i × t) para calcular o crescimento linear do capital ao longo do tempo.
             </p>
             <p>
-              <strong>Configurações disponíveis:</strong> Capital inicial, taxa de juros e
-              período em meses ou anos. A calculadora distribui os juros de forma linear
-              ao longo do período.
+              <strong>Configurações disponíveis:</strong> Capital inicial, taxa de juros e período
+              em meses ou anos. A calculadora distribui os juros de forma linear ao longo do
+              período.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
@@ -1308,8 +1311,8 @@ export default function SimpleInterestCalculator() {
               reais de mercado.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🧮 Fórmula simples • 📈 Crescimento linear • 🔒 Dados não armazenados • 📱
-              Compatível com todos os dispositivos • 🌙 Interface otimizada
+              🧮 Fórmula simples • 📈 Crescimento linear • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>

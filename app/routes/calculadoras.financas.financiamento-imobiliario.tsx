@@ -33,7 +33,7 @@ export const meta: MetaFunction = () => {
     },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
     },
     {
       property: "og:title",
@@ -64,7 +64,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -106,7 +107,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Financiamento Imobiliário - Simulador SAC e PRICE 2025",
         description:
           "Simulador gratuito de financiamento imobiliário com cálculo SAC e PRICE, parcelas, amortização e juros para compra da casa própria.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -120,10 +121,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -135,7 +136,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id":
-            "https://calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
+            "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
           name: "Calculadora de Financiamento Imobiliário 2025 - Simulador SAC e PRICE",
           description:
             "Simule financiamento imobiliário com cálculo SAC e PRICE, parcelas, amortização e juros para compra da casa própria.",
@@ -143,11 +144,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -158,25 +159,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Calculadora de Financiamento Imobiliário",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
               },
             ],
           },
@@ -930,20 +931,20 @@ export default function MortgageCalculator() {
               <strong className="text-primary-blue-dark">
                 calculadora de financiamento imobiliário
               </strong>{" "}
-              utiliza <strong className="text-growth-green">simulações financeiras precisas</strong> para
-              comparar sistemas SAC e PRICE, calculando parcelas, juros totais e cronograma de
+              utiliza <strong className="text-growth-green">simulações financeiras precisas</strong>{" "}
+              para comparar sistemas SAC e PRICE, calculando parcelas, juros totais e cronograma de
               amortização para diferentes cenários de financiamento.
             </p>
             <p>
-              <strong>Sistemas disponíveis:</strong> SAC (Sistema de Amortização Constante) e PRICE 
-              (Tabela Price). Cada sistema possui características específicas que impactam o valor 
+              <strong>Sistemas disponíveis:</strong> SAC (Sistema de Amortização Constante) e PRICE
+              (Tabela Price). Cada sistema possui características específicas que impactam o valor
               total de juros e a evolução das parcelas ao longo do financiamento.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e de planejamento pessoal. Para decisões de financiamento, consulte sempre
-              as <strong>instituições financeiras autorizadas</strong> e avalie sua capacidade de
-              pagamento e estabilidade de renda.
+              fins educacionais e de planejamento pessoal. Para decisões de financiamento, consulte
+              sempre as <strong>instituições financeiras autorizadas</strong> e avalie sua
+              capacidade de pagamento e estabilidade de renda.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
               🏠 Simulação imobiliária • 📊 SAC vs PRICE • 🔒 Dados não armazenados • 📱 Compatível

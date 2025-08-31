@@ -50,7 +50,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
     },
     {
       property: "og:title",
@@ -64,7 +64,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content:
-        "https://calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
     },
     {
       property: "og:image:alt",
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -98,7 +98,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image",
       content:
-        "https://calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
     },
     {
       name: "twitter:image:alt",
@@ -121,7 +121,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Desenvolvimento Infantil 2025",
         description:
           "Ferramenta gratuita para acompanhar o crescimento e desenvolvimento de crianças. Calcule percentis de altura e peso, marcos do desenvolvimento baseados em padrões da OMS.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
         applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -135,10 +135,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -149,7 +149,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
           name: "Calculadora de Desenvolvimento Infantil 2025 - Percentis e Crescimento",
           description:
             "Monitore o crescimento infantil com precisão. Calcule percentis de altura e peso, acompanhe marcos do desenvolvimento baseados em padrões da OMS. Ferramenta essencial para pais e profissionais da saúde.",
@@ -157,11 +158,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -172,25 +173,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Saúde",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Desenvolvimento Infantil",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
               },
             ],
           },
@@ -232,7 +233,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Desenvolvimento Infantil - Percentis e Crescimento",
         description:
           "Ferramenta médica educacional para monitoramento do crescimento infantil baseada em padrões da OMS",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
         inLanguage: "pt-BR",
         medicalAudience: [
           {

@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     {
       property: "og:title",
@@ -68,7 +68,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -108,7 +108,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Área e Perímetro - Formas Geométricas 2025",
         description:
           "Calculadora gratuita e precisa de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -122,10 +122,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -136,7 +136,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
           name: "Calculadora de Área e Perímetro 2025 - Formas Geométricas",
           description:
             "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos.",
@@ -144,11 +144,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -159,25 +159,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Matemática",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Área e Perímetro",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
               },
             ],
           },

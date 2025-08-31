@@ -204,7 +204,10 @@ export const meta: MetaFunction = () => {
         "Calculadora de IMC mais completa do Brasil: análise por idade/sexo, múltiplas unidades, gráficos interativos e recomendações personalizadas baseadas na OMS.",
     },
     { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://calculadoraonlinebr.com.br/calculadoras/saude/imc" },
+    {
+      property: "og:url",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
+    },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -233,7 +236,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de IMC",
         description:
           "Calculadora online gratuita de Índice de Massa Corporal com análise personalizada por idade, sexo e múltiplas unidades de medida.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/imc",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
         mainEntity: {
           "@type": "MedicalCalculator",
           name: "Calculadora de IMC (Índice de Massa Corporal)",
@@ -245,7 +248,7 @@ export const meta: MetaFunction = () => {
           isAccessibleForFree: true,
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/imc",
+            "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
           },
         },
         breadcrumb: {
@@ -255,19 +258,19 @@ export const meta: MetaFunction = () => {
               "@type": "ListItem",
               position: 1,
               name: "Início",
-              item: "https://calculadoraonlinebr.com.br",
+              item: "https://www.calculadoraonlinebr.com.br",
             },
             {
               "@type": "ListItem",
               position: 2,
               name: "Calculadoras",
-              item: "https://calculadoraonlinebr.com.br/calculadoras",
+              item: "https://www.calculadoraonlinebr.com.br/calculadoras",
             },
             {
               "@type": "ListItem",
               position: 3,
               name: "Saúde",
-              item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+              item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude",
             },
             {
               "@type": "ListItem",
@@ -279,7 +282,7 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "Calculadora Online BR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
         },
         inLanguage: "pt-BR",
         isAccessibleForFree: true,

@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
     },
     {
       property: "og:title",
@@ -50,12 +50,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
     },
     {
       property: "og:image:alt",
-      content:
-        "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara e Delta",
+      content: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara e Delta",
     },
     {
       property: "og:image:width",
@@ -68,7 +68,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -84,7 +85,8 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
+      content:
+        "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
     },
     {
       name: "twitter:image:alt",
@@ -109,7 +111,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2025",
         description:
           "Calculadora gratuita e precisa para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -123,10 +125,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -137,7 +139,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
           name: "Calculadora de Equação de Segundo Grau 2025 - Fórmula de Bhaskara",
           description:
             "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
@@ -145,11 +148,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -160,25 +163,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Matemática",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Equação de Segundo Grau",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
               },
             ],
           },
@@ -318,7 +321,7 @@ export default function QuadraticEquationCalculator() {
     category: "matematica",
   });
   useFormTracking("equacao-segundo-grau");
-  
+
   // IndexNow integration for SEO
   const { submitCalculatorUrls } = useIndexNow({
     autoSubmit: true, // Submit current page on mount
@@ -397,7 +400,7 @@ export default function QuadraticEquationCalculator() {
       const imagPart = Math.sqrt(-delta) / (2 * aValue);
       roots = {
         x1: `${numberBR(realPart, 4)} + ${numberBR(imagPart, 4)}i`,
-        x2: `${numberBR(realPart, 4)} - ${numberBR(imagPart, 4)}i`
+        x2: `${numberBR(realPart, 4)} - ${numberBR(imagPart, 4)}i`,
       };
     }
 
@@ -414,7 +417,7 @@ export default function QuadraticEquationCalculator() {
       `Equação: ${equation}`,
       `Coeficientes: a = ${aValue}, b = ${bValue}, c = ${cValue}`,
       `Δ = b² - 4ac = (${bValue})² - 4(${aValue})(${cValue})`,
-      `Δ = ${bValue * bValue} - ${4 * aValue * cValue} = ${delta}`
+      `Δ = ${bValue * bValue} - ${4 * aValue * cValue} = ${delta}`,
     ];
 
     if (delta > 0) {
@@ -442,7 +445,7 @@ export default function QuadraticEquationCalculator() {
       rootType,
       equation,
       steps,
-      coefficients: { a: aValue, b: bValue, c: cValue }
+      coefficients: { a: aValue, b: bValue, c: cValue },
     };
   };
 
@@ -545,9 +548,7 @@ export default function QuadraticEquationCalculator() {
                 step="any"
               />
               <ErrorMessage error={errors.b} />
-              <div className="mt-1 text-xs text-text-secondary">
-                Coeficiente do termo x
-              </div>
+              <div className="mt-1 text-xs text-text-secondary">Coeficiente do termo x</div>
             </div>
             <div className="w-48">
               <Input
@@ -561,9 +562,7 @@ export default function QuadraticEquationCalculator() {
                 step="any"
               />
               <ErrorMessage error={errors.c} />
-              <div className="mt-1 text-xs text-text-secondary">
-                Termo independente
-              </div>
+              <div className="mt-1 text-xs text-text-secondary">Termo independente</div>
             </div>
           </div>
 
@@ -594,7 +593,7 @@ export default function QuadraticEquationCalculator() {
           <CardContent>
             <div className="mb-6 rounded-lg bg-gray-900 p-4">
               <div className="text-center">
-                <div className="text-sm text-text-secondary mb-2">Equação</div>
+                <div className="mb-2 text-sm text-text-secondary">Equação</div>
                 <div className="text-2xl font-bold text-primary-blue-dark">{result.equation}</div>
               </div>
             </div>
@@ -608,13 +607,17 @@ export default function QuadraticEquationCalculator() {
               </div>
               <div className="rounded-lg bg-gray-900 p-6 text-center">
                 <div className="text-xl font-bold text-growth-green">
-                  {typeof result.roots.x1 === 'number' ? numberBR(result.roots.x1, 4) : result.roots.x1}
+                  {typeof result.roots.x1 === "number"
+                    ? numberBR(result.roots.x1, 4)
+                    : result.roots.x1}
                 </div>
                 <div className="text-sm text-text-secondary">Raiz x₁</div>
               </div>
               <div className="rounded-lg bg-gray-900 p-6 text-center">
                 <div className="text-xl font-bold text-primary-blue-dark">
-                  {typeof result.roots.x2 === 'number' ? numberBR(result.roots.x2, 4) : result.roots.x2}
+                  {typeof result.roots.x2 === "number"
+                    ? numberBR(result.roots.x2, 4)
+                    : result.roots.x2}
                 </div>
                 <div className="text-sm text-text-secondary">Raiz x₂</div>
               </div>
@@ -753,7 +756,9 @@ export default function QuadraticEquationCalculator() {
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Interpretação Gráfica</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    ✅ Interpretação Gráfica
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Δ &gt; 0: Parábola corta eixo x em 2 pontos</li>
                     <li>• Δ = 0: Parábola toca eixo x em 1 ponto</li>
@@ -789,7 +794,9 @@ export default function QuadraticEquationCalculator() {
                     Fórmula de Bhaskara
                   </th>
                   <th className="p-3 text-center font-semibold text-growth-green">Fatoração</th>
-                  <th className="p-3 text-center font-semibold text-system-warning">Completar Quadrado</th>
+                  <th className="p-3 text-center font-semibold text-system-warning">
+                    Completar Quadrado
+                  </th>
                   <th className="p-3 text-center font-semibold text-system-info">Gráfico</th>
                 </tr>
               </thead>
@@ -844,10 +851,22 @@ export default function QuadraticEquationCalculator() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h4 className="mb-2 font-bold text-primary-blue-dark">🔢 Bhaskara</h4>
               <p className="text-sm text-text-secondary">
-                Método <strong>mais confiável</strong> para resolver qualquer equação de segundo grau,
-                especialmente com coeficientes decimais. Saiba mais sobre 
-                <a href="/calculadoras/matematica/porcentagem" className="text-primary-blue-dark underline hover:text-primary-blue font-medium">cálculos de porcentagem</a> 
-                ou explore nossa <a href="/calculadoras/matematica/fracoes" className="text-primary-blue-dark underline hover:text-primary-blue font-medium">calculadora de frações</a>.
+                Método <strong>mais confiável</strong> para resolver qualquer equação de segundo
+                grau, especialmente com coeficientes decimais. Saiba mais sobre
+                <a
+                  href="/calculadoras/matematica/porcentagem"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  cálculos de porcentagem
+                </a>
+                ou explore nossa{" "}
+                <a
+                  href="/calculadoras/matematica/fracoes"
+                  className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+                >
+                  calculadora de frações
+                </a>
+                .
               </p>
             </div>
 
@@ -929,26 +948,35 @@ export default function QuadraticEquationCalculator() {
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de equação de segundo grau</strong>{" "}
-              utiliza a <strong className="text-growth-green">fórmula de Bhaskara</strong>{" "}
-              para resolver equações do tipo ax² + bx + c = 0 com precisão matemática e resultados
+              <strong className="text-primary-blue-dark">
+                calculadora de equação de segundo grau
+              </strong>{" "}
+              utiliza a <strong className="text-growth-green">fórmula de Bhaskara</strong> para
+              resolver equações do tipo ax² + bx + c = 0 com precisão matemática e resultados
               instantâneos.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo do discriminante (Δ), determinação do tipo de raízes,
-              resolução passo a passo e apresentação de raízes reais ou complexas conforme o caso.
+              <strong>Funcionalidades:</strong> Cálculo do discriminante (Δ), determinação do tipo
+              de raízes, resolução passo a passo e apresentação de raízes reais ou complexas
+              conforme o caso.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
-              fins educacionais e resolução de exercícios. Para aplicações científicas ou de engenharia
-              que exigem alta precisão, consulte sempre um <strong>profissional qualificado</strong> e
-              considere limitações de precisão numérica. Explore também nossas calculadoras de 
-              <a href="/calculadoras/matematica/area-perimetro" className="text-primary-blue-dark underline hover:text-primary-blue font-medium">área e perímetro</a> 
+              fins educacionais e resolução de exercícios. Para aplicações científicas ou de
+              engenharia que exigem alta precisão, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              Explore também nossas calculadoras de
+              <a
+                href="/calculadoras/matematica/area-perimetro"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                área e perímetro
+              </a>
               para complementar seus estudos matemáticos.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 🔢 Fórmula de Bhaskara • 🔒 Dados não armazenados • 📱 Compatível
-              com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 🔢 Fórmula de Bhaskara • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>

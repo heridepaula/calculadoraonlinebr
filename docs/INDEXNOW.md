@@ -21,13 +21,14 @@ As seguintes variáveis estão configuradas no arquivo `.env`:
 # IndexNow Configuration
 INDEXNOW_KEY=d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb
 INDEXNOW_HOST=calculadoraonlinebr.com.br
-INDEXNOW_KEY_LOCATION=https://calculadoraonlinebr.com.br/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb.txt
+INDEXNOW_KEY_LOCATION=https://www.calculadoraonlinebr.com.br/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb.txt
 ```
 
 ### Arquivo de Verificação
 
 O arquivo de chave está disponível em:
-- **URL**: `https://calculadoraonlinebr.com.br/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb.txt`
+
+- **URL**: `https://www.calculadoraonlinebr.com.br/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb.txt`
 - **Rota**: `/routes/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb[.]txt.ts`
 
 ## 🚀 Uso
@@ -39,15 +40,15 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 
 function MyCalculator() {
   const { submitUrl, submitCalculatorUrls } = useIndexNow({
-    autoSubmit: true,    // Submete a página atual automaticamente
-    delay: 2000,         // Aguarda 2 segundos antes da submissão
+    autoSubmit: true, // Submete a página atual automaticamente
+    delay: 2000, // Aguarda 2 segundos antes da submissão
   });
 
   // Submissão manual de uma URL
   const handleSubmit = async () => {
-    const success = await submitUrl('https://calculadoraonlinebr.com.br/nova-pagina');
+    const success = await submitUrl("https://www.calculadoraonlinebr.com.br/nova-pagina");
     if (success) {
-      console.log('URL submetida com sucesso!');
+      console.log("URL submetida com sucesso!");
     }
   };
 
@@ -64,41 +65,44 @@ function MyCalculator() {
 A API está disponível em `/api/indexnow` e aceita os seguintes tipos de requisição:
 
 #### Submissão de URL única:
+
 ```javascript
-fetch('/api/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+fetch("/api/indexnow", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    type: 'single',
-    url: 'https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau'
-  })
+    type: "single",
+    url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
+  }),
 });
 ```
 
 #### Submissão em lote:
+
 ```javascript
-fetch('/api/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+fetch("/api/indexnow", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    type: 'bulk',
+    type: "bulk",
     urls: [
-      'https://calculadoraonlinebr.com.br/',
-      'https://calculadoraonlinebr.com.br/calculadoras'
-    ]
-  })
+      "https://www.calculadoraonlinebr.com.br/",
+      "https://www.calculadoraonlinebr.com.br/calculadoras",
+    ],
+  }),
 });
 ```
 
 #### Submissão de calculadora:
+
 ```javascript
-fetch('/api/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+fetch("/api/indexnow", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    type: 'calculator',
-    calculatorPath: '/calculadoras/matematica/equacao-segundo-grau'
-  })
+    type: "calculator",
+    calculatorPath: "/calculadoras/matematica/equacao-segundo-grau",
+  }),
 });
 ```
 
@@ -114,10 +118,10 @@ npm run indexnow:config
 npm run indexnow:main
 
 # Submeter URL única
-npm run indexnow:submit -- --single https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau
+npm run indexnow:submit -- --single https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau
 
 # Submeter múltiplas URLs
-npm run indexnow:submit -- --bulk https://calculadoraonlinebr.com.br/ https://calculadoraonlinebr.com.br/calculadoras
+npm run indexnow:submit -- --bulk https://www.calculadoraonlinebr.com.br/ https://www.calculadoraonlinebr.com.br/calculadoras
 
 # Submeter URLs de uma calculadora
 npm run indexnow:submit -- --calculator /calculadoras/matematica/equacao-segundo-grau
@@ -145,7 +149,7 @@ const { getSubmissionHistory } = useIndexNow();
 
 // Obter histórico de submissões
 const history = getSubmissionHistory();
-console.log('Submissões recentes:', history);
+console.log("Submissões recentes:", history);
 ```
 
 ### Verificação de Status
@@ -158,7 +162,7 @@ npm run indexnow:config
 # 🔧 IndexNow Configuration:
 #    Key: d4b3a37c...f6d28cbb
 #    Host: calculadoraonlinebr.com.br
-#    Key Location: https://calculadoraonlinebr.com.br/d4b3a37c...
+#    Key Location: https://www.calculadoraonlinebr.com.br/d4b3a37c...
 #    Key Valid: ✅
 #    Search Engines: 2
 #    1. https://api.indexnow.org/indexnow
@@ -225,24 +229,30 @@ npm run indexnow:config
 ### Problemas Comuns:
 
 #### 1. Arquivo de chave não encontrado (404)
+
 ```bash
-curl -I https://calculadoraonlinebr.com.br/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb.txt
+curl -I https://www.calculadoraonlinebr.com.br/d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb.txt
 ```
+
 **Solução**: Verificar se a rota está configurada corretamente
 
 #### 2. Chave inválida
+
 **Erro**: `Invalid IndexNow key format`
 **Solução**: Verificar se a chave contém apenas caracteres hexadecimais (a-f, 0-9)
 
 #### 3. URLs não submetidas
+
 **Possíveis causas**:
+
 - Domínio não coincide com `INDEXNOW_HOST`
 - URLs recentemente submetidas (cache de 5 minutos)
 - Ambiente de desenvolvimento (desabilitado por padrão)
 
 #### 4. Verificar status da API:
+
 ```bash
-curl https://calculadoraonlinebr.com.br/api/indexnow
+curl https://www.calculadoraonlinebr.com.br/api/indexnow
 ```
 
 ## 📚 Recursos Adicionais

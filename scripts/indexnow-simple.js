@@ -8,12 +8,10 @@
 const args = process.argv.slice(2);
 
 // Configuration
-const INDEXNOW_KEY = process.env.INDEXNOW_KEY || 'd4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb';
-const INDEXNOW_HOST = process.env.INDEXNOW_HOST || 'calculadoraonlinebr.com.br';
-const SEARCH_ENGINES = [
-  'https://api.indexnow.org/indexnow',
-  'https://www.bing.com/indexnow'
-];
+const INDEXNOW_KEY =
+  process.env.INDEXNOW_KEY || "d4b3a37c56c70c96d0fc36378e111d16a64e5e8f113a7d28aba467aef6d28cbb";
+const INDEXNOW_HOST = process.env.INDEXNOW_HOST || "calculadoraonlinebr.com.br";
+const SEARCH_ENGINES = ["https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"];
 
 function showHelp() {
   console.log(`
@@ -31,25 +29,27 @@ Commands:
 
 Examples:
   node scripts/indexnow-simple.js config
-  node scripts/indexnow-simple.js single https://calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau
-  node scripts/indexnow-simple.js bulk https://calculadoraonlinebr.com.br/ https://calculadoraonlinebr.com.br/calculadoras
+  node scripts/indexnow-simple.js single https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau
+  node scripts/indexnow-simple.js bulk https://www.calculadoraonlinebr.com.br/ https://www.calculadoraonlinebr.com.br/calculadoras
   node scripts/indexnow-simple.js main
 `);
 }
 
 function showConfig() {
   const keyValid = /^[a-fA-F0-9]{8,128}$/.test(INDEXNOW_KEY);
-  
-  console.log('🔧 IndexNow Configuration:');
-  console.log(`   Key: ${INDEXNOW_KEY.substring(0, 8)}...${INDEXNOW_KEY.substring(INDEXNOW_KEY.length - 8)}`);
+
+  console.log("🔧 IndexNow Configuration:");
+  console.log(
+    `   Key: ${INDEXNOW_KEY.substring(0, 8)}...${INDEXNOW_KEY.substring(INDEXNOW_KEY.length - 8)}`
+  );
   console.log(`   Host: ${INDEXNOW_HOST}`);
   console.log(`   Key Location: https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`);
-  console.log(`   Key Valid: ${keyValid ? '✅' : '❌'}`);
+  console.log(`   Key Valid: ${keyValid ? "✅" : "❌"}`);
   console.log(`   Search Engines: ${SEARCH_ENGINES.length}`);
   SEARCH_ENGINES.forEach((engine, index) => {
     console.log(`   ${index + 1}. ${engine}`);
   });
-  
+
   return keyValid;
 }
 
@@ -68,35 +68,35 @@ async function submitSingleUrl(url) {
   }
 
   console.log(`📤 Submitting single URL: ${url}`);
-  
+
   for (const endpoint of SEARCH_ENGINES) {
     try {
       const submitUrl = `${endpoint}?url=${encodeURIComponent(url)}&key=${INDEXNOW_KEY}`;
-      
+
       const response = await fetch(submitUrl, {
-        method: 'GET',
-        headers: { 'User-Agent': 'CalculadoraOnlineBR IndexNow Client/1.0' }
+        method: "GET",
+        headers: { "User-Agent": "CalculadoraOnlineBR IndexNow Client/1.0" },
       });
 
       console.log(`   ${endpoint}: ${response.status} ${response.statusText}`);
-      
+
       if (response.ok) {
-        console.log('✅ Success: URL submitted successfully');
+        console.log("✅ Success: URL submitted successfully");
         return true;
       }
     } catch (error) {
       console.log(`   ${endpoint}: Error - ${error.message}`);
     }
   }
-  
-  throw new Error('Failed to submit to any search engine');
+
+  throw new Error("Failed to submit to any search engine");
 }
 
 async function submitBulkUrls(urls) {
-  const validUrls = urls.filter(url => validateUrl(url));
-  
+  const validUrls = urls.filter((url) => validateUrl(url));
+
   if (validUrls.length === 0) {
-    throw new Error('No valid URLs provided');
+    throw new Error("No valid URLs provided");
   }
 
   console.log(`📤 Submitting ${validUrls.length} URLs:`);
@@ -106,22 +106,22 @@ async function submitBulkUrls(urls) {
     host: INDEXNOW_HOST,
     key: INDEXNOW_KEY,
     keyLocation: `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`,
-    urlList: validUrls
+    urlList: validUrls,
   };
 
   for (const endpoint of SEARCH_ENGINES) {
     try {
       const response = await fetch(endpoint, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'User-Agent': 'CalculadoraOnlineBR IndexNow Client/1.0'
+          "Content-Type": "application/json; charset=utf-8",
+          "User-Agent": "CalculadoraOnlineBR IndexNow Client/1.0",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       console.log(`   ${endpoint}: ${response.status} ${response.statusText}`);
-      
+
       if (response.ok) {
         console.log(`✅ Success: ${validUrls.length} URLs submitted successfully`);
         return true;
@@ -130,8 +130,8 @@ async function submitBulkUrls(urls) {
       console.log(`   ${endpoint}: Error - ${error.message}`);
     }
   }
-  
-  throw new Error('Failed to submit to any search engine');
+
+  throw new Error("Failed to submit to any search engine");
 }
 
 async function submitMainPages() {
@@ -152,7 +152,12 @@ async function submitMainPages() {
 }
 
 async function main() {
-  if (args.length === 0 || args.includes('help') || args.includes('--help') || args.includes('-h')) {
+  if (
+    args.length === 0 ||
+    args.includes("help") ||
+    args.includes("--help") ||
+    args.includes("-h")
+  ) {
     showHelp();
     return;
   }
@@ -161,26 +166,26 @@ async function main() {
 
   try {
     switch (command) {
-      case 'config':
+      case "config":
         showConfig();
         break;
 
-      case 'single':
+      case "single":
         if (!args[1]) {
-          throw new Error('URL required for single command');
+          throw new Error("URL required for single command");
         }
         await submitSingleUrl(args[1]);
         break;
 
-      case 'bulk':
+      case "bulk":
         const urls = args.slice(1);
         if (urls.length === 0) {
-          throw new Error('At least one URL required for bulk command');
+          throw new Error("At least one URL required for bulk command");
         }
         await submitBulkUrls(urls);
         break;
 
-      case 'main':
+      case "main":
         await submitMainPages();
         break;
 
@@ -190,7 +195,7 @@ async function main() {
         process.exit(1);
     }
   } catch (error) {
-    console.error('❌ Error:', error.message);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 }

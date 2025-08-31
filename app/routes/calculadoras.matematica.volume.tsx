@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
     },
     {
       property: "og:title",
@@ -54,8 +54,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content:
-        "Calculadora de Área e Volume - Formas geométricas: cubo, esfera, cilindro",
+      content: "Calculadora de Área e Volume - Formas geométricas: cubo, esfera, cilindro",
     },
     {
       property: "og:image:width",
@@ -68,7 +67,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -108,7 +107,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Área e Volume - Formas Geométricas 2025",
         description:
           "Calculadora gratuita e precisa de área e volume para diferentes formas geométricas: cubo, esfera, cilindro, retângulo e círculo. Fórmulas matemáticas exatas 2D e 3D.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -122,10 +121,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -136,7 +135,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
           name: "Calculadora de Área e Volume 2025 - Formas Geométricas",
           description:
             "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas precisas 2D e 3D com resultados instantâneos.",
@@ -144,11 +143,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -159,25 +158,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Matemática",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Área e Volume",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/matematica/volume",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
               },
             ],
           },
@@ -185,7 +184,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "Cálculos de Área e Volume",
-          description: "Fórmulas matemáticas para calcular área e volume de formas geométricas 2D e 3D",
+          description:
+            "Fórmulas matemáticas para calcular área e volume de formas geométricas 2D e 3D",
           category: "Mathematics",
         },
         featureList: [
@@ -601,7 +601,9 @@ export default function AreaVolumeCalculator() {
                   step="any"
                 />
                 <ErrorMessage error={errors.raio} />
-                <div className="mt-1 text-xs text-text-secondary">Distância do centro à superfície</div>
+                <div className="mt-1 text-xs text-text-secondary">
+                  Distância do centro à superfície
+                </div>
               </div>
             )}
 
@@ -736,9 +738,7 @@ export default function AreaVolumeCalculator() {
               </div>
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Fórmula do Volume</div>
-                <div className="text-lg font-bold text-text-primary">
-                  {result.formula.volume}
-                </div>
+                <div className="text-lg font-bold text-text-primary">{result.formula.volume}</div>
               </div>
             </div>
 
@@ -1037,15 +1037,15 @@ export default function AreaVolumeCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de área e volume</strong>{" "}
+              Esta <strong className="text-primary-blue-dark">calculadora de área e volume</strong>{" "}
               utiliza <strong className="text-growth-green">fórmulas matemáticas precisas</strong>{" "}
-              para calcular a área e o volume de diferentes formas geométricas 2D e 3D com resultados
-              instantâneos.
+              para calcular a área e o volume de diferentes formas geométricas 2D e 3D com
+              resultados instantâneos.
             </p>
             <p>
-              <strong>Formas disponíveis:</strong> Cubo, Esfera, Cilindro (3D com área e volume), Retângulo e Círculo (2D apenas com área). Cada forma tem suas próprias características e aplicações práticas
-              específicas.
+              <strong>Formas disponíveis:</strong> Cubo, Esfera, Cilindro (3D com área e volume),
+              Retângulo e Círculo (2D apenas com área). Cada forma tem suas próprias características
+              e aplicações práticas específicas.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
@@ -1054,8 +1054,8 @@ export default function AreaVolumeCalculator() {
               outras variáveis específicas do projeto.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📊 Área e Volume • 🔒 Dados não armazenados • 📱 Compatível
-              com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 📊 Área e Volume • 🔒 Dados não armazenados • 📱 Compatível com
+              todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>

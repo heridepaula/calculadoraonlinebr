@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
     },
     {
       property: "og:title",
@@ -50,7 +50,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://calculadoraonlinebr.com.br/images/calculadora-hidratacao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-hidratacao.webp",
     },
     {
       property: "og:image:alt",
@@ -67,7 +67,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -83,7 +83,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://calculadoraonlinebr.com.br/images/calculadora-hidratacao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-hidratacao.webp",
     },
     {
       name: "twitter:image:alt",
@@ -117,25 +117,25 @@ export const meta: MetaFunction = () => {
             "@type": "ListItem",
             position: 1,
             name: "Início",
-            item: "https://calculadoraonlinebr.com.br",
+            item: "https://www.calculadoraonlinebr.com.br",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Calculadoras",
-            item: "https://calculadoraonlinebr.com.br/calculadoras",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Saúde",
-            item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude",
           },
           {
             "@type": "ListItem",
             position: 4,
             name: "Hidratação",
-            item: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
           },
         ],
       }),
@@ -147,12 +147,12 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Hidratação Diária Online 2025",
         description:
           "Ferramenta gratuita para calcular necessidade hídrica diária personalizada. Cálculo científico de água ideal por peso, idade, atividade física e clima.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
         applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-30",
+        dateModified: "2024-12-31",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -161,10 +161,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -175,7 +175,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
           name: "Calculadora de Hidratação - Cálculo de Água Diária",
           description:
             "Ferramenta gratuita para calcular necessidade hídrica diária personalizada com base no peso, idade, atividade física e condições climáticas.",
@@ -183,11 +183,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -221,34 +221,34 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
-            name: "O que é gordura corporal?",
+            name: "Quanta água devo beber por dia?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
+              text: "A necessidade varia por idade, peso e atividade. Homens adultos precisam de cerca de 3,7L/dia e mulheres 2,7L/dia, incluindo água de alimentos. Use nossa calculadora para uma recomendação personalizada.",
             },
           },
           {
             "@type": "Question",
-            name: "Qual é o percentual de gordura corporal ideal?",
+            name: "Como saber se estou bem hidratado?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O percentual ideal varia por idade e gênero. Para homens: 8-24% (dependendo da idade). Para mulheres: 16-31%. Atletas podem ter valores menores, enquanto níveis acima de 25% (homens) ou 32% (mulheres) indicam obesidade.",
+              text: "Monitore a cor da urina: amarelo claro indica boa hidratação, enquanto amarelo escuro sugere desidratação. Outros sinais: pele elástica, não sentir sede constante e disposição adequada.",
             },
           },
           {
             "@type": "Question",
-            name: "Como calcular gordura corporal em casa?",
+            name: "Quando devo beber mais água?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Use fita métrica para medir pescoço, cintura e quadril (mulheres). Aplique o método US Navy ou use nossa calculadora online gratuita que faz os cálculos automaticamente com base nas suas medidas.",
+              text: "Aumente o consumo durante exercícios (+200ml a cada 15min), clima quente (+500-1000ml), febre (+500ml por grau), gestação (+300ml) e amamentação (+500-700ml).",
             },
           },
           {
             "@type": "Question",
-            name: "Qual a diferença entre método US Navy e Jackson-Pollock?",
+            name: "Posso beber outros líquidos além da água?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O método US Navy usa circunferências corporais (pescoço, cintura, quadril) e é mais acessível. O Jackson-Pollock tradicionalmente usa dobras cutâneas com adipômetro, mas nossa versão simplificada usa medidas corporais para maior praticidade.",
+              text: "Sim! Chás, sucos naturais, água de coco e sopas contam para a hidratação. Evite excesso de bebidas com cafeína ou açúcar. Cerca de 20% da hidratação vem dos alimentos.",
             },
           },
         ],
@@ -258,35 +258,35 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "HowTo",
-        name: "Como usar a Calculadora de Gordura Corporal",
+        name: "Como usar a Calculadora de Hidratação Diária",
         description:
-          "Aprenda a calcular seu percentual de gordura corporal de forma precisa com métodos científicos usando nossa calculadora online gratuita",
+          "Aprenda a calcular sua necessidade diária de água de forma precisa usando nossa calculadora de hidratação online gratuita",
         step: [
           {
             "@type": "HowToStep",
-            name: "Selecione o método",
-            text: "Escolha entre método US Navy (mais acessível) ou Jackson-Pollock (simplificado), dependendo da sua preferência e disponibilidade de medidas.",
+            name: "Insira dados pessoais",
+            text: "Digite sua idade, peso, altura e selecione seu gênero. Essas informações são fundamentais para calcular sua necessidade hídrica basal.",
           },
           {
             "@type": "HowToStep",
-            name: "Insira seus dados pessoais",
-            text: "Digite sua idade, peso, altura e selecione seu gênero. Essas informações são necessárias para cálculos precisos de composição corporal.",
+            name: "Defina nível de atividade",
+            text: "Selecione seu nível de atividade física: sedentário, leve, moderado ou intenso. Exercícios aumentam significativamente a necessidade de água.",
           },
           {
             "@type": "HowToStep",
-            name: "Faça as medidas corporais",
-            text: "Use fita métrica para medir circunferência do pescoço, cintura e quadril (se mulher). Siga as instruções de como medir corretamente.",
+            name: "Considere fatores climáticos",
+            text: "Escolha o tipo de clima: frio, temperado ou quente. Temperaturas elevadas requerem hidratação adicional para regulação térmica.",
           },
           {
             "@type": "HowToStep",
             name: "Analise os resultados",
-            text: "Veja seu percentual de gordura, massa magra, massa gorda, classificação de saúde e comparação com valores ideais para sua idade e gênero.",
+            text: "Veja sua necessidade diária de água, cronograma de hidratação personalizado, dicas específicas e status de hidratação ideal.",
           },
         ],
         tool: [
           {
             "@type": "HowToTool",
-            name: "Calculadora de Gordura Corporal Online",
+            name: "Calculadora de Hidratação Online",
           },
         ],
       }),
@@ -296,33 +296,33 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
-        name: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
+        "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
+        name: "Calculadora de Hidratação Diária - Necessidade de Água Personalizada",
         description:
-          "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal usando métodos científicos US Navy e Jackson-Pollock.",
+          "Ferramenta gratuita para calcular necessidade diária de água personalizada com base no peso, idade, atividade física e condições climáticas.",
         inLanguage: "pt-BR",
-        dateModified: "2025-08-30",
-        lastReviewed: "2025-08-30",
+        dateModified: "2025-08-31",
+        lastReviewed: "2025-08-31",
         isPartOf: {
           "@type": "WebSite",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
         },
         about: [
           {
             "@type": "Thing",
-            name: "Gordura Corporal",
-            description: "Percentual de tecido adiposo no corpo humano",
+            name: "Hidratação",
+            description: "Necessidade diária de água para manter o corpo hidratado",
           },
           {
             "@type": "Thing",
-            name: "Composição Corporal",
-            description: "Análise da distribuição de massa magra e gorda",
+            name: "Necessidade Hídrica",
+            description: "Cálculo científico de consumo de água personalizado",
           },
         ],
         audience: {
           "@type": "Audience",
-          audienceType: "Pessoas interessadas em saúde e fitness",
+          audienceType: "Pessoas interessadas em saúde e hidratação adequada",
         },
       }),
     },
@@ -369,7 +369,9 @@ export default function HydrationCalculator() {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [gender, setGender] = useState<"masculino" | "feminino" | "">("");
-  const [activityLevel, setActivityLevel] = useState<"sedentario" | "leve" | "moderado" | "intenso">("sedentario");
+  const [activityLevel, setActivityLevel] = useState<
+    "sedentario" | "leve" | "moderado" | "intenso"
+  >("sedentario");
   const [climate, setClimate] = useState<"temperado" | "quente" | "frio">("temperado");
   const [pregnancy, setPregnancy] = useState(false);
   const [breastfeeding, setBreastfeeding] = useState(false);
@@ -464,7 +466,7 @@ export default function HydrationCalculator() {
 
     // Base water needs calculation (Formula baseada no peso corporal)
     let baseWaterNeeds: number;
-    
+
     if (ageNum < 13) {
       // Crianças: 1-1.5L por 10kg de peso
       baseWaterNeeds = (weightNum / 10) * 1200;
@@ -472,21 +474,21 @@ export default function HydrationCalculator() {
       // Adultos: fórmula baseada no peso corporal
       // Recomendação personalizada por peso
       let mlPerKg = 35;
-      
+
       // Ajustes por idade
       if (ageNum < 19) {
         mlPerKg = 40; // Adolescentes precisam de mais água
       } else if (ageNum > 65) {
         mlPerKg = 30; // Idosos têm menor necessidade base
       }
-      
+
       // Ajuste por gênero - usando 35ml/kg para mulheres e 37ml/kg para homens
       if (!isMale) {
         mlPerKg = 35; // Mulheres: 35ml/kg (70kg = 2450ml = 2.45L)
       } else {
         mlPerKg = 37; // Homens: 37ml/kg
       }
-      
+
       baseWaterNeeds = weightNum * mlPerKg;
     }
 
@@ -518,29 +520,30 @@ export default function HydrationCalculator() {
     // Special conditions
     let specialAdjustment = 0;
     const healthConditions: string[] = [];
-    
+
     if (gender === "feminino") {
       if (pregnancy) {
         specialAdjustment += 300;
         healthConditions.push("Gravidez");
       }
-      
+
       if (breastfeeding) {
         specialAdjustment += 700;
         healthConditions.push("Amamentação");
       }
     }
 
-    const totalDailyNeeds = baseWaterNeeds + activityAdjustment + climateAdjustment + specialAdjustment;
+    const totalDailyNeeds =
+      baseWaterNeeds + activityAdjustment + climateAdjustment + specialAdjustment;
     const totalLiters = totalDailyNeeds / 1000;
     const hourlyIntake = Math.round(totalDailyNeeds / 16); // 16 horas acordado
 
     // Generate hydration schedule
     const schedule = generateHydrationSchedule(totalDailyNeeds);
-    
+
     // Get hydration status
     const hydrationStatus = getHydrationStatus(totalLiters, ageNum, isMale);
-    
+
     // Get personalized tips
     const tips = getHydrationTips(activityLevel, climate, ageNum, healthConditions);
 
@@ -572,26 +575,32 @@ export default function HydrationCalculator() {
 
   const generateHydrationSchedule = (totalMl: number) => [
     { time: "07:00", amount: Math.round(totalMl * 0.15), description: "Ao acordar - reidratação" },
-    { time: "09:00", amount: Math.round(totalMl * 0.10), description: "Manhã - manutenção" },
-    { time: "11:00", amount: Math.round(totalMl * 0.10), description: "Meio da manhã" },
+    { time: "09:00", amount: Math.round(totalMl * 0.1), description: "Manhã - manutenção" },
+    { time: "11:00", amount: Math.round(totalMl * 0.1), description: "Meio da manhã" },
     { time: "13:00", amount: Math.round(totalMl * 0.12), description: "Almoço - digestão" },
-    { time: "15:00", amount: Math.round(totalMl * 0.10), description: "Tarde" },
-    { time: "17:00", amount: Math.round(totalMl * 0.10), description: "Final da tarde" },
+    { time: "15:00", amount: Math.round(totalMl * 0.1), description: "Tarde" },
+    { time: "17:00", amount: Math.round(totalMl * 0.1), description: "Final da tarde" },
     { time: "19:00", amount: Math.round(totalMl * 0.12), description: "Jantar - digestão" },
     { time: "21:00", amount: Math.round(totalMl * 0.08), description: "Noite - moderado" },
   ];
 
   const getHydrationStatus = (liters: number, age: number, isMale: boolean): string => {
-    const ideal = age < 19 ? (isMale ? 3.3 : 2.3) : age < 51 ? (isMale ? 3.7 : 2.7) : (isMale ? 3.5 : 2.5);
+    const ideal =
+      age < 19 ? (isMale ? 3.3 : 2.3) : age < 51 ? (isMale ? 3.7 : 2.7) : isMale ? 3.5 : 2.5;
     const percentage = (liters / ideal) * 100;
-    
+
     if (percentage < 70) return "Desidratação severa";
     if (percentage < 85) return "Desidratação leve";
     if (percentage <= 115) return "Hidratação adequada";
     return "Hidratação excessiva";
   };
 
-  const getHydrationTips = (activity: string, climate: string, age: number, conditions: string[]): string[] => {
+  const getHydrationTips = (
+    activity: string,
+    climate: string,
+    age: number,
+    conditions: string[]
+  ): string[] => {
     const tips = [
       "Beba água regularmente ao longo do dia",
       "Monitor a cor da urina - deve ser amarelo claro",
@@ -664,8 +673,8 @@ export default function HydrationCalculator() {
           Calculadora de Hidratação 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule sua <strong className="text-health-red">necessidade diária de hidratação</strong> com
-          precisão científica. Análise completa de{" "}
+          Calcule sua <strong className="text-health-red">necessidade diária de hidratação</strong>{" "}
+          com precisão científica. Análise completa de{" "}
           <strong className="text-primary-blue-dark">consumo de água</strong> para sua saúde.
         </p>
         <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
@@ -682,7 +691,9 @@ export default function HydrationCalculator() {
         </CardHeader>
         <CardContent>
           <div className="mb-6 text-center">
-            <p className="text-lg text-text-secondary">Insira seus dados para calcular hidratação ideal:</p>
+            <p className="text-lg text-text-secondary">
+              Insira seus dados para calcular hidratação ideal:
+            </p>
           </div>
 
           {/* Dados pessoais */}
@@ -791,7 +802,9 @@ export default function HydrationCalculator() {
                 {/* Nível de Atividade */}
                 <div>
                   <div className="mb-2">
-                    <label className="block text-sm font-medium text-text-primary">Nível de Atividade Física</label>
+                    <label className="block text-sm font-medium text-text-primary">
+                      Nível de Atividade Física
+                    </label>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {[
@@ -821,7 +834,9 @@ export default function HydrationCalculator() {
                 {/* Clima */}
                 <div>
                   <div className="mb-2">
-                    <label className="block text-sm font-medium text-text-primary">Tipo de Clima</label>
+                    <label className="block text-sm font-medium text-text-primary">
+                      Tipo de Clima
+                    </label>
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     {[
@@ -929,16 +944,22 @@ export default function HydrationCalculator() {
             </div>
 
             <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Hidratação</h4>
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">
+                Informações da Hidratação
+              </h4>
               <div className="text-sm text-text-secondary">
                 <div>
-                  <strong>Necessidade Base:</strong> {(result.calculations.baseWaterNeeds / 1000).toFixed(1)}L
+                  <strong>Necessidade Base:</strong>{" "}
+                  {(result.calculations.baseWaterNeeds / 1000).toFixed(1)}L
                 </div>
                 <div>
-                  <strong>Ajuste Atividade:</strong> +{(result.calculations.activityAdjustment / 1000).toFixed(1)}L
+                  <strong>Ajuste Atividade:</strong> +
+                  {(result.calculations.activityAdjustment / 1000).toFixed(1)}L
                 </div>
                 <div>
-                  <strong>Ajuste Clima:</strong> {result.calculations.climateAdjustment >= 0 ? '+' : ''}{(result.calculations.climateAdjustment / 1000).toFixed(1)}L
+                  <strong>Ajuste Clima:</strong>{" "}
+                  {result.calculations.climateAdjustment >= 0 ? "+" : ""}
+                  {(result.calculations.climateAdjustment / 1000).toFixed(1)}L
                 </div>
                 <div>
                   <strong>Status:</strong> {result.recommendations.hydrationStatus}
@@ -970,7 +991,9 @@ export default function HydrationCalculator() {
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-primary-blue">{item.time}</span>
                         <span className="text-xs text-text-secondary">•</span>
-                        <span className="text-sm font-semibold text-growth-green">{item.amount}ml</span>
+                        <span className="text-sm font-semibold text-growth-green">
+                          {item.amount}ml
+                        </span>
                       </div>
                     </div>
                     <div className="mt-1 text-xs text-text-secondary">{item.description}</div>
@@ -1012,8 +1035,8 @@ export default function HydrationCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    A hidratação adequada é essencial para todas as funções corporais, desde a regulação
-                    da temperatura até o transporte de nutrientes e eliminação de toxinas.
+                    A hidratação adequada é essencial para todas as funções corporais, desde a
+                    regulação da temperatura até o transporte de nutrientes e eliminação de toxinas.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Fatores</h4>
@@ -1172,7 +1195,8 @@ export default function HydrationCalculator() {
           },
           {
             question: "Posso beber água demais?",
-            answer: "Raramente, mas sim. Intoxicação por água (hiponatremia) pode ocorrer ao beber mais de 4-5L rapidamente. Distribua o consumo ao longo do dia e escute seu corpo para evitar excessos.",
+            answer:
+              "Raramente, mas sim. Intoxicação por água (hiponatremia) pode ocorrer ao beber mais de 4-5L rapidamente. Distribua o consumo ao longo do dia e escute seu corpo para evitar excessos.",
             borderColor: "system-error-dark",
           },
         ]}
@@ -1194,16 +1218,15 @@ export default function HydrationCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de hidratação</strong>{" "}
+              Esta <strong className="text-primary-blue-dark">calculadora de hidratação</strong>{" "}
               permite calcular{" "}
-              <strong className="text-growth-green">necessidade diária de água</strong> personalizada
-              com base em fatores científicos como idade, peso, atividade e clima.
+              <strong className="text-growth-green">necessidade diária de água</strong>{" "}
+              personalizada com base em fatores científicos como idade, peso, atividade e clima.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo baseado no Instituto de Medicina (EUA), ajustes
-              para atividade física e clima, cronograma personalizado de hidratação e dicas específicas
-              para sua rotina.
+              <strong>Funcionalidades:</strong> Cálculo baseado no Instituto de Medicina (EUA),
+              ajustes para atividade física e clima, cronograma personalizado de hidratação e dicas
+              específicas para sua rotina.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
@@ -1219,8 +1242,8 @@ export default function HydrationCalculator() {
               para complementar seu cuidado com a saúde.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco em saúde • 💧 Hidratação • 🔒 Dados não armazenados • 📱 Compatível com
-              todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco em saúde • 💧 Hidratação • 🔒 Dados não armazenados • 📱 Compatível com todos
+              os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>

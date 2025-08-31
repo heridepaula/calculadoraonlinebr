@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
     },
     {
       property: "og:title",
@@ -77,7 +77,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -117,7 +117,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Consórcio - Simulador de Parcelas e Contemplação 2025",
         description:
           "Simulador gratuito de consórcio para imóveis e veículos. Calcule parcelas, taxa de administração, valor do crédito e probabilidade de contemplação por sorteio.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -131,10 +131,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
           name: "Calculadora de Consórcio 2025 - Simulador de Parcelas e Contemplação",
           description:
             "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação por sorteio.",
@@ -153,11 +153,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -168,25 +168,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Calculadora de Consórcio",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
               },
             ],
           },

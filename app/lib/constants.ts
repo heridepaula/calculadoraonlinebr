@@ -1,6 +1,6 @@
 export const APP_NAME = "CalculadoraOnlineBR";
 export const APP_DESCRIPTION = "Calculadoras online gratuitas para facilitar seu dia a dia";
-export const APP_URL = "https://calculadoraonlinebr.com.br";
+export const APP_URL = "https://www.calculadoraonlinebr.com.br";
 export const APP_AUTHOR = "CalculadoraOnlineBR";
 
 export const CATEGORIES = [

@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
     },
     {
       property: "og:title",
@@ -50,7 +50,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
     },
     {
       property: "og:image:alt",
@@ -67,7 +67,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -83,7 +83,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
     },
     {
       name: "twitter:image:alt",
@@ -117,25 +117,25 @@ export const meta: MetaFunction = () => {
             "@type": "ListItem",
             position: 1,
             name: "Início",
-            item: "https://calculadoraonlinebr.com.br",
+            item: "https://www.calculadoraonlinebr.com.br",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Calculadoras",
-            item: "https://calculadoraonlinebr.com.br/calculadoras",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Saúde",
-            item: "https://calculadoraonlinebr.com.br/calculadoras/saude",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude",
           },
           {
             "@type": "ListItem",
             position: 4,
             name: "Gordura Corporal",
-            item: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
           },
         ],
       }),
@@ -147,7 +147,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Gordura Corporal Online 2025",
         description:
           "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal. Métodos científicos US Navy e Jackson-Pollock com análise personalizada.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
         applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -161,10 +161,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -175,7 +175,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
           name: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
           description:
             "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal usando métodos científicos US Navy e Jackson-Pollock.",
@@ -183,11 +183,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -296,7 +296,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "https://calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
+        "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
         name: "Calculadora de Gordura Corporal - Análise de Composição Corporal",
         description:
           "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal usando métodos científicos US Navy e Jackson-Pollock.",
@@ -306,24 +306,24 @@ export const meta: MetaFunction = () => {
         isPartOf: {
           "@type": "WebSite",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
         },
         about: [
           {
-            "@type": "Thing", 
+            "@type": "Thing",
             name: "Gordura Corporal",
-            description: "Percentual de tecido adiposo no corpo humano"
+            description: "Percentual de tecido adiposo no corpo humano",
           },
           {
             "@type": "Thing",
-            name: "Composição Corporal", 
-            description: "Análise da distribuição de massa magra e gorda"
-          }
+            name: "Composição Corporal",
+            description: "Análise da distribuição de massa magra e gorda",
+          },
         ],
         audience: {
           "@type": "Audience",
-          audienceType: "Pessoas interessadas em saúde e fitness"
-        }
+          audienceType: "Pessoas interessadas em saúde e fitness",
+        },
       }),
     },
   ];
@@ -479,7 +479,7 @@ export default function BodyFatCalculator() {
 
     // Calculate body fat percentage using US Navy method
     let bodyFatPercentage: number;
-    
+
     if (method === "us-navy") {
       if (isMale) {
         // Male formula: 495 / (1.0324 - 0.19077 * log10(waist - neck) + 0.15456 * log10(height)) - 450
@@ -490,7 +490,7 @@ export default function BodyFatCalculator() {
         // Female formula: 495 / (1.29579 - 0.35004 * log10(waist + hip - neck) + 0.22100 * log10(height)) - 450
         const log1 = Math.log10(waistNum + hipNum - neckNum);
         const log2 = Math.log10(heightNum);
-        bodyFatPercentage = 495 / (1.29579 - 0.35004 * log1 + 0.22100 * log2) - 450;
+        bodyFatPercentage = 495 / (1.29579 - 0.35004 * log1 + 0.221 * log2) - 450;
       }
     } else {
       // Jackson-Pollock method (simplified 3-point)
@@ -563,9 +563,13 @@ export default function BodyFatCalculator() {
     return "Obesidade";
   };
 
-  const getHealthRisk = (bodyFat: number, bmi: number, isMale: boolean): "baixo" | "normal" | "moderado" | "alto" => {
+  const getHealthRisk = (
+    bodyFat: number,
+    bmi: number,
+    isMale: boolean
+  ): "baixo" | "normal" | "moderado" | "alto" => {
     const fatLimit = isMale ? 25 : 32;
-    
+
     if (bodyFat > fatLimit && bmi > 30) return "alto";
     if (bodyFat > fatLimit || bmi > 27) return "moderado";
     if (bodyFat < (isMale ? 6 : 16) || bmi < 18.5) return "moderado";
@@ -623,7 +627,7 @@ export default function BodyFatCalculator() {
           precisão científica. Análise completa de{" "}
           <strong className="text-primary-blue-dark">composição corporal</strong> para sua saúde.
         </p>
-        <div className="inline-block rounded-lg bg-health-red-soft p-4 duration-300">
+        <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             🏃‍♂️ <strong>Método US Navy</strong> • 📊 <strong>Análise Corporal</strong> • 💪{" "}
             <strong>Massa Magra</strong>
@@ -644,8 +648,8 @@ export default function BodyFatCalculator() {
                 onClick={() => setMethod("us-navy")}
                 className={`rounded-lg px-6 py-3 text-lg font-medium transition-all ${
                   method === "us-navy"
-                    ? "bg-primary-blue text-text-primary border-2 border-primary-blue-dark"
-                    : "bg-gray-900 text-text-secondary border border-neutral-surface-variant hover:bg-gray-800"
+                    ? "border-2 border-primary-blue-dark bg-primary-blue text-text-primary"
+                    : "border border-neutral-surface-variant bg-gray-900 text-text-secondary hover:bg-gray-800"
                 }`}
               >
                 🏅 Método US Navy
@@ -655,8 +659,8 @@ export default function BodyFatCalculator() {
                 onClick={() => setMethod("jackson-pollock")}
                 className={`rounded-lg px-6 py-3 text-lg font-medium transition-all ${
                   method === "jackson-pollock"
-                    ? "bg-primary-blue text-text-primary border-2 border-primary-blue-dark"
-                    : "bg-gray-900 text-text-secondary border border-neutral-surface-variant hover:bg-gray-800"
+                    ? "border-2 border-primary-blue-dark bg-primary-blue text-text-primary"
+                    : "border border-neutral-surface-variant bg-gray-900 text-text-secondary hover:bg-gray-800"
                 }`}
               >
                 📐 Jackson-Pollock
@@ -666,7 +670,7 @@ export default function BodyFatCalculator() {
 
           {/* Dados pessoais */}
           <div className="mb-6 space-y-6">
-            <div className="rounded-lg border border-health-red/20 bg-health-red-soft p-6">
+            <div className="bg-health-red-soft rounded-lg border border-health-red/20 p-6">
               <h3 className="mb-4 text-center text-lg font-semibold text-health-red">
                 📋 Dados Pessoais
               </h3>
@@ -702,7 +706,9 @@ export default function BodyFatCalculator() {
                     </button>
                   </div>
                   <ErrorMessage error={errors.gender} />
-                  <div className="mt-1 text-center text-xs text-text-secondary">Necessário para cálculo</div>
+                  <div className="mt-1 text-center text-xs text-text-secondary">
+                    Necessário para cálculo
+                  </div>
                 </div>
               </div>
 
@@ -755,7 +761,6 @@ export default function BodyFatCalculator() {
                   <ErrorMessage error={errors.height} />
                   <div className="mt-1 text-xs text-text-secondary">Altura em cm</div>
                 </div>
-
               </div>
             </div>
 
@@ -815,7 +820,9 @@ export default function BodyFatCalculator() {
                       className="h-12 text-lg"
                     />
                     <ErrorMessage error={errors.hip} />
-                    <div className="mt-1 text-xs text-text-secondary">Circunferência do quadril</div>
+                    <div className="mt-1 text-xs text-text-secondary">
+                      Circunferência do quadril
+                    </div>
                   </div>
                 )}
               </div>
@@ -825,10 +832,17 @@ export default function BodyFatCalculator() {
                   📏 Como medir corretamente:
                 </h4>
                 <ul className="space-y-1 text-xs text-text-secondary">
-                  <li><strong>Pescoço:</strong> Logo abaixo do pomo de Adão (homens) ou na parte mais fina (mulheres)</li>
-                  <li><strong>Cintura:</strong> Na altura do umbigo, sem contrair a barriga</li>
+                  <li>
+                    <strong>Pescoço:</strong> Logo abaixo do pomo de Adão (homens) ou na parte mais
+                    fina (mulheres)
+                  </li>
+                  <li>
+                    <strong>Cintura:</strong> Na altura do umbigo, sem contrair a barriga
+                  </li>
                   {gender === "feminino" && (
-                    <li><strong>Quadril:</strong> Na parte mais larga dos quadris</li>
+                    <li>
+                      <strong>Quadril:</strong> Na parte mais larga dos quadris
+                    </li>
                   )}
                 </ul>
               </div>
@@ -863,7 +877,9 @@ export default function BodyFatCalculator() {
             <div className="mb-6 rounded-lg bg-gray-900 p-4">
               <div className="text-center">
                 <div className="mb-2 text-sm text-text-secondary">Percentual de Gordura</div>
-                <div className="text-xl font-bold text-primary-blue-dark">{result.calculations.bodyFatPercentage.toFixed(1)}%</div>
+                <div className="text-xl font-bold text-primary-blue-dark">
+                  {result.calculations.bodyFatPercentage.toFixed(1)}%
+                </div>
               </div>
             </div>
 
@@ -883,9 +899,7 @@ export default function BodyFatCalculator() {
             </div>
 
             <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                Informações da Análise
-              </h4>
+              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Análise</h4>
               <div className="text-sm text-text-secondary">
                 <div>
                   <strong>Método:</strong>{" "}
@@ -898,7 +912,14 @@ export default function BodyFatCalculator() {
                   <strong>Status:</strong> {result.classification.bodyFatStatus}
                 </div>
                 <div>
-                  <strong>Risco à Saúde:</strong> {result.classification.healthRisk === "baixo" ? "Baixo" : result.classification.healthRisk === "normal" ? "Normal" : result.classification.healthRisk === "moderado" ? "Moderado" : "Alto"}
+                  <strong>Risco à Saúde:</strong>{" "}
+                  {result.classification.healthRisk === "baixo"
+                    ? "Baixo"
+                    : result.classification.healthRisk === "normal"
+                      ? "Normal"
+                      : result.classification.healthRisk === "moderado"
+                        ? "Moderado"
+                        : "Alto"}
                 </div>
               </div>
             </div>
@@ -908,31 +929,43 @@ export default function BodyFatCalculator() {
               <div className="space-y-2">
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
-                  Seu percentual de gordura corporal é {result.classification.bodyFatStatus.toLowerCase()}
+                  Seu percentual de gordura corporal é{" "}
+                  {result.classification.bodyFatStatus.toLowerCase()}
                 </div>
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
-                  IMC de {result.calculations.bmi.toFixed(1)} kg/m² indica {result.classification.bmiStatus.toLowerCase()}
+                  IMC de {result.calculations.bmi.toFixed(1)} kg/m² indica{" "}
+                  {result.classification.bmiStatus.toLowerCase()}
                 </div>
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
-                  Método {result.method === "us-navy" ? "US Navy" : "Jackson-Pollock"} utilizado para maior precisão
+                  Método {result.method === "us-navy" ? "US Navy" : "Jackson-Pollock"} utilizado
+                  para maior precisão
                 </div>
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
-                  Risco à saúde classificado como {result.classification.healthRisk === "baixo" ? "baixo" : result.classification.healthRisk === "normal" ? "normal" : result.classification.healthRisk === "moderado" ? "moderado" : "alto"}
+                  Risco à saúde classificado como{" "}
+                  {result.classification.healthRisk === "baixo"
+                    ? "baixo"
+                    : result.classification.healthRisk === "normal"
+                      ? "normal"
+                      : result.classification.healthRisk === "moderado"
+                        ? "moderado"
+                        : "alto"}
                 </div>
               </div>
             </div>
 
             {/* Comparativo com Pessoa Saudável */}
-            <div className="rounded-lg bg-growth-green-soft border border-growth-green/30 p-4">
-              <h4 className="mb-3 font-semibold text-growth-green">🎯 Comparativo com Pessoa Saudável</h4>
-              
+            <div className="rounded-lg border border-growth-green/30 bg-growth-green-soft p-4">
+              <h4 className="mb-3 font-semibold text-growth-green">
+                🎯 Comparativo com Pessoa Saudável
+              </h4>
+
               {(() => {
                 const isMale = result.inputs.gender === "masculino";
                 const age = result.inputs.age;
-                
+
                 // Faixas saudáveis por idade e gênero
                 let healthyRange;
                 if (isMale) {
@@ -946,17 +979,27 @@ export default function BodyFatCalculator() {
                   else if (age <= 50) healthyRange = { min: 20, max: 28, ideal: 24 };
                   else healthyRange = { min: 22, max: 30, ideal: 26 };
                 }
-                
+
                 const currentBF = result.calculations.bodyFatPercentage;
                 const difference = currentBF - healthyRange.ideal;
-                const diffText = difference > 0 ? `${difference.toFixed(1)}% acima` : `${Math.abs(difference).toFixed(1)}% abaixo`;
-                const diffColor = Math.abs(difference) <= 2 ? "text-growth-green" : difference > 0 ? "text-system-warning" : "text-system-info";
-                
+                const diffText =
+                  difference > 0
+                    ? `${difference.toFixed(1)}% acima`
+                    : `${Math.abs(difference).toFixed(1)}% abaixo`;
+                const diffColor =
+                  Math.abs(difference) <= 2
+                    ? "text-growth-green"
+                    : difference > 0
+                      ? "text-system-warning"
+                      : "text-system-info";
+
                 return (
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="rounded-lg bg-gray-900 p-4">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-growth-green">{healthyRange.ideal}%</div>
+                        <div className="text-2xl font-bold text-growth-green">
+                          {healthyRange.ideal}%
+                        </div>
                         <div className="text-sm text-text-secondary">Ideal para sua idade</div>
                         <div className="mt-1 text-xs text-text-secondary">
                           Faixa saudável: {healthyRange.min}% - {healthyRange.max}%
@@ -968,9 +1011,11 @@ export default function BodyFatCalculator() {
                         <div className={`text-2xl font-bold ${diffColor}`}>{diffText}</div>
                         <div className="text-sm text-text-secondary">Diferença do ideal</div>
                         <div className="mt-1 text-xs text-text-secondary">
-                          {difference <= -2 ? "Abaixo do recomendado" : 
-                           difference >= 2 ? "Acima do recomendado" : 
-                           "Dentro da faixa ideal"}
+                          {difference <= -2
+                            ? "Abaixo do recomendado"
+                            : difference >= 2
+                              ? "Acima do recomendado"
+                              : "Dentro da faixa ideal"}
                         </div>
                       </div>
                     </div>
@@ -1002,7 +1047,8 @@ export default function BodyFatCalculator() {
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
                     O percentual de gordura corporal indica a proporção de tecido adiposo em relação
-                    ao peso total do corpo, sendo um indicador mais preciso de saúde que apenas o peso.
+                    ao peso total do corpo, sendo um indicador mais preciso de saúde que apenas o
+                    peso.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Métodos</h4>
@@ -1183,21 +1229,21 @@ export default function BodyFatCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
               permite calcular{" "}
               <strong className="text-growth-green">composição corporal precisa</strong>: percentual
               de gordura, massa magra e análise de saúde com métodos científicos validados.
             </p>
             <p>
               <strong>Funcionalidades:</strong> Métodos US Navy e Jackson-Pollock, análise por idade
-              e gênero, comparativo com pessoa saudável, classificação de risco à saúde e cálculo
-              de IMC integrado.
+              e gênero, comparativo com pessoa saudável, classificação de risco à saúde e cálculo de
+              IMC integrado.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins informativos e acompanhamento pessoal. Para avaliações médicas ou nutricionais
-              profissionais, consulte sempre um{" "}
-              <strong>profissional de saúde qualificado</strong>. 
+              profissionais, consulte sempre um <strong>profissional de saúde qualificado</strong>.
               Explore também nossas calculadoras de
               <a
                 href="/calculadoras/saude/imc"

@@ -86,7 +86,7 @@ export const meta: MetaFunction = () => {
     },
     {
       rel: "canonical",
-      href: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
     },
     {
       property: "og:title",
@@ -117,7 +117,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -159,7 +160,7 @@ export const meta: MetaFunction = () => {
         name: "Comparador de Renda Fixa - Simulador de Investimentos 2025",
         description:
           "Comparador gratuito de renda fixa: CDB, LCI, LCA, Tesouro Direto e Poupança. Compare rendimentos com impostos e encontre o melhor investimento.",
-        url: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -173,10 +174,10 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
-            url: "https://calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
             width: 180,
             height: 180,
           },
@@ -188,11 +189,12 @@ export const meta: MetaFunction = () => {
         author: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://calculadoraonlinebr.com.br",
+          url: "https://www.calculadoraonlinebr.com.br",
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
           name: "Comparador de Renda Fixa 2025 - Simulador Completo",
           description:
             "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos precisos de IR. Descubra o investimento com melhor rentabilidade líquida.",
@@ -200,11 +202,11 @@ export const meta: MetaFunction = () => {
           isPartOf: {
             "@type": "WebSite",
             name: "CalculadoraOnlineBR",
-            url: "https://calculadoraonlinebr.com.br",
+            url: "https://www.calculadoraonlinebr.com.br",
             description: "Calculadoras online gratuitas para facilitar seu dia a dia",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://calculadoraonlinebr.com.br/search?q={search_term_string}",
+              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
               "query-input": "required name=search_term_string",
             },
           },
@@ -215,25 +217,25 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 1,
                 name: "Início",
-                item: "https://calculadoraonlinebr.com.br",
+                item: "https://www.calculadoraonlinebr.com.br",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Calculadoras",
-                item: "https://calculadoraonlinebr.com.br/calculadoras",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Finanças",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Comparador Renda Fixa",
-                item: "https://calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
               },
             ],
           },
@@ -616,10 +618,13 @@ export default function FixedIncomeComparison() {
           Comparador de Renda Fixa 2025 – Compare Investimentos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Compare <strong className="text-growth-green">CDB, LCI/LCA, Tesouro Direto e Poupança</strong> com
+          Compare{" "}
+          <strong className="text-growth-green">CDB, LCI/LCA, Tesouro Direto e Poupança</strong> com
           cálculos reais de IR. Descubra{" "}
-          <strong className="text-primary-blue-dark">qual investimento oferece melhor retorno líquido</strong> para
-          seu perfil e prazo.
+          <strong className="text-primary-blue-dark">
+            qual investimento oferece melhor retorno líquido
+          </strong>{" "}
+          para seu perfil e prazo.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -984,9 +989,9 @@ export default function FixedIncomeComparison() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Renda fixa são investimentos onde você empresta dinheiro e recebe de volta
-                    com juros. O retorno é mais previsível que na renda variável, sendo ideal
-                    para reserva de emergência e diversificação de carteira.
+                    Renda fixa são investimentos onde você empresta dinheiro e recebe de volta com
+                    juros. O retorno é mais previsível que na renda variável, sendo ideal para
+                    reserva de emergência e diversificação de carteira.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Características</h4>
@@ -1027,8 +1032,8 @@ export default function FixedIncomeComparison() {
                     🏦 CDB (Certificado de Depósito Bancário)
                   </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Título emitido por bancos com rentabilidade baseada no CDI. Possui garantia
-                    do FGC e diferentes prazos de vencimento.
+                    Título emitido por bancos com rentabilidade baseada no CDI. Possui garantia do
+                    FGC e diferentes prazos de vencimento.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">🏠 LCI/LCA</h4>
@@ -1042,8 +1047,8 @@ export default function FixedIncomeComparison() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🏛️ Tesouro Direto</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Títulos do governo federal com alta segurança. Tesouro Selic acompanha
-                    a taxa básica de juros, enquanto IPCA+ protege contra inflação.
+                    Títulos do governo federal com alta segurança. Tesouro Selic acompanha a taxa
+                    básica de juros, enquanto IPCA+ protege contra inflação.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-success">💰 Poupança</h4>
@@ -1068,11 +1073,13 @@ export default function FixedIncomeComparison() {
                     📊 Diversificação de Prazos
                   </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Distribua investimentos em diferentes vencimentos para aproveitar
-                    melhores oportunidades e manter liquidez escalonada.
+                    Distribua investimentos em diferentes vencimentos para aproveitar melhores
+                    oportunidades e manter liquidez escalonada.
                   </p>
 
-                  <h4 className="mb-3 font-semibold text-system-info">⚖️ Balanceamento Tributário</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">
+                    ⚖️ Balanceamento Tributário
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Combine produtos isentos e tributados</li>
                     <li>• Aproveite prazo para reduzir IR</li>
@@ -1113,18 +1120,12 @@ export default function FixedIncomeComparison() {
               <thead>
                 <tr className="border-b-2 border-neutral-surface-variant">
                   <th className="p-3 text-left font-semibold">Critério</th>
-                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
-                    CDB
-                  </th>
-                  <th className="p-3 text-center font-semibold text-growth-green">
-                    LCI/LCA
-                  </th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">CDB</th>
+                  <th className="p-3 text-center font-semibold text-growth-green">LCI/LCA</th>
                   <th className="p-3 text-center font-semibold text-system-warning">
                     Tesouro Direto
                   </th>
-                  <th className="p-3 text-center font-semibold text-system-info">
-                    Poupança
-                  </th>
+                  <th className="p-3 text-center font-semibold text-system-info">Poupança</th>
                 </tr>
               </thead>
               <tbody className="space-y-2">
@@ -1178,8 +1179,8 @@ export default function FixedIncomeComparison() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Iniciantes</h4>
               <p className="text-sm text-text-secondary">
-                Comece com <strong>Tesouro Selic</strong> para aprender sobre renda fixa com
-                alta liquidez e segurança máxima.
+                Comece com <strong>Tesouro Selic</strong> para aprender sobre renda fixa com alta
+                liquidez e segurança máxima.
               </p>
             </div>
 
@@ -1264,24 +1265,26 @@ export default function FixedIncomeComparison() {
               <strong className="text-primary-blue-dark">
                 comparador de investimentos em renda fixa
               </strong>{" "}
-              utiliza <strong className="text-growth-green">cálculos reais de juros compostos</strong>{" "}
-              e <strong className="text-system-warning">tabela regressiva do IR</strong> para 
+              utiliza{" "}
+              <strong className="text-growth-green">cálculos reais de juros compostos</strong> e{" "}
+              <strong className="text-system-warning">tabela regressiva do IR</strong> para
               determinar qual investimento oferece melhor rentabilidade líquida.
             </p>
             <p>
-              <strong>Funcionalidades disponíveis:</strong> Compare CDB, LCI/LCA, Tesouro Direto e Poupança 
-              configurando taxas personalizadas, visualize impacto do IR por prazo, analise qual investimento 
-              oferece melhor retorno líquido, e entenda as diferenças entre cada produto.
+              <strong>Funcionalidades disponíveis:</strong> Compare CDB, LCI/LCA, Tesouro Direto e
+              Poupança configurando taxas personalizadas, visualize impacto do IR por prazo, analise
+              qual investimento oferece melhor retorno líquido, e entenda as diferenças entre cada
+              produto.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e simulação de cenários. Para decisões de investimento, considere
-              sempre <strong>análise de risco, liquidez necessária</strong> e consulte um assessor financeiro
-              qualificado.
+              sempre <strong>análise de risco, liquidez necessária</strong> e consulte um assessor
+              financeiro qualificado.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              💰 Juros compostos • 📊 IR regressivo • 🔒 Dados não armazenados • 📱
-              Compatível com todos os dispositivos • 🌙 Interface otimizada
+              💰 Juros compostos • 📊 IR regressivo • 🔒 Dados não armazenados • 📱 Compatível com
+              todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>
         </CardContent>
