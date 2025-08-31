@@ -23,7 +23,7 @@ const CATEGORY_STYLES = {
     badgeRing: "ring-finance-gold/20",
     badgeBg: "bg-finance-gold/10",
     badgeText: "text-finance-gold-dark",
-    textGradient: "from-finance-gold via-finance-gold-light to-finance-gold",
+    textGradient: "from-finance-gold-dark via-finance-gold to-finance-gold-light",
     highlightColor: "text-finance-gold-dark",
   },
   saude: {
@@ -32,7 +32,7 @@ const CATEGORY_STYLES = {
     badgeRing: "ring-health-red/20",
     badgeBg: "bg-health-red/10",
     badgeText: "text-health-red-dark",
-    textGradient: "from-health-red via-health-red-light to-health-red",
+    textGradient: "from-health-red-dark via-health-red to-health-red-light",
     highlightColor: "text-health-red-dark",
   },
   matematica: {
@@ -41,7 +41,7 @@ const CATEGORY_STYLES = {
     badgeRing: "ring-math-purple/20",
     badgeBg: "bg-math-purple/10",
     badgeText: "text-math-purple-dark",
-    textGradient: "from-math-purple via-math-purple-light to-math-purple",
+    textGradient: "from-math-purple-dark via-math-purple to-math-purple-light",
     highlightColor: "text-math-purple-dark",
   },
   trabalhista: {
@@ -50,10 +50,25 @@ const CATEGORY_STYLES = {
     badgeRing: "ring-primary-blue/20", 
     badgeBg: "bg-primary-blue/10",
     badgeText: "text-primary-blue-dark",
-    textGradient: "from-primary-blue via-primary-blue-light to-primary-blue",
+    textGradient: "from-primary-blue-dark via-primary-blue to-primary-blue-light",
     highlightColor: "text-primary-blue-dark",
   },
 } as const;
+
+function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista"): string {
+  switch (category) {
+    case "financas":
+      return "text-finance-gold";
+    case "saude":
+      return "text-health-red";
+    case "matematica":
+      return "text-math-purple";
+    case "trabalhista":
+      return "text-primary-blue";
+    default:
+      return "text-primary-blue";
+  }
+}
 
 export default function CategoryHero({
   category,
@@ -81,7 +96,7 @@ export default function CategoryHero({
           {/* Title */}
           <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
             {title}{" "}
-            <span className={`block bg-gradient-to-r ${styles.textGradient} bg-clip-text text-transparent animate-pulse`}>
+            <span className={`block font-extrabold ${getSubtitleColor(category)} drop-shadow-md`}>
               {subtitle}
             </span>
           </h1>
