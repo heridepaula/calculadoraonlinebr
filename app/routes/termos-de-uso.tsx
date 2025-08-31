@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function TermosDeUso() {
-  const lastUpdated = "09 de agosto de 2025";
+  const lastUpdated = "31 de agosto de 2025";
 
   return (
     <div className="mx-auto max-w-4xl space-y-8">
@@ -168,25 +168,79 @@ export default function TermosDeUso() {
           </p>
         </section>
 
+        <section className="rounded-lg border-2 border-red-200 bg-red-50 p-6">
+          <div className="mb-4 flex items-center space-x-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500">
+              <span className="text-2xl text-white">⚠️</span>
+            </div>
+            <h2 className="text-2xl font-bold text-red-900">9. ISENÇÃO DE RESPONSABILIDADE - LEIA COM ATENÇÃO</h2>
+          </div>
+          
+          <div className="space-y-4 text-red-800">
+            <div className="rounded-lg bg-red-100 p-4 border border-red-300">
+              <p className="font-bold text-lg mb-3">
+                🚨 AVISO LEGAL IMPORTANTE 🚨
+              </p>
+              <p className="font-semibold mb-2">
+                As calculadoras fornecidas neste site são ferramentas de ESTIMATIVA e têm caráter puramente EDUCATIVO e INFORMATIVO.
+              </p>
+            </div>
+            
+            <div className="space-y-3">
+              <h3 className="font-bold text-lg">A Calculadora Online BR NÃO SE RESPONSABILIZA POR:</h3>
+              <ul className="ml-4 space-y-2 list-disc font-medium">
+                <li>
+                  <strong>Perdas Financeiras:</strong> Qualquer perda monetária, investimento mal-sucedido, decisão financeira equivocada baseada em nossos cálculos.
+                </li>
+                <li>
+                  <strong>Decisões de Saúde:</strong> Problemas de saúde, diagnósticos incorretos, ou decisões médicas baseadas em cálculos de IMC, gordura corporal ou similares.
+                </li>
+                <li>
+                  <strong>Erros de Cálculo:</strong> Imprecisões nos resultados devido a arredondamentos, limitações de software ou erros de programação.
+                </li>
+                <li>
+                  <strong>Decisões Comerciais:</strong> Prejuízos em negócios, planejamentos ou estratégias baseadas nos resultados das calculadoras.
+                </li>
+                <li>
+                  <strong>Consequências Legais:</strong> Problemas jurídicos decorrentes do uso incorreto ou interpretação equivocada dos resultados.
+                </li>
+                <li>
+                  <strong>Danos Diretos e Indiretos:</strong> Qualquer tipo de dano, perda, prejuízo ou consequência relacionada ao uso deste site.
+                </li>
+              </ul>
+            </div>
+            
+            <div className="rounded-lg bg-red-100 p-4 border border-red-300 mt-4">
+              <p className="font-bold text-sm">
+                ⚖️ <strong>RESPONSABILIDADE TOTAL DO USUÁRIO:</strong><br/>
+                Ao usar este site, você assume TOTAL responsabilidade pelas decisões tomadas com base nos resultados obtidos. 
+                Para decisões importantes em finanças, saúde ou negócios, SEMPRE consulte profissionais qualificados e especialistas na área.
+              </p>
+            </div>
+            
+            <div className="rounded-lg bg-amber-100 p-4 border border-amber-300 mt-4">
+              <p className="font-bold text-amber-900">
+                💡 <strong>RECOMENDAÇÃO LEGAL:</strong><br/>
+                Use nossas calculadoras apenas como PONTO DE PARTIDA para suas análises. 
+                NUNCA tome decisões importantes baseando-se exclusivamente em nossos resultados.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="rounded-lg bg-neutral-surface p-6">
           <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-            9. Limitação de Responsabilidade
+            10. Limitações Técnicas
           </h2>
-          <div className="bg-system-warning-light mb-4 rounded-md p-4">
-            <p className="text-sm font-semibold text-text-primary-dark">
-              IMPORTANTE: Limitações Legais
-            </p>
-          </div>
           <p className="mb-4 text-text-secondary-dark">
-            A Calculadora Online BR não se responsabiliza por:
+            É importante entender as limitações técnicas dos nossos cálculos:
           </p>
           <ul className="space-y-2 pl-4 text-text-secondary-dark">
-            <li>• Decisões tomadas com base nos resultados das calculadoras</li>
-            <li>• Perdas financeiras decorrentes do uso das ferramentas</li>
-            <li>• Problemas de saúde relacionados aos cálculos de IMC ou similares</li>
-            <li>• Interrupções no serviço ou perda de dados</li>
-            <li>• Danos diretos, indiretos ou consequenciais</li>
-            <li>• Uso inadequado ou interpretação incorreta dos resultados</li>
+            <li>• <strong>Estimativas:</strong> Todos os resultados são estimativas baseadas em fórmulas padrão</li>
+            <li>• <strong>Simplificações:</strong> Modelos matemáticos podem não refletir situações reais complexas</li>
+            <li>• <strong>Variáveis:</strong> Fatores externos não considerados podem afetar resultados reais</li>
+            <li>• <strong>Arredondamentos:</strong> Podem ocorrer pequenas diferenças por limitações computacionais</li>
+            <li>• <strong>Atualizações:</strong> Fórmulas podem ser atualizadas conforme novas metodologias</li>
           </ul>
         </section>
 
@@ -223,7 +277,7 @@ export default function TermosDeUso() {
           <p className="mb-4 text-text-secondary-dark">Para questões sobre estes Termos de Uso:</p>
           <div className="rounded-md bg-gray-900 p-4">
             <p className="mb-2 text-sm text-text-secondary-dark">
-              <strong>Email:</strong> termos@calculadoraonline.com.br
+              <strong>Email:</strong> contato@calculadoraonlinebr.com.br
             </p>
             <p className="mb-2 text-sm text-text-secondary-dark">
               <strong>Assunto:</strong> "Termos de Uso - [Sua dúvida]"

@@ -244,6 +244,49 @@ export default function Sobre() {
           </div>
         </div>
       </section>
+
+      <section className="rounded-lg border-2 border-amber-200 bg-amber-50 p-8">
+        <div className="mb-4 flex items-center space-x-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-500">
+            <span className="text-2xl text-white" role="img" aria-label="Aviso">
+              ⚠️
+            </span>
+          </div>
+          <h2 className="text-2xl font-bold text-amber-900">Importante - Isenção de Responsabilidade</h2>
+        </div>
+        
+        <div className="space-y-4 text-amber-800">
+          <p className="font-semibold">
+            As calculadoras disponibilizadas neste site são ferramentas de apoio e têm caráter educativo e informativo.
+          </p>
+          
+          <ul className="ml-4 space-y-2 list-disc">
+            <li>
+              <strong>Estimativas e Aproximações:</strong> Os resultados obtidos são estimativas baseadas nos dados fornecidos e não devem ser considerados como valores absolutos ou definitivos.
+            </li>
+            <li>
+              <strong>Decisões Financeiras:</strong> Para decisões financeiras importantes, consulte sempre um profissional qualificado (contador, consultor financeiro, etc.).
+            </li>
+            <li>
+              <strong>Questões de Saúde:</strong> Para questões relacionadas à saúde, procure orientação de um profissional médico qualificado.
+            </li>
+            <li>
+              <strong>Responsabilidade Limitada:</strong> Não nos responsabilizamos por perdas, danos ou consequências decorrentes do uso das informações e resultados fornecidos pelas calculadoras.
+            </li>
+            <li>
+              <strong>Precisão dos Dados:</strong> A precisão dos resultados depende da veracidade e exatidão dos dados inseridos pelo usuário.
+            </li>
+          </ul>
+          
+          <div className="mt-6 rounded-lg bg-amber-100 p-4 border border-amber-300">
+            <p className="text-sm font-medium text-amber-900">
+              <strong>Recomendação:</strong> Use nossas ferramentas como ponto de partida para seus cálculos e planejamentos, 
+              mas sempre busque orientação profissional especializada para decisões importantes em sua vida financeira, 
+              de saúde ou acadêmica.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
