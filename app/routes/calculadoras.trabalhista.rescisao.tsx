@@ -887,18 +887,18 @@ export default function RescisaoTrabalhistaCalculator() {
   const [result, setResult] = useState<TerminationResult | null>(null);
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "rescisao",
-    category: "trabalhista"
+    category: "trabalhista",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("rescisao");
 
   const handleCalculate = () => {
@@ -968,8 +968,6 @@ export default function RescisaoTrabalhistaCalculator() {
           de forma precisa e conforme a
           <strong className="text-primary-blue-dark">legislação brasileira (CLT)</strong>. Inclui
           todos os direitos, descontos e benefícios legais.
-          <strong className="text-system-warning">Mais de 100.000 trabalhadores</strong> já usaram
-          nossa ferramenta!
         </p>
         <div className="inline-block rounded-lg bg-gradient-to-r from-growth-green-soft via-primary-blue-light to-system-warning/20 p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -1403,7 +1401,9 @@ export default function RescisaoTrabalhistaCalculator() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="mb-3 font-semibold text-text-primary">📊 Base dos Cálculos FGTS</h4>
+                  <h4 className="mb-3 font-semibold text-text-primary">
+                    📊 Base dos Cálculos FGTS
+                  </h4>
                   <div className="space-y-2 text-sm">
                     <p>
                       <strong>FGTS período:</strong> {formatCurrency(result.fgtsDepositadoPeriodo)}
@@ -1675,8 +1675,8 @@ export default function RescisaoTrabalhistaCalculator() {
                 1. 🚫 Demissão sem Justa Causa (CLT Art. 477)
               </h3>
               <p className="mb-3 text-text-secondary">
-                A <strong className="text-growth-green">demissão sem justa causa</strong> é a rescisão
-                do contrato de trabalho por
+                A <strong className="text-growth-green">demissão sem justa causa</strong> é a
+                rescisão do contrato de trabalho por
                 <strong className="text-primary-blue-dark">iniciativa do empregador</strong>, sem
                 que o empregado tenha cometido falta grave. É o tipo de rescisão com{" "}
                 <strong className="text-system-success">mais direitos garantidos</strong>.
@@ -1701,8 +1701,8 @@ export default function RescisaoTrabalhistaCalculator() {
                 2. ⛔ Demissão com Justa Causa (CLT Art. 482)
               </h3>
               <p className="mb-3 text-text-secondary">
-                A <strong className="text-system-error">demissão com justa causa</strong> ocorre quando o
-                empregado comete
+                A <strong className="text-system-error">demissão com justa causa</strong> ocorre
+                quando o empregado comete
                 <strong className="text-system-error">falta grave</strong> prevista em lei, como
                 abandono de emprego, insubordinação ou ato de improbidade.
               </p>
