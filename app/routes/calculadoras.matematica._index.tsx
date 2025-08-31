@@ -59,48 +59,21 @@ export default function MatematicaIndex() {
         </div>
       </div>
 
-      {/* Hero Section with Math Theme */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-math-purple/5 via-surface to-surface-dark">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-math-purple/10 via-transparent to-transparent"></div>
-        
-        <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <div className="text-center">
-            <div className="mb-8 inline-flex items-center rounded-full bg-math-purple/10 px-4 py-2 text-sm font-medium text-math-purple-dark ring-1 ring-inset ring-math-purple/20">
-              <span className="mr-2">🔢</span>
-              Ferramentas Matemáticas para Estudos e Trabalho
-            </div>
-            
-            <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
-              Calculadoras
-              <span className="block bg-gradient-to-r from-math-purple via-math-purple-light to-math-purple bg-clip-text text-transparent">
-                Matemáticas
-              </span>
-            </h1>
-            
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-text-secondary-dark sm:text-xl">
-              Resolva cálculos matemáticos rapidamente com ferramentas essenciais para{" "}
-              <strong className="text-math-purple-dark">estudos, trabalho e uso pessoal</strong>.
-              Resultados instantâneos com explicações passo a passo.
-            </p>
-            
-            {/* Math-specific Trust Indicators */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">Métodos Testados</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-math-purple"></div>
-                <span className="font-medium">Explicações Detalhadas</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
-                <span className="font-medium">Ideal para Estudos</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CategoryHero
+        category="matematica"
+        title="Calculadoras"
+        subtitle="Matemáticas"
+        description="Resolva cálculos matemáticos rapidamente com ferramentas essenciais para **estudos, trabalho e uso pessoal**. Resultados instantâneos com explicações passo a passo."
+        badge={{
+          icon: "🔢",
+          text: "Ferramentas Matemáticas para Estudos e Trabalho"
+        }}
+        trustIndicators={[
+          { color: "bg-system-success", text: "Métodos Testados" },
+          { color: "bg-math-purple", text: "Explicações Detalhadas" },
+          { color: "bg-primary-blue", text: "Ideal para Estudos" }
+        ]}
+      />
 
       {/* Quick Access - Math Essentials */}
       <section className="bg-surface-dark/30 py-12">

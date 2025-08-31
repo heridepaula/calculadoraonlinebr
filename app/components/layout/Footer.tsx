@@ -26,8 +26,9 @@ export const Footer = () => {
               Termos de Uso
             </button>
             <a
-              href="mailto:contato@calculadoraonlinebr.com.br"
+              href="mailto:contato@calculadoraonlinebr.com?subject=Contato%20-%20CalculadoraOnlineBR&body=Olá,%0A%0AEscreva%20sua%20mensagem%20aqui...%0A%0AAtenciosamente,"
               className="flex min-h-[44px] items-center text-xs text-gray-300 hover:text-blue-400 sm:text-sm"
+              title="Enviar email direto para contato@calculadoraonlinebr.com"
             >
               Contato
             </a>
