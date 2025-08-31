@@ -104,7 +104,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora imc, índice massa corporal, taxa metabólica, percentual gordura, análise corporal, peso ideal, classificação imc, bmi calculator, metabolismo basal",
+        "calculadora imc, índice massa corporal, taxa metabólica basal, bmi calculator, peso ideal, metabolismo",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
@@ -152,7 +152,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-30",
+        dateModified: "2024-12-31",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -291,6 +291,25 @@ export const meta: MetaFunction = () => {
         ],
       }),
     },
+    // Medical Calculator Schema
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "MedicalCalculator",
+        name: "Calculadora de IMC com Taxa Metabólica",
+        description: "Ferramenta médica para cálculo de Índice de Massa Corporal, Taxa Metabólica Basal e percentual de gordura corporal estimado",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
+        medicalSpecialty: ["Endocrinology", "Nutrition", "GeneralMedicine"],
+        guideline: {
+          "@type": "MedicalGuideline",
+          name: "Classificação OMS para IMC",
+          description: "Diretrizes da Organização Mundial da Saúde para classificação do Índice de Massa Corporal"
+        },
+        applicationCategory: "HealthApplication",
+        isAccessibleForFree: true,
+        inLanguage: "pt-BR"
+      }),
+    },
     // Adicionar WebPage Schema separado para melhor estruturação
     {
       "script:ld+json": JSON.stringify({
@@ -301,8 +320,8 @@ export const meta: MetaFunction = () => {
         description:
           "Ferramenta gratuita para calcular IMC, taxa metabólica basal e percentual de gordura corporal com classificação personalizada por idade e sexo.",
         inLanguage: "pt-BR",
-        dateModified: "2025-08-30",
-        lastReviewed: "2025-08-30",
+        dateModified: "2024-12-31",
+        lastReviewed: "2024-12-31",
         isPartOf: {
           "@type": "WebSite",
           name: "CalculadoraOnlineBR",
@@ -1003,88 +1022,93 @@ export default function BMICalculator() {
             {/* Valores de Referência */}
             <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
-                📐 Valores de Referência
+                📏 Faixas de IMC por Idade
               </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">👨 Homens</h4>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">👨👩 Adultos (18-64 anos)</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Atlético: 6-13%</li>
-                    <li>• Fitness: 14-17%</li>
-                    <li>• Aceitável: 18-24%</li>
-                    <li>• Obeso: 25%+</li>
+                    <li>• Baixo peso: &lt; 18,5 kg/m²</li>
+                    <li>• Normal: 18,5-24,9 kg/m²</li>
+                    <li>• Sobrepeso: 25-29,9 kg/m²</li>
+                    <li>• Obesidade I: 30-34,9 kg/m²</li>
+                    <li>• Obesidade II: 35-39,9 kg/m²</li>
+                    <li>• Obesidade III: ≥ 40 kg/m²</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-info">🎯 Objetivos</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Faixas Ideais por Idade</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Saúde geral: 10-18%</li>
-                    <li>• Performance esportiva: 6-13%</li>
-                    <li>• Manutenção: 14-24%</li>
+                    <li>• 18-24 anos: 19-24 kg/m²</li>
+                    <li>• 25-34 anos: 20-25 kg/m²</li>
+                    <li>• 35-44 anos: 21-26 kg/m²</li>
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-warning">👩 Mulheres</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">🧓 Idosos (65+ anos)</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Atlético: 16-20%</li>
-                    <li>• Fitness: 21-24%</li>
-                    <li>• Aceitável: 25-31%</li>
-                    <li>• Obeso: 32%+</li>
+                    <li>• Baixo peso: &lt; 22 kg/m²</li>
+                    <li>• Normal: 22-27 kg/m²</li>
+                    <li>• Sobrepeso: 27-32 kg/m²</li>
+                    <li>• Obesidade: ≥ 32 kg/m²</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-info">🎯 Objetivos</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">🎯 Faixas Maduras</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Saúde geral: 20-28%</li>
-                    <li>• Performance esportiva: 16-23%</li>
-                    <li>• Manutenção: 24-31%</li>
+                    <li>• 45-54 anos: 22-27 kg/m²</li>
+                    <li>• 55-64 anos: 23-28 kg/m²</li>
+                    <li>• 65+ anos: 24-29 kg/m²</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Como Medir */}
+            {/* Como Calcular IMC */}
             <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
-                🔍 Como Medir Corretamente
+                🔍 Como Calcular IMC
               </h3>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-growth-green">📝 Medidas Necessárias</h4>
+                  <h4 className="mb-3 font-semibold text-growth-green">📝 Dados Necessários</h4>
                   <ol className="mb-4 space-y-2 text-sm text-text-secondary">
                     <li>
-                      1. <strong>Pescoço:</strong> Logo abaixo do pomo de Adão
+                      1. <strong>Peso:</strong> Em quilogramas (kg)
                     </li>
                     <li>
-                      2. <strong>Cintura:</strong> Ponto mais estreito do abdômen
+                      2. <strong>Altura:</strong> Em centímetros (cm)
                     </li>
                     <li>
-                      3. <strong>Quadril (mulheres):</strong> Ponto mais largo dos quadris
+                      3. <strong>Idade:</strong> Para classificação ajustada
                     </li>
                     <li>
-                      4. <strong>Altura:</strong> Sem sapatos, encostado na parede
-                    </li>
-                    <li>
-                      5. <strong>Peso:</strong> Preferencialmente pela manhã
+                      4. <strong>Sexo:</strong> Para cálculo de taxa metabólica
                     </li>
                   </ol>
+
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🧮 Fórmula</h4>
+                  <div className="rounded-lg bg-primary-blue-light p-3 text-sm">
+                    <strong>IMC = Peso (kg) ÷ Altura (m)²</strong>
+                  </div>
                 </div>
 
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Dicas Importantes</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Dicas para Medição</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Use fita métrica flexível</li>
-                    <li>• Mantenha a fita paralela ao chão</li>
-                    <li>• Não aperte demais a fita</li>
-                    <li>• Meça sempre no mesmo horário</li>
+                    <li>• Pese-se pela manhã, em jejum</li>
+                    <li>• Use balança calibrada</li>
+                    <li>• Meça altura sem sapatos</li>
+                    <li>• Mantenha postura ereta</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Cuidados</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Considerações</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Não meça após exercícios intensos</li>
-                    <li>• Evite medir durante ciclo menstrual</li>
-                    <li>• Mantenha postura ereta e relaxada</li>
+                    <li>• IMC não diferencia músculo e gordura</li>
+                    <li>• Atletas podem ter IMC elevado</li>
+                    <li>• Idosos têm faixas diferentes</li>
+                    <li>• Crianças usam percentis</li>
                   </ul>
                 </div>
               </div>
@@ -1094,73 +1118,71 @@ export default function BMICalculator() {
       </Card>
 
       <FAQ
-        title="Perguntas Frequentes - Calculadora de Gordura Corporal"
+        title="Perguntas Frequentes - Calculadora de IMC"
         items={[
           {
-            question: "O que é gordura corporal?",
+            question: "O que é IMC?",
             answer:
-              "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
+              "IMC (Índice de Massa Corporal) é um indicador que relaciona peso e altura para avaliar se uma pessoa está dentro do peso ideal. É calculado dividindo o peso pela altura ao quadrado (kg/m²).",
             borderColor: "primary-blue",
           },
           {
-            question: "Qual é o percentual de gordura corporal ideal?",
+            question: "Qual é o IMC ideal?",
             answer:
-              "O percentual ideal varia por idade e gênero. Para homens: 8-24% (dependendo da idade). Para mulheres: 16-31%. Atletas podem ter valores menores, enquanto níveis acima de 25% (homens) ou 32% (mulheres) indicam obesidade.",
+              "O IMC ideal varia por idade. Para adultos: 18,5-24,9 (peso normal). Idosos (65+): 22-27 é considerado mais saudável. Crianças e adolescentes usam percentis específicos por idade e sexo.",
             borderColor: "growth-green",
           },
           {
-            question: "Como calcular gordura corporal em casa?",
+            question: "Como calcular IMC em casa?",
             answer:
-              "Use fita métrica para medir pescoço, cintura e quadril (mulheres). Aplique o método US Navy ou use nossa calculadora online gratuita que faz os cálculos automaticamente com base nas suas medidas.",
+              "Divida seu peso (kg) pela altura ao quadrado (m²). Exemplo: 70kg ÷ (1,75m)² = 22,9. Use nossa calculadora online gratuita que também calcula taxa metabólica e percentual de gordura estimado.",
             borderColor: "system-info",
           },
           {
-            question: "Qual a diferença entre método US Navy e Jackson-Pollock?",
+            question: "O que é taxa metabólica basal?",
             answer:
-              "O método US Navy usa circunferências corporais (pescoço, cintura, quadril) e é mais acessível. O Jackson-Pollock tradicionalmente usa dobras cutâneas com adipômetro, mas nossa versão simplificada usa medidas corporais para maior praticidade.",
+              "Taxa Metabólica Basal (TMB) é a quantidade mínima de energia que o corpo precisa para manter funções vitais em repouso. Varia conforme idade, sexo, peso e altura, sendo fundamental para planejamento nutricional.",
             borderColor: "system-warning",
           },
           {
-            question: "Como medir corretamente as circunferências?",
+            question: "Como interpretar o resultado do IMC?",
             answer:
-              "Use fita métrica flexível. Pescoço: logo abaixo do pomo de Adão. Cintura: ponto mais estreito do abdômen. Quadril (mulheres): ponto mais largo. Mantenha a fita paralela ao chão sem apertar demais.",
+              "Analise sua classificação (baixo peso, normal, sobrepeso, obesidade) e compare com as faixas ideais para sua idade. Considere também a taxa metabólica e percentual de gordura estimado para uma análise completa.",
             borderColor: "growth-green",
           },
           {
-            question: "Gordura corporal é mais importante que IMC?",
+            question: "IMC é confiável para todas as idades?",
             answer:
-              "Sim, o percentual de gordura corporal é mais preciso que o IMC para avaliar saúde e fitness. O IMC não diferencia massa magra de gorda, enquanto a gordura corporal fornece informações específicas sobre composição corporal.",
+              "O IMC é mais confiável para adultos (18-65 anos). Para idosos, faixas mais altas são aceitáveis. Para crianças e adolescentes, é preferível usar percentis específicos por idade e sexo.",
             borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
-          title: "Dica Importante sobre Gordura Corporal",
+          title: "Dica Importante sobre IMC",
           content:
-            "<strong>Para resultados precisos:</strong> meça sempre no mesmo horário, evite exercícios intensos antes da medição e mantenha postura ereta e relaxada durante as medidas.",
+            "<strong>Para resultados precisos:</strong> pese-se sempre no mesmo horário, preferencialmente pela manhã em jejum, e use balança calibrada. Meça altura sem sapatos.",
         }}
-        footerText="<strong>Lembre-se:</strong> O percentual de gordura corporal é mais preciso que o IMC para avaliar saúde. Consulte profissionais de saúde para interpretação completa dos resultados."
+        footerText="<strong>Lembre-se:</strong> O IMC é uma ferramenta de triagem. Para análise completa da saúde, considere também composição corporal e consulte profissionais qualificados."
       />
 
       {/* Footer com informações adicionais */}
       <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Como Usar Esta Calculadora de Gordura Corporal
+            📚 Como Usar Esta Calculadora de IMC
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
+              <strong className="text-primary-blue-dark">calculadora de IMC</strong>{" "}
               permite calcular{" "}
-              <strong className="text-growth-green">composição corporal precisa</strong>: percentual
-              de gordura, massa magra e análise de saúde com métodos científicos validados.
+              <strong className="text-growth-green">IMC, taxa metabólica basal</strong> e percentual
+              de gordura estimado com classificação personalizada por idade e sexo.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Métodos US Navy e Jackson-Pollock, análise por idade
-              e gênero, comparativo com pessoa saudável, classificação de risco à saúde e cálculo de
-              IMC integrado.
+              <strong>Funcionalidades:</strong> Cálculo de IMC preciso, taxa metabólica (TMB), gasto calórico diário, percentual de gordura estimado, classificação por faixa etária e análise de risco à saúde.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
