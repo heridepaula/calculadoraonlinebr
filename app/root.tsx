@@ -12,6 +12,7 @@ import { isGAEnabled, GA_TRACKING_ID } from "~/lib/google-analytics";
 import { useCloudflareAnalyticsSimple } from "~/hooks/useCloudflareAnalytics";
 import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytics";
 import { CookieConsent } from "~/components";
+import { Footer } from "~/components/layout/Footer";
 
 import "./tailwind.css";
 import "./styles/globals.css";
@@ -266,39 +267,7 @@ export default function App() {
           <Outlet />
         </main>
 
-        <footer className="mt-auto border-t border-light bg-background-dark-secondary">
-          <div className="mx-auto max-w-7xl px-8 py-8 sm:px-4 md:px-6 md:py-6">
-            <div className="text-center">
-              <p className="mb-3 text-sm text-text-secondary md:text-xs">
-                © 2024 Calculadora Online BR. Todas as calculadoras são gratuitas e de código
-                aberto.
-              </p>
-              <div className="mb-3 flex flex-row items-center justify-center space-x-6">
-                <Link
-                  to="/sobre"
-                  className="flex min-h-[44px] items-center text-sm text-text-secondary transition-colors hover:text-primary-blue md:text-xs"
-                >
-                  Sobre
-                </Link>
-                <Link
-                  to="/privacidade"
-                  className="flex min-h-[44px] items-center text-sm text-text-secondary transition-colors hover:text-primary-blue md:text-xs"
-                >
-                  Privacidade
-                </Link>
-                <Link
-                  to="/termos-de-uso"
-                  className="flex min-h-[44px] items-center text-sm text-text-secondary transition-colors hover:text-primary-blue md:text-xs"
-                >
-                  Termos de Uso
-                </Link>
-              </div>
-              <p className="text-xs text-text-secondary opacity-75">
-                Design moderno e funcional para facilitar seus cálculos
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
           </div>
           
           {/* Cookie Consent Banner */}

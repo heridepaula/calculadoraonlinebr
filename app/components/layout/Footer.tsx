@@ -22,9 +22,12 @@ export const Footer = () => {
             >
               Privacidade
             </Link>
-            <button className="flex min-h-[44px] items-center text-xs text-gray-500 hover:text-blue-600 sm:text-sm">
+            <Link
+              to="/termos-de-uso"
+              className="flex min-h-[44px] items-center text-xs text-gray-300 hover:text-blue-400 sm:text-sm"
+            >
               Termos de Uso
-            </button>
+            </Link>
             <a
               href="mailto:contato@calculadoraonlinebr.com?subject=Contato%20-%20CalculadoraOnlineBR&body=Olá,%0A%0AEscreva%20sua%20mensagem%20aqui...%0A%0AAtenciosamente,"
               className="flex min-h-[44px] items-center text-xs text-gray-300 hover:text-blue-400 sm:text-sm"

@@ -42,7 +42,6 @@ export const meta: MetaFunction = () => {
     {
       property: "og:title",
       content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
-      content: "Calculadora do Teorema de Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       property: "og:description",
