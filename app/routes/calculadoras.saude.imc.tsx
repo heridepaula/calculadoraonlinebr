@@ -152,7 +152,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2024-12-31",
+        dateModified: "2025-08-31",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -297,17 +297,19 @@ export const meta: MetaFunction = () => {
         "@context": "https://schema.org",
         "@type": "MedicalCalculator",
         name: "Calculadora de IMC com Taxa Metabólica",
-        description: "Ferramenta médica para cálculo de Índice de Massa Corporal, Taxa Metabólica Basal e percentual de gordura corporal estimado",
+        description:
+          "Ferramenta médica para cálculo de Índice de Massa Corporal, Taxa Metabólica Basal e percentual de gordura corporal estimado",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
         medicalSpecialty: ["Endocrinology", "Nutrition", "GeneralMedicine"],
         guideline: {
           "@type": "MedicalGuideline",
           name: "Classificação OMS para IMC",
-          description: "Diretrizes da Organização Mundial da Saúde para classificação do Índice de Massa Corporal"
+          description:
+            "Diretrizes da Organização Mundial da Saúde para classificação do Índice de Massa Corporal",
         },
         applicationCategory: "HealthApplication",
         isAccessibleForFree: true,
-        inLanguage: "pt-BR"
+        inLanguage: "pt-BR",
       }),
     },
     // Adicionar WebPage Schema separado para melhor estruturação
@@ -484,7 +486,7 @@ export default function BMICalculator() {
       // For children/adolescents, use a simplified estimation
       estimatedBodyFat = isMale ? bmi * 0.8 - 2 : bmi * 0.9;
     }
-    
+
     // Ensure reasonable bounds for body fat
     estimatedBodyFat = Math.max(isMale ? 3 : 10, Math.min(isMale ? 40 : 50, estimatedBodyFat));
 
@@ -526,7 +528,7 @@ export default function BMICalculator() {
       if (bmi < 40) return "Obesidade grau II";
       return "Obesidade grau III (mórbida)";
     }
-    
+
     // Ajuste para idosos (65+)
     if (age >= 65) {
       if (bmi < 22) return "Abaixo do peso";
@@ -535,7 +537,7 @@ export default function BMICalculator() {
       if (bmi < 37) return "Obesidade grau I";
       return "Obesidade grau II+";
     }
-    
+
     // Para crianças e adolescentes (2-17 anos) - classificação simplificada
     if (age < 18) {
       if (bmi < 15) return "Muito abaixo do peso";
@@ -544,7 +546,7 @@ export default function BMICalculator() {
       if (bmi < 30) return "Sobrepeso";
       return "Obesidade";
     }
-    
+
     return "Peso normal";
   };
 
@@ -667,7 +669,9 @@ export default function BMICalculator() {
         </CardHeader>
         <CardContent>
           <div className="mb-6 text-center">
-            <p className="text-lg text-text-secondary">Insira seus dados para cálculo completo de IMC e metabolismo:</p>
+            <p className="text-lg text-text-secondary">
+              Insira seus dados para cálculo completo de IMC e metabolismo:
+            </p>
           </div>
 
           {/* Dados pessoais */}
@@ -836,7 +840,9 @@ export default function BMICalculator() {
 
             <div className="mb-6 rounded-lg bg-gray-900 p-4">
               <div className="text-center">
-                <div className="mb-2 text-sm text-text-secondary">Gasto Calórico Diário (Sedentário)</div>
+                <div className="mb-2 text-sm text-text-secondary">
+                  Gasto Calórico Diário (Sedentário)
+                </div>
                 <div className="text-xl font-bold text-growth-green">
                   {Math.round(result.calculations.dailyCalorieNeeds)} kcal
                 </div>
@@ -881,7 +887,8 @@ export default function BMICalculator() {
                 </div>
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
-                  Taxa metabólica basal: {Math.round(result.calculations.basalMetabolicRate)} kcal/dia
+                  Taxa metabólica basal: {Math.round(result.calculations.basalMetabolicRate)}{" "}
+                  kcal/dia
                 </div>
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
@@ -896,9 +903,7 @@ export default function BMICalculator() {
 
             {/* Comparativo com Faixas Ideais */}
             <div className="rounded-lg border border-growth-green/30 bg-growth-green-soft p-4">
-              <h4 className="mb-3 font-semibold text-growth-green">
-                🎯 Faixas Ideais de IMC
-              </h4>
+              <h4 className="mb-3 font-semibold text-growth-green">🎯 Faixas Ideais de IMC</h4>
 
               {(() => {
                 const age = result.inputs.age;
@@ -925,9 +930,7 @@ export default function BMICalculator() {
 
                 const difference = currentBMI - healthyRange.ideal;
                 const diffText =
-                  difference > 0
-                    ? `+${difference.toFixed(1)}`
-                    : `${difference.toFixed(1)}`;
+                  difference > 0 ? `+${difference.toFixed(1)}` : `${difference.toFixed(1)}`;
                 const diffColor =
                   Math.abs(difference) <= 1
                     ? "text-growth-green"
@@ -989,7 +992,8 @@ export default function BMICalculator() {
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
                     O IMC é um indicador que relaciona peso e altura para avaliar se uma pessoa está
-                    dentro do peso ideal. É calculado dividindo o peso (kg) pela altura ao quadrado (m²).
+                    dentro do peso ideal. É calculado dividindo o peso (kg) pela altura ao quadrado
+                    (m²).
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">🔥 Taxa Metabólica</h4>
@@ -1027,7 +1031,9 @@ export default function BMICalculator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">👨👩 Adultos (18-64 anos)</h4>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    👨👩 Adultos (18-64 anos)
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Baixo peso: &lt; 18,5 kg/m²</li>
                     <li>• Normal: 18,5-24,9 kg/m²</li>
@@ -1037,7 +1043,9 @@ export default function BMICalculator() {
                     <li>• Obesidade III: ≥ 40 kg/m²</li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-info">🎯 Faixas Ideais por Idade</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">
+                    🎯 Faixas Ideais por Idade
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• 18-24 anos: 19-24 kg/m²</li>
                     <li>• 25-34 anos: 20-25 kg/m²</li>
@@ -1175,14 +1183,14 @@ export default function BMICalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta{" "}
-              <strong className="text-primary-blue-dark">calculadora de IMC</strong>{" "}
-              permite calcular{" "}
-              <strong className="text-growth-green">IMC, taxa metabólica basal</strong> e percentual
-              de gordura estimado com classificação personalizada por idade e sexo.
+              Esta <strong className="text-primary-blue-dark">calculadora de IMC</strong> permite
+              calcular <strong className="text-growth-green">IMC, taxa metabólica basal</strong> e
+              percentual de gordura estimado com classificação personalizada por idade e sexo.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo de IMC preciso, taxa metabólica (TMB), gasto calórico diário, percentual de gordura estimado, classificação por faixa etária e análise de risco à saúde.
+              <strong>Funcionalidades:</strong> Cálculo de IMC preciso, taxa metabólica (TMB), gasto
+              calórico diário, percentual de gordura estimado, classificação por faixa etária e
+              análise de risco à saúde.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
@@ -1198,8 +1206,8 @@ export default function BMICalculator() {
               para complementar sua análise de saúde.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco em saúde • 📏 IMC e Taxa Metabólica • 🔒 Dados não armazenados • 📱 Compatível com
-              todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco em saúde • 📏 IMC e Taxa Metabólica • 🔒 Dados não armazenados • 📱 Compatível
+              com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>
