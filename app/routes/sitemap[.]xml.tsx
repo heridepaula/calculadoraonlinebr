@@ -108,6 +108,7 @@ export const loader: LoaderFunction = async () => {
       changefreq: "monthly",
     },
     { loc: `${baseUrl}/calculadoras/matematica/fracoes`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${baseUrl}/calculadoras/matematica/moda`, priority: "0.7", changefreq: "monthly" },
 
     // Labor Law Calculators
     { loc: `${baseUrl}/calculadoras/trabalhista/rescisao`, priority: "0.9", changefreq: "monthly" },

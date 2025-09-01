@@ -213,6 +213,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/fracoes",
   },
   {
+    id: "moda",
+    name: "Calculadora de Moda Estatística",
+    description:
+      "Calcule a moda de números com análise completa de frequência. Identifique amodal, bimodal, multimodal com explicações passo a passo e tabela de frequências detalhada",
+    category: "matematica",
+    path: "/calculadoras/matematica/moda",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:

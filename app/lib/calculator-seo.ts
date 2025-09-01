@@ -295,6 +295,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  moda: {
+    id: "moda",
+    title:
+      "Calculadora de Moda 2025 - Cálculo Estatístico com Frequência - Calculadora Online BR",
+    description:
+      "★ Calculadora de moda estatística GRATUITA! Calcule amodal, bimodal, multimodal com tabela de frequências. Análise completa de tendência central com explicações passo a passo.",
+    keywords:
+      "calculadora moda, moda estatística, calcular moda, amodal bimodal multimodal, frequência dados, tendência central, estatística básica, medidas posição, análise dados",
+    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/moda",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
   "rescisao-trabalhista": {
     id: "rescisao-trabalhista",
     title:
