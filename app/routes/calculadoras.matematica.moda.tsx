@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora moda, moda estatística, calcular moda, amodal, bimodal, multimodal, medidas tendência central, estatística básica",
+        "calculadora moda, moda estatística, calcular moda, amodal, bimodal, multimodal, medidas tendência central, estatística básica, estatística descritiva, análise frequência, conjunto dados, valor frequente, estatística aplicada, matemática estatística",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -100,7 +100,8 @@ export const meta: MetaFunction = () => {
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#8B5CF6" },
+    { name: "theme-color", content: "#8E24AA" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
@@ -117,7 +118,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-09-01",
+        dateModified: new Date().toISOString().split('T')[0],
         offers: {
           "@type": "Offer",
           price: "0",
@@ -193,11 +194,14 @@ export const meta: MetaFunction = () => {
           mathExpression: "Moda = valor(es) que mais se repete(m) no conjunto",
         },
         featureList: [
-          "Cálculo automático da moda",
+          "Cálculo automático da moda estatística",
           "Identificação de amodal, bimodal, multimodal",
-          "Análise de frequência de números",
-          "Explicações passo a passo",
-          "Interface educativa e intuitiva",
+          "Análise de frequência absoluta e relativa",
+          "Tabela de frequências detalhada",
+          "Explicações passo a passo educativas",
+          "Interface móvel responsiva e intuitiva",
+          "Suporte a números decimais e negativos",
+          "Resultados em tempo real",
         ],
       }),
     },
