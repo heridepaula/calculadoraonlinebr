@@ -221,6 +221,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/moda",
   },
   {
+    id: "media",
+    name: "Calculadora de Média Estatística",
+    description:
+      "Calcule média aritmética, geométrica e harmônica com análise completa. Análise de medidas de tendência central com desvio padrão, variância e estatísticas detalhadas",
+    category: "matematica",
+    path: "/calculadoras/matematica/media",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:

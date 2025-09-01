@@ -307,6 +307,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.7,
     changeFreq: "monthly",
   },
+  media: {
+    id: "media",
+    title:
+      "Calculadora de Média Estatística 2025 - Aritmética, Geométrica e Harmônica - Calculadora Online BR",
+    description:
+      "★ Calculadora de média estatística GRATUITA! Calcule média aritmética, geométrica e harmônica com análise completa. Desvio padrão, variância e medidas de tendência central com explicações detalhadas.",
+    keywords:
+      "calculadora média, média aritmética, média geométrica, média harmônica, tendência central, desvio padrão, variância, estatística descritiva, análise dados, estatística básica, matemática estatística",
+    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/media",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
   "rescisao-trabalhista": {
     id: "rescisao-trabalhista",
     title:
