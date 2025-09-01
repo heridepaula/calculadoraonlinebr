@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Média Estatística 2025 – Aritmética, Geométrica e Harmônica | CalculadoraOnlineBR",
+      title: "Calculadora de Média Estatística 2025 – 3 Tipos | CalculadoraOnlineBR",
     },
     {
       name: "description",
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora média, média aritmética, média geométrica, média harmônica, tendência central, desvio padrão, variância, estatística descritiva, análise dados",
+        "calculadora média, média aritmética, média geométrica, média harmônica, tendência central, desvio padrão, variância, estatística descritiva, análise dados, estatística básica, matemática estatística, medidas centralidade, cálculo média",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Média Estatística 2025 – Aritmética, Geométrica e Harmônica",
+      content: "Calculadora de Média Estatística 2025 – 3 Tipos",
     },
     {
       property: "og:description",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Média Estatística 2025 – Aritmética, Geométrica e Harmônica",
+      content: "Calculadora de Média Estatística 2025 – 3 Tipos",
     },
     {
       name: "twitter:description",
@@ -587,6 +587,202 @@ export default function MediaCalculator() {
         }}
         footerText="<strong>Lembre-se:</strong> Escolha o tipo de média adequado ao seu contexto. Média aritmética para casos gerais, geométrica para crescimento, harmônica para taxas."
       />
+
+      {/* Seção: Guia Educativo Completo */}
+      <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple-light to-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            🎓 Guia Completo: Tipos de Média e Aplicações
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Média Aritmética */}
+            <div className="rounded-xl border border-math-purple/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-math-purple">
+                ➕ Média Aritmética
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Conceito</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A soma de todos os valores dividida pela quantidade total. É a média mais intuitiva e amplamente utilizada.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmula</h4>
+                  <div className="mb-4 rounded bg-gray-800 p-3 font-mono text-sm text-text-secondary">
+                    Média = (x₁ + x₂ + ... + xₙ) / n
+                  </div>
+
+                  <h4 className="mb-3 font-semibold text-growth-green">💡 Exemplo Prático</h4>
+                  <p className="text-xs text-text-secondary">
+                    Notas: [7, 8, 6, 9, 5] → Média = 35 ÷ 5 = 7,0
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Aplicações</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Cálculo de notas escolares</li>
+                    <li>• Temperaturas médias</li>
+                    <li>• Salários médios</li>
+                    <li>• Análises gerais de dados</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Sensível a valores extremos (outliers)</li>
+                    <li>• Pode não representar bem dados assimétricos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Média Geométrica */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue">
+                ✖️ Média Geométrica
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-math-purple">🔍 Conceito</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Raiz n-ésima do produto de todos os valores. Ideal para calcular taxas médias de crescimento e retornos compostos.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmula</h4>
+                  <div className="mb-4 rounded bg-gray-800 p-3 font-mono text-sm text-text-secondary">
+                    Média = ⁿ√(x₁ × x₂ × ... × xₙ)
+                  </div>
+
+                  <h4 className="mb-3 font-semibold text-growth-green">💡 Exemplo Prático</h4>
+                  <p className="text-xs text-text-secondary">
+                    Crescimentos: [1.1, 1.2, 1.05] → Média = ³√1.386 ≈ 1.115 (11,5% ao período)
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Aplicações</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Retornos de investimentos</li>
+                    <li>• Taxas de crescimento populacional</li>
+                    <li>• Progressões geométricas</li>
+                    <li>• Índices econômicos compostos</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Restrições</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Apenas valores positivos</li>
+                    <li>• Sensível a valores próximos de zero</li>
+                    <li>• Matemática mais complexa</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Média Harmônica */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                🎵 Média Harmônica
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Conceito</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Recíproco da média aritmética dos recíprocos. Especializada em médias de taxas, velocidades e eficiências.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Fórmula</h4>
+                  <div className="mb-4 rounded bg-gray-800 p-3 font-mono text-sm text-text-secondary">
+                    Média = n / (1/x₁ + 1/x₂ + ... + 1/xₙ)
+                  </div>
+
+                  <h4 className="mb-3 font-semibold text-growth-green">💡 Exemplo Prático</h4>
+                  <p className="text-xs text-text-secondary">
+                    Velocidades: [60, 40, 80] km/h → Média harmônica ≈ 53,33 km/h
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Aplicações</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Velocidade média em trajetos</li>
+                    <li>• Resistências elétricas em paralelo</li>
+                    <li>• Produtividade por unidade de tempo</li>
+                    <li>• Eficiência de processos</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Características</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Apenas valores positivos</li>
+                    <li>• Mais sensível a valores pequenos</li>
+                    <li>• Sempre menor que as outras médias</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Comparação Prática */}
+          <div className="mt-8 rounded-xl border border-system-info/20 bg-gray-900 p-6">
+            <h3 className="mb-4 text-xl font-bold text-system-info">🔬 Exemplo Comparativo</h3>
+            <p className="mb-4 text-sm text-text-secondary">
+              Para o conjunto [2, 8, 32], vamos calcular os três tipos de média:
+            </p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-lg bg-math-purple/10 p-4">
+                <h4 className="font-bold text-math-purple">Aritmética</h4>
+                <p className="text-sm">(2+8+32) ÷ 3 = 14,0</p>
+                <span className="text-xs text-text-secondary">Mais alta - influenciada pelo 32</span>
+              </div>
+              <div className="rounded-lg bg-primary-blue/10 p-4">
+                <h4 className="font-bold text-primary-blue">Geométrica</h4>
+                <p className="text-sm">³√(2×8×32) = 8,0</p>
+                <span className="text-xs text-text-secondary">Intermediária - crescimento equilibrado</span>
+              </div>
+              <div className="rounded-lg bg-growth-green/10 p-4">
+                <h4 className="font-bold text-growth-green">Harmônica</h4>
+                <p className="text-sm">3÷(1/2+1/8+1/32) ≈ 4,6</p>
+                <span className="text-xs text-text-secondary">Mais baixa - penaliza valores grandes</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Footer Informativo */}
+      <Card className="border-l-4 border-math-purple bg-math-purple-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+            📚 Como Usar Esta Calculadora de Média
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <p>
+              Esta <strong className="text-math-purple">calculadora de média estatística</strong> implementa{" "}
+              <strong className="text-primary-blue-dark">algoritmos matematicamente precisos</strong> para calcular os três
+              principais tipos de média com análise estatística completa.
+            </p>
+            <p>
+              <strong>Recursos avançados:</strong> Cálculo simultâneo de média aritmética (universal), geométrica (crescimento) e
+              harmônica (taxas), incluindo desvio padrão, variância e estatísticas descritivas complementares.
+            </p>
+            <p>
+              <strong className="text-system-warning">Nota técnica:</strong> Esta ferramenta é desenvolvida para fins
+              educacionais, acadêmicos e profissionais. Para pesquisas científicas, recomenda-se validação com{" "}
+              <strong>software estatístico especializado</strong> como R, Python ou SPSS.
+            </p>
+            <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
+              📊 Três tipos de média simultâneos • 📈 Estatísticas descritivas completas • 📱 Interface responsiva •{" "}
+              🌙 Tema escuro otimizado • 🎯 Precisão matemática • 🔢 Suporte a decimais
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       <RelatedCalculators category="matematica" currentCalculatorId="media" />
     </div>
