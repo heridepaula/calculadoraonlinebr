@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Desvio Padrão 2025 – Estatística e Variabilidade | CalculadoraOnlineBR",
+      title: "Calculadora Desvio Padrão 2025 – Variância Estatística",
     },
     {
       name: "description",
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora desvio padrão, variância, dispersão estatística, medidas de variabilidade, estatística descritiva, análise de dados",
+        "calculadora desvio padrão, variância populacional amostral, dispersão estatística, sigma, correção Bessel, distribuição normal, medidas variabilidade, estatística descritiva, análise dados, N-1, regra empírica 68-95-99.7",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Desvio Padrão 2025 – Estatística e Variabilidade",
+      content: "Calculadora Desvio Padrão 2025 – Variância Estatística",
     },
     {
       property: "og:description",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Desvio Padrão 2025 – Estatística e Variabilidade",
+      content: "Calculadora Desvio Padrão 2025 – Variância Estatística",
     },
     {
       name: "twitter:description",
@@ -105,6 +105,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
@@ -397,7 +398,7 @@ export default function StandardDeviationCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Desvio Padrão 2025 – Estatística e Variabilidade
+          Calculadora de Desvio Padrão e Variância 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule o <strong className="text-math-purple">desvio padrão e variância</strong> de qualquer conjunto de dados.
@@ -884,6 +885,118 @@ export default function StandardDeviationCalculator() {
               🔎 Cálculos precisos • 📊 Estatística descritiva • 🔒 Dados não armazenados • 📱 Interface
               responsiva • 🌙 Tema escuro otimizado • 🧮 Suporte a decimais
             </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção Educacional Avançada para E-E-A-T */}
+      <Card className="border-l-4 border-system-info bg-gradient-to-r from-system-info/10 to-math-purple/10 duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            📚 Fundamentos Estatísticos - Guia Acadêmico
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {/* Regra Empírica */}
+            <div className="rounded-lg bg-gray-900 p-6">
+              <h3 className="mb-4 text-xl font-bold text-system-info">🎯 Regra Empírica (68-95-99,7)</h3>
+              <p className="mb-4 text-sm text-text-secondary">
+                Em distribuições normais, o desvio padrão permite prever a concentração dos dados:
+              </p>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
+                  <h4 className="font-semibold text-system-success">1σ ≈ 68%</h4>
+                  <p className="text-xs text-text-secondary">dos dados estão dentro de ±1 desvio padrão da média</p>
+                </div>
+                <div className="rounded border border-system-info/20 bg-system-info/10 p-3">
+                  <h4 className="font-semibold text-system-info">2σ ≈ 95%</h4>
+                  <p className="text-xs text-text-secondary">dos dados estão dentro de ±2 desvios padrão da média</p>
+                </div>
+                <div className="rounded border border-system-warning/20 bg-system-warning/10 p-3">
+                  <h4 className="font-semibold text-system-warning">3σ ≈ 99,7%</h4>
+                  <p className="text-xs text-text-secondary">dos dados estão dentro de ±3 desvios padrão da média</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Correção de Bessel */}
+            <div className="rounded-lg bg-gray-900 p-6">
+              <h3 className="mb-4 text-xl font-bold text-primary-blue-dark">🔬 Correção de Bessel Explicada</h3>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-2 font-semibold text-math-purple">Por que N-1?</h4>
+                  <p className="mb-3 text-sm text-text-secondary">
+                    Quando calculamos a variância amostral, subestimamos sistematicamente a variância populacional.
+                    A correção de Bessel (divisor N-1) compensa esse viés.
+                  </p>
+                  <div className="rounded bg-gray-800 p-3 text-xs font-mono">
+                    <p className="text-growth-green">Viés = E[s²] - σ² ≠ 0</p>
+                    <p className="text-primary-blue">Correção: E[s²ᴮᵉˢˢᵉˡ] = σ²</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="mb-2 font-semibold text-growth-green">Graus de Liberdade</h4>
+                  <p className="text-sm text-text-secondary">
+                    Ao estimar a média amostral, "perdemos" um grau de liberdade. Dos N valores, apenas N-1 são
+                    independentes para calcular a variância, pois o último é determinado pelos outros e pela média.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Aplicações Práticas Detalhadas */}
+            <div className="rounded-lg bg-gray-900 p-6">
+              <h3 className="mb-4 text-xl font-bold text-growth-green">🏭 Aplicações Profissionais</h3>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded border border-system-info/20 bg-system-info/10 p-3">
+                  <h4 className="mb-2 font-semibold text-system-info">💰 Finanças</h4>
+                  <ul className="text-xs text-text-secondary space-y-1">
+                    <li>• Volatilidade de ativos (σ anualizada)</li>
+                    <li>• Value at Risk (VaR)</li>
+                    <li>• Sharpe Ratio e métricas de risco</li>
+                    <li>• Diversificação de portfólio</li>
+                  </ul>
+                </div>
+                <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
+                  <h4 className="mb-2 font-semibold text-system-success">🏭 Controle de Qualidade</h4>
+                  <ul className="text-xs text-text-secondary space-y-1">
+                    <li>• Cartas de controle (±3σ)</li>
+                    <li>• Capability studies (Cpk)</li>
+                    <li>• Six Sigma methodology</li>
+                    <li>• Análise de variabilidade de processo</li>
+                  </ul>
+                </div>
+                <div className="rounded border border-system-warning/20 bg-system-warning/10 p-3">
+                  <h4 className="mb-2 font-semibold text-system-warning">🔬 Pesquisa Científica</h4>
+                  <ul className="text-xs text-text-secondary space-y-1">
+                    <li>• Intervalos de confiança</li>
+                    <li>• Testes de hipóteses</li>
+                    <li>• Análise de variância (ANOVA)</li>
+                    <li>• Controle de variáveis experimentais</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Limitações e Considerações */}
+            <div className="rounded border border-system-warning/30 bg-system-warning/10 p-4">
+              <h4 className="mb-3 font-semibold text-system-warning">⚠️ Limitações Importantes</h4>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div>
+                  <h5 className="font-medium text-text-primary">Sensibilidade a Outliers</h5>
+                  <p className="text-sm text-text-secondary">
+                    O desvio padrão é muito sensível a valores extremos. Considere usar mediana e IQR para dados com outliers.
+                  </p>
+                </div>
+                <div>
+                  <h5 className="font-medium text-text-primary">Distribuições Não-Normais</h5>
+                  <p className="text-sm text-text-secondary">
+                    A regra 68-95-99.7 só se aplica a distribuições normais. Para outras distribuições, use desigualdade de Chebyshev.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
