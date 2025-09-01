@@ -118,7 +118,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: new Date().toISOString().split('T')[0],
+        dateModified: new Date().toISOString().split("T")[0],
         offers: {
           "@type": "Offer",
           price: "0",
@@ -190,7 +190,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "Média Estatística",
-          description: "Medidas de tendência central que representam o valor típico de um conjunto de dados",
+          description:
+            "Medidas de tendência central que representam o valor típico de um conjunto de dados",
           category: "Statistics",
         },
         featureList: [
@@ -246,11 +247,11 @@ export default function MediaCalculator() {
     const cleanInput = input.replace(/[^0-9.,;\\s-]/g, "");
     const values = cleanInput
       .split(/[,;\\s]+/)
-      .map(val => {
+      .map((val) => {
         const normalizedVal = val.trim().replace(",", ".");
         return parseFloat(normalizedVal);
       })
-      .filter(val => !isNaN(val));
+      .filter((val) => !isNaN(val));
     return values;
   };
 
@@ -258,28 +259,29 @@ export default function MediaCalculator() {
     const count = values.length;
     const sum = values.reduce((acc, val) => acc + val, 0);
     const sortedValues = [...values].sort((a, b) => a - b);
-    
+
     // Média Aritmética
     const arithmeticMean = sum / count;
-    
+
     // Média Geométrica (somente para valores positivos)
     let geometricMean: number | null = null;
-    if (values.every(val => val > 0)) {
+    if (values.every((val) => val > 0)) {
       const product = values.reduce((acc, val) => acc * val, 1);
       geometricMean = Math.pow(product, 1 / count);
     }
-    
+
     // Média Harmônica (somente para valores positivos)
     let harmonicMean: number | null = null;
-    if (values.every(val => val > 0)) {
-      const reciprocalSum = values.reduce((acc, val) => acc + (1 / val), 0);
+    if (values.every((val) => val > 0)) {
+      const reciprocalSum = values.reduce((acc, val) => acc + 1 / val, 0);
       harmonicMean = count / reciprocalSum;
     }
-    
+
     // Variância e Desvio Padrão
-    const variance = values.reduce((acc, val) => acc + Math.pow(val - arithmeticMean, 2), 0) / count;
+    const variance =
+      values.reduce((acc, val) => acc + Math.pow(val - arithmeticMean, 2), 0) / count;
     const standardDeviation = Math.sqrt(variance);
-    
+
     // Range, Min e Max
     const min = Math.min(...values);
     const max = Math.max(...values);
@@ -304,26 +306,26 @@ export default function MediaCalculator() {
   const validateInputs = (): boolean => {
     const newErrors: ValidationErrors = {};
     const values = parseValues(inputValues);
-    
+
     if (!inputValues.trim()) {
       newErrors.values = "Digite os valores para calcular a média";
       setErrors(newErrors);
       return false;
     }
-    
+
     if (values.length < 2) {
       newErrors.values = "Digite pelo menos 2 valores válidos";
       setErrors(newErrors);
       return false;
     }
-    
+
     setErrors({});
     return true;
   };
 
   const handleCalculate = () => {
     if (!validateInputs()) return;
-    
+
     startCalculation("calcular");
     try {
       const values = parseValues(inputValues);
@@ -370,12 +372,13 @@ export default function MediaCalculator() {
           Calculadora de Média Estatística 2025 – Tendência Central
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule a <strong className="text-math-purple">média aritmética, geométrica e harmônica</strong>{" "}
-          de qualquer conjunto de dados. Analise{" "}
-          <strong className="text-primary-blue-dark">medidas de tendência central</strong> com desvio padrão,
-          variância e estatísticas detalhadas.
+          Calcule a{" "}
+          <strong className="text-math-purple">média aritmética, geométrica e harmônica</strong> de
+          qualquer conjunto de dados. Analise{" "}
+          <strong className="text-primary-blue-dark">medidas de tendência central</strong> com
+          desvio padrão, variância e estatísticas detalhadas.
         </p>
-        <div className="inline-block rounded-lg bg-math-purple-soft p-4 duration-300">
+        <div className="bg-math-purple-soft inline-block rounded-lg p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             🔎 <strong>Análise Completa</strong> • 📊 <strong>3 Tipos de Média</strong> • ⚙️{" "}
             <strong>Estatísticas Avançadas</strong>
@@ -438,8 +441,8 @@ export default function MediaCalculator() {
               className="h-12 text-lg"
             />
             <div className="mt-2 text-sm text-text-secondary">
-              💡 <strong>Dica:</strong> Você pode usar vírgulas, espaços ou ponto e vírgula para separar os valores.
-              Para médias geométrica e harmônica, use apenas números positivos.
+              💡 <strong>Dica:</strong> Você pode usar vírgulas, espaços ou ponto e vírgula para
+              separar os valores. Para médias geométrica e harmônica, use apenas números positivos.
             </div>
             <ErrorMessage error={errors.values} />
           </div>
@@ -462,7 +465,7 @@ export default function MediaCalculator() {
 
       {/* Resultado */}
       {result && (
-        <Card ref={resultRef as any} className="border-2 border-math-purple bg-math-purple-soft">
+        <Card ref={resultRef as any} className="bg-math-purple-soft border-2 border-math-purple">
           <CardHeader>
             <CardTitle as="h3" className="text-math-purple">
               📊 Resultado da Análise Estatística
@@ -528,7 +531,14 @@ export default function MediaCalculator() {
                   Valor máximo: <strong>{formatNumber(result.max, 4)}</strong>
                 </li>
                 <li>
-                  Dados ordenados: <strong>[{result.sortedValues.map(v => v % 1 === 0 ? v.toString() : formatNumber(v, 2)).join(", ")}]</strong>
+                  Dados ordenados:{" "}
+                  <strong>
+                    [
+                    {result.sortedValues
+                      .map((v) => (v % 1 === 0 ? v.toString() : formatNumber(v, 2)))
+                      .join(", ")}
+                    ]
+                  </strong>
                 </li>
                 {result.geometricMean === null && (
                   <li className="text-system-warning">
@@ -545,48 +555,6 @@ export default function MediaCalculator() {
           </CardContent>
         </Card>
       )}
-
-      <FAQ
-        title="Perguntas Frequentes - Calculadora de Média Estatística"
-        items={[
-          {
-            question: "Qual a diferença entre os tipos de média?",
-            answer:
-              "Média aritmética é a soma dividida pela quantidade. Média geométrica é ideal para taxas de crescimento. Média harmônica é usada para taxas e velocidades. Cada uma tem aplicações específicas.",
-            borderColor: "math-purple",
-          },
-          {
-            question: "Por que média geométrica e harmônica não calculam com números negativos?",
-            answer:
-              "A média geométrica envolve raízes de números, e a harmônica divide por valores. Números negativos ou zero tornam esses cálculos matematicamente indefinidos ou complexos.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Quando devo usar cada tipo de média?",
-            answer:
-              "Use aritmética para dados gerais, geométrica para taxas de crescimento e retornos de investimento, e harmônica para velocidades médias e taxas de produtividade.",
-            borderColor: "growth-green",
-          },
-          {
-            question: "O que são desvio padrão e variância?",
-            answer:
-              "Variância mede o quão espalhados os dados estão da média. Desvio padrão é a raiz quadrada da variância e tem a mesma unidade dos dados originais, sendo mais fácil de interpretar.",
-            borderColor: "system-info",
-          },
-          {
-            question: "Como interpretar o resultado das médias?",
-            answer:
-              "Compare os três valores: se forem similares, os dados são homogêneos. Se muito diferentes, há variabilidade significativa. A média aritmética é sempre a maior, harmônica a menor.",
-            borderColor: "system-warning",
-          },
-        ]}
-        tipSection={{
-          title: "Dica Estatística Importante",
-          content:
-            "<strong>Para análise completa:</strong> Sempre observe as três médias juntas. A diferença entre elas indica a variabilidade e assimetria dos seus dados.",
-        }}
-        footerText="<strong>Lembre-se:</strong> Escolha o tipo de média adequado ao seu contexto. Média aritmética para casos gerais, geométrica para crescimento, harmônica para taxas."
-      />
 
       {/* Seção: Guia Educativo Completo */}
       <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple-light to-primary-blue-light duration-300">
@@ -607,7 +575,8 @@ export default function MediaCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Conceito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    A soma de todos os valores dividida pela quantidade total. É a média mais intuitiva e amplamente utilizada.
+                    A soma de todos os valores dividida pela quantidade total. É a média mais
+                    intuitiva e amplamente utilizada.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Fórmula</h4>
@@ -649,7 +618,8 @@ export default function MediaCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-math-purple">🔍 Conceito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Raiz n-ésima do produto de todos os valores. Ideal para calcular taxas médias de crescimento e retornos compostos.
+                    Raiz n-ésima do produto de todos os valores. Ideal para calcular taxas médias de
+                    crescimento e retornos compostos.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Fórmula</h4>
@@ -692,7 +662,8 @@ export default function MediaCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Conceito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Recíproco da média aritmética dos recíprocos. Especializada em médias de taxas, velocidades e eficiências.
+                    Recíproco da média aritmética dos recíprocos. Especializada em médias de taxas,
+                    velocidades e eficiências.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Fórmula</h4>
@@ -736,22 +707,321 @@ export default function MediaCalculator() {
               <div className="rounded-lg bg-math-purple/10 p-4">
                 <h4 className="font-bold text-math-purple">Aritmética</h4>
                 <p className="text-sm">(2+8+32) ÷ 3 = 14,0</p>
-                <span className="text-xs text-text-secondary">Mais alta - influenciada pelo 32</span>
+                <span className="text-xs text-text-secondary">
+                  Mais alta - influenciada pelo 32
+                </span>
               </div>
               <div className="rounded-lg bg-primary-blue/10 p-4">
                 <h4 className="font-bold text-primary-blue">Geométrica</h4>
                 <p className="text-sm">³√(2×8×32) = 8,0</p>
-                <span className="text-xs text-text-secondary">Intermediária - crescimento equilibrado</span>
+                <span className="text-xs text-text-secondary">
+                  Intermediária - crescimento equilibrado
+                </span>
               </div>
               <div className="rounded-lg bg-growth-green/10 p-4">
                 <h4 className="font-bold text-growth-green">Harmônica</h4>
                 <p className="text-sm">3÷(1/2+1/8+1/32) ≈ 4,6</p>
-                <span className="text-xs text-text-secondary">Mais baixa - penaliza valores grandes</span>
+                <span className="text-xs text-text-secondary">
+                  Mais baixa - penaliza valores grandes
+                </span>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
+
+      {/* Seção: Detalhes dos Tipos de Média - Guia Completo */}
+      <Card className="from-math-purple-soft border-l-4 border-math-purple bg-gradient-to-r to-primary-blue-light duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+            📖 Tipos de Média – Guia Completo Estatístico
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-8">
+            {/* Média Aritmética Detalhada */}
+            <div className="rounded-xl border border-math-purple/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-math-purple">
+                🧮 Média Aritmética - Conceitos Fundamentais
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Definição Matemática</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    A média aritmética representa o valor central que equilibra todos os dados. É
+                    calculada somando todos os valores e dividindo pela quantidade de elementos.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">
+                    📊 Propriedades Estatísticas
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Minimiza a soma dos desvios quadráticos</li>
+                    <li>• Sensível a valores extremos (outliers)</li>
+                    <li>• Ponto de equilíbrio dos dados</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Quando Usar</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Dados distribuídos normalmente</li>
+                    <li>• Análise de tendência central</li>
+                    <li>• Cálculos de orçamentos e médias gerais</li>
+                    <li>• Quando todos os valores têm mesma importância</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Cuidados</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Pode ser distorcida por valores extremos</li>
+                    <li>• Não apropriada para dados com distribuição assimétrica</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Média Geométrica Detalhada */}
+            <div className="rounded-xl border border-primary-blue/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-primary-blue-dark">
+                📈 Média Geométrica - Crescimento e Proporções
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-growth-green">🔍 Definição Matemática</h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Calcula a raiz n-ésima do produto de n valores positivos. Ideal para dados que
+                    representam taxas de crescimento ou razões proporcionais.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">
+                    📊 Propriedades Estatísticas
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Menos sensível a valores extremos</li>
+                    <li>• Preserva razões entre dados</li>
+                    <li>• Sempre menor ou igual à média aritmética</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Quando Usar</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Taxas de crescimento e retornos financeiros</li>
+                    <li>• Índices e indicadores proporcionais</li>
+                    <li>• Dados com variação percentual</li>
+                    <li>• Quando a multiplicação dos valores é relevante</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Cuidados</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Apenas valores positivos</li>
+                    <li>• Um valor zero anula todo o resultado</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Média Harmônica Detalhada */}
+            <div className="rounded-xl border border-growth-green/20 bg-gray-900 p-6">
+              <h3 className="mb-4 flex items-center text-xl font-bold text-growth-green">
+                ⚡ Média Harmônica - Taxas e Velocidades
+              </h3>
+
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    🔍 Definição Matemática
+                  </h4>
+                  <p className="mb-4 text-sm text-text-secondary">
+                    Inverso da média aritmética dos inversos dos valores. Especializada em situações
+                    onde a relação entre variáveis é inversamente proporcional.
+                  </p>
+
+                  <h4 className="mb-3 font-semibold text-system-info">
+                    📊 Propriedades Estatísticas
+                  </h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Penaliza fortemente valores pequenos</li>
+                    <li>• Sempre menor que as outras médias</li>
+                    <li>• Ideal para taxas por unidade de tempo</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="mb-3 font-semibold text-system-success">✅ Quando Usar</h4>
+                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                    <li>• Velocidade média em trajetos variados</li>
+                    <li>• Eficiência de máquinas e processos</li>
+                    <li>• Resistências elétricas em paralelo</li>
+                    <li>• Produtividade por unidade de tempo</li>
+                  </ul>
+
+                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Cuidados</h4>
+                  <ul className="space-y-1 text-sm text-text-secondary">
+                    <li>• Apenas valores positivos</li>
+                    <li>• Muito sensível a valores próximos de zero</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção: Comparação de Tipos de Média */}
+      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+        <CardHeader>
+          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+            ⚖️ Tabela Comparativa: Qual Média Escolher?
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b-2 border-neutral-surface-variant">
+                  <th className="p-3 text-left font-semibold">Critério</th>
+                  <th className="p-3 text-center font-semibold text-math-purple">Aritmética</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Geométrica
+                  </th>
+                  <th className="p-3 text-center font-semibold text-growth-green">Harmônica</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-2">
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Sensibilidade a outliers</td>
+                  <td className="p-3 text-center text-system-warning">Alta</td>
+                  <td className="p-3 text-center text-system-info">Média</td>
+                  <td className="p-3 text-center text-system-success">Baixa</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Facilidade de cálculo</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                  <td className="p-3 text-center">⭐⭐⭐</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Valor relativo</td>
+                  <td className="p-3 text-center text-math-purple">Maior</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Intermediária</td>
+                  <td className="p-3 text-center text-growth-green">Menor</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Aplicação principal</td>
+                  <td className="p-3 text-center">Tendência central geral</td>
+                  <td className="p-3 text-center">Crescimento e proporções</td>
+                  <td className="p-3 text-center">Taxas e velocidades</td>
+                </tr>
+                <tr className="border-b border-neutral-surface-variant">
+                  <td className="p-3 font-medium">Tipo de dados ideal</td>
+                  <td className="p-3 text-center">Normalmente distribuídos</td>
+                  <td className="p-3 text-center">Taxas de crescimento</td>
+                  <td className="p-3 text-center">Relações inversas</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium">Interpretação</td>
+                  <td className="p-3 text-center text-math-purple">Soma ÷ quantidade</td>
+                  <td className="p-3 text-center text-primary-blue-dark">Raiz n do produto</td>
+                  <td className="p-3 text-center text-growth-green">n ÷ soma dos inversos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="bg-math-purple-soft rounded-lg border border-math-purple/20 p-4">
+              <h4 className="mb-2 font-bold text-math-purple">🎯 Uso Geral</h4>
+              <p className="text-sm text-text-secondary">
+                Use a <strong>Média Aritmética</strong> para análises gerais e dados com
+                distribuição normal.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
+              <h4 className="mb-2 font-bold text-primary-blue-dark">📈 Crescimento</h4>
+              <p className="text-sm text-text-secondary">
+                Use a <strong>Média Geométrica</strong> para taxas de crescimento e análises
+                proporcionais.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
+              <h4 className="mb-2 font-bold text-growth-green">⚡ Eficiência</h4>
+              <p className="text-sm text-text-secondary">
+                Use a <strong>Média Harmônica</strong> para velocidades, taxas e relações inversas.
+              </p>
+            </div>
+          </div>
+
+          {/* Guia de Aplicação Prática */}
+          <div className="mt-6 rounded-lg bg-gradient-to-r from-system-info/10 to-math-purple/10 p-4">
+            <h4 className="mb-3 font-bold text-system-info">💡 Guia Prático de Escolha</h4>
+            <div className="grid grid-cols-1 gap-3 text-sm md:grid-cols-2">
+              <div>
+                <p className="font-semibold">📊 Para notas e avaliações:</p>
+                <p className="text-text-secondary">Média aritmética (pesos iguais)</p>
+              </div>
+              <div>
+                <p className="font-semibold">💰 Para investimentos e juros:</p>
+                <p className="text-text-secondary">Média geométrica (retorno composto)</p>
+              </div>
+              <div>
+                <p className="font-semibold">🚗 Para velocidades médias:</p>
+                <p className="text-text-secondary">Média harmônica (tempo constante)</p>
+              </div>
+              <div>
+                <p className="font-semibold">🏭 Para produtividade:</p>
+                <p className="text-text-secondary">Média harmônica (unidades por tempo)</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <FAQ
+        title="Perguntas Frequentes - Calculadora de Média Estatística"
+        items={[
+          {
+            question: "Qual a diferença entre os tipos de média?",
+            answer:
+              "Média aritmética é a soma dividida pela quantidade. Média geométrica é ideal para taxas de crescimento. Média harmônica é usada para taxas e velocidades. Cada uma tem aplicações específicas.",
+            borderColor: "math-purple",
+          },
+          {
+            question: "Por que média geométrica e harmônica não calculam com números negativos?",
+            answer:
+              "A média geométrica envolve raízes de números, e a harmônica divide por valores. Números negativos ou zero tornam esses cálculos matematicamente indefinidos ou complexos.",
+            borderColor: "primary-blue",
+          },
+          {
+            question: "Quando devo usar cada tipo de média?",
+            answer:
+              "Use aritmética para dados gerais, geométrica para taxas de crescimento e retornos de investimento, e harmônica para velocidades médias e taxas de produtividade.",
+            borderColor: "growth-green",
+          },
+          {
+            question: "O que são desvio padrão e variância?",
+            answer:
+              "Variância mede o quão espalhados os dados estão da média. Desvio padrão é a raiz quadrada da variância e tem a mesma unidade dos dados originais, sendo mais fácil de interpretar.",
+            borderColor: "system-info",
+          },
+          {
+            question: "Como interpretar o resultado das médias?",
+            answer:
+              "Compare os três valores: se forem similares, os dados são homogêneos. Se muito diferentes, há variabilidade significativa. A média aritmética é sempre a maior, harmônica a menor.",
+            borderColor: "system-warning",
+          },
+        ]}
+        tipSection={{
+          title: "Dica Estatística Importante",
+          content:
+            "<strong>Para análise completa:</strong> Sempre observe as três médias juntas. A diferença entre elas indica a variabilidade e assimetria dos seus dados.",
+        }}
+        footerText="<strong>Lembre-se:</strong> Escolha o tipo de média adequado ao seu contexto. Média aritmética para casos gerais, geométrica para crescimento, harmônica para taxas."
+      />
 
       {/* Footer Informativo */}
       <Card className="border-l-4 border-math-purple bg-math-purple-light duration-300">
@@ -763,22 +1033,28 @@ export default function MediaCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-math-purple">calculadora de média estatística</strong> implementa{" "}
-              <strong className="text-primary-blue-dark">algoritmos matematicamente precisos</strong> para calcular os três
-              principais tipos de média com análise estatística completa.
+              Esta <strong className="text-math-purple">calculadora de média estatística</strong>{" "}
+              implementa{" "}
+              <strong className="text-primary-blue-dark">
+                algoritmos matematicamente precisos
+              </strong>{" "}
+              para calcular os três principais tipos de média com análise estatística completa.
             </p>
             <p>
-              <strong>Recursos avançados:</strong> Cálculo simultâneo de média aritmética (universal), geométrica (crescimento) e
-              harmônica (taxas), incluindo desvio padrão, variância e estatísticas descritivas complementares.
+              <strong>Recursos avançados:</strong> Cálculo simultâneo de média aritmética
+              (universal), geométrica (crescimento) e harmônica (taxas), incluindo desvio padrão,
+              variância e estatísticas descritivas complementares.
             </p>
             <p>
-              <strong className="text-system-warning">Nota técnica:</strong> Esta ferramenta é desenvolvida para fins
-              educacionais, acadêmicos e profissionais. Para pesquisas científicas, recomenda-se validação com{" "}
+              <strong className="text-system-warning">Nota técnica:</strong> Esta ferramenta é
+              desenvolvida para fins educacionais, acadêmicos e profissionais. Para pesquisas
+              científicas, recomenda-se validação com{" "}
               <strong>software estatístico especializado</strong> como R, Python ou SPSS.
             </p>
             <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              📊 Três tipos de média simultâneos • 📈 Estatísticas descritivas completas • 📱 Interface responsiva •{" "}
-              🌙 Tema escuro otimizado • 🎯 Precisão matemática • 🔢 Suporte a decimais
+              📊 Três tipos de média simultâneos • 📈 Estatísticas descritivas completas • 📱
+              Interface responsiva • 🌙 Tema escuro otimizado • 🎯 Precisão matemática • 🔢 Suporte
+              a decimais
             </p>
           </div>
         </CardContent>
