@@ -229,6 +229,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/media",
   },
   {
+    id: "desvio-padrao",
+    name: "Calculadora de Desvio Padrão",
+    description:
+      "Calcule desvio padrão e variância populacional ou amostral com explicações passo a passo. Analise medidas de dispersão estatística com interpretação detalhada dos resultados",
+    category: "matematica",
+    path: "/calculadoras/matematica/desvio-padrao",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:

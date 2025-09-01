@@ -319,6 +319,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "desvio-padrao": {
+    id: "desvio-padrao",
+    title:
+      "Calculadora de Desvio Padrão 2025 - Populacional e Amostral com Variância - Calculadora Online BR",
+    description:
+      "★ Calculadora de desvio padrão GRATUITA! Calcule desvio padrão populacional e amostral com variância. Análise de dispersão estatística completa com explicações passo a passo e interpretação dos resultados.",
+    keywords:
+      "calculadora desvio padrão, desvio padrão populacional, desvio padrão amostral, variância, dispersão estatística, medidas variabilidade, correção Bessel, análise dados, estatística descritiva, sigma, estatística matemática, distribuição normal",
+    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/desvio-padrao",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
   "rescisao-trabalhista": {
     id: "rescisao-trabalhista",
     title:
