@@ -18,17 +18,17 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Antecipação Nubank 2025 – Vale a Pena Antecipar? | CalculadoraOnlineBR",
+      title: "Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
+        "Calculadora gratuita de adiantamento de parcelas Nubank 2025. Simule antecipação, calcule descontos, compare opções e descubra quanto economizar ao quitar parcelas.",
     },
     {
       name: "keywords",
       content:
-        "antecipação nubank, nubank parcelas, quitar empréstimo nubank, calculadora nubank, desconto antecipação",
+        "calculadora adiantamento parcelas nubank, antecipação nubank, adiantamento nubank, quitar parcelas nubank, simulador nubank, desconto antecipação, calculadora nubank 2025",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -46,12 +46,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Antecipação Nubank 2025 – Vale a Pena Antecipar?",
+      content: "Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia",
     },
     {
       property: "og:description",
       content:
-        "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
+        "Calculadora gratuita de adiantamento de parcelas Nubank 2025. Simule antecipação, calcule descontos e descubra quanto economizar.",
     },
     {
       property: "og:image",
@@ -73,19 +73,19 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-nubank",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Antecipação Nubank 2025 – Vale a Pena Antecipar?",
+      content: "Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas.",
+        "Calculadora gratuita de adiantamento de parcelas Nubank 2025. Simule antecipação, calcule descontos e descubra quanto economizar.",
     },
     {
       name: "twitter:image",
@@ -110,10 +110,10 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Antecipação Nubank - Descontos 2025",
+        name: "Calculadora Adiantamento Parcelas Nubank - Antecipação 2025",
         description:
           "Ferramenta gratuita para calcular descontos da antecipação de parcelas Nubank. Calcule custos, juros e descubra quanto pode economizar.",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-nubank",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -141,7 +141,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-nubank",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
           name: "Calculadora Antecipação Nubank 2025 - Descontos",
           description:
             "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
@@ -182,7 +182,7 @@ export const meta: MetaFunction = () => {
                 "@type": "ListItem",
                 position: 4,
                 name: "Antecipação Nubank",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-nubank",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
               },
             ],
           },
@@ -203,6 +203,39 @@ export const meta: MetaFunction = () => {
           "Resultados em tempo real",
         ],
       }),
+    },
+    // FAQ Schema adicional para melhor SEO
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Como funciona a antecipação de parcelas no Nubank?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "O Nubank calcula um desconto sobre o valor total das parcelas restantes, considerando a taxa de juros do contrato original. Você paga menos do que a soma das parcelas restantes."
+            }
+          },
+          {
+            "@type": "Question", 
+            "name": "Qual é a taxa de desconto da antecipação?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A taxa varia conforme seu contrato, mas geralmente fica em torno de 10% a 12% ao ano. O desconto é calculado com base no valor presente das parcelas futuras."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quando vale a pena antecipar parcelas?", 
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vale a pena antecipar quando você tem recursos disponíveis e quer se livrar da dívida. A antecipação sempre gera economia e melhora sua situação financeira."
+            }
+          }
+        ]
+      })
     },
   ];
 };
@@ -383,28 +416,44 @@ export default function AntecipacaoNubankCalculator() {
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras/financas">Finanças</BreadcrumbItem>
-        <BreadcrumbItem isLast>Antecipação Nubank</BreadcrumbItem>
+        <BreadcrumbItem isLast>Adiantamento Parcelas Nubank</BreadcrumbItem>
       </Breadcrumb>
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora Antecipação Nubank 2025 – Vale a Pena Antecipar?
+          Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule os <strong className="text-growth-green">descontos da antecipação de parcelas do Nubank</strong>. 
-          Descubra quanto pode economizar antecipando suas parcelas.
+          <strong className="text-growth-green">Calculadora gratuita de adiantamento de parcelas Nubank</strong> para simular antecipação. 
+          Descubra quanto pode economizar com <strong>adiantamento Nubank</strong> e qual o melhor momento para quitar suas parcelas.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            💰 <strong>Comparação Inteligente</strong> • 📊 <strong>Análise Completa</strong> • ⚙️{" "}
-            <strong>Recomendação Personalizada</strong>
+            💰 <strong>Simulador Preciso</strong> • 📊 <strong>Cálculos em Tempo Real</strong> • ⚙️{" "}
+            <strong>Análise Detalhada</strong>
           </p>
         </div>
       </header>
 
+      {/* Seção informativa sobre adiantamento Nubank */}
+      <Card className="border-l-4 border-primary-blue bg-primary-blue-light">
+        <CardContent>
+          <div className="py-4">
+            <h2 className="mb-3 text-xl font-bold text-primary-blue-dark">
+              Como funciona o Adiantamento de Parcelas Nubank?
+            </h2>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              O <strong>adiantamento Nubank</strong> permite antecipar o pagamento das suas parcelas restantes com desconto. 
+              Nossa <strong>calculadora de adiantamento</strong> simula exatamente quanto você economizará ao fazer a 
+              <strong> antecipação das parcelas Nubank</strong>, mostrando o valor do desconto por número de parcelas.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
-          <CardTitle as="h2">📋 Configure sua Simulação</CardTitle>
+          <CardTitle as="h2">🧮 Simulador de Adiantamento Nubank</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
