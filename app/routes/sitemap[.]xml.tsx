@@ -56,6 +56,11 @@ export const loader: LoaderFunction = async () => {
       priority: "0.8",
       changefreq: "monthly",
     },
+    {
+      loc: `${baseUrl}/calculadoras/financas/antecipacao-parcelas-nubank`,
+      priority: "0.8",
+      changefreq: "monthly",
+    },
     { loc: `${baseUrl}/calculadoras/financas/lci-lca`, priority: "0.8", changefreq: "monthly" },
     {
       loc: `${baseUrl}/calculadoras/financas/emprestimo-consignado`,

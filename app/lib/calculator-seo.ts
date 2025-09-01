@@ -120,6 +120,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "antecipacao-parcelas-nubank": {
+    id: "antecipacao-parcelas-nubank",
+    title:
+      "Calculadora Antecipação Nubank 2025 - Descontos e Economia de Parcelas - Calculadora Online BR",
+    description:
+      "★ Calculadora de antecipação Nubank GRATUITA! Calcule exatamente quanto você economiza antecipando parcelas. Veja descontos por número de parcelas, análise completa e tome a melhor decisão financeira.",
+    keywords:
+      "calculadora antecipacao nubank, antecipar parcelas nubank, desconto antecipacao, quitar emprestimo nubank, economia antecipacao, simulador nubank, parcelas nubank, calculadora nubank",
+    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
   "lci-lca": {
     id: "lci-lca",
     title:

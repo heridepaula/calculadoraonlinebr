@@ -221,6 +221,14 @@ export const CALCULATORS = [
     path: "/calculadoras/financas/tesouro-direto",
   },
   {
+    id: "antecipacao-parcelas-nubank",
+    name: "Calculadora Antecipação Parcelas Nubank",
+    description:
+      "Calcule os descontos da antecipação de parcelas do Nubank. Descubra exatamente quanto você economiza antecipando suas parcelas com análise detalhada por número de parcelas",
+    category: "financas",
+    path: "/calculadoras/financas/antecipacao-parcelas-nubank",
+  },
+  {
     id: "rescisao-trabalhista",
     name: "Calculadora de Rescisão Trabalhista",
     description:
