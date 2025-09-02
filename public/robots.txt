@@ -4,6 +4,12 @@ Allow: /
 # Sitemaps
 Sitemap: https://www.calculadoraonlinebr.com.br/sitemap.xml
 
+# Allow main pages
+Allow: /
+Allow: /sobre
+Allow: /privacidade  
+Allow: /termos-de-uso
+
 # Allow all calculators categories (new structure)
 Allow: /calculadoras/
 Allow: /calculadoras/saude/
@@ -20,17 +26,18 @@ Allow: /calculadoras/saude/desenvolvimento-infantil
 Allow: /calculadoras/saude/hidratacao
 
 # Financial Calculators (new routes)
-Allow: /calculadoras/financas/juros-compostos
 Allow: /calculadoras/financas/primeiro-milhao
-Allow: /calculadoras/financas/cdb
-Allow: /calculadoras/financas/tesouro-direto
-Allow: /calculadoras/financas/lci-lca
-Allow: /calculadoras/financas/emprestimo-consignado
-Allow: /calculadoras/financas/financiamento-imobiliario
+Allow: /calculadoras/financas/juros-compostos
 Allow: /calculadoras/financas/juros-simples
+Allow: /calculadoras/financas/lci-lca
 Allow: /calculadoras/financas/preco-medio
+Allow: /calculadoras/financas/cdb
+Allow: /calculadoras/financas/financiamento-imobiliario
+Allow: /calculadoras/financas/emprestimo-consignado
 Allow: /calculadoras/financas/consorcio
 Allow: /calculadoras/financas/renda-fixa-comparativa
+Allow: /calculadoras/financas/tesouro-direto
+Allow: /calculadoras/financas/antecipacao-parcelas-nubank
 
 # Mathematical Calculators (new routes)
 Allow: /calculadoras/matematica/porcentagem
@@ -69,6 +76,8 @@ Disallow: /calculadoras/calculadora-emprestimo-consignado
 Disallow: /calculadoras/comparador-renda-fixa
 Disallow: /calculadoras/calculadora-consorcio
 Disallow: /calculadoras/calculadora-juros-simples
+Disallow: /calculadoras/calculadora-antecipacao-nubank
+Disallow: /calculadoras/antecipacao-nubank
 
 # Health - old routes
 Disallow: /calculadoras/calculadora-imc
@@ -86,6 +95,9 @@ Disallow: /calculadoras/calculadora-volume
 Disallow: /calculadoras/calculadora-pitagora
 Disallow: /calculadoras/calculadora-porcentagem
 Disallow: /calculadoras/calculadora-fracoes
+Disallow: /calculadoras/calculadora-moda
+Disallow: /calculadoras/calculadora-media
+Disallow: /calculadoras/calculadora-desvio-padrao
 
 # Labor Law - old routes
 Disallow: /calculadoras/calculadora-rescisao
@@ -93,6 +105,12 @@ Disallow: /calculadoras/calculadora-aposentadoria
 Disallow: /calculadoras/calculadora-auxilio-doenca
 Disallow: /calculadoras/calculadora-salario-liquido
 Disallow: /calculadoras/calculadora-ferias-decimo-terceiro
+
+# Tools - old routes  
+Disallow: /calculadoras/calculadora-cpf
+Disallow: /calculadoras/gerador-cpf
+Disallow: /calculadoras/calculadora-diferenca-datas
+Disallow: /calculadoras/diferenca-datas
 
 # Disallow build files and cache
 Disallow: /build/
@@ -102,6 +120,9 @@ Disallow: /node_modules/
 # Disallow API endpoints and health checks
 Disallow: /api/
 Disallow: /api/healthz
+
+# Disallow admin and development routes
+Disallow: /admin/
 
 # Performance
 Crawl-delay: 1
