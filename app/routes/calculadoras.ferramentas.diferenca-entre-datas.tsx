@@ -27,8 +27,9 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora diferença datas, diferença entre datas, calcular idade, dias úteis, intervalo datas, contador dias",
+        "calculadora diferença datas, calcular idade exata, dias úteis, intervalo entre datas, contador dias online",
     },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "author", content: "Calculadora Online BR" },
     {
       name: "robots",
@@ -202,6 +203,46 @@ export const meta: MetaFunction = () => {
           "Resultados instantâneos",
           "Múltiplos formatos de exibição",
         ],
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Como calcular idade exata?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A calculadora determina a idade precisa considerando anos bissextos e diferentes números de dias por mês. Use data de nascimento como inicial e data atual (ou qualquer data desejada) como final para obter anos, meses e dias exatos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Por que incluir horário no cálculo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Incluir horários é útil para cálculos médicos, legais ou quando a precisão de horas e minutos é importante. Por exemplo, para determinar exatamente quando uma pessoa completará uma determinada idade ou para prazos contratuais específicos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O que são dias úteis e como são calculados?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dias úteis são de segunda a sexta-feira, excluindo finais de semana. A calculadora separa automaticamente dias úteis dos finais de semana, útil para cronogramas de trabalho e prazos comerciais que não contam sábados e domingos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "A calculadora considera anos bissextos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim, automaticamente. Anos bissextos (como 2020, 2024) têm 366 dias devido ao 29 de fevereiro adicional. Nossa calculadora ajusta os cálculos automaticamente, garantindo precisão mesmo em períodos que incluem anos bissextos."
+            }
+          }
+        ]
       }),
     },
   ];
@@ -408,13 +449,15 @@ export default function DateDifferenceCalculator() {
     error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/ferramentas">Ferramentas</BreadcrumbItem>
-        <BreadcrumbItem isLast>Diferença entre Datas</BreadcrumbItem>
-      </Breadcrumb>
+    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
+      <nav aria-label="Navegação estrutural">
+        <Breadcrumb>
+          <BreadcrumbItem href="/">Início</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras/ferramentas">Ferramentas</BreadcrumbItem>
+          <BreadcrumbItem isLast>Diferença entre Datas</BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
@@ -434,11 +477,13 @@ export default function DateDifferenceCalculator() {
         </div>
       </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle as="h2">📅 Configure o Cálculo de Diferença</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <main>
+        <section aria-labelledby="calculator-section">
+          <Card>
+            <CardHeader>
+              <CardTitle as="h2" id="calculator-section">📅 Configure o Cálculo de Diferença</CardTitle>
+            </CardHeader>
+            <CardContent>
           {/* Opção de incluir horário */}
           <div className="mb-6 flex justify-center">
             <label className="flex items-center space-x-3 cursor-pointer">
@@ -465,8 +510,10 @@ export default function DateDifferenceCalculator() {
                   onChange={(e) => setStartDate(e.target.value)}
                   fullWidth
                   className="h-12 text-lg"
+                  aria-describedby={errors.startDate ? "start-date-error" : undefined}
+                  required
                 />
-                <ErrorMessage error={errors.startDate} />
+                {errors.startDate && <div id="start-date-error" className="mt-1 text-sm text-system-error">{errors.startDate}</div>}
               </div>
               {includeTime && (
                 <div>
@@ -477,6 +524,7 @@ export default function DateDifferenceCalculator() {
                     onChange={(e) => setStartTime(e.target.value)}
                     fullWidth
                     className="h-12 text-lg"
+                    aria-label="Horário inicial para cálculo preciso"
                   />
                 </div>
               )}
@@ -491,8 +539,10 @@ export default function DateDifferenceCalculator() {
                   onChange={(e) => setEndDate(e.target.value)}
                   fullWidth
                   className="h-12 text-lg"
+                  aria-describedby={errors.endDate ? "end-date-error" : undefined}
+                  required
                 />
-                <ErrorMessage error={errors.endDate} />
+                {errors.endDate && <div id="end-date-error" className="mt-1 text-sm text-system-error">{errors.endDate}</div>}
               </div>
               {includeTime && (
                 <div>
@@ -503,6 +553,7 @@ export default function DateDifferenceCalculator() {
                     onChange={(e) => setEndTime(e.target.value)}
                     fullWidth
                     className="h-12 text-lg"
+                    aria-label="Horário final para cálculo preciso"
                   />
                 </div>
               )}
@@ -517,29 +568,41 @@ export default function DateDifferenceCalculator() {
 
           {/* Botões */}
           <div className="margin-top-4 flex justify-center space-x-4">
-            <Button onClick={handleCalculate} className="px-8">
-              Calcular
+            <Button 
+              onClick={handleCalculate} 
+              className="px-8"
+              aria-describedby="calculator-description"
+              type="button"
+            >
+              Calcular Diferença
             </Button>
             <Button
               onClick={handleReset}
               variant="outline"
               className="border-system-error px-8 text-system-error hover:bg-system-error hover:text-white"
+              aria-label="Limpar todos os campos do formulário"
+              type="button"
             >
               Limpar
             </Button>
           </div>
+          <p id="calculator-description" className="sr-only">
+            Clique para calcular a diferença entre as datas inseridas
+          </p>
         </CardContent>
       </Card>
+        </section>
 
       {/* Resultado */}
       {result && (
-        <div ref={resultRef}>
-        <Card className="border-2 border-growth-green bg-growth-green-soft">
-          <CardHeader>
-            <CardTitle as="h3" className="text-growth-green">
-              📊 Resultado do Cálculo de Diferença
-            </CardTitle>
-          </CardHeader>
+        <section aria-labelledby="results-section">
+          <div ref={resultRef}>
+            <Card className="border-2 border-growth-green bg-growth-green-soft">
+              <CardHeader>
+                <CardTitle as="h2" id="results-section" className="text-growth-green">
+                  📊 Resultado do Cálculo de Diferença
+                </CardTitle>
+              </CardHeader>
           <CardContent>
             <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
               <div className="rounded-lg bg-gray-900 p-6 text-center">
@@ -616,16 +679,17 @@ export default function DateDifferenceCalculator() {
             </div>
           </CardContent>
         </Card>
-        </div>
+          </div>
+        </section>
       )}
 
-      {/* Seção: Aplicações Práticas de Cálculo de Datas */}
-      <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Aplicações Práticas – Guia Completo 2025
-          </CardTitle>
-        </CardHeader>
+        <section aria-labelledby="practical-applications">
+          <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
+            <CardHeader>
+              <CardTitle as="h2" id="practical-applications" className="text-2xl font-bold text-text-primary">
+                🎯 Aplicações Práticas – Guia Completo 2025
+              </CardTitle>
+            </CardHeader>
         <CardContent>
           <div className="space-y-8">
             {/* Cálculo de Idade */}
@@ -738,14 +802,15 @@ export default function DateDifferenceCalculator() {
           </div>
         </CardContent>
       </Card>
+        </section>
 
-      {/* Seção: Métodos de Cálculo de Datas */}
-      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            📊 Métodos de Cálculo: Entenda as Diferenças
-          </CardTitle>
-        </CardHeader>
+        <section aria-labelledby="calculation-methods">
+          <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+            <CardHeader>
+              <CardTitle as="h2" id="calculation-methods" className="text-xl font-bold text-text-primary">
+                📊 Métodos de Cálculo: Entenda as Diferenças
+              </CardTitle>
+            </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
@@ -829,7 +894,9 @@ export default function DateDifferenceCalculator() {
           </div>
         </CardContent>
       </Card>
+        </section>
 
+        <section aria-labelledby="faq-section">
       <FAQ
         title="Perguntas Frequentes - Calculadora de Diferença entre Datas"
         items={[
@@ -877,14 +944,15 @@ export default function DateDifferenceCalculator() {
         }}
         footerText="<strong>Lembre-se:</strong> Diferentes contextos requerem diferentes precisões. Use apenas datas para cálculos gerais, inclua horário para precisão máxima, e considere dias úteis para planejamento profissional."
       />
+        </section>
 
-      {/* Footer com informações adicionais */}
-      <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Como Usar Esta Calculadora de Diferença entre Datas
-          </CardTitle>
-        </CardHeader>
+        <section aria-labelledby="usage-guide">
+          <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
+            <CardHeader>
+              <CardTitle as="h2" id="usage-guide" className="text-lg font-bold text-text-primary">
+                📚 Como Usar Esta Calculadora de Diferença entre Datas
+              </CardTitle>
+            </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
@@ -911,8 +979,12 @@ export default function DateDifferenceCalculator() {
           </div>
         </CardContent>
       </Card>
+        </section>
+      </main>
 
-      <RelatedCalculators category="ferramentas" currentCalculatorId="diferenca-entre-datas" />
+      <aside aria-label="Calculadoras relacionadas">
+        <RelatedCalculators category="ferramentas" currentCalculatorId="diferenca-entre-datas" />
+      </aside>
     </div>
   );
 }
