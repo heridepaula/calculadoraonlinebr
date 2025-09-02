@@ -13,7 +13,7 @@ interface RelatedCalculator {
 }
 
 interface RelatedCalculatorsProps {
-  category?: "trabalhista" | "financas" | "saude" | "matematica";
+  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas";
   currentCalculatorId?: string;
   customCalculators?: RelatedCalculator[];
 }
@@ -171,6 +171,19 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-system-warning-dark",
     },
   ],
+  ferramentas: [
+    {
+      id: "diferenca-entre-datas",
+      title: "📅 Calculadora Diferença entre Datas",
+      description: "Calcule idade exata, dias úteis e intervalos precisos entre datas.",
+      href: "/calculadoras/ferramentas/diferenca-entre-datas",
+      bgColor: "bg-system-info/10",
+      textColor: "text-system-info",
+      borderColor: "border-system-info/20",
+      buttonColor: "bg-system-info",
+      buttonHoverColor: "hover:bg-system-info-dark",
+    },
+  ],
 };
 
 export function RelatedCalculators({
@@ -196,6 +209,7 @@ export function RelatedCalculators({
       financas: "🔗 Calculadoras Financeiras Relacionadas",
       saude: "🔗 Calculadoras de Saúde Relacionadas",
       matematica: "🔗 Calculadoras Matemáticas Relacionadas",
+      ferramentas: "🔗 Ferramentas Relacionadas",
     };
     return titles[cat] || "🔗 Calculadoras Relacionadas";
   };
@@ -207,6 +221,7 @@ export function RelatedCalculators({
       financas: "Combine essas ferramentas para otimizar seu planejamento financeiro",
       saude: "Monitore sua saúde com essas calculadoras especializadas",
       matematica: "Resolva problemas matemáticos com facilidade usando essas ferramentas",
+      ferramentas: "Simplifique seu dia a dia com essas ferramentas práticas",
     };
     return tips[cat] || "Explore outras calculadoras úteis para suas necessidades";
   };

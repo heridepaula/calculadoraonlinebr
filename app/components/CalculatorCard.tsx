@@ -4,7 +4,7 @@ import type { Calculator } from "~/types";
 
 interface CalculatorCardProps {
   calculator: Calculator;
-  category: "saude" | "financas" | "matematica" | "trabalhista";
+  category: "saude" | "financas" | "matematica" | "trabalhista" | "ferramentas";
 }
 
 // Mapa de ícones específicos para cada calculadora
@@ -47,6 +47,9 @@ const getCalculatorIcon = (calculatorId: string): string => {
     "auxilio-desemprego": "🤝",
     "aposentadoria": "👴",
     "pensao-morte": "👥",
+    
+    // Ferramentas
+    "diferenca-entre-datas": "📅",
   };
   
   return iconMap[calculatorId] || "🧮";
@@ -92,6 +95,9 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "13-salario": { primary: "💰 13º", secondary: "📅 Proporcional" },
     "auxilio-desemprego": { primary: "🤝 Seguro", secondary: "📊 Parcelas" },
     "pensao-morte": { primary: "👥 Pensão", secondary: "💰 Benefício" },
+    
+    // Ferramentas
+    "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Precisão" },
   };
   
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Preciso" };
@@ -166,6 +172,23 @@ const getCategoryColors = (category: string) => {
         categoryIcon: "⚖️",
         categoryName: "Trabalhista",
         shadow: "hover:shadow-system-info/20",
+      };
+    case "ferramentas":
+      return {
+        bgGradient: "from-system-success/20 via-system-success/15 to-system-success/5",
+        cardBg: "bg-gray-800",
+        borderColor: "border-system-success/30 hover:border-system-success/50",
+        iconBg: "bg-system-success",
+        iconColor: "text-white",
+        titleColor: "text-white",
+        descriptionColor: "text-gray-300",
+        buttonBg: "bg-system-success hover:bg-system-success-dark",
+        buttonText: "text-white",
+        categoryBadgeBg: "bg-system-success/20",
+        categoryBadgeText: "text-system-success-light",
+        categoryIcon: "🔧",
+        categoryName: "Ferramentas",
+        shadow: "hover:shadow-system-success/20",
       };
     default:
       return {

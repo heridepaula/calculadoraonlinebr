@@ -32,6 +32,13 @@ export const CATEGORIES = [
     icon: "⚖️",
     path: "/calculadoras/trabalhista",
   },
+  {
+    id: "ferramentas",
+    name: "Ferramentas",
+    description: "Ferramentas úteis para conversões, datas e cálculos do dia a dia",
+    icon: "🔧",
+    path: "/calculadoras/ferramentas",
+  },
 ];
 
 export const CALCULATORS = [
@@ -291,6 +298,14 @@ export const CALCULATORS = [
       "Calcule férias e décimo terceiro salário com tabelas oficiais 2025. Inclui INSS, IRRF, abono pecuniário, adiantamentos e todas as regras da CLT",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/ferias-decimo-terceiro",
+  },
+  {
+    id: "diferenca-entre-datas",
+    name: "Calculadora de Diferença entre Datas",
+    description:
+      "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata com precisão",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/diferenca-entre-datas",
   },
 ];
 

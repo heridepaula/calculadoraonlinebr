@@ -5,7 +5,7 @@ interface QuickAccessCardProps {
   description: string;
   icon: string;
   href: string;
-  category: "financas" | "saude" | "matematica" | "trabalhista";
+  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas";
   isPopular?: boolean;
   complexity?: "basic" | "intermediate" | "advanced";
 }
@@ -38,6 +38,13 @@ const CATEGORY_STYLES = {
     iconBg: "bg-primary-blue",
     textAccent: "text-primary-blue-dark",
     hoverShadow: "hover:shadow-primary-blue/25",
+  },
+  ferramentas: {
+    gradient: "from-system-info/10 to-system-info/5",
+    border: "border-system-info/20",
+    iconBg: "bg-system-info",
+    textAccent: "text-system-info-dark",
+    hoverShadow: "hover:shadow-system-info/25",
   },
 } as const;
 

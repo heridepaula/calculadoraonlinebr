@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface CategoryHeroProps {
-  category: "financas" | "saude" | "matematica" | "trabalhista";
+  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas";
   title: string;
   subtitle: string;
   description: string;
@@ -53,9 +53,18 @@ const CATEGORY_STYLES = {
     textGradient: "from-primary-blue-dark via-primary-blue to-primary-blue-light",
     highlightColor: "text-primary-blue-dark",
   },
+  ferramentas: {
+    gradient: "from-system-info/5 via-surface to-surface-dark",
+    radial: "from-system-info/10",
+    badgeRing: "ring-system-info/20",
+    badgeBg: "bg-system-info/10",
+    badgeText: "text-system-info-dark",
+    textGradient: "from-system-info-dark via-system-info to-system-info-light",
+    highlightColor: "text-system-info-dark",
+  },
 } as const;
 
-function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista"): string {
+function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas"): string {
   switch (category) {
     case "financas":
       return "text-finance-gold";
@@ -65,6 +74,8 @@ function getSubtitleColor(category: "financas" | "saude" | "matematica" | "traba
       return "text-math-purple";
     case "trabalhista":
       return "text-primary-blue";
+    case "ferramentas":
+      return "text-system-info";
     default:
       return "text-primary-blue";
   }
