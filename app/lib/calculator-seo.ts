@@ -331,6 +331,32 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+
+  // Tool Calculators
+  "gerador-cpf": {
+    id: "gerador-cpf",
+    title: "Gerador de CPF 2025 - Válido com/sem Pontuação + Cópia Automática - Calculadora Online BR",
+    description:
+      "★ Gerador de CPF GRATUITO e válido para testes e desenvolvimento! Gere CPFs com ou sem pontuação, cópia automática para área de transferência. Algoritmo oficial da Receita Federal com validação matemática completa.",
+    keywords:
+      "gerador CPF, CPF válido, CPF teste, CPF desenvolvimento, CPF sem pontuação, CPF formatado, validador CPF, algoritmo CPF, dígitos verificadores, CPF falso, teste sistema, Receita Federal, CPF brasileiro, ferramenta CPF",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cpf",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "diferenca-entre-datas": {
+    id: "diferenca-entre-datas", 
+    title: "Calculadora de Diferença entre Datas 2025 - Idade Exata e Dias Úteis - Calculadora Online BR",
+    description:
+      "★ Calculadora de diferença entre datas GRATUITA! Calcule diferença em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e cálculo de idade exata com precisão.",
+    keywords:
+      "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade exata",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+
+  // Labor Calculators  
   "rescisao-trabalhista": {
     id: "rescisao-trabalhista",
     title:

@@ -307,6 +307,14 @@ export const CALCULATORS = [
     category: "ferramentas",
     path: "/calculadoras/ferramentas/diferenca-entre-datas",
   },
+  {
+    id: "gerador-cpf",
+    name: "Gerador de CPF",
+    description:
+      "Gere CPFs válidos para testes e desenvolvimento com opção de formatação. Cópia automática para área de transferência, algoritmo oficial da Receita Federal",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/gerador-cpf",
+  },
 ];
 
 export const BREAKPOINTS = {

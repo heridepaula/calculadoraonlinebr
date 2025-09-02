@@ -13,6 +13,7 @@ export const loader: LoaderFunction = async () => {
     { loc: `${baseUrl}/calculadoras/financas`, priority: "0.8", changefreq: "weekly" },
     { loc: `${baseUrl}/calculadoras/matematica`, priority: "0.8", changefreq: "weekly" },
     { loc: `${baseUrl}/calculadoras/trabalhista`, priority: "0.8", changefreq: "weekly" },
+    { loc: `${baseUrl}/calculadoras/ferramentas`, priority: "0.8", changefreq: "weekly" },
 
     // Health Calculators
     { loc: `${baseUrl}/calculadoras/saude/imc`, priority: "0.8", changefreq: "monthly" },
@@ -111,6 +112,10 @@ export const loader: LoaderFunction = async () => {
     { loc: `${baseUrl}/calculadoras/matematica/moda`, priority: "0.7", changefreq: "monthly" },
     { loc: `${baseUrl}/calculadoras/matematica/media`, priority: "0.8", changefreq: "monthly" },
     { loc: `${baseUrl}/calculadoras/matematica/desvio-padrao`, priority: "0.8", changefreq: "monthly" },
+
+    // Tool Calculators
+    { loc: `${baseUrl}/calculadoras/ferramentas/gerador-cpf`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${baseUrl}/calculadoras/ferramentas/diferenca-entre-datas`, priority: "0.7", changefreq: "monthly" },
 
     // Labor Law Calculators
     { loc: `${baseUrl}/calculadoras/trabalhista/rescisao`, priority: "0.9", changefreq: "monthly" },

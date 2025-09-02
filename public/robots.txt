@@ -10,6 +10,7 @@ Allow: /calculadoras/saude/
 Allow: /calculadoras/financas/
 Allow: /calculadoras/matematica/
 Allow: /calculadoras/trabalhista/
+Allow: /calculadoras/ferramentas/
 
 # Health Calculators (new routes)
 Allow: /calculadoras/saude/imc
@@ -40,6 +41,13 @@ Allow: /calculadoras/matematica/area-perimetro
 Allow: /calculadoras/matematica/volume
 Allow: /calculadoras/matematica/teorema-pitagoras
 Allow: /calculadoras/matematica/fracoes
+Allow: /calculadoras/matematica/moda
+Allow: /calculadoras/matematica/media
+Allow: /calculadoras/matematica/desvio-padrao
+
+# Tools Calculators (new routes)
+Allow: /calculadoras/ferramentas/gerador-cpf
+Allow: /calculadoras/ferramentas/diferenca-entre-datas
 
 # Labor Law Calculators (new routes)
 Allow: /calculadoras/trabalhista/rescisao
