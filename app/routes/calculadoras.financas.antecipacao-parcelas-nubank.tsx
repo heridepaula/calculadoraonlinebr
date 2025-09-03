@@ -271,7 +271,7 @@ interface ValidationErrors {
 
 export default function AntecipacaoNubankCalculator() {
 
-  const [valorParcela, setValorParcela] = useState("");
+  const [valorParcela, setValorParcela] = useState<number>(0);
   const [numeroParcelasRestantes, setNumeroParcelasRestantes] = useState("");
   const [taxaJurosAntecipacao, setTaxaJurosAntecipacao] = useState("10,58"); // Taxa padrão do Nubank
   const [result, setResult] = useState<AntecipacaoResult | null>(null);
@@ -294,8 +294,24 @@ export default function AntecipacaoNubankCalculator() {
 
   const parseMoney = (v: string | number): number => {
     const s = String(v ?? "");
-    // Remove R$, espaços e pontos (milhares), substitui vírgula por ponto
-    const normalized = s.replace(/[R$\s]/g, "").replace(/\./g, "").replace(",", ".");
+    // Remove R$ e espaços
+    let normalized = s.replace(/[R$\s]/g, "");
+    
+    // Se contém vírgula, trata como formato brasileiro (ex: 1.000,01)
+    if (normalized.includes(",")) {
+      // Remove pontos (separadores de milhares) e substitui vírgula por ponto
+      normalized = normalized.replace(/\./g, "").replace(",", ".");
+    }
+    // Se não contém vírgula mas contém ponto, verifica se é decimal ou milhares
+    else if (normalized.includes(".")) {
+      // Se tem mais de 3 dígitos após o último ponto, trata como separador de milhares
+      const parts = normalized.split(".");
+      if (parts[parts.length - 1].length > 3) {
+        normalized = normalized.replace(/\./g, "");
+      }
+      // Caso contrário, mantém como decimal
+    }
+    
     const n = parseFloat(normalized);
     return isNaN(n) ? 0 : n;
   };
@@ -307,15 +323,14 @@ export default function AntecipacaoNubankCalculator() {
     const newErrors: ValidationErrors = {};
     let ok = true;
 
-    const valorParc = parseMoney(valorParcela);
-    if (valorParc <= 0) {
+    if (valorParcela <= 0) {
       newErrors.valorParcela = "Valor da parcela deve ser maior que 0";
       ok = false;
     }
 
     const numParcelas = parseInt(numeroParcelasRestantes, 10);
-    if (!numeroParcelasRestantes || isNaN(numParcelas) || numParcelas <= 0) {
-      newErrors.numeroParcelasRestantes = "Número de parcelas deve ser maior que 0";
+    if (!numeroParcelasRestantes || isNaN(numParcelas) || numParcelas <= 1) {
+      newErrors.numeroParcelasRestantes = "Número de parcelas deve ser maior que 1 para aplicar desconto";
       ok = false;
     }
 
@@ -333,7 +348,7 @@ export default function AntecipacaoNubankCalculator() {
     if (!validateInputs()) return;
     startCalculation("calcular");
     try {
-      const valorParc = parseMoney(valorParcela);
+      const valorParc = valorParcela;
       const numParcelas = parseInt(numeroParcelasRestantes, 10);
       const taxaJurosAnual = parseRate(taxaJurosAntecipacao);
 
@@ -353,10 +368,8 @@ export default function AntecipacaoNubankCalculator() {
 
       const tabelaMensal: MesAntecipacao[] = [];
       
-      // Simular mês a mês (começamos do mês 2, pois o mês 1 foi pago imediatamente)
-      for (let mes = 2; mes <= numParcelas; mes++) {
-        // Cálculos de antecipação no mês atual
-        const parcelasRestantesNoMes = numParcelas - mes + 1;
+      // Simular antecipação com diferentes números de parcelas restantes (de 2 até total)
+      for (let parcelasRestantesNoMes = 2; parcelasRestantesNoMes <= numParcelas; parcelasRestantesNoMes++) {
         const valorTotalRestanteNoMes = valorParc * parcelasRestantesNoMes;
         
         // Calcular valor presente das parcelas restantes usando tabela PRICE
@@ -367,7 +380,7 @@ export default function AntecipacaoNubankCalculator() {
         const economiaAntecipacaoNoMes = descontoAntecipacaoNoMes;
         
         tabelaMensal.push({
-          mes: mes,
+          mes: numParcelas - parcelasRestantesNoMes + 2, // Mês em que seria feita a antecipação
           parcelasRestantesNoMes: parcelasRestantesNoMes,
           valorTotalRestante: valorTotalRestanteNoMes,
           descontoAntecipacaoNoMes: descontoAntecipacaoNoMes,
@@ -400,7 +413,7 @@ export default function AntecipacaoNubankCalculator() {
   };
 
   const handleReset = () => {
-    setValorParcela("");
+    setValorParcela(0);
     setNumeroParcelasRestantes("");
     setTaxaJurosAntecipacao("10,58");
     setResult(null);
