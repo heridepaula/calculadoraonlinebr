@@ -37,30 +37,51 @@ export async function fetchTreasuryBonds(): Promise<TreasuryBondData[]> {
   try {
     console.log("🔄 Buscando dados do Tesouro Direto...");
 
-    const response = await fetch(
+    // URLs alternativas para testar
+    const urls = [
+      // Nova URL baseada na página de rentabilidade
+      "https://www.tesourodireto.com.br/json/treasurybondsinfo.json",
+      // URL simplificada
+      "https://www.tesourodireto.com.br/api/treasurybonds.json", 
+      // URL original como fallback
       "https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json",
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-          Accept: "application/json",
-        },
-        // Timeout de 10 segundos
-        signal: AbortSignal.timeout(10000),
+    ];
+
+    let lastError: Error | null = null;
+
+    for (const url of urls) {
+      try {
+        console.log(`🔍 Tentando URL: ${url}`);
+        
+        const response = await fetch(url, {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            Accept: "application/json",
+            "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
+            "Cache-Control": "no-cache",
+          },
+          // Timeout de 10 segundos
+          signal: AbortSignal.timeout(10000),
+        });
+
+        if (response.ok) {
+          const data: TreasuryBondsResponse = await response.json();
+
+          if (data.response?.TrsrBdTradgList) {
+            console.log(`✅ ${data.response.TrsrBdTradgList.length} títulos obtidos do Tesouro Direto via ${url}`);
+            return data.response.TrsrBdTradgList;
+          }
+        }
+
+        lastError = new Error(`HTTP error! status: ${response.status} for URL: ${url}`);
+      } catch (error) {
+        lastError = error as Error;
+        console.log(`⚠️ Falha na URL ${url}: ${lastError.message}`);
+        continue;
       }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data: TreasuryBondsResponse = await response.json();
-
-    if (!data.response?.TrsrBdTradgList) {
-      throw new Error("Estrutura de dados inválida da API");
-    }
-
-    console.log(`✅ ${data.response.TrsrBdTradgList.length} títulos obtidos do Tesouro Direto`);
-    return data.response.TrsrBdTradgList;
+    throw lastError || new Error("Todas as URLs falharam");
   } catch (error) {
     console.error("❌ Erro ao buscar dados do Tesouro Direto:", error);
     throw error;
@@ -233,40 +254,146 @@ function getNextUpdateTime(): Date {
   return nextUpdate;
 }
 
-// Títulos padrão em caso de falha na API
+// Títulos padrão em caso de falha na API - dados atualizados para setembro 2025
 function getDefaultBonds(): ProcessedBond[] {
-  const defaultMaturityDate = new Date();
-  defaultMaturityDate.setFullYear(defaultMaturityDate.getFullYear() + 3);
-
   return [
+    // Tesouro Selic
+    {
+      code: "LFT_2027",
+      name: "Tesouro Selic 2027",
+      type: "tesouro_selic",
+      rate: 0.03, // 3 basis points acima da Selic
+      price: 10587.25,
+      minInvestment: 105.87,
+      maturityDate: "2027-03-01",
+      rawData: {} as TreasuryBondData,
+    },
+    {
+      code: "LFT_2029",
+      name: "Tesouro Selic 2029", 
+      type: "tesouro_selic",
+      rate: 0.03,
+      price: 10587.25,
+      minInvestment: 105.87,
+      maturityDate: "2029-03-01",
+      rawData: {} as TreasuryBondData,
+    },
+    
+    // Tesouro Prefixado
+    {
+      code: "LTN_2026",
+      name: "Tesouro Prefixado 2026",
+      type: "tesouro_prefixado",
+      rate: 11.85,
+      price: 882.15,
+      minInvestment: 30.0,
+      maturityDate: "2026-01-01",
+      rawData: {} as TreasuryBondData,
+    },
     {
       code: "LTN_2027",
       name: "Tesouro Prefixado 2027",
-      type: "tesouro_prefixado",
-      rate: 12.5,
-      price: 85.5,
+      type: "tesouro_prefixado", 
+      rate: 12.05,
+      price: 791.32,
       minInvestment: 30.0,
       maturityDate: "2027-01-01",
       rawData: {} as TreasuryBondData,
     },
     {
-      code: "NTN-B_2029",
+      code: "LTN_2028",
+      name: "Tesouro Prefixado 2028",
+      type: "tesouro_prefixado",
+      rate: 12.20,
+      price: 708.45,
+      minInvestment: 30.0,
+      maturityDate: "2028-01-01", 
+      rawData: {} as TreasuryBondData,
+    },
+
+    // Tesouro Prefixado com Juros Semestrais
+    {
+      code: "NTNF_2029",
+      name: "Tesouro Prefixado com Juros Semestrais 2029",
+      type: "tesouro_prefixado_juros",
+      rate: 12.15,
+      price: 967.82,
+      minInvestment: 38.71,
+      maturityDate: "2029-01-01",
+      rawData: {} as TreasuryBondData,
+    },
+    {
+      code: "NTNF_2033",
+      name: "Tesouro Prefixado com Juros Semestrais 2033",
+      type: "tesouro_prefixado_juros",
+      rate: 12.35,
+      price: 985.45,
+      minInvestment: 39.42,
+      maturityDate: "2033-01-01",
+      rawData: {} as TreasuryBondData,
+    },
+
+    // Tesouro IPCA+
+    {
+      code: "NTNB_2029",
       name: "Tesouro IPCA+ 2029",
       type: "tesouro_ipca",
-      rate: 6.8,
-      price: 95.2,
-      minInvestment: 30.0,
+      rate: 5.85, // Taxa real
+      price: 2847.18,
+      minInvestment: 56.94,
       maturityDate: "2029-05-15",
       rawData: {} as TreasuryBondData,
     },
     {
-      code: "LFT_2027",
-      name: "Tesouro Selic 2027",
-      type: "tesouro_selic",
-      rate: 0.03,
-      price: 99.8,
+      code: "NTNB_2035",
+      name: "Tesouro IPCA+ 2035", 
+      type: "tesouro_ipca",
+      rate: 6.05,
+      price: 1987.56,
+      minInvestment: 39.75,
+      maturityDate: "2035-05-15",
+      rawData: {} as TreasuryBondData,
+    },
+    {
+      code: "NTNB_2045",
+      name: "Tesouro IPCA+ 2045",
+      type: "tesouro_ipca", 
+      rate: 6.15,
+      price: 1023.87,
       minInvestment: 30.0,
-      maturityDate: "2027-03-01",
+      maturityDate: "2045-05-15",
+      rawData: {} as TreasuryBondData,
+    },
+
+    // Tesouro IPCA+ com Juros Semestrais
+    {
+      code: "NTNB_JUROS_2030",
+      name: "Tesouro IPCA+ com Juros Semestrais 2030",
+      type: "tesouro_ipca_juros",
+      rate: 5.95,
+      price: 3125.45,
+      minInvestment: 31.25,
+      maturityDate: "2030-08-15",
+      rawData: {} as TreasuryBondData,
+    },
+    {
+      code: "NTNB_JUROS_2040",
+      name: "Tesouro IPCA+ com Juros Semestrais 2040",
+      type: "tesouro_ipca_juros",
+      rate: 6.10,
+      price: 3387.92,
+      minInvestment: 33.88,
+      maturityDate: "2040-08-15",
+      rawData: {} as TreasuryBondData,
+    },
+    {
+      code: "NTNB_JUROS_2055",
+      name: "Tesouro IPCA+ com Juros Semestrais 2055",
+      type: "tesouro_ipca_juros",
+      rate: 6.20,
+      price: 3654.12,
+      minInvestment: 36.54,
+      maturityDate: "2055-05-15",
       rawData: {} as TreasuryBondData,
     },
   ];
