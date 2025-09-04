@@ -4,7 +4,7 @@ import type { Calculator } from "~/types";
 
 interface CalculatorCardProps {
   calculator: Calculator;
-  category: "saude" | "financas" | "matematica" | "trabalhista" | "ferramentas";
+  category: "saude" | "financas" | "matematica" | "trabalhista" | "ferramentas" | "astrologia";
 }
 
 // Mapa de ícones específicos para cada calculadora

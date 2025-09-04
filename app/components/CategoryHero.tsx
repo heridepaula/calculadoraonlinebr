@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface CategoryHeroProps {
-  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas";
+  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia";
   title: string;
   subtitle: string;
   description: string;
@@ -62,9 +62,18 @@ const CATEGORY_STYLES = {
     textGradient: "from-system-info-dark via-system-info to-system-info-light",
     highlightColor: "text-system-info-dark",
   },
+  astrologia: {
+    gradient: "from-math-purple/5 via-surface to-surface-dark",
+    radial: "from-math-purple/10",
+    badgeRing: "ring-math-purple/20",
+    badgeBg: "bg-math-purple/10",
+    badgeText: "text-math-purple-dark",
+    textGradient: "from-math-purple-dark via-math-purple to-math-purple-light",
+    highlightColor: "text-math-purple-dark",
+  },
 } as const;
 
-function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas"): string {
+function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia"): string {
   switch (category) {
     case "financas":
       return "text-finance-gold";
@@ -76,6 +85,8 @@ function getSubtitleColor(category: "financas" | "saude" | "matematica" | "traba
       return "text-primary-blue";
     case "ferramentas":
       return "text-system-info";
+    case "astrologia":
+      return "text-math-purple";
     default:
       return "text-primary-blue";
   }

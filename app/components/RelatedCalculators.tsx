@@ -13,7 +13,7 @@ interface RelatedCalculator {
 }
 
 interface RelatedCalculatorsProps {
-  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas";
+  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas" | "astrologia";
   currentCalculatorId?: string;
   customCalculators?: RelatedCalculator[];
 }
@@ -184,6 +184,41 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-system-info-dark",
     },
   ],
+  astrologia: [
+    {
+      id: "mapa-astral",
+      title: "🌌 Calculadora de Mapa Astral",
+      description: "Descubra seu mapa astral completo com posições planetárias detalhadas.",
+      href: "/calculadoras/astrologia/mapa-astral",
+      bgColor: "bg-math-purple/10",
+      textColor: "text-math-purple",
+      borderColor: "border-math-purple/20",
+      buttonColor: "bg-math-purple",
+      buttonHoverColor: "hover:bg-math-purple-dark",
+    },
+    {
+      id: "compatibilidade-signos",
+      title: "💕 Compatibilidade de Signos",
+      description: "Analise a compatibilidade astrológica entre diferentes signos do zodíaco.",
+      href: "/calculadoras/astrologia/compatibilidade-signos",
+      bgColor: "bg-health-red/10",
+      textColor: "text-health-red",
+      borderColor: "border-health-red/20",
+      buttonColor: "bg-health-red",
+      buttonHoverColor: "hover:bg-health-red-dark",
+    },
+    {
+      id: "numerologia",
+      title: "🔢 Calculadora de Numerologia",
+      description: "Explore os números da sua vida e descubra seus significados ocultos.",
+      href: "/calculadoras/astrologia/numerologia",
+      bgColor: "bg-finance-gold/10",
+      textColor: "text-finance-gold",
+      borderColor: "border-finance-gold/20",
+      buttonColor: "bg-finance-gold",
+      buttonHoverColor: "hover:bg-finance-gold-dark",
+    },
+  ],
 };
 
 export function RelatedCalculators({
@@ -210,6 +245,7 @@ export function RelatedCalculators({
       saude: "🔗 Calculadoras de Saúde Relacionadas",
       matematica: "🔗 Calculadoras Matemáticas Relacionadas",
       ferramentas: "🔗 Ferramentas Relacionadas",
+      astrologia: "🔗 Calculadoras de Astrologia Relacionadas",
     };
     return titles[cat] || "🔗 Calculadoras Relacionadas";
   };
@@ -222,6 +258,7 @@ export function RelatedCalculators({
       saude: "Monitore sua saúde com essas calculadoras especializadas",
       matematica: "Resolva problemas matemáticos com facilidade usando essas ferramentas",
       ferramentas: "Simplifique seu dia a dia com essas ferramentas práticas",
+      astrologia: "Explore diferentes aspectos da astrologia para um autoconhecimento mais profundo",
     };
     return tips[cat] || "Explore outras calculadoras úteis para suas necessidades";
   };

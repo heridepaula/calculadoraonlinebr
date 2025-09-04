@@ -39,6 +39,13 @@ export const CATEGORIES = [
     icon: "🔧",
     path: "/calculadoras/ferramentas",
   },
+  {
+    id: "astrologia",
+    name: "Astrologia",
+    description: "Calculadoras astrológicas para autoconhecimento e orientação",
+    icon: "🌟",
+    path: "/calculadoras/astrologia",
+  },
 ];
 
 export const CALCULATORS = [
@@ -314,6 +321,14 @@ export const CALCULATORS = [
       "Gere CPFs válidos para testes e desenvolvimento com opção de formatação. Cópia automática para área de transferência, algoritmo oficial da Receita Federal",
     category: "ferramentas",
     path: "/calculadoras/ferramentas/gerador-cpf",
+  },
+  {
+    id: "ascendente-astrologico",
+    name: "Calculadora de Ascendente Astrológico",
+    description:
+      "Descubra seu signo ascendente com precisão usando data, hora e local de nascimento. Entenda como você se apresenta ao mundo através da astrologia natal",
+    category: "astrologia",
+    path: "/calculadoras/astrologia/ascendente",
   },
 ];
 

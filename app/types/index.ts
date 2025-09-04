@@ -43,3 +43,25 @@ export interface SEOData {
   ogImage?: string;
   canonicalUrl?: string;
 }
+
+// Tipos para Astrologia - Ascendente
+export interface AscendantDescription {
+  signo_solar: string;
+  ascendente: string;
+  [key: string]: any; // Para campos dinâmicos como "sol_em_aries", "ascendente_em_aries", etc.
+  personalidade_combinada: {
+    descricao: string;
+    caracteristicas_unicas: string[];
+    principais_dificuldades: string[];
+  };
+  vida_amorosa: {
+    estilo_romantico: string[];
+    compatibilidades_ideais: string[];
+    desafios_amorosos: string[];
+  };
+  vida_profissional: {
+    ambiente_ideal: string[];
+    profissoes_recomendadas: string[];
+    caracteristicas_profissionais: string[];
+  };
+}
