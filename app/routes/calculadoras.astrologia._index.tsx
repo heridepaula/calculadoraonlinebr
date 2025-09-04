@@ -14,31 +14,84 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras de Astrologia - ${APP_NAME}` },
+    { title: "Calculadoras de Astrologia Grátis 2025 | Autoconhecimento" },
     {
       name: "description",
       content:
-        "★ Calculadoras astrológicas GRATUITAS para autoconhecimento e orientação. Mapa astral, numerologia, compatibilidade de signos e muito mais. Descubra os mistérios dos astros com ferramentas precisas.",
+        "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas precisas para autoconhecimento espiritual.",
     },
     {
       name: "keywords",
       content:
-        "calculadora astrológica, mapa astral, signos, horóscopo, numerologia, compatibilidade astrológica, ascendente, casas astrológicas, planetas, zodíaco, astrologia natal, previsões, autoconhecimento, espiritualidade",
+        "calculadora astrológica grátis, mapa astral online, ascendente astrológico, compatibilidade signos, numerologia pessoal, horóscopo, autoconhecimento, espiritualidade, zodíaco brasileiro",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadoras de Astrologia - ${APP_NAME}` },
+    {
+      name: "robots",
+      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    },
+    {
+      name: "author",
+      content: "CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1.0",
+    },
+    {
+      property: "og:title",
+      content: "Calculadoras de Astrologia Grátis 2025 | Autoconhecimento",
+    },
     {
       property: "og:description",
-      content:
-        "Explore o universo astrológico com nossas calculadoras especializadas. Grátis e fácil de usar.",
+      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas precisas para autoconhecimento.",
     },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadoras de Astrologia - ${APP_NAME}` },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/og-images/astrologia-calculadoras.jpg",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadoras de Astrologia - Interface mostrando diversas ferramentas astrológicas para autoconhecimento",
+    },
+    {
+      property: "og:site_name",
+      content: "CalculadoraOnlineBR",
+    },
+    {
+      property: "og:locale",
+      content: "pt_BR",
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:title",
+      content: "Calculadoras de Astrologia Grátis 2025 | Autoconhecimento",
+    },
     {
       name: "twitter:description",
-      content:
-        "Ferramentas astrológicas gratuitas para autoconhecimento e orientação espiritual.",
+      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/og-images/astrologia-calculadoras.jpg",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadoras de Astrologia - Interface mostrando diversas ferramentas astrológicas para autoconhecimento",
+    },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
     },
   ];
 };
@@ -50,6 +103,104 @@ export default function AstrologiaIndex() {
 
   return (
     <div className="min-h-screen">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebSite",
+                "@id": "https://www.calculadoraonlinebr.com.br/#website",
+                "url": "https://www.calculadoraonlinebr.com.br/",
+                "name": "CalculadoraOnlineBR",
+                "description": "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
+                "inLanguage": "pt-BR",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+                }
+              },
+              {
+                "@type": "CollectionPage",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#webpage",
+                "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
+                "name": "Calculadoras de Astrologia Grátis 2025",
+                "description": "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas precisas para autoconhecimento.",
+                "isPartOf": {
+                  "@id": "https://www.calculadoraonlinebr.com.br/#website"
+                },
+                "inLanguage": "pt-BR",
+                "breadcrumb": {
+                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#breadcrumb"
+                },
+                "mainEntity": {
+                  "@type": "ItemList",
+                  "name": "Calculadoras de Astrologia",
+                  "description": "Lista de ferramentas astrológicas para autoconhecimento",
+                  "numberOfItems": 3,
+                  "itemListElement": [
+                    {
+                      "@type": "SoftwareApplication",
+                      "name": "Calculadora de Ascendente Astrológico",
+                      "description": "Descubra seu signo ascendente com precisão usando data, hora e local de nascimento",
+                      "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+                      "applicationCategory": "UtilitiesApplication",
+                      "operatingSystem": "Web",
+                      "isAccessibleForFree": true
+                    },
+                    {
+                      "@type": "SoftwareApplication",
+                      "name": "Calculadora de Compatibilidade de Signos",
+                      "description": "Descubra a compatibilidade astrológica entre diferentes signos do zodíaco",
+                      "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
+                      "applicationCategory": "UtilitiesApplication",
+                      "operatingSystem": "Web",
+                      "isAccessibleForFree": true
+                    },
+                    {
+                      "@type": "SoftwareApplication",
+                      "name": "Calculadora de Numerologia",
+                      "description": "Explore os números da sua vida e descubra seus significados ocultos",
+                      "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
+                      "applicationCategory": "UtilitiesApplication",
+                      "operatingSystem": "Web",
+                      "isAccessibleForFree": true
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "BreadcrumbList",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#breadcrumb",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Início",
+                    "item": "https://www.calculadoraonlinebr.com.br/"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Calculadoras",
+                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "Astrologia",
+                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia"
+                  }
+                ]
+              }
+            ]
+          })
+        }}
+      />
+
       {/* Breadcrumb Navigation */}
       <div className="border-b border-border-primary bg-surface-light px-6 py-4">
         <div className="mx-auto max-w-7xl">

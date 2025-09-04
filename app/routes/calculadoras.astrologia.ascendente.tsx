@@ -15,16 +15,84 @@ import type { AscendantDescription } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora de Ascendente Astrológico - CalculadoraOnlineBR" },
+    { title: "Calculadora de Ascendente Astrológico Grátis 2025" },
     {
       name: "description",
       content:
-        "Calcule seu ascendente astrológico com precisão usando data, hora e local de nascimento. Descubra como você se apresenta ao mundo através da astrologia.",
+        "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade. Experimente já!",
     },
     {
       name: "keywords",
       content:
-        "ascendente astrológico, signo ascendente, mapa astral, astrologia, calculadora ascendente, signo solar, personalidade, autoconhecimento",
+        "ascendente astrológico, signo ascendente, mapa astral, calculadora ascendente grátis, signo solar, personalidade astrológica, autoconhecimento, máscara social, primeira impressão",
+    },
+    {
+      name: "robots",
+      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    },
+    {
+      name: "author",
+      content: "CalculadoraOnlineBR",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1.0",
+    },
+    {
+      property: "og:title",
+      content: "Calculadora de Ascendente Astrológico Grátis 2025",
+    },
+    {
+      property: "og:description",
+      content: "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade.",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+    },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg",
+    },
+    {
+      property: "og:image:alt",
+      content: "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
+    },
+    {
+      property: "og:site_name",
+      content: "CalculadoraOnlineBR",
+    },
+    {
+      property: "og:locale",
+      content: "pt_BR",
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:title",
+      content: "Calculadora de Ascendente Astrológico Grátis 2025",
+    },
+    {
+      name: "twitter:description",
+      content: "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg",
+    },
+    {
+      name: "twitter:image:alt",
+      content: "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
+    },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
     },
   ];
 };
@@ -1223,6 +1291,143 @@ export default function CalculadoraAscendente() {
         <BreadcrumbItem href="/calculadoras/astrologia">Astrologia</BreadcrumbItem>
         <BreadcrumbItem isLast>Ascendente</BreadcrumbItem>
       </Breadcrumb>
+
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebSite",
+                "@id": "https://www.calculadoraonlinebr.com.br/#website",
+                "url": "https://www.calculadoraonlinebr.com.br/",
+                "name": "CalculadoraOnlineBR",
+                "description": "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
+                "inLanguage": "pt-BR",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#webpage",
+                "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+                "name": "Calculadora de Ascendente Astrológico Grátis 2025",
+                "isPartOf": {
+                  "@id": "https://www.calculadoraonlinebr.com.br/#website"
+                },
+                "description": "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade.",
+                "inLanguage": "pt-BR",
+                "breadcrumb": {
+                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb"
+                },
+                "mainEntity": {
+                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#software"
+                }
+              },
+              {
+                "@type": "BreadcrumbList",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Início",
+                    "item": "https://www.calculadoraonlinebr.com.br/"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Calculadoras",
+                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "Astrologia",
+                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 4,
+                    "name": "Ascendente Astrológico",
+                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente"
+                  }
+                ]
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#software",
+                "name": "Calculadora de Ascendente Astrológico",
+                "description": "Calculadora gratuita para descobrir o signo ascendente com base em data, hora e local de nascimento. Análise completa da personalidade astrológica.",
+                "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+                "applicationCategory": "UtilitiesApplication",
+                "operatingSystem": "Web",
+                "permissions": "Não requer permissões especiais",
+                "isAccessibleForFree": true,
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "BRL",
+                  "availability": "https://schema.org/InStock"
+                },
+                "author": {
+                  "@type": "Organization",
+                  "name": "CalculadoraOnlineBR",
+                  "url": "https://www.calculadoraonlinebr.com.br"
+                },
+                "provider": {
+                  "@type": "Organization",
+                  "name": "CalculadoraOnlineBR"
+                },
+                "featureList": [
+                  "Cálculo preciso do signo ascendente",
+                  "Busca automática de cidades brasileiras",
+                  "Análise detalhada da personalidade",
+                  "Compatibilidade amorosa",
+                  "Orientação profissional",
+                  "Interface responsiva"
+                ],
+                "screenshot": "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg"
+              },
+              {
+                "@type": "FAQPage",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#faq",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "O que é o ascendente astrológico?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "O ascendente é o signo que estava nascendo no horizonte leste no momento exato do seu nascimento. Representa sua máscara social, primeira impressão e como você se apresenta ao mundo. Muda aproximadamente a cada 2 horas."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Por que preciso da hora exata de nascimento?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "O ascendente muda a cada 2 horas aproximadamente, por isso a hora precisa é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Qual a diferença entre Sol, Lua e Ascendente?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "O Sol representa sua essência e identidade core. A Lua governa suas emoções e instintos íntimos. O Ascendente é sua máscara social - como você se comporta e é visto pelos outros, especialmente em primeiros encontros."
+                    }
+                  }
+                ]
+              }
+            ]
+          })
+        }}
+      />
 
       {/* Header */}
       <header className="space-y-4 text-center">
