@@ -15,11 +15,11 @@ import type { AscendantDescription } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora de Ascendente Astrológico Grátis 2025" },
+    { title: "Calculadora Ascendente – Descubra seu Signo Grátis" },
     {
       name: "description",
       content:
-        "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade. Experimente já!",
+        "Calcule seu ascendente astrológico grátis com data, hora e local de nascimento. Descubra sua personalidade externa e primeiras impressões.",
     },
     {
       name: "keywords",
@@ -40,11 +40,11 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Ascendente Astrológico Grátis 2025",
+      content: "Calculadora Ascendente – Descubra seu Signo Grátis",
     },
     {
       property: "og:description",
-      content: "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
+      content: "Calcule seu ascendente astrológico grátis com data, hora e local de nascimento. Descubra sua personalidade externa e primeiras impressões.",
     },
     {
       property: "og:type",

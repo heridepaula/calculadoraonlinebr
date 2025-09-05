@@ -13,11 +13,11 @@ import { RelatedCalculators, FAQ } from "~/components";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora de Signo Solar Grátis 2025 | Descubra seu Signo" },
+    { title: "Calculadora de Signo Solar – Descubra Grátis" },
     {
       name: "description",
       content:
-        "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira. Experimente já!",
+        "Descubra seu signo solar grátis com apenas a data de nascimento. Análise completa de personalidade, amor, carreira e compatibilidade zodiacal.",
     },
     {
       name: "keywords",
@@ -38,11 +38,11 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Signo Solar Grátis 2025 | Descubra seu Signo",
+      content: "Calculadora de Signo Solar – Descubra Grátis",
     },
     {
       property: "og:description",
-      content: "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
+      content: "Descubra seu signo solar grátis com apenas a data de nascimento. Análise completa de personalidade, amor, carreira e compatibilidade zodiacal.",
     },
     {
       property: "og:type",

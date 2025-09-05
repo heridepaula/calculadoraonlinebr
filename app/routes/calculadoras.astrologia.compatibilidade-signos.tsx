@@ -13,11 +13,11 @@ import { RelatedCalculators, FAQ } from "~/components";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Teste Compatibilidade de Signos GRÁTIS 2025 - Amor, Amizade e Trabalho" },
+    { title: "Compatibilidade de Signos – Teste Grátis Amor e Amizade" },
     {
       name: "description",
       content:
-        "✨ Descubra GRÁTIS a compatibilidade entre signos! Teste completo para amor, amizade e trabalho. Análise detalhada + dicas personalizadas. Experimente já!",
+        "Teste a compatibilidade entre signos grátis. Descubra afinidade amorosa, amizade e trabalho com análise detalhada e dicas personalizadas.",
     },
     {
       name: "keywords",
@@ -38,11 +38,11 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Teste Compatibilidade de Signos GRÁTIS 2025 - Amor, Amizade e Trabalho",
+      content: "Compatibilidade de Signos – Teste Grátis Amor e Amizade",
     },
     {
       property: "og:description",
-      content: "✨ Descubra GRÁTIS a compatibilidade entre signos! Teste completo para amor, amizade e trabalho. Análise detalhada + dicas personalizadas. Experimente já!",
+      content: "Teste a compatibilidade entre signos grátis. Descubra afinidade amorosa, amizade e trabalho com análise detalhada e dicas personalizadas.",
     },
     {
       property: "og:type",

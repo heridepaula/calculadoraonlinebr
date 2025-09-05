@@ -14,11 +14,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadoras de Astrologia Grátis 2025 | Autoconhecimento" },
+    { title: "Astrologia Grátis: Ascendente, Signo e Compatibilidade" },
     {
       name: "description",
       content:
-        "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas confiáveis para autoconhecimento espiritual.",
+        "Descubra seu ascendente, signo solar e compatibilidade amorosa grátis. Ferramentas de autoconhecimento com análise detalhada dos astros.",
     },
     {
       name: "keywords",
@@ -39,11 +39,11 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadoras de Astrologia Grátis 2025 | Autoconhecimento",
+      content: "Astrologia Grátis: Ascendente, Signo e Compatibilidade",
     },
     {
       property: "og:description",
-      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas confiáveis para autoconhecimento.",
+      content: "Descubra seu ascendente, signo solar e compatibilidade amorosa grátis. Ferramentas de autoconhecimento com análise detalhada dos astros.",
     },
     {
       property: "og:type",
