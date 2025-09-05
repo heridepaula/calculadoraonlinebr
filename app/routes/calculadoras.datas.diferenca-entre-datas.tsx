@@ -17,12 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos | CalculadoraOnlineBR",
+      title: "Diferença entre Datas – Calcular Idade e Intervalos",
     },
     {
       name: "description",
       content:
-        "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
+        "Calcule diferenças entre datas em anos, meses e dias. Descubra sua idade exata, dias úteis e intervalos temporais com nossa calculadora grátis.",
     },
     {
       name: "keywords",
@@ -46,12 +46,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos",
+      content: "Diferença entre Datas – Calcular Idade e Intervalos",
     },
     {
       property: "og:description",
       content:
-        "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
+        "Calcule diferenças entre datas em anos, meses e dias. Descubra sua idade exata, dias úteis e intervalos temporais com nossa calculadora grátis.",
     },
     {
       property: "og:image",

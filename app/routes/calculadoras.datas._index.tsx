@@ -21,11 +21,11 @@ const category = {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadoras de Datas Grátis 2025 | Cálculo de Tempo" },
+    { title: "Calculadoras de Datas – Diferença entre Datas Grátis" },
     {
       name: "description",
       content:
-        "Calcule diferenças entre datas, períodos e intervalos temporais GRÁTIS! Ferramentas confiáveis para planejamento, dias úteis e cálculos de tempo.",
+        "Calcule diferenças entre datas, idade exata e intervalos temporais grátis. Ferramentas para planejamento com dias úteis e cálculos de tempo.",
     },
     {
       name: "keywords",
@@ -46,11 +46,11 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadoras de Datas Grátis 2025 | Cálculo de Tempo",
+      content: "Calculadoras de Datas – Diferença entre Datas Grátis",
     },
     {
       property: "og:description",
-      content: "Calcule diferenças entre datas, períodos e intervalos temporais GRÁTIS! Ferramentas confiáveis para planejamento.",
+      content: "Calcule diferenças entre datas, idade exata e intervalos temporais grátis. Ferramentas para planejamento com dias úteis e cálculos de tempo.",
     },
     {
       property: "og:type",
