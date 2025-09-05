@@ -79,7 +79,7 @@ export const SpecialTriangleCard: React.FC<SpecialTriangleCardProps> = ({ triang
 
               {triangle.name.includes("5:12:13") && (
                 <div className="mt-3 text-xs text-text-secondary bg-background-dark-secondary/50 p-2 rounded">
-                  <strong>🏗️ Prática:</strong> Amplamente usado em construção civil e carpintaria para criar ângulos retos precisos.
+                  <strong>🏗️ Prática:</strong> Amplamente usado em construção civil e carpintaria para criar ângulos retos.
                 </div>
               )}
             </div>

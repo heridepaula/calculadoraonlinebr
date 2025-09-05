@@ -1168,7 +1168,7 @@ const signosData = {
       desafios_amorosos: [
         "Dificuldade com intimidade emocional",
         "Necessidade extrema de espaço",
-        "Frieza em momentos que precisam calor",
+        "Frieza em momentos que necessitam calor",
         "Intelectualização de sentimentos"
       ]
     },

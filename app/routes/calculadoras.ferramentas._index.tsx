@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "★ Ferramentas e calculadoras GRATUITAS para o dia a dia. Diferença entre datas, conversões, idade e muito mais. Ferramentas úteis para simplificar cálculos cotidianos com precisão e praticidade.",
+        "★ Ferramentas e calculadoras GRATUITAS para o dia a dia. Diferença entre datas, conversões, idade e muito mais. Ferramentas úteis para simplificar cálculos cotidianos com facilidade e praticidade.",
     },
     {
       name: "keywords",
@@ -65,14 +65,14 @@ export default function FerramentasIndex() {
         category="ferramentas"
         title="Calculadoras e"
         subtitle="Ferramentas"
-        description="Simplifique seu dia a dia com ferramentas práticas para **datas, conversões e cálculos cotidianos**. Soluções rápidas e precisas para suas necessidades diárias."
+        description="Simplifique seu dia a dia com ferramentas práticas para **datas, conversões e cálculos cotidianos**. Soluções rápidas e confiáveis para suas necessidades diárias."
         badge={{
           icon: "🔧",
           text: "Ferramentas Práticas para o Dia a Dia"
         }}
         trustIndicators={[
           { color: "bg-system-success", text: "Ferramentas Úteis" },
-          { color: "bg-system-info", text: "Resultados Precisos" },
+          { color: "bg-system-info", text: "Resultados Confiáveis" },
           { color: "bg-primary-blue", text: "Interface Simples" }
         ]}
       />
@@ -337,7 +337,7 @@ export default function FerramentasIndex() {
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-system-success/20">
                 <span className="text-2xl">🎯</span>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary">Precisão</h3>
+              <h3 className="mt-4 text-lg font-semibold text-text-primary">Confiabilidade</h3>
               <p className="mt-2 text-sm text-text-secondary">
                 Cálculos exatos com algoritmos testados e confiáveis
               </p>
@@ -426,7 +426,7 @@ export default function FerramentasIndex() {
                 </h3>
                 <p className="mt-2 text-text-secondary">
                   Para cálculos de datas, <strong className="text-primary-blue-dark">inclua horários</strong> 
-                  quando precisar de máxima precisão. Use a separação de dias úteis para 
+                  quando necessitar de máximo detalhe. Use a separação de dias úteis para 
                   <strong className="text-growth-green-dark"> planejamento de projetos profissionais</strong> 
                   e cronogramas realistas.
                 </p>

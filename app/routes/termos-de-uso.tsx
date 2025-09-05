@@ -97,14 +97,14 @@ export default function TermosDeUso() {
 
         <section className="rounded-lg bg-neutral-surface p-6">
           <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">
-            5. Precisão dos Cálculos
+            5. Detalhamento dos Cálculos
           </h2>
           <div className="bg-system-warning-light mb-4 rounded-md p-4">
             <h3 className="mb-2 font-semibold text-text-primary-dark">
               Isenção de Responsabilidade
             </h3>
             <p className="text-sm text-text-secondary-dark">
-              Embora nos esforcemos para fornecer cálculos precisos, não garantimos 100% de precisão
+              Embora nos esforcemos para fornecer cálculos confiáveis, não garantimos 100% de detalhamento
               em todos os casos.
             </p>
           </div>
@@ -196,7 +196,7 @@ export default function TermosDeUso() {
                   <strong>Decisões de Saúde:</strong> Problemas de saúde, diagnósticos incorretos, ou decisões médicas baseadas em cálculos de IMC, gordura corporal ou similares.
                 </li>
                 <li>
-                  <strong>Erros de Cálculo:</strong> Imprecisões nos resultados devido a arredondamentos, limitações de software ou erros de programação.
+                  <strong>Erros de Cálculo:</strong> Inexatidões nos resultados devido a arredondamentos, limitações de software ou erros de programação.
                 </li>
                 <li>
                   <strong>Decisões Comerciais:</strong> Prejuízos em negócios, planejamentos ou estratégias baseadas nos resultados das calculadoras.

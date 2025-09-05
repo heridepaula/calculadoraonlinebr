@@ -84,12 +84,12 @@ interface AuxilioDoencaResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Preciso | CalculadoraOnlineBR",
+      title: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Completo | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule auxílio-doença INSS 2025 com precisão: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+        "Calcule auxílio-doença INSS 2025 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
     },
     {
       name: "keywords",
@@ -113,12 +113,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Preciso",
+      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Completo",
     },
     {
       property: "og:description",
       content:
-        "Calcule auxílio-doença INSS 2025 com precisão: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+        "Calcule auxílio-doença INSS 2025 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
     },
     {
       property: "og:image",
@@ -147,12 +147,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Preciso",
+      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Completo",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule auxílio-doença INSS: valor do benefício, carência e isenções. Resultado preciso e instantâneo.",
+        "Calcule auxílio-doença INSS: valor do benefício, carência e isenções. Resultado confiável e instantâneo.",
     },
     {
       name: "twitter:image",
@@ -160,7 +160,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Auxílio-Doença INSS - Cálculo preciso de benefício",
+      content: "Calculadora de Auxílio-Doença INSS - Cálculo completo de benefício",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -180,7 +180,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Auxílio-Doença INSS - Simulador de Benefício 2025",
         description:
-          "Simulador gratuito e preciso de auxílio-doença INSS com verificação automática de carência, isenções e cálculo do benefício por incapacidade temporária.",
+          "Simulador gratuito e confiável de auxílio-doença INSS com verificação automática de carência, isenções e cálculo do benefício por incapacidade temporária.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -212,7 +212,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
           name: "Calculadora de Auxílio-Doença INSS 2025 - Simulador de Benefício",
           description:
-            "Calcule auxílio-doença INSS 2025 com precisão: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+            "Calcule auxílio-doença INSS 2025 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -523,7 +523,7 @@ export default function CalculadoraAuxilioDoenca() {
 
     if (salariosValidos.length > 0 && salariosValidos.length < 12) {
       errors.push(
-        `Para cálculo mais preciso, adicione mais salários (${salariosValidos.length}/12)`
+        `Para cálculo mais confiável, adicione mais salários (${salariosValidos.length}/12)`
       );
     }
 
@@ -938,7 +938,7 @@ export default function CalculadoraAuxilioDoenca() {
                     <div>
                       <h4 className="font-semibold text-growth-green">Dica importante</h4>
                       <p className="mt-1 text-sm text-text-secondary">
-                        Quanto mais salários você adicionar, mais preciso será o cálculo do seu
+                        Quanto mais salários você adicionar, mais confiável será o cálculo do seu
                         benefício.
                       </p>
                     </div>
@@ -1400,7 +1400,7 @@ export default function CalculadoraAuxilioDoenca() {
           content:
             "Para aumentar as chances de aprovação, <strong>organize toda documentação médica</strong> antes da perícia: laudos, exames, receitas, relatórios. Quanto mais completo o histórico, melhor!",
         }}
-        footerText="<strong>Precisa calcular outros benefícios?</strong> Explore nossas calculadoras trabalhistas e garanta seus direitos previdenciários com segurança!"
+        footerText="<strong>Necessita calcular outros benefícios?</strong> Explore nossas calculadoras trabalhistas e garanta seus direitos previdenciários com segurança!"
       />
 
       <RelatedCalculators category="trabalhista" currentCalculatorId="auxilio-doenca" />

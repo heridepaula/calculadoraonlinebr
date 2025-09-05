@@ -380,7 +380,7 @@ export default function ModeCalculator() {
         <div className="bg-math-purple-soft inline-block rounded-lg p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             📊 <strong>Análise Completa</strong> • 📈 <strong>Frequência de Dados</strong> • 🎯{" "}
-            <strong>Resultados Precisos</strong>
+            <strong>Resultados Confiáveis</strong>
           </p>
         </div>
       </header>

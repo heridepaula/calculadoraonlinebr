@@ -175,7 +175,7 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
     {
       id: "diferenca-entre-datas",
       title: "📅 Calculadora Diferença entre Datas",
-      description: "Calcule idade exata, dias úteis e intervalos precisos entre datas.",
+      description: "Calcule idade, dias úteis e intervalos entre datas.",
       href: "/calculadoras/ferramentas/diferenca-entre-datas",
       bgColor: "bg-system-info/10",
       textColor: "text-system-info",

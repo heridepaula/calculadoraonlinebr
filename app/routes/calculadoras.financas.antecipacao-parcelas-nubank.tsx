@@ -442,7 +442,7 @@ export default function AntecipacaoNubankCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            💰 <strong>Simulador Preciso</strong> • 📊 <strong>Cálculos em Tempo Real</strong> • ⚙️{" "}
+            💰 <strong>Simulador Completo</strong> • 📊 <strong>Cálculos em Tempo Real</strong> • ⚙️{" "}
             <strong>Análise Detalhada</strong>
           </p>
         </div>

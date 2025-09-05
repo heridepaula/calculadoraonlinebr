@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule juros simples online de forma gratuita e precisa. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
+        "Calcule juros simples online de forma gratuita e confiável. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -88,7 +88,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule juros simples online de forma gratuita e precisa. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
+        "Calcule juros simples online de forma gratuita e confiável. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
     },
     {
       property: "og:image",
@@ -97,7 +97,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image:alt",
       content:
-        "Calculadora de Juros Simples - Simule crescimento linear do capital de forma simples e precisa",
+        "Calculadora de Juros Simples - Simule crescimento linear do capital de forma simples e confiável",
     },
     {
       property: "og:image:width",
@@ -122,7 +122,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule juros simples online de forma gratuita e precisa. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
+        "Calcule juros simples online de forma gratuita e confiável. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
     },
     {
       name: "twitter:image",
@@ -145,9 +145,9 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Juros Simples - Simulador Preciso 2025",
+        name: "Calculadora de Juros Simples - Simulador Completo 2025",
         description:
-          "Calculadora gratuita e precisa de juros simples. Simule o crescimento linear do seu capital, visualize gráficos e tabela detalhada com resultados claros.",
+          "Calculadora gratuita e confiável de juros simples. Simule o crescimento linear do seu capital, visualize gráficos e tabela detalhada com resultados claros.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -177,7 +177,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
-          name: "Calculadora de Juros Simples 2025 - Simulador Preciso",
+          name: "Calculadora de Juros Simples 2025 - Simulador Completo",
           description:
             "Simule crescimento linear do capital com juros simples. Visualize gráficos claros, tabela detalhada e entenda como funciona o cálculo de juros simples.",
           inLanguage: "pt-BR",
@@ -237,7 +237,7 @@ export const meta: MetaFunction = () => {
           "Cálculo baseado na fórmula clássica de juros simples",
           "Simulação por meses ou anos",
           "Interface móvel responsiva otimizada",
-          "Resultados precisos em tempo real",
+          "Resultados confiáveis em tempo real",
         ],
       }),
     },
@@ -473,7 +473,7 @@ export default function SimpleInterestCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Juros Simples 2025 – Simulador Preciso
+          Calculadora de Juros Simples 2025 – Simulador Completo
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule o <strong className="text-growth-green">crescimento linear do seu capital</strong>{" "}
@@ -483,7 +483,7 @@ export default function SimpleInterestCalculator() {
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             🧮 <strong>Fórmula Simples</strong> • 📈 <strong>Crescimento Linear</strong> • 💰{" "}
-            <strong>Resultados Precisos</strong>
+            <strong>Resultados Confiáveis</strong>
           </p>
         </div>
       </header>
@@ -1267,7 +1267,7 @@ export default function SimpleInterestCalculator() {
           {
             question: "Como escolher entre meses e anos?",
             answer:
-              "Use 'meses' para aplicações de curto prazo (até 2 anos) para maior precisão. Use 'anos' para planejamentos mais longos. A calculadora converte automaticamente para cálculos mensais.",
+              "Use 'meses' para aplicações de curto prazo (até 2 anos) para melhor resultado. Use 'anos' para planejamentos mais longos. A calculadora converte automaticamente para cálculos mensais.",
             borderColor: "growth-green",
           },
           {
@@ -1280,7 +1280,7 @@ export default function SimpleInterestCalculator() {
         tipSection={{
           title: "Dica Importante sobre Juros Simples",
           content:
-            "<strong>Juros simples são ideais para:</strong> situações onde você precisa de previsibilidade total e cálculos transparentes. São perfeitos para entender os conceitos básicos antes de avançar para juros compostos.",
+            "<strong>Juros simples são ideais para:</strong> situações onde você confiável de previsibilidade total e cálculos transparentes. São perfeitos para entender os conceitos básicos antes de avançar para juros compostos.",
         }}
         footerText="<strong>Lembre-se:</strong> Embora juros simples sejam menos rentáveis no longo prazo, eles oferecem clareza e previsibilidade total, sendo excelentes para fins educacionais e aplicações específicas."
       />

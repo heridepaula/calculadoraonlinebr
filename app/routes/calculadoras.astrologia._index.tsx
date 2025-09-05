@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas precisas para autoconhecimento espiritual.",
+        "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas confiáveis para autoconhecimento espiritual.",
     },
     {
       name: "keywords",
@@ -43,7 +43,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:description",
-      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas precisas para autoconhecimento.",
+      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas confiáveis para autoconhecimento.",
     },
     {
       property: "og:type",
@@ -128,7 +128,7 @@ export default function AstrologiaIndex() {
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#webpage",
                 "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
                 "name": "Calculadoras de Astrologia Grátis 2025",
-                "description": "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas precisas para autoconhecimento.",
+                "description": "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas confiáveis para autoconhecimento.",
                 "isPartOf": {
                   "@id": "https://www.calculadoraonlinebr.com.br/#website"
                 },
@@ -145,7 +145,7 @@ export default function AstrologiaIndex() {
                     {
                       "@type": "SoftwareApplication",
                       "name": "Calculadora de Ascendente Astrológico",
-                      "description": "Descubra seu signo ascendente com precisão usando data, hora e local de nascimento",
+                      "description": "Descubra seu signo ascendente usando data, hora e local de nascimento",
                       "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
                       "applicationCategory": "UtilitiesApplication",
                       "operatingSystem": "Web",
@@ -222,7 +222,7 @@ export default function AstrologiaIndex() {
           text: "Ferramentas Astrológicas para Autoconhecimento"
         }}
         trustIndicators={[
-          { color: "bg-system-success", text: "Cálculos Precisos" },
+          { color: "bg-system-success", text: "Cálculos Confiáveis" },
           { color: "bg-math-purple", text: "Baseado em Tradições" },
           { color: "bg-primary-blue", text: "Autoconhecimento" }
         ]}
@@ -243,7 +243,7 @@ export default function AstrologiaIndex() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <QuickAccessCard
               title="Ascendente Astrológico"
-              description="Descubra seu signo ascendente com precisão usando data, hora e local de nascimento."
+              description="Descubra seu signo ascendente usando data, hora e local de nascimento."
               icon="🌅"
               href="/calculadoras/astrologia/ascendente"
               category="astrologia"
@@ -284,7 +284,7 @@ export default function AstrologiaIndex() {
           {
             icon: "📊",
             number: "100%",
-            label: "Precisão",
+            label: "Confiabilidade",
             description: "Cálculos validados"
           },
           {
@@ -564,7 +564,7 @@ export default function AstrologiaIndex() {
           <div className="mt-8 flex items-center justify-center gap-8 text-sm text-math-purple-light">
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-white animate-pulse"></div>
-              <span>Cálculos Precisos</span>
+              <span>Cálculos Confiáveis</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-white animate-pulse" style={{animationDelay: '0.5s'}}></div>

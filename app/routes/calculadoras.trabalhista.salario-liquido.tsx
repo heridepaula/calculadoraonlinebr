@@ -47,7 +47,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule seu salário líquido com precisão usando as tabelas de INSS e IRRF atualizadas para 2025. Gratuita e completa!",
+        "Calcule seu salário líquido facilmente usando as tabelas de INSS e IRRF atualizadas para 2025. Gratuita e completa!",
     },
     { property: "og:type", content: "website" },
     {
@@ -64,7 +64,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Ferramenta mais precisa para calcular salário líquido: INSS, IRRF, dependentes e todos os descontos trabalhistas.",
+        "Ferramenta mais confiável para calcular salário líquido: INSS, IRRF, dependentes e todos os descontos trabalhistas.",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
@@ -82,7 +82,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Salário Líquido - Simulador INSS e IRRF 2025",
         description:
-          "Simulador gratuito de salário líquido com tabelas INSS e IRRF 2025 atualizadas. Calcula descontos CLT, PJ e MEI com precisão.",
+          "Simulador gratuito de salário líquido com tabelas INSS e IRRF 2025 atualizadas. Calcula descontos CLT, PJ e MEI facilmente.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -468,7 +468,7 @@ export default function NetSalaryCalculator() {
             💰 Calculadora de Salário Líquido - Tabelas 2025
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-            Calcule seu <strong className="text-growth-green">salário líquido</strong> com precisão
+            Calcule seu <strong className="text-growth-green">salário líquido</strong> facilmente
             usando as
             <strong className="text-primary-blue-dark">
               {" "}
@@ -640,7 +640,7 @@ export default function NetSalaryCalculator() {
                         </li>
                         <li>
                           • <strong>Dica:</strong> Informe sua alíquota específica no campo acima
-                          para cálculo preciso
+                          para cálculo detalhado
                         </li>
                       </ul>
                     </div>
@@ -947,7 +947,7 @@ export default function NetSalaryCalculator() {
                   proporcionalmente menos no líquido devido aos impostos progressivos.
                   {contractType === "MEI" && isMEIAboveLimit && (
                     <span className="mt-2 block font-semibold text-system-error">
-                      ⚠️ Cenários acima do limite MEI precisam migrar para PJ!
+                      ⚠️ Cenários acima do limite MEI necessitam migrar para PJ!
                     </span>
                   )}
                 </p>
@@ -1122,7 +1122,7 @@ export default function NetSalaryCalculator() {
             {
               question: "Como calcular salário líquido a partir do bruto em 2025?",
               answer:
-                "<strong>Fórmula:</strong> Salário Líquido = Salário Bruto - INSS - IRRF - Outros Descontos. Use nossa calculadora para aplicar automaticamente as <strong>tabelas oficiais 2025</strong> com precisão total. O cálculo considera a progressão das alíquotas por faixa salarial.",
+                "<strong>Fórmula:</strong> Salário Líquido = Salário Bruto - INSS - IRRF - Outros Descontos. Use nossa calculadora para aplicar automaticamente as <strong>tabelas oficiais 2025</strong> facilmente total. O cálculo considera a progressão das alíquotas por faixa salarial.",
               borderColor: "primary-blue",
             },
             {
@@ -1152,7 +1152,7 @@ export default function NetSalaryCalculator() {
             {
               question: "Por que meu salário líquido é diferente do calculado?",
               answer:
-                'Podem existir outros descontos: <strong>vale-transporte, convênio médico, empréstimos consignados, contribuição sindical, pensão alimentícia</strong>. Nossa calculadora permite incluir estes valores no campo "Outros Descontos" para maior precisão.',
+                'Podem existir outros descontos: <strong>vale-transporte, convênio médico, empréstimos consignados, contribuição sindical, pensão alimentícia</strong>. Nossa calculadora permite incluir estes valores no campo "Outros Descontos" para melhor resultado.',
               borderColor: "primary-blue",
             },
             {
@@ -1164,7 +1164,7 @@ export default function NetSalaryCalculator() {
             {
               question: "Esta calculadora substitui um contador?",
               answer:
-                "<strong>Não!</strong> É uma ferramenta educativa com estimativas precisas baseadas nas tabelas oficiais. Para <strong>planejamento tributário complexo, elisão fiscal</strong> ou situações especiais, sempre consulte um contador qualificado.",
+                "<strong>Não!</strong> É uma ferramenta educativa com estimativas confiáveis baseadas nas tabelas oficiais. Para <strong>planejamento tributário complexo, elisão fiscal</strong> ou situações especiais, sempre consulte um contador qualificado.",
               borderColor: "system-error-dark",
             },
           ]}
@@ -1176,7 +1176,7 @@ export default function NetSalaryCalculator() {
           footerText="<strong>Tabelas 2025 atualizadas:</strong> Todos os cálculos seguem as <strong>tabelas oficiais da Receita Federal</strong> e são validados com ferramentas de referência do mercado."
         />
 
-        {/* Seção sobre Precisão e Metodologia */}
+        {/* Seção sobre Detalhamento e Metodologia */}
         <Card className="w-full border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft">
           <CardHeader>
             <CardTitle as="h2" className="text-lg font-bold text-text-primary">
@@ -1193,7 +1193,7 @@ export default function NetSalaryCalculator() {
                   {" "}
                   tabelas oficiais de INSS e IRRF para 2025
                 </strong>
-                . Desenvolvida para oferecer cálculos precisos e educação financeira completa.
+                . Desenvolvida para oferecer cálculos confiáveis e educação financeira completa.
               </p>
               <p>
                 <strong>Funcionalidades exclusivas:</strong> Cálculo em tempo real, simulação

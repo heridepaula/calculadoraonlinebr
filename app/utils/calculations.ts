@@ -2422,7 +2422,7 @@ export function calculateHydration(params: HydrationParams): HydrationResult {
   }
   if (pregnancy) {
     recommendations.push(
-      "Grávidas precisam de hidratação extra para suporte ao desenvolvimento fetal"
+      "Grávidas necessitam de hidratação extra para suporte ao desenvolvimento fetal"
     );
   }
   if (breastfeeding) {
@@ -6231,7 +6231,7 @@ function getVolumeRelatedConcepts(shape: string): VolumeResult["relatedConcepts"
       {
         concept: "Aproximação de Superfície",
         explanation: "Fórmulas aproximadas para área superficial",
-        example: "Knud Thomsen é uma das aproximações mais precisas",
+        example: "Knud Thomsen é uma das melhores aproximações",
       },
     ],
     frustum: [

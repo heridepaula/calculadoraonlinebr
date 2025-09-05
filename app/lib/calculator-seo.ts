@@ -20,7 +20,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     id: "imc",
     title: "Calculadora de IMC 2025 - Índice de Massa Corporal - Calculadora Online BR",
     description:
-      "★ Calculadora IMC GRATUITA e atualizada! Calcule seu Índice de Massa Corporal com precisão, veja classificações da OMS e receba dicas personalizadas para uma vida mais saudável.",
+      "★ Calculadora IMC GRATUITA e atualizada! Calcule seu Índice de Massa Corporal, veja classificações da OMS e receba dicas personalizadas para uma vida mais saudável.",
     keywords:
       "calculadora imc, indice massa corporal, calcular imc, peso ideal, obesidade, sobrepeso, imc adulto, imc infantil, tabela imc oms, saude peso",
     canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/imc",
@@ -43,7 +43,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     title:
       "Calculadora de Ciclo Menstrual 2025 - Período Fértil e Ovulação - Calculadora Online BR",
     description:
-      "★ Calculadora de ciclo menstrual GRATUITA! Calcule período fértil, ovulação, próxima menstruação e janela de fertilidade. Acompanhe sua saúde reprodutiva com precisão.",
+      "★ Calculadora de ciclo menstrual GRATUITA! Calcule período fértil, ovulação, próxima menstruação e janela de fertilidade. Acompanhe sua saúde reprodutiva facilmente.",
     keywords:
       "calculadora ciclo menstrual, periodo fertil, ovulacao, proxima menstruacao, fertilidade, tabelinha, calendario menstrual, saude feminina, engravidar",
     canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/ciclo-menstrual",
@@ -65,7 +65,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     id: "hidratacao",
     title: "Calculadora de Hidratação 2025 - Necessidade Diária de Água - Calculadora Online BR",
     description:
-      "★ Calcule sua necessidade diária de água personalizada! Considera atividade física, clima, peso, idade e condições especiais. Mantenha-se hidratado com precisão.",
+      "★ Calcule sua necessidade diária de água personalizada! Considera atividade física, clima, peso, idade e condições especiais. Mantenha-se hidratado adequadamente.",
     keywords:
       "calculadora hidratacao, necessidade agua, quantos litros agua beber, desidratacao, balance hidrico, agua diaria, sede, hidratacao exercicio, clima quente",
     canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/hidratacao",
@@ -125,7 +125,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     title:
       "Calculadora Antecipação Nubank 2025 - Descontos e Economia de Parcelas - Calculadora Online BR",
     description:
-      "★ Calculadora de antecipação Nubank GRATUITA! Calcule exatamente quanto você economiza antecipando parcelas. Veja descontos por número de parcelas, análise completa e tome a melhor decisão financeira.",
+      "★ Calculadora de antecipação Nubank GRATUITA! Calcule quanto você economiza antecipando parcelas. Veja descontos por número de parcelas, análise completa e tome a melhor decisão financeira.",
     keywords:
       "calculadora antecipacao nubank, antecipar parcelas nubank, desconto antecipacao, quitar emprestimo nubank, economia antecipacao, simulador nubank, parcelas nubank, calculadora nubank",
     canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
@@ -171,7 +171,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "juros-simples": {
     id: "juros-simples",
-    title: "Calculadora de Juros Simples 2025 - Fácil e Precisa - Calculadora Online BR",
+    title: "Calculadora de Juros Simples 2025 - Fácil e Rápida - Calculadora Online BR",
     description:
       "★ Calculadora de Juros Simples GRATUITA e fácil de usar. Calcule juros, capital, taxa ou tempo com fórmulas detalhadas. Ideal para empréstimos, financiamentos e aplicações de curto prazo.",
     keywords:
@@ -206,7 +206,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Mathematical Calculators
   porcentagem: {
     id: "porcentagem",
-    title: "Calculadora de Porcentagem 2025 - Rápida e Precisa - Calculadora Online BR",
+    title: "Calculadora de Porcentagem 2025 - Rápida e Fácil - Calculadora Online BR",
     description:
       "★ Calculadora de porcentagem GRATUITA e fácil! Calcule porcentagens, aumentos, descontos, diferença percentual e muito mais. Ideal para compras, negócios e estudos.",
     keywords:
@@ -337,7 +337,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     id: "gerador-cpf",
     title: "Gerador de CPF 2025 - Válido com/sem Pontuação + Cópia Automática - Calculadora Online BR",
     description:
-      "★ Gerador de CPF GRATUITO e válido para testes e desenvolvimento! Gere CPFs com ou sem pontuação, cópia automática para área de transferência. Algoritmo oficial da Receita Federal com validação matemática completa.",
+      "★ Gerador de CPF GRATUITO e válido para testes e desenvolvimento! Gere CPFs com ou sem pontuação, cópia automática para área de transferência. Algoritmo da Receita Federal com validação matemática completa.",
     keywords:
       "gerador CPF, CPF válido, CPF teste, CPF desenvolvimento, CPF sem pontuação, CPF formatado, validador CPF, algoritmo CPF, dígitos verificadores, CPF falso, teste sistema, Receita Federal, CPF brasileiro, ferramenta CPF",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cpf",
@@ -346,11 +346,11 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "diferenca-entre-datas": {
     id: "diferenca-entre-datas", 
-    title: "Calculadora de Diferença entre Datas 2025 - Idade Exata e Dias Úteis - Calculadora Online BR",
+    title: "Calculadora de Diferença entre Datas 2025 - Idade e Dias Úteis - Calculadora Online BR",
     description:
-      "★ Calculadora de diferença entre datas GRATUITA! Calcule diferença em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e cálculo de idade exata com precisão.",
+      "★ Calculadora de diferença entre datas GRATUITA! Calcule diferença em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e cálculo de idade.",
     keywords:
-      "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade exata",
+      "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
     priority: 0.7,
     changeFreq: "monthly",
@@ -362,7 +362,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     title:
       "Calculadora de Rescisão Trabalhista 2025 - Direitos Trabalhistas Completos - Calculadora Online BR",
     description:
-      "★ Calculadora de rescisão trabalhista GRATUITA e completa! Calcule valores de demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego, férias, 13º e todos os direitos trabalhistas com precisão.",
+      "★ Calculadora de rescisão trabalhista GRATUITA e completa! Calcule valores de demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego, férias, 13º e todos os direitos trabalhistas.",
     keywords:
       "calculadora rescisão trabalhista, demissão sem justa causa, demissão com justa causa, acordo mútuo, pedido demissão, direitos trabalhistas, FGTS multa 40%, seguro desemprego, aviso prévio, férias proporcionais, 13º salário proporcional, cálculo rescisão, trabalhista CLT",
     canonicalUrl: "https://calculadoraonline.com.br/calculadoras/trabalhista/rescisao",
@@ -385,7 +385,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     title:
       "Calculadora de Auxílio-Doença INSS 2025 - Valor do Benefício e Carência - Calculadora Online BR",
     description:
-      "★ Calculadora de auxílio-doença INSS GRATUITA! Calcule o valor do benefício com precisão, verifique carência automaticamente, aplica isenções para doenças graves e acidentes conforme legislação 2025.",
+      "★ Calculadora de auxílio-doença INSS GRATUITA! Calcule o valor do benefício, verifique carência automaticamente, aplica isenções para doenças graves e acidentes conforme legislação 2025.",
     keywords:
       "calculadora auxilio doenca, auxilio doenca inss, valor auxilio doenca, carencia auxilio doenca, beneficio inss doenca, afastamento trabalho, incapacidade temporaria, doenças graves isenção, acidente trabalho, legislação 2025 inss, pericia medica, auxilio incapacidade",
     canonicalUrl: "https://calculadoraonline.com.br/calculadoras/trabalhista/auxilio-doenca",
@@ -469,7 +469,7 @@ export function getCategorySEO(categoryId: string) {
 
   return {
     title: `Calculadoras de ${category.name} 2025 - ${categoryCalculators.length} Ferramentas Gratuitas - Calculadora Online BR`,
-    description: `★ ${categoryCalculators.length} calculadoras de ${category.name.toLowerCase()} GRATUITAS! ${category.description} Ferramentas precisas, fáceis de usar e sem cadastro.`,
+    description: `★ ${categoryCalculators.length} calculadoras de ${category.name.toLowerCase()} GRATUITAS! ${category.description} Ferramentas confiáveis, fáceis de usar e sem cadastro.`,
     keywords:
       categoryCalculators.map((calc) => calc.name.toLowerCase()).join(", ") +
       ", " +

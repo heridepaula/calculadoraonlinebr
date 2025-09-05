@@ -63,7 +63,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões precisas. Ferramenta gratuita para saúde feminina.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões confiáveis. Ferramenta gratuita para saúde feminina.",
     },
     { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
     {
@@ -90,7 +90,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões precisas. Ferramenta gratuita para saúde feminina.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões confiáveis. Ferramenta gratuita para saúde feminina.",
     },
     {
       property: "og:image",
@@ -124,7 +124,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões precisas. Ferramenta gratuita para saúde feminina.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões confiáveis. Ferramenta gratuita para saúde feminina.",
     },
     {
       name: "twitter:image",
@@ -151,7 +151,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Ciclo Menstrual - Acompanhe Período Fértil 2025",
         description:
-          "Calculadora gratuita e precisa de ciclo menstrual. Acompanhe período fértil, ovulação, próximas menstruações e visualize calendário completo do seu ciclo.",
+          "Calculadora gratuita e confiável de ciclo menstrual. Acompanhe período fértil, ovulação, próximas menstruações e visualize calendário completo do seu ciclo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
         applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
@@ -183,7 +183,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
           name: "Calculadora de Ciclo Menstrual 2025 - Período Fértil e Ovulação",
           description:
-            "Acompanhe seu ciclo menstrual com precisão. Calcule período fértil, ovulação, próximas menstruações e visualize calendário completo. Ferramenta confiável para saúde feminina.",
+            "Acompanhe seu ciclo menstrual facilmente. Calcule período fértil, ovulação, próximas menstruações e visualize calendário completo. Ferramenta confiável para saúde feminina.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -239,7 +239,7 @@ export const meta: MetaFunction = () => {
           },
         },
         featureList: [
-          "Cálculo preciso do período fértil e ovulação baseado em evidências científicas",
+          "Cálculo rápido do período fértil e ovulação baseado em evidências científicas",
           "Previsão confiável de próximas 6 menstruações",
           "Calendário menstrual visual com código de cores por fase",
           "Acompanhamento detalhado das 4 fases do ciclo menstrual",
@@ -514,14 +514,14 @@ export default function MenstrualCycleCalculator() {
           Calculadora de Ciclo Menstrual 2025 – Período Fértil e Ovulação
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Acompanhe seu <strong className="text-health-red">ciclo menstrual</strong> com precisão.
+          Acompanhe seu <strong className="text-health-red">ciclo menstrual</strong> facilmente.
           Calcule <strong className="text-primary-blue-dark">período fértil</strong>, ovulação e
           próximas menstruações com nossa ferramenta confiável.
         </p>
         <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             📅 <strong>Calendário Menstrual</strong> • 🌱 <strong>Período Fértil</strong> • 🔴{" "}
-            <strong>Ovulação Precisa</strong>
+            <strong>Ovulação Confiável</strong>
           </p>
         </div>
       </header>
@@ -1107,12 +1107,12 @@ export default function MenstrualCycleCalculator() {
           {
             question: "Ciclos irregulares afetam o cálculo?",
             answer:
-              "Sim. Ciclos muito irregulares podem tornar as previsões menos precisas. Recomenda-se acompanhar vários ciclos e consultar um profissional de saúde para avaliação adequada.",
+              "Sim. Ciclos muito irregulares podem tornar as previsões menos confiáveis. Recomenda-se acompanhar vários ciclos e consultar um profissional de saúde para avaliação adequada.",
             borderColor: "system-warning",
           },
         ]}
         tipSection={{
-          title: "👩‍⚕️ Dica Médica para Acompanhamento Preciso",
+          title: "👩‍⚕️ Dica Médica para Acompanhamento",
           content:
             "<strong>Recomendação médica:</strong> Mantenha um diário menstrual por pelo menos 3-6 meses, anote sintomas e alterações, faça consultas preventivas anuais com ginecologista. Procure ajuda médica se houver ciclos muito irregulares, dor intensa ou sangramento anormal.",
         }}
@@ -1151,7 +1151,7 @@ export default function MenstrualCycleCalculator() {
               irregulares podem indicar condições que requerem avaliação médica.
             </p>
             <p className="mt-4 border-t border-health-red/20 pt-3 text-xs opacity-75">
-              📅 Cálculo preciso • 🌱 Período fértil • 🔒 Dados não armazenados • 📱 Compatível com
+              📅 Cálculo rápido • 🌱 Período fértil • 🔒 Dados não armazenados • 📱 Compatível com
               todos os dispositivos • 🌙 Interface otimizada
             </p>
           </div>

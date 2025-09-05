@@ -64,12 +64,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Tesouro Direto 2025 - Simulador Oficial | CalculadoraOnlineBR",
+      title: "Tesouro Direto 2025 - Simulador | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Simule Tesouro Selic, Prefixado e IPCA+ com dados oficiais. Calcule IR, custódia e resgate antecipado. Ferramenta gratuita e atualizada.",
+        "Simule Tesouro Selic, Prefixado e IPCA+ com dados atualizados. Calcule IR, custódia e resgate antecipado. Ferramenta gratuita e atualizada.",
     },
     {
       name: "keywords",
@@ -96,7 +96,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Tesouro Direto 2025 - Simulador Oficial",
+      content: "Tesouro Direto 2025 - Simulador",
     },
     {
       property: "og:description",
@@ -130,7 +130,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Tesouro Direto 2025 - Simulador Oficial",
+      content: "Tesouro Direto 2025 - Simulador",
     },
     {
       name: "twitter:description",
@@ -402,7 +402,7 @@ export default function TreasuryDirectCalculator() {
       if (bond) {
         setSelectedBond(bond);
 
-        // Usa a taxa oficial da API
+        // Usa a taxa da API
         setPurchaseRate(bond.rate.toFixed(2));
         setMaturityDate(bond.maturityDate);
         setCouponRate(bond.rate.toFixed(2));
@@ -736,7 +736,7 @@ export default function TreasuryDirectCalculator() {
                   />
                   {selectedBond && (
                     <p className="mt-1 text-xs text-system-info">
-                      ℹ️ Data oficial de vencimento do título
+                      ℹ️ Data de vencimento do título
                     </p>
                   )}
                 </div>
@@ -761,7 +761,7 @@ export default function TreasuryDirectCalculator() {
                   />
                   {selectedBond && (
                     <p className="mt-1 text-xs text-system-info">
-                      ℹ️ Taxa oficial do título selecionado
+                      ℹ️ Taxa do título selecionado
                     </p>
                   )}
                 </div>
@@ -890,7 +890,7 @@ export default function TreasuryDirectCalculator() {
                   />
                   {selectedBond && (
                     <p className="mt-1 text-xs text-system-info">
-                      ℹ️ Taxa de cupom oficial do título
+                      ℹ️ Taxa de cupom do título
                     </p>
                   )}
                   <p className="mt-2 text-xs text-text-secondary">

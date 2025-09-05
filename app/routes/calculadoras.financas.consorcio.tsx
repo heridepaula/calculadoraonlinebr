@@ -442,7 +442,7 @@ export default function ConsortiumCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>Comparação de Grupos</strong> • ⚙️{" "}
+            🔎 <strong>Cálculo Completo</strong> • 📊 <strong>Comparação de Grupos</strong> • ⚙️{" "}
             <strong>Análise de Contemplação</strong>
           </p>
         </div>

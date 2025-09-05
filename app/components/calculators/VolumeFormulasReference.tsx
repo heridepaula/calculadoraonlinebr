@@ -171,7 +171,7 @@ export const VolumeFormulasReference = React.memo<VolumeFormulasReferenceProps>(
           <div className="mt-4 p-3 bg-system-warning/10 rounded-lg border border-system-warning/20">
             <p className="text-xs text-system-warning font-semibold mb-1">💡 Dica:</p>
             <p className="text-xs text-text-secondary">
-              As fórmulas acima são para valores unitários. Substitua pelas suas dimensões reais para cálculos precisos.
+              As fórmulas acima são para valores unitários. Substitua pelas suas dimensões reais para cálculos corretos.
             </p>
           </div>
         </CardContent>

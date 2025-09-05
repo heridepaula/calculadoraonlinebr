@@ -112,7 +112,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Desvio Padrão - Estatística Descritiva 2025",
         description:
-          "Calculadora gratuita e precisa de desvio padrão e variância. Analise medidas de dispersão estatística com explicações detalhadas, fórmulas e interpretação dos resultados.",
+          "Calculadora gratuita e confiável de desvio padrão e variância. Analise medidas de dispersão estatística com explicações detalhadas, fórmulas e interpretação dos resultados.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -407,7 +407,7 @@ export default function StandardDeviationCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-math-purple-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔎 <strong>Análise Precisa</strong> • 📊 <strong>Estatística Descritiva</strong> • ⚙️{" "}
+            🔎 <strong>Análise Completa</strong> • 📊 <strong>Estatística Descritiva</strong> • ⚙️{" "}
             <strong>Interpretação Detalhada</strong>
           </p>
         </div>
@@ -778,7 +778,7 @@ export default function StandardDeviationCalculator() {
               <h4 className="mb-2 font-bold text-primary-blue-dark">🎯 Amostral</h4>
               <p className="text-sm text-text-secondary">
                 Use quando tiver <strong>apenas uma amostra</strong>. A correção (N-1) fornece
-                estimativas mais precisas.
+                estimativas mais confiávels.
               </p>
             </div>
           </div>
@@ -867,7 +867,7 @@ export default function StandardDeviationCalculator() {
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta <strong className="text-math-purple">calculadora de desvio padrão</strong> implementa{" "}
-              <strong className="text-primary-blue-dark">algoritmos estatísticos precisos</strong> para calcular
+              <strong className="text-primary-blue-dark">algoritmos estatísticos confiáveis</strong> para calcular
               medidas de dispersão. Os cálculos seguem as fórmulas padrão para desvio padrão populacional
               e amostral com correção de Bessel.
             </p>
@@ -882,7 +882,7 @@ export default function StandardDeviationCalculator() {
               como R, Python, SPSS ou Minitab.
             </p>
             <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              🔎 Cálculos precisos • 📊 Estatística descritiva • 🔒 Dados não armazenados • 📱 Interface
+              🔎 Cálculos confiáveis • 📊 Estatística descritiva • 🔒 Dados não armazenados • 📱 Interface
               responsiva • 🌙 Tema escuro otimizado • 🧮 Suporte a decimais
             </p>
           </div>

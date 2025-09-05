@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados precisos!",
+        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados confiáveis!",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -46,7 +46,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados precisos!",
+        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados confiáveis!",
     },
     {
       property: "og:image",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados precisos!",
+        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados confiáveis!",
     },
     {
       name: "twitter:image",
@@ -206,7 +206,7 @@ export const meta: MetaFunction = () => {
           "Resolução passo a passo",
           "Verificação automática",
           "Proporções matemáticas",
-          "Cálculos precisos",
+          "Cálculos confiáveis",
           "Interface móvel responsiva",
           "Resultados em tempo real",
           "Explicação detalhada",
@@ -260,7 +260,7 @@ export const meta: MetaFunction = () => {
         "@type": "HowTo",
         name: "Como usar a Calculadora de Regra de Três",
         description:
-          "Aprenda a resolver problemas de regra de três simples e composta de forma simples e precisa com nossa calculadora online gratuita",
+          "Aprenda a resolver problemas de regra de três simples e composta de forma simples e confiável com nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
@@ -516,7 +516,7 @@ export default function RuleOfThreeCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Resolva <strong className="text-growth-green">regra de três simples e composta</strong> de
-          forma simples e precisa. Calcule proporções matemáticas com{" "}
+          forma simples e confiável. Calcule proporções matemáticas com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
@@ -895,7 +895,7 @@ export default function RuleOfThreeCalculator() {
         tipSection={{
           title: "Dica Importante sobre Regra de Três",
           content:
-            "<strong>Para resultados precisos:</strong> sempre identifique corretamente se as grandezas são direta ou inversamente proporcionais antes de montar a proporção.",
+            "<strong>Para melhores resultados:</strong> sempre identifique corretamente se as grandezas são direta ou inversamente proporcionais antes de montar a proporção.",
         }}
         footerText="<strong>Lembre-se:</strong> Proporção direta: grandezas aumentam/diminuem juntas. Proporção inversa: uma aumenta quando a outra diminui. Sempre verifique o resultado."
       />
@@ -913,7 +913,7 @@ export default function RuleOfThreeCalculator() {
               Esta <strong className="text-primary-blue-dark">calculadora de regra de três</strong>{" "}
               permite resolver{" "}
               <strong className="text-growth-green">problemas de proporcionalidade</strong>: regra
-              de 3 simples direta, inversa e composta com precisão matemática e resultados
+              de 3 simples direta, inversa e composta facilmente matemática e resultados
               instantâneos.
             </p>
             <p>
@@ -924,8 +924,8 @@ export default function RuleOfThreeCalculator() {
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e resolução de exercícios. Para aplicações científicas ou de
-              engenharia que exigem alta precisão, consulte sempre um{" "}
-              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              engenharia que exigem alta qualidade, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações numérica.
               Explore também nossas calculadoras de
               <a
                 href="/calculadoras/matematica/porcentagem"

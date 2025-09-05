@@ -224,7 +224,7 @@ export const meta: MetaFunction = () => {
             name: "Quanta água devo beber por dia?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A necessidade varia por idade, peso e atividade. Homens adultos precisam de cerca de 3,7L/dia e mulheres 2,7L/dia, incluindo água de alimentos. Use nossa calculadora para uma recomendação personalizada.",
+              text: "A necessidade varia por idade, peso e atividade. Homens adultos necessitam de cerca de 3,7L/dia e mulheres 2,7L/dia, incluindo água de alimentos. Use nossa calculadora para uma recomendação personalizada.",
             },
           },
           {
@@ -260,7 +260,7 @@ export const meta: MetaFunction = () => {
         "@type": "HowTo",
         name: "Como usar a Calculadora de Hidratação Diária",
         description:
-          "Aprenda a calcular sua necessidade diária de água de forma precisa usando nossa calculadora de hidratação online gratuita",
+          "Aprenda a calcular sua necessidade diária de água de forma confiável usando nossa calculadora de hidratação online gratuita",
         step: [
           {
             "@type": "HowToStep",
@@ -477,7 +477,7 @@ export default function HydrationCalculator() {
 
       // Ajustes por idade
       if (ageNum < 19) {
-        mlPerKg = 40; // Adolescentes precisam de mais água
+        mlPerKg = 40; // Adolescentes necessitam de mais água
       } else if (ageNum > 65) {
         mlPerKg = 30; // Idosos têm menor necessidade base
       }
@@ -619,7 +619,7 @@ export default function HydrationCalculator() {
     }
 
     if (conditions.includes("Gravidez")) {
-      tips.push("Gestantes precisam de hidratação extra para o bebê");
+      tips.push("Gestantes necessitam de hidratação extra para o bebê");
     }
 
     return tips;
@@ -674,7 +674,7 @@ export default function HydrationCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule sua <strong className="text-health-red">necessidade diária de hidratação</strong>{" "}
-          com precisão científica. Análise completa de{" "}
+          facilmente científica. Análise completa de{" "}
           <strong className="text-primary-blue-dark">consumo de água</strong> para sua saúde.
         </p>
         <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
@@ -1166,7 +1166,7 @@ export default function HydrationCalculator() {
           {
             question: "Quanta água devo beber por dia?",
             answer:
-              "A necessidade varia por idade, peso e atividade. Homens adultos precisam de cerca de 3,7L/dia e mulheres 2,7L/dia, incluindo água de alimentos. Use nossa calculadora para uma recomendação personalizada.",
+              "A necessidade varia por idade, peso e atividade. Homens adultos necessitam de cerca de 3,7L/dia e mulheres 2,7L/dia, incluindo água de alimentos. Use nossa calculadora para uma recomendação personalizada.",
             borderColor: "primary-blue",
           },
           {

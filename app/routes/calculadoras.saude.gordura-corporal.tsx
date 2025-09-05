@@ -224,7 +224,7 @@ export const meta: MetaFunction = () => {
             name: "O que é gordura corporal?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
+              text: "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais confiável de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
             },
           },
           {
@@ -260,7 +260,7 @@ export const meta: MetaFunction = () => {
         "@type": "HowTo",
         name: "Como usar a Calculadora de Gordura Corporal",
         description:
-          "Aprenda a calcular seu percentual de gordura corporal de forma precisa com métodos científicos usando nossa calculadora online gratuita",
+          "Aprenda a calcular seu percentual de gordura corporal de forma confiável com métodos científicos usando nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
@@ -270,7 +270,7 @@ export const meta: MetaFunction = () => {
           {
             "@type": "HowToStep",
             name: "Insira seus dados pessoais",
-            text: "Digite sua idade, peso, altura e selecione seu gênero. Essas informações são necessárias para cálculos precisos de composição corporal.",
+            text: "Digite sua idade, peso, altura e selecione seu gênero. Essas informações são necessárias para cálculos confiáveis de composição corporal.",
           },
           {
             "@type": "HowToStep",
@@ -624,7 +624,7 @@ export default function BodyFatCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule <strong className="text-health-red">percentual de gordura corporal</strong> com
-          precisão científica. Análise completa de{" "}
+          qualidade científica. Análise completa de{" "}
           <strong className="text-primary-blue-dark">composição corporal</strong> para sua saúde.
         </p>
         <div className="bg-health-red-soft inline-block rounded-lg p-4 duration-300">
@@ -940,7 +940,7 @@ export default function BodyFatCalculator() {
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
                   Método {result.method === "us-navy" ? "US Navy" : "Jackson-Pollock"} utilizado
-                  para maior precisão
+                  para melhor resultado
                 </div>
                 <div className="text-sm text-text-secondary">
                   <span className="font-medium text-primary-blue-dark">• </span>
@@ -1047,7 +1047,7 @@ export default function BodyFatCalculator() {
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que é?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
                     O percentual de gordura corporal indica a proporção de tecido adiposo em relação
-                    ao peso total do corpo, sendo um indicador mais preciso de saúde que apenas o
+                    ao peso total do corpo, sendo um indicador mais confiável de saúde que apenas o
                     peso.
                   </p>
 
@@ -1177,7 +1177,7 @@ export default function BodyFatCalculator() {
           {
             question: "O que é gordura corporal?",
             answer:
-              "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais preciso de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
+              "Gordura corporal é o percentual de tecido adiposo em relação ao peso total do corpo. É um indicador mais confiável de saúde que apenas o peso ou IMC, pois diferencia massa magra de massa gorda.",
             borderColor: "primary-blue",
           },
           {
@@ -1207,16 +1207,16 @@ export default function BodyFatCalculator() {
           {
             question: "Gordura corporal é mais importante que IMC?",
             answer:
-              "Sim, o percentual de gordura corporal é mais preciso que o IMC para avaliar saúde e fitness. O IMC não diferencia massa magra de gorda, enquanto a gordura corporal fornece informações específicas sobre composição corporal.",
+              "Sim, o percentual de gordura corporal é mais confiável que o IMC para avaliar saúde e fitness. O IMC não diferencia massa magra de gorda, enquanto a gordura corporal fornece informações específicas sobre composição corporal.",
             borderColor: "system-error-dark",
           },
         ]}
         tipSection={{
           title: "Dica Importante sobre Gordura Corporal",
           content:
-            "<strong>Para resultados precisos:</strong> meça sempre no mesmo horário, evite exercícios intensos antes da medição e mantenha postura ereta e relaxada durante as medidas.",
+            "<strong>Para melhores resultados:</strong> meça sempre no mesmo horário, evite exercícios intensos antes da medição e mantenha postura ereta e relaxada durante as medidas.",
         }}
-        footerText="<strong>Lembre-se:</strong> O percentual de gordura corporal é mais preciso que o IMC para avaliar saúde. Consulte profissionais de saúde para interpretação completa dos resultados."
+        footerText="<strong>Lembre-se:</strong> O percentual de gordura corporal é mais confiável que o IMC para avaliar saúde. Consulte profissionais de saúde para interpretação completa dos resultados."
       />
 
       {/* Footer com informações adicionais */}
@@ -1232,7 +1232,7 @@ export default function BodyFatCalculator() {
               Esta{" "}
               <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
               permite calcular{" "}
-              <strong className="text-growth-green">composição corporal precisa</strong>: percentual
+              <strong className="text-growth-green">composição corporal confiável</strong>: percentual
               de gordura, massa magra e análise de saúde com métodos científicos validados.
             </p>
             <p>

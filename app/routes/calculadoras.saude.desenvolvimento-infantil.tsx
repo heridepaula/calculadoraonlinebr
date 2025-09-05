@@ -153,7 +153,7 @@ export const meta: MetaFunction = () => {
             "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
           name: "Calculadora de Desenvolvimento Infantil 2025 - Percentis e Crescimento",
           description:
-            "Monitore o crescimento infantil com precisão. Calcule percentis de altura e peso, acompanhe marcos do desenvolvimento baseados em padrões da OMS. Ferramenta essencial para pais e profissionais da saúde.",
+            "Monitore o crescimento infantil facilmente. Calcule percentis de altura e peso, acompanhe marcos do desenvolvimento baseados em padrões da OMS. Ferramenta essencial para pais e profissionais da saúde.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -789,7 +789,7 @@ export default function ChildDevelopmentCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Monitore o <strong className="text-health-red">crescimento da criança</strong> com
-          precisão. Calcule{" "}
+          detalhamento. Calcule{" "}
           <strong className="text-primary-blue-dark">percentis de altura e peso</strong>, acompanhe
           marcos do desenvolvimento baseados em padrões da OMS.
         </p>

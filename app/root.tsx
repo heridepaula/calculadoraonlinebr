@@ -67,8 +67,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     { charset: "utf-8" },
-    { title: "Calculadora Online BR - Calculadoras Gratuitas e Precisas" },
-    { name: "description", content: "Calculadoras online gratuitas para facilitar seu dia a dia. Matemática, finanças, saúde e trabalhista. Interface moderna e resultados precisos." },
+    { title: "Calculadora Online BR - Calculadoras Gratuitas" },
+    { name: "description", content: "Calculadoras online gratuitas para facilitar seu dia a dia. Matemática, finanças, saúde e trabalhista. Interface moderna e fácil de usar." },
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     
     // PWA and Theme
@@ -90,7 +90,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     // Open Graph
     { property: "og:type", content: "website" },
     { property: "og:title", content: "Calculadora Online BR - Calculadoras Gratuitas" },
-    { property: "og:description", content: "Calculadoras online gratuitas para facilitar seu dia a dia. Interface moderna e resultados precisos." },
+    { property: "og:description", content: "Calculadoras online gratuitas para facilitar seu dia a dia. Interface moderna e fácil de usar." },
     { property: "og:site_name", content: "Calculadora Online BR" },
     { property: "og:locale", content: "pt_BR" },
     

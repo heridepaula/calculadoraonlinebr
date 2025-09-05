@@ -17,17 +17,17 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos Precisos | CalculadoraOnlineBR",
+      title: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata com precisão absoluta.",
+        "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
     },
     {
       name: "keywords",
       content:
-        "calculadora diferença datas, calcular idade exata, dias úteis, intervalo entre datas, contador dias online",
+        "calculadora diferença datas, calcular idade, dias úteis, intervalo entre datas, contador dias online",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "author", content: "Calculadora Online BR" },
@@ -46,12 +46,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos Precisos",
+      content: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos",
     },
     {
       property: "og:description",
       content:
-        "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata com precisão absoluta.",
+        "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
     },
     {
       property: "og:image",
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos Precisos",
+      content: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos",
     },
     {
       name: "twitter:description",
@@ -93,7 +93,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Diferença entre Datas - Calcule intervalos precisos",
+      content: "Calculadora de Diferença entre Datas - Calcule intervalos",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -112,7 +112,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Diferença entre Datas - Calculador de Intervalos 2025",
         description:
-          "Ferramenta gratuita e precisa para calcular diferenças entre datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata.",
+          "Ferramenta gratuita para calcular diferenças entre datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Web Browser",
@@ -142,9 +142,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
-          name: "Calculadora de Diferença entre Datas 2025 - Calcule Intervalos Precisos",
+          name: "Calculadora de Diferença entre Datas 2025 - Calcule Intervalos",
           description:
-            "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata com precisão absoluta.",
+            "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -190,7 +190,7 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "Cálculo de Diferença entre Datas",
-          description: "Ferramenta para calcular intervalos precisos entre duas datas quaisquer",
+          description: "Ferramenta para calcular intervalos entre duas datas quaisquer",
           category: "DateCalculation",
         },
         featureList: [
@@ -215,7 +215,7 @@ export const meta: MetaFunction = () => {
             "name": "Como calcular idade exata?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "A calculadora determina a idade precisa considerando anos bissextos e diferentes números de dias por mês. Use data de nascimento como inicial e data atual (ou qualquer data desejada) como final para obter anos, meses e dias exatos."
+              "text": "A calculadora determina a idade considerando anos bissextos e diferentes números de dias por mês. Use data de nascimento como inicial e data atual (ou qualquer data desejada) como final para obter anos, meses e dias."
             }
           },
           {
@@ -223,7 +223,7 @@ export const meta: MetaFunction = () => {
             "name": "Por que incluir horário no cálculo?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Incluir horários é útil para cálculos médicos, legais ou quando a precisão de horas e minutos é importante. Por exemplo, para determinar exatamente quando uma pessoa completará uma determinada idade ou para prazos contratuais específicos."
+              "text": "Incluir horários é útil para cálculos médicos, legais ou quando horas e minutos são importantes. Por exemplo, para determinar quando uma pessoa completará uma determinada idade ou para prazos contratuais específicos."
             }
           },
           {
@@ -239,7 +239,7 @@ export const meta: MetaFunction = () => {
             "name": "A calculadora considera anos bissextos?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Sim, automaticamente. Anos bissextos (como 2020, 2024) têm 366 dias devido ao 29 de fevereiro adicional. Nossa calculadora ajusta os cálculos automaticamente, garantindo precisão mesmo em períodos que incluem anos bissextos."
+              "text": "Sim, automaticamente. Anos bissextos (como 2020, 2024) têm 366 dias devido ao 29 de fevereiro adicional. Nossa calculadora ajusta os cálculos automaticamente, garantindo resultados corretos mesmo em períodos que incluem anos bissextos."
             }
           }
         ]
@@ -461,17 +461,17 @@ export default function DateDifferenceCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Diferença entre Datas 2025 – Calcule Intervalos Precisos
+          Calculadora de Diferença entre Datas 2025 – Calcule Intervalos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">diferença exata entre duas datas</strong>{" "}
           em anos, meses, dias, horas e minutos. Descubra{" "}
-          <strong className="text-primary-blue-dark">idade precisa, dias úteis</strong> e intervalos
+          <strong className="text-primary-blue-dark">idade, dias úteis</strong> e intervalos
           personalizados para seus projetos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            📅 <strong>Cálculo Preciso</strong> • 🕒 <strong>Inclui Horários</strong> • 📊{" "}
+            📅 <strong>Cálculo Completo</strong> • 🕒 <strong>Inclui Horários</strong> • 📊{" "}
             <strong>Dias Úteis e Finais de Semana</strong>
           </p>
         </div>
@@ -524,7 +524,7 @@ export default function DateDifferenceCalculator() {
                     onChange={(e) => setStartTime(e.target.value)}
                     fullWidth
                     className="h-12 text-lg"
-                    aria-label="Horário inicial para cálculo preciso"
+                    aria-label="Horário inicial para cálculo"
                   />
                 </div>
               )}
@@ -553,7 +553,7 @@ export default function DateDifferenceCalculator() {
                     onChange={(e) => setEndTime(e.target.value)}
                     fullWidth
                     className="h-12 text-lg"
-                    aria-label="Horário final para cálculo preciso"
+                    aria-label="Horário final para cálculo"
                   />
                 </div>
               )}
@@ -702,10 +702,10 @@ export default function DateDifferenceCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 O que calcula?</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Determina a idade precisa de uma pessoa considerando anos bissextos, meses com diferentes números de dias e horário específico se necessário.
+                    Determina a idade de uma pessoa considerando anos bissextos, meses com diferentes números de dias e horário específico se necessário.
                   </p>
 
-                  <h4 className="mb-3 font-semibold text-system-info">📊 Precisão</h4>
+                  <h4 className="mb-3 font-semibold text-system-info">📊 Detalhes</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Considera anos bissextos automaticamente</li>
                     <li>• Calcula meses e dias restantes após anos completos</li>
@@ -722,7 +722,7 @@ export default function DateDifferenceCalculator() {
 
                   <h4 className="mb-3 font-semibold text-system-warning">💡 Dica</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Inclua horário para cálculos mais precisos</li>
+                    <li>• Inclua horário para cálculos detalhados</li>
                   </ul>
                 </div>
               </div>
@@ -751,7 +751,7 @@ export default function DateDifferenceCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-system-success">✅ Benefícios</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Planejamento mais preciso de cronogramas</li>
+                    <li>• Planejamento detalhado de cronogramas</li>
                     <li>• Cálculo realista de horas de trabalho</li>
                   </ul>
 
@@ -779,7 +779,7 @@ export default function DateDifferenceCalculator() {
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Importância Legal</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Cálculos precisos para processos judiciais</li>
+                    <li>• Cálculos para processos judiciais</li>
                     <li>• Prazos trabalhistas e previdenciários</li>
                   </ul>
                 </div>
@@ -828,7 +828,7 @@ export default function DateDifferenceCalculator() {
               </thead>
               <tbody className="space-y-2">
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 font-medium">Detalhamento</td>
                   <td className="p-3 text-center text-primary-blue-dark">Por dia completo</td>
                   <td className="p-3 text-center text-growth-green">Por hora/minuto</td>
                   <td className="p-3 text-center text-system-warning">Exclui fins de semana</td>
@@ -854,7 +854,7 @@ export default function DateDifferenceCalculator() {
                 <tr className="border-b border-neutral-surface-variant">
                   <td className="p-3 font-medium">Ideal para</td>
                   <td className="p-3 text-center">Idade, contratos gerais</td>
-                  <td className="p-3 text-center">Eventos, prazos precisos</td>
+                  <td className="p-3 text-center">Eventos, prazos específicos</td>
                   <td className="p-3 text-center">Cronogramas de trabalho</td>
                 </tr>
                 <tr>
@@ -877,7 +877,7 @@ export default function DateDifferenceCalculator() {
             </div>
 
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h4 className="mb-2 font-bold text-growth-green">🕐 Precisão Máxima</h4>
+              <h4 className="mb-2 font-bold text-growth-green">🕐 Máximo Detalhamento</h4>
               <p className="text-sm text-text-secondary">
                 Inclua <strong>horário</strong> para eventos específicos, nascimentos exatos e 
                 cálculos médicos ou legais.
@@ -903,13 +903,13 @@ export default function DateDifferenceCalculator() {
           {
             question: "Como calcular idade exata?",
             answer:
-              "A calculadora determina a idade precisa considerando anos bissextos e diferentes números de dias por mês. Use data de nascimento como inicial e data atual (ou qualquer data desejada) como final para obter anos, meses e dias exatos.",
+              "A calculadora determina a idade confiável considerando anos bissextos e diferentes números de dias por mês. Use data de nascimento como inicial e data atual (ou qualquer data desejada) como final para obter anos, meses e dias exatos.",
             borderColor: "primary-blue",
           },
           {
             question: "Por que incluir horário no cálculo?",
             answer:
-              "Incluir horários é útil para cálculos médicos, legais ou quando a precisão de horas e minutos é importante. Por exemplo, para determinar exatamente quando uma pessoa completará uma determinada idade ou para prazos contratuais específicos.",
+              "Incluir horários é útil para cálculos médicos, legais ou quando horas e minutos são importantes. Por exemplo, para determinar quando uma pessoa completará uma determinada idade ou para prazos contratuais específicos.",
             borderColor: "growth-green",
           },
           {
@@ -921,7 +921,7 @@ export default function DateDifferenceCalculator() {
           {
             question: "A calculadora considera anos bissextos?",
             answer:
-              "Sim, automaticamente. Anos bissextos (como 2020, 2024) têm 366 dias devido ao 29 de fevereiro adicional. Nossa calculadora ajusta os cálculos automaticamente, garantindo precisão mesmo em períodos que incluem anos bissextos.",
+              "Sim, automaticamente. Anos bissextos (como 2020, 2024) têm 366 dias devido ao 29 de fevereiro adicional. Nossa calculadora ajusta os cálculos automaticamente, garantindo resultados corretos mesmo em períodos que incluem anos bissextos.",
             borderColor: "system-warning",
           },
           {
@@ -940,9 +940,9 @@ export default function DateDifferenceCalculator() {
         tipSection={{
           title: "Dica Importante sobre Cálculos de Data",
           content:
-            "<strong>Para máxima precisão:</strong> inclua horários quando necessário, especialmente para cálculos legais ou médicos. Para projetos corporativos, use a contagem de dias úteis para cronogramas realistas.",
+            "<strong>Para melhor resultado:</strong> inclua horários quando necessário, especialmente para cálculos legais ou médicos. Para projetos corporativos, use a contagem de dias úteis para cronogramas realistas.",
         }}
-        footerText="<strong>Lembre-se:</strong> Diferentes contextos requerem diferentes precisões. Use apenas datas para cálculos gerais, inclua horário para precisão máxima, e considere dias úteis para planejamento profissional."
+        footerText="<strong>Lembre-se:</strong> Diferentes contextos requerem diferentes níveis de detalhe. Use apenas datas para cálculos gerais, inclua horário para máximo detalhamento, e considere dias úteis para planejamento profissional."
       />
         </section>
 
@@ -957,12 +957,12 @@ export default function DateDifferenceCalculator() {
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta <strong className="text-primary-blue-dark">calculadora de diferença entre datas</strong> utiliza{" "}
-              <strong className="text-growth-green">algoritmos precisos</strong> para calcular intervalos
+              <strong className="text-growth-green">algoritmos confiáveis</strong> para calcular intervalos
               exatos entre duas datas. Os cálculos consideram anos bissextos, diferentes durações de meses
               e opcionalmente horários específicos.
             </p>
             <p>
-              <strong>Métodos disponíveis:</strong> Cálculo simples por datas, cálculo com horários precisos
+              <strong>Métodos disponíveis:</strong> Cálculo simples por datas, cálculo com horários detalhados
               e separação entre dias úteis e finais de semana. Cada método atende a necessidades específicas
               de planejamento e análise temporal.
             </p>
@@ -973,7 +973,7 @@ export default function DateDifferenceCalculator() {
               verifique regulamentações específicas.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              📅 Cálculos precisos • 🕒 Suporte a horários • 🔒 Dados não armazenados • 📱 Compatível
+              📅 Cálculos confiáveis • 🕒 Suporte a horários • 🔒 Dados não armazenados • 📱 Compatível
               com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>

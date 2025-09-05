@@ -197,7 +197,7 @@ export const meta: MetaFunction = () => {
             "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
           name: "Comparador de Renda Fixa 2025 - Simulador Completo",
           description:
-            "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos precisos de IR. Descubra o investimento com melhor rentabilidade líquida.",
+            "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos completos de IR. Descubra o investimento com melhor rentabilidade líquida.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",

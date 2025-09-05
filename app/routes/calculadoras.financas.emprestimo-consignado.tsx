@@ -461,7 +461,7 @@ export default function PayrollLoanCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>Análise de CET</strong> • ⚙️{" "}
+            🔎 <strong>Cálculo Completo</strong> • 📊 <strong>Análise de CET</strong> • ⚙️{" "}
             <strong>Margem Consignável</strong>
           </p>
         </div>

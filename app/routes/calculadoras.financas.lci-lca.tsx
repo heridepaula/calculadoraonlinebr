@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+        "Calcule rendimentos de LCI e LCA facilmente. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
     },
     { name: "author", content: "Calculadora Online BR" },
     { name: "publisher", content: "CalculadoraOnlineBR" },
@@ -94,7 +94,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+        "Calcule rendimentos de LCI e LCA facilmente. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
     },
     {
       property: "og:image",
@@ -130,7 +130,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule rendimentos de LCI e LCA com precisão. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+        "Calcule rendimentos de LCI e LCA facilmente. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
     },
     {
       name: "twitter:image",
@@ -192,7 +192,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
-          name: "Calculadora de LCI e LCA 2025 - Simulador Preciso",
+          name: "Calculadora de LCI e LCA 2025 - Simulador Completo",
           description:
             "Simule rendimentos de LCI e LCA baseados no CDI. Calcule ganhos isentos de IR, compare rentabilidade e tome decisões de investimento mais inteligentes.",
           inLanguage: "pt-BR",
@@ -1316,7 +1316,7 @@ export default function LciLcaCalculator() {
               Esta <strong className="text-primary-blue-dark">calculadora de LCI e LCA</strong>{" "}
               utiliza <strong className="text-growth-green">cálculos baseados no CDI</strong> para
               simular rendimentos de investimentos isentos de IR. Os cálculos consideram
-              capitalização mensal composta para maior precisão.
+              capitalização mensal composta para melhor resultado.
             </p>
             <p>
               <strong>Configurações disponíveis:</strong> Valor a investir, percentual do CDI

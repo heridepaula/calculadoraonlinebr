@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos para estudos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas confiáveis e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -46,7 +46,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule hipotenusa e catetos de triângulos retângulos usando o Teorema de Pitágoras. Fórmulas matemáticas precisas e resultados instantâneos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos usando o Teorema de Pitágoras. Fórmulas matemáticas confiáveis e resultados instantâneos.",
     },
     {
       property: "og:image",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas precisas.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas confiáveis.",
     },
     {
       name: "twitter:image",
@@ -106,7 +106,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Área e Perímetro - Formas Geométricas 2025",
         description:
-          "Calculadora gratuita e precisa de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
+          "Calculadora gratuita e confiável de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -138,7 +138,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
           name: "Calculadora de Área e Perímetro 2025 - Formas Geométricas",
           description:
-            "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos.",
+            "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas confiáveis e resultados instantâneos.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -198,13 +198,13 @@ export const meta: MetaFunction = () => {
           "Verificação automática dos resultados",
           "Cálculos passo a passo detalhados",
           "Validação de triângulos retângulos",
-          "Fórmulas matemáticas precisas do teorema",
+          "Fórmulas matemáticas confiáveis do teorema",
           "Cálculo de hipotenusa usando h² = a² + b²",
           "Cálculo de catetos usando c² = h² - a²",
           "Verificação automática dos resultados",
           "Cálculos passo a passo detalhados",
           "Validação de triângulos retângulos",
-          "Fórmulas matemáticas precisas do teorema",
+          "Fórmulas matemáticas confiáveis do teorema",
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
@@ -467,12 +467,12 @@ export default function PythagoreanTheoremCalculator() {
           Calcule a <strong className="text-growth-green">hipotenusa ou cateto</strong> de
           triângulos retângulos usando o{" "}
           <strong className="text-primary-blue-dark">Teorema de Pitágoras</strong> com fórmulas
-          matemáticas precisas para seus estudos.
+          matemáticas confiáveis para seus estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             📐 <strong>Teorema de Pitágoras</strong> • 🔺 <strong>Triângulos Retângulos</strong> •
-            🧮 <strong>Cálculos Precisos</strong>
+            🧮 <strong>Cálculos Confiáveis</strong>
           </p>
         </div>
       </header>
@@ -1004,7 +1004,7 @@ export default function PythagoreanTheoremCalculator() {
         tipSection={{
           title: "Dica Importante sobre o Teorema de Pitágoras",
           content:
-            "<strong>Para resultados precisos:</strong> certifique-se de que o triângulo é retângulo (tem um ângulo de 90°). A hipotenusa sempre será maior que qualquer cateto.",
+            "<strong>Para melhores resultados:</strong> certifique-se de que o triângulo é retângulo (tem um ângulo de 90°). A hipotenusa sempre será maior que qualquer cateto.",
         }}
         footerText="<strong>Lembre-se:</strong> O teorema só se aplica a triângulos retângulos. Sempre verifique se h > a e h > b."
       />
@@ -1023,7 +1023,7 @@ export default function PythagoreanTheoremCalculator() {
               <strong className="text-primary-blue-dark">
                 calculadora do Teorema de Pitágoras
               </strong>{" "}
-              utiliza <strong className="text-growth-green">fórmulas matemáticas precisas</strong>{" "}
+              utiliza <strong className="text-growth-green">fórmulas matemáticas confiáveis</strong>{" "}
               para calcular a hipotenusa ou cateto faltante em triângulos retângulos com resultados
               instantâneos.
             </p>

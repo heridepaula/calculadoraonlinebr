@@ -18,7 +18,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de CDB 2025 – Simulador Preciso com IR e IOF | CalculadoraOnlineBR",
+      title: "Calculadora de CDB 2025 – Simulador com IR e IOF | CalculadoraOnlineBR",
     },
     {
       name: "description",
@@ -46,7 +46,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de CDB 2025 – Simulador Preciso com IR e IOF",
+      content: "Calculadora de CDB 2025 – Simulador com IR e IOF",
     },
     {
       property: "og:description",
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de CDB 2025 – Simulador Preciso com IR e IOF",
+      content: "Calculadora de CDB 2025 – Simulador com IR e IOF",
     },
     {
       name: "twitter:description",
@@ -342,7 +342,7 @@ export default function CdbCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de CDB 2025 – Simulador Preciso com IR e IOF
+          Calculadora de CDB 2025 – Simulador com IR e IOF
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">rentabilidade líquida do seu CDB</strong>{" "}
@@ -352,7 +352,7 @@ export default function CdbCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>Comparação de CDBs</strong> • ⚙️{" "}
+            🔎 <strong>Cálculo Completo</strong> • 📊 <strong>Comparação de CDBs</strong> • ⚙️{" "}
             <strong>Recomendações Personalizadas</strong>
           </p>
         </div>

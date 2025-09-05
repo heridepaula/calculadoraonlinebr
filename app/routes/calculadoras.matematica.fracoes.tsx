@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "🔢 Calculadora de frações gratuita e precisa. Realize soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos!",
+        "🔢 Calculadora de frações gratuita e confiável. Realize soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos!",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -41,12 +41,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Frações Online Gratuita - Operações Precisas 2025",
+      content: "Calculadora de Frações Online Gratuita - Operações Confiáveis 2025",
     },
     {
       property: "og:description",
       content:
-        "Ferramenta online precisa para operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Gratuita para estudantes!",
+        "Ferramenta online confiável para operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Gratuita para estudantes!",
     },
     {
       property: "og:image",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Frações Online Gratuita - Resultados Precisos",
+      content: "Calculadora de Frações Online Gratuita - Resultados Confiáveis",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Frações Online Gratuita - Operações Matemáticas 2025",
         description:
-          "Ferramenta educacional online gratuita para realizar operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos com explicação passo a passo.",
+          "Ferramenta educacional online gratuita para realizar operações confiáveis com frações: soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos com explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
           name: "Calculadora de Frações Online Gratuita - Matemática Educacional",
           description:
-            "Ferramenta educacional online para operações precisas com frações: soma, subtração, multiplicação, divisão e simplificação automática com explicação passo a passo.",
+            "Ferramenta educacional online para operações confiáveis com frações: soma, subtração, multiplicação, divisão e simplificação automática com explicação passo a passo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -256,7 +256,7 @@ export const meta: MetaFunction = () => {
         "@type": "HowTo",
         name: "Como usar a Calculadora de Frações",
         description:
-          "Aprenda a realizar operações com frações de forma simples e precisa com nossa calculadora online gratuita",
+          "Aprenda a realizar operações com frações de forma simples e confiável com nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
@@ -589,7 +589,7 @@ export default function FractionCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Realize <strong className="text-growth-green">operações com frações</strong> de forma
-          simples e precisa. Calcule soma, subtração, multiplicação, divisão e simplificação com{" "}
+          simples e confiável. Calcule soma, subtração, multiplicação, divisão e simplificação com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
@@ -992,7 +992,7 @@ export default function FractionCalculator() {
                   <td className="p-3 text-center">⭐</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 font-medium">Detalhamento</td>
                   <td className="p-3 text-center text-primary-blue-dark">Exata</td>
                   <td className="p-3 text-center text-growth-green">Exata</td>
                   <td className="p-3 text-center text-system-warning">Exata</td>
@@ -1108,7 +1108,7 @@ export default function FractionCalculator() {
         tipSection={{
           title: "Dica Importante sobre Frações",
           content:
-            "<strong>Para resultados precisos:</strong> sempre verifique se os denominadores são diferentes de zero e simplifique o resultado final dividindo numerador e denominador pelo MDC.",
+            "<strong>Para melhores resultados:</strong> sempre verifique se os denominadores são diferentes de zero e simplifique o resultado final dividindo numerador e denominador pelo MDC.",
         }}
         footerText="<strong>Lembre-se:</strong> Em soma e subtração, iguale os denominadores. Em multiplicação e divisão, opere diretamente. Sempre simplifique o resultado."
       />
@@ -1126,7 +1126,7 @@ export default function FractionCalculator() {
               Esta <strong className="text-primary-blue-dark">calculadora de frações</strong>{" "}
               permite realizar{" "}
               <strong className="text-growth-green">operações básicas com frações</strong>: soma,
-              subtração, multiplicação e divisão com precisão matemática e resultados instantâneos.
+              subtração, multiplicação e divisão facilmente matemática e resultados instantâneos.
             </p>
             <p>
               <strong>Funcionalidades:</strong> Cálculo do discriminante (Δ), determinação do tipo
@@ -1136,8 +1136,8 @@ export default function FractionCalculator() {
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e resolução de exercícios. Para aplicações científicas ou de
-              engenharia que exigem alta precisão, consulte sempre um{" "}
-              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              engenharia que exigem alta qualidade, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações numérica.
               Explore também nossas calculadoras de
               <a
                 href="/calculadoras/matematica/area-perimetro"

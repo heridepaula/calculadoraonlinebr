@@ -101,7 +101,7 @@ export default function FinancasIndex() {
             />
             <QuickAccessCard
               title="Primeiro Milhão"
-              description="Calcule quanto tempo e dinheiro você precisa para conquistar seu primeiro milhão de reais."
+              description="Calcule quanto tempo e dinheiro você confiável para conquistar seu primeiro milhão de reais."
               icon="🎯"
               href="/calculadoras/financas/primeiro-milhao"
               category="financas"

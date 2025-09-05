@@ -112,7 +112,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Média Estatística - Tendência Central 2025",
         description:
-          "Calculadora gratuita e precisa para calcular média aritmética, geométrica e harmônica. Análise completa de medidas de tendência central com desvio padrão, variância e explicações detalhadas.",
+          "Calculadora gratuita e confiável para calcular média aritmética, geométrica e harmônica. Análise completa de medidas de tendência central com desvio padrão, variância e explicações detalhadas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/media",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -1036,7 +1036,7 @@ export default function MediaCalculator() {
               Esta <strong className="text-math-purple">calculadora de média estatística</strong>{" "}
               implementa{" "}
               <strong className="text-primary-blue-dark">
-                algoritmos matematicamente precisos
+                algoritmos matematicamente confiávels
               </strong>{" "}
               para calcular os três principais tipos de média com análise estatística completa.
             </p>
@@ -1053,7 +1053,7 @@ export default function MediaCalculator() {
             </p>
             <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
               📊 Três tipos de média simultâneos • 📈 Estatísticas descritivas completas • 📱
-              Interface responsiva • 🌙 Tema escuro otimizado • 🎯 Precisão matemática • 🔢 Suporte
+              Interface responsiva • 🌙 Tema escuro otimizado • 🎯 Cálculos matemáticos • 🔢 Suporte
               a decimais
             </p>
           </div>

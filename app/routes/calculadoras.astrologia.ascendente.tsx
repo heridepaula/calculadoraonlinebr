@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade. Experimente já!",
+        "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade. Experimente já!",
     },
     {
       name: "keywords",
@@ -44,7 +44,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:description",
-      content: "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade.",
+      content: "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
     },
     {
       property: "og:type",
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:description",
-      content: "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade.",
+      content: "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
     },
     {
       name: "twitter:image",
@@ -1320,7 +1320,7 @@ export default function CalculadoraAscendente() {
                 "isPartOf": {
                   "@id": "https://www.calculadoraonlinebr.com.br/#website"
                 },
-                "description": "Descubra seu signo ascendente GRÁTIS! Cálculo preciso com data, hora e local. Análise completa da personalidade.",
+                "description": "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
                 "inLanguage": "pt-BR",
                 "breadcrumb": {
                   "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb"
@@ -1385,7 +1385,7 @@ export default function CalculadoraAscendente() {
                   "name": "CalculadoraOnlineBR"
                 },
                 "featureList": [
-                  "Cálculo preciso do signo ascendente",
+                  "Cálculo do signo ascendente",
                   "Busca automática de cidades brasileiras",
                   "Análise detalhada da personalidade",
                   "Compatibilidade amorosa",
@@ -1408,10 +1408,10 @@ export default function CalculadoraAscendente() {
                   },
                   {
                     "@type": "Question",
-                    "name": "Por que preciso da hora exata de nascimento?",
+                    "name": "Por que é necessária a hora exata de nascimento?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "O ascendente muda a cada 2 horas aproximadamente, por isso a hora precisa é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza."
+                      "text": "O ascendente muda a cada 2 horas aproximadamente, por isso a hora exata é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza."
                     }
                   },
                   {
@@ -1442,7 +1442,7 @@ export default function CalculadoraAscendente() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🌟 <strong>Cálculo Preciso</strong> • 🎭 <strong>Personalidade Completa</strong> • ✨{" "}
+            🌟 <strong>Cálculo Completo</strong> • 🎭 <strong>Personalidade Completa</strong> • ✨{" "}
             <strong>Análise Detalhada</strong>
           </p>
         </div>
@@ -1746,7 +1746,7 @@ export default function CalculadoraAscendente() {
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
                   <td className="p-3 font-medium">Facilidade de identificação</td>
-                  <td className="p-3 text-center text-yellow-500">Média (precisa convivência)</td>
+                  <td className="p-3 text-center text-yellow-500">Média (requer convivência)</td>
                   <td className="p-3 text-center text-blue-400">Difícil (íntimo)</td>
                   <td className="p-3 text-center text-purple-400">Fácil (primeira impressão)</td>
                 </tr>
@@ -1810,9 +1810,9 @@ export default function CalculadoraAscendente() {
             borderColor: "math-purple",
           },
           {
-            question: "Por que preciso da hora exata de nascimento?",
+            question: "Por que é necessária a hora exata de nascimento?",
             answer:
-              "O ascendente muda a cada 2 horas aproximadamente, por isso a hora precisa é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza.",
+              "O ascendente muda a cada 2 horas aproximadamente, por isso a hora exata é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza.",
             borderColor: "primary-blue",
           },
           {
@@ -1859,12 +1859,12 @@ export default function CalculadoraAscendente() {
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Esta <strong className="text-math-purple-dark">calculadora de ascendente</strong> utiliza{" "}
-              <strong className="text-primary-blue-dark">cálculos astronômicos precisos</strong> baseados 
+              <strong className="text-primary-blue-dark">cálculos astronômicos</strong> baseados 
               nos algoritmos de Meeus para determinar o signo que estava nascendo no horizonte leste 
               no momento do seu nascimento.
             </p>
             <p>
-              <strong>Dados necessários:</strong> Data de nascimento, hora exata e cidade. A precisão 
+              <strong>Dados necessários:</strong> Data de nascimento, hora exata e cidade. A qualidade 
               da hora é fundamental, pois o ascendente muda aproximadamente a cada 2 horas.
             </p>
             <p>
@@ -1873,7 +1873,7 @@ export default function CalculadoraAscendente() {
               ser vista como um guia para reflexão, não como determinismo absoluto.
             </p>
             <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              🌟 Cálculos astronômicos precisos • 🎭 Análise detalhada de personalidade • 🔒 Dados não armazenados • 
+              🌟 Cálculos astronômicos completos • 🎭 Análise detalhada de personalidade • 🔒 Dados não armazenados • 
               📱 Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>

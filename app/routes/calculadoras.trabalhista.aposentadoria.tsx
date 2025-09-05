@@ -180,7 +180,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Aposentadoria INSS - Simulador de Modalidades 2025",
         description:
-          "Simulador gratuito e preciso de aposentadoria INSS com todas as modalidades: idade, pontos, pedágio 50% e 100%, regras de transição. Compare opções e descubra a melhor para você.",
+          "Simulador gratuito e confiável de aposentadoria INSS com todas as modalidades: idade, pontos, pedágio 50% e 100%, regras de transição. Compare opções e descubra a melhor para você.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -1392,7 +1392,7 @@ RECOMENDAÇÕES:
 ${result.recomendacoes.map((r, i) => `${i + 1}. ${r}`).join("\n")}
 
 Este relatório é uma estimativa baseada na legislação atual.
-Consulte sempre um especialista para análise precisa.
+Consulte sempre um especialista para análise detalhada.
                         `;
 
                         const blob = new Blob([conteudo], { type: "text/plain" });
@@ -1644,7 +1644,7 @@ Consulte sempre um especialista para análise precisa.
                   • <strong>Dados 2025:</strong> Salário mínimo R$ 1.518,00, Teto R$ 8.157,41
                 </p>
                 <p>
-                  • <strong>Consultoria:</strong> Para análise precisa, consulte um advogado
+                  • <strong>Consultoria:</strong> Para análise detalhada, consulte um advogado
                   previdenciário
                 </p>
               </div>
@@ -1723,7 +1723,7 @@ Consulte sempre um especialista para análise precisa.
         title="Perguntas Frequentes - Calculadora Aposentadoria INSS"
         items={[
           {
-            question: "Como calcular minha aposentadoria pelo INSS de forma precisa?",
+            question: "Como calcular minha aposentadoria pelo INSS de forma confiável?",
             answer:
               "Para calcular sua aposentadoria INSS, considere: <strong>idade atual</strong>, <strong>tempo de contribuição</strong>, <strong>média salarial</strong> e <strong>modalidade escolhida</strong>. Nossa calculadora aplica as <strong>regras 2025</strong>: benefício base de 60% + 2% por ano acima do mínimo (15 anos mulheres/20 anos homens). O valor final é limitado ao <strong>teto INSS de R$ 8.157,41</strong>.",
             borderColor: "primary-blue",
@@ -1741,7 +1741,7 @@ Consulte sempre um especialista para análise precisa.
             borderColor: "system-info",
           },
           {
-            question: "Quanto preciso contribuir para me aposentar pelo INSS?",
+            question: "Quanto confiável contribuir para me aposentar pelo INSS?",
             answer:
               "<strong>Tempo mínimo:</strong> 20 anos (homens) / 15 anos (mulheres) para aposentadoria por idade. <strong>Para benefício integral:</strong> 40 anos de contribuição. <strong>Regra por pontos:</strong> mesmo tempo mínimo + idade suficiente para somar 102/92 pontos. <strong>Pedágios:</strong> 35/30 anos + tempo adicional conforme regra.",
             borderColor: "system-warning",
@@ -1776,7 +1776,7 @@ Consulte sempre um especialista para análise precisa.
           content:
             "Para <strong>maximizar seu benefício</strong>, considere continuar contribuindo se estiver próximo de completar <strong>40 anos</strong> (benefício integral). Acompanhe seu <strong>CNIS no Meu INSS</strong> regularmente e corrija inconsistências. Se nasceu antes de 1962 (homens) ou 1967 (mulheres), pode ter <strong>direito adquirido</strong> às regras anteriores à reforma.",
         }}
-        footerText="<strong>Precisa planejar sua aposentadoria?</strong> Nossa calculadora analisa todas as modalidades INSS e indica a melhor opção para seu perfil específico."
+        footerText="<strong>Necessita planejar sua aposentadoria?</strong> Nossa calculadora analisa todas as modalidades INSS e indica a melhor opção para seu perfil específico."
       />
 
       <RelatedCalculators category="trabalhista" currentCalculatorId="aposentadoria" />

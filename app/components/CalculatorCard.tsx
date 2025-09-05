@@ -67,7 +67,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
 const getCalculatorTags = (calculatorId: string): { primary: string; secondary: string } => {
   const tagMap: Record<string, { primary: string; secondary: string }> = {
     // Saúde
-    "imc": { primary: "📊 Análise", secondary: "🎯 Preciso" },
+    "imc": { primary: "📊 Análise", secondary: "🎯 Confiável" },
     "gordura-corporal": { primary: "🔬 Científico", secondary: "📈 Detalhado" },
     "ciclo-menstrual": { primary: "🌸 Feminino", secondary: "📅 Ciclos" },
     "desenvolvimento-infantil": { primary: "👶 Bebês", secondary: "📈 Marcos" },
@@ -84,7 +84,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "emprestimo-consignado": { primary: "💳 Consignado", secondary: "📊 Margem" },
     "consorcio": { primary: "🤝 Consórcio", secondary: "🚗 Veículos" },
     "renda-fixa-comparativa": { primary: "⚖️ Comparar", secondary: "🏆 Ranking" },
-    "tesouro-direto": { primary: "🏛️ Oficial", secondary: "📊 Preciso" },
+    "tesouro-direto": { primary: "🏛️ Tesouro", secondary: "📊 Completa" },
     
     // Matemática
     "porcentagem": { primary: "📊 Percentual", secondary: "⚡ Rápido" },
@@ -108,7 +108,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "gerador-cpf": { primary: "🆔 Válidos", secondary: "⚡ Instantâneo" },
     
     // Datas
-    "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Precisão" },
+    "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Rápida" },
     
     // Astrologia
     "ascendente-astrologico": { primary: "🌅 Ascendente", secondary: "🌍 Localização" },
@@ -116,7 +116,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "compatibilidade-signos": { primary: "💞 Amor", secondary: "👥 Amizade" },
   };
   
-  return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Preciso" };
+  return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
 };
 
 const getCategoryColors = (category: string) => {

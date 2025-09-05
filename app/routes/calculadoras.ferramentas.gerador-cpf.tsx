@@ -190,7 +190,7 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "Cadastro de Pessoas Físicas (CPF)",
-          description: "Registro oficial de pessoa física no Brasil usado para identificação tributária",
+          description: "Registro de pessoa física no Brasil usado para identificação tributária",
           category: "GovernmentService",
         },
         featureList: [
@@ -223,7 +223,7 @@ export const meta: MetaFunction = () => {
             name: "Como funciona o algoritmo de validação?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O CPF possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 9 dígitos, garantindo a validade do número."
+              text: "O CPF possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 9 dígitos, validando o número."
             }
           },
           {
@@ -674,7 +674,7 @@ export default function CpfGenerator() {
                     <li>• Documentos fiscais</li>
                     <li>• Abertura de contas bancárias</li>
                     <li>• Declarações de imposto</li>
-                    <li>• Qualquer documento oficial</li>
+                    <li>• Qualquer documento</li>
                   </ul>
                 </div>
               </div>
@@ -695,13 +695,13 @@ export default function CpfGenerator() {
           {
             question: "Como funciona o algoritmo de validação?",
             answer:
-              "O CPF possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 9 dígitos. O primeiro dígito usa multiplicadores de 10 a 2, e o segundo usa de 11 a 2, garantindo a validade matemática do número.",
+              "O CPF possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 9 dígitos. O primeiro dígito usa multiplicadores de 10 a 2, e o segundo usa de 11 a 2, validando matematicamente o número.",
             borderColor: "primary-blue",
           },
           {
             question: "Posso usar CPFs gerados para cadastros reais?",
             answer:
-              "Não. CPFs gerados por esta ferramenta são exclusivamente para testes, desenvolvimento de sistemas e validação de algoritmos. Usar CPF falso em documentos oficiais é crime previsto em lei e pode resultar em multa e prisão.",
+              "Não. CPFs gerados por esta ferramenta são exclusivamente para testes, desenvolvimento de sistemas e validação de algoritmos. Usar CPF falso em documentos é crime previsto em lei e pode resultar em multa e prisão.",
             borderColor: "system-error-dark",
           },
           {
@@ -719,7 +719,7 @@ export default function CpfGenerator() {
           {
             question: "Os CPFs gerados são realmente válidos?",
             answer:
-              "Sim, matematicamente válidos. Os dígitos verificadores são calculados corretamente conforme o algoritmo oficial da Receita Federal. Porém, não existem como registros reais no sistema da Receita Federal.",
+              "Sim, matematicamente válidos. Os dígitos verificadores são calculados corretamente conforme o algoritmo da Receita Federal. Porém, não existem como registros reais no sistema da Receita Federal.",
             borderColor: "system-warning",
           },
         ]}

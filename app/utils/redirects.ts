@@ -43,7 +43,7 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
     "/calculadoras/trabalhista/ferias-decimo-terceiro",
 };
 
-// Função para verificar se uma URL precisa de redirect
+// Função para verificar se uma URL necessita de redirect
 export function getRedirectUrl(pathname: string): string | null {
   // Remove trailing slash para comparação consistente
   const cleanPath =

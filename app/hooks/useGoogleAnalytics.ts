@@ -82,7 +82,7 @@ export const useGoogleAnalytics = (options: UseGoogleAnalyticsOptions = {}) => {
 
 /**
  * Hook simplificado que apenas ativa o tracking automático
- * Para usar em páginas que só precisam de tracking básico
+ * Para usar em páginas que só necessitam de tracking básico
  */
 export const usePageTracking = (customTitle?: string) => {
   return useGoogleAnalytics({ customTitle });
@@ -98,7 +98,7 @@ export const useNoTracking = () => {
 
 /**
  * Provider context para Google Analytics (opcional)
- * Para configurações mais avançadas que precisem ser compartilhadas
+ * Para configurações mais avançadas que necessitem ser compartilhadas
  */
 
 interface GAContextValue {

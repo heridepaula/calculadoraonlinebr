@@ -41,7 +41,7 @@ export default function CalculadoraIndex() {
           Calculadoras por Categoria
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Encontre rapidamente a calculadora que você precisa. Organizamos nossas ferramentas por
+          Encontre rapidamente a calculadora que você confiável. Organizamos nossas ferramentas por
           categoria para facilitar sua busca e tornar seus cálculos mais eficientes.
         </p>
       </header>

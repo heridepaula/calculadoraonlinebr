@@ -134,7 +134,7 @@ export const CALCULATORS = [
     id: "cdb",
     name: "Calculadora de CDB",
     description:
-      "Simule investimentos em CDB com tributação precisa - compare com LCI/LCA e Poupança",
+      "Simule investimentos em CDB com tributação completa - compare com LCI/LCA e Poupança",
     category: "financas",
     path: "/calculadoras/financas/cdb",
   },
@@ -269,7 +269,7 @@ export const CALCULATORS = [
     id: "antecipacao-parcelas-nubank",
     name: "Calculadora Antecipação Parcelas Nubank",
     description:
-      "Calcule os descontos da antecipação de parcelas do Nubank. Descubra exatamente quanto você economiza antecipando suas parcelas com análise detalhada por número de parcelas",
+      "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto você economiza antecipando suas parcelas com análise detalhada por número de parcelas",
     category: "financas",
     path: "/calculadoras/financas/antecipacao-parcelas-nubank",
   },
@@ -277,7 +277,7 @@ export const CALCULATORS = [
     id: "rescisao-trabalhista",
     name: "Calculadora de Rescisão Trabalhista",
     description:
-      "Calcule todos os valores de uma rescisão trabalhista com precisão. Simule demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego e todos os direitos trabalhistas",
+      "Calcule todos os valores de uma rescisão trabalhista. Simule demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego e todos os direitos trabalhistas",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/rescisao",
   },
@@ -293,7 +293,7 @@ export const CALCULATORS = [
     id: "auxilio-doenca",
     name: "Calculadora de Auxílio-Doença",
     description:
-      "Calcule o valor do auxílio-doença INSS com precisão. Verifica carência automaticamente, aplica isenções para doenças graves e acidentes, e calcula o benefício conforme a legislação 2025",
+      "Calcule o valor do auxílio-doença INSS. Verifica carência automaticamente, aplica isenções para doenças graves e acidentes, e calcula o benefício conforme a legislação 2025",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/auxilio-doenca",
   },
@@ -301,7 +301,7 @@ export const CALCULATORS = [
     id: "salario-liquido",
     name: "Calculadora de Salário Líquido",
     description:
-      "Calcule seu salário líquido com precisão usando as tabelas de INSS e IRRF 2025. Suporte a CLT, PJ, dependentes e horas extras com cálculo em tempo real",
+      "Calcule seu salário líquido usando as tabelas de INSS e IRRF 2025. Suporte a CLT, PJ, dependentes e horas extras com cálculo em tempo real",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/salario-liquido",
   },
@@ -317,7 +317,7 @@ export const CALCULATORS = [
     id: "diferenca-entre-datas",
     name: "Calculadora de Diferença entre Datas",
     description:
-      "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata com precisão",
+      "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade",
     category: "datas",
     path: "/calculadoras/datas/diferenca-entre-datas",
   },
@@ -325,7 +325,7 @@ export const CALCULATORS = [
     id: "gerador-cpf",
     name: "Gerador de CPF",
     description:
-      "Gere CPFs válidos para testes e desenvolvimento com opção de formatação. Cópia automática para área de transferência, algoritmo oficial da Receita Federal",
+      "Gere CPFs válidos para testes e desenvolvimento com opção de formatação. Cópia automática para área de transferência, algoritmo da Receita Federal",
     category: "ferramentas",
     path: "/calculadoras/ferramentas/gerador-cpf",
   },
@@ -333,7 +333,7 @@ export const CALCULATORS = [
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
-      "Descubra seu signo ascendente com precisão usando data, hora e local de nascimento. Entenda como você se apresenta ao mundo através da astrologia natal",
+      "Descubra seu signo ascendente usando data, hora e local de nascimento. Entenda como você se apresenta ao mundo através da astrologia natal",
     category: "astrologia",
     path: "/calculadoras/astrologia/ascendente",
   },

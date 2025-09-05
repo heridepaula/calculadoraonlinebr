@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule MMC (Mínimo Múltiplo Comum) e MDC (Máximo Divisor Comum) de forma rápida e precisa. Fatoração completa com explicação passo a passo. Gratuito!",
+        "Calcule MMC (Mínimo Múltiplo Comum) e MDC (Máximo Divisor Comum) de forma rápida e confiável. Fatoração completa com explicação passo a passo. Gratuito!",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -1060,7 +1060,7 @@ export default function MMCMDCCalculator() {
         tipSection={{
           title: "Dica Importante sobre MMC e MDC",
           content:
-            "<strong>Para resultados precisos:</strong> sempre use números inteiros positivos e verifique se os números foram fatorados corretamente. A fatoração prima é o método mais confiável para entender os conceitos.",
+            "<strong>Para melhores resultados:</strong> sempre use números inteiros positivos e verifique se os números foram fatorados corretamente. A fatoração prima é o método mais confiável para entender os conceitos.",
         }}
         footerText="<strong>Lembre-se:</strong> MMC × MDC = produto dos números (para dois números). Use fatoração prima para compreender melhor os conceitos."
       />
@@ -1078,7 +1078,7 @@ export default function MMCMDCCalculator() {
               Esta <strong className="text-primary-blue-dark">calculadora de MMC e MDC</strong>{" "}
               utiliza{" "}
               <strong className="text-growth-green">fatoração prima e algoritmo de Euclides</strong>{" "}
-              para calcular o Mínimo Múltiplo Comum e Máximo Divisor Comum com precisão matemática e
+              para calcular o Mínimo Múltiplo Comum e Máximo Divisor Comum facilmente matemática e
               resultados instantâneos.
             </p>
             <p>

@@ -2,7 +2,7 @@
 
 export function calculateSolarSign(birthDate: string): string {
   const date = new Date(birthDate);
-  const month = date.getMonth() + 1; // getMonth() retorna 0-11, precisamos 1-12
+  const month = date.getMonth() + 1; // getMonth() retorna 0-11, necessitamos 1-12
   const day = date.getDate();
 
   // Datas aproximadas dos signos solares

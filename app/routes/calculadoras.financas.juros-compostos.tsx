@@ -59,7 +59,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule juros compostos com precisão. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
+        "Calcule juros compostos facilmente. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e completa.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -82,7 +82,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule juros compostos com precisão. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
+        "Calcule juros compostos facilmente. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e completa.",
     },
     {
       property: "og:image",
@@ -116,7 +116,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule juros compostos com precisão. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e precisa.",
+        "Calcule juros compostos facilmente. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e completa.",
     },
     {
       name: "twitter:image",
@@ -143,7 +143,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Juros Compostos - Simulador de Crescimento 2025",
         description:
-          "Simulador gratuito e preciso de juros compostos com aportes mensais. Visualize gráficos, tabela mês a mês e descubra o poder do crescimento exponencial do seu patrimônio.",
+          "Simulador gratuito e completo de juros compostos com aportes mensais. Visualize gráficos, tabela mês a mês e descubra o poder do crescimento exponencial do seu patrimônio.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -173,7 +173,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
-          name: "Calculadora de Juros Compostos 2025 - Simulador Preciso",
+          name: "Calculadora de Juros Compostos 2025 - Simulador Completo",
           description:
             "Simule crescimento exponencial do patrimônio com juros compostos e aportes mensais. Visualize gráficos interativos, tabela detalhada mês a mês e descubra o poder dos juros sobre juros.",
           inLanguage: "pt-BR",
@@ -233,7 +233,7 @@ export const meta: MetaFunction = () => {
           "Cálculo baseado em taxas SELIC atualizadas",
           "Simulação por meses ou anos",
           "Interface móvel responsiva otimizada",
-          "Resultados precisos em tempo real",
+          "Resultados confiáveis em tempo real",
         ],
       }),
     },
@@ -490,7 +490,7 @@ export default function CompoundInterestCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Juros Compostos 2025 – Simulador Preciso
+          Calculadora de Juros Compostos 2025 – Simulador Completo
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule o <strong className="text-growth-green">crescimento do seu capital</strong> com
@@ -500,7 +500,7 @@ export default function CompoundInterestCalculator() {
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             🧮 <strong>Fórmula Matemática</strong> • 📈 <strong>Crescimento Exponencial</strong> •
-            💰 <strong>Resultados Precisos</strong>
+            💰 <strong>Resultados Confiáveis</strong>
           </p>
         </div>
       </header>
@@ -1311,7 +1311,7 @@ export default function CompoundInterestCalculator() {
           {
             question: "Como escolher entre meses e anos?",
             answer:
-              "Use 'meses' para investimentos de curto prazo (até 2 anos) para maior precisão. Use 'anos' para planejamentos de longo prazo (3+ anos). A calculadora converte automaticamente para cálculos mensais.",
+              "Use 'meses' para investimentos de curto prazo (até 2 anos) para melhor resultado. Use 'anos' para planejamentos de longo prazo (3+ anos). A calculadora converte automaticamente para cálculos mensais.",
             borderColor: "growth-green",
           },
           {
@@ -1343,7 +1343,7 @@ export default function CompoundInterestCalculator() {
               <strong className="text-primary-blue-dark">calculadora de juros compostos</strong>{" "}
               utiliza <strong className="text-growth-green">a fórmula matemática clássica</strong>{" "}
               para calcular o crescimento do capital ao longo do tempo. Os cálculos consideram
-              capitalizações mensais para maior precisão.
+              capitalizações mensais para melhores resultados.
             </p>
             <p>
               <strong>Configurações disponíveis:</strong> Capital inicial, taxa anual de juros e

@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calculadoras online gratuitas para saúde, finanças, matemática e direitos trabalhistas. Interface moderna, resultados precisos, sem cadastro necessário.",
+        "Calculadoras online gratuitas para saúde, finanças, matemática e direitos trabalhistas. Interface moderna, resultados confiáveis, sem cadastro necessário.",
     },
     { property: "og:type", content: "website" },
     { property: "og:locale", content: "pt_BR" },
@@ -72,7 +72,7 @@ export default function Index() {
             
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-text-secondary-dark sm:text-xl">
               <strong className="text-text-primary">IMC, Juros Compostos, Porcentagem, Rescisão Trabalhista</strong> e muito mais. 
-              Interface moderna, resultados precisos e sem cadastro necessário.
+              Interface moderna, resultados confiáveis e sem cadastro necessário.
             </p>
             
             {/* Trust Indicators */}
@@ -228,7 +228,7 @@ export default function Index() {
               </div>
               <h3 className="mt-4 text-lg font-semibold text-text-primary">Sem Cadastro</h3>
               <p className="mt-2 text-sm text-text-secondary">
-                Use todas as funcionalidades sem precisar criar conta ou fornecer dados.
+                Use todas as funcionalidades sem criar conta ou fornecer dados.
               </p>
             </div>
           </div>

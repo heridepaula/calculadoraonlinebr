@@ -200,7 +200,7 @@ export const meta: MetaFunction = () => {
           category: "Health",
         },
         featureList: [
-          "Cálculo de IMC preciso",
+          "Cálculo de IMC confiável",
           "Taxa metabólica basal (TMB)",
           "Percentual de gordura corporal estimado",
           "Classificação por idade e sexo",
@@ -248,7 +248,7 @@ export const meta: MetaFunction = () => {
             name: "O que é taxa metabólica basal?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Taxa Metabólica Basal (TMB) é a quantidade mínima de energia que o corpo precisa para manter funções vitais em repouso. Varia conforme idade, sexo, peso e altura, sendo fundamental para planejamento nutricional.",
+              text: "Taxa Metabólica Basal (TMB) é a quantidade mínima de energia que o corpo confiável para manter funções vitais em repouso. Varia conforme idade, sexo, peso e altura, sendo fundamental para planejamento nutricional.",
             },
           },
         ],
@@ -260,12 +260,12 @@ export const meta: MetaFunction = () => {
         "@type": "HowTo",
         name: "Como usar a Calculadora de IMC com Taxa Metabólica",
         description:
-          "Aprenda a calcular seu IMC, taxa metabólica basal e percentual de gordura de forma precisa usando nossa calculadora online gratuita",
+          "Aprenda a calcular seu IMC, taxa metabólica basal e percentual de gordura de forma confiável usando nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
             name: "Insira seus dados pessoais",
-            text: "Digite sua idade, peso, altura e selecione seu sexo. Essas informações são necessárias para cálculos precisos de IMC e metabolismo.",
+            text: "Digite sua idade, peso, altura e selecione seu sexo. Essas informações são necessárias para cálculos confiáveis de IMC e metabolismo.",
           },
           {
             "@type": "HowToStep",
@@ -777,7 +777,7 @@ export default function BMICalculator() {
               </h3>
               <div className="text-center text-sm text-text-secondary">
                 <p className="mb-2">
-                  <strong>IMC:</strong> Índice de Massa Corporal calculado com precisão
+                  <strong>IMC:</strong> Índice de Massa Corporal calculado facilmente
                 </p>
                 <p className="mb-2">
                   <strong>Taxa Metabólica:</strong> Cálculo usando equação de Mifflin-St Jeor
@@ -1149,7 +1149,7 @@ export default function BMICalculator() {
           {
             question: "O que é taxa metabólica basal?",
             answer:
-              "Taxa Metabólica Basal (TMB) é a quantidade mínima de energia que o corpo precisa para manter funções vitais em repouso. Varia conforme idade, sexo, peso e altura, sendo fundamental para planejamento nutricional.",
+              "Taxa Metabólica Basal (TMB) é a quantidade mínima de energia que o corpo confiável para manter funções vitais em repouso. Varia conforme idade, sexo, peso e altura, sendo fundamental para planejamento nutricional.",
             borderColor: "system-warning",
           },
           {
@@ -1168,7 +1168,7 @@ export default function BMICalculator() {
         tipSection={{
           title: "Dica Importante sobre IMC",
           content:
-            "<strong>Para resultados precisos:</strong> pese-se sempre no mesmo horário, preferencialmente pela manhã em jejum, e use balança calibrada. Meça altura sem sapatos.",
+            "<strong>Para melhores resultados:</strong> pese-se sempre no mesmo horário, preferencialmente pela manhã em jejum, e use balança calibrada. Meça altura sem sapatos.",
         }}
         footerText="<strong>Lembre-se:</strong> O IMC é uma ferramenta de triagem. Para análise completa da saúde, considere também composição corporal e consulte profissionais qualificados."
       />
@@ -1188,7 +1188,7 @@ export default function BMICalculator() {
               percentual de gordura estimado com classificação personalizada por idade e sexo.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo de IMC preciso, taxa metabólica (TMB), gasto
+              <strong>Funcionalidades:</strong> Cálculo de IMC confiável, taxa metabólica (TMB), gasto
               calórico diário, percentual de gordura estimado, classificação por faixa etária e
               análise de risco à saúde.
             </p>

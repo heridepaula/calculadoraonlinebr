@@ -203,14 +203,14 @@ function getCategoryName(category: string): string {
 function getCalculatorFeatures(category: string): string[] {
   const features = {
     saude: [
-      "Cálculos precisos de saúde",
+      "Cálculos confiáveis de saúde",
       "Interface intuitiva",
       "Resultados instantâneos",
       "Métodos cientificamente validados",
       "Gratuito e sem cadastro",
     ],
     financas: [
-      "Simulações financeiras precisas",
+      "Simulações financeiras completas",
       "Cálculo de impostos automático",
       "Comparação de investimentos",
       "Gráficos e tabelas detalhadas",
@@ -226,7 +226,7 @@ function getCalculatorFeatures(category: string): string[] {
   };
   return (
     features[category as keyof typeof features] || [
-      "Cálculos precisos",
+      "Cálculos confiáveis",
       "Interface amigável",
       "Gratuito",
     ]

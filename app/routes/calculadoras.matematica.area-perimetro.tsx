@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos para estudos.",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas confiáveis e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -46,7 +46,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas precisas e resultados instantâneos.",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas matemáticas confiáveis e resultados instantâneos.",
     },
     {
       property: "og:image",
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas.",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas confiáveis.",
     },
     {
       name: "twitter:image",
@@ -107,7 +107,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Área e Perímetro - Formas Geométricas 2025",
         description:
-          "Calculadora gratuita e precisa de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
+          "Calculadora gratuita e confiável de área e perímetro para diferentes formas geométricas: retângulo, círculo, triângulo, quadrado e trapézio. Fórmulas matemáticas exatas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -139,7 +139,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
           name: "Calculadora de Área e Perímetro 2025 - Formas Geométricas",
           description:
-            "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas precisas e resultados instantâneos.",
+            "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas confiáveis e resultados instantâneos.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -194,7 +194,7 @@ export const meta: MetaFunction = () => {
           "Cálculo de área e perímetro de triângulos",
           "Cálculo de área e perímetro de quadrados",
           "Cálculo de área e perímetro de trapézios",
-          "Fórmulas matemáticas precisas",
+          "Fórmulas matemáticas confiáveis",
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
@@ -554,13 +554,13 @@ export default function AreaPerimeterCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">área e perímetro</strong> de diferentes{" "}
-          formas geométricas com precisão. Retângulo, círculo, triângulo, quadrado e trapézio com{" "}
+          formas geométricas facilmente. Retângulo, círculo, triângulo, quadrado e trapézio com{" "}
           <strong className="text-primary-blue-dark">fórmulas matemáticas exatas</strong> para seus
           estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            📐 <strong>Fórmulas Precisas</strong> • 📊 <strong>Múltiplas Formas</strong> • 🧮{" "}
+            📐 <strong>Fórmulas Confiáveis</strong> • 📊 <strong>Múltiplas Formas</strong> • 🧮{" "}
             <strong>Cálculos Instantâneos</strong>
           </p>
         </div>
@@ -1105,7 +1105,7 @@ export default function AreaPerimeterCalculator() {
               <h4 className="mb-2 font-bold text-growth-green">🌸 Paisagismo</h4>
               <p className="text-sm text-text-secondary">
                 Prefira <strong>círculos</strong> para jardins, canteiros e áreas curvas que
-                precisam de cálculos de área.
+                necessitam de cálculos de área.
               </p>
             </div>
 
@@ -1163,7 +1163,7 @@ export default function AreaPerimeterCalculator() {
         tipSection={{
           title: "Dica Importante sobre Cálculos Geométricos",
           content:
-            "<strong>Para resultados precisos:</strong> sempre use a mesma unidade de medida para todas as dimensões. Dobre-check suas medições e lembre-se que área é sempre em unidades².",
+            "<strong>Para melhores resultados:</strong> sempre use a mesma unidade de medida para todas as dimensões. Dobre-check suas medições e lembre-se que área é sempre em unidades².",
         }}
         footerText="<strong>Lembre-se:</strong> Área mede superfície (unidades²), perímetro mede contorno (unidades). Sempre confira suas medições antes de calcular."
       />
@@ -1180,7 +1180,7 @@ export default function AreaPerimeterCalculator() {
             <p>
               Esta{" "}
               <strong className="text-primary-blue-dark">calculadora de área e perímetro</strong>{" "}
-              utiliza <strong className="text-growth-green">fórmulas matemáticas precisas</strong>{" "}
+              utiliza <strong className="text-growth-green">fórmulas matemáticas confiáveis</strong>{" "}
               para calcular a área e o perímetro de diferentes formas geométricas com resultados
               instantâneos.
             </p>
@@ -1196,7 +1196,7 @@ export default function AreaPerimeterCalculator() {
               outras variáveis específicas do projeto.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📐 Fórmulas precisas • 🔒 Dados não armazenados • 📱 Compatível
+              🔎 Foco educacional • 📐 Fórmulas confiáveis • 🔒 Dados não armazenados • 📱 Compatível
               com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>

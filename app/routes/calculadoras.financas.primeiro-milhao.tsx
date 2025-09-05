@@ -1515,7 +1515,7 @@ export default function FirstMillionCalculator() {
                 borderColor: "system-info",
               },
               {
-                question: "Preciso de muito dinheiro para começar a investir?",
+                question: "Necessito de muito dinheiro para começar a investir?",
                 answer:
                   "<strong>Não!</strong> Comece com R$ 30-100/mês. Muitas corretoras têm investimento mínimo baixo. O importante é <strong>começar hoje</strong>! R$ 200/mês por 30 anos a 10% = R$ 450.000. Tempo é mais valioso que valor inicial!",
                 borderColor: "system-success",
@@ -1555,7 +1555,7 @@ export default function FirstMillionCalculator() {
                   <strong className="text-primary-blue-dark">calculadora do primeiro milhão</strong>{" "}
                   utiliza <strong className="text-growth-green">juros compostos</strong> para
                   mostrar quanto tempo levará para atingir sua meta financeira ou quanto você
-                  precisa investir mensalmente.
+                  confiável investir mensalmente.
                 </p>
                 <p>
                   <strong>Configurações disponíveis:</strong> Capital inicial, meta financeira

@@ -137,9 +137,9 @@ export default function Sobre() {
                 <span className="text-sm font-bold">✓</span>
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary-dark">Resultados Precisos</h3>
+                <h3 className="font-semibold text-text-primary-dark">Resultados Confiáveis</h3>
                 <p className="text-sm text-text-secondary-dark">
-                  Algoritmos confiáveis que garantem cálculos precisos e resultados instantâneos.
+                  Algoritmos confiáveis que garantem cálculos confiáveis e resultados instantâneos.
                 </p>
               </div>
             </div>
@@ -200,7 +200,7 @@ export default function Sobre() {
         <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">Entre em Contato</h2>
         <div className="space-y-4">
           <p className="text-text-secondary-dark">
-            Tem alguma dúvida, sugestão ou precisa de ajuda com nossas calculadoras? Entre em contato conosco!
+            Tem alguma dúvida, sugestão ou confiável de ajuda com nossas calculadoras? Entre em contato conosco!
           </p>
           
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-8 sm:space-y-0">
@@ -274,7 +274,7 @@ export default function Sobre() {
               <strong>Responsabilidade Limitada:</strong> Não nos responsabilizamos por perdas, danos ou consequências decorrentes do uso das informações e resultados fornecidos pelas calculadoras.
             </li>
             <li>
-              <strong>Precisão dos Dados:</strong> A precisão dos resultados depende da veracidade e exatidão dos dados inseridos pelo usuário.
+              <strong>Detalhamento dos Dados:</strong> A detalhamento dos resultados depende da veracidade e exatidão dos dados inseridos pelo usuário.
             </li>
           </ul>
           

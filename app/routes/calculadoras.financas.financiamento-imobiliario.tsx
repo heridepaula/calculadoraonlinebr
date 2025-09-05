@@ -450,7 +450,7 @@ export default function MortgageCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🔎 <strong>Cálculo Preciso</strong> • 📊 <strong>SAC e PRICE</strong> • ⚙️{" "}
+            🔎 <strong>Cálculo Completo</strong> • 📊 <strong>SAC e PRICE</strong> • ⚙️{" "}
             <strong>Simulação Completa</strong>
           </p>
         </div>
@@ -931,7 +931,7 @@ export default function MortgageCalculator() {
               <strong className="text-primary-blue-dark">
                 calculadora de financiamento imobiliário
               </strong>{" "}
-              utiliza <strong className="text-growth-green">simulações financeiras precisas</strong>{" "}
+              utiliza <strong className="text-growth-green">simulações financeiras confiáveis</strong>{" "}
               para comparar sistemas SAC e PRICE, calculando parcelas, juros totais e cronograma de
               amortização para diferentes cenários de financiamento.
             </p>

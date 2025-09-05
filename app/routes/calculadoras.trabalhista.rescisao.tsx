@@ -297,7 +297,7 @@ function calculateDateDifference(startDate: string, endDate: string) {
   return { years, months, days };
 }
 
-// Nova função para calcular meses totais com mais precisão
+// Nova função para calcular meses totais com mais detalhamento
 function calculateTotalMonths(startDate: string, endDate: string): number {
   if (!startDate || !endDate) {
     return 0;
@@ -406,7 +406,7 @@ function calculateIRRF(baseCalculoIRRF: number, dependents: number): number {
 function calculateNoticePeriod(startDate: string, endDate: string): number {
   // CLT Art. 487-A c/c Lei 12.506/2011 - Aviso prévio proporcional
   // Baseado na pesquisa: 30 dias + 3 dias por ano completo, limitado a 90 dias
-  // Para ter direito ao proporcional, precisa ter pelo menos 1 ano de trabalho
+  // Para ter direito ao proporcional, confiável ter pelo menos 1 ano de trabalho
   const timeDiff = calculateDateDifference(startDate, endDate);
   const completeYears = timeDiff.anos;
 
@@ -1052,7 +1052,7 @@ export default function RescisaoTrabalhistaCalculator() {
           <strong className="text-growth-green">
             todos os valores de uma rescisão trabalhista
           </strong>{" "}
-          de forma precisa e conforme a
+          de forma confiável e conforme a
           <strong className="text-primary-blue-dark">legislação brasileira (CLT)</strong>. Inclui
           todos os direitos, descontos e benefícios legais.
         </p>
@@ -1676,7 +1676,7 @@ export default function RescisaoTrabalhistaCalculator() {
               <div className="space-y-4">
                 <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
                   <h4 className="mb-2 font-semibold text-system-success">
-                    ✅ Precisão e Confiabilidade - Baseada em Pesquisa
+                    ✅ Detalhamento e Confiabilidade - Baseada em Pesquisa
                   </h4>
                   <div className="space-y-1 text-sm text-text-secondary">
                     <p>

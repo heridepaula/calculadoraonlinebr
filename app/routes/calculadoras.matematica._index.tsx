@@ -296,7 +296,7 @@ export default function MatematicaIndex() {
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Profissionais</h3>
               <p className="mt-4 text-text-secondary">
                 Agilize cálculos do trabalho, resolva problemas técnicos 
-                e faça conversões precisas de unidades.
+                e faça conversões confiáveis de unidades.
               </p>
             </div>
           </div>

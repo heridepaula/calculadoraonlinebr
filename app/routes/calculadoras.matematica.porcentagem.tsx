@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, precisa e com explicação passo a passo. Acesso instantâneo!",
+        "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, confiável e com explicação passo a passo. Acesso instantâneo!",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "generator", content: "Remix" },
@@ -43,12 +43,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Porcentagem Online Gratuita - Cálculos Precisos 2025",
+      content: "Calculadora de Porcentagem Online Gratuita - Cálculos Confiáveis 2025",
     },
     {
       property: "og:description",
       content:
-        "Ferramenta online precisa para cálculos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Gratuita para estudantes!",
+        "Ferramenta online confiável para cálculos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Gratuita para estudantes!",
     },
     {
       property: "og:image",
@@ -76,7 +76,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Porcentagem Online Gratuita - Resultados Precisos",
+      content: "Calculadora de Porcentagem Online Gratuita - Resultados Confiáveis",
     },
     {
       name: "twitter:description",
@@ -119,7 +119,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Porcentagem Online Gratuita - Cálculos Matemáticos 2025",
         description:
-          "Ferramenta educacional online gratuita para realizar cálculos precisos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Resultados instantâneos com explicação passo a passo.",
+          "Ferramenta educacional online gratuita para realizar cálculos confiáveis de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Resultados instantâneos com explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -151,7 +151,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
           name: "Calculadora de Porcentagem Online Gratuita - Matemática Educacional",
           description:
-            "Ferramenta educacional online para cálculos precisos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três com explicação passo a passo.",
+            "Ferramenta educacional online para cálculos confiáveis de porcentagem: aumentos, descontos, diferenças percentuais e regra de três com explicação passo a passo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -262,7 +262,7 @@ export const meta: MetaFunction = () => {
         "@type": "HowTo",
         name: "Como usar a Calculadora de Porcentagem",
         description:
-          "Aprenda a realizar cálculos de porcentagem de forma simples e precisa com nossa calculadora online gratuita",
+          "Aprenda a realizar cálculos de porcentagem de forma simples e confiável com nossa calculadora online gratuita",
         step: [
           {
             "@type": "HowToStep",
@@ -331,7 +331,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebPage",
         name: "Calculadora de Porcentagem Online - Aumentos, Descontos e Diferenças",
         description:
-          "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, precisa e com explicação passo a passo.",
+          "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, confiável e com explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
         inLanguage: "pt-BR",
         isPartOf: {
@@ -701,7 +701,7 @@ export default function PercentageCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Realize <strong className="text-growth-green">cálculos de porcentagem</strong> de forma
-          simples e precisa. Calcule aumentos, descontos, diferenças percentuais e regra de três com{" "}
+          simples e confiável. Calcule aumentos, descontos, diferenças percentuais e regra de três com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
@@ -1208,7 +1208,7 @@ export default function PercentageCalculator() {
                     <td className="p-3 text-center">⭐</td>
                   </tr>
                   <tr className="border-b border-neutral-surface-variant">
-                    <td className="p-3 font-medium">Precisão</td>
+                    <td className="p-3 font-medium">Detalhamento</td>
                     <td className="p-3 text-center text-primary-blue-dark">Exata</td>
                     <td className="p-3 text-center text-growth-green">Exata</td>
                     <td className="p-3 text-center text-system-warning">Exata</td>
@@ -1310,7 +1310,7 @@ export default function PercentageCalculator() {
           tipSection={{
             title: "Dica Importante sobre Porcentagem",
             content:
-              "<strong>Para resultados precisos:</strong> sempre verifique se os valores são positivos (exceto em diferenças percentuais) e use as fórmulas corretas para cada tipo de cálculo.",
+              "<strong>Para melhores resultados:</strong> sempre verifique se os valores são positivos (exceto em diferenças percentuais) e use as fórmulas corretas para cada tipo de cálculo.",
           }}
           footerText="<strong>Lembre-se:</strong> Em aumentos e descontos, use fatores multiplicativos. Para diferenças, compare valores. Sempre interprete o resultado no contexto do problema."
         />
@@ -1328,7 +1328,7 @@ export default function PercentageCalculator() {
                 Esta <strong className="text-primary-blue-dark">calculadora de porcentagem</strong>{" "}
                 permite realizar{" "}
                 <strong className="text-growth-green">cálculos básicos com porcentagem</strong>:
-                aumentos, descontos, diferenças percentuais e regra de três com precisão matemática
+                aumentos, descontos, diferenças percentuais e regra de três facilmente matemática
                 e resultados instantâneos.
               </p>
               <p>
@@ -1339,8 +1339,8 @@ export default function PercentageCalculator() {
               <p>
                 <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
                 fins educacionais e comerciais básicos. Para aplicações financeiras que exigem alta
-                precisão, consulte sempre um <strong>profissional qualificado</strong> e considere
-                limitações de precisão numérica. Explore também nossas calculadoras de
+                detalhamento, consulte sempre um <strong>profissional qualificado</strong> e considere
+                limitações numérica. Explore também nossas calculadoras de
                 <a
                   href="/calculadoras/matematica/fracoes"
                   className="font-medium text-primary-blue-dark underline hover:text-primary-blue"

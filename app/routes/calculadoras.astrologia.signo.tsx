@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Descubra seu signo solar GRÁTIS! Cálculo preciso com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira. Experimente já!",
+        "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira. Experimente já!",
     },
     {
       name: "keywords",
@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:description",
-      content: "Descubra seu signo solar GRÁTIS! Cálculo preciso com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
+      content: "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
     },
     {
       property: "og:type",
@@ -78,7 +78,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:description",
-      content: "Descubra seu signo solar GRÁTIS! Cálculo preciso com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
+      content: "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
     },
     {
       name: "twitter:image",
@@ -728,7 +728,7 @@ export default function CalculadoraSigno() {
                 "isPartOf": {
                   "@id": "https://www.calculadoraonlinebr.com.br/#website"
                 },
-                "description": "Descubra seu signo solar GRÁTIS! Cálculo preciso com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
+                "description": "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
                 "inLanguage": "pt-BR",
                 "breadcrumb": {
                   "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo#breadcrumb"
@@ -793,7 +793,7 @@ export default function CalculadoraSigno() {
                   "name": "CalculadoraOnlineBR"
                 },
                 "featureList": [
-                  "Cálculo preciso do signo solar",
+                  "Cálculo rápido do signo solar",
                   "Análise detalhada da personalidade",
                   "Compatibilidade amorosa",
                   "Orientação profissional",
@@ -811,15 +811,15 @@ export default function CalculadoraSigno() {
                     "name": "O que é o signo solar?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "O signo solar é o signo onde o Sol estava no momento do seu nascimento. Representa sua identidade central, personalidade essencial e propósito de vida. É o signo mais conhecido e fácil de descobrir, precisando apenas da data de nascimento."
+                      "text": "O signo solar é o signo onde o Sol estava no momento do seu nascimento. Representa sua identidade central, personalidade essencial e propósito de vida. É o signo mais conhecido e fácil de descobrir, necessitando apenas da data de nascimento."
                     }
                   },
                   {
                     "@type": "Question",
-                    "name": "Preciso da hora de nascimento para descobrir meu signo solar?",
+                    "name": "Necessito da hora de nascimento para descobrir meu signo solar?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Não! Para descobrir seu signo solar você precisa apenas da data de nascimento. O signo solar muda aproximadamente a cada 30 dias, diferente do ascendente que muda a cada 2 horas."
+                      "text": "Não! Para descobrir seu signo solar você necessita apenas da data de nascimento. O signo solar muda aproximadamente a cada 30 dias, diferente do ascendente que muda a cada 2 horas."
                     }
                   },
                   {
@@ -849,7 +849,7 @@ export default function CalculadoraSigno() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            🌟 <strong>Só precisa da data</strong> • ✨ <strong>Análise Completa</strong> • 💖{" "}
+            🌟 <strong>Só confiável da data</strong> • ✨ <strong>Análise Completa</strong> • 💖{" "}
             <strong>Compatibilidade Amorosa</strong> • 💼 <strong>Orientação Profissional</strong>
           </p>
         </div>
@@ -879,7 +879,7 @@ export default function CalculadoraSigno() {
                 required
               />
               <small className="mt-1 block text-xs text-text-secondary">
-                💡 Só precisamos da data! O signo solar não depende da hora de nascimento.
+                💡 Só necessitamos da data! O signo solar não depende da hora de nascimento.
               </small>
             </div>
 
@@ -1148,13 +1148,13 @@ export default function CalculadoraSigno() {
           {
             question: "O que é o signo solar?",
             answer:
-              "O signo solar é o signo onde o Sol estava no momento do seu nascimento. Representa sua identidade central, personalidade essencial e propósito de vida. É o signo mais conhecido e fácil de descobrir, precisando apenas da data de nascimento.",
+              "O signo solar é o signo onde o Sol estava no momento do seu nascimento. Representa sua identidade central, personalidade essencial e propósito de vida. É o signo mais conhecido e fácil de descobrir, necessitando apenas da data de nascimento.",
             borderColor: "math-purple",
           },
           {
-            question: "Preciso da hora de nascimento para descobrir meu signo solar?",
+            question: "Necessito da hora de nascimento para descobrir meu signo solar?",
             answer:
-              "Não! Para descobrir seu signo solar você precisa apenas da data de nascimento. O signo solar muda aproximadamente a cada 30 dias, diferente do ascendente que muda a cada 2 horas.",
+              "Não! Para descobrir seu signo solar você necessita apenas da data de nascimento. O signo solar muda aproximadamente a cada 30 dias, diferente do ascendente que muda a cada 2 horas.",
             borderColor: "primary-blue",
           },
           {
@@ -1214,7 +1214,7 @@ export default function CalculadoraSigno() {
               seu signo solar para fins de autoconhecimento.
             </p>
             <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              🌟 Só precisa da data • ✨ Análise completa de personalidade • 💖 Compatibilidade amorosa • 
+              🌟 Só confiável da data • ✨ Análise completa de personalidade • 💖 Compatibilidade amorosa • 
               💼 Orientação profissional • 🌱 Dicas de desenvolvimento • 📱 100% responsivo
             </p>
           </div>

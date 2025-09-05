@@ -125,7 +125,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calcule o preço médio de ações com precisão. Adicione compras e vendas, visualize evolução do preço médio e quantidade total. Ferramenta gratuita para investidores.",
+        "Calcule o preço médio de ações facilmente. Adicione compras e vendas, visualize evolução do preço médio e quantidade total. Ferramenta gratuita para investidores.",
     },
     {
       name: "twitter:image",
@@ -151,7 +151,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Preço Médio de Ações - Simulador 2025",
         description:
-          "Calculadora gratuita e precisa de preço médio de ações. Adicione compras e vendas, visualize evolução do preço médio ponderado e quantidade total de cotas.",
+          "Calculadora gratuita e confiável de preço médio de ações. Adicione compras e vendas, visualize evolução do preço médio ponderado e quantidade total de cotas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -182,7 +182,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
-          name: "Calculadora de Preço Médio de Ações 2025 - Simulador Preciso",
+          name: "Calculadora de Preço Médio de Ações 2025 - Simulador Completo",
           description:
             "Calcule preço médio ponderado de ações com compras e vendas. Visualize gráficos interativos, tabela detalhada de operações e acompanhe a evolução da sua carteira de investimentos.",
           inLanguage: "pt-BR",
@@ -242,7 +242,7 @@ export const meta: MetaFunction = () => {
           "Cálculo automático de ganhos e perdas",
           "Histórico completo de transações",
           "Interface móvel responsiva otimizada",
-          "Resultados precisos em tempo real",
+          "Resultados confiáveis em tempo real",
         ],
         aggregateRating: {
           "@type": "AggregateRating",
@@ -553,7 +553,7 @@ export default function AveragePriceCalculator() {
       <main>
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Calculadora de Preço Médio de Ações 2025 – Simulador Preciso
+            Calculadora de Preço Médio de Ações 2025 – Simulador Completo
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Calcule o <strong className="text-growth-green">preço médio ponderado</strong> das suas
@@ -564,7 +564,7 @@ export default function AveragePriceCalculator() {
           <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
             <p className="text-sm font-medium text-text-primary">
               📊 <strong>Preço Ponderado</strong> • 📈 <strong>Compras e Vendas</strong> • 💰{" "}
-              <strong>Acompanhamento Preciso</strong>
+              <strong>Acompanhamento Detalhado</strong>
             </p>
           </div>
         </header>
@@ -910,7 +910,7 @@ export default function AveragePriceCalculator() {
                   <div>
                     <h4 className="mb-3 font-semibold text-system-success">✅ Vantagens</h4>
                     <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                      <li>• Controle preciso do preço de entrada</li>
+                      <li>• Controle detalhado do preço de entrada</li>
                       <li>• Facilita decisões de compra e venda</li>
                     </ul>
 
@@ -1059,7 +1059,7 @@ export default function AveragePriceCalculator() {
                   </tr>
                   <tr className="border-b border-neutral-surface-variant">
                     <td className="p-3 font-medium">Indicado para</td>
-                    <td className="p-3 text-center">Timing preciso</td>
+                    <td className="p-3 text-center">Timing detalhado</td>
                     <td className="p-3 text-center">Investimento regular</td>
                     <td className="p-3 text-center">Análise técnica</td>
                   </tr>
@@ -1119,7 +1119,7 @@ export default function AveragePriceCalculator() {
             {
               question: "Qual a diferença entre preço médio e preço médio ponderado?",
               answer:
-                "O preço médio simples é a soma dos preços dividida pelo número de operações. O preço médio ponderado considera o valor investido em cada operação, sendo mais preciso para decisões de investimento.",
+                "O preço médio simples é a soma dos preços dividida pelo número de operações. O preço médio ponderado considera o valor investido em cada operação, sendo mais confiável para decisões de investimento.",
               borderColor: "system-info",
             },
             {
@@ -1137,7 +1137,7 @@ export default function AveragePriceCalculator() {
             {
               question: "Devo considerar taxas de corretagem no cálculo?",
               answer:
-                "Sim, para maior precisão, inclua taxas de corretagem e custos no valor total investido. Isso dará uma visão mais realista do seu preço médio real e impacto nos resultados.",
+                "Sim, para melhor resultado, inclua taxas de corretagem e custos no valor total investido. Isso dará uma visão mais realista do seu preço médio real e impacto nos resultados.",
               borderColor: "system-error-dark",
             },
           ]}

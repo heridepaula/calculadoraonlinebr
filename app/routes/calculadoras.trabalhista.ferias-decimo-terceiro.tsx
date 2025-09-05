@@ -32,7 +32,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule férias e 13º salário 2025 com precisão: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+        "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
     },
     {
       name: "keywords",
@@ -63,7 +63,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calcule férias e 13º salário 2025 com precisão: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+        "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
     },
     { property: "og:type", content: "website" },
     {
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Descubra quanto você vai receber de férias e décimo terceiro! Cálculo preciso com todas as tabelas oficiais 2025.",
+        "Descubra quanto você vai receber de férias e décimo terceiro! Cálculo completo com todas as tabelas oficiais 2025.",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
@@ -98,7 +98,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Férias e 13º Salário - Simulador CLT 2025",
         description:
-          "Simulador gratuito e preciso de férias e décimo terceiro salário com tabelas INSS e IRRF 2025. Calcule valores líquidos, abono pecuniário e adiantamentos conforme CLT.",
+          "Simulador gratuito e confiável de férias e décimo terceiro salário com tabelas INSS e IRRF 2025. Calcule valores líquidos, abono pecuniário e adiantamentos conforme CLT.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -130,7 +130,7 @@ export const meta: MetaFunction = () => {
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
           name: "Calculadora de Férias e 13º Salário 2025 - Simulador CLT",
           description:
-            "Calcule férias e 13º salário 2025 com precisão: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+            "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -470,7 +470,7 @@ export default function VacationAndThirteenthCalculator() {
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Calcule{" "}
             <strong className="text-primary-blue-dark">férias e décimo terceiro salário</strong> com
-            precisão! Inclui{" "}
+            detalhamento! Inclui{" "}
             <strong className="text-growth-green">INSS, IRRF, abono pecuniário</strong> e
             <strong className="text-system-warning"> adiantamentos</strong> conforme as regras da
             CLT e tabelas oficiais 2025.
@@ -1268,7 +1268,7 @@ export default function VacationAndThirteenthCalculator() {
                     </h4>
                     <ul className="space-y-1 text-sm">
                       <li>• Solicite adiantamento 13º nas férias</li>
-                      <li>• Considere abono pecuniário se precisar</li>
+                      <li>• Considere abono pecuniário se necessitar</li>
                       <li>• Confira cálculos no contracheque</li>
                       <li>• Guarde comprovantes de pagamento</li>
                       <li>• Negocie período de férias</li>
@@ -1349,7 +1349,7 @@ export default function VacationAndThirteenthCalculator() {
             content:
               "<strong>Guarde todos os comprovantes</strong> de pagamentos e comunicações da empresa sobre férias e 13º salário. Documenteção organizada é sua melhor proteção legal!",
           }}
-          footerText="<strong>Precisa calcular outros direitos?</strong> Explore nossas calculadoras trabalhistas e garanta que todos os seus direitos sejam respeitados!"
+          footerText="<strong>Necessita calcular outros direitos?</strong> Explore nossas calculadoras trabalhistas e garanta que todos os seus direitos sejam respeitados!"
         />
 
         <RelatedCalculators category="trabalhista" currentCalculatorId="ferias-decimo-terceiro" />

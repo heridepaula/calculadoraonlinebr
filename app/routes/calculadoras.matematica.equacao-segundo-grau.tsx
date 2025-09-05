@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
         "@type": "WebApplication",
         name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2025",
         description:
-          "Calculadora gratuita e precisa para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
+          "Calculadora gratuita e confiável para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
         applicationCategory: "EducationalApplication",
         operatingSystem: "Web Browser",
@@ -198,7 +198,7 @@ export const meta: MetaFunction = () => {
           "Resolução de raízes complexas",
           "Fórmula de Bhaskara passo a passo",
           "Classificação do tipo de raízes",
-          "Fórmulas matemáticas precisas",
+          "Fórmulas matemáticas confiáveis",
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
@@ -492,7 +492,7 @@ export default function QuadraticEquationCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Resolva <strong className="text-growth-green">equações de segundo grau</strong> usando a{" "}
-          fórmula de Bhaskara com precisão. Calcule delta, raízes reais e complexas com{" "}
+          fórmula de Bhaskara facilmente. Calcule delta, raízes reais e complexas com{" "}
           <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
@@ -816,7 +816,7 @@ export default function QuadraticEquationCalculator() {
                   <td className="p-3 text-center">⭐</td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Precisão</td>
+                  <td className="p-3 font-medium">Detalhamento</td>
                   <td className="p-3 text-center text-primary-blue-dark">Exata</td>
                   <td className="p-3 text-center text-growth-green">Exata</td>
                   <td className="p-3 text-center text-system-warning">Exata</td>
@@ -932,7 +932,7 @@ export default function QuadraticEquationCalculator() {
         tipSection={{
           title: "Dica Importante sobre Equações de Segundo Grau",
           content:
-            "<strong>Para resultados precisos:</strong> sempre verifique se a ≠ 0 e calcule primeiro o discriminante para entender a natureza das raízes antes de aplicar a fórmula de Bhaskara.",
+            "<strong>Para melhores resultados:</strong> sempre verifique se a ≠ 0 e calcule primeiro o discriminante para entender a natureza das raízes antes de aplicar a fórmula de Bhaskara.",
         }}
         footerText="<strong>Lembre-se:</strong> O discriminante (Δ) determina o tipo de raízes. Bhaskara sempre funciona, mas analise primeiro o Δ para compreender o resultado."
       />
@@ -952,7 +952,7 @@ export default function QuadraticEquationCalculator() {
                 calculadora de equação de segundo grau
               </strong>{" "}
               utiliza a <strong className="text-growth-green">fórmula de Bhaskara</strong> para
-              resolver equações do tipo ax² + bx + c = 0 com precisão matemática e resultados
+              resolver equações do tipo ax² + bx + c = 0 facilmente matemática e resultados
               instantâneos.
             </p>
             <p>
@@ -963,8 +963,8 @@ export default function QuadraticEquationCalculator() {
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e resolução de exercícios. Para aplicações científicas ou de
-              engenharia que exigem alta precisão, consulte sempre um{" "}
-              <strong>profissional qualificado</strong> e considere limitações de precisão numérica.
+              engenharia que exigem alta qualidade, consulte sempre um{" "}
+              <strong>profissional qualificado</strong> e considere limitações numérica.
               Explore também nossas calculadoras de
               <a
                 href="/calculadoras/matematica/area-perimetro"

@@ -195,7 +195,7 @@ function parseMaturityDate(dateString: string): string {
 export async function getCachedTreasuryBonds(): Promise<ProcessedBond[]> {
   const now = new Date();
 
-  // Verifica se precisa atualizar o cache
+  // Verifica se necessita atualizar o cache
   const needsUpdate =
     !bondDataCache.data ||
     !bondDataCache.lastUpdate ||

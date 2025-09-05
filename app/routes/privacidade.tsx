@@ -238,7 +238,7 @@ export default function Privacidade() {
                 <strong>Privacidade Total:</strong> Informações sensíveis (valores financeiros, dados pessoais de saúde) permanecem exclusivamente no seu dispositivo.
               </li>
               <li>
-                <strong>Responsabilidade do Usuário:</strong> Recomendamos que você faça suas próprias anotações se precisar dos resultados posteriormente.
+                <strong>Responsabilidade do Usuário:</strong> Recomendamos que você faça suas próprias anotações se necessitar dos resultados posteriormente.
               </li>
             </ul>
           </div>
