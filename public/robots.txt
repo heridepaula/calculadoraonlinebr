@@ -18,6 +18,7 @@ Allow: /calculadoras/matematica/
 Allow: /calculadoras/trabalhista/
 Allow: /calculadoras/ferramentas/
 Allow: /calculadoras/astrologia/
+Allow: /calculadoras/datas/
 
 # Health Calculators (new routes)
 Allow: /calculadoras/saude/imc
@@ -111,6 +112,9 @@ Disallow: /calculadoras/calculadora-aposentadoria
 Disallow: /calculadoras/calculadora-auxilio-doenca
 Disallow: /calculadoras/calculadora-salario-liquido
 Disallow: /calculadoras/calculadora-ferias-decimo-terceiro
+
+# Date Calculators (new routes)
+Allow: /calculadoras/datas/diferenca-entre-datas
 
 # Tools - old routes  
 Disallow: /calculadoras/calculadora-cpf

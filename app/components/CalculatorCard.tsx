@@ -4,7 +4,7 @@ import type { Calculator } from "~/types";
 
 interface CalculatorCardProps {
   calculator: Calculator;
-  category: "saude" | "financas" | "matematica" | "trabalhista" | "ferramentas" | "astrologia";
+  category: "saude" | "financas" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas";
 }
 
 // Mapa de ícones específicos para cada calculadora
@@ -49,7 +49,15 @@ const getCalculatorIcon = (calculatorId: string): string => {
     "pensao-morte": "👥",
     
     // Ferramentas
+    "gerador-cpf": "🆔",
+    
+    // Datas
     "diferenca-entre-datas": "📅",
+    
+    // Astrologia
+    "ascendente-astrologico": "🌅",
+    "signo": "♈",
+    "compatibilidade-signos": "💞",
   };
   
   return iconMap[calculatorId] || "🧮";
@@ -97,7 +105,15 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "pensao-morte": { primary: "👥 Pensão", secondary: "💰 Benefício" },
     
     // Ferramentas
+    "gerador-cpf": { primary: "🆔 Válidos", secondary: "⚡ Instantâneo" },
+    
+    // Datas
     "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Precisão" },
+    
+    // Astrologia
+    "ascendente-astrologico": { primary: "🌅 Ascendente", secondary: "🌍 Localização" },
+    "signo": { primary: "♈ Zodíaco", secondary: "🌟 Personalidade" },
+    "compatibilidade-signos": { primary: "💞 Amor", secondary: "👥 Amizade" },
   };
   
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Preciso" };
@@ -189,6 +205,40 @@ const getCategoryColors = (category: string) => {
         categoryIcon: "🔧",
         categoryName: "Ferramentas",
         shadow: "hover:shadow-system-success/20",
+      };
+    case "astrologia":
+      return {
+        bgGradient: "from-purple-500/20 via-purple-500/15 to-purple-500/5",
+        cardBg: "bg-gray-800",
+        borderColor: "border-purple-500/30 hover:border-purple-500/50",
+        iconBg: "bg-purple-500",
+        iconColor: "text-white",
+        titleColor: "text-white",
+        descriptionColor: "text-gray-300",
+        buttonBg: "bg-purple-500 hover:bg-purple-600",
+        buttonText: "text-white",
+        categoryBadgeBg: "bg-purple-500/20",
+        categoryBadgeText: "text-purple-300",
+        categoryIcon: "🌟",
+        categoryName: "Astrologia",
+        shadow: "hover:shadow-purple-500/20",
+      };
+    case "datas":
+      return {
+        bgGradient: "from-blue-500/20 via-blue-500/15 to-blue-500/5",
+        cardBg: "bg-gray-800",
+        borderColor: "border-blue-500/30 hover:border-blue-500/50",
+        iconBg: "bg-blue-500",
+        iconColor: "text-white",
+        titleColor: "text-white",
+        descriptionColor: "text-gray-300",
+        buttonBg: "bg-blue-500 hover:bg-blue-600",
+        buttonText: "text-white",
+        categoryBadgeBg: "bg-blue-500/20",
+        categoryBadgeText: "text-blue-300",
+        categoryIcon: "📅",
+        categoryName: "Datas",
+        shadow: "hover:shadow-blue-500/20",
       };
     default:
       return {

@@ -46,6 +46,13 @@ export const CATEGORIES = [
     icon: "🌟",
     path: "/calculadoras/astrologia",
   },
+  {
+    id: "datas",
+    name: "Datas",
+    description: "Calculadoras e ferramentas para trabalhar com datas e tempo",
+    icon: "📅",
+    path: "/calculadoras/datas",
+  },
 ];
 
 export const CALCULATORS = [
@@ -311,8 +318,8 @@ export const CALCULATORS = [
     name: "Calculadora de Diferença entre Datas",
     description:
       "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade exata com precisão",
-    category: "ferramentas",
-    path: "/calculadoras/ferramentas/diferenca-entre-datas",
+    category: "datas",
+    path: "/calculadoras/datas/diferenca-entre-datas",
   },
   {
     id: "gerador-cpf",
