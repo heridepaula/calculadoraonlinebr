@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Gerador de CPF 2025 – Geração Rápida com e sem Pontuação | CalculadoraOnlineBR",
+      title: "Gerador CPF – Gere CPF Válido com ou sem Pontuação",
     },
     {
       name: "description",
       content:
-        "Gerador de CPF válido e gratuito com opção de formatação. Gere CPFs com ou sem pontuação, cópia automática para área de transferência. Ferramenta para testes e desenvolvimento.",
+        "Gere CPF válido grátis com ou sem pontuação. Ferramenta para testes e desenvolvimento com cópia automática. Geração instantânea e confiável.",
     },
     {
       name: "keywords",
@@ -46,12 +46,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Gerador de CPF 2025 – Geração Rápida com e sem Pontuação",
+      content: "Gerador CPF – Gere CPF Válido com ou sem Pontuação",
     },
     {
       property: "og:description",
       content:
-        "Gerador de CPF válido e gratuito com opção de formatação. Gere CPFs com ou sem pontuação, cópia automática para área de transferência.",
+        "Gere CPF válido grátis com ou sem pontuação. Ferramenta para testes e desenvolvimento com cópia automática. Geração instantânea e confiável.",
     },
     {
       property: "og:image",

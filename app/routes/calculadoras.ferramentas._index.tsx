@@ -14,11 +14,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras e Ferramentas - ${APP_NAME}` },
+    { title: "Ferramentas Grátis: Datas, CPF e Conversões Online" },
     {
       name: "description",
       content:
-        "★ Ferramentas e calculadoras GRATUITAS para o dia a dia. Diferença entre datas, conversões, idade e muito mais. Ferramentas úteis para simplificar cálculos cotidianos com facilidade e praticidade.",
+        "Ferramentas práticas gratuitas para o dia a dia. Calcule diferenças entre datas, gere CPF, converta unidades e simplifique cálculos cotidianos.",
     },
     {
       name: "keywords",
@@ -26,19 +26,19 @@ export const meta: MetaFunction = () => {
         "calculadora ferramentas, diferença entre datas, calcular idade, dias úteis, conversores, utilidades, ferramentas online, calculadora data, intervalo datas, contador dias, ferramentas práticas",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadoras e Ferramentas - ${APP_NAME}` },
+    { property: "og:title", content: "Ferramentas Grátis: Datas, CPF e Conversões Online" },
     {
       property: "og:description",
       content:
-        "Simplifique seu dia a dia com nossas ferramentas práticas. Grátis e fácil de usar.",
+        "Ferramentas práticas gratuitas para o dia a dia. Calcule diferenças entre datas, gere CPF, converta unidades e simplifique cálculos cotidianos.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadoras e Ferramentas - ${APP_NAME}` },
+    { name: "twitter:title", content: "Ferramentas Grátis: Datas, CPF e Conversões Online" },
     {
       name: "twitter:description",
       content:
-        "Ferramentas práticas gratuitas para simplificar cálculos e conversões do dia a dia.",
+        "Ferramentas práticas gratuitas para o dia a dia. Calcule diferenças entre datas, gere CPF, converta unidades e simplifique cálculos cotidianos.",
     },
   ];
 };
