@@ -155,3 +155,5 @@ Optimized for Vercel with:
 
 - When implementing, take care with the contrast of elements and ensure that text and components remain easy to read.
 - Not run command `npm run dev` after implementation
+- Ao criar uma calculadora, sempre adicione a calculadora aos Cards da categoria referente
+- Ao criar uma calculadora, sempre adicione as configurações de SEO, como robots.txt e sitemap
