@@ -152,6 +152,11 @@ export const loader: LoaderFunction = async () => {
       priority: "0.8",
       changefreq: "monthly",
     },
+    {
+      loc: `${baseUrl}/calculadoras/astrologia/compatibilidade-signos`,
+      priority: "0.8",
+      changefreq: "monthly",
+    },
 
     // Legal pages
     { loc: `${baseUrl}/sobre`, priority: "0.6", changefreq: "monthly" },

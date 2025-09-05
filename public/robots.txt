@@ -67,6 +67,7 @@ Allow: /calculadoras/trabalhista/ferias-decimo-terceiro
 # Astrology Calculators (new routes)
 Allow: /calculadoras/astrologia/ascendente
 Allow: /calculadoras/astrologia/signo
+Allow: /calculadoras/astrologia/compatibilidade-signos
 
 # DISALLOW OLD ROUTES (redirected with 301)
 # Financial - old routes

@@ -338,6 +338,14 @@ export const CALCULATORS = [
     category: "astrologia",
     path: "/calculadoras/astrologia/signo",
   },
+  {
+    id: "compatibilidade-signos",
+    name: "Compatibilidade de Signos",
+    description:
+      "Teste a compatibilidade astrológica entre dois signos. Análise completa para amor, amizade e trabalho com dicas personalizadas",
+    category: "astrologia",
+    path: "/calculadoras/astrologia/compatibilidade-signos",
+  },
 ];
 
 export const BREAKPOINTS = {
