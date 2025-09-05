@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -13,16 +13,16 @@ import { RelatedCalculators, FAQ } from "~/components";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora de Compatibilidade de Signos Grátis 2025 | Teste Amoroso" },
+    { title: "Teste Compatibilidade de Signos GRÁTIS 2025 - Amor, Amizade e Trabalho" },
     {
       name: "description",
       content:
-        "Descubra a compatibilidade entre signos GRÁTIS! Teste astrológico completo para amor, amizade e relacionamentos. Análise detalhada com dicas exclusivas 2025.",
+        "✨ Descubra GRÁTIS a compatibilidade entre signos! Teste completo para amor, amizade e trabalho. Análise detalhada + dicas personalizadas. Experimente já!",
     },
     {
       name: "keywords",
       content:
-        "compatibilidade signos, teste amoroso astrologia, combinação signos zodiacais, afinidade astrológica, relacionamento signos, compatibilidade amorosa 2025, sinastria básica",
+        "compatibilidade signos grátis, teste compatibilidade amorosa, afinidade signos zodiacais, relacionamento astrologia, sinastria online, combinação signos amor",
     },
     {
       name: "robots",
@@ -38,11 +38,11 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Compatibilidade de Signos Grátis 2025 | Teste Amoroso",
+      content: "Teste Compatibilidade de Signos GRÁTIS 2025 - Amor, Amizade e Trabalho",
     },
     {
       property: "og:description",
-      content: "Descubra a compatibilidade entre signos GRÁTIS! Teste astrológico completo para amor, amizade e relacionamentos. Análise detalhada com dicas exclusivas 2025.",
+      content: "✨ Descubra GRÁTIS a compatibilidade entre signos! Teste completo para amor, amizade e trabalho. Análise detalhada + dicas personalizadas. Experimente já!",
     },
     {
       property: "og:type",
@@ -74,11 +74,11 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Calculadora de Compatibilidade de Signos Grátis 2025 | Teste Amoroso",
+      content: "Teste Compatibilidade de Signos GRÁTIS 2025 - Amor, Amizade e Trabalho",
     },
     {
       name: "twitter:description",
-      content: "Descubra a compatibilidade entre signos GRÁTIS! Teste astrológico completo para amor, amizade e relacionamentos. Análise detalhada com dicas exclusivas 2025.",
+      content: "✨ Descubra GRÁTIS a compatibilidade entre signos! Teste completo para amor, amizade e trabalho. Análise detalhada + dicas personalizadas. Experimente já!",
     },
     {
       name: "twitter:image",
@@ -368,7 +368,7 @@ const DetailedCompatibilityResult = ({ result, signo1, signo2 }: { result: Compa
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <span className="animate-pulse text-5xl drop-shadow-lg filter">
+                  <span className="animate-pulse text-5xl drop-shadow-lg filter" aria-label={`Símbolo do signo ${s1.nome}`}>
                     {s1.simbolo}
                   </span>
                 </div>
@@ -379,9 +379,9 @@ const DetailedCompatibilityResult = ({ result, signo1, signo2 }: { result: Compa
               </div>
               
               <div className="flex items-center gap-2">
-                <span className="text-3xl">💕</span>
+                <span className="text-3xl" aria-label="Ícone de corações representando amor">💕</span>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-white">
+                  <div className="text-3xl font-bold text-white" role="meter" aria-valuenow={result.geral.porcentagem} aria-valuemin="0" aria-valuemax="100">
                     {result.geral.porcentagem}%
                   </div>
                   <p className="text-sm text-white/80">Compatibilidade</p>
@@ -394,7 +394,7 @@ const DetailedCompatibilityResult = ({ result, signo1, signo2 }: { result: Compa
                   <p className="text-sm text-white/80">{s2.elemento}</p>
                 </div>
                 <div className="relative">
-                  <span className="animate-pulse text-5xl drop-shadow-lg filter">
+                  <span className="animate-pulse text-5xl drop-shadow-lg filter" aria-label={`Símbolo do signo ${s2.nome}`}>
                     {s2.simbolo}
                   </span>
                 </div>
@@ -416,7 +416,7 @@ const DetailedCompatibilityResult = ({ result, signo1, signo2 }: { result: Compa
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <div className="rounded-full bg-gradient-to-br from-pink-500 to-red-500 p-3">
-                <span className="text-xl">💖</span>
+                <span className="text-xl" aria-label="Ícone de coração brilhante">💖</span>
               </div>
               <div>
                 <span className="text-lg font-bold text-pink-700">Amor</span>
@@ -441,7 +441,7 @@ const DetailedCompatibilityResult = ({ result, signo1, signo2 }: { result: Compa
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <div className="rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 p-3">
-                <span className="text-xl">🤝</span>
+                <span className="text-xl" aria-label="Ícone de aperto de mãos">🤝</span>
               </div>
               <div>
                 <span className="text-lg font-bold text-blue-700">Amizade</span>
@@ -472,7 +472,7 @@ const DetailedCompatibilityResult = ({ result, signo1, signo2 }: { result: Compa
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <div className="rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 p-3">
-                <span className="text-xl">💼</span>
+                <span className="text-xl" aria-label="Ícone de maleta de trabalho">💼</span>
               </div>
               <div>
                 <span className="text-lg font-bold text-purple-700">Trabalho</span>
@@ -651,6 +651,15 @@ export default function CalculadoraCompatibilidadeSignos() {
     setSigno2(temp);
   };
 
+  // Lazy loading para componentes pesados
+  const [shouldLoadResults, setShouldLoadResults] = useState(false);
+  
+  React.useEffect(() => {
+    if (result) {
+      setShouldLoadResults(true);
+    }
+  }, [result]);
+
   return (
     <div className="min-h-screen space-y-8">
       <Breadcrumb>
@@ -684,11 +693,11 @@ export default function CalculadoraCompatibilidadeSignos() {
                 "@type": "WebPage",
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos#webpage",
                 "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
-                "name": "Calculadora de Compatibilidade de Signos Grátis 2025",
+                "name": "Teste Compatibilidade de Signos GRÁTIS 2025 - Amor, Amizade e Trabalho",
                 "isPartOf": {
                   "@id": "https://www.calculadoraonlinebr.com.br/#website"
                 },
-                "description": "Descubra a compatibilidade entre signos GRÁTIS! Teste astrológico completo para amor, amizade e relacionamentos. Análise detalhada com dicas exclusivas 2025.",
+                "description": "✨ Descubra GRÁTIS a compatibilidade entre signos! Teste completo para amor, amizade e trabalho. Análise detalhada + dicas personalizadas. Experimente já!",
                 "inLanguage": "pt-BR",
                 "breadcrumb": {
                   "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos#breadcrumb"
@@ -801,8 +810,8 @@ export default function CalculadoraCompatibilidadeSignos() {
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            💕 <strong>Análise Completa</strong> • 🎯 <strong>3 Áreas</strong> • ✨{" "}
-            <strong>Dicas Personalizadas</strong> • 📊 <strong>Porcentagem de Afinidade</strong>
+            <span aria-label="Ícone de corações">💕</span> <strong>Análise Completa</strong> • <span aria-label="Ícone de alvo">🎯</span> <strong>3 Áreas</strong> • <span aria-label="Ícone de estrelas">✨</span>{" "}
+            <strong>Dicas Personalizadas</strong> • <span aria-label="Ícone de gráfico">📊</span> <strong>Porcentagem de Afinidade</strong>
           </p>
         </div>
       </header>
@@ -872,7 +881,7 @@ export default function CalculadoraCompatibilidadeSignos() {
                   onClick={handleSwapSignos}
                   className="flex items-center gap-2 rounded-lg border border-primary-blue/30 bg-primary-blue/10 px-4 py-2 text-sm font-medium text-primary-blue hover:bg-primary-blue/20 transition-colors"
                 >
-                  🔄 Trocar Signos
+                  <span aria-label="Ícone de setas circulares">🔄</span> Trocar Signos
                 </button>
               </div>
             )}
@@ -902,7 +911,7 @@ export default function CalculadoraCompatibilidadeSignos() {
       </Card>
 
       {/* Resultado */}
-      {result && (
+      {result && shouldLoadResults && (
         <div className="mx-auto max-w-6xl">
           <DetailedCompatibilityResult result={result} signo1={signo1} signo2={signo2} />
         </div>
@@ -920,7 +929,7 @@ export default function CalculadoraCompatibilidadeSignos() {
             {/* Fogo */}
             <div className="rounded-xl border border-red-500/20 bg-gradient-to-br from-red-50 to-orange-50 p-6">
               <div className="mb-4 flex items-center gap-3">
-                <span className="text-3xl">🔥</span>
+                <span className="text-3xl" aria-label="Ícone de fogo">🔥</span>
                 <div>
                   <h3 className="text-lg font-bold text-red-600">Signos de Fogo</h3>
                   <p className="text-sm text-gray-600">Áries, Leão, Sagitário</p>
@@ -938,7 +947,7 @@ export default function CalculadoraCompatibilidadeSignos() {
             {/* Terra */}
             <div className="rounded-xl border border-green-600/20 bg-gradient-to-br from-green-50 to-emerald-50 p-6">
               <div className="mb-4 flex items-center gap-3">
-                <span className="text-3xl">🌱</span>
+                <span className="text-3xl" aria-label="Ícone de planta">🌱</span>
                 <div>
                   <h3 className="text-lg font-bold text-green-700">Signos de Terra</h3>
                   <p className="text-sm text-gray-600">Touro, Virgem, Capricórnio</p>
@@ -956,7 +965,7 @@ export default function CalculadoraCompatibilidadeSignos() {
             {/* Ar */}
             <div className="rounded-xl border border-sky-500/20 bg-gradient-to-br from-sky-50 to-blue-50 p-6">
               <div className="mb-4 flex items-center gap-3">
-                <span className="text-3xl">💨</span>
+                <span className="text-3xl" aria-label="Ícone de vento">💨</span>
                 <div>
                   <h3 className="text-lg font-bold text-sky-600">Signos de Ar</h3>
                   <p className="text-sm text-gray-600">Gêmeos, Libra, Aquário</p>
@@ -974,7 +983,7 @@ export default function CalculadoraCompatibilidadeSignos() {
             {/* Água */}
             <div className="rounded-xl border border-blue-500/20 bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
               <div className="mb-4 flex items-center gap-3">
-                <span className="text-3xl">🌊</span>
+                <span className="text-3xl" aria-label="Ícone de ondas do mar">🌊</span>
                 <div>
                   <h3 className="text-lg font-bold text-blue-600">Signos de Água</h3>
                   <p className="text-sm text-gray-600">Câncer, Escorpião, Peixes</p>
@@ -991,7 +1000,7 @@ export default function CalculadoraCompatibilidadeSignos() {
           </div>
 
           <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4">
-            <h4 className="font-bold text-amber-800 mb-2">💡 Dica Importante:</h4>
+            <h4 className="font-bold text-amber-800 mb-2"><span aria-label="Ícone de lâmpada">💡</span> Dica Importante:</h4>
             <p className="text-sm text-amber-700">
               Lembre-se: signos "incompatíveis" podem ter relacionamentos maravilhosos! A compatibilidade é apenas um guia. 
               Amor, respeito, comunicação e crescimento mútuo são muito mais importantes que a astrologia.
@@ -1071,9 +1080,9 @@ export default function CalculadoraCompatibilidadeSignos() {
               <strong>um guia, não uma regra absoluta</strong>. Relacionamentos bem-sucedidos dependem muito 
               mais de comunicação, respeito e crescimento mútuo do que apenas dos signos.
             </p>
-            <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              💕 Análise completa 3 áreas • 📊 Porcentagem de afinidade • 💡 Dicas personalizadas • 
-              🌟 Análise dos elementos • 📱 100% responsivo • ✨ Baseado em astrologia tradicional
+            <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75" aria-label="Características da calculadora">
+              <span aria-hidden="true">💕</span> Análise completa 3 áreas • <span aria-hidden="true">📊</span> Porcentagem de afinidade • <span aria-hidden="true">💡</span> Dicas personalizadas • 
+              <span aria-hidden="true">🌟</span> Análise dos elementos • <span aria-hidden="true">📱</span> 100% responsivo • <span aria-hidden="true">✨</span> Baseado em astrologia tradicional
             </p>
           </div>
         </CardContent>
