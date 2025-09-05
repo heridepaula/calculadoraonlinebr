@@ -330,6 +330,14 @@ export const CALCULATORS = [
     category: "astrologia",
     path: "/calculadoras/astrologia/ascendente",
   },
+  {
+    id: "signo",
+    name: "Descubra Seu Signo",
+    description:
+      "Descubra seu signo zodiacal baseado na data de nascimento. Conheça as características do seu signo solar na astrologia",
+    category: "astrologia",
+    path: "/calculadoras/astrologia/signo",
+  },
 ];
 
 export const BREAKPOINTS = {

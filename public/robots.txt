@@ -17,6 +17,7 @@ Allow: /calculadoras/financas/
 Allow: /calculadoras/matematica/
 Allow: /calculadoras/trabalhista/
 Allow: /calculadoras/ferramentas/
+Allow: /calculadoras/astrologia/
 
 # Health Calculators (new routes)
 Allow: /calculadoras/saude/imc
@@ -62,6 +63,10 @@ Allow: /calculadoras/trabalhista/aposentadoria
 Allow: /calculadoras/trabalhista/auxilio-doenca
 Allow: /calculadoras/trabalhista/salario-liquido
 Allow: /calculadoras/trabalhista/ferias-decimo-terceiro
+
+# Astrology Calculators (new routes)
+Allow: /calculadoras/astrologia/ascendente
+Allow: /calculadoras/astrologia/signo
 
 # DISALLOW OLD ROUTES (redirected with 301)
 # Financial - old routes

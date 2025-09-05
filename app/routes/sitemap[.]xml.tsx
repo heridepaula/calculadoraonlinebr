@@ -14,6 +14,7 @@ export const loader: LoaderFunction = async () => {
     { loc: `${baseUrl}/calculadoras/matematica`, priority: "0.8", changefreq: "weekly" },
     { loc: `${baseUrl}/calculadoras/trabalhista`, priority: "0.8", changefreq: "weekly" },
     { loc: `${baseUrl}/calculadoras/ferramentas`, priority: "0.8", changefreq: "weekly" },
+    { loc: `${baseUrl}/calculadoras/astrologia`, priority: "0.8", changefreq: "weekly" },
 
     // Health Calculators
     { loc: `${baseUrl}/calculadoras/saude/imc`, priority: "0.8", changefreq: "monthly" },
@@ -137,6 +138,18 @@ export const loader: LoaderFunction = async () => {
     {
       loc: `${baseUrl}/calculadoras/trabalhista/ferias-decimo-terceiro`,
       priority: "0.9",
+      changefreq: "monthly",
+    },
+
+    // Astrology Calculators
+    {
+      loc: `${baseUrl}/calculadoras/astrologia/ascendente`,
+      priority: "0.8",
+      changefreq: "monthly",
+    },
+    {
+      loc: `${baseUrl}/calculadoras/astrologia/signo`,
+      priority: "0.8",
       changefreq: "monthly",
     },
 
