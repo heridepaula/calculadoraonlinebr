@@ -17,17 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Operações entre Datas – Somar e Subtrair Dias, Meses, Anos",
+      title: "Operações entre Datas Online Grátis | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Calcule operações entre datas: some ou subtraia anos, meses e dias de qualquer data. Descubra datas futuras ou passadas com nossa calculadora grátis.",
-    },
-    {
-      name: "keywords",
-      content:
-        "operações datas, somar dias meses anos, subtrair datas, calculadora data futura, adicionar tempo data",
+        "➕➖ Some ou subtraia anos, meses e dias de qualquer data! Calcule datas futuras e passadas com precisão. Ferramenta gratuita e fácil de usar.",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "author", content: "CalculadoraOnlineBR" },
@@ -36,22 +31,17 @@ export const meta: MetaFunction = () => {
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/operacao-datas",
     },
     {
       property: "og:title",
-      content: "Operações entre Datas – Somar e Subtrair Dias, Meses, Anos",
+      content: "Operações entre Datas Online Grátis | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Calcule operações entre datas: some ou subtraia anos, meses e dias de qualquer data. Descubra datas futuras ou passadas com nossa calculadora grátis.",
+        "➕➖ Some ou subtraia anos, meses e dias de qualquer data! Calcule datas futuras e passadas com precisão. Ferramenta gratuita e fácil de usar.",
     },
     {
       property: "og:image",
@@ -59,7 +49,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content: "Calculadora de Operações entre Datas - Some ou subtraia anos, meses e dias",
+      content: "Interface da calculadora de operações entre datas mostrando botões para somar e subtrair tempo com campos para anos, meses e dias",
     },
     {
       property: "og:image:width",
@@ -79,12 +69,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Operações Datas 2025 – Somar e Subtrair Tempo",
+      content: "Operações entre Datas Online - Somar e Subtrair Tempo",
     },
     {
       name: "twitter:description",
       content:
-        "Some ou subtraia anos, meses e dias de qualquer data. Descubra datas futuras e passadas com nossa calculadora online grátis.",
+        "➕➖ Some ou subtraia anos, meses e dias! Calcule datas futuras e passadas com precisão. 100% gratuito e sem cadastro.",
     },
     {
       name: "twitter:image",
@@ -92,36 +82,38 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Operações entre Datas - Somar e subtrair tempo",
+      content: "Calculadora de operações entre datas com interface intuitiva para somar e subtrair tempo",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Operações entre Datas - Somar e Subtrair Tempo 2025",
+        name: "Calculadora de Operações entre Datas Online",
+        alternateName: "Calculadora Somar e Subtrair Datas",
         description:
-          "Ferramenta gratuita para somar e subtrair anos, meses e dias de qualquer data. Calcule datas futuras e passadas com precisão.",
+          "Ferramenta online gratuita para operações matemáticas com datas. Some ou subtraia anos, meses e dias de qualquer data para calcular datas futuras e passadas com precisão.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/operacao-datas",
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-09-02",
+        dateCreated: "2025-09-06",
+        dateModified: "2025-09-06",
+        author: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br"
+        },
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "BRL",
+          availability: "https://schema.org/InStock",
+          validFrom: "2025-09-06"
         },
         publisher: {
           "@type": "Organization",
@@ -194,14 +186,16 @@ export const meta: MetaFunction = () => {
           category: "DateCalculation",
         },
         featureList: [
-          "Soma de anos, meses e dias a uma data",
-          "Subtração de anos, meses e dias de uma data",
-          "Cálculo de datas futuras e passadas",
-          "Operações com horários específicos",
-          "Interface móvel responsiva",
-          "Resultados instantâneos",
-          "100% gratuito e sem cadastro",
-          "Múltiplos formatos de exibição",
+          "Soma de anos, meses e dias a qualquer data",
+          "Subtração de anos, meses e dias de qualquer data",
+          "Cálculo preciso de datas futuras e passadas",
+          "Operações com horários específicos opcionais",
+          "Interface responsiva para todos os dispositivos",
+          "Resultados instantâneos e precisos",
+          "100% gratuito sem necessidade de cadastro",
+          "Botões intuitivos para seleção de operação",
+          "Validação automática de dados inseridos",
+          "Formatação brasileira de datas"
         ],
       }),
     },
@@ -434,7 +428,7 @@ export default function DateOperationCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Operações entre Datas – Somar e Subtrair Tempo
+          Operações entre Datas Online Grátis
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           <strong className="text-growth-green">Some ou subtraia anos, meses e dias</strong> de
