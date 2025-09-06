@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Equação 2º Grau - Bhaskara e Delta 2025 | CalculadoraOnlineBR",
+      title: "Equação 2º Grau 2025 – Fórmula de Bhaskara",
     },
     {
       name: "description",
       content:
-        "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas. Ferramenta gratuita para estudantes.",
+        "Resolva equações 2º grau com Bhaskara. Calcule delta, raízes reais e complexas grátis. Ferramenta ideal para estudantes.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {

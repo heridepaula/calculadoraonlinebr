@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora do Teorema de Pitágoras ⚡ Grátis - Hipotenusa e Catetos | CalculadoraOnlineBR",
+        "Teorema Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       name: "description",
       content:
-        "Calcule hipotenusa e catetos de triângulos retângulos com o Teorema de Pitágoras. Fórmulas matemáticas confiáveis e resultados instantâneos para estudos.",
+        "Calcule hipotenusa e catetos de triângulos retângulos com Teorema Pitágoras. Fórmulas confiáveis e resultados instantâneos para estudos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {

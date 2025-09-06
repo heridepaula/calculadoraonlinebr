@@ -14,11 +14,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Matemáticas - ${APP_NAME}` },
+    { title: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
     {
       name: "description",
       content:
-        "Calculadoras matemáticas gratuitas para o dia a dia. Porcentagem, regra de três, conversões e muito mais. Resolva cálculos rapidamente.",
+        "Calculadoras matemáticas grátis: porcentagem, regra de três, frações, área e muito mais. Resolva cálculos rápido e fácil com explicações.",
     },
     {
       name: "keywords",
@@ -26,14 +26,14 @@ export const meta: MetaFunction = () => {
         "calculadora matemática, porcentagem, regra de três, cálculos, matemática básica, operações matemáticas",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadoras Matemáticas - ${APP_NAME}` },
+    { property: "og:title", content: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
     {
       property: "og:description",
       content: "Resolva cálculos matemáticos do dia a dia com nossas ferramentas gratuitas.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadoras Matemáticas - ${APP_NAME}` },
+    { name: "twitter:title", content: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
     {
       name: "twitter:description",
       content: "Ferramentas matemáticas gratuitas para resolver cálculos rapidamente.",

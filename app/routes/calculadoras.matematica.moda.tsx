@@ -17,12 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Moda 2025 – Cálculo Estatístico de Moda | CalculadoraOnlineBR",
+      title: "Moda Estatística 2025 – Calculadora Grátis",
     },
     {
       name: "description",
       content:
-        "Calculadora gratuita de moda estatística. Calcule a moda de números, identifique amodal, bimodal, multimodal com explicações passo a passo e exemplos práticos.",
+        "Calculadora moda estatística grátis. Calcule moda de números, identifique amodal, bimodal e multimodal com explicações passo a passo.",
     },
     {
       name: "keywords",

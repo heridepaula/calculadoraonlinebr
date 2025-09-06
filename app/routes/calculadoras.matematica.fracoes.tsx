@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Frações Online Gratuita - Soma, Subtração, Multiplicação 2025",
+      title: "Frações 2025 – Calculadora Online Grátis",
     },
     {
       name: "description",
       content:
-        "🔢 Calculadora de frações gratuita e confiável. Realize soma, subtração, multiplicação, divisão e simplificação automática. Resultados instantâneos!",
+        "Calculadora frações grátis: soma, subtração, multiplicação e divisão. Simplificação automática com resultados instantâneos.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {

@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora MMC e MDC 2025 - Mínimo Múltiplo Comum | CalculadoraOnlineBR",
+      title: "MMC e MDC 2025 – Calculadora Mínimo Múltiplo",
     },
     {
       name: "description",
       content:
-        "Calcule MMC (Mínimo Múltiplo Comum) e MDC (Máximo Divisor Comum) de forma rápida e confiável. Fatoração completa com explicação passo a passo. Gratuito!",
+        "Calcule MMC e MDC rápido e confiável. Fatoração completa com explicação passo a passo. Mínimo Múltiplo Comum e Máximo Divisor Comum grátis.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {

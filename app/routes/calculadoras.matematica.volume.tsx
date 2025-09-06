@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora de Área e Volume ⚡ Grátis - Cubo, Esfera, Cilindro | CalculadoraOnlineBR",
+        "Volume 2025 – Calculadora Cubo, Esfera, Cilindro",
     },
     {
       name: "description",
       content:
-        "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas confiáveis 2D e 3D para estudos matemáticos.",
+        "Calcule volume de formas geométricas: cubo, esfera, cilindro, cone. Fórmulas confiáveis 3D para estudos matemáticos e trabalhos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {

@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Regra de 3 Simples 2025 | CalculadoraOnlineBR",
+      title: "Regra de Três 2025 – Calculadora Simples",
     },
     {
       name: "description",
       content:
-        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados confiáveis!",
+        "Calculadora regra de três simples e composta grátis. Resolva proporções com explicação passo a passo. Resultados confiáveis.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {

@@ -17,12 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Média Estatística 2025 – 3 Tipos | CalculadoraOnlineBR",
+      title: "Média Estatística 2025 – Aritmética e Geométrica",
     },
     {
       name: "description",
       content:
-        "Calcule média aritmética, geométrica e harmônica com análise completa. Identifique medidas de tendência central, desvio padrão e variância com explicações passo a passo.",
+        "Calcule média aritmética, geométrica e harmônica com análise completa. Identifique tendência central e desvio padrão com explicações passo a passo.",
     },
     {
       name: "keywords",

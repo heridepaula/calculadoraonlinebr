@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Porcentagem 2025 | CalculadoraOnlineBR",
+      title: "Porcentagem 2025 – Calculadora Online Grátis",
     },
     {
       name: "description",
       content:
-        "Calcule porcentagem online: aumentos, descontos, diferenças percentuais e regra de três. Gratuita, confiável e com explicação passo a passo. Acesso instantâneo!",
+        "Calcule porcentagem online: aumentos, descontos e diferenças percentuais. Grátis, confiável e com explicação passo a passo."
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "generator", content: "Remix" },

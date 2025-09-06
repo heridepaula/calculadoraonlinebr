@@ -18,12 +18,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora de Área e Perímetro ⚡ Grátis - Retângulo, Círculo, Triângulo | CalculadoraOnlineBR",
+        "Área e Perímetro 2025 – Calculadora Geométrica",
     },
     {
       name: "description",
       content:
-        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado, trapézio. Fórmulas confiáveis e resultados instantâneos para estudos.",
+        "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado. Fórmulas confiáveis para estudos e trabalhos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Área e Perímetro 2025 – Calculadora Geométrica",
     },
     {
       property: "og:description",
@@ -75,7 +75,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Área e Perímetro 2025 – Formas Geométricas",
+      content: "Área e Perímetro 2025 – Calculadora Geométrica",
     },
     {
       name: "twitter:description",

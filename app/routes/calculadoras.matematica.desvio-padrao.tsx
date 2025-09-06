@@ -17,12 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Desvio Padrão 2025 – Variância Estatística",
+      title: "Desvio Padrão 2025 – Calculadora Estatística",
     },
     {
       name: "description",
       content:
-        "Calculadora gratuita de desvio padrão e variância. Calcule medidas de dispersão estatística com explicações passo a passo, fórmulas detalhadas e análise completa dos dados.",
+        "Calcule desvio padrão e variância grátis. Medidas de dispersão estatística com explicações passo a passo e fórmulas detalhadas.",
     },
     {
       name: "keywords",
