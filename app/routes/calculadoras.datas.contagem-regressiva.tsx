@@ -17,17 +17,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Contagem Regressiva 2025 – Contador Eventos Online",
+      title: "Contador Regressivo Online Grátis | CalculadoraOnlineBR",
     },
     {
       name: "description",
       content:
-        "Contador regressivo online com anos, meses, dias, horas, minutos e segundos. Crie sua contagem regressiva personalizada para eventos especiais.",
-    },
-    {
-      name: "keywords",
-      content:
-        "contagem regressiva, contador online, timer eventos, countdown timer, contador de tempo",
+        "⏰ Contador regressivo online GRÁTIS para eventos! Anos, meses, dias, horas, minutos e segundos em tempo real. Crie sua contagem regressiva personalizada agora mesmo.",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "author", content: "CalculadoraOnlineBR" },
@@ -36,22 +31,17 @@ export const meta: MetaFunction = () => {
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
     },
     {
       property: "og:title",
-      content: "Contagem Regressiva 2025 – Contador Eventos Online",
+      content: "Contador Regressivo Online Grátis | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
       content:
-        "Contador regressivo online com anos, meses, dias, horas, minutos e segundos. Crie sua contagem regressiva personalizada para eventos especiais.",
+        "⏰ Contador regressivo online GRÁTIS para eventos! Anos, meses, dias, horas, minutos e segundos em tempo real. Crie sua contagem regressiva personalizada agora mesmo.",
     },
     {
       property: "og:image",
@@ -59,8 +49,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content:
-        "Calculadora de Contagem Regressiva - Contador de tempo para eventos",
+      content: "Interface da calculadora de contagem regressiva mostrando contador de tempo para eventos especiais",
     },
     {
       property: "og:image:width",
@@ -81,12 +70,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Contagem Regressiva 2025 – Contador de Eventos",
+      content: "Contador Regressivo Online Grátis - Eventos e Celebrações",
     },
     {
       name: "twitter:description",
       content:
-        "Crie contadores regressivos personalizados para eventos especiais com anos, meses, dias, horas, minutos e segundos em tempo real.",
+        "⏰ Crie contadores regressivos para eventos especiais com anos, meses, dias, horas, minutos e segundos em tempo real. 100% grátis e sem cadastro!",
     },
     {
       name: "twitter:image",
@@ -94,36 +83,31 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Contagem Regressiva - Contador de eventos",
+      content: "Calculadora de contagem regressiva online para eventos especiais",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Contagem Regressiva - Contador de Eventos 2025",
+        name: "Contador Regressivo Online - Calculadora de Contagem Regressiva",
+        alternateName: "Countdown Timer Online",
         description:
-          "Ferramenta gratuita para criar contadores regressivos personalizados com anos, meses, dias, horas, minutos e segundos. Ideal para eventos especiais.",
+          "Ferramenta online gratuita para criar contadores regressivos personalizados. Conte anos, meses, dias, horas, minutos e segundos até eventos especiais em tempo real.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
+        dateCreated: "2025-01-01",
         dateModified: "2025-09-06",
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "BRL",
+        author: {
+          "@type": "Organization",
+          name: "CalculadoraOnlineBR",
+          url: "https://www.calculadoraonlinebr.com.br"
         },
         publisher: {
           "@type": "Organization",
@@ -132,78 +116,72 @@ export const meta: MetaFunction = () => {
           logo: {
             "@type": "ImageObject",
             url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
-            width: 180,
-            height: 180,
+            width: 192,
+            height: 192,
           },
           sameAs: [
             "https://twitter.com/CalculadoraBR",
             "https://www.facebook.com/CalculadoraOnlineBR",
           ],
         },
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id":
-            "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
-          name: "Calculadora de Contagem Regressiva 2025 - Contador de Eventos",
-          description:
-            "Crie contadores regressivos personalizados para eventos especiais com anos, meses, dias, horas, minutos e segundos em tempo real.",
-          inLanguage: "pt-BR",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "CalculadoraOnlineBR",
-            url: "https://www.calculadoraonlinebr.com.br",
-            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
-            potentialAction: {
-              "@type": "SearchAction",
-              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-              "query-input": "required name=search_term_string",
-            },
-          },
-          breadcrumb: {
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Início",
-                item: "https://www.calculadoraonlinebr.com.br",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Calculadoras",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: "Datas",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
-              },
-              {
-                "@type": "ListItem",
-                position: 4,
-                name: "Contagem Regressiva",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
-              },
-            ],
-          },
-        },
-        about: {
-          "@type": "Thing",
-          name: "Contagem Regressiva de Eventos",
-          description: "Ferramenta para criar contadores regressivos para eventos especiais",
-          category: "CountdownTimer",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "BRL",
+          availability: "https://schema.org/InStock",
+          validFrom: "2025-01-01"
         },
         featureList: [
-          "Contagem regressiva em tempo real",
+          "Contagem regressiva em tempo real com atualização automática",
           "Exibição de anos, meses, dias, horas, minutos e segundos",
-          "Eventos personalizados",
-          "Efeito de celebração ao término",
-          "Interface responsiva",
-          "Atualização automática",
-          "Sem limitação de tempo",
-          "Compatível com todos os dispositivos",
+          "Eventos personalizados com nomes customizáveis",
+          "Efeito de celebração visual ao término da contagem",
+          "Interface responsiva para todos os dispositivos",
+          "Sem limitação de tempo ou número de eventos",
+          "100% gratuito e sem necessidade de cadastro",
+          "Funciona diretamente no navegador"
+        ],
+        about: {
+          "@type": "Thing",
+          name: "Contagem Regressiva para Eventos",
+          description: "Sistema de cronometragem regressiva para eventos especiais, aniversários, casamentos, formaturas e celebrações",
+          sameAs: "https://pt.wikipedia.org/wiki/Contagem_regressiva"
+        },
+        audience: {
+          "@type": "Audience",
+          audienceType: "Pessoas planejando eventos especiais"
+        }
+      }),
+    },
+    {
+      "script:ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://www.calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Calculadoras de Datas",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Contador Regressivo Online",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
+          },
         ],
       }),
     },
@@ -217,33 +195,57 @@ export const meta: MetaFunction = () => {
             name: "Como criar uma contagem regressiva personalizada?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Digite o nome do seu evento e selecione a data e horário desejado. Clique em 'Iniciar Contagem Regressiva' para começar o contador em tempo real com anos, meses, dias, horas, minutos e segundos.",
+              text: "Para criar sua contagem regressiva: 1) Digite o nome do evento no campo correspondente, 2) Selecione a data desejada, 3) Defina o horário específico, 4) Clique em 'Iniciar Contagem Regressiva'. O contador mostrará anos, meses, dias, horas, minutos e segundos restantes em tempo real.",
             },
           },
           {
             "@type": "Question",
-            name: "O contador funciona em tempo real?",
+            name: "O contador regressivo funciona em tempo real?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sim! O contador atualiza automaticamente a cada segundo, mostrando o tempo restante exato até o evento. A contagem é precisa e considera anos bissextos, fusos horários e horário de verão.",
+              text: "Sim! O contador atualiza automaticamente a cada segundo, mostrando o tempo restante até o evento. A contagem é executada diretamente no seu navegador.",
             },
           },
           {
             "@type": "Question",
-            name: "O que acontece quando a contagem termina?",
+            name: "O que acontece quando a contagem regressiva termina?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Quando o evento inicia (contagem chega a zero), uma celebração especial aparece na tela com efeitos visuais festivos indicando que seu evento começou!",
+              text: "Quando o evento inicia (contagem chega a zero), uma celebração especial aparece na tela com efeitos visuais festivos e animações indicando que seu evento começou! É uma forma divertida de marcar o momento especial.",
             },
           },
           {
             "@type": "Question",
-            name: "Posso usar para qualquer tipo de evento?",
+            name: "Para que tipos de eventos posso usar?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Sim! Use para casamentos, aniversários, formatura, aposentadoria, lançamentos, feriados, Copa do Mundo, olimpíadas, ou qualquer evento que você queira acompanhar.",
+              text: "Use para qualquer evento especial: casamentos, aniversários, formatura, aposentadoria, lançamentos de produtos, feriados, Copa do Mundo, olimpíadas, Ano Novo, Black Friday, ou qualquer data importante que você queira acompanhar.",
             },
           },
+          {
+            "@type": "Question",
+            name: "A contagem regressiva fica salva se eu fechar o navegador?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Não, a contagem é executada em tempo real no seu navegador. Se você fechar a página, precisará configurar novamente. Para manter a contagem ativa, mantenha a aba do navegador aberta.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "É possível ter múltiplas contagens regressivas?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim! Cada aba do navegador pode ter uma contagem diferente. Abra várias abas desta calculadora para acompanhar múltiplos eventos simultaneamente, cada uma com seu próprio contador independente.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "O contador regressivo é grátis?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim, totalmente gratuito! Não é necessário cadastro, pagamento ou download. Use quantas vezes quiser para todos os seus eventos especiais, sem limitações.",
+            },
+          }
         ],
       }),
     },
@@ -501,19 +503,43 @@ export default function CountdownCalculator() {
         </Breadcrumb>
       </nav>
 
-      <header className="space-y-4 text-center">
-        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Contagem Regressiva 2025 – Contador de Eventos
+      <header className="space-y-6 text-center">
+        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl lg:text-5xl">
+          Contador Regressivo Online Grátis
         </h1>
-        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+        <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark md:text-xl">
           Crie sua <strong className="text-growth-green">contagem regressiva personalizada</strong>{" "}
           para eventos especiais. Contador em tempo real com{" "}
           <strong className="text-primary-blue-dark">anos, meses, dias, horas, minutos e segundos</strong> até o grande momento.
         </p>
-        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
-          <p className="text-sm font-medium text-text-primary">
-            ⏰ <strong>Tempo Real</strong> • 🎉 <strong>Efeito de Celebração</strong> • 📅{" "}
-            <strong>Eventos Personalizados</strong>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="inline-block rounded-lg bg-growth-green-soft p-4 transition-transform hover:scale-105">
+            <p className="text-sm font-medium text-text-primary">
+              ⏰ <strong>Tempo Real</strong><br />
+              <span className="text-xs text-text-secondary">Atualização automática</span>
+            </p>
+          </div>
+          <div className="inline-block rounded-lg bg-primary-blue-light p-4 transition-transform hover:scale-105">
+            <p className="text-sm font-medium text-text-primary">
+              🎉 <strong>Celebração Visual</strong><br />
+              <span className="text-xs text-text-secondary">Efeitos especiais</span>
+            </p>
+          </div>
+          <div className="inline-block rounded-lg bg-system-info/10 p-4 transition-transform hover:scale-105">
+            <p className="text-sm font-medium text-text-primary">
+              📅 <strong>100% Gratuito</strong><br />
+              <span className="text-xs text-text-secondary">Sem cadastro</span>
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-gray-800/50 rounded-xl p-6 max-w-5xl mx-auto">
+          <h2 className="text-xl font-semibold text-primary-blue mb-3">Como Funciona a Contagem Regressiva?</h2>
+          <p className="text-sm text-text-secondary-dark leading-relaxed">
+            Uma <strong>contagem regressiva</strong> é uma ferramenta de cronometragem que calcula o tempo restante até uma data específica. 
+            É ideal para <strong>eventos especiais</strong> como casamentos, aniversários, formaturas, 
+            lançamentos e celebrações, oferecendo uma experiência visual envolvente com contadores grandes e efeitos de celebração.
           </p>
         </div>
       </header>
@@ -722,52 +748,115 @@ export default function CountdownCalculator() {
 
         <section aria-labelledby="faq-section">
           <FAQ
-            title="Perguntas Frequentes - Calculadora de Contagem Regressiva"
+            title="Perguntas Frequentes - Contador Regressivo Online"
             items={[
               {
                 question: "Como criar uma contagem regressiva personalizada?",
                 answer:
-                  "Digite o nome do seu evento e selecione a data e horário desejado. Clique em 'Iniciar Contagem Regressiva' para começar o contador em tempo real com anos, meses, dias, horas, minutos e segundos.",
+                  "Para criar sua contagem regressiva: 1) Digite o nome do evento no campo correspondente, 2) Selecione a data desejada, 3) Defina o horário específico, 4) Clique em 'Iniciar Contagem Regressiva'. O contador mostrará anos, meses, dias, horas, minutos e segundos restantes em tempo real.",
                 borderColor: "primary-blue",
               },
               {
-                question: "O contador funciona em tempo real?",
+                question: "O contador regressivo funciona em tempo real?",
                 answer:
-                  "Sim! O contador atualiza automaticamente a cada segundo, mostrando o tempo restante exato até o evento. A contagem é precisa e considera anos bissextos, fusos horários e horário de verão.",
+                  "Sim! O contador atualiza automaticamente a cada segundo, mostrando o tempo restante até o evento. A contagem é executada diretamente no seu navegador.",
                 borderColor: "growth-green",
               },
               {
-                question: "O que acontece quando a contagem termina?",
+                question: "O que acontece quando a contagem regressiva termina?",
                 answer:
-                  "Quando o evento inicia (contagem chega a zero), uma celebração especial aparece na tela com efeitos visuais festivos indicando que seu evento começou!",
+                  "Quando o evento inicia (contagem chega a zero), uma celebração especial aparece na tela com efeitos visuais festivos e animações indicando que seu evento começou! É uma forma divertida de marcar o momento especial.",
                 borderColor: "system-info",
               },
               {
-                question: "Posso usar para qualquer tipo de evento?",
+                question: "Para que tipos de eventos posso usar?",
                 answer:
-                  "Sim! Use para casamentos, aniversários, formatura, aposentadoria, lançamentos, feriados, Copa do Mundo, olimpíadas, ou qualquer evento que você queira acompanhar.",
+                  "Use para qualquer evento especial: casamentos, aniversários, formatura, aposentadoria, lançamentos de produtos, feriados, Copa do Mundo, olimpíadas, Ano Novo, Black Friday, ou qualquer data importante que você queira acompanhar.",
                 borderColor: "system-warning",
               },
               {
-                question: "A contagem regressiva fica salvada se eu fechar o navegador?",
+                question: "A contagem regressiva fica salva se eu fechar o navegador?",
                 answer:
-                  "Não, a contagem é executada em tempo real no seu navegador. Se você fechar a página, precisará configurar novamente. Para contar permanente, mantenha a aba aberta.",
+                  "Não, a contagem é executada em tempo real no seu navegador. Se você fechar a página, precisará configurar novamente. Para manter a contagem ativa, mantenha a aba do navegador aberta.",
                 borderColor: "growth-green",
               },
               {
-                question: "Posso ter várias contagens regressivas ao mesmo tempo?",
+                question: "É possível ter múltiplas contagens regressivas?",
                 answer:
-                  "Cada aba do navegador pode ter uma contagem diferente. Abra várias abas desta calculadora para acompanhar múltiplos eventos simultaneamente.",
+                  "Sim! Cada aba do navegador pode ter uma contagem diferente. Abra várias abas desta calculadora para acompanhar múltiplos eventos simultaneamente, cada uma com seu próprio contador independente.",
                 borderColor: "system-error-dark",
+              },
+              {
+                question: "O contador regressivo é grátis?",
+                answer:
+                  "Sim, totalmente gratuito! Não é necessário cadastro, pagamento ou download. Use quantas vezes quiser para todos os seus eventos especiais, sem limitações.",
+                borderColor: "primary-blue",
               },
             ]}
             tipSection={{
-              title: "Dica Importante sobre Contagem Regressiva",
+              title: "💡 Dicas para Usar o Contador Regressivo",
               content:
-                "<strong>Para melhor experiência:</strong> mantenha a aba aberta para o contador continuar funcionando. Use nomes descritivos para seus eventos e configure horários específicos para maior precisão.",
+                "<strong>Para melhor experiência:</strong> mantenha a aba aberta para o contador continuar funcionando. Use nomes descritivos para seus eventos e configure horários específicos para maior precisão. Para eventos muito importantes, considere criar um lembrete adicional no seu calendário.",
             }}
-            footerText="<strong>Lembre-se:</strong> A contagem é executada no seu navegador em tempo real. Para eventos importantes, considere adicionar aos favoritos ou criar um lembrete adicional no seu calendário."
+            footerText="<strong>🎯 Lembre-se:</strong> A contagem é executada no seu navegador em tempo real. Perfeito para eventos especiais, lançamentos e celebrações!"
           />
+        </section>
+
+        {/* Seção Educativa Adicional */}
+        <section className="bg-gray-800/30 py-8 rounded-xl">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-2xl font-bold text-primary-blue text-center mb-6">
+              🎯 Casos de Uso Populares para Contagem Regressiva
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-growth-green-soft p-4 rounded-lg">
+                <h3 className="font-semibold text-growth-green mb-2">👰 Eventos Pessoais</h3>
+                <ul className="text-sm text-text-secondary space-y-1">
+                  <li>• Casamentos e festas</li>
+                  <li>• Aniversários especiais</li>
+                  <li>• Formaturas e conquistas</li>
+                  <li>• Aposentadoria</li>
+                </ul>
+              </div>
+              
+              <div className="bg-primary-blue-light p-4 rounded-lg">
+                <h3 className="font-semibold text-primary-blue-dark mb-2">🚀 Lançamentos</h3>
+                <ul className="text-sm text-text-secondary space-y-1">
+                  <li>• Produtos e serviços</li>
+                  <li>• Campanhas de marketing</li>
+                  <li>• Black Friday</li>
+                  <li>• Ofertas especiais</li>
+                </ul>
+              </div>
+              
+              <div className="bg-system-warning/20 p-4 rounded-lg">
+                <h3 className="font-semibold text-system-warning mb-2">🎊 Celebrações</h3>
+                <ul className="text-sm text-text-secondary space-y-1">
+                  <li>• Ano Novo</li>
+                  <li>• Copa do Mundo</li>
+                  <li>• Olimpíadas</li>
+                  <li>• Feriados especiais</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-8 bg-system-info/10 p-6 rounded-lg">
+              <h3 className="font-semibold text-system-info mb-3">⚡ Por que usar nosso Contador Regressivo?</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-text-secondary">
+                <ul className="space-y-2">
+                  <li>✅ <strong>Tempo real:</strong> Atualização automática a cada segundo</li>
+                  <li>✅ <strong>Visual atrativo:</strong> Contadores grandes e coloridos</li>
+                  <li>✅ <strong>Fácil de usar:</strong> Interface simples e intuitiva</li>
+                </ul>
+                <ul className="space-y-2">
+                  <li>✅ <strong>100% gratuito:</strong> Sem cadastros ou limitações</li>
+                  <li>✅ <strong>Celebração especial:</strong> Efeitos visuais ao final</li>
+                  <li>✅ <strong>Responsivo:</strong> Funciona em todos os dispositivos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
