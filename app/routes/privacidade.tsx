@@ -6,20 +6,20 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Política privacidade Calculadora Online BR: como protegemos seus dados e garantimos sua privacidade. LGPD e segurança garantida."
+        "Política privacidade CalculadoraOnlineBR: como protegemos seus dados e garantimos sua privacidade. LGPD e segurança garantida.",
     },
     {
       name: "keywords",
-      content: "política de privacidade, proteção de dados, calculadora online br, lgpd",
+      content: "política de privacidade, proteção de dados, CalculadoraOnlineBR, lgpd",
     },
-    { property: "og:title", content: "Política de Privacidade - Calculadora Online BR" },
+    { property: "og:title", content: "Política de Privacidade - CalculadoraOnlineBR" },
     {
       property: "og:description",
       content: "Conheça nossa política de privacidade e como protegemos seus dados.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: "Política de Privacidade - Calculadora Online BR" },
+    { name: "twitter:title", content: "Política de Privacidade - CalculadoraOnlineBR" },
     { name: "twitter:description", content: "Nossa política de privacidade e proteção de dados." },
   ];
 };
@@ -40,9 +40,9 @@ export default function Privacidade() {
         <section className="rounded-lg bg-neutral-surface p-6">
           <h2 className="mb-4 text-2xl font-bold text-text-primary-dark">1. Introdução</h2>
           <p className="mb-4 text-text-secondary-dark">
-            A Calculadora Online BR está comprometida com a proteção da sua privacidade. Esta
-            política descreve como coletamos, usamos e protegemos suas informações quando você
-            utiliza nossos serviços.
+            A CalculadoraOnlineBR está comprometida com a proteção da sua privacidade. Esta política
+            descreve como coletamos, usamos e protegemos suas informações quando você utiliza nossos
+            serviços.
           </p>
           <p className="text-text-secondary-dark">
             Nossa plataforma foi desenvolvida com foco na privacidade, minimizando a coleta de dados
@@ -220,25 +220,31 @@ export default function Privacidade() {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500">
               <span className="text-xl text-white">⚠️</span>
             </div>
-            <h2 className="text-xl font-bold text-amber-900">10. Isenção de Responsabilidade sobre Dados</h2>
+            <h2 className="text-xl font-bold text-amber-900">
+              10. Isenção de Responsabilidade sobre Dados
+            </h2>
           </div>
-          
+
           <div className="space-y-3 text-amber-800">
             <p className="font-semibold">
               Importante: As calculadoras não armazenam ou salvam os dados que você insere.
             </p>
-            <ul className="ml-4 space-y-2 list-disc">
+            <ul className="ml-4 list-disc space-y-2">
               <li>
-                <strong>Processamento Local:</strong> Todos os cálculos são realizados no seu navegador, não em nossos servidores.
+                <strong>Processamento Local:</strong> Todos os cálculos são realizados no seu
+                navegador, não em nossos servidores.
               </li>
               <li>
-                <strong>Sem Backup:</strong> Seus dados não são salvos, enviados ou armazenados de forma alguma.
+                <strong>Sem Backup:</strong> Seus dados não são salvos, enviados ou armazenados de
+                forma alguma.
               </li>
               <li>
-                <strong>Privacidade Total:</strong> Informações sensíveis (valores financeiros, dados pessoais de saúde) permanecem exclusivamente no seu dispositivo.
+                <strong>Privacidade Total:</strong> Informações sensíveis (valores financeiros,
+                dados pessoais de saúde) permanecem exclusivamente no seu dispositivo.
               </li>
               <li>
-                <strong>Responsabilidade do Usuário:</strong> Recomendamos que você faça suas próprias anotações se necessitar dos resultados posteriormente.
+                <strong>Responsabilidade do Usuário:</strong> Recomendamos que você faça suas
+                próprias anotações se necessitar dos resultados posteriormente.
               </li>
             </ul>
           </div>
@@ -249,17 +255,17 @@ export default function Privacidade() {
             Nosso Compromisso com sua Privacidade
           </h2>
           <p className="text-text-secondary-dark">
-            A Calculadora Online BR foi criada com o princípio de "privacidade por design".
+            A CalculadoraOnlineBR foi criada com o princípio de "privacidade por design".
             Acreditamos que você deve poder usar ferramentas úteis sem sacrificar sua privacidade.
           </p>
-          
+
           <div className="mt-4 text-center">
-            <p className="text-sm font-medium text-text-primary-dark mb-2">
+            <p className="mb-2 text-sm font-medium text-text-primary-dark">
               Dúvidas sobre privacidade? Entre em contato:
             </p>
-            <a 
+            <a
               href="mailto:contato@calculadoraonlinebr.com.br?subject=Dúvida sobre Privacidade"
-              className="text-primary-blue hover:text-primary-blue-dark font-medium hover:underline"
+              className="font-medium text-primary-blue hover:text-primary-blue-dark hover:underline"
             >
               contato@calculadoraonlinebr.com.br
             </a>

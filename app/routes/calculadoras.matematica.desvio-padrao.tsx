@@ -29,7 +29,7 @@ export const meta: MetaFunction = () => {
       content:
         "calculadora desvio padrão, variância populacional amostral, dispersão estatística, sigma, correção Bessel, distribuição normal, medidas variabilidade, estatística descritiva, análise dados, N-1, regra empírica 68-95-99.7",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -190,7 +190,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Thing",
           name: "Desvio Padrão e Variância",
-          description: "Medidas de dispersão estatística que indicam o grau de variabilidade dos dados em relação à média",
+          description:
+            "Medidas de dispersão estatística que indicam o grau de variabilidade dos dados em relação à média",
           category: "Statistics",
         },
         featureList: [
@@ -300,26 +301,27 @@ export default function StandardDeviationCalculator() {
     const sum = values.reduce((acc, val) => acc + val, 0);
     const mean = sum / count;
     const sortedValues = [...values].sort((a, b) => a - b);
-    
+
     // Soma dos desvios quadráticos
     const sumOfSquaredDeviations = values.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0);
-    
+
     // Variância populacional (divisão por N)
     const populationVariance = sumOfSquaredDeviations / count;
     const populationStandardDeviation = Math.sqrt(populationVariance);
-    
+
     // Variância amostral (divisão por N-1)
     const sampleVariance = count > 1 ? sumOfSquaredDeviations / (count - 1) : 0;
     const sampleStandardDeviation = Math.sqrt(sampleVariance);
-    
+
     // Valores padrão baseados no tipo selecionado
     const variance = calculationType === "populacional" ? populationVariance : sampleVariance;
-    const standardDeviation = calculationType === "populacional" ? populationStandardDeviation : sampleStandardDeviation;
-    
+    const standardDeviation =
+      calculationType === "populacional" ? populationStandardDeviation : sampleStandardDeviation;
+
     const min = Math.min(...values);
     const max = Math.max(...values);
     const range = max - min;
-    
+
     return {
       values,
       count,
@@ -341,27 +343,26 @@ export default function StandardDeviationCalculator() {
   const validateInputs = (): boolean => {
     const newErrors: ValidationErrors = {};
     const values = parseValues(inputValues);
-    
+
     if (!inputValues.trim()) {
       newErrors.values = "Digite os valores para calcular o desvio padrão";
       setErrors(newErrors);
       return false;
     }
-    
+
     if (values.length < 2) {
       newErrors.values = "Digite pelo menos 2 valores válidos";
       setErrors(newErrors);
       return false;
     }
-    
+
     setErrors({});
     return true;
   };
 
-
   const handleCalculate = () => {
     if (!validateInputs()) return;
-    
+
     startCalculation("calcular");
     try {
       const values = parseValues(inputValues);
@@ -401,11 +402,12 @@ export default function StandardDeviationCalculator() {
           Calculadora de Desvio Padrão e Variância 2025
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule o <strong className="text-math-purple">desvio padrão e variância</strong> de qualquer conjunto de dados.
-          Analise <strong className="text-primary-blue-dark">medidas de dispersão</strong> com explicações detalhadas
-          e interpretação dos resultados.
+          Calcule o <strong className="text-math-purple">desvio padrão e variância</strong> de
+          qualquer conjunto de dados. Analise{" "}
+          <strong className="text-primary-blue-dark">medidas de dispersão</strong> com explicações
+          detalhadas e interpretação dos resultados.
         </p>
-        <div className="inline-block rounded-lg bg-math-purple-soft p-4 duration-300">
+        <div className="bg-math-purple-soft inline-block rounded-lg p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
             🔎 <strong>Análise Completa</strong> • 📊 <strong>Estatística Descritiva</strong> • ⚙️{" "}
             <strong>Interpretação Detalhada</strong>
@@ -458,7 +460,8 @@ export default function StandardDeviationCalculator() {
             />
             <div className="mt-2 text-sm text-text-secondary">
               💡 <strong>Dica:</strong> Você pode usar vírgulas, espaços ou ponto e vírgula para
-              separar os valores. {calculationType === "populacional" ? "População completa (N)" : "Amostra (N-1)"}
+              separar os valores.{" "}
+              {calculationType === "populacional" ? "População completa (N)" : "Amostra (N-1)"}
             </div>
             <ErrorMessage error={errors.values} />
           </div>
@@ -481,7 +484,7 @@ export default function StandardDeviationCalculator() {
 
       {/* Resultado */}
       {result && (
-        <Card ref={resultRef as any} className="border-2 border-math-purple bg-math-purple-soft">
+        <Card ref={resultRef as any} className="bg-math-purple-soft border-2 border-math-purple">
           <CardHeader>
             <CardTitle as="h3" className="text-math-purple">
               📊 Resultado da Análise Estatística
@@ -512,9 +515,7 @@ export default function StandardDeviationCalculator() {
             <div className="mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 md:grid-cols-3">
               <div className="text-center">
                 <div className="text-sm text-text-secondary">Total de Valores</div>
-                <div className="text-xl font-bold text-text-primary">
-                  {result.count}
-                </div>
+                <div className="text-xl font-bold text-text-primary">{result.count}</div>
                 <div className="text-sm text-text-secondary">elementos</div>
               </div>
               <div className="text-center">
@@ -539,19 +540,26 @@ export default function StandardDeviationCalculator() {
 
             {/* Comparação Populacional vs Amostral */}
             <div className="mb-6 rounded-lg bg-primary-blue-light p-4">
-              <h4 className="mb-3 font-semibold text-primary-blue-dark">Comparação: Populacional vs Amostral</h4>
+              <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                Comparação: Populacional vs Amostral
+              </h4>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="rounded bg-gray-800 p-3">
-                  <h5 className="font-semibold text-math-purple">Populacional (N = {result.count})</h5>
+                  <h5 className="font-semibold text-math-purple">
+                    Populacional (N = {result.count})
+                  </h5>
                   <p className="text-sm text-text-secondary">
                     Variância: <strong>{formatNumber(result.populationVariance)}</strong>
                   </p>
                   <p className="text-sm text-text-secondary">
-                    Desvio Padrão: <strong>{formatNumber(result.populationStandardDeviation)}</strong>
+                    Desvio Padrão:{" "}
+                    <strong>{formatNumber(result.populationStandardDeviation)}</strong>
                   </p>
                 </div>
                 <div className="rounded bg-gray-800 p-3">
-                  <h5 className="font-semibold text-growth-green">Amostral (N-1 = {result.count - 1})</h5>
+                  <h5 className="font-semibold text-growth-green">
+                    Amostral (N-1 = {result.count - 1})
+                  </h5>
                   <p className="text-sm text-text-secondary">
                     Variância: <strong>{formatNumber(result.sampleVariance)}</strong>
                   </p>
@@ -566,10 +574,18 @@ export default function StandardDeviationCalculator() {
               <h4 className="mb-2 font-semibold text-math-purple">Resumo Estatístico</h4>
               <ul className="space-y-1 text-sm text-text-secondary">
                 <li>
-                  Dados ordenados: <strong>[{result.sortedValues.map(v => v % 1 === 0 ? v.toString() : formatNumber(v, 2)).join(", ")}]</strong>
+                  Dados ordenados:{" "}
+                  <strong>
+                    [
+                    {result.sortedValues
+                      .map((v) => (v % 1 === 0 ? v.toString() : formatNumber(v, 2)))
+                      .join(", ")}
+                    ]
+                  </strong>
                 </li>
                 <li>
-                  Soma dos desvios quadráticos: <strong>{formatNumber(result.sumOfSquaredDeviations)}</strong>
+                  Soma dos desvios quadráticos:{" "}
+                  <strong>{formatNumber(result.sumOfSquaredDeviations)}</strong>
                 </li>
                 <li>
                   Média aritmética: <strong>{formatNumber(result.mean)}</strong>
@@ -587,7 +603,7 @@ export default function StandardDeviationCalculator() {
       )}
 
       {/* Seção: Detalhes do Desvio Padrão - Guia Completo */}
-      <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple-soft to-primary-blue-light duration-300">
+      <Card className="from-math-purple-soft border-l-4 border-math-purple bg-gradient-to-r to-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
             📊 Desvio Padrão – Guia Completo Estatístico
@@ -605,8 +621,8 @@ export default function StandardDeviationCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Medida de dispersão que quantifica o quanto os dados se afastam da média.
-                    Usa todos os elementos da população (divisor N).
+                    Medida de dispersão que quantifica o quanto os dados se afastam da média. Usa
+                    todos os elementos da população (divisor N).
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📋 Fórmula</h4>
@@ -624,8 +640,9 @@ export default function StandardDeviationCalculator() {
                   </ul>
 
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">💡 Exemplo</h4>
-                  <div className="rounded bg-gray-800 p-3 text-xs font-mono text-growth-green">
-                    Idades de todos os 5 funcionários:<br/>
+                  <div className="rounded bg-gray-800 p-3 font-mono text-xs text-growth-green">
+                    Idades de todos os 5 funcionários:
+                    <br />
                     [25, 30, 35, 40, 45] → σ = 7,07
                   </div>
                 </div>
@@ -642,8 +659,8 @@ export default function StandardDeviationCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Estimativa da variabilidade populacional baseada em uma amostra.
-                    Usa correção de Bessel (divisor N-1) para reduzir o viés.
+                    Estimativa da variabilidade populacional baseada em uma amostra. Usa correção de
+                    Bessel (divisor N-1) para reduzir o viés.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📋 Fórmula</h4>
@@ -661,8 +678,9 @@ export default function StandardDeviationCalculator() {
                   </ul>
 
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">💡 Exemplo</h4>
-                  <div className="rounded bg-gray-800 p-3 text-xs font-mono text-growth-green">
-                    Amostra de 5 funcionários:<br/>
+                  <div className="rounded bg-gray-800 p-3 font-mono text-xs text-growth-green">
+                    Amostra de 5 funcionários:
+                    <br />
                     [25, 30, 35, 40, 45] → s = 7,91
                   </div>
                 </div>
@@ -679,8 +697,8 @@ export default function StandardDeviationCalculator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Quadrado do desvio padrão. Representa a média dos quadrados dos desvios
-                    em relação à média. Unidade em quadrados da variável original.
+                    Quadrado do desvio padrão. Representa a média dos quadrados dos desvios em
+                    relação à média. Unidade em quadrados da variável original.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Propriedades</h4>
@@ -702,7 +720,8 @@ export default function StandardDeviationCalculator() {
 
                   <h4 className="mb-3 font-semibold text-system-warning">⚠️ Interpretação</h4>
                   <p className="text-xs text-text-secondary">
-                    Desvio padrão é mais fácil de interpretar por ter a mesma unidade dos dados originais.
+                    Desvio padrão é mais fácil de interpretar por ter a mesma unidade dos dados
+                    originais.
                   </p>
                 </div>
               </div>
@@ -727,14 +746,18 @@ export default function StandardDeviationCalculator() {
                   <th className="p-3 text-center font-semibold text-math-purple">
                     Populacional (σ)
                   </th>
-                  <th className="p-3 text-center font-semibold text-primary-blue-dark">Amostral (s)</th>
+                  <th className="p-3 text-center font-semibold text-primary-blue-dark">
+                    Amostral (s)
+                  </th>
                 </tr>
               </thead>
               <tbody className="space-y-2">
                 <tr className="border-b border-neutral-surface-variant">
                   <td className="p-3 font-medium">Divisor na fórmula</td>
                   <td className="p-3 text-center text-math-purple">N (tamanho total)</td>
-                  <td className="p-3 text-center text-primary-blue-dark">N-1 (correção de Bessel)</td>
+                  <td className="p-3 text-center text-primary-blue-dark">
+                    N-1 (correção de Bessel)
+                  </td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
                   <td className="p-3 font-medium">Tipo de dados</td>
@@ -743,8 +766,12 @@ export default function StandardDeviationCalculator() {
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
                   <td className="p-3 font-medium">Objetivo</td>
-                  <td className="p-3 text-center text-math-purple">Descrever a população completa</td>
-                  <td className="p-3 text-center text-primary-blue-dark">Estimar parâmetros populacionais</td>
+                  <td className="p-3 text-center text-math-purple">
+                    Descrever a população completa
+                  </td>
+                  <td className="p-3 text-center text-primary-blue-dark">
+                    Estimar parâmetros populacionais
+                  </td>
                 </tr>
                 <tr className="border-b border-neutral-surface-variant">
                   <td className="p-3 font-medium">Resultado</td>
@@ -766,11 +793,11 @@ export default function StandardDeviationCalculator() {
           </div>
 
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg border border-math-purple/20 bg-math-purple-soft p-4">
+            <div className="bg-math-purple-soft rounded-lg border border-math-purple/20 p-4">
               <h4 className="mb-2 font-bold text-math-purple">🖥️ Populacional</h4>
               <p className="text-sm text-text-secondary">
-                Use quando tiver <strong>dados completos da população</strong>. Ideal para
-                censos e registros históricos completos.
+                Use quando tiver <strong>dados completos da população</strong>. Ideal para censos e
+                registros históricos completos.
               </p>
             </div>
 
@@ -789,19 +816,27 @@ export default function StandardDeviationCalculator() {
             <div className="grid grid-cols-1 gap-3 text-sm md:grid-cols-2">
               <div>
                 <p className="font-semibold">📊 Desvio padrão baixo:</p>
-                <p className="text-text-secondary">Dados concentrados próximos à média (pouca variação)</p>
+                <p className="text-text-secondary">
+                  Dados concentrados próximos à média (pouca variação)
+                </p>
               </div>
               <div>
                 <p className="font-semibold">📊 Desvio padrão alto:</p>
-                <p className="text-text-secondary">Dados dispersos, afastados da média (muita variação)</p>
+                <p className="text-text-secondary">
+                  Dados dispersos, afastados da média (muita variação)
+                </p>
               </div>
               <div>
                 <p className="font-semibold">🔮 Regra empírica (68-95-99,7):</p>
-                <p className="text-text-secondary">~68% dos dados estão dentro de 1 desvio padrão da média</p>
+                <p className="text-text-secondary">
+                  ~68% dos dados estão dentro de 1 desvio padrão da média
+                </p>
               </div>
               <div>
                 <p className="font-semibold">🎯 Aplicação prática:</p>
-                <p className="text-text-secondary">Controle de qualidade, análise de risco, pesquisas</p>
+                <p className="text-text-secondary">
+                  Controle de qualidade, análise de risco, pesquisas
+                </p>
               </div>
             </div>
           </div>
@@ -866,24 +901,26 @@ export default function StandardDeviationCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-math-purple">calculadora de desvio padrão</strong> implementa{" "}
-              <strong className="text-primary-blue-dark">algoritmos estatísticos confiáveis</strong> para calcular
-              medidas de dispersão. Os cálculos seguem as fórmulas padrão para desvio padrão populacional
-              e amostral com correção de Bessel.
+              Esta <strong className="text-math-purple">calculadora de desvio padrão</strong>{" "}
+              implementa{" "}
+              <strong className="text-primary-blue-dark">algoritmos estatísticos confiáveis</strong>{" "}
+              para calcular medidas de dispersão. Os cálculos seguem as fórmulas padrão para desvio
+              padrão populacional e amostral com correção de Bessel.
             </p>
             <p>
-              <strong>Recursos avançados:</strong> Cálculo simultâneo de desvio padrão populacional e
-              amostral, variância, estatísticas descritivas e comparação entre os métodos.
+              <strong>Recursos avançados:</strong> Cálculo simultâneo de desvio padrão populacional
+              e amostral, variância, estatísticas descritivas e comparação entre os métodos.
             </p>
             <p>
               <strong className="text-system-warning">Nota técnica:</strong> Esta ferramenta é
               desenvolvida para fins educacionais, acadêmicos e profissionais. Para pesquisas
-              científicas, recomenda-se validação com <strong>software estatístico especializado</strong>
+              científicas, recomenda-se validação com{" "}
+              <strong>software estatístico especializado</strong>
               como R, Python, SPSS ou Minitab.
             </p>
             <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              🔎 Cálculos confiáveis • 📊 Estatística descritiva • 🔒 Dados não armazenados • 📱 Interface
-              responsiva • 🌙 Tema escuro otimizado • 🧮 Suporte a decimais
+              🔎 Cálculos confiáveis • 📊 Estatística descritiva • 🔒 Dados não armazenados • 📱
+              Interface responsiva • 🌙 Tema escuro otimizado • 🧮 Suporte a decimais
             </p>
           </div>
         </CardContent>
@@ -900,37 +937,47 @@ export default function StandardDeviationCalculator() {
           <div className="space-y-6">
             {/* Regra Empírica */}
             <div className="rounded-lg bg-gray-900 p-6">
-              <h3 className="mb-4 text-xl font-bold text-system-info">🎯 Regra Empírica (68-95-99,7)</h3>
+              <h3 className="mb-4 text-xl font-bold text-system-info">
+                🎯 Regra Empírica (68-95-99,7)
+              </h3>
               <p className="mb-4 text-sm text-text-secondary">
                 Em distribuições normais, o desvio padrão permite prever a concentração dos dados:
               </p>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
                   <h4 className="font-semibold text-system-success">1σ ≈ 68%</h4>
-                  <p className="text-xs text-text-secondary">dos dados estão dentro de ±1 desvio padrão da média</p>
+                  <p className="text-xs text-text-secondary">
+                    dos dados estão dentro de ±1 desvio padrão da média
+                  </p>
                 </div>
                 <div className="rounded border border-system-info/20 bg-system-info/10 p-3">
                   <h4 className="font-semibold text-system-info">2σ ≈ 95%</h4>
-                  <p className="text-xs text-text-secondary">dos dados estão dentro de ±2 desvios padrão da média</p>
+                  <p className="text-xs text-text-secondary">
+                    dos dados estão dentro de ±2 desvios padrão da média
+                  </p>
                 </div>
                 <div className="rounded border border-system-warning/20 bg-system-warning/10 p-3">
                   <h4 className="font-semibold text-system-warning">3σ ≈ 99,7%</h4>
-                  <p className="text-xs text-text-secondary">dos dados estão dentro de ±3 desvios padrão da média</p>
+                  <p className="text-xs text-text-secondary">
+                    dos dados estão dentro de ±3 desvios padrão da média
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* Correção de Bessel */}
             <div className="rounded-lg bg-gray-900 p-6">
-              <h3 className="mb-4 text-xl font-bold text-primary-blue-dark">🔬 Correção de Bessel Explicada</h3>
+              <h3 className="mb-4 text-xl font-bold text-primary-blue-dark">
+                🔬 Correção de Bessel Explicada
+              </h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                   <h4 className="mb-2 font-semibold text-math-purple">Por que N-1?</h4>
                   <p className="mb-3 text-sm text-text-secondary">
-                    Quando calculamos a variância amostral, subestimamos sistematicamente a variância populacional.
-                    A correção de Bessel (divisor N-1) compensa esse viés.
+                    Quando calculamos a variância amostral, subestimamos sistematicamente a
+                    variância populacional. A correção de Bessel (divisor N-1) compensa esse viés.
                   </p>
-                  <div className="rounded bg-gray-800 p-3 text-xs font-mono">
+                  <div className="rounded bg-gray-800 p-3 font-mono text-xs">
                     <p className="text-growth-green">Viés = E[s²] - σ² ≠ 0</p>
                     <p className="text-primary-blue">Correção: E[s²ᴮᵉˢˢᵉˡ] = σ²</p>
                   </div>
@@ -938,8 +985,9 @@ export default function StandardDeviationCalculator() {
                 <div>
                   <h4 className="mb-2 font-semibold text-growth-green">Graus de Liberdade</h4>
                   <p className="text-sm text-text-secondary">
-                    Ao estimar a média amostral, "perdemos" um grau de liberdade. Dos N valores, apenas N-1 são
-                    independentes para calcular a variância, pois o último é determinado pelos outros e pela média.
+                    Ao estimar a média amostral, "perdemos" um grau de liberdade. Dos N valores,
+                    apenas N-1 são independentes para calcular a variância, pois o último é
+                    determinado pelos outros e pela média.
                   </p>
                 </div>
               </div>
@@ -947,11 +995,13 @@ export default function StandardDeviationCalculator() {
 
             {/* Aplicações Práticas Detalhadas */}
             <div className="rounded-lg bg-gray-900 p-6">
-              <h3 className="mb-4 text-xl font-bold text-growth-green">🏭 Aplicações Profissionais</h3>
+              <h3 className="mb-4 text-xl font-bold text-growth-green">
+                🏭 Aplicações Profissionais
+              </h3>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <div className="rounded border border-system-info/20 bg-system-info/10 p-3">
                   <h4 className="mb-2 font-semibold text-system-info">💰 Finanças</h4>
-                  <ul className="text-xs text-text-secondary space-y-1">
+                  <ul className="space-y-1 text-xs text-text-secondary">
                     <li>• Volatilidade de ativos (σ anualizada)</li>
                     <li>• Value at Risk (VaR)</li>
                     <li>• Sharpe Ratio e métricas de risco</li>
@@ -959,8 +1009,10 @@ export default function StandardDeviationCalculator() {
                   </ul>
                 </div>
                 <div className="rounded border border-system-success/20 bg-system-success/10 p-3">
-                  <h4 className="mb-2 font-semibold text-system-success">🏭 Controle de Qualidade</h4>
-                  <ul className="text-xs text-text-secondary space-y-1">
+                  <h4 className="mb-2 font-semibold text-system-success">
+                    🏭 Controle de Qualidade
+                  </h4>
+                  <ul className="space-y-1 text-xs text-text-secondary">
                     <li>• Cartas de controle (±3σ)</li>
                     <li>• Capability studies (Cpk)</li>
                     <li>• Six Sigma methodology</li>
@@ -969,7 +1021,7 @@ export default function StandardDeviationCalculator() {
                 </div>
                 <div className="rounded border border-system-warning/20 bg-system-warning/10 p-3">
                   <h4 className="mb-2 font-semibold text-system-warning">🔬 Pesquisa Científica</h4>
-                  <ul className="text-xs text-text-secondary space-y-1">
+                  <ul className="space-y-1 text-xs text-text-secondary">
                     <li>• Intervalos de confiança</li>
                     <li>• Testes de hipóteses</li>
                     <li>• Análise de variância (ANOVA)</li>
@@ -986,13 +1038,15 @@ export default function StandardDeviationCalculator() {
                 <div>
                   <h5 className="font-medium text-text-primary">Sensibilidade a Outliers</h5>
                   <p className="text-sm text-text-secondary">
-                    O desvio padrão é muito sensível a valores extremos. Considere usar mediana e IQR para dados com outliers.
+                    O desvio padrão é muito sensível a valores extremos. Considere usar mediana e
+                    IQR para dados com outliers.
                   </p>
                 </div>
                 <div>
                   <h5 className="font-medium text-text-primary">Distribuições Não-Normais</h5>
                   <p className="text-sm text-text-secondary">
-                    A regra 68-95-99.7 só se aplica a distribuições normais. Para outras distribuições, use desigualdade de Chebyshev.
+                    A regra 68-95-99.7 só se aplica a distribuições normais. Para outras
+                    distribuições, use desigualdade de Chebyshev.
                   </p>
                 </div>
               </div>

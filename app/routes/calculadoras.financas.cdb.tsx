@@ -30,7 +30,7 @@ export const meta: MetaFunction = () => {
       content:
         "calculadora CDB, simulador CDB, rendimento CDB, CDB pós-fixado, CDB prefixado, CDB IPCA+, IR regressivo, IOF",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",

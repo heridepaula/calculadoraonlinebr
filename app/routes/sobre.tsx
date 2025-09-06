@@ -6,20 +6,20 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calculadora Online BR: plataforma grátis com calculadoras saúde, finanças e matemática. Design moderno, fácil e confiável para todos."
+        "CalculadoraOnlineBR: plataforma grátis com calculadoras saúde, finanças e matemática. Design moderno, fácil e confiável para todos.",
     },
     {
       name: "keywords",
-      content: "sobre, calculadora online br, ferramentas gratuitas, saúde, finanças, matemática",
+      content: "sobre, CalculadoraOnlineBR, ferramentas gratuitas, saúde, finanças, matemática",
     },
-    { property: "og:title", content: "Sobre - Calculadora Online BR" },
+    { property: "og:title", content: "Sobre - CalculadoraOnlineBR" },
     {
       property: "og:description",
       content: "Plataforma gratuita com calculadoras organizadas para facilitar seu dia a dia.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: "Sobre - Calculadora Online BR" },
+    { name: "twitter:title", content: "Sobre - CalculadoraOnlineBR" },
     { name: "twitter:description", content: "Conheça nossa plataforma de calculadoras gratuitas." },
   ];
 };
@@ -29,7 +29,7 @@ export default function Sobre() {
     <div className="mx-auto max-w-4xl space-y-8">
       <section className="py-12 text-center">
         <h1 className="mb-6 text-4xl font-bold text-text-primary md:text-5xl">
-          Sobre a Calculadora Online BR
+          Sobre a CalculadoraOnlineBR
         </h1>
         <p className="mx-auto mb-8 max-w-3xl text-xl text-text-secondary-dark">
           Uma plataforma moderna e gratuita que oferece calculadoras organizadas por categoria para
@@ -102,7 +102,7 @@ export default function Sobre() {
 
       <section className="rounded-lg bg-neutral-surface p-8">
         <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">
-          Por que Escolher a Calculadora Online BR?
+          Por que Escolher a CalculadoraOnlineBR?
         </h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -200,9 +200,10 @@ export default function Sobre() {
         <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">Entre em Contato</h2>
         <div className="space-y-4">
           <p className="text-text-secondary-dark">
-            Tem alguma dúvida, sugestão ou confiável de ajuda com nossas calculadoras? Entre em contato conosco!
+            Tem alguma dúvida, sugestão ou confiável de ajuda com nossas calculadoras? Entre em
+            contato conosco!
           </p>
-          
+
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-8 sm:space-y-0">
             <div className="flex items-center space-x-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-blue">
@@ -212,7 +213,7 @@ export default function Sobre() {
               </div>
               <div>
                 <h3 className="font-semibold text-text-primary-dark">Email</h3>
-                <a 
+                <a
                   href="mailto:contato@calculadoraonlinebr.com.br"
                   className="text-primary-blue hover:text-primary-blue-dark hover:underline"
                 >
@@ -229,17 +230,15 @@ export default function Sobre() {
               </div>
               <div>
                 <h3 className="font-semibold text-text-primary-dark">Suporte</h3>
-                <p className="text-sm text-text-secondary-dark">
-                  Resposta em até 24 horas
-                </p>
+                <p className="text-sm text-text-secondary-dark">Resposta em até 24 horas</p>
               </div>
             </div>
           </div>
 
           <div className="mt-6 rounded-lg bg-primary-blue-light p-4">
             <p className="text-sm text-text-secondary-dark">
-              <strong>Horário de atendimento:</strong> Segunda a sexta, das 9h às 18h (horário de Brasília).
-              Responderemos seu email o mais rápido possível!
+              <strong>Horário de atendimento:</strong> Segunda a sexta, das 9h às 18h (horário de
+              Brasília). Responderemos seu email o mais rápido possível!
             </p>
           </div>
         </div>
@@ -252,37 +251,47 @@ export default function Sobre() {
               ⚠️
             </span>
           </div>
-          <h2 className="text-2xl font-bold text-amber-900">Importante - Isenção de Responsabilidade</h2>
+          <h2 className="text-2xl font-bold text-amber-900">
+            Importante - Isenção de Responsabilidade
+          </h2>
         </div>
-        
+
         <div className="space-y-4 text-amber-800">
           <p className="font-semibold">
-            As calculadoras disponibilizadas neste site são ferramentas de apoio e têm caráter educativo e informativo.
+            As calculadoras disponibilizadas neste site são ferramentas de apoio e têm caráter
+            educativo e informativo.
           </p>
-          
-          <ul className="ml-4 space-y-2 list-disc">
+
+          <ul className="ml-4 list-disc space-y-2">
             <li>
-              <strong>Estimativas e Aproximações:</strong> Os resultados obtidos são estimativas baseadas nos dados fornecidos e não devem ser considerados como valores absolutos ou definitivos.
+              <strong>Estimativas e Aproximações:</strong> Os resultados obtidos são estimativas
+              baseadas nos dados fornecidos e não devem ser considerados como valores absolutos ou
+              definitivos.
             </li>
             <li>
-              <strong>Decisões Financeiras:</strong> Para decisões financeiras importantes, consulte sempre um profissional qualificado (contador, consultor financeiro, etc.).
+              <strong>Decisões Financeiras:</strong> Para decisões financeiras importantes, consulte
+              sempre um profissional qualificado (contador, consultor financeiro, etc.).
             </li>
             <li>
-              <strong>Questões de Saúde:</strong> Para questões relacionadas à saúde, procure orientação de um profissional médico qualificado.
+              <strong>Questões de Saúde:</strong> Para questões relacionadas à saúde, procure
+              orientação de um profissional médico qualificado.
             </li>
             <li>
-              <strong>Responsabilidade Limitada:</strong> Não nos responsabilizamos por perdas, danos ou consequências decorrentes do uso das informações e resultados fornecidos pelas calculadoras.
+              <strong>Responsabilidade Limitada:</strong> Não nos responsabilizamos por perdas,
+              danos ou consequências decorrentes do uso das informações e resultados fornecidos
+              pelas calculadoras.
             </li>
             <li>
-              <strong>Detalhamento dos Dados:</strong> A detalhamento dos resultados depende da veracidade e exatidão dos dados inseridos pelo usuário.
+              <strong>Detalhamento dos Dados:</strong> A detalhamento dos resultados depende da
+              veracidade e exatidão dos dados inseridos pelo usuário.
             </li>
           </ul>
-          
-          <div className="mt-6 rounded-lg bg-amber-100 p-4 border border-amber-300">
+
+          <div className="mt-6 rounded-lg border border-amber-300 bg-amber-100 p-4">
             <p className="text-sm font-medium text-amber-900">
-              <strong>Recomendação:</strong> Use nossas ferramentas como ponto de partida para seus cálculos e planejamentos, 
-              mas sempre busque orientação profissional especializada para decisões importantes em sua vida financeira, 
-              de saúde ou acadêmica.
+              <strong>Recomendação:</strong> Use nossas ferramentas como ponto de partida para seus
+              cálculos e planejamentos, mas sempre busque orientação profissional especializada para
+              decisões importantes em sua vida financeira, de saúde ou acadêmica.
             </p>
           </div>
         </div>

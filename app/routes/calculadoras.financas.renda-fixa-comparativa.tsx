@@ -67,7 +67,7 @@ export const meta: MetaFunction = () => {
       content:
         "Compare renda fixa 2025: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     { name: "publisher", content: "CalculadoraOnlineBR" },
     { name: "article:modified_time", content: "2025-08-25T00:00:00-03:00" },
     {

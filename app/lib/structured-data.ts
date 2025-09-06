@@ -15,11 +15,11 @@ export interface StructuredDataConfig {
 
 const STRUCTURED_DATA_CONFIG: StructuredDataConfig = {
   website: {
-    name: "Calculadora Online BR",
+    name: "CalculadoraOnlineBR",
     description:
       "Calculadoras online gratuitas para facilitar seu dia a dia - saúde, finanças e matemática",
     url: "https://calculadoraonline.com.br",
-    author: "Calculadora Online BR",
+    author: "CalculadoraOnlineBR",
     logo: "https://calculadoraonline.com.br/logo.png",
     sameAs: [
       "https://facebook.com/calculadoraonlinebr",

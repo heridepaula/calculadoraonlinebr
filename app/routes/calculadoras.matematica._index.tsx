@@ -7,7 +7,13 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
+import {
+  RelatedCalculators,
+  FAQ,
+  CategoryHero,
+  CategoryStats,
+  QuickAccessCard,
+} from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
@@ -25,7 +31,7 @@ export const meta: MetaFunction = () => {
       content:
         "calculadora matemática, porcentagem, regra de três, cálculos, matemática básica, operações matemáticas",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     { property: "og:title", content: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
     {
       property: "og:description",
@@ -49,7 +55,7 @@ export default function MatematicaIndex() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
-      <div className="border-b border-border-primary bg-surface-light px-6 py-4">
+      <div className="border-border-primary bg-surface-light border-b px-6 py-4">
         <div className="mx-auto max-w-7xl">
           <Breadcrumb>
             <BreadcrumbItem href="/">Início</BreadcrumbItem>
@@ -66,19 +72,19 @@ export default function MatematicaIndex() {
         description="Resolva cálculos matemáticos rapidamente com ferramentas essenciais para **estudos, trabalho e uso pessoal**. Resultados instantâneos com explicações passo a passo."
         badge={{
           icon: "🔢",
-          text: "Ferramentas Matemáticas para Estudos e Trabalho"
+          text: "Ferramentas Matemáticas para Estudos e Trabalho",
         }}
         trustIndicators={[
           { color: "bg-system-success", text: "Métodos Testados" },
           { color: "bg-math-purple", text: "Explicações Detalhadas" },
-          { color: "bg-primary-blue", text: "Ideal para Estudos" }
+          { color: "bg-primary-blue", text: "Ideal para Estudos" },
         ]}
       />
 
       {/* Quick Access - Math Essentials */}
       <section className="bg-surface-dark/30 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               🚀 Essenciais da Matemática
             </h2>
@@ -86,7 +92,7 @@ export default function MatematicaIndex() {
               Começar por aqui: as calculadoras mais usadas no dia a dia
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <QuickAccessCard
               title="Calculadora de Porcentagem"
@@ -126,61 +132,65 @@ export default function MatematicaIndex() {
             icon: "🧠",
             number: "15+",
             label: "Calculadoras",
-            description: "Ferramentas completas"
+            description: "Ferramentas completas",
           },
           {
             icon: "⚙️",
             number: "100%",
             label: "Qualidade",
-            description: "Métodos testados"
+            description: "Métodos testados",
           },
           {
             icon: "📚",
             number: "Passo",
             label: "Detalhado",
-            description: "Explicações completas"
+            description: "Explicações completas",
           },
           {
             icon: "🎓",
             number: "Edu",
             label: "Educativo",
-            description: "Aprenda fazendo"
-          }
+            description: "Aprenda fazendo",
+          },
         ]}
       />
 
       {/* Math Calculator Categories */}
       <section className="py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               Categorias por Área de Estudo
             </h2>
-            <p className="mt-2 text-text-secondary">
-              Organize seus estudos por tema matemático
-            </p>
+            <p className="mt-2 text-text-secondary">Organize seus estudos por tema matemático</p>
           </div>
-          
+
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Basic Operations */}
             <div className="group rounded-2xl bg-gradient-to-br from-math-purple/10 to-math-purple/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-math-purple/25">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+              <div className="mb-4 flex items-center space-x-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
                   <span className="text-xl">%</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Operações Básicas</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="mb-4 text-sm text-text-secondary">
                 Cálculos fundamentais para o dia a dia
               </p>
               <div className="space-y-2">
-                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
+                <div className="text-sm transition-transform duration-300 group-hover:translate-x-1">
                   <span className="text-math-purple-dark">•</span> Porcentagem
                 </div>
-                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300" style={{transitionDelay: '0.1s'}}>
+                <div
+                  className="text-sm transition-transform duration-300 group-hover:translate-x-1"
+                  style={{ transitionDelay: "0.1s" }}
+                >
                   <span className="text-math-purple-dark">•</span> Regra de Três
                 </div>
-                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300" style={{transitionDelay: '0.2s'}}>
+                <div
+                  className="text-sm transition-transform duration-300 group-hover:translate-x-1"
+                  style={{ transitionDelay: "0.2s" }}
+                >
                   <span className="text-math-purple-dark">•</span> Frações
                 </div>
               </div>
@@ -188,15 +198,13 @@ export default function MatematicaIndex() {
 
             {/* Geometry */}
             <div className="rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-8">
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="mb-4 flex items-center space-x-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white">
                   <span className="text-xl">📐</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Geometria</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
-                Cálculos de formas geométricas
-              </p>
+              <p className="mb-4 text-sm text-text-secondary">Cálculos de formas geométricas</p>
               <div className="space-y-2">
                 <div className="text-sm">
                   <span className="text-primary-blue-dark">•</span> Área e Perímetro
@@ -212,13 +220,13 @@ export default function MatematicaIndex() {
 
             {/* Algebra */}
             <div className="rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-8">
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="mb-4 flex items-center space-x-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white">
                   <span className="text-xl">🔣</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Álgebra</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="mb-4 text-sm text-text-secondary">
                 Resolução de equações e problemas algébricos
               </p>
               <div className="space-y-2">
@@ -248,7 +256,7 @@ export default function MatematicaIndex() {
               Ferramentas completas para resolver qualquer problema matemático
             </p>
           </div>
-          
+
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {matematicaCalculators.map((calculator: Calculator) => (
               <CalculatorCard key={calculator.id} calculator={calculator} category="matematica" />
@@ -258,14 +266,14 @@ export default function MatematicaIndex() {
       </section>
 
       {/* Educational Benefits */}
-      <section className="bg-gradient-to-r from-surface-light to-surface py-16">
+      <section className="from-surface-light to-surface bg-gradient-to-r py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               Para Quem São Essas Ferramentas?
             </h2>
           </div>
-          
+
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-math-purple/20">
@@ -273,30 +281,30 @@ export default function MatematicaIndex() {
               </div>
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Estudantes</h3>
               <p className="mt-4 text-text-secondary">
-                Verifique seus cálculos, aprenda métodos de resolução e tenha 
-                explicações passo a passo de cada operação.
+                Verifique seus cálculos, aprenda métodos de resolução e tenha explicações passo a
+                passo de cada operação.
               </p>
             </div>
-            
+
             <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
                 <span className="text-2xl">👨‍🏫</span>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Professores</h3>
               <p className="mt-4 text-text-secondary">
-                Use como ferramenta de apoio em aulas, demonstrações 
-                práticas e correção rápida de exercícios.
+                Use como ferramenta de apoio em aulas, demonstrações práticas e correção rápida de
+                exercícios.
               </p>
             </div>
-            
+
             <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-system-success/20">
                 <span className="text-2xl">💼</span>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Profissionais</h3>
               <p className="mt-4 text-text-secondary">
-                Agilize cálculos do trabalho, resolva problemas técnicos 
-                e faça conversões confiáveis de unidades.
+                Agilize cálculos do trabalho, resolva problemas técnicos e faça conversões
+                confiáveis de unidades.
               </p>
             </div>
           </div>
@@ -304,45 +312,57 @@ export default function MatematicaIndex() {
       </section>
 
       {/* Interactive Learning Section */}
-      <section className="bg-gradient-to-r from-math-purple-dark to-math-purple py-16 relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-r from-math-purple-dark to-math-purple py-16">
         <div className="absolute inset-0 opacity-20">
-          <div className="h-full w-full bg-gradient-to-tl from-transparent via-white/8 to-transparent"></div>
+          <div className="via-white/8 h-full w-full bg-gradient-to-tl from-transparent to-transparent"></div>
         </div>
-        
+
         <div className="relative mx-auto max-w-6xl px-6 text-center lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-left lg:text-left">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl animate-pulse">
+              <h2 className="animate-pulse text-3xl font-bold text-white sm:text-4xl">
                 🧠 Aprenda Matemática Praticando
               </h2>
               <p className="mt-4 text-lg text-math-purple-light">
-                Aprenda matemática na prática com <strong>métodos testados e explicações passo a passo</strong> para estudantes e profissionais
+                Aprenda matemática na prática com{" "}
+                <strong>métodos testados e explicações passo a passo</strong> para estudantes e
+                profissionais
               </p>
-              
+
               <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                <a 
+                <a
                   href="/calculadoras/matematica/porcentagem"
-                  className="group inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-math-purple-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-math-purple-dark transform"
+                  className="group inline-flex transform items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-math-purple-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-math-purple-dark"
                 >
                   <span className="mr-2 text-xl group-hover:animate-spin">%</span>
                   Calcular Porcentagem
-                  <svg className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </a>
-                
-                <a 
+
+                <a
                   href="/calculadoras/matematica/fracoes"
-                  className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-math-purple-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-math-purple-dark transform"
+                  className="group inline-flex transform items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:-translate-y-2 hover:bg-white hover:text-math-purple-dark hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-math-purple-dark"
                 >
                   <span className="mr-2 text-xl group-hover:animate-bounce">½</span>
                   Frações
                 </a>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-bounce">⚡</span>
                   <div>
@@ -351,7 +371,7 @@ export default function MatematicaIndex() {
                   </div>
                 </div>
               </div>
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-pulse">🎯</span>
                   <div>
@@ -360,7 +380,7 @@ export default function MatematicaIndex() {
                   </div>
                 </div>
               </div>
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-spin">📚</span>
                   <div>
@@ -369,7 +389,7 @@ export default function MatematicaIndex() {
                   </div>
                 </div>
               </div>
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-bounce">🎓</span>
                   <div>
@@ -397,9 +417,12 @@ export default function MatematicaIndex() {
                 </h3>
                 <p className="mt-2 text-text-secondary">
                   Nossas calculadoras matemáticas são ideais para situações cotidianas:
-                  <strong className="text-system-success-dark"> calcular descontos em compras</strong>, 
-                  resolver problemas escolares, fazer conversões de unidades e projetos de construção.
-                  Ferramentas que tornam a matemática mais acessível e prática.
+                  <strong className="text-system-success-dark">
+                    {" "}
+                    calcular descontos em compras
+                  </strong>
+                  , resolver problemas escolares, fazer conversões de unidades e projetos de
+                  construção. Ferramentas que tornam a matemática mais acessível e prática.
                 </p>
               </div>
             </div>

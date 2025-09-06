@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
       content:
         "Simule empréstimo consignado: calcule parcelas, CET e IOF. Descubra valor líquido e total de juros para aposentados e servidores.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",

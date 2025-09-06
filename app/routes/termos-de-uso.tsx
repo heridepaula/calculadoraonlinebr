@@ -6,14 +6,14 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Termos uso Calculadora Online BR: condições para usar nossas calculadoras grátis. Regras claras e transparentes para todos."
+        "Termos uso CalculadoraOnlineBR: condições para usar nossas calculadoras grátis. Regras claras e transparentes para todos.",
     },
-    { name: "keywords", content: "termos de uso, calculadora online br, condições de uso, acordo" },
-    { property: "og:title", content: "Termos de Uso - Calculadora Online BR" },
+    { name: "keywords", content: "termos de uso, CalculadoraOnlineBR, condições de uso, acordo" },
+    { property: "og:title", content: "Termos de Uso - CalculadoraOnlineBR" },
     { property: "og:description", content: "Termos e condições de uso da nossa plataforma." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: "Termos de Uso - Calculadora Online BR" },
+    { name: "twitter:title", content: "Termos de Uso - CalculadoraOnlineBR" },
     { name: "twitter:description", content: "Conheça nossos termos de uso e condições." },
   ];
 };
@@ -34,7 +34,7 @@ export default function TermosDeUso() {
             1. Aceitação dos Termos
           </h2>
           <p className="mb-4 text-text-secondary-dark">
-            Ao acessar e usar a Calculadora Online BR, você concorda em cumprir e estar vinculado a
+            Ao acessar e usar a CalculadoraOnlineBR, você concorda em cumprir e estar vinculado a
             estes Termos de Uso. Se você não concordar com qualquer parte destes termos, não deve
             usar nossos serviços.
           </p>
@@ -49,7 +49,7 @@ export default function TermosDeUso() {
             2. Descrição do Serviço
           </h2>
           <p className="mb-4 text-text-secondary-dark">
-            A Calculadora Online BR é uma plataforma gratuita que oferece:
+            A CalculadoraOnlineBR é uma plataforma gratuita que oferece:
           </p>
           <ul className="mb-4 space-y-2 pl-4 text-text-secondary-dark">
             <li>• Calculadoras de saúde (IMC, gordura corporal, etc.)</li>
@@ -104,8 +104,8 @@ export default function TermosDeUso() {
               Isenção de Responsabilidade
             </h3>
             <p className="text-sm text-text-secondary-dark">
-              Embora nos esforcemos para fornecer cálculos confiáveis, não garantimos 100% de detalhamento
-              em todos os casos.
+              Embora nos esforcemos para fornecer cálculos confiáveis, não garantimos 100% de
+              detalhamento em todos os casos.
             </p>
           </div>
           <ul className="mb-4 space-y-2 pl-4 text-text-secondary-dark">
@@ -136,7 +136,7 @@ export default function TermosDeUso() {
             7. Propriedade Intelectual
           </h2>
           <p className="mb-4 text-text-secondary-dark">
-            Todo o conteúdo da Calculadora Online BR, incluindo:
+            Todo o conteúdo da CalculadoraOnlineBR, incluindo:
           </p>
           <ul className="mb-4 space-y-2 pl-4 text-text-secondary-dark">
             <li>• Design e interface do usuário</li>
@@ -173,56 +173,68 @@ export default function TermosDeUso() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500">
               <span className="text-2xl text-white">⚠️</span>
             </div>
-            <h2 className="text-2xl font-bold text-red-900">9. ISENÇÃO DE RESPONSABILIDADE - LEIA COM ATENÇÃO</h2>
+            <h2 className="text-2xl font-bold text-red-900">
+              9. ISENÇÃO DE RESPONSABILIDADE - LEIA COM ATENÇÃO
+            </h2>
           </div>
-          
+
           <div className="space-y-4 text-red-800">
-            <div className="rounded-lg bg-red-100 p-4 border border-red-300">
-              <p className="font-bold text-lg mb-3">
-                🚨 AVISO LEGAL IMPORTANTE 🚨
-              </p>
-              <p className="font-semibold mb-2">
-                As calculadoras fornecidas neste site são ferramentas de ESTIMATIVA e têm caráter puramente EDUCATIVO e INFORMATIVO.
+            <div className="rounded-lg border border-red-300 bg-red-100 p-4">
+              <p className="mb-3 text-lg font-bold">🚨 AVISO LEGAL IMPORTANTE 🚨</p>
+              <p className="mb-2 font-semibold">
+                As calculadoras fornecidas neste site são ferramentas de ESTIMATIVA e têm caráter
+                puramente EDUCATIVO e INFORMATIVO.
               </p>
             </div>
-            
+
             <div className="space-y-3">
-              <h3 className="font-bold text-lg">A Calculadora Online BR NÃO SE RESPONSABILIZA POR:</h3>
-              <ul className="ml-4 space-y-2 list-disc font-medium">
+              <h3 className="text-lg font-bold">
+                A CalculadoraOnlineBR NÃO SE RESPONSABILIZA POR:
+              </h3>
+              <ul className="ml-4 list-disc space-y-2 font-medium">
                 <li>
-                  <strong>Perdas Financeiras:</strong> Qualquer perda monetária, investimento mal-sucedido, decisão financeira equivocada baseada em nossos cálculos.
+                  <strong>Perdas Financeiras:</strong> Qualquer perda monetária, investimento
+                  mal-sucedido, decisão financeira equivocada baseada em nossos cálculos.
                 </li>
                 <li>
-                  <strong>Decisões de Saúde:</strong> Problemas de saúde, diagnósticos incorretos, ou decisões médicas baseadas em cálculos de IMC, gordura corporal ou similares.
+                  <strong>Decisões de Saúde:</strong> Problemas de saúde, diagnósticos incorretos,
+                  ou decisões médicas baseadas em cálculos de IMC, gordura corporal ou similares.
                 </li>
                 <li>
-                  <strong>Erros de Cálculo:</strong> Inexatidões nos resultados devido a arredondamentos, limitações de software ou erros de programação.
+                  <strong>Erros de Cálculo:</strong> Inexatidões nos resultados devido a
+                  arredondamentos, limitações de software ou erros de programação.
                 </li>
                 <li>
-                  <strong>Decisões Comerciais:</strong> Prejuízos em negócios, planejamentos ou estratégias baseadas nos resultados das calculadoras.
+                  <strong>Decisões Comerciais:</strong> Prejuízos em negócios, planejamentos ou
+                  estratégias baseadas nos resultados das calculadoras.
                 </li>
                 <li>
-                  <strong>Consequências Legais:</strong> Problemas jurídicos decorrentes do uso incorreto ou interpretação equivocada dos resultados.
+                  <strong>Consequências Legais:</strong> Problemas jurídicos decorrentes do uso
+                  incorreto ou interpretação equivocada dos resultados.
                 </li>
                 <li>
-                  <strong>Danos Diretos e Indiretos:</strong> Qualquer tipo de dano, perda, prejuízo ou consequência relacionada ao uso deste site.
+                  <strong>Danos Diretos e Indiretos:</strong> Qualquer tipo de dano, perda, prejuízo
+                  ou consequência relacionada ao uso deste site.
                 </li>
               </ul>
             </div>
-            
-            <div className="rounded-lg bg-red-100 p-4 border border-red-300 mt-4">
-              <p className="font-bold text-sm">
-                ⚖️ <strong>RESPONSABILIDADE TOTAL DO USUÁRIO:</strong><br/>
-                Ao usar este site, você assume TOTAL responsabilidade pelas decisões tomadas com base nos resultados obtidos. 
-                Para decisões importantes em finanças, saúde ou negócios, SEMPRE consulte profissionais qualificados e especialistas na área.
+
+            <div className="mt-4 rounded-lg border border-red-300 bg-red-100 p-4">
+              <p className="text-sm font-bold">
+                ⚖️ <strong>RESPONSABILIDADE TOTAL DO USUÁRIO:</strong>
+                <br />
+                Ao usar este site, você assume TOTAL responsabilidade pelas decisões tomadas com
+                base nos resultados obtidos. Para decisões importantes em finanças, saúde ou
+                negócios, SEMPRE consulte profissionais qualificados e especialistas na área.
               </p>
             </div>
-            
-            <div className="rounded-lg bg-amber-100 p-4 border border-amber-300 mt-4">
+
+            <div className="mt-4 rounded-lg border border-amber-300 bg-amber-100 p-4">
               <p className="font-bold text-amber-900">
-                💡 <strong>RECOMENDAÇÃO LEGAL:</strong><br/>
-                Use nossas calculadoras apenas como PONTO DE PARTIDA para suas análises. 
-                NUNCA tome decisões importantes baseando-se exclusivamente em nossos resultados.
+                💡 <strong>RECOMENDAÇÃO LEGAL:</strong>
+                <br />
+                Use nossas calculadoras apenas como PONTO DE PARTIDA para suas análises. NUNCA tome
+                decisões importantes baseando-se exclusivamente em nossos resultados.
               </p>
             </div>
           </div>
@@ -236,11 +248,26 @@ export default function TermosDeUso() {
             É importante entender as limitações técnicas dos nossos cálculos:
           </p>
           <ul className="space-y-2 pl-4 text-text-secondary-dark">
-            <li>• <strong>Estimativas:</strong> Todos os resultados são estimativas baseadas em fórmulas padrão</li>
-            <li>• <strong>Simplificações:</strong> Modelos matemáticos podem não refletir situações reais complexas</li>
-            <li>• <strong>Variáveis:</strong> Fatores externos não considerados podem afetar resultados reais</li>
-            <li>• <strong>Arredondamentos:</strong> Podem ocorrer pequenas diferenças por limitações computacionais</li>
-            <li>• <strong>Atualizações:</strong> Fórmulas podem ser atualizadas conforme novas metodologias</li>
+            <li>
+              • <strong>Estimativas:</strong> Todos os resultados são estimativas baseadas em
+              fórmulas padrão
+            </li>
+            <li>
+              • <strong>Simplificações:</strong> Modelos matemáticos podem não refletir situações
+              reais complexas
+            </li>
+            <li>
+              • <strong>Variáveis:</strong> Fatores externos não considerados podem afetar
+              resultados reais
+            </li>
+            <li>
+              • <strong>Arredondamentos:</strong> Podem ocorrer pequenas diferenças por limitações
+              computacionais
+            </li>
+            <li>
+              • <strong>Atualizações:</strong> Fórmulas podem ser atualizadas conforme novas
+              metodologias
+            </li>
           </ul>
         </section>
 

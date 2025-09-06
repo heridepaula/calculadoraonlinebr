@@ -28,15 +28,18 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo."
+        "Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo.",
     },
     {
       name: "keywords",
       content:
         "calculadora salário líquido, INSS IRRF 2025, desconto salário, tabela INSS, imposto renda, CLT PJ",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "googlebot", content: "index,follow" },
     { name: "bingbot", content: "index,follow" },
@@ -185,28 +188,28 @@ export const meta: MetaFunction = () => {
             name: "Como calcular salário líquido?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Use tabelas 2025: INSS até 8,14% e IRRF de 7,5% a 27,5% conforme faixa salarial."
-            }
+              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Use tabelas 2025: INSS até 8,14% e IRRF de 7,5% a 27,5% conforme faixa salarial.",
+            },
           },
           {
-            "@type": "Question", 
+            "@type": "Question",
             name: "Qual a diferença entre CLT, PJ e MEI?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "CLT: descontos INSS e IRRF obrigatórios. PJ: tributac£ão variável por regime. MEI: taxa fixa mensal até R$ 81 mil/ano, sem INSS nem IRRF sobre receita."
-            }
+              text: "CLT: descontos INSS e IRRF obrigatórios. PJ: tributac£ão variável por regime. MEI: taxa fixa mensal até R$ 81 mil/ano, sem INSS nem IRRF sobre receita.",
+            },
           },
           {
             "@type": "Question",
             name: "Como dependentes afetam o IRRF?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Cada dependente deduz R$ 189,59 mensais da base de cálculo do IRRF, reduzindo o imposto. São considerados: filhos até 21 anos, cônjuge, pais etc."
-            }
-          }
-        ]
-      })
-    }
+              text: "Cada dependente deduz R$ 189,59 mensais da base de cálculo do IRRF, reduzindo o imposto. São considerados: filhos até 21 anos, cônjuge, pais etc.",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 
@@ -225,18 +228,18 @@ export default function NetSalaryCalculator() {
   const [taxRate, setTaxRate] = useState("0");
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "salario_liquido",
-    category: "trabalhista"
+    category: "trabalhista",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("salario_liquido");
 
   // Constantes MEI

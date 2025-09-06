@@ -30,7 +30,7 @@ export const meta: MetaFunction = () => {
       content:
         "gerador CPF, CPF válido, CPF sem pontuação, CPF com pontuação, validador CPF, teste CPF, desenvolvimento CPF",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -215,28 +215,28 @@ export const meta: MetaFunction = () => {
             name: "O que é um CPF?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "CPF (Cadastro de Pessoas Físicas) é o documento de identificação fiscal de pessoa física no Brasil, composto por 11 dígitos com formatação XXX.XXX.XXX-XX."
-            }
+              text: "CPF (Cadastro de Pessoas Físicas) é o documento de identificação fiscal de pessoa física no Brasil, composto por 11 dígitos com formatação XXX.XXX.XXX-XX.",
+            },
           },
           {
             "@type": "Question",
             name: "Como funciona o algoritmo de validação?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O CPF possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 9 dígitos, validando o número."
-            }
+              text: "O CPF possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 9 dígitos, validando o número.",
+            },
           },
           {
             "@type": "Question",
             name: "Posso usar CPFs gerados para cadastros reais?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Não. CPFs gerados são apenas para testes, desenvolvimento de sistemas e validação. Usar CPF falso em documentos oficiais é crime."
-            }
-          }
-        ]
-      })
-    }
+              text: "Não. CPFs gerados são apenas para testes, desenvolvimento de sistemas e validação. Usar CPF falso em documentos oficiais é crime.",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 
@@ -266,13 +266,15 @@ export default function CpfGenerator() {
 
   // Gera 9 dígitos aleatórios para o CPF
   const generateRandomDigits = (): string => {
-    return Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+    return Math.floor(Math.random() * 1000000000)
+      .toString()
+      .padStart(9, "0");
   };
 
   // Calcula o primeiro dígito verificador
   const calculateFirstDigit = (cpfDigits: string): number => {
     const weights = [10, 9, 8, 7, 6, 5, 4, 3, 2];
-    const sum = cpfDigits.split('').reduce((acc, digit, index) => {
+    const sum = cpfDigits.split("").reduce((acc, digit, index) => {
       return acc + parseInt(digit) * weights[index];
     }, 0);
     const remainder = sum % 11;
@@ -283,7 +285,7 @@ export default function CpfGenerator() {
   const calculateSecondDigit = (cpfDigits: string, firstDigit: number): number => {
     const weights = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
     const digitsWithFirst = cpfDigits + firstDigit;
-    const sum = digitsWithFirst.split('').reduce((acc, digit, index) => {
+    const sum = digitsWithFirst.split("").reduce((acc, digit, index) => {
       return acc + parseInt(digit) * weights[index];
     }, 0);
     const remainder = sum % 11;
@@ -292,7 +294,7 @@ export default function CpfGenerator() {
 
   // Formatar CPF com pontuação
   const formatCpf = (cpf: string): string => {
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   };
 
   // Função para copiar para clipboard
@@ -303,20 +305,20 @@ export default function CpfGenerator() {
         return true;
       } else {
         // Fallback para browsers mais antigos
-        const textArea = document.createElement('textarea');
+        const textArea = document.createElement("textarea");
         textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        const result = document.execCommand('copy');
+        const result = document.execCommand("copy");
         textArea.remove();
         return result;
       }
     } catch (error) {
-      console.error('Erro ao copiar:', error);
+      console.error("Erro ao copiar:", error);
       return false;
     }
   };
@@ -332,15 +334,15 @@ export default function CpfGenerator() {
     const randomDigits = generateRandomDigits();
     const firstDigit = calculateFirstDigit(randomDigits);
     const secondDigit = calculateSecondDigit(randomDigits, firstDigit);
-    
+
     const cpf = randomDigits + firstDigit + secondDigit;
     const cpfFormatted = formatCpf(cpf);
-    
+
     return {
       cpf,
       cpfFormatted,
       isValid: true,
-      generatedAt: new Date()
+      generatedAt: new Date(),
     };
   };
 
@@ -348,28 +350,28 @@ export default function CpfGenerator() {
     if (!validateGeneration()) return;
     startCalculation();
     setCopySuccess(false);
-    
+
     try {
       const generatedCpf = generateValidCpf();
       setResult(generatedCpf);
       setErrors({});
-      
+
       // Auto-copy to clipboard
       const cpfToCopy = withFormatting ? generatedCpf.cpfFormatted : generatedCpf.cpf;
       const copied = await copyToClipboard(cpfToCopy);
-      
+
       if (copied) {
         setCopySuccess(true);
         setTimeout(() => setCopySuccess(false), 3000);
       }
-      
+
       setTimeout(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 50);
-      
+
       endCalculation(true);
     } catch (error) {
-      console.error('Erro ao gerar CPF:', error);
+      console.error("Erro ao gerar CPF:", error);
       setErrors({ generation: "Erro ao gerar CPF. Tente novamente." });
       endCalculation(false);
     }
@@ -381,12 +383,12 @@ export default function CpfGenerator() {
     setErrors({});
     setCopySuccess(false);
   };
-  
+
   const handleCopyAgain = async () => {
     if (!result) return;
     const cpfToCopy = withFormatting ? result.cpfFormatted : result.cpf;
     const copied = await copyToClipboard(cpfToCopy);
-    
+
     if (copied) {
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 3000);
@@ -410,9 +412,9 @@ export default function CpfGenerator() {
           Gerador de CPF 2025 – Geração Rápida com e sem Pontuação
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Gere <strong className="text-primary-blue-dark">CPFs válidos</strong> com ou sem pontuação para{" "}
-          <strong className="text-growth-green">testes e desenvolvimento</strong>. Cópia automática{" "}
-          para área de transferência com um clique.
+          Gere <strong className="text-primary-blue-dark">CPFs válidos</strong> com ou sem pontuação
+          para <strong className="text-growth-green">testes e desenvolvimento</strong>. Cópia
+          automática para área de transferência com um clique.
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -472,10 +474,7 @@ export default function CpfGenerator() {
 
           {/* Botões */}
           <div className="margin-top-4 flex justify-center space-x-4">
-            <Button 
-              onClick={handleGenerate} 
-              className="px-8"
-            >
+            <Button onClick={handleGenerate} className="px-8">
               Gerar CPF
             </Button>
             <Button
@@ -492,72 +491,74 @@ export default function CpfGenerator() {
       {/* Resultado */}
       {result && (
         <div ref={resultRef}>
-        <Card className="border-2 border-growth-green bg-growth-green-soft">
-          <CardHeader>
-            <CardTitle as="h3" className="text-growth-green">
-              🎉 CPF Gerado com Sucesso!
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="mb-6 grid grid-cols-1 gap-6">
-              <div className="rounded-lg bg-gray-900 p-8 text-center">
-                <div className="mb-4">
-                  <div className="text-sm text-text-secondary mb-2">CPF Gerado</div>
-                  <div className="text-4xl font-bold font-mono text-primary-blue-dark break-all">
-                    {withFormatting ? result.cpfFormatted : result.cpf}
+          <Card className="border-2 border-growth-green bg-growth-green-soft">
+            <CardHeader>
+              <CardTitle as="h3" className="text-growth-green">
+                🎉 CPF Gerado com Sucesso!
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="mb-6 grid grid-cols-1 gap-6">
+                <div className="rounded-lg bg-gray-900 p-8 text-center">
+                  <div className="mb-4">
+                    <div className="mb-2 text-sm text-text-secondary">CPF Gerado</div>
+                    <div className="break-all font-mono text-4xl font-bold text-primary-blue-dark">
+                      {withFormatting ? result.cpfFormatted : result.cpf}
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                  <Button
-                    onClick={handleCopyAgain}
-                    variant="outline"
-                    className="border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white"
-                  >
-                    📋 Copiar Novamente
-                  </Button>
-                  
-                  <Button
-                    onClick={() => setWithFormatting(!withFormatting)}
-                    variant="outline"
-                    className="border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white"
-                  >
-                    {withFormatting ? "❌ Remover Pontuação" : "✓ Adicionar Pontuação"}
-                  </Button>
-                </div>
-                
-                {copySuccess && (
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-growth-green-soft px-4 py-2 text-sm text-growth-green">
-                    ✓ CPF copiado para área de transferência!
-                  </div>
-                )}
-              </div>
-            </div>
 
-            <div className="rounded-lg bg-primary-blue-light p-4">
-              <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações Técnicas</h4>
-              <ul className="space-y-1 text-sm text-text-secondary">
-                <li>
-                  <strong>CPF sem formatação:</strong> <code className="bg-gray-800 px-1 rounded">{result.cpf}</code>
-                </li>
-                <li>
-                  <strong>CPF formatado:</strong> <code className="bg-gray-800 px-1 rounded">{result.cpfFormatted}</code>
-                </li>
-                <li>
-                  <strong>Status:</strong> <span className="text-growth-green">Válido ✓</span>
-                </li>
-                <li>
-                  <strong>Gerado em:</strong> {result.generatedAt.toLocaleString('pt-BR')}
-                </li>
-              </ul>
-            </div>
-            
-            <div className="mt-4 rounded border border-system-warning/20 bg-system-warning/10 p-3 text-sm text-system-warning">
-              ⚠️ <strong>Importante:</strong> Este CPF é válido apenas para testes e desenvolvimento. 
-              Não utilize em documentos oficiais ou cadastros reais.
-            </div>
-          </CardContent>
-        </Card>
+                  <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                    <Button
+                      onClick={handleCopyAgain}
+                      variant="outline"
+                      className="border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white"
+                    >
+                      📋 Copiar Novamente
+                    </Button>
+
+                    <Button
+                      onClick={() => setWithFormatting(!withFormatting)}
+                      variant="outline"
+                      className="border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white"
+                    >
+                      {withFormatting ? "❌ Remover Pontuação" : "✓ Adicionar Pontuação"}
+                    </Button>
+                  </div>
+
+                  {copySuccess && (
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-growth-green-soft px-4 py-2 text-sm text-growth-green">
+                      ✓ CPF copiado para área de transferência!
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-lg bg-primary-blue-light p-4">
+                <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações Técnicas</h4>
+                <ul className="space-y-1 text-sm text-text-secondary">
+                  <li>
+                    <strong>CPF sem formatação:</strong>{" "}
+                    <code className="rounded bg-gray-800 px-1">{result.cpf}</code>
+                  </li>
+                  <li>
+                    <strong>CPF formatado:</strong>{" "}
+                    <code className="rounded bg-gray-800 px-1">{result.cpfFormatted}</code>
+                  </li>
+                  <li>
+                    <strong>Status:</strong> <span className="text-growth-green">Válido ✓</span>
+                  </li>
+                  <li>
+                    <strong>Gerado em:</strong> {result.generatedAt.toLocaleString("pt-BR")}
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-4 rounded border border-system-warning/20 bg-system-warning/10 p-3 text-sm text-system-warning">
+                ⚠️ <strong>Importante:</strong> Este CPF é válido apenas para testes e
+                desenvolvimento. Não utilize em documentos oficiais ou cadastros reais.
+              </div>
+            </CardContent>
+          </Card>
         </div>
       )}
 
@@ -580,7 +581,7 @@ export default function CpfGenerator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    CPF (Cadastro de Pessoas Físicas) é o registro de identificação do contribuinte 
+                    CPF (Cadastro de Pessoas Físicas) é o registro de identificação do contribuinte
                     pessoa física na Receita Federal brasileira, composto por 11 dígitos numéricos.
                   </p>
 
@@ -620,8 +621,8 @@ export default function CpfGenerator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🎯 Primeiro Dígito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Multiplica-se cada um dos primeiros 9 dígitos por uma sequência decrescente 
-                    de números de 10 a 2 e calcula-se o resto da divisão por 11.
+                    Multiplica-se cada um dos primeiros 9 dígitos por uma sequência decrescente de
+                    números de 10 a 2 e calcula-se o resto da divisão por 11.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Cálculo</h4>
@@ -635,8 +636,8 @@ export default function CpfGenerator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🎯 Segundo Dígito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Similar ao primeiro, mas inclui o primeiro dígito verificador e usa 
-                    sequência de 11 a 2.
+                    Similar ao primeiro, mas inclui o primeiro dígito verificador e usa sequência de
+                    11 a 2.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-success">✅ Validação</h4>
@@ -742,23 +743,23 @@ export default function CpfGenerator() {
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
               Este <strong className="text-primary-blue-dark">gerador de CPF</strong> utiliza o{" "}
-              <strong className="text-growth-green">algoritmo oficial</strong> da Receita Federal 
-              para calcular dígitos verificadores válidos. Os CPFs gerados passam em todas as 
+              <strong className="text-growth-green">algoritmo oficial</strong> da Receita Federal
+              para calcular dígitos verificadores válidos. Os CPFs gerados passam em todas as
               validações matemáticas, mas são fictícios.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Geração com ou sem pontuação, cópia automática para 
+              <strong>Funcionalidades:</strong> Geração com ou sem pontuação, cópia automática para
               área de transferência, interface responsiva e geração instantânea com um clique.
             </p>
             <p>
-              <strong className="text-system-error">Aviso Legal:</strong> Esta ferramenta é 
-              exclusivamente para fins educacionais, testes de software e desenvolvimento. 
-              <strong>Usar CPF falso em documentos oficiais é crime</strong> previsto nos artigos 
+              <strong className="text-system-error">Aviso Legal:</strong> Esta ferramenta é
+              exclusivamente para fins educacionais, testes de software e desenvolvimento.
+              <strong>Usar CPF falso em documentos oficiais é crime</strong> previsto nos artigos
               297 e 299 do Código Penal Brasileiro.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚡ Geração instantânea • 📋 Cópia automática • 🔒 CPF válido • 📱 Mobile-friendly • 
-              🌙 Modo escuro • 🛡️ Uso responsável
+              ⚡ Geração instantânea • 📋 Cópia automática • 🔒 CPF válido • 📱 Mobile-friendly • 🌙
+              Modo escuro • 🛡️ Uso responsável
             </p>
           </div>
         </CardContent>

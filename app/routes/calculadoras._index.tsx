@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
       content:
         "calculadoras online, categorias, saúde, finanças, matemática, ferramentas gratuitas, calcular",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     { property: "og:title", content: `Calculadoras por Categoria - ${APP_NAME}` },
     {
       property: "og:description",

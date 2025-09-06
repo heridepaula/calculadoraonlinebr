@@ -30,7 +30,7 @@ export const meta: MetaFunction = () => {
       content:
         "calculadora adiantamento parcelas nubank, antecipação nubank, adiantamento nubank, quitar parcelas nubank, simulador nubank, desconto antecipação, calculadora nubank 2025",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -59,8 +59,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content:
-        "Calculadora de Antecipação Nubank - Calcule descontos e economize",
+      content: "Calculadora de Antecipação Nubank - Calcule descontos e economize",
     },
     {
       property: "og:image:width",
@@ -73,7 +72,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -141,7 +141,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
           name: "Calculadora Antecipação Nubank 2025 - Descontos",
           description:
             "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
@@ -209,33 +210,33 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
+        mainEntity: [
           {
             "@type": "Question",
-            "name": "Como funciona a antecipação de parcelas no Nubank?",
-            "acceptedAnswer": {
+            name: "Como funciona a antecipação de parcelas no Nubank?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "O Nubank calcula um desconto sobre o valor total das parcelas restantes, considerando a taxa de juros do contrato original. Você paga menos do que a soma das parcelas restantes."
-            }
-          },
-          {
-            "@type": "Question", 
-            "name": "Qual é a taxa de desconto da antecipação?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "A taxa varia conforme seu contrato, mas geralmente fica em torno de 10% a 12% ao ano. O desconto é calculado com base no valor presente das parcelas futuras."
-            }
+              text: "O Nubank calcula um desconto sobre o valor total das parcelas restantes, considerando a taxa de juros do contrato original. Você paga menos do que a soma das parcelas restantes.",
+            },
           },
           {
             "@type": "Question",
-            "name": "Quando vale a pena antecipar parcelas?", 
-            "acceptedAnswer": {
+            name: "Qual é a taxa de desconto da antecipação?",
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": "Vale a pena antecipar quando você tem recursos disponíveis e quer se livrar da dívida. A antecipação sempre gera economia e melhora sua situação financeira."
-            }
-          }
-        ]
-      })
+              text: "A taxa varia conforme seu contrato, mas geralmente fica em torno de 10% a 12% ao ano. O desconto é calculado com base no valor presente das parcelas futuras.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Quando vale a pena antecipar parcelas?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Vale a pena antecipar quando você tem recursos disponíveis e quer se livrar da dívida. A antecipação sempre gera economia e melhora sua situação financeira.",
+            },
+          },
+        ],
+      }),
     },
   ];
 };
@@ -254,11 +255,11 @@ interface AntecipacaoResult {
   descontoAntecipacao: number;
   valorPagoPelaAntecipacao: number;
   economiaAntecipacao: number;
-  
+
   // Dados auxiliares
   parcelasRestantes: number;
   taxaJurosAntecipacao: number;
-  
+
   // Tabela mês a mês
   tabelaMensal: MesAntecipacao[];
 }
@@ -270,7 +271,6 @@ interface ValidationErrors {
 }
 
 export default function AntecipacaoNubankCalculator() {
-
   const [valorParcela, setValorParcela] = useState<number>(0);
   const [numeroParcelasRestantes, setNumeroParcelasRestantes] = useState("");
   const [taxaJurosAntecipacao, setTaxaJurosAntecipacao] = useState("10,58"); // Taxa padrão do Nubank
@@ -296,7 +296,7 @@ export default function AntecipacaoNubankCalculator() {
     const s = String(v ?? "");
     // Remove R$ e espaços
     let normalized = s.replace(/[R$\s]/g, "");
-    
+
     // Se contém vírgula, trata como formato brasileiro (ex: 1.000,01)
     if (normalized.includes(",")) {
       // Remove pontos (separadores de milhares) e substitui vírgula por ponto
@@ -311,13 +311,14 @@ export default function AntecipacaoNubankCalculator() {
       }
       // Caso contrário, mantém como decimal
     }
-    
+
     const n = parseFloat(normalized);
     return isNaN(n) ? 0 : n;
   };
   const parseRate = (v: string | number): number => parseMoney(v) / 100;
 
-  const getIRRate = (days: number) => (days <= 180 ? 0.225 : days <= 360 ? 0.2 : days <= 720 ? 0.175 : 0.15);
+  const getIRRate = (days: number) =>
+    days <= 180 ? 0.225 : days <= 360 ? 0.2 : days <= 720 ? 0.175 : 0.15;
 
   const validateInputs = (): boolean => {
     const newErrors: ValidationErrors = {};
@@ -330,7 +331,8 @@ export default function AntecipacaoNubankCalculator() {
 
     const numParcelas = parseInt(numeroParcelasRestantes, 10);
     if (!numeroParcelasRestantes || isNaN(numParcelas) || numParcelas <= 1) {
-      newErrors.numeroParcelasRestantes = "Número de parcelas deve ser maior que 1 para aplicar desconto";
+      newErrors.numeroParcelasRestantes =
+        "Número de parcelas deve ser maior que 1 para aplicar desconto";
       ok = false;
     }
 
@@ -338,7 +340,6 @@ export default function AntecipacaoNubankCalculator() {
       newErrors.taxaJurosAntecipacao = "Taxa de juros deve ser maior que 0";
       ok = false;
     }
-
 
     setErrors(newErrors);
     return ok;
@@ -354,31 +355,36 @@ export default function AntecipacaoNubankCalculator() {
 
       // Cálculos da Antecipação - Baseado na fórmula do Nubank
       const valorTotalSemAntecipacao = valorParc * numParcelas;
-      
+
       // Taxa mensal efetiva do contrato
       const taxaMensal = taxaJurosAnual / 12;
-      
+
       // Calcular o valor antecipado baseado na tabela PRICE (usado pelo Nubank)
       // Fórmula: VP = PMT * [(1 - (1 + i)^-n) / i]
       const fatorDesconto = (1 - Math.pow(1 + taxaMensal, -numParcelas)) / taxaMensal;
       const valorPresenteTotal = valorParc * fatorDesconto;
-      
+
       const descontoAntecipacao = valorTotalSemAntecipacao - valorPresenteTotal;
       const economiaAntecipacao = descontoAntecipacao;
 
       const tabelaMensal: MesAntecipacao[] = [];
-      
+
       // Simular antecipação com diferentes números de parcelas restantes (de 2 até total)
-      for (let parcelasRestantesNoMes = 2; parcelasRestantesNoMes <= numParcelas; parcelasRestantesNoMes++) {
+      for (
+        let parcelasRestantesNoMes = 2;
+        parcelasRestantesNoMes <= numParcelas;
+        parcelasRestantesNoMes++
+      ) {
         const valorTotalRestanteNoMes = valorParc * parcelasRestantesNoMes;
-        
+
         // Calcular valor presente das parcelas restantes usando tabela PRICE
-        const fatorDescontoRestante = (1 - Math.pow(1 + taxaMensal, -parcelasRestantesNoMes)) / taxaMensal;
+        const fatorDescontoRestante =
+          (1 - Math.pow(1 + taxaMensal, -parcelasRestantesNoMes)) / taxaMensal;
         const valorPresenteRestanteNoMes = valorParc * fatorDescontoRestante;
-        
+
         const descontoAntecipacaoNoMes = valorTotalRestanteNoMes - valorPresenteRestanteNoMes;
         const economiaAntecipacaoNoMes = descontoAntecipacaoNoMes;
-        
+
         tabelaMensal.push({
           mes: numParcelas - parcelasRestantesNoMes + 2, // Mês em que seria feita a antecipação
           parcelasRestantesNoMes: parcelasRestantesNoMes,
@@ -393,10 +399,10 @@ export default function AntecipacaoNubankCalculator() {
         descontoAntecipacao: descontoAntecipacao,
         valorPagoPelaAntecipacao: valorPresenteTotal,
         economiaAntecipacao: economiaAntecipacao,
-        
+
         parcelasRestantes: numParcelas,
         taxaJurosAntecipacao: taxaJurosAnual * 100,
-        
+
         tabelaMensal: tabelaMensal,
       };
 
@@ -437,8 +443,11 @@ export default function AntecipacaoNubankCalculator() {
           Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          <strong className="text-growth-green">Calculadora gratuita de adiantamento de parcelas Nubank</strong> para simular antecipação. 
-          Descubra quanto pode economizar com <strong>adiantamento Nubank</strong> e qual o melhor momento para quitar suas parcelas.
+          <strong className="text-growth-green">
+            Calculadora gratuita de adiantamento de parcelas Nubank
+          </strong>{" "}
+          para simular antecipação. Descubra quanto pode economizar com{" "}
+          <strong>adiantamento Nubank</strong> e qual o melhor momento para quitar suas parcelas.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -455,10 +464,12 @@ export default function AntecipacaoNubankCalculator() {
             <h2 className="mb-3 text-xl font-bold text-primary-blue-dark">
               Como funciona o Adiantamento de Parcelas Nubank?
             </h2>
-            <p className="text-sm text-text-secondary leading-relaxed">
-              O <strong>adiantamento Nubank</strong> permite antecipar o pagamento das suas parcelas restantes com desconto. 
-              Nossa <strong>calculadora de adiantamento</strong> simula exatamente quanto você economizará ao fazer a 
-              <strong> antecipação das parcelas Nubank</strong>, mostrando o valor do desconto por número de parcelas.
+            <p className="text-sm leading-relaxed text-text-secondary">
+              O <strong>adiantamento Nubank</strong> permite antecipar o pagamento das suas parcelas
+              restantes com desconto. Nossa <strong>calculadora de adiantamento</strong> simula
+              exatamente quanto você economizará ao fazer a
+              <strong> antecipação das parcelas Nubank</strong>, mostrando o valor do desconto por
+              número de parcelas.
             </p>
           </div>
         </CardContent>
@@ -537,27 +548,42 @@ export default function AntecipacaoNubankCalculator() {
                 🚀 VOCÊ ECONOMIZA {currencyBR(result.economiaAntecipacao)}!
               </div>
               <div className="mt-2 text-sm text-text-secondary">
-                Desconto de <strong>{percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%</strong> sobre o valor total
+                Desconto de{" "}
+                <strong>
+                  {percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%
+                </strong>{" "}
+                sobre o valor total
               </div>
             </div>
 
             {/* Resultado da Antecipação */}
             <div className="mb-6">
               <div className="rounded-lg border border-system-warning/20 bg-gray-900 p-6">
-                <h4 className="mb-4 text-xl font-bold text-system-warning">💰 Resultado da Antecipação</h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h4 className="mb-4 text-xl font-bold text-system-warning">
+                  💰 Resultado da Antecipação
+                </h4>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-text-primary">{currencyBR(result.valorAntecipacao)}</div>
+                    <div className="text-2xl font-bold text-text-primary">
+                      {currencyBR(result.valorAntecipacao)}
+                    </div>
                     <div className="text-sm text-text-secondary">Valor Total das Parcelas</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-system-warning">{currencyBR(result.valorPagoPelaAntecipacao)}</div>
+                    <div className="text-2xl font-bold text-system-warning">
+                      {currencyBR(result.valorPagoPelaAntecipacao)}
+                    </div>
                     <div className="text-sm text-text-secondary">Valor para Quitar</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-growth-green">{currencyBR(result.economiaAntecipacao)}</div>
+                    <div className="text-2xl font-bold text-growth-green">
+                      {currencyBR(result.economiaAntecipacao)}
+                    </div>
                     <div className="text-sm text-text-secondary">Economia Total</div>
-                    <div className="text-xs text-growth-green mt-1">({percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}% de desconto)</div>
+                    <div className="mt-1 text-xs text-growth-green">
+                      ({percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}% de
+                      desconto)
+                    </div>
                   </div>
                 </div>
               </div>
@@ -570,137 +596,234 @@ export default function AntecipacaoNubankCalculator() {
                   Parcelas restantes: <strong>{result.parcelasRestantes}</strong>
                 </li>
                 <li>
-                  Taxa de desconto antecipação: <strong>{percentBR(result.taxaJurosAntecipacao)}% a.a.</strong>
+                  Taxa de desconto antecipação:{" "}
+                  <strong>{percentBR(result.taxaJurosAntecipacao)}% a.a.</strong>
                 </li>
                 <li>
-                  Desconto percentual total: <strong>{percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%</strong>
+                  Desconto percentual total:{" "}
+                  <strong>
+                    {percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%
+                  </strong>
                 </li>
               </ul>
             </div>
 
             {/* Análise de Antecipação - Responsiva */}
             <div className="mt-6">
-              <h4 className="mb-4 text-xl font-bold text-text-primary">📊 Análise de Antecipação por Parcelas</h4>
-              
+              <h4 className="mb-4 text-xl font-bold text-text-primary">
+                📊 Análise de Antecipação por Parcelas
+              </h4>
+
               {/* Versão Mobile - Cards */}
-              <div className="block lg:hidden space-y-3">
+              <div className="block space-y-3 lg:hidden">
                 {/* Card principal - Antecipação Total */}
-                <div className="bg-system-warning/10 rounded-lg p-4 border border-system-warning/20">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="font-bold text-system-warning text-lg">{result.parcelasRestantes} Parcelas</span>
-                    <span className="text-xs bg-system-warning/20 px-2 py-1 rounded text-system-warning font-medium">TOTAL</span>
+                <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-lg font-bold text-system-warning">
+                      {result.parcelasRestantes} Parcelas
+                    </span>
+                    <span className="rounded bg-system-warning/20 px-2 py-1 text-xs font-medium text-system-warning">
+                      TOTAL
+                    </span>
                   </div>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <div className="text-text-secondary mb-1">Valor das Parcelas</div>
+                      <div className="mb-1 text-text-secondary">Valor das Parcelas</div>
                       <div className="font-semibold">{currencyBR(result.valorAntecipacao)}</div>
                     </div>
                     <div>
-                      <div className="text-text-secondary mb-1">Valor a Pagar</div>
-                      <div className="font-semibold text-system-warning">{currencyBR(result.valorPagoPelaAntecipacao)}</div>
+                      <div className="mb-1 text-text-secondary">Valor a Pagar</div>
+                      <div className="font-semibold text-system-warning">
+                        {currencyBR(result.valorPagoPelaAntecipacao)}
+                      </div>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-system-warning/20 text-center">
-                    <div className="text-text-secondary text-sm mb-1">Desconto Total</div>
-                    <div className="font-bold text-growth-green text-lg">{currencyBR(result.economiaAntecipacao)}</div>
-                    <div className="text-xs text-growth-green">({percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}% de desconto)</div>
+                  <div className="mt-3 border-t border-system-warning/20 pt-3 text-center">
+                    <div className="mb-1 text-sm text-text-secondary">Desconto Total</div>
+                    <div className="text-lg font-bold text-growth-green">
+                      {currencyBR(result.economiaAntecipacao)}
+                    </div>
+                    <div className="text-xs text-growth-green">
+                      ({percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}% de
+                      desconto)
+                    </div>
                   </div>
                 </div>
-                
+
                 {/* Cards das simulações mensais */}
                 {result.tabelaMensal
                   .sort((a, b) => b.parcelasRestantesNoMes - a.parcelasRestantesNoMes)
                   .map((mes) => (
-                  <div key={mes.mes} className="bg-gray-800/30 rounded-lg p-4 border border-neutral-surface-variant">
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="font-bold text-text-primary">{mes.parcelasRestantesNoMes} Parcelas</span>
-                      <span className="text-xs bg-gray-700 px-2 py-1 rounded text-text-secondary">Mês {mes.mes}</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div>
-                        <div className="text-text-secondary mb-1">Valor das Parcelas</div>
-                        <div className="font-semibold">{currencyBR(mes.valorTotalRestante)}</div>
+                    <div
+                      key={mes.mes}
+                      className="rounded-lg border border-neutral-surface-variant bg-gray-800/30 p-4"
+                    >
+                      <div className="mb-3 flex items-center justify-between">
+                        <span className="font-bold text-text-primary">
+                          {mes.parcelasRestantesNoMes} Parcelas
+                        </span>
+                        <span className="rounded bg-gray-700 px-2 py-1 text-xs text-text-secondary">
+                          Mês {mes.mes}
+                        </span>
                       </div>
-                      <div>
-                        <div className="text-text-secondary mb-1">Valor a Pagar</div>
-                        <div className="font-semibold text-system-warning">{currencyBR(mes.valorTotalRestante - mes.economiaAntecipacaoNoMes)}</div>
+                      <div className="grid grid-cols-2 gap-3 text-sm">
+                        <div>
+                          <div className="mb-1 text-text-secondary">Valor das Parcelas</div>
+                          <div className="font-semibold">{currencyBR(mes.valorTotalRestante)}</div>
+                        </div>
+                        <div>
+                          <div className="mb-1 text-text-secondary">Valor a Pagar</div>
+                          <div className="font-semibold text-system-warning">
+                            {currencyBR(mes.valorTotalRestante - mes.economiaAntecipacaoNoMes)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-3 border-t border-gray-700 pt-3 text-center">
+                        <div className="mb-1 text-sm text-text-secondary">Desconto</div>
+                        <div className="font-bold text-growth-green">
+                          {currencyBR(mes.economiaAntecipacaoNoMes)}
+                        </div>
+                        <div className="text-xs text-growth-green">
+                          (
+                          {percentBR((mes.economiaAntecipacaoNoMes / mes.valorTotalRestante) * 100)}
+                          % de desconto)
+                        </div>
                       </div>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-gray-700 text-center">
-                      <div className="text-text-secondary text-sm mb-1">Desconto</div>
-                      <div className="font-bold text-growth-green">{currencyBR(mes.economiaAntecipacaoNoMes)}</div>
-                      <div className="text-xs text-growth-green">({percentBR((mes.economiaAntecipacaoNoMes / mes.valorTotalRestante) * 100)}% de desconto)</div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
-              
+
               {/* Versão Desktop - Tabela */}
-              <div className="hidden lg:block overflow-x-auto rounded-lg border border-neutral-surface-variant">
+              <div className="hidden overflow-x-auto rounded-lg border border-neutral-surface-variant lg:block">
                 <table className="w-full border-collapse">
                   <thead>
-                    <tr className="bg-gray-800 border-b border-neutral-surface-variant">
-                      <th className="p-4 text-center font-semibold text-text-primary">Parcelas a Antecipar</th>
-                      <th className="p-4 text-right font-semibold text-text-primary">Valor das Parcelas</th>
-                      <th className="p-4 text-right font-semibold text-system-warning">Valor a Pagar</th>
+                    <tr className="border-b border-neutral-surface-variant bg-gray-800">
+                      <th className="p-4 text-center font-semibold text-text-primary">
+                        Parcelas a Antecipar
+                      </th>
+                      <th className="p-4 text-right font-semibold text-text-primary">
+                        Valor das Parcelas
+                      </th>
+                      <th className="p-4 text-right font-semibold text-system-warning">
+                        Valor a Pagar
+                      </th>
                       <th className="p-4 text-right font-semibold text-growth-green">Desconto</th>
                     </tr>
                   </thead>
                   <tbody>
                     {/* Primeira linha: antecipação total */}
-                    <tr className="bg-system-warning/10 border-b border-neutral-surface-variant">
-                      <td className="p-4 text-center font-bold text-system-warning text-lg">{result.parcelasRestantes}</td>
-                      <td className="p-4 text-right font-semibold text-lg">{currencyBR(result.valorAntecipacao)}</td>
-                      <td className="p-4 text-right text-system-warning font-bold text-lg">{currencyBR(result.valorPagoPelaAntecipacao)}</td>
+                    <tr className="border-b border-neutral-surface-variant bg-system-warning/10">
+                      <td className="p-4 text-center text-lg font-bold text-system-warning">
+                        {result.parcelasRestantes}
+                      </td>
+                      <td className="p-4 text-right text-lg font-semibold">
+                        {currencyBR(result.valorAntecipacao)}
+                      </td>
+                      <td className="p-4 text-right text-lg font-bold text-system-warning">
+                        {currencyBR(result.valorPagoPelaAntecipacao)}
+                      </td>
                       <td className="p-4 text-right text-growth-green">
-                        <div className="font-bold text-lg">{currencyBR(result.economiaAntecipacao)}</div>
-                        <div className="text-sm opacity-80">({percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%)</div>
+                        <div className="text-lg font-bold">
+                          {currencyBR(result.economiaAntecipacao)}
+                        </div>
+                        <div className="text-sm opacity-80">
+                          ({percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}
+                          %)
+                        </div>
                       </td>
                     </tr>
                     {/* Demais linhas ordenadas por número decrescente de parcelas */}
                     {result.tabelaMensal
                       .sort((a, b) => b.parcelasRestantesNoMes - a.parcelasRestantesNoMes)
                       .map((mes) => (
-                      <tr key={mes.mes} className="border-b border-neutral-surface-variant hover:bg-gray-800/30 transition-colors">
-                        <td className="p-4 text-center font-semibold">{mes.parcelasRestantesNoMes}</td>
-                        <td className="p-4 text-right font-semibold">{currencyBR(mes.valorTotalRestante)}</td>
-                        <td className="p-4 text-right text-system-warning font-semibold">{currencyBR(mes.valorTotalRestante - mes.economiaAntecipacaoNoMes)}</td>
-                        <td className="p-4 text-right text-growth-green">
-                          <div className="font-semibold">{currencyBR(mes.economiaAntecipacaoNoMes)}</div>
-                          <div className="text-sm opacity-80">({percentBR((mes.economiaAntecipacaoNoMes / mes.valorTotalRestante) * 100)}%)</div>
-                        </td>
-                      </tr>
-                    ))}
+                        <tr
+                          key={mes.mes}
+                          className="border-b border-neutral-surface-variant transition-colors hover:bg-gray-800/30"
+                        >
+                          <td className="p-4 text-center font-semibold">
+                            {mes.parcelasRestantesNoMes}
+                          </td>
+                          <td className="p-4 text-right font-semibold">
+                            {currencyBR(mes.valorTotalRestante)}
+                          </td>
+                          <td className="p-4 text-right font-semibold text-system-warning">
+                            {currencyBR(mes.valorTotalRestante - mes.economiaAntecipacaoNoMes)}
+                          </td>
+                          <td className="p-4 text-right text-growth-green">
+                            <div className="font-semibold">
+                              {currencyBR(mes.economiaAntecipacaoNoMes)}
+                            </div>
+                            <div className="text-sm opacity-80">
+                              (
+                              {percentBR(
+                                (mes.economiaAntecipacaoNoMes / mes.valorTotalRestante) * 100
+                              )}
+                              %)
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
-              
+
               {/* Explicação da Tabela */}
               <div className="mt-4 rounded-lg bg-gray-800 p-4">
-                <h5 className="mb-2 font-semibold text-text-primary">💡 Como Interpretar a Tabela</h5>
+                <h5 className="mb-2 font-semibold text-text-primary">
+                  💡 Como Interpretar a Tabela
+                </h5>
                 <ul className="space-y-1 text-sm text-text-secondary">
-                  <li>• <strong className="text-text-primary">Parcela:</strong> Número de parcelas restantes a antecipar</li>
-                  <li>• <strong className="text-text-secondary">Valor:</strong> Valor total das parcelas restantes</li>
-                  <li>• <strong className="text-system-warning">Adiantamento:</strong> Valor que você pagaria antecipando</li>
-                  <li>• <strong className="text-growth-green">Desconto:</strong> Valor em reais e percentual de desconto obtido</li>
+                  <li>
+                    • <strong className="text-text-primary">Parcela:</strong> Número de parcelas
+                    restantes a antecipar
+                  </li>
+                  <li>
+                    • <strong className="text-text-secondary">Valor:</strong> Valor total das
+                    parcelas restantes
+                  </li>
+                  <li>
+                    • <strong className="text-system-warning">Adiantamento:</strong> Valor que você
+                    pagaria antecipando
+                  </li>
+                  <li>
+                    • <strong className="text-growth-green">Desconto:</strong> Valor em reais e
+                    percentual de desconto obtido
+                  </li>
                 </ul>
               </div>
 
               {/* Recomendação */}
               <div className="mt-6 rounded-lg border border-growth-green/20 bg-growth-green-soft p-6">
-                <h5 className="mb-4 text-xl font-bold text-text-primary">🎯 Vantagens da Antecipação</h5>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h5 className="mb-4 text-xl font-bold text-text-primary">
+                  🎯 Vantagens da Antecipação
+                </h5>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
-                    <h6 className="mb-3 text-lg font-bold text-system-warning">💰 Benefícios Financeiros</h6>
+                    <h6 className="mb-3 text-lg font-bold text-system-warning">
+                      💰 Benefícios Financeiros
+                    </h6>
                     <ul className="space-y-2 text-sm">
-                      <li>✅ Economia de <strong className="text-growth-green">{currencyBR(result.economiaAntecipacao)}</strong></li>
-                      <li>✅ Desconto de <strong>{percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%</strong> sobre o total</li>
+                      <li>
+                        ✅ Economia de{" "}
+                        <strong className="text-growth-green">
+                          {currencyBR(result.economiaAntecipacao)}
+                        </strong>
+                      </li>
+                      <li>
+                        ✅ Desconto de{" "}
+                        <strong>
+                          {percentBR((result.economiaAntecipacao / result.valorAntecipacao) * 100)}%
+                        </strong>{" "}
+                        sobre o total
+                      </li>
                       <li>✅ Liberdade financeira imediata</li>
                       <li>✅ Não há risco de inadimplência</li>
                     </ul>
                   </div>
                   <div>
-                    <h6 className="mb-3 text-lg font-bold text-primary-blue-dark">🛡️ Vantagens Estratégicas</h6>
+                    <h6 className="mb-3 text-lg font-bold text-primary-blue-dark">
+                      🛡️ Vantagens Estratégicas
+                    </h6>
                     <ul className="space-y-2 text-sm">
                       <li>✅ Eliminação total da dívida</li>
                       <li>✅ Melhora do score de crédito</li>
@@ -711,7 +834,6 @@ export default function AntecipacaoNubankCalculator() {
                 </div>
               </div>
             </div>
-
           </CardContent>
         </Card>
       )}
@@ -730,8 +852,9 @@ export default function AntecipacaoNubankCalculator() {
               </h3>
               <div className="space-y-4">
                 <p className="text-sm text-text-secondary">
-                  O Nubank oferece desconto para quitar antecipadamente as parcelas restantes do seu empréstimo pessoal. 
-                  O valor do desconto varia conforme a taxa de juros original e o número de parcelas restantes.
+                  O Nubank oferece desconto para quitar antecipadamente as parcelas restantes do seu
+                  empréstimo pessoal. O valor do desconto varia conforme a taxa de juros original e
+                  o número de parcelas restantes.
                 </p>
                 <h4 className="font-semibold text-growth-green">Como funciona o cálculo:</h4>
                 <ul className="space-y-1 text-sm text-text-secondary">
@@ -741,7 +864,6 @@ export default function AntecipacaoNubankCalculator() {
                 </ul>
               </div>
             </div>
-
           </div>
         </CardContent>
       </Card>
@@ -791,18 +913,30 @@ export default function AntecipacaoNubankCalculator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Esta <strong className="text-primary-blue-dark">calculadora de antecipação Nubank</strong> calcula{" "}
-              <strong className="text-growth-green">os descontos obtidos com a quitação antecipada</strong> das suas parcelas.
+              Esta{" "}
+              <strong className="text-primary-blue-dark">calculadora de antecipação Nubank</strong>{" "}
+              calcula{" "}
+              <strong className="text-growth-green">
+                os descontos obtidos com a quitação antecipada
+              </strong>{" "}
+              das suas parcelas.
             </p>
             <p>
-              <strong>Como funciona:</strong> Calcula o desconto da antecipação usando a fórmula de valor presente das parcelas futuras, mostrando exatamente quanto você economizará.
+              <strong>Como funciona:</strong> Calcula o desconto da antecipação usando a fórmula de
+              valor presente das parcelas futuras, mostrando exatamente quanto você economizará.
             </p>
             <p>
-              <strong className="text-system-warning">Limitações da Simulação:</strong> Esta calculadora utiliza a metodologia PRICE padrão para os cálculos, porém pequenas variações podem ocorrer devido ao dia específico da contratação da antecipação e às diferenças nos dias de cada mês durante o período de parcelamento. Como não temos acesso a esses dados específicos do Nubank, recomendamos consultar o app para valores exatos.
+              <strong className="text-system-warning">Limitações da Simulação:</strong> Esta
+              calculadora utiliza a metodologia PRICE padrão para os cálculos, porém pequenas
+              variações podem ocorrer devido ao dia específico da contratação da antecipação e às
+              diferenças nos dias de cada mês durante o período de parcelamento. Como não temos
+              acesso a esses dados específicos do Nubank, recomendamos consultar o app para valores
+              exatos.
             </p>
             <p>
-              <strong className="text-primary-blue-dark">Recomendação:</strong> Use esta ferramenta para análises preliminares e planejamento. 
-              Para decisões finais, confirme sempre os valores no aplicativo oficial do Nubank.
+              <strong className="text-primary-blue-dark">Recomendação:</strong> Use esta ferramenta
+              para análises preliminares e planejamento. Para decisões finais, confirme sempre os
+              valores no aplicativo oficial do Nubank.
             </p>
           </div>
         </CardContent>

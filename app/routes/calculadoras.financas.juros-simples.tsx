@@ -67,7 +67,7 @@ export const meta: MetaFunction = () => {
       content:
         "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",

@@ -17,15 +17,14 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title:
-        "Volume 2025 – Calculadora Cubo, Esfera, Cilindro",
+      title: "Volume 2025 – Calculadora Cubo, Esfera, Cilindro",
     },
     {
       name: "description",
       content:
         "Calcule volume de formas geométricas: cubo, esfera, cilindro, cone. Fórmulas confiáveis 3D para estudos matemáticos e trabalhos.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",

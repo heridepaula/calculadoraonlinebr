@@ -67,7 +67,7 @@ export const meta: MetaFunction = () => {
       content:
         "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     { name: "publisher", content: "CalculadoraOnlineBR" },
     { name: "article:modified_time", content: "2025-08-25T00:00:00-03:00" },
     {

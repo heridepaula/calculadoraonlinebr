@@ -17,15 +17,14 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title:
-        "Teorema Pitágoras 2025 – Hipotenusa e Catetos",
+      title: "Teorema Pitágoras 2025 – Hipotenusa e Catetos",
     },
     {
       name: "description",
       content:
         "Calcule hipotenusa e catetos de triângulos retângulos com Teorema Pitágoras. Fórmulas confiáveis e resultados instantâneos para estudos.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",

@@ -1,12 +1,12 @@
 /**
  * Vercel Analytics Configuration
- * Configuração do Analytics da Vercel para Calculadora Online BR
+ * Configuração do Analytics da Vercel para CalculadoraOnlineBR
  */
 
 import { track } from "@vercel/analytics";
 
 // Types for analytics events
-export type AnalyticsEvent = 
+export type AnalyticsEvent =
   | "calculator_used"
   | "result_calculated"
   | "category_viewed"
@@ -95,14 +95,14 @@ export const trackError = (error: string, context?: string) => {
  */
 export const trackUserAction = (action: string, properties?: Record<string, any>) => {
   // Filter out any potentially sensitive data
-  const safeProperties = properties ? 
-    Object.fromEntries(
-      Object.entries(properties).filter(([_, value]) => 
-        typeof value === "string" || 
-        typeof value === "number" || 
-        typeof value === "boolean"
+  const safeProperties = properties
+    ? Object.fromEntries(
+        Object.entries(properties).filter(
+          ([_, value]) =>
+            typeof value === "string" || typeof value === "number" || typeof value === "boolean"
+        )
       )
-    ) : {};
+    : {};
 
   track(action, safeProperties);
 };

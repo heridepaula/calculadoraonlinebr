@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
       name: "viewport",
       content: "width=device-width, initial-scale=1, viewport-fit=cover",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -735,9 +735,7 @@ export default function TreasuryDirectCalculator() {
                     className={selectedBond ? "bg-neutral-surface/50" : ""}
                   />
                   {selectedBond && (
-                    <p className="mt-1 text-xs text-system-info">
-                      ℹ️ Data de vencimento do título
-                    </p>
+                    <p className="mt-1 text-xs text-system-info">ℹ️ Data de vencimento do título</p>
                   )}
                 </div>
               </div>
@@ -760,9 +758,7 @@ export default function TreasuryDirectCalculator() {
                     className={selectedBond ? "bg-neutral-surface/50" : ""}
                   />
                   {selectedBond && (
-                    <p className="mt-1 text-xs text-system-info">
-                      ℹ️ Taxa do título selecionado
-                    </p>
+                    <p className="mt-1 text-xs text-system-info">ℹ️ Taxa do título selecionado</p>
                   )}
                 </div>
                 <MoneyInput
@@ -889,9 +885,7 @@ export default function TreasuryDirectCalculator() {
                     className={selectedBond ? "bg-neutral-surface/50" : ""}
                   />
                   {selectedBond && (
-                    <p className="mt-1 text-xs text-system-info">
-                      ℹ️ Taxa de cupom do título
-                    </p>
+                    <p className="mt-1 text-xs text-system-info">ℹ️ Taxa de cupom do título</p>
                   )}
                   <p className="mt-2 text-xs text-text-secondary">
                     Os cupons são pagos a cada 6 meses até o vencimento do título.

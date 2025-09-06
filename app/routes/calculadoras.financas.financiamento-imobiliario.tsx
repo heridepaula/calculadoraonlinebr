@@ -18,15 +18,14 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title:
-        "Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
+      title: "Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
     },
     {
       name: "description",
       content:
         "Simule financiamento imobiliário SAC e PRICE. Calcule parcelas, amortização e juros totais para compra da casa própria.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -931,8 +930,9 @@ export default function MortgageCalculator() {
               <strong className="text-primary-blue-dark">
                 calculadora de financiamento imobiliário
               </strong>{" "}
-              utiliza <strong className="text-growth-green">simulações financeiras confiáveis</strong>{" "}
-              para comparar sistemas SAC e PRICE, calculando parcelas, juros totais e cronograma de
+              utiliza{" "}
+              <strong className="text-growth-green">simulações financeiras confiáveis</strong> para
+              comparar sistemas SAC e PRICE, calculando parcelas, juros totais e cronograma de
               amortização para diferentes cenários de financiamento.
             </p>
             <p>

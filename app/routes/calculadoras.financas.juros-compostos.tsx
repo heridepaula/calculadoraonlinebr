@@ -61,7 +61,7 @@ export const meta: MetaFunction = () => {
       content:
         "Calcule juros compostos e potencialize seus investimentos. Simule aportes mensais, tempo e rentabilidade com gráficos interativos educativos.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",

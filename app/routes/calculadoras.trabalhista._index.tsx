@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
       content:
         "calculadora trabalhista, rescisão trabalhista, direitos trabalhistas, CLT, demissão sem justa causa, aviso prévio, FGTS, seguro desemprego, férias proporcionais, 13º salário, acordo mútuo, pedido demissão, cálculo trabalhista, direito do trabalho",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     { property: "og:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
     {
       property: "og:description",
@@ -51,7 +51,7 @@ export default function TrabalhistaIndex() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
-      <div className="border-b border-border-primary bg-surface-light px-6 py-4">
+      <div className="border-border-primary bg-surface-light border-b px-6 py-4">
         <div className="mx-auto max-w-7xl">
           <Breadcrumb>
             <BreadcrumbItem href="/">Início</BreadcrumbItem>
@@ -68,19 +68,19 @@ export default function TrabalhistaIndex() {
         description="Conheça e calcule seus direitos trabalhistas com base na **legislação brasileira vigente**. Ferramentas úteis para rescisão, benefícios e relações de trabalho."
         badge={{
           icon: "⚖️",
-          text: "Ferramentas Baseadas na Legislação Brasileira (CLT)"
+          text: "Ferramentas Baseadas na Legislação Brasileira (CLT)",
         }}
         trustIndicators={[
           { color: "bg-system-success", text: "Baseado na CLT" },
           { color: "bg-primary-blue", text: "Legislação Atualizada" },
-          { color: "bg-finance-gold", text: "Baseado em Especialistas" }
+          { color: "bg-finance-gold", text: "Baseado em Especialistas" },
         ]}
       />
 
       {/* Quick Access - Labor Rights */}
       <section className="bg-surface-dark/30 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               ⚖️ Proteja Seus Direitos Agora
             </h2>
@@ -88,7 +88,7 @@ export default function TrabalhistaIndex() {
               Começe aqui: as calculadoras mais importantes para trabalhadores brasileiros
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <QuickAccessCard
               title="Rescisão Trabalhista"
@@ -128,33 +128,33 @@ export default function TrabalhistaIndex() {
             icon: "⚖️",
             number: "CLT",
             label: "Baseado",
-            description: "Legislação brasileira"
+            description: "Legislação brasileira",
           },
           {
             icon: "📅",
             number: "2025",
             label: "Atualizado",
-            description: "Valores e tabelas"
+            description: "Valores e tabelas",
           },
           {
             icon: "🛡️",
             number: "100%",
             label: "Proteção",
-            description: "Direitos garantidos"
+            description: "Direitos garantidos",
           },
           {
             icon: "🎯",
             number: "Útil",
             label: "Ferramenta",
-            description: "Resultados detalhados"
-          }
+            description: "Resultados detalhados",
+          },
         ]}
       />
 
       {/* Labor Rights Categories */}
       <section className="py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               Áreas dos Direitos Trabalhistas
             </h2>
@@ -162,17 +162,17 @@ export default function TrabalhistaIndex() {
               Calculadoras organizadas por tipo de situação trabalhista
             </p>
           </div>
-          
+
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Resignation */}
             <div className="rounded-2xl bg-gradient-to-br from-system-error/10 to-system-error/5 p-8">
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="mb-4 flex items-center space-x-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-error text-white">
                   <span className="text-xl">📋</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Rescisão</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="mb-4 text-sm text-text-secondary">
                 Cálculos completos para diferentes tipos de rescisão
               </p>
               <div className="space-y-2">
@@ -190,13 +190,13 @@ export default function TrabalhistaIndex() {
 
             {/* Benefits */}
             <div className="rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-8">
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="mb-4 flex items-center space-x-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white">
                   <span className="text-xl">💰</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Benefícios</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="mb-4 text-sm text-text-secondary">
                 Simuladores para benefícios trabalhistas e previdenciários
               </p>
               <div className="space-y-2">
@@ -214,13 +214,13 @@ export default function TrabalhistaIndex() {
 
             {/* Salary */}
             <div className="rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-8">
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="mb-4 flex items-center space-x-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white">
                   <span className="text-xl">💵</span>
                 </div>
                 <h3 className="text-xl font-bold text-text-primary">Salário</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="mb-4 text-sm text-text-secondary">
                 Cálculos de salário líquido e descontos
               </p>
               <div className="space-y-2">
@@ -250,7 +250,7 @@ export default function TrabalhistaIndex() {
               Proteja seus direitos com ferramentas baseadas na CLT
             </p>
           </div>
-          
+
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {trabalhistaCalculators.map((calculator) => (
               <CalculatorCard key={calculator.id} calculator={calculator} category="trabalhista" />
@@ -260,14 +260,14 @@ export default function TrabalhistaIndex() {
       </section>
 
       {/* Why Know Your Rights */}
-      <section className="bg-gradient-to-r from-surface-light to-surface py-16">
+      <section className="from-surface-light to-surface bg-gradient-to-r py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               Por que conhecer seus direitos?
             </h2>
           </div>
-          
+
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-system-error/20">
@@ -275,30 +275,29 @@ export default function TrabalhistaIndex() {
               </div>
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Proteção</h3>
               <p className="mt-4 text-text-secondary">
-                Evite prejuízos em rescisões e demissões. Conheça 
-                todos os valores que você tem direito a receber.
+                Evite prejuízos em rescisões e demissões. Conheça todos os valores que você tem
+                direito a receber.
               </p>
             </div>
-            
+
             <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-finance-gold/20">
                 <span className="text-2xl">📊</span>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Planejamento</h3>
               <p className="mt-4 text-text-secondary">
-                Calcule seus benefícios e direitos antecipadamente 
-                para tomar melhores decisões de carreira.
+                Calcule seus benefícios e direitos antecipadamente para tomar melhores decisões de
+                carreira.
               </p>
             </div>
-            
+
             <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
                 <span className="text-2xl">🔍</span>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-text-primary">Transparência</h3>
               <p className="mt-4 text-text-secondary">
-                Entenda cada valor na sua rescisão trabalhista 
-                e tenha clareza sobre seus direitos.
+                Entenda cada valor na sua rescisão trabalhista e tenha clareza sobre seus direitos.
               </p>
             </div>
           </div>
@@ -306,45 +305,56 @@ export default function TrabalhistaIndex() {
       </section>
 
       {/* Interactive Worker Rights Section */}
-      <section className="bg-gradient-to-r from-primary-blue-dark to-primary-blue py-16 relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-r from-primary-blue-dark to-primary-blue py-16">
         <div className="absolute inset-0 opacity-20">
-          <div className="h-full w-full bg-gradient-to-bl from-transparent via-white/6 to-transparent"></div>
+          <div className="via-white/6 h-full w-full bg-gradient-to-bl from-transparent to-transparent"></div>
         </div>
-        
+
         <div className="relative mx-auto max-w-6xl px-6 text-center lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-left lg:text-left">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl animate-pulse">
+              <h2 className="animate-pulse text-3xl font-bold text-white sm:text-4xl">
                 🛡️ Conheça Seus Direitos
               </h2>
               <p className="mt-4 text-lg text-primary-blue-light">
-                Proteja seus direitos trabalhistas com <strong>ferramentas baseadas na CLT</strong> e legislação brasileira atualizada
+                Proteja seus direitos trabalhistas com <strong>ferramentas baseadas na CLT</strong>{" "}
+                e legislação brasileira atualizada
               </p>
-              
+
               <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                <a 
+                <a
                   href="/calculadoras/trabalhista/rescisao"
-                  className="group inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-primary-blue-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark transform"
+                  className="group inline-flex transform items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-primary-blue-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
                 >
                   <span className="mr-2 text-xl group-hover:animate-bounce">📋</span>
                   Calcular Rescisão
-                  <svg className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </a>
-                
-                <a 
+
+                <a
                   href="/calculadoras/trabalhista/salario-liquido"
-                  className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-primary-blue-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark transform"
+                  className="group inline-flex transform items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:-translate-y-2 hover:bg-white hover:text-primary-blue-dark hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
                 >
                   <span className="mr-2 text-xl group-hover:animate-spin">💵</span>
                   Salário Líquido
                 </a>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-pulse">📜</span>
                   <div>
@@ -353,7 +363,7 @@ export default function TrabalhistaIndex() {
                   </div>
                 </div>
               </div>
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-bounce">⚖️</span>
                   <div>
@@ -362,7 +372,7 @@ export default function TrabalhistaIndex() {
                   </div>
                 </div>
               </div>
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-spin">🛡️</span>
                   <div>
@@ -371,7 +381,7 @@ export default function TrabalhistaIndex() {
                   </div>
                 </div>
               </div>
-              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <div className="group rounded-xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl group-hover:animate-pulse">🎯</span>
                   <div>
@@ -394,13 +404,15 @@ export default function TrabalhistaIndex() {
                 <span className="text-xl">⚠️</span>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-text-primary">
-                  Aviso Legal Importante
-                </h3>
+                <h3 className="text-lg font-semibold text-text-primary">Aviso Legal Importante</h3>
                 <p className="mt-2 text-text-secondary">
-                  Nossas calculadoras são ferramentas informativas baseadas na legislação trabalhista brasileira atual.
-                  Os resultados <strong className="text-system-warning-dark">não substituem orientação jurídica profissional</strong>. 
-                  Para situações específicas ou dúvidas jurídicas complexas, sempre consulte um advogado trabalhista qualificado.
+                  Nossas calculadoras são ferramentas informativas baseadas na legislação
+                  trabalhista brasileira atual. Os resultados{" "}
+                  <strong className="text-system-warning-dark">
+                    não substituem orientação jurídica profissional
+                  </strong>
+                  . Para situações específicas ou dúvidas jurídicas complexas, sempre consulte um
+                  advogado trabalhista qualificado.
                 </p>
               </div>
             </div>

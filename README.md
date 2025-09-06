@@ -1,4 +1,4 @@
-# Calculadora Online BR
+# CalculadoraOnlineBR
 
 Uma aplicação web moderna com diversas calculadoras online gratuitas, construída com React Router (Remix) e TypeScript.
 

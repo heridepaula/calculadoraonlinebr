@@ -24,15 +24,18 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados."
+        "Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados.",
     },
     {
       name: "keywords",
       content:
         "calculadora rescisão trabalhista, demissão sem justa causa, acordo mútuo, FGTS multa, seguro desemprego, CLT",
     },
-    { name: "author", content: "Calculadora Online BR" },
-    { name: "robots", content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" },
+    { name: "author", content: "CalculadoraOnlineBR" },
+    {
+      name: "robots",
+      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+    },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "googlebot", content: "index,follow" },
     { name: "bingbot", content: "index,follow" },
@@ -182,28 +185,28 @@ export const meta: MetaFunction = () => {
             name: "Como calcular rescisão trabalhista?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Rescisão inclui: saldo salário, aviso prévio, férias + 1/3, 13º proporcional, FGTS + multa (se demissão sem justa causa). Descontos: INSS e IRRF."
-            }
+              text: "Rescisão inclui: saldo salário, aviso prévio, férias + 1/3, 13º proporcional, FGTS + multa (se demissão sem justa causa). Descontos: INSS e IRRF.",
+            },
           },
           {
-            "@type": "Question", 
+            "@type": "Question",
             name: "Qual a diferença entre demissão e acordo mútuo?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Demissão sem justa causa: todos os direitos + multa FGTS 40%. Acordo mútuo: metade do aviso prévio, metade da multa FGTS (20%), pode sacar 80% do FGTS."
-            }
+              text: "Demissão sem justa causa: todos os direitos + multa FGTS 40%. Acordo mútuo: metade do aviso prévio, metade da multa FGTS (20%), pode sacar 80% do FGTS.",
+            },
           },
           {
             "@type": "Question",
             name: "Quando tenho direito ao seguro desemprego?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Seguro desemprego: demissão sem justa causa ou acordo mútuo. Mínimo 12 meses trabalhados (primeira solicitação) ou 9 meses (solicitações seguintes)."
-            }
-          }
-        ]
-      })
-    }
+              text: "Seguro desemprego: demissão sem justa causa ou acordo mútuo. Mínimo 12 meses trabalhados (primeira solicitação) ou 9 meses (solicitações seguintes).",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 

@@ -17,15 +17,14 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title:
-        "Área e Perímetro 2025 – Calculadora Geométrica",
+      title: "Área e Perímetro 2025 – Calculadora Geométrica",
     },
     {
       name: "description",
       content:
         "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado. Fórmulas confiáveis para estudos e trabalhos.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -1196,8 +1195,8 @@ export default function AreaPerimeterCalculator() {
               outras variáveis específicas do projeto.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              🔎 Foco educacional • 📐 Fórmulas confiáveis • 🔒 Dados não armazenados • 📱 Compatível
-              com todos os dispositivos • 🌙 Suporte a modo escuro
+              🔎 Foco educacional • 📐 Fórmulas confiáveis • 🔒 Dados não armazenados • 📱
+              Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
             </p>
           </div>
         </CardContent>

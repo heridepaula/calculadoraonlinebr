@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
       content:
         "Resolva equações 2º grau com Bhaskara. Calcule delta, raízes reais e complexas grátis. Ferramenta ideal para estudantes.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
@@ -964,8 +964,8 @@ export default function QuadraticEquationCalculator() {
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e resolução de exercícios. Para aplicações científicas ou de
               engenharia que exigem alta qualidade, consulte sempre um{" "}
-              <strong>profissional qualificado</strong> e considere limitações numérica.
-              Explore também nossas calculadoras de
+              <strong>profissional qualificado</strong> e considere limitações numérica. Explore
+              também nossas calculadoras de
               <a
                 href="/calculadoras/matematica/area-perimetro"
                 className="font-medium text-primary-blue-dark underline hover:text-primary-blue"

@@ -61,7 +61,7 @@ export const meta: MetaFunction = () => {
       content:
         "Descubra quanto investir para ter 1 milhão. Simule aportes mensais, rentabilidade e prazo necessário para alcançar independência financeira.",
     },
-    { name: "author", content: "Calculadora Online BR" },
+    { name: "author", content: "CalculadoraOnlineBR" },
     {
       name: "robots",
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
