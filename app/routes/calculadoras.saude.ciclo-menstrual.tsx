@@ -40,7 +40,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Ciclo Menstrual 2025 | CalculadoraOnlineBR",
+      title: "Ciclo Menstrual 2025 – Período Fértil e Ovulação",
     },
     {
       name: "viewport",
@@ -63,7 +63,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões confiáveis. Ferramenta gratuita para saúde feminina.",
+        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual com previsões confiáveis. Ferramenta grátis para saúde feminina.",
     },
     { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
     {

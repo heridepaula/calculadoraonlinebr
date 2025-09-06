@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Hidratação Diária 2025 | CalculadoraOnlineBR",
+      title: "Hidratação Diária 2025 – Quantidade de Água",
     },
     {
       name: "description",
       content:
-        "💧 Calculadora de hidratação diária gratuita. Calcule quantidade ideal de água, necessidades hídricas personalizadas e plano de hidratação. Método científico!",
+        "Calculadora hidratação diária grátis. Calcule quantidade ideal de água, necessidades hídricas personalizadas. Método científico.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {

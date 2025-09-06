@@ -31,12 +31,12 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Desenvolvimento Infantil 2025 | CalculadoraOnlineBR",
+      title: "Desenvolvimento Infantil 2025 – Crescimento OMS",
     },
     {
       name: "description",
       content:
-        "Acompanhe o desenvolvimento da criança com gráficos de crescimento. Calcule percentis de altura e peso, marcos do desenvolvimento. Ferramenta gratuita para pais e pediatras.",
+        "Acompanhe desenvolvimento infantil com gráficos OMS. Calcule percentis de altura e peso, marcos do crescimento. Ferramenta grátis para pais.",
     },
     { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
     {

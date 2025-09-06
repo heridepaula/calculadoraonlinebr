@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Gordura Corporal 2025 | CalculadoraOnlineBR",
+      title: "Gordura Corporal 2025 – Percentual e Massa Magra",
     },
     {
       name: "description",
       content:
-        "🏃‍♂️ Calculadora de gordura corporal gratuita. Calcule percentual de gordura, massa magra e análise corporal completa. Método científico com múltiplas fórmulas!",
+        "Calculadora gordura corporal grátis. Calcule percentual de gordura, massa magra e análise corporal completa. Método científico com fórmulas.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {

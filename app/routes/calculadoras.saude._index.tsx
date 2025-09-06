@@ -14,11 +14,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras de Saúde - ${APP_NAME}` },
+    { title: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
     {
       name: "description",
       content:
-        "Calculadoras de saúde gratuitas para cuidar do seu bem-estar. IMC, peso ideal e muito mais. Ferramentas confiáveis baseadas em padrões médicos.",
+        "Calculadoras saúde grátis: IMC, peso ideal, ciclo menstrual e mais. Ferramentas confiáveis baseadas em padrões médicos reconhecidos pela OMS.",
     },
     {
       name: "keywords",
@@ -26,14 +26,14 @@ export const meta: MetaFunction = () => {
         "calculadora saúde, IMC, índice massa corporal, peso ideal, saúde online, calculadora médica, bem-estar",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadoras de Saúde - ${APP_NAME}` },
+    { property: "og:title", content: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
     {
       property: "og:description",
       content: "Monitore sua saúde com nossas calculadoras médicas gratuitas e confiáveis.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadoras de Saúde - ${APP_NAME}` },
+    { name: "twitter:title", content: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
     {
       name: "twitter:description",
       content: "Ferramentas de saúde gratuitas para monitorar seu bem-estar.",

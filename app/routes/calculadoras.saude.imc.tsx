@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de IMC 2025 com Taxa Metabólica | CalculadoraOnlineBR",
+      title: "IMC 2025 – Calculadora Índice Massa Corporal",
     },
     {
       name: "description",
       content:
-        "📏 Calculadora de IMC gratuita com taxa metabólica e percentual de gordura. Classificação por idade, sexo e análise corporal completa!",
+        "Calculadora IMC grátis com taxa metabólica e percentual gordura. Classificação por idade, sexo e análise corporal completa OMS.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
