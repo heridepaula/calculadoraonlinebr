@@ -18,12 +18,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de CDB 2025 – Simulador com IR e IOF | CalculadoraOnlineBR",
+      title: "Calculadora CDB – Simule Rendimento e Compare Taxa",
     },
     {
       name: "description",
       content:
-        "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos, taxas reais 2025 e descubra seu montante líquido.",
+        "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
     },
     {
       name: "keywords",
@@ -46,12 +46,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de CDB 2025 – Simulador com IR e IOF",
+      content: "Calculadora CDB – Simule Rendimento e Compare Taxa",
     },
     {
       property: "og:description",
       content:
-        "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos, taxas reais 2025 e descubra seu montante líquido.",
+        "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
     },
     {
       property: "og:image",
@@ -80,12 +80,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de CDB 2025 – Simulador com IR e IOF",
+      content: "Calculadora CDB – Simule Rendimento e Compare Taxa",
     },
     {
       name: "twitter:description",
       content:
-        "Simule CDB pós-fixado, prefixado e IPCA+ com cálculo automático de IR regressivo e IOF. Compare rendimentos e taxas reais 2025.",
+        "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
     },
     {
       name: "twitter:image",
@@ -848,7 +848,7 @@ export default function CdbCalculator() {
           },
         ]}
         tipSection={{
-          title: "Dica Importante sobre CDB",
+          title: "Dica Estratégica",
           content:
             "<strong>Para a melhor escolha:</strong> avalie taxa, prazo e liquidez juntos. CDB Pós-fixado para reserva de emergência, Prefixado para travar rendimento e IPCA+ para proteção inflacionária.",
         }}

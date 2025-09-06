@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Comparador Renda Fixa 2025 | CalculadoraOnlineBR",
+      title: "Comparador Renda Fixa 2025 – Compare Investimentos",
     },
     {
       name: "viewport",
@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Comparador completo de renda fixa 2025: CDB vs LCI/LCA vs Tesouro Direto vs Poupança. Compare rentabilidade líquida com IR, simule cenários e descubra o melhor investimento para seu perfil.",
+        "Compare renda fixa 2025: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
     },
     { name: "author", content: "Calculadora Online BR" },
     { name: "publisher", content: "CalculadoraOnlineBR" },
@@ -90,12 +90,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Comparador Renda Fixa 2025 | CalculadoraOnlineBR",
+      content: "Comparador Renda Fixa 2025 – Compare Investimentos",
     },
     {
       property: "og:description",
       content:
-        "Comparador completo de renda fixa 2025: CDB vs LCI/LCA vs Tesouro Direto vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
+        "Compare renda fixa 2025: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
     },
     {
       property: "og:image",
@@ -127,12 +127,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Comparador Renda Fixa 2025 | CalculadoraOnlineBR",
+      content: "Comparador Renda Fixa 2025 – Compare Investimentos",
     },
     {
       name: "twitter:description",
       content:
-        "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos reais de IR. Descubra qual investimento oferece melhor rentabilidade líquida para seu perfil.",
+        "Compare CDB, LCI/LCA, Tesouro e Poupança com cálculos reais de IR. Descubra qual investimento oferece melhor rentabilidade líquida.",
     },
     {
       name: "twitter:image",

@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Preço Médio de Ações 2025 | CalculadoraOnlineBR",
+      title: "Preço Médio Ações 2025 – Simulador Grátis",
     },
     {
       name: "viewport",
@@ -59,7 +59,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "✅ Calcule o preço médio ponderado de ações grátis. Adicione compras e vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores.",
+        "Calcule preço médio ponderado de ações grátis. Adicione compras/vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -86,12 +86,12 @@ export const meta: MetaFunction = () => {
     { name: "referrer", content: "strict-origin-when-cross-origin" },
     {
       property: "og:title",
-      content: "Calculadora de Preço Médio de Ações 2025 - Grátis",
+      content: "Preço Médio Ações 2025 – Simulador Grátis",
     },
     {
       property: "og:description",
       content:
-        "✅ Calcule o preço médio ponderado de ações grátis. Adicione compras e vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores brasileiros.",
+        "Calcule preço médio ponderado de ações grátis. Adicione compras/vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores brasileiros.",
     },
     {
       property: "og:image",
@@ -120,7 +120,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Preço Médio de Ações 2025 | CalculadoraOnlineBR",
+      content: "Preço Médio Ações 2025 – Simulador Grátis",
     },
     {
       name: "twitter:description",

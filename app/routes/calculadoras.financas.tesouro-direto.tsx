@@ -64,12 +64,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Tesouro Direto 2025 - Simulador | CalculadoraOnlineBR",
+      title: "Tesouro Direto – Simule Rentabilidade dos Títulos",
     },
     {
       name: "description",
       content:
-        "Simule Tesouro Selic, Prefixado e IPCA+ com dados atualizados. Calcule IR, custódia e resgate antecipado. Ferramenta gratuita e atualizada.",
+        "Simule Tesouro Direto com dados reais. Compare Selic, IPCA+ e Prefixado. Calcule rentabilidade, imposto de renda e taxa de custódia.",
     },
     {
       name: "keywords",
@@ -96,12 +96,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Tesouro Direto 2025 - Simulador",
+      content: "Tesouro Direto – Simule Rentabilidade dos Títulos",
     },
     {
       property: "og:description",
       content:
-        "Simule Tesouro Selic, Prefixado e IPCA+ com dados oficiais. Calcule IR, custódia e resgate antecipado.",
+        "Simule Tesouro Direto com dados reais. Compare Selic, IPCA+ e Prefixado. Calcule rentabilidade, imposto de renda e taxa de custódia.",
     },
     {
       property: "og:image",

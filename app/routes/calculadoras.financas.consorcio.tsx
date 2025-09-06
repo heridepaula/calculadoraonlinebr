@@ -18,12 +18,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Consórcio 2025 – Simule Parcelas e Contemplação | CalculadoraOnlineBR",
+      title: "Calculadora Consórcio 2025 – Simulador Gratuito",
     },
     {
       name: "description",
       content:
-        "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação. Compare grupos e modalidades.",
+        "Calcule parcelas de consórcio de imóveis e carros. Simule taxa de administração, contemplação e lance para escolher o melhor grupo.",
     },
     {
       name: "keywords",
@@ -46,12 +46,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação",
+      content: "Calculadora Consórcio 2025 – Simulador Gratuito",
     },
     {
       property: "og:description",
       content:
-        "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação. Compare grupos e modalidades.",
+        "Calcule parcelas de consórcio de imóveis e carros. Simule taxa de administração, contemplação e lance para escolher o melhor grupo.",
     },
     {
       property: "og:image",

@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Juros Compostos 2025 | CalculadoraOnlineBR",
+      title: "Juros Compostos – Calculadora de Investimentos Grátis",
     },
     {
       name: "viewport",
@@ -59,7 +59,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule juros compostos facilmente. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e completa.",
+        "Calcule juros compostos e potencialize seus investimentos. Simule aportes mensais, tempo e rentabilidade com gráficos interativos educativos.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -77,12 +77,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Juros Compostos 2025 | CalculadoraOnlineBR",
+      content: "Juros Compostos – Calculadora de Investimentos Grátis",
     },
     {
       property: "og:description",
       content:
-        "Calcule juros compostos facilmente. Simule crescimento exponencial do patrimônio com aportes mensais, visualize gráficos e tabela detalhada. Ferramenta gratuita e completa.",
+        "Calcule juros compostos e potencialize seus investimentos. Simule aportes mensais, tempo e rentabilidade com gráficos interativos educativos.",
     },
     {
       property: "og:image",

@@ -19,12 +19,12 @@ export const meta: MetaFunction = () => {
   return [
     {
       title:
-        "Calculadora de Financiamento Imobiliário 2025 – Simulador SAC e PRICE | CalculadoraOnlineBR",
+        "Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
     },
     {
       name: "description",
       content:
-        "Simule financiamento imobiliário com cálculo SAC e PRICE. Descubra parcelas, amortização, juros totais e compare sistemas para compra da casa própria.",
+        "Simule financiamento imobiliário SAC e PRICE. Calcule parcelas, amortização e juros totais para compra da casa própria.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -37,12 +37,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
+      content: "Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
     },
     {
       property: "og:description",
       content:
-        "Simule financiamento imobiliário com cálculo SAC e PRICE. Descubra parcelas, amortização e juros totais para compra da casa própria.",
+        "Simule financiamento imobiliário SAC e PRICE. Calcule parcelas, amortização e juros totais para compra da casa própria.",
     },
     {
       property: "og:image",

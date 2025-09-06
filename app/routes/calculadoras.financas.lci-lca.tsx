@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de LCI e LCA 2025 | CalculadoraOnlineBR",
+      title: "LCI e LCA 2025 – Simulador Isenção IR",
     },
     {
       name: "viewport",
@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule rendimentos de LCI e LCA facilmente. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+        "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
     },
     { name: "author", content: "Calculadora Online BR" },
     { name: "publisher", content: "CalculadoraOnlineBR" },
@@ -89,12 +89,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de LCI e LCA 2025 | CalculadoraOnlineBR",
+      content: "LCI e LCA 2025 – Simulador Isenção IR",
     },
     {
       property: "og:description",
       content:
-        "Calcule rendimentos de LCI e LCA facilmente. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+        "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
     },
     {
       property: "og:image",
@@ -125,12 +125,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de LCI e LCA 2025 | CalculadoraOnlineBR",
+      content: "LCI e LCA 2025 – Simulador Isenção IR",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule rendimentos de LCI e LCA facilmente. Simule investimentos isentos de IR baseados no CDI, compare rentabilidade e faça a melhor escolha. Ferramenta gratuita e atualizada.",
+        "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
     },
     {
       name: "twitter:image",

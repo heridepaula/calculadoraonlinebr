@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Juros Simples 2025 | CalculadoraOnlineBR",
+      title: "Juros Simples 2025 – Calculadora Online Gratuita",
     },
     {
       name: "viewport",
@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Calcule juros simples online de forma gratuita e confiável. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
+        "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -83,12 +83,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Juros Simples 2025 | CalculadoraOnlineBR",
+      content: "Juros Simples 2025 – Calculadora Online Gratuita",
     },
     {
       property: "og:description",
       content:
-        "Calcule juros simples online de forma gratuita e confiável. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
+        "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
     },
     {
       property: "og:image",
@@ -117,12 +117,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Juros Simples 2025 | CalculadoraOnlineBR",
+      content: "Juros Simples 2025 – Calculadora Online Gratuita",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule juros simples online de forma gratuita e confiável. Simule crescimento linear do capital, visualize gráficos interativos e compare com juros compostos. Fórmula: M = C + (C × i × t).",
+        "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
     },
     {
       name: "twitter:image",

@@ -14,11 +14,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Financeiras - ${APP_NAME}` },
+    { title: "Calculadoras Financeiras – Juros e Investimentos" },
     {
       name: "description",
       content:
-        "★ Calculadoras financeiras GRATUITAS para planejamento e investimentos. Juros simples, compostos, primeiro milhão e muito mais. Ferramentas úteis para decisões financeiras inteligentes com conteúdo educativo completo.",
+        "Calculadoras financeiras grátis para investimentos e planejamento. Juros compostos, simples, primeiro milhão, CDB e Tesouro Direto em um só lugar.",
     },
     {
       name: "keywords",
@@ -26,19 +26,19 @@ export const meta: MetaFunction = () => {
         "calculadora financeira, juros compostos, juros simples, primeiro milhão, investimento, financiamento, planejamento financeiro, simulação, aportes mensais, matemática financeira, educação financeira, rendimento, poupança, CDI, tesouro direto",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadoras Financeiras - ${APP_NAME}` },
+    { property: "og:title", content: "Calculadoras Financeiras – Juros e Investimentos" },
     {
       property: "og:description",
       content:
-        "Planeje suas finanças com nossas calculadoras especializadas. Grátis e fácil de usar.",
+        "Calculadoras financeiras grátis para investimentos e planejamento. Juros compostos, simples, primeiro milhão, CDB e Tesouro Direto em um só lugar.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadoras Financeiras - ${APP_NAME}` },
+    { name: "twitter:title", content: "Calculadoras Financeiras – Juros e Investimentos" },
     {
       name: "twitter:description",
       content:
-        "Ferramentas financeiras gratuitas para planejar investimentos e tomar melhores decisões.",
+        "Calculadoras financeiras grátis para investimentos e planejamento. Juros compostos, simples, primeiro milhão, CDB e Tesouro Direto em um só lugar.",
     },
   ];
 };

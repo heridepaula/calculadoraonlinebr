@@ -18,12 +18,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Empréstimo Consignado 2025 – Simulador Completo | CalculadoraOnlineBR",
+      title: "Empréstimo Consignado 2025 – Simulador Online",
     },
     {
       name: "description",
       content:
-        "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas. Descubra valor líquido, total de juros e compare modalidades para aposentados e servidores.",
+        "Simule empréstimo consignado: calcule parcelas, CET e IOF. Descubra valor líquido e total de juros para aposentados e servidores.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -36,12 +36,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Empréstimo Consignado 2025 – Simulador Completo",
+      content: "Empréstimo Consignado 2025 – Simulador Online",
     },
     {
       property: "og:description",
       content:
-        "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas. Descubra valor líquido, total de juros e compare modalidades para aposentados e servidores.",
+        "Simule empréstimo consignado: calcule parcelas, CET e IOF. Descubra valor líquido e total de juros para aposentados e servidores.",
     },
     {
       property: "og:image",

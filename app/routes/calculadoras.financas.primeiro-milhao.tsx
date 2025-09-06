@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Primeiro Milhão: Calculadora 2025 | CalculadoraOnlineBR",
+      title: "Primeiro Milhão – Simule Tempo e Investimento",
     },
     {
       name: "viewport",
@@ -59,7 +59,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com juros compostos. Ferramenta gratuita.",
+        "Descubra quanto investir para ter 1 milhão. Simule aportes mensais, rentabilidade e prazo necessário para alcançar independência financeira.",
     },
     { name: "author", content: "Calculadora Online BR" },
     {
@@ -77,12 +77,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Primeiro Milhão: Calculadora 2025 | CalculadoraOnlineBR",
+      content: "Primeiro Milhão – Simule Tempo e Investimento",
     },
     {
       property: "og:description",
       content:
-        "Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com juros compostos. Ferramenta gratuita.",
+        "Descubra quanto investir para ter 1 milhão. Simule aportes mensais, rentabilidade e prazo necessário para alcançar independência financeira.",
     },
     {
       property: "og:image",

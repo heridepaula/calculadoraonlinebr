@@ -18,12 +18,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia | CalculadoraOnlineBR",
+      title: "Antecipação Parcelas Nubank – Simule Desconto e Juros",
     },
     {
       name: "description",
       content:
-        "Calculadora gratuita de adiantamento de parcelas Nubank 2025. Simule antecipação, calcule descontos, compare opções e descubra quanto economizar ao quitar parcelas.",
+        "Simule antecipação de parcelas do cartão Nubank. Calcule desconto, juros e economia ao antecipar faturas parceladas com análise detalhada.",
     },
     {
       name: "keywords",
@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Calculadora gratuita de adiantamento de parcelas Nubank 2025. Simule antecipação, calcule descontos e descubra quanto economizar.",
+        "Simule antecipação de parcelas do cartão Nubank. Calcule desconto, juros e economia ao antecipar faturas parceladas com análise detalhada.",
     },
     {
       property: "og:image",
@@ -85,7 +85,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "Calculadora gratuita de adiantamento de parcelas Nubank 2025. Simule antecipação, calcule descontos e descubra quanto economizar.",
+        "Simule antecipação de parcelas do cartão Nubank. Calcule desconto, juros e economia ao antecipar faturas parceladas com análise detalhada.",
     },
     {
       name: "twitter:image",
