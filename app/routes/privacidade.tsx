@@ -2,11 +2,11 @@ import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Política de Privacidade - Calculadora Online BR" },
+    { title: "Política Privacidade 2025 – Proteção Dados" },
     {
       name: "description",
       content:
-        "Política de privacidade da Calculadora Online BR. Saiba como tratamos seus dados e protegemos sua privacidade.",
+        "Política privacidade Calculadora Online BR: como protegemos seus dados e garantimos sua privacidade. LGPD e segurança garantida."
     },
     {
       name: "keywords",

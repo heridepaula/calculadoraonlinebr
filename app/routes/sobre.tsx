@@ -2,11 +2,11 @@ import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Sobre - Calculadora Online BR" },
+    { title: "Sobre 2025 – Calculadoras Grátis Online" },
     {
       name: "description",
       content:
-        "Conheça a Calculadora Online BR, plataforma gratuita com calculadoras de saúde, finanças e matemática com design moderno.",
+        "Calculadora Online BR: plataforma grátis com calculadoras saúde, finanças e matemática. Design moderno, fácil e confiável para todos."
     },
     {
       name: "keywords",

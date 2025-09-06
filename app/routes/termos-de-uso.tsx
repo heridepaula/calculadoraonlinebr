@@ -2,11 +2,11 @@ import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Termos de Uso - Calculadora Online BR" },
+    { title: "Termos Uso 2025 – Condições Plataforma" },
     {
       name: "description",
       content:
-        "Termos de uso da Calculadora Online BR. Entenda os termos para uso das nossas calculadoras gratuitas.",
+        "Termos uso Calculadora Online BR: condições para usar nossas calculadoras grátis. Regras claras e transparentes para todos."
     },
     { name: "keywords", content: "termos de uso, calculadora online br, condições de uso, acordo" },
     { property: "og:title", content: "Termos de Uso - Calculadora Online BR" },
