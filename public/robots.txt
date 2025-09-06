@@ -4,71 +4,31 @@ Allow: /
 # Sitemaps
 Sitemap: https://www.calculadoraonlinebr.com.br/sitemap.xml
 
-# Allow main pages
-Allow: /
-Allow: /sobre
-Allow: /privacidade  
-Allow: /termos-de-uso
+# DISALLOW - Block unnecessary routes
+# API endpoints and services
+Disallow: /api/
+Disallow: /api/*
 
-# Allow all calculators categories (new structure)
-Allow: /calculadoras/
-Allow: /calculadoras/saude/
-Allow: /calculadoras/financas/
-Allow: /calculadoras/matematica/
-Allow: /calculadoras/trabalhista/
-Allow: /calculadoras/ferramentas/
-Allow: /calculadoras/astrologia/
-Allow: /calculadoras/datas/
+# Admin and development routes
+Disallow: /admin/
+Disallow: /admin/*
 
-# Health Calculators (new routes)
-Allow: /calculadoras/saude/imc
-Allow: /calculadoras/saude/gordura-corporal
-Allow: /calculadoras/saude/ciclo-menstrual
-Allow: /calculadoras/saude/desenvolvimento-infantil
-Allow: /calculadoras/saude/hidratacao
+# Build files and cache
+Disallow: /build/
+Disallow: /.cache/
+Disallow: /node_modules/
 
-# Financial Calculators (new routes)
-Allow: /calculadoras/financas/primeiro-milhao
-Allow: /calculadoras/financas/juros-compostos
-Allow: /calculadoras/financas/juros-simples
-Allow: /calculadoras/financas/lci-lca
-Allow: /calculadoras/financas/preco-medio
-Allow: /calculadoras/financas/cdb
-Allow: /calculadoras/financas/financiamento-imobiliario
-Allow: /calculadoras/financas/emprestimo-consignado
-Allow: /calculadoras/financas/consorcio
-Allow: /calculadoras/financas/renda-fixa-comparativa
-Allow: /calculadoras/financas/tesouro-direto
-Allow: /calculadoras/financas/antecipacao-parcelas-nubank
+# Internal files and configurations
+Disallow: /.well-known/
+Disallow: /.git/
+Disallow: /*.json$
+Disallow: /*.config.*$
+Disallow: /.env*
 
-# Mathematical Calculators (new routes)
-Allow: /calculadoras/matematica/porcentagem
-Allow: /calculadoras/matematica/regra-de-tres
-Allow: /calculadoras/matematica/equacao-segundo-grau
-Allow: /calculadoras/matematica/mmc-mdc
-Allow: /calculadoras/matematica/area-perimetro
-Allow: /calculadoras/matematica/volume
-Allow: /calculadoras/matematica/teorema-pitagoras
-Allow: /calculadoras/matematica/fracoes
-Allow: /calculadoras/matematica/moda
-Allow: /calculadoras/matematica/media
-Allow: /calculadoras/matematica/desvio-padrao
-
-# Tools Calculators (new routes)
-Allow: /calculadoras/ferramentas/gerador-cpf
-Allow: /calculadoras/ferramentas/diferenca-entre-datas
-
-# Labor Law Calculators (new routes)
-Allow: /calculadoras/trabalhista/rescisao
-Allow: /calculadoras/trabalhista/aposentadoria
-Allow: /calculadoras/trabalhista/auxilio-doenca
-Allow: /calculadoras/trabalhista/salario-liquido
-Allow: /calculadoras/trabalhista/ferias-decimo-terceiro
-
-# Astrology Calculators (new routes)
-Allow: /calculadoras/astrologia/ascendente
-Allow: /calculadoras/astrologia/signo
-Allow: /calculadoras/astrologia/compatibilidade-signos
+# Temporary and system files
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /*~
 
 # DISALLOW OLD ROUTES (redirected with 301)
 # Financial - old routes
@@ -113,26 +73,11 @@ Disallow: /calculadoras/calculadora-auxilio-doenca
 Disallow: /calculadoras/calculadora-salario-liquido
 Disallow: /calculadoras/calculadora-ferias-decimo-terceiro
 
-# Date Calculators (new routes)
-Allow: /calculadoras/datas/diferenca-entre-datas
-
 # Tools - old routes  
 Disallow: /calculadoras/calculadora-cpf
 Disallow: /calculadoras/gerador-cpf
 Disallow: /calculadoras/calculadora-diferenca-datas
 Disallow: /calculadoras/diferenca-datas
 
-# Disallow build files and cache
-Disallow: /build/
-Disallow: /.cache/
-Disallow: /node_modules/
-
-# Disallow API endpoints and health checks
-Disallow: /api/
-Disallow: /api/healthz
-
-# Disallow admin and development routes
-Disallow: /admin/
-
-# Performance
+# Performance and crawling optimization
 Crawl-delay: 1
