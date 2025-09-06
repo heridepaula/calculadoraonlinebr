@@ -84,12 +84,12 @@ interface AuxilioDoencaResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Completo | CalculadoraOnlineBR",
+      title: "Auxílio-Doença INSS 2025 – Simulador Benefício",
     },
     {
       name: "description",
       content:
-        "Calcule auxílio-doença INSS 2025 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+        "Calcule auxílio-doença INSS 2025: valor do benefício, verificação carência e isenções. Regras atualizadas e resultado instantâneo.",
     },
     {
       name: "keywords",

@@ -27,12 +27,12 @@ import {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Férias e 13º Salário 2025 – CLT Atualizada | CalculadoraOnlineBR",
+      title: "Férias e 13º Salário 2025 – Calculadora CLT",
     },
     {
       name: "description",
       content:
-        "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+        "Calcule férias e 13º salário 2025: valores líquidos, INSS, IRRF e abono pecuniário. Calculadora atualizada conforme CLT brasileira.",
     },
     {
       name: "keywords",

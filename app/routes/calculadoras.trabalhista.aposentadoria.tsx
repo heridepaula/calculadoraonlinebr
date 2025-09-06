@@ -85,12 +85,12 @@ interface RetirementResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Aposentadoria INSS 2025 – Todas as Modalidades | CalculadoraOnlineBR",
+      title: "Aposentadoria INSS 2025 – Simulador Regras CLT",
     },
     {
       name: "description",
       content:
-        "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
+        "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção de aposentadoria.",
     },
     {
       name: "keywords",

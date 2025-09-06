@@ -19,12 +19,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora Rescisão Trabalhista 2025 | ${APP_NAME}`,
+      title: "Rescisão Trabalhista 2025 – FGTS e Direitos CLT",
     },
     {
       name: "description",
       content:
-        "📄 Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º. Valores atualizados!",
+        "Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados."
     },
     {
       name: "keywords",

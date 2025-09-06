@@ -14,11 +14,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Trabalhistas - ${APP_NAME}` },
+    { title: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
     {
       name: "description",
       content:
-        "★ Calculadoras trabalhistas GRATUITAS para direitos trabalhistas e relações de trabalho. Rescisão trabalhista, férias, 13º salário e muito mais. Ferramentas úteis com base na CLT.",
+        "Calculadoras trabalhistas grátis: rescisão, férias, 13º salário, auxílio-doença e aposentadoria. Ferramentas baseadas na CLT atualizada 2025.",
     },
     {
       name: "keywords",
@@ -26,7 +26,7 @@ export const meta: MetaFunction = () => {
         "calculadora trabalhista, rescisão trabalhista, direitos trabalhistas, CLT, demissão sem justa causa, aviso prévio, FGTS, seguro desemprego, férias proporcionais, 13º salário, acordo mútuo, pedido demissão, cálculo trabalhista, direito do trabalho",
     },
     { name: "author", content: "Calculadora Online BR" },
-    { property: "og:title", content: `Calculadoras Trabalhistas - ${APP_NAME}` },
+    { property: "og:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
     {
       property: "og:description",
       content:
@@ -34,7 +34,7 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: `Calculadoras Trabalhistas - ${APP_NAME}` },
+    { name: "twitter:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
     {
       name: "twitter:description",
       content:

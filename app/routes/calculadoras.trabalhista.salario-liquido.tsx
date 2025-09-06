@@ -24,11 +24,11 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Salário Líquido 2025 | ${APP_NAME}` },
+    { title: "Salário Líquido 2025 – Calculadora INSS IRRF" },
     {
       name: "description",
       content:
-        "💰 Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo!",
+        "Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo."
     },
     {
       name: "keywords",
