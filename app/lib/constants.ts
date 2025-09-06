@@ -322,6 +322,13 @@ export const CALCULATORS = [
     path: "/calculadoras/datas/diferenca-entre-datas",
   },
   {
+    id: "contagem-regressiva",
+    name: "Calculadora de Contagem Regressiva",
+    description: "Contador regressivo personalizado para eventos especiais com anos, meses, dias, horas, minutos e segundos",
+    category: "datas",
+    path: "/calculadoras/datas/contagem-regressiva",
+  },
+  {
     id: "gerador-cpf",
     name: "Gerador de CPF",
     description:

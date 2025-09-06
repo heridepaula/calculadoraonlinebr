@@ -1,192 +1,87 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { CATEGORIES, CALCULATORS, APP_URL } from "~/lib/constants";
 
-export const loader: LoaderFunction = async () => {
-  const baseUrl = "https://www.calculadoraonlinebr.com.br";
+interface SitemapRoute {
+  url: string;
+  changefreq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  priority: string;
+  lastmod?: string;
+}
 
-  const urls = [
-    // Main pages
-    { loc: baseUrl, priority: "1.0", changefreq: "daily" },
-    { loc: `${baseUrl}/calculadoras`, priority: "0.9", changefreq: "weekly" },
-
-    // Category pages
-    { loc: `${baseUrl}/calculadoras/saude`, priority: "0.8", changefreq: "weekly" },
-    { loc: `${baseUrl}/calculadoras/financas`, priority: "0.8", changefreq: "weekly" },
-    { loc: `${baseUrl}/calculadoras/matematica`, priority: "0.8", changefreq: "weekly" },
-    { loc: `${baseUrl}/calculadoras/trabalhista`, priority: "0.8", changefreq: "weekly" },
-    { loc: `${baseUrl}/calculadoras/ferramentas`, priority: "0.8", changefreq: "weekly" },
-    { loc: `${baseUrl}/calculadoras/astrologia`, priority: "0.8", changefreq: "weekly" },
-    { loc: `${baseUrl}/calculadoras/datas`, priority: "0.8", changefreq: "weekly" },
-
-    // Health Calculators
-    { loc: `${baseUrl}/calculadoras/saude/imc`, priority: "0.8", changefreq: "monthly" },
-    {
-      loc: `${baseUrl}/calculadoras/saude/gordura-corporal`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/saude/ciclo-menstrual`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/saude/desenvolvimento-infantil`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/saude/hidratacao`, priority: "0.8", changefreq: "monthly" },
-
-    // Financial Calculators
-    {
-      loc: `${baseUrl}/calculadoras/financas/juros-compostos`,
-      priority: "0.9",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/financas/primeiro-milhao`,
-      priority: "0.9",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/financas/renda-fixa-comparativa`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/financas/consorcio`, priority: "0.8", changefreq: "monthly" },
-    { loc: `${baseUrl}/calculadoras/financas/cdb`, priority: "0.8", changefreq: "monthly" },
-    {
-      loc: `${baseUrl}/calculadoras/financas/tesouro-direto`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/financas/antecipacao-parcelas-nubank`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/financas/lci-lca`, priority: "0.8", changefreq: "monthly" },
-    {
-      loc: `${baseUrl}/calculadoras/financas/emprestimo-consignado`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/financas/financiamento-imobiliario`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/financas/juros-simples`,
-      priority: "0.7",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/financas/preco-medio`, priority: "0.7", changefreq: "monthly" },
-
-    // Mathematical Calculators
-    {
-      loc: `${baseUrl}/calculadoras/matematica/porcentagem`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/matematica/regra-de-tres`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/matematica/equacao-segundo-grau`,
-      priority: "0.7",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/matematica/mmc-mdc`, priority: "0.7", changefreq: "monthly" },
-    {
-      loc: `${baseUrl}/calculadoras/matematica/area-perimetro`,
-      priority: "0.7",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/matematica/volume`, priority: "0.7", changefreq: "monthly" },
-    {
-      loc: `${baseUrl}/calculadoras/matematica/teorema-pitagoras`,
-      priority: "0.7",
-      changefreq: "monthly",
-    },
-    { loc: `${baseUrl}/calculadoras/matematica/fracoes`, priority: "0.8", changefreq: "monthly" },
-    { loc: `${baseUrl}/calculadoras/matematica/moda`, priority: "0.7", changefreq: "monthly" },
-    { loc: `${baseUrl}/calculadoras/matematica/media`, priority: "0.8", changefreq: "monthly" },
-    { loc: `${baseUrl}/calculadoras/matematica/desvio-padrao`, priority: "0.8", changefreq: "monthly" },
-
-    // Tool Calculators
-    { loc: `${baseUrl}/calculadoras/ferramentas/gerador-cpf`, priority: "0.8", changefreq: "monthly" },
-
-    // Date Calculators
-    { loc: `${baseUrl}/calculadoras/datas/diferenca-entre-datas`, priority: "0.7", changefreq: "monthly" },
-
-    // Labor Law Calculators
-    { loc: `${baseUrl}/calculadoras/trabalhista/rescisao`, priority: "0.9", changefreq: "monthly" },
-    {
-      loc: `${baseUrl}/calculadoras/trabalhista/aposentadoria`,
-      priority: "0.9",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/trabalhista/auxilio-doenca`,
-      priority: "0.9",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/trabalhista/salario-liquido`,
-      priority: "0.9",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/trabalhista/ferias-decimo-terceiro`,
-      priority: "0.9",
-      changefreq: "monthly",
-    },
-
-    // Astrology Calculators
-    {
-      loc: `${baseUrl}/calculadoras/astrologia/ascendente`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/astrologia/signo`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-    {
-      loc: `${baseUrl}/calculadoras/astrologia/compatibilidade-signos`,
-      priority: "0.8",
-      changefreq: "monthly",
-    },
-
-    // Legal pages
-    { loc: `${baseUrl}/sobre`, priority: "0.6", changefreq: "monthly" },
-    { loc: `${baseUrl}/privacidade`, priority: "0.5", changefreq: "yearly" },
-    { loc: `${baseUrl}/termos-de-uso`, priority: "0.5", changefreq: "yearly" },
-  ];
-
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(
-    (url) => `  <url>
-    <loc>${url.loc}</loc>
-    <priority>${url.priority}</priority>
-    <changefreq>${url.changefreq}</changefreq>
-    <lastmod>${new Date().toISOString()}</lastmod>
-  </url>`
-  )
-  .join("\n")}
-</urlset>`;
-
+export async function loader({ request }: LoaderFunctionArgs) {
+  const sitemap = generateSitemap();
+  
   return new Response(sitemap, {
-    status: 200,
     headers: {
-      "Content-Type": "application/xml",
-      "xml-version": "1.0",
-      encoding: "UTF-8",
+      'Content-Type': 'application/xml; charset=utf-8',
+      'X-Content-Type-Options': 'nosniff',
+      'Cache-Control': 'public, max-age=3600, s-maxage=86400', // 1h client, 24h CDN
     },
   });
-};
+}
+
+function generateSitemap(): string {
+  const currentDate = new Date().toISOString();
+  
+  // Rotas estáticas principais
+  const staticRoutes: SitemapRoute[] = [
+    {
+      url: '',
+      changefreq: 'daily',
+      priority: '1.0',
+      lastmod: currentDate
+    },
+    {
+      url: '/calculadoras',
+      changefreq: 'daily',
+      priority: '0.7',
+      lastmod: currentDate
+    },
+    {
+      url: '/sobre',
+      changefreq: 'monthly',
+      priority: '0.6',
+      lastmod: currentDate
+    },
+    {
+      url: '/privacidade',
+      changefreq: 'yearly',
+      priority: '0.3',
+      lastmod: currentDate
+    },
+    {
+      url: '/termos-de-uso',
+      changefreq: 'yearly',
+      priority: '0.3',
+      lastmod: currentDate
+    }
+  ];
+
+  // Páginas de categoria
+  const categoryRoutes: SitemapRoute[] = CATEGORIES.map(category => ({
+    url: category.path,
+    changefreq: 'weekly' as const,
+    priority: '0.8',
+    lastmod: currentDate
+  }));
+
+  // Páginas individuais das calculadoras
+  const calculatorRoutes: SitemapRoute[] = CALCULATORS.map(calculator => ({
+    url: calculator.path,
+    changefreq: 'monthly' as const,
+    priority: '0.9',
+    lastmod: currentDate
+  }));
+
+  const allRoutes = [...staticRoutes, ...categoryRoutes, ...calculatorRoutes];
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allRoutes.map(route => `  <url>
+    <loc>${APP_URL}${route.url}</loc>
+    <changefreq>${route.changefreq}</changefreq>
+    <priority>${route.priority}</priority>
+    <lastmod>${route.lastmod}</lastmod>
+  </url>`).join('\n')}
+</urlset>`;
+}
