@@ -336,6 +336,13 @@ export const CALCULATORS = [
     path: "/calculadoras/datas/operacao-datas",
   },
   {
+    id: "idade-exata",
+    name: "Calculadora de Idade Exata",
+    description: "Calcule sua idade em anos, meses e dias com contador em tempo real. Descubra quantos dias você viveu e quando será seu próximo aniversário",
+    category: "datas",
+    path: "/calculadoras/datas/idade-exata",
+  },
+  {
     id: "gerador-cpf",
     name: "Gerador de CPF",
     description:
