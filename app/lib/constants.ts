@@ -343,6 +343,13 @@ export const CALCULATORS = [
     path: "/calculadoras/datas/idade-exata",
   },
   {
+    id: "dias-uteis",
+    name: "Calculadora de Dias Úteis",
+    description: "Calcule dias úteis entre datas considerando feriados nacionais brasileiros, Carnaval, Páscoa e emendas. Algoritmo preciso com calendário 2025",
+    category: "datas",
+    path: "/calculadoras/datas/dias-uteis",
+  },
+  {
     id: "gerador-cpf",
     name: "Gerador de CPF",
     description:

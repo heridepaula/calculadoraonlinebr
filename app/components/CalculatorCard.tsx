@@ -56,6 +56,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     "contagem-regressiva": "⏰",
     "operacao-datas": "➕➖",
     "idade-exata": "🎂",
+    "dias-uteis": "📊",
     
     // Astrologia
     "ascendente-astrologico": "🌅",
@@ -115,6 +116,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "contagem-regressiva": { primary: "⏰ Tempo Real", secondary: "🎉 Eventos" },
     "operacao-datas": { primary: "🧮 Operações", secondary: "➕➖ Somar/Subtrair" },
     "idade-exata": { primary: "🎂 Idade Exata", secondary: "⏱️ Contador Tempo Real" },
+    "dias-uteis": { primary: "📊 Dias Úteis", secondary: "🇧🇷 Feriados Brasil" },
     
     // Astrologia
     "ascendente-astrologico": { primary: "🌅 Ascendente", secondary: "🌍 Localização" },
