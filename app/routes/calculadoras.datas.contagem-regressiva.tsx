@@ -544,7 +544,7 @@ export default function CountdownCalculator() {
         </div>
       </header>
 
-      <main>
+      <main className="space-y-8">
         <section aria-labelledby="calculator-section">
           <Card>
             <CardHeader>
@@ -645,7 +645,7 @@ export default function CountdownCalculator() {
 
         {/* Contador */}
         {countdown && (
-          <section aria-labelledby="countdown-section">
+          <section aria-labelledby="countdown-section" className="mt-8">
             <div ref={resultRef}>
               <Card className="border-2 border-growth-green bg-growth-green-soft">
                 <CardHeader>
@@ -746,7 +746,7 @@ export default function CountdownCalculator() {
           </section>
         )}
 
-        <section aria-labelledby="faq-section">
+        <section aria-labelledby="faq-section" className="mt-10">
           <FAQ
             title="Perguntas Frequentes - Contador Regressivo Online"
             items={[
@@ -803,7 +803,7 @@ export default function CountdownCalculator() {
         </section>
 
         {/* Seção Educativa Adicional */}
-        <section className="bg-gray-800/30 py-8 rounded-xl">
+        <section className="bg-gray-800/30 py-8 rounded-xl mt-10">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-2xl font-bold text-primary-blue text-center mb-6">
               🎯 Casos de Uso Populares para Contagem Regressiva
@@ -860,7 +860,7 @@ export default function CountdownCalculator() {
         </section>
       </main>
 
-      <aside aria-label="Calculadoras relacionadas">
+      <aside aria-label="Calculadoras relacionadas" className="mt-12">
         <RelatedCalculators category="datas" currentCalculatorId="contagem-regressiva" />
       </aside>
     </div>

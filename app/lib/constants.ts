@@ -329,6 +329,13 @@ export const CALCULATORS = [
     path: "/calculadoras/datas/contagem-regressiva",
   },
   {
+    id: "operacao-datas",
+    name: "Calculadora de Operações entre Datas",
+    description: "Some ou subtraia anos, meses e dias de qualquer data. Descubra datas futuras e passadas com precisão",
+    category: "datas",
+    path: "/calculadoras/datas/operacao-datas",
+  },
+  {
     id: "gerador-cpf",
     name: "Gerador de CPF",
     description:

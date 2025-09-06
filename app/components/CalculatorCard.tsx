@@ -54,6 +54,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     // Datas
     "diferenca-entre-datas": "📅",
     "contagem-regressiva": "⏰",
+    "operacao-datas": "➕➖",
     
     // Astrologia
     "ascendente-astrologico": "🌅",
@@ -111,6 +112,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     // Datas
     "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Rápida" },
     "contagem-regressiva": { primary: "⏰ Tempo Real", secondary: "🎉 Eventos" },
+    "operacao-datas": { primary: "🧮 Operações", secondary: "➕➖ Somar/Subtrair" },
     
     // Astrologia
     "ascendente-astrologico": { primary: "🌅 Ascendente", secondary: "🌍 Localização" },

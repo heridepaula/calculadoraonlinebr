@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
     },
     {
       property: "og:title",
@@ -73,8 +73,7 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
+      content: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -114,7 +113,7 @@ export const meta: MetaFunction = () => {
         name: "Calculadora de Diferença entre Datas - Calculador de Intervalos 2025",
         description:
           "Ferramenta gratuita para calcular diferenças entre datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
@@ -142,8 +141,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id":
-            "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
+          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
           name: "Calculadora de Diferença entre Datas 2025 - Calcule Intervalos",
           description:
             "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
@@ -177,14 +175,14 @@ export const meta: MetaFunction = () => {
               {
                 "@type": "ListItem",
                 position: 3,
-                name: "Ferramentas",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas",
+                name: "Datas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Diferença entre Datas",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
+                item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
               },
             ],
           },
@@ -283,7 +281,7 @@ export default function DateDifferenceCalculator() {
 
   const { startCalculation, endCalculation } = useAutoCalculatorTracking({
     calculatorType: "diferenca-entre-datas",
-    category: "ferramentas",
+    category: "datas",
   });
   useFormTracking("diferenca-entre-datas");
 
@@ -457,7 +455,7 @@ export default function DateDifferenceCalculator() {
         <Breadcrumb>
           <BreadcrumbItem href="/">Início</BreadcrumbItem>
           <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-          <BreadcrumbItem href="/calculadoras/ferramentas">Ferramentas</BreadcrumbItem>
+          <BreadcrumbItem href="/calculadoras/datas">Datas</BreadcrumbItem>
           <BreadcrumbItem isLast>Diferença entre Datas</BreadcrumbItem>
         </Breadcrumb>
       </nav>
@@ -480,7 +478,7 @@ export default function DateDifferenceCalculator() {
         </div>
       </header>
 
-      <main>
+      <main className="space-y-8">
         <section aria-labelledby="calculator-section">
           <Card>
             <CardHeader>
@@ -608,7 +606,7 @@ export default function DateDifferenceCalculator() {
 
         {/* Resultado */}
         {result && (
-          <section aria-labelledby="results-section">
+          <section aria-labelledby="results-section" className="mt-8">
             <div ref={resultRef}>
               <Card className="border-2 border-growth-green bg-growth-green-soft">
                 <CardHeader>
@@ -692,7 +690,7 @@ export default function DateDifferenceCalculator() {
           </section>
         )}
 
-        <section aria-labelledby="practical-applications">
+        <section aria-labelledby="practical-applications" className="mt-12">
           <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
             <CardHeader>
               <CardTitle
@@ -822,7 +820,7 @@ export default function DateDifferenceCalculator() {
           </Card>
         </section>
 
-        <section aria-labelledby="calculation-methods">
+        <section aria-labelledby="calculation-methods" className="mt-10">
           <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
             <CardHeader>
               <CardTitle
@@ -922,7 +920,7 @@ export default function DateDifferenceCalculator() {
           </Card>
         </section>
 
-        <section aria-labelledby="faq-section">
+        <section aria-labelledby="faq-section" className="mt-10">
           <FAQ
             title="Perguntas Frequentes - Calculadora de Diferença entre Datas"
             items={[
@@ -972,7 +970,7 @@ export default function DateDifferenceCalculator() {
           />
         </section>
 
-        <section aria-labelledby="usage-guide">
+        <section aria-labelledby="usage-guide" className="mt-10">
           <Card className="border-l-4 border-primary-blue bg-primary-blue-light duration-300">
             <CardHeader>
               <CardTitle as="h2" id="usage-guide" className="text-lg font-bold text-text-primary">
@@ -1011,8 +1009,8 @@ export default function DateDifferenceCalculator() {
         </section>
       </main>
 
-      <aside aria-label="Calculadoras relacionadas">
-        <RelatedCalculators category="ferramentas" currentCalculatorId="diferenca-entre-datas" />
+      <aside aria-label="Calculadoras relacionadas" className="mt-12">
+        <RelatedCalculators category="datas" currentCalculatorId="diferenca-entre-datas" />
       </aside>
     </div>
   );
