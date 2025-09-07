@@ -390,6 +390,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/contador-caracteres",
   },
   {
+    id: "gerador-cartao-credito",
+    name: "Gerador de Cartão de Crédito",
+    description:
+      "Gere números de cartão de crédito válidos para testes e desenvolvimento. Suporte para Visa, Mastercard, American Express e outras bandeiras com algoritmo de Luhn",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/gerador-cartao-credito",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
