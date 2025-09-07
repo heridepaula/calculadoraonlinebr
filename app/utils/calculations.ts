@@ -5325,14 +5325,12 @@ export function calculateTreasuryDirect(params: TreasuryDirectParams): TreasuryD
 
   // Calculate returns
   const totalReturn = finalAmount - principal - monthlyInvestment * (periodInYears * 12);
-  const totalYield = (totalReturn / (principal + monthlyInvestment * (periodInYears * 12))) * 100;
+  const totalYield = totalReturn / (principal + monthlyInvestment * (periodInYears * 12));
   const annualizedReturn =
-    (Math.pow(
+    Math.pow(
       finalAmount / (principal + monthlyInvestment * (periodInYears * 12)),
       1 / periodInYears
-    ) -
-      1) *
-    100;
+    ) - 1;
 
   // Calculate taxes and fees
   const totalInvested = principal + monthlyInvestment * (periodInYears * 12);
@@ -5356,7 +5354,7 @@ export function calculateTreasuryDirect(params: TreasuryDirectParams): TreasuryD
   const incomeTax = Math.max(0, totalReturn * irRate);
   const netAmount = finalAmount - totalCustodyFee - incomeTax;
   const netReturn = netAmount - totalInvested;
-  const netYield = (netReturn / totalInvested) * 100;
+  const netYield = netReturn / totalInvested;
 
   // Calculate early redemption if requested
   let earlyRedemptionData: TreasuryDirectResult["earlyRedemption"];
@@ -5416,7 +5414,7 @@ export function calculateTreasuryDirect(params: TreasuryDirectParams): TreasuryD
     const earlyIncomeTax = Math.max(0, earlyReturn * earlyIrRate);
     const netRedemptionValue = redemptionValue - earlyTotalCustodyFee - earlyIncomeTax;
     const earlyNetReturn = netRedemptionValue - earlyTotalInvested;
-    const earlyRedemptionYield = (earlyNetReturn / earlyTotalInvested) * 100;
+    const earlyRedemptionYield = earlyNetReturn / earlyTotalInvested;
 
     earlyRedemptionData = {
       redemptionDate: earlyRedemptionDate,

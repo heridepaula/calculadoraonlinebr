@@ -28,10 +28,18 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 
 // Função para converter valores formatados no padrão brasileiro para número
 const parseBrazilianNumber = (value: string | number): number => {
-  if (typeof value === 'number') return value;
+  if (typeof value === "number") return value;
   if (!value) return 0;
   // Remove pontos de milhares e substitui vírgula por ponto
-  return parseFloat(value.toString().replace(/\./g, '').replace(',', '.')) || 0;
+  return parseFloat(value.toString().replace(/\./g, "").replace(",", ".")) || 0;
+};
+
+// Função para converter percentuais formatados no padrão brasileiro para número
+const parseBrazilianPercentage = (value: string | number): number => {
+  if (typeof value === "number") return value;
+  if (!value) return 0;
+  // Para percentuais, apenas substitui vírgula por ponto (não remove pontos de milhares pois percentuais não costumam ter)
+  return parseFloat(value.toString().replace(",", ".")) || 0;
 };
 
 // Loader para buscar dados dos títulos do Tesouro Direto
@@ -357,7 +365,7 @@ export default function TreasuryDirectCalculator() {
 
   const [selectedBondCode, setSelectedBondCode] = useState("");
   const [selectedBond, setSelectedBond] = useState<ProcessedBond | null>(null);
-  const [principal, setPrincipal] = useState("10000.00");
+  const [principal, setPrincipal] = useState("");
   const [maturityDate, setMaturityDate] = useState(() => {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 3);
@@ -414,15 +422,6 @@ export default function TreasuryDirectCalculator() {
         setPurchaseRate(bond.rate.toFixed(2));
         setMaturityDate(bond.maturityDate);
         setCouponRate(bond.rate.toFixed(2));
-
-        // Ajusta valor mínimo se necessário
-        const currentPrincipal = parseBrazilianNumber(principal);
-        const minimumRequired = Math.max(bond.minInvestment, 30);
-        if (currentPrincipal < minimumRequired) {
-          // Arredonda para cima para múltiplos de 30 para valores pequenos
-          const adjustedMinimum = minimumRequired < 100 ? 30 : Math.ceil(minimumRequired / 10) * 10;
-          setPrincipal(adjustedMinimum.toFixed(2));
-        }
       }
     }
   }, [selectedBondCode, bonds]);
@@ -439,10 +438,12 @@ export default function TreasuryDirectCalculator() {
 
     try {
       const principalNum = parseBrazilianNumber(principal);
-      const purchaseRateNum = parseBrazilianNumber(purchaseRate);
-      const currentSelicRateNum = parseBrazilianNumber(currentSelicRate) || ECONOMIC_INDICATORS.SELIC.rate;
-      const currentIPCARateNum = parseBrazilianNumber(currentIPCARate) || ECONOMIC_INDICATORS.IPCA.rate;
-      const couponRateNum = parseBrazilianNumber(couponRate) || 10.0;
+      const purchaseRateNum = parseBrazilianPercentage(purchaseRate);
+      const currentSelicRateNum =
+        parseBrazilianPercentage(currentSelicRate) || ECONOMIC_INDICATORS.SELIC.rate;
+      const currentIPCARateNum =
+        parseBrazilianPercentage(currentIPCARate) || ECONOMIC_INDICATORS.IPCA.rate;
+      const couponRateNum = parseBrazilianPercentage(couponRate) || 10.0;
       const monthlyInvestmentNum = parseBrazilianNumber(monthlyInvestment);
 
       if (principalNum <= 0) {
@@ -477,13 +478,13 @@ export default function TreasuryDirectCalculator() {
         couponRate: couponRateNum,
         monthlyInvestment: monthlyInvestmentNum,
         // Taxas de custódia
-        treasuryCustodyRate: parseBrazilianNumber(treasuryCustodyRate) || 0.2,
-        bankCustodyRate: parseBrazilianNumber(bankCustodyRate) || 0,
+        treasuryCustodyRate: parseBrazilianPercentage(treasuryCustodyRate) || 0.2,
+        bankCustodyRate: parseBrazilianPercentage(bankCustodyRate) || 0,
         // Resgate antecipado
         earlyRedemption: enableEarlyRedemption,
         earlyRedemptionDate: enableEarlyRedemption ? earlyRedemptionDate : undefined,
         marketRateAtRedemption: enableEarlyRedemption
-          ? parseBrazilianNumber(marketRateAtRedemption) || purchaseRateNum
+          ? parseBrazilianPercentage(marketRateAtRedemption) || purchaseRateNum
           : undefined,
       };
 
@@ -503,42 +504,6 @@ export default function TreasuryDirectCalculator() {
     setMonthlyInvestment("0.00");
     setResult(null);
     setError("");
-  };
-
-  const exportCouponCalendar = (result: any) => {
-    if (!result.coupons || result.coupons.length === 0) return;
-
-    const csvHeader = "Semestre,Período,Valor do Cupom,Total Acumulado\n";
-    const csvData = result.coupons
-      .map((coupon: any, index: number) => {
-        const couponDate = new Date(coupon.paymentDate);
-        const year = couponDate.getFullYear();
-        const month = couponDate.getMonth();
-        const semesterText = month < 6 ? "1º Semestre" : "2º Semestre";
-
-        return [
-          `${index + 1}º`,
-          `${semesterText} ${year}`,
-          `"${coupon.couponValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}"`,
-          `"${coupon.accumulatedValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}"`,
-        ].join(",");
-      })
-      .join("\n");
-
-    const csvContent = csvHeader + csvData;
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-
-    link.setAttribute("href", url);
-    link.setAttribute(
-      "download",
-      `cronograma-cupons-tesouro-direto-${new Date().toISOString().split("T")[0]}.csv`
-    );
-    link.style.visibility = "hidden";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   // Funções auxiliares para exibição dos títulos
@@ -966,7 +931,7 @@ export default function TreasuryDirectCalculator() {
                       <div className="text-center">
                         <p className="mb-1 text-sm text-text-secondary">Rendimento Total</p>
                         <div className="text-xl font-bold tabular-nums text-system-info">
-                          {result.totalYield.toFixed(2)}%
+                          {(result.totalYield * 100).toFixed(2)}%
                         </div>
                       </div>
                     </div>
@@ -1089,7 +1054,7 @@ export default function TreasuryDirectCalculator() {
                     <div className="rounded border border-primary-blue/20 bg-primary-blue/10 p-2 text-center">
                       <p className="text-xs text-text-secondary">Rent. Anual</p>
                       <p className="text-sm font-bold text-primary-blue-dark">
-                        {result.annualizedReturn.toFixed(2)}%
+                        {(result.annualizedReturn * 100).toFixed(2)}%
                       </p>
                     </div>
                     <div className="rounded border border-system-error/20 bg-system-error/10 p-2 text-center">
@@ -1215,7 +1180,7 @@ export default function TreasuryDirectCalculator() {
                             Rentabilidade Antecipada
                           </p>
                           <p className="text-lg font-bold text-system-info">
-                            {result.earlyRedemption.earlyRedemptionYield.toFixed(2)}%
+                            {(result.earlyRedemption.earlyRedemptionYield * 100).toFixed(2)}%
                           </p>
                         </div>
                       </div>

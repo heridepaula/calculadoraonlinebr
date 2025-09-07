@@ -41,9 +41,36 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
     if (typeof str === "number") {
       return Math.round(str * 100);
     }
-    // Remove tudo exceto dígitos
-    const numericString = str.replace(/\D/g, "");
-    return parseInt(numericString) || 0;
+    
+    const stringValue = str.toString().trim();
+    if (!stringValue) return 0;
+    
+    // Detect format by checking if there's a comma and point
+    // Brazilian format: "10.000,50" (point = thousands, comma = decimal)
+    // US/other format: "10000.50" (point = decimal)
+    let normalizedValue: string;
+    
+    if (stringValue.includes(',')) {
+      // Brazilian format with comma as decimal separator
+      // Remove dots (thousands) and replace comma with dot
+      normalizedValue = stringValue.replace(/\./g, '').replace(',', '.');
+    } else if (stringValue.includes('.')) {
+      // Check if it's thousands separator or decimal
+      const parts = stringValue.split('.');
+      if (parts.length === 2 && parts[1].length <= 2) {
+        // Likely decimal separator (e.g., "10000.50")
+        normalizedValue = stringValue;
+      } else {
+        // Likely thousands separator (e.g., "10.000" or "1.000.000")
+        normalizedValue = stringValue.replace(/\./g, '');
+      }
+    } else {
+      // No separators, just digits
+      normalizedValue = stringValue;
+    }
+    
+    const parsedValue = parseFloat(normalizedValue) || 0;
+    return Math.round(parsedValue * 100);
   };
 
   // Sincronizar com valor externo
