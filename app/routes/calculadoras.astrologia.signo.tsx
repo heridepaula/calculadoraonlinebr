@@ -6,10 +6,8 @@ import {
   CardTitle,
   CardContent,
   Button,
-  Breadcrumb,
-  BreadcrumbItem,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, ResponsiveBreadcrumb, createCalculatorBreadcrumb } from "~/components";
 
 export const meta: MetaFunction = () => {
   return [
@@ -692,13 +690,10 @@ export default function CalculadoraSigno() {
   };
 
   return (
-    <div className="min-h-screen space-y-8">
-      <Breadcrumb>
-        <BreadcrumbItem href="/">Início</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-        <BreadcrumbItem href="/calculadoras/astrologia">Astrologia</BreadcrumbItem>
-        <BreadcrumbItem isLast>Signo Solar</BreadcrumbItem>
-      </Breadcrumb>
+    <div className="min-h-screen">
+      <ResponsiveBreadcrumb items={createCalculatorBreadcrumb('astrologia', 'Signo Solar')} />
+      
+      <div className="space-y-8 px-3 sm:px-6 py-6">
 
       {/* Structured Data */}
       <script
@@ -1221,7 +1216,8 @@ export default function CalculadoraSigno() {
         </CardContent>
       </Card>
 
-      <RelatedCalculators category="astrologia" />
+        <RelatedCalculators category="astrologia" />
+      </div>
     </div>
   );
 }

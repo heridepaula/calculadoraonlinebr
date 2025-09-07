@@ -4,8 +4,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  Breadcrumb,
-  BreadcrumbItem,
 } from "~/components/ui";
 import {
   RelatedCalculators,
@@ -13,6 +11,8 @@ import {
   CategoryHero,
   CategoryStats,
   QuickAccessCard,
+  ResponsiveBreadcrumb,
+  createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
@@ -54,16 +54,8 @@ export default function MatematicaIndex() {
 
   return (
     <div className="min-h-screen">
-      {/* Breadcrumb Navigation */}
-      <div className="border-border-primary bg-surface-light border-b px-3 py-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumb>
-            <BreadcrumbItem href="/">Início</BreadcrumbItem>
-            <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-            <BreadcrumbItem isLast>Matemática</BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-      </div>
+      {/* Responsive Breadcrumb Navigation */}
+      <ResponsiveBreadcrumb items={createCategoryBreadcrumb('matematica')} />
 
       <CategoryHero
         category="matematica"

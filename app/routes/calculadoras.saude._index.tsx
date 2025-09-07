@@ -4,10 +4,8 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  Breadcrumb,
-  BreadcrumbItem,
 } from "~/components/ui";
-import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
+import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard, ResponsiveBreadcrumb, createCategoryBreadcrumb } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
@@ -46,16 +44,8 @@ export default function SaudeIndex() {
 
   return (
     <div className="min-h-screen">
-      {/* Breadcrumb Navigation */}
-      <div className="border-border-primary bg-surface-light border-b px-3 sm:px-6 py-4">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumb>
-            <BreadcrumbItem href="/">Início</BreadcrumbItem>
-            <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-            <BreadcrumbItem isLast>Saúde</BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-      </div>
+      {/* Responsive Breadcrumb Navigation */}
+      <ResponsiveBreadcrumb items={createCategoryBreadcrumb('saude')} />
 
       <CategoryHero
         category="saude"

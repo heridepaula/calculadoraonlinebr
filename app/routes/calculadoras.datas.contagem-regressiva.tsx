@@ -6,11 +6,9 @@ import {
   CardTitle,
   CardContent,
   Button,
-  Breadcrumb,
-  BreadcrumbItem,
   Input,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, ResponsiveBreadcrumb, createCalculatorBreadcrumb } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
@@ -491,17 +489,12 @@ export default function CountdownCalculator() {
   );
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
-      {showCelebration && <CelebrationEffect />}
+    <div className="min-h-screen">
+      <ResponsiveBreadcrumb items={createCalculatorBreadcrumb('datas', 'Contagem Regressiva')} />
       
-      <nav aria-label="Navegação estrutural">
-        <Breadcrumb>
-          <BreadcrumbItem href="/">Início</BreadcrumbItem>
-          <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
-          <BreadcrumbItem href="/calculadoras/datas">Datas</BreadcrumbItem>
-          <BreadcrumbItem isLast>Contagem Regressiva</BreadcrumbItem>
-        </Breadcrumb>
-      </nav>
+      <div className="space-y-8 px-3 sm:px-6 py-6">
+        <div className="mx-auto max-w-2xl md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
+          {showCelebration && <CelebrationEffect />}
 
       <header className="space-y-6 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl lg:text-5xl">
@@ -860,9 +853,11 @@ export default function CountdownCalculator() {
         </section>
       </main>
 
-      <aside aria-label="Calculadoras relacionadas" className="mt-12">
-        <RelatedCalculators category="datas" currentCalculatorId="contagem-regressiva" />
-      </aside>
+        <aside aria-label="Calculadoras relacionadas" className="mt-12">
+          <RelatedCalculators category="datas" currentCalculatorId="contagem-regressiva" />
+        </aside>
+        </div>
+      </div>
     </div>
   );
 }

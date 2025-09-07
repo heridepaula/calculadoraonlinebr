@@ -7,3 +7,4 @@ export { CookieConsent, useCookieConsent, shouldLoadAnalytics } from "./CookieCo
 export { default as CategoryHero } from "./CategoryHero";
 export { default as CategoryStats } from "./CategoryStats";
 export { default as QuickAccessCard } from "./QuickAccessCard";
+export { ResponsiveBreadcrumb, createCategoryBreadcrumb, createCalculatorBreadcrumb } from "./ResponsiveBreadcrumb";
