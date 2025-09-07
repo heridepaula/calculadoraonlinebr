@@ -358,6 +358,30 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/gerador-cpf",
   },
   {
+    id: "gerador-cnpj",
+    name: "Gerador de CNPJ",
+    description:
+      "Gere CNPJs válidos para testes e desenvolvimento com opção de formatação. Cópia automática para área de transferência, algoritmo da Receita Federal",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/gerador-cnpj",
+  },
+  {
+    id: "validar-cpf",
+    name: "Validador de CPF",
+    description:
+      "Valide CPFs com ou sem pontuação usando algoritmo oficial da Receita Federal. Validação instantânea e precisa para verificar se CPF é válido",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/validar-cpf",
+  },
+  {
+    id: "validar-cnpj",
+    name: "Validador de CNPJ",
+    description:
+      "Valide CNPJs com ou sem pontuação usando algoritmo oficial da Receita Federal. Validação instantânea e precisa para verificar se CNPJ é válido",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/validar-cnpj",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:

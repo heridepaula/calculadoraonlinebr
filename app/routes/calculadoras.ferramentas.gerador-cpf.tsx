@@ -399,7 +399,7 @@ export default function CpfGenerator() {
     error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <div className="mx-auto max-w-2xl space-y-8 px-3 sm:px-4 md:max-w-4xl lg:max-w-6xl">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -429,13 +429,13 @@ export default function CpfGenerator() {
           <CardTitle as="h2">⚙️ Configurações do Gerador de CPF</CardTitle>
         </CardHeader>
         <CardContent>
-          {/* Opção de formatação centralizada */}
-          <div className="mb-6 flex flex-wrap justify-center gap-2">
-            <div className="inline-flex overflow-hidden rounded-lg border border-neutral-surface-variant">
+          {/* Opção de formatação mobile first */}
+          <div className="mb-6 flex justify-center">
+            <div className="flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-neutral-surface-variant sm:flex-row">
               <button
                 type="button"
                 onClick={() => setWithFormatting(true)}
-                className={`min-w-[160px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                className={`flex-1 py-3 px-4 text-center text-base font-medium transition ${
                   withFormatting
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -446,7 +446,7 @@ export default function CpfGenerator() {
               <button
                 type="button"
                 onClick={() => setWithFormatting(false)}
-                className={`min-w-[160px] flex-1 basis-0 py-3 text-center text-base font-medium transition ${
+                className={`flex-1 py-3 px-4 text-center text-base font-medium transition ${
                   !withFormatting
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
