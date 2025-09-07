@@ -964,6 +964,7 @@ function calculateTermination(params: TerminationCalculation): TerminationResult
 
 export default function RescisaoTrabalhistaCalculator() {
   const [salario, setSalario] = useState<number>(0);
+  const [salarioString, setSalarioString] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState(new Date().toISOString().split("T")[0]);
   const [tipoRescisao, setTipoRescisao] = useState<
@@ -975,6 +976,7 @@ export default function RescisaoTrabalhistaCalculator() {
   const [possuiFeriasVencidas, setPossuiFeriasVencidas] = useState(false);
   const [diasFeriasVencidas, setDiasFeriasVencidas] = useState(30);
   const [result, setResult] = useState<TerminationResult | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Global Analytics Tracking
   const {
@@ -991,8 +993,27 @@ export default function RescisaoTrabalhistaCalculator() {
 
   const { trackInputChange, trackFormSubmission } = useFormTracking("rescisao");
 
+  // Função para converter string brasileira para número
+  const parseBrazilianNumber = (value: string | number): number => {
+    if (typeof value === 'number') return value;
+    if (!value) return 0;
+    // Remove pontos de milhares e substitui vírgula por ponto
+    return parseFloat(value.toString().replace(/\./g, '').replace(',', '.')) || 0;
+  };
+
+  // Handler para atualizar salário
+  const handleSalarioChange = (value: string) => {
+    setSalarioString(value);
+    setSalario(parseBrazilianNumber(value));
+  };
+
   const handleCalculate = () => {
-    if (salario > 0 && dataInicio && dataFim) {
+    // Validação mais robusta
+    const salarioValido = salario > 0;
+    const datasValidas = dataInicio && dataFim && new Date(dataInicio) < new Date(dataFim);
+    
+    
+    if (salarioValido && datasValidas) {
       const params: TerminationCalculation = {
         salario,
         dataInicio,
@@ -1006,11 +1027,20 @@ export default function RescisaoTrabalhistaCalculator() {
       };
       const calculationResult = calculateTermination(params);
       setResult(calculationResult);
+      setErrorMessage("");
+    } else {
+      // Mostrar erro específico
+      let erro = "";
+      if (!salarioValido) erro += "Informe um salário válido maior que R$ 0,00. ";
+      if (!datasValidas) erro += "Verifique as datas de início e fim do trabalho. ";
+      setErrorMessage(erro.trim());
+      setResult(null);
     }
   };
 
   const handleReset = () => {
     setSalario(0);
+    setSalarioString("");
     setDataInicio("");
     setDataFim(new Date().toISOString().split("T")[0]);
     setTipoRescisao("sem-justa-causa");
@@ -1020,6 +1050,7 @@ export default function RescisaoTrabalhistaCalculator() {
     setPossuiFeriasVencidas(false);
     setDiasFeriasVencidas(30);
     setResult(null);
+    setErrorMessage("");
   };
 
   const formatCurrency = (value: number) => {
@@ -1076,8 +1107,8 @@ export default function RescisaoTrabalhistaCalculator() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <MoneyInput
                 label="Salário Mensal Bruto"
-                value={salario}
-                onChange={setSalario}
+                value={salarioString}
+                onChange={handleSalarioChange}
                 placeholder="R$ 2.500,00"
                 required
                 fullWidth
@@ -1222,6 +1253,14 @@ export default function RescisaoTrabalhistaCalculator() {
               Limpar
             </Button>
           </div>
+          
+          {errorMessage && (
+            <div className="mt-4 rounded-lg border border-system-error bg-system-error/10 p-4">
+              <p className="text-center text-system-error font-medium">
+                ⚠️ {errorMessage}
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
 
