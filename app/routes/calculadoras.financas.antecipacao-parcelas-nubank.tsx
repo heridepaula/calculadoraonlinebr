@@ -271,7 +271,7 @@ interface ValidationErrors {
 }
 
 export default function AntecipacaoNubankCalculator() {
-  const [valorParcela, setValorParcela] = useState<number>(0);
+  const [valorParcela, setValorParcela] = useState("");
   const [numeroParcelasRestantes, setNumeroParcelasRestantes] = useState("");
   const [taxaJurosAntecipacao, setTaxaJurosAntecipacao] = useState("10,58"); // Taxa padrão do Nubank
   const [result, setResult] = useState<AntecipacaoResult | null>(null);
@@ -324,7 +324,8 @@ export default function AntecipacaoNubankCalculator() {
     const newErrors: ValidationErrors = {};
     let ok = true;
 
-    if (valorParcela <= 0) {
+    const valorParc = parseMoney(valorParcela);
+    if (valorParc <= 0) {
       newErrors.valorParcela = "Valor da parcela deve ser maior que 0";
       ok = false;
     }
@@ -349,7 +350,7 @@ export default function AntecipacaoNubankCalculator() {
     if (!validateInputs()) return;
     startCalculation("calcular");
     try {
-      const valorParc = valorParcela;
+      const valorParc = parseMoney(valorParcela);
       const numParcelas = parseInt(numeroParcelasRestantes, 10);
       const taxaJurosAnual = parseRate(taxaJurosAntecipacao);
 
@@ -419,7 +420,7 @@ export default function AntecipacaoNubankCalculator() {
   };
 
   const handleReset = () => {
-    setValorParcela(0);
+    setValorParcela("");
     setNumeroParcelasRestantes("");
     setTaxaJurosAntecipacao("10,58");
     setResult(null);

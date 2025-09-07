@@ -58,33 +58,8 @@ export const RateInput: React.FC<RateInputProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (readOnly) return;
 
-    const input = e.target as HTMLInputElement;
-    const cursorPosition = input.selectionStart || 0;
-    const inputValue = input.value;
-    const inputLength = inputValue.length;
-
-    // Se backspace ou delete e cursor está no final, limpa o campo completamente
-    if ((e.key === "Backspace" || e.key === "Delete") && cursorPosition >= inputLength) {
-      e.preventDefault();
-      setNumericValue(0);
-      setDisplayValue(formatPercentage(0));
-      onChange("0,00");
-      return;
-    }
-
-    // Se backspace e cursor está no final ou quase no final, também limpa
-    if (e.key === "Backspace" && cursorPosition >= inputLength - 1) {
-      e.preventDefault();
-      setNumericValue(0);
-      setDisplayValue(formatPercentage(0));
-      onChange("0,00");
-      return;
-    }
-
-    // Permitir teclas especiais
-    const allowedKeys = [
-      "Backspace",
-      "Delete",
+    // Permitir teclas de navegação sem interceptar
+    const navigationKeys = [
       "Tab",
       "Escape",
       "Enter",
@@ -96,18 +71,30 @@ export const RateInput: React.FC<RateInputProps> = ({
       "End",
     ];
 
-    if (allowedKeys.includes(e.key)) {
-      if (e.key === "Backspace") {
-        e.preventDefault();
-        const newCents = Math.floor(numericValue / 10);
-        setNumericValue(newCents);
-        setDisplayValue(formatPercentage(newCents));
-        const percentageValue = (newCents / 100).toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-        onChange(percentageValue);
-      }
+    if (navigationKeys.includes(e.key)) {
+      return;
+    }
+
+    // Backspace - apaga último dígito ao invés de limpar campo
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newCents = Math.floor(numericValue / 10);
+      setNumericValue(newCents);
+      setDisplayValue(formatPercentage(newCents));
+      const percentageValue = (newCents / 100).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      onChange(percentageValue);
+      return;
+    }
+
+    // Delete - limpa campo completamente
+    if (e.key === "Delete") {
+      e.preventDefault();
+      setNumericValue(0);
+      setDisplayValue(formatPercentage(0));
+      onChange("0,00");
       return;
     }
 
@@ -149,8 +136,45 @@ export const RateInput: React.FC<RateInputProps> = ({
     }
   };
 
-  const handleChange = () => {
-    // Previne mudanças diretas no input - só aceita via teclado
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (readOnly) return;
+    
+    const inputValue = e.target.value;
+    
+    // Se o input está vazio, resetar
+    if (inputValue === "" || inputValue === "%" || inputValue === "0,00%") {
+      setNumericValue(0);
+      setDisplayValue(formatPercentage(0));
+      onChange("0,00");
+      return;
+    }
+    
+    // Para dispositivos móveis - detectar se é entrada de valor completo ou dígito
+    const numericString = inputValue.replace(/\D/g, "");
+    
+    if (numericString === "") {
+      return;
+    }
+    
+    const numericValue = parseInt(numericString) || 0;
+    let newCents: number;
+    
+    // Para percentuais, sempre tratar como centavos (mais consistente)
+    // Entrada dígito por dígito: 1098 centavos = 10,98%
+    newCents = numericValue;
+    
+    // Limitar a 9.999,99% (999999 centavos)
+    if (newCents > 999999) {
+      return;
+    }
+    
+    setNumericValue(newCents);
+    setDisplayValue(formatPercentage(newCents));
+    const percentageValue = (newCents / 100).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    onChange(percentageValue);
   };
 
   const baseClasses = [
@@ -178,6 +202,7 @@ export const RateInput: React.FC<RateInputProps> = ({
         <input
           ref={inputRef}
           type="text"
+          inputMode="numeric"
           value={displayValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

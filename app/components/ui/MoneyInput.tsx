@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 export interface MoneyInputProps {
   label?: string;
   value: string | number;
-  onChange: (value: number) => void;
+  onChange: (value: string) => void;
   placeholder?: string;
   required?: boolean;
   className?: string;
@@ -58,33 +58,8 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (readOnly) return;
 
-    const input = e.target as HTMLInputElement;
-    const cursorPosition = input.selectionStart || 0;
-    const inputValue = input.value;
-    const inputLength = inputValue.length;
-
-    // Se backspace ou delete e cursor está no final, limpa o campo completamente
-    if ((e.key === "Backspace" || e.key === "Delete") && cursorPosition >= inputLength) {
-      e.preventDefault();
-      setNumericValue(0);
-      setDisplayValue(formatCurrency(0));
-      onChange(0);
-      return;
-    }
-
-    // Se backspace e cursor está no final ou quase no final, também limpa
-    if (e.key === "Backspace" && cursorPosition >= inputLength - 1) {
-      e.preventDefault();
-      setNumericValue(0);
-      setDisplayValue(formatCurrency(0));
-      onChange(0);
-      return;
-    }
-
-    // Permitir teclas especiais
-    const allowedKeys = [
-      "Backspace",
-      "Delete",
+    // Permitir teclas de navegação sem interceptar
+    const navigationKeys = [
       "Tab",
       "Escape",
       "Enter",
@@ -96,14 +71,30 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
       "End",
     ];
 
-    if (allowedKeys.includes(e.key)) {
-      if (e.key === "Backspace") {
-        e.preventDefault();
-        const newCents = Math.floor(numericValue / 10);
-        setNumericValue(newCents);
-        setDisplayValue(formatCurrency(newCents));
-        onChange(newCents / 100);
-      }
+    if (navigationKeys.includes(e.key)) {
+      return;
+    }
+
+    // Backspace - apaga último dígito ao invés de limpar campo
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newCents = Math.floor(numericValue / 10);
+      setNumericValue(newCents);
+      setDisplayValue(formatCurrency(newCents));
+      const formattedValue = (newCents / 100).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      onChange(formattedValue);
+      return;
+    }
+
+    // Delete - limpa campo completamente
+    if (e.key === "Delete") {
+      e.preventDefault();
+      setNumericValue(0);
+      setDisplayValue(formatCurrency(0));
+      onChange("0,00");
       return;
     }
 
@@ -124,7 +115,12 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
 
     setNumericValue(newCents);
     setDisplayValue(formatCurrency(newCents));
-    onChange(newCents / 100);
+    // Pass the formatted string value (e.g., "11.069,86") for Brazilian parsing
+    const formattedValue = (newCents / 100).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    onChange(formattedValue);
   };
 
   const handleFocus = () => {
@@ -141,8 +137,42 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
     }
   };
 
-  const handleChange = () => {
-    // Previne mudanças diretas no input - só aceita via teclado
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (readOnly) return;
+    
+    const inputValue = e.target.value;
+    
+    // Se o input está vazio, resetar
+    if (inputValue === "" || inputValue === "R$ ") {
+      setNumericValue(0);
+      setDisplayValue(formatCurrency(0));
+      onChange("0,00");
+      return;
+    }
+    
+    // Extrair apenas dígitos da entrada
+    const numericString = inputValue.replace(/\D/g, "");
+    if (numericString === "") {
+      return;
+    }
+    
+    // Sempre tratar como entrada de centavos (dígitos sequenciais)
+    // Exemplo: "1106986" = 1106986 centavos = R$ 11.069,86
+    const newCents = parseInt(numericString) || 0;
+    
+    // Limitar a 9.999.999,99 (999999999 centavos)
+    if (newCents > 999999999) {
+      return;
+    }
+    
+    setNumericValue(newCents);
+    setDisplayValue(formatCurrency(newCents));
+    // Pass the formatted string value (e.g., "11.069,86") for Brazilian parsing
+    const formattedValue = (newCents / 100).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    onChange(formattedValue);
   };
 
   const baseClasses = [
@@ -173,6 +203,7 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
         <input
           ref={inputRef}
           type="text"
+          inputMode="numeric"
           value={displayValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
