@@ -382,6 +382,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/validar-cnpj",
   },
   {
+    id: "contador-caracteres",
+    name: "Contador de Caracteres",
+    description:
+      "Conte caracteres, letras, palavras, frases com análise detalhada. Veja frequência de cada letra, estatísticas avançadas e opções de filtro personalizáveis",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/contador-caracteres",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
