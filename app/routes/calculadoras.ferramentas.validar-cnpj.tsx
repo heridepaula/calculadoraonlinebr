@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "validador CNPJ, validar CNPJ, CNPJ válido, verificar CNPJ, algoritmo CNPJ, validação CNPJ, conferir CNPJ, teste CNPJ, pessoa jurídica",
+        "validador CNPJ, validar CNPJ, CNPJ válido, verificar CNPJ, algoritmo CNPJ, validação CNPJ, conferir CNPJ, teste CNPJ, pessoa jurídica, checar CNPJ, consulta CNPJ, verificador CNPJ",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -59,8 +59,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content:
-        "Validador de CNPJ - Valide CNPJs com ou sem pontuação usando algoritmo oficial",
+      content: "Validador de CNPJ - Valide CNPJs com ou sem pontuação usando algoritmo oficial",
     },
     {
       property: "og:image:width",
@@ -102,6 +101,8 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#1f2937" },
+    { name: "apple-mobile-web-app-title", content: "Validar CNPJ" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
@@ -279,9 +280,16 @@ export default function CnpjValidator() {
   // Verifica CNPJs com sequências inválidas
   const hasInvalidSequence = (cnpj: string): boolean => {
     const invalidCnpjs = [
-      "00000000000000", "11111111111111", "22222222222222", "33333333333333", 
-      "44444444444444", "55555555555555", "66666666666666", "77777777777777", 
-      "88888888888888", "99999999999999"
+      "00000000000000",
+      "11111111111111",
+      "22222222222222",
+      "33333333333333",
+      "44444444444444",
+      "55555555555555",
+      "66666666666666",
+      "77777777777777",
+      "88888888888888",
+      "99999999999999",
     ];
     return invalidCnpjs.includes(cnpj);
   };
@@ -351,7 +359,7 @@ export default function CnpjValidator() {
 
   const handleValidate = () => {
     if (!validateInput()) return;
-    
+
     startCalculation();
 
     try {
@@ -392,7 +400,7 @@ export default function CnpjValidator() {
     // Permite apenas números e formatação básica
     const formatted = value.replace(/\D/g, "").substring(0, 14);
     setCnpjInput(formatted);
-    
+
     // Limpa resultado anterior se houver
     if (result) {
       setResult(null);
@@ -416,9 +424,9 @@ export default function CnpjValidator() {
           Validador de CNPJ 2025 – Validação Rápida e Precisa
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Valide <strong className="text-primary-blue-dark">CNPJs</strong> com ou sem pontuação usando o{" "}
-          <strong className="text-growth-green">algoritmo oficial</strong> da Receita Federal. 
-          Validação instantânea e confiável para pessoas jurídicas.
+          Valide <strong className="text-primary-blue-dark">CNPJs</strong> com ou sem pontuação
+          usando o <strong className="text-growth-green">algoritmo oficial</strong> da Receita
+          Federal. Validação instantânea e confiável para pessoas jurídicas.
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -474,10 +482,15 @@ export default function CnpjValidator() {
       {/* Resultado */}
       {result && (
         <div ref={resultRef}>
-          <Card className={`border-2 ${result.isValid ? 'border-growth-green bg-growth-green-soft' : 'border-system-error bg-system-error/10'}`}>
+          <Card
+            className={`border-2 ${result.isValid ? "border-growth-green bg-growth-green-soft" : "border-system-error bg-system-error/10"}`}
+          >
             <CardHeader>
-              <CardTitle as="h3" className={result.isValid ? 'text-growth-green' : 'text-system-error'}>
-                {result.isValid ? '✅ CNPJ Válido!' : '❌ CNPJ Inválido!'}
+              <CardTitle
+                as="h3"
+                className={result.isValid ? "text-growth-green" : "text-system-error"}
+              >
+                {result.isValid ? "✅ CNPJ Válido!" : "❌ CNPJ Inválido!"}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -490,21 +503,25 @@ export default function CnpjValidator() {
                     </div>
                   </div>
 
-                  <div className={`mb-4 rounded-lg p-4 ${result.isValid ? 'bg-growth-green/20' : 'bg-system-error/20'}`}>
-                    <div className={`text-2xl font-bold ${result.isValid ? 'text-growth-green' : 'text-system-error'}`}>
-                      {result.isValid ? 'VÁLIDO' : 'INVÁLIDO'}
+                  <div
+                    className={`mb-4 rounded-lg p-4 ${result.isValid ? "bg-growth-green/20" : "bg-system-error/20"}`}
+                  >
+                    <div
+                      className={`text-2xl font-bold ${result.isValid ? "text-growth-green" : "text-system-error"}`}
+                    >
+                      {result.isValid ? "VÁLIDO" : "INVÁLIDO"}
                     </div>
                     {result.errorMessage && (
-                      <div className="mt-2 text-sm text-system-error">
-                        {result.errorMessage}
-                      </div>
+                      <div className="mt-2 text-sm text-system-error">{result.errorMessage}</div>
                     )}
                   </div>
                 </div>
               </div>
 
               <div className="rounded-lg bg-primary-blue-light p-4">
-                <h4 className="mb-2 font-semibold text-primary-blue-dark">Informações da Validação</h4>
+                <h4 className="mb-2 font-semibold text-primary-blue-dark">
+                  Informações da Validação
+                </h4>
                 <ul className="space-y-1 text-sm text-text-secondary">
                   <li>
                     <strong>CNPJ sem formatação:</strong>{" "}
@@ -516,8 +533,8 @@ export default function CnpjValidator() {
                   </li>
                   <li>
                     <strong>Status:</strong>{" "}
-                    <span className={result.isValid ? 'text-growth-green' : 'text-system-error'}>
-                      {result.isValid ? 'Válido ✓' : 'Inválido ✗'}
+                    <span className={result.isValid ? "text-growth-green" : "text-system-error"}>
+                      {result.isValid ? "Válido ✓" : "Inválido ✗"}
                     </span>
                   </li>
                   <li>
@@ -528,7 +545,8 @@ export default function CnpjValidator() {
 
               {result.isValid ? (
                 <div className="mt-4 rounded border border-growth-green/20 bg-growth-green/10 p-3 text-sm text-growth-green">
-                  ✅ <strong>Este CNPJ é válido</strong> de acordo com o algoritmo da Receita Federal.
+                  ✅ <strong>Este CNPJ é válido</strong> de acordo com o algoritmo da Receita
+                  Federal.
                 </div>
               ) : (
                 <div className="mt-4 rounded border border-system-error/20 bg-system-error/10 p-3 text-sm text-system-error">
@@ -559,8 +577,8 @@ export default function CnpjValidator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">1️⃣ Primeiro Dígito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Multiplica cada um dos 12 primeiros dígitos pelos pesos (5,4,3,2,9,8,7,6,5,4,3,2), 
-                    soma tudo e calcula o resto da divisão por 11.
+                    Multiplica cada um dos 12 primeiros dígitos pelos pesos
+                    (5,4,3,2,9,8,7,6,5,4,3,2), soma tudo e calcula o resto da divisão por 11.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">Exemplo</h4>
@@ -575,8 +593,8 @@ export default function CnpjValidator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">2️⃣ Segundo Dígito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Similar ao primeiro, mas inclui o primeiro dígito verificador 
-                    e usa pesos (6,5,4,3,2,9,8,7,6,5,4,3,2).
+                    Similar ao primeiro, mas inclui o primeiro dígito verificador e usa pesos
+                    (6,5,4,3,2,9,8,7,6,5,4,3,2).
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-success">Validação</h4>
@@ -626,7 +644,9 @@ export default function CnpjValidator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">🛡️ Segurança Empresarial</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    🛡️ Segurança Empresarial
+                  </h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Evita cadastros com CNPJ inválido</li>
                     <li>• Reduz erros de digitação</li>
@@ -726,12 +746,12 @@ export default function CnpjValidator() {
             </p>
             <p>
               <strong className="text-system-info">Importante:</strong> Esta ferramenta apenas
-              verifica se um CNPJ está <strong>matematicamente correto</strong>. Não verifica se
-              a empresa existe realmente na base da Receita Federal ou se está ativa.
+              verifica se um CNPJ está <strong>matematicamente correto</strong>. Não verifica se a
+              empresa existe realmente na base da Receita Federal ou se está ativa.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚡ Validação instantânea • 🔒 Algoritmo oficial • ✓ 100% preciso • 📱 Mobile-friendly • 🌙
-              Modo escuro • 📊 Explicação detalhada
+              ⚡ Validação instantânea • 🔒 Algoritmo oficial • ✓ 100% preciso • 📱 Mobile-friendly
+              • 🌙 Modo escuro • 📊 Explicação detalhada
             </p>
           </div>
         </CardContent>

@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "gerador CNPJ, CNPJ válido, CNPJ sem pontuação, CNPJ com pontuação, validador CNPJ, teste CNPJ, desenvolvimento CNPJ, pessoa jurídica",
+        "gerador CNPJ, CNPJ válido, CNPJ sem pontuação, CNPJ com pontuação, validador CNPJ, teste CNPJ, desenvolvimento CNPJ, pessoa jurídica, criar CNPJ, CNPJ falso, CNPJ fictício, CNPJ para teste",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -102,6 +102,8 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#1f2937" },
+    { name: "apple-mobile-web-app-title", content: "Gerador CNPJ" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
@@ -414,9 +416,9 @@ export default function CnpjGenerator() {
           Gerador de CNPJ 2025 – Geração Rápida com e sem Pontuação
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Gere <strong className="text-primary-blue-dark">CNPJs válidos</strong> com ou sem pontuação
-          para <strong className="text-growth-green">testes e desenvolvimento</strong>. Cópia
-          automática para área de transferência com um clique.
+          Gere <strong className="text-primary-blue-dark">CNPJs válidos</strong> com ou sem
+          pontuação para <strong className="text-growth-green">testes e desenvolvimento</strong>.
+          Cópia automática para área de transferência com um clique.
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -437,7 +439,7 @@ export default function CnpjGenerator() {
               <button
                 type="button"
                 onClick={() => setWithFormatting(true)}
-                className={`flex-1 py-3 px-4 text-center text-base font-medium transition ${
+                className={`flex-1 px-4 py-3 text-center text-base font-medium transition ${
                   withFormatting
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -448,7 +450,7 @@ export default function CnpjGenerator() {
               <button
                 type="button"
                 onClick={() => setWithFormatting(false)}
-                className={`flex-1 py-3 px-4 text-center text-base font-medium transition ${
+                className={`flex-1 px-4 py-3 text-center text-base font-medium transition ${
                   !withFormatting
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -583,8 +585,9 @@ export default function CnpjGenerator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o registro de identificação do contribuinte
-                    pessoa jurídica na Receita Federal brasileira, composto por 14 dígitos numéricos.
+                    CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o registro de identificação do
+                    contribuinte pessoa jurídica na Receita Federal brasileira, composto por 14
+                    dígitos numéricos.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Formato</h4>
@@ -768,8 +771,8 @@ export default function CnpjGenerator() {
               297 e 299 do Código Penal Brasileiro.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚡ Geração instantânea • 📋 Cópia automática • 🔒 CNPJ válido • 📱 Mobile-friendly • 🌙
-              Modo escuro • 🛡️ Uso responsável
+              ⚡ Geração instantânea • 📋 Cópia automática • 🔒 CNPJ válido • 📱 Mobile-friendly •
+              🌙 Modo escuro • 🛡️ Uso responsável
             </p>
           </div>
         </CardContent>

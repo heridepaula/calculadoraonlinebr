@@ -72,7 +72,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -101,6 +102,8 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#1f2937" },
+    { name: "apple-mobile-web-app-title", content: "Contador Caracteres" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
@@ -140,7 +143,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
           name: "Contador de Caracteres 2025 - Análise Completa de Texto",
           description:
             "Contador de caracteres gratuito e completo. Análise detalhada com contagem de letras, palavras, frases e estatísticas avançadas.",
@@ -296,10 +300,10 @@ export default function CharacterCounter() {
     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
 
     // Contagem de frases
-    const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+    const sentences = text.trim() ? text.split(/[.!?]+/).filter((s) => s.trim()).length : 0;
 
     // Contagem de parágrafos
-    const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+    const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter((p) => p.trim()).length : 0;
 
     // Análise de frequência de letras (otimizada com Map)
     const letterFrequency: CharacterCount = {};
@@ -308,7 +312,7 @@ export default function CharacterCounter() {
     if (options.ignoreSpaces) {
       textToAnalyze = textToAnalyze.replace(/\s/g, "");
     }
-    
+
     if (options.ignorePunctuation) {
       textToAnalyze = textToAnalyze.replace(/[^\w\sÀ-ÿ]/g, "");
     }
@@ -327,10 +331,12 @@ export default function CharacterCounter() {
 
     // Encontra letras mais e menos frequentes
     const frequencies = Object.entries(letterFrequency);
-    const mostFrequentLetter = frequencies.length ? 
-      frequencies.reduce((a, b) => a[1] > b[1] ? a : b)[0] : "";
-    const leastFrequentLetter = frequencies.length ? 
-      frequencies.reduce((a, b) => a[1] < b[1] ? a : b)[0] : "";
+    const mostFrequentLetter = frequencies.length
+      ? frequencies.reduce((a, b) => (a[1] > b[1] ? a : b))[0]
+      : "";
+    const leastFrequentLetter = frequencies.length
+      ? frequencies.reduce((a, b) => (a[1] < b[1] ? a : b))[0]
+      : "";
 
     // Cálculos de médias
     const averageWordsPerSentence = sentences > 0 ? Math.round((words / sentences) * 100) / 100 : 0;
@@ -361,9 +367,9 @@ export default function CharacterCounter() {
   };
 
   const handleOptionChange = (key: keyof CountOptions) => {
-    setOptions(prev => ({
+    setOptions((prev) => ({
       ...prev,
-      [key]: !prev[key]
+      [key]: !prev[key],
     }));
   };
 
@@ -406,13 +412,15 @@ export default function CharacterCounter() {
           Contador de Caracteres 2025 – Análise Completa de Texto
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Analise seu texto de forma <strong className="text-primary-blue-dark">completa e detalhada</strong>.
-          Conte caracteres, letras, palavras, frases e veja <strong className="text-growth-green">estatísticas avançadas</strong> em tempo real.
+          Analise seu texto de forma{" "}
+          <strong className="text-primary-blue-dark">completa e detalhada</strong>. Conte
+          caracteres, letras, palavras, frases e veja{" "}
+          <strong className="text-growth-green">estatísticas avançadas</strong> em tempo real.
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            ⚡ <strong>Análise em Tempo Real</strong> • 📊 <strong>Estatísticas Detalhadas</strong> • 🔤{" "}
-            <strong>Frequência de Letras</strong>
+            ⚡ <strong>Análise em Tempo Real</strong> • 📊 <strong>Estatísticas Detalhadas</strong>{" "}
+            • 🔤 <strong>Frequência de Letras</strong>
           </p>
         </div>
       </header>
@@ -433,7 +441,7 @@ export default function CharacterCounter() {
                 placeholder="Digite ou cole seu texto aqui para análise completa..."
                 value={text}
                 onChange={(e) => handleTextChange(e.target.value)}
-                className="min-h-[200px] w-full rounded-lg border border-neutral-surface-variant bg-neutral-surface p-4 text-base text-text-primary placeholder-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20 resize-none"
+                className="min-h-[200px] w-full resize-none rounded-lg border border-neutral-surface-variant bg-neutral-surface p-4 text-base text-text-primary placeholder-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
                 rows={8}
               />
               <p className="mt-1 text-sm text-text-secondary">
@@ -445,31 +453,31 @@ export default function CharacterCounter() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h3 className="mb-4 font-semibold text-primary-blue-dark">Opções de Análise</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <label className="flex items-center space-x-2 cursor-pointer">
+                <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="checkbox"
                     checked={options.ignoreSpaces}
-                    onChange={() => handleOptionChange('ignoreSpaces')}
+                    onChange={() => handleOptionChange("ignoreSpaces")}
                     className="h-4 w-4 rounded border-neutral-surface-variant text-primary-blue focus:ring-primary-blue"
                   />
                   <span className="text-sm text-text-primary">Ignorar espaços</span>
                 </label>
-                
-                <label className="flex items-center space-x-2 cursor-pointer">
+
+                <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="checkbox"
                     checked={options.ignorePunctuation}
-                    onChange={() => handleOptionChange('ignorePunctuation')}
+                    onChange={() => handleOptionChange("ignorePunctuation")}
                     className="h-4 w-4 rounded border-neutral-surface-variant text-primary-blue focus:ring-primary-blue"
                   />
                   <span className="text-sm text-text-primary">Ignorar pontuação</span>
                 </label>
-                
-                <label className="flex items-center space-x-2 cursor-pointer">
+
+                <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="checkbox"
                     checked={options.caseSensitive}
-                    onChange={() => handleOptionChange('caseSensitive')}
+                    onChange={() => handleOptionChange("caseSensitive")}
                     className="h-4 w-4 rounded border-neutral-surface-variant text-primary-blue focus:ring-primary-blue"
                   />
                   <span className="text-sm text-text-primary">Diferenciar maiúsculas</span>
@@ -494,7 +502,7 @@ export default function CharacterCounter() {
       {/* Resultados */}
       {textStats && (
         <div ref={resultRef}>
-          <Card className="border-2 border-primary-blue bg-primary-blue-soft">
+          <Card className="bg-primary-blue-soft border-2 border-primary-blue">
             <CardHeader>
               <CardTitle as="h3" className="text-primary-blue">
                 📊 Análise do Texto
@@ -509,21 +517,21 @@ export default function CharacterCounter() {
                   </div>
                   <div className="text-sm text-text-secondary">Total de Caracteres</div>
                 </div>
-                
+
                 <div className="rounded-lg bg-gray-900 p-4 text-center">
                   <div className="text-2xl font-bold text-growth-green">
                     {textStats.words.toLocaleString()}
                   </div>
                   <div className="text-sm text-text-secondary">Palavras</div>
                 </div>
-                
+
                 <div className="rounded-lg bg-gray-900 p-4 text-center">
                   <div className="text-2xl font-bold text-system-info">
                     {textStats.sentences.toLocaleString()}
                   </div>
                   <div className="text-sm text-text-secondary">Frases</div>
                 </div>
-                
+
                 <div className="rounded-lg bg-gray-900 p-4 text-center">
                   <div className="text-2xl font-bold text-system-warning">
                     {textStats.paragraphs.toLocaleString()}
@@ -535,27 +543,39 @@ export default function CharacterCounter() {
               {/* Estatísticas detalhadas */}
               <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="rounded-lg bg-primary-blue-light p-4">
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">📏 Detalhes da Contagem</h4>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    📏 Detalhes da Contagem
+                  </h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-text-secondary">Caracteres sem espaços:</span>
-                      <span className="font-mono text-text-primary">{textStats.charactersWithoutSpaces.toLocaleString()}</span>
+                      <span className="font-mono text-text-primary">
+                        {textStats.charactersWithoutSpaces.toLocaleString()}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-text-secondary">Caracteres sem pontuação:</span>
-                      <span className="font-mono text-text-primary">{textStats.charactersWithoutPunctuation.toLocaleString()}</span>
+                      <span className="font-mono text-text-primary">
+                        {textStats.charactersWithoutPunctuation.toLocaleString()}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-text-secondary">Apenas letras:</span>
-                      <span className="font-mono text-text-primary">{textStats.lettersOnly.toLocaleString()}</span>
+                      <span className="font-mono text-text-primary">
+                        {textStats.lettersOnly.toLocaleString()}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-text-secondary">Média palavras/frase:</span>
-                      <span className="font-mono text-text-primary">{textStats.averageWordsPerSentence}</span>
+                      <span className="font-mono text-text-primary">
+                        {textStats.averageWordsPerSentence}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-text-secondary">Média caracteres/palavra:</span>
-                      <span className="font-mono text-text-primary">{textStats.averageCharactersPerWord}</span>
+                      <span className="font-mono text-text-primary">
+                        {textStats.averageCharactersPerWord}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -568,7 +588,9 @@ export default function CharacterCounter() {
                       <span className="font-mono text-2xl text-growth-green">
                         {textStats.mostFrequentLetter || "—"}
                         {textStats.mostFrequentLetter && (
-                          <span className="ml-2 text-sm">({textStats.letterFrequency[textStats.mostFrequentLetter]}x)</span>
+                          <span className="ml-2 text-sm">
+                            ({textStats.letterFrequency[textStats.mostFrequentLetter]}x)
+                          </span>
                         )}
                       </span>
                     </div>
@@ -577,13 +599,17 @@ export default function CharacterCounter() {
                       <span className="font-mono text-2xl text-system-warning">
                         {textStats.leastFrequentLetter || "—"}
                         {textStats.leastFrequentLetter && (
-                          <span className="ml-2 text-sm">({textStats.letterFrequency[textStats.leastFrequentLetter]}x)</span>
+                          <span className="ml-2 text-sm">
+                            ({textStats.letterFrequency[textStats.leastFrequentLetter]}x)
+                          </span>
                         )}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-text-secondary">Letras diferentes:</span>
-                      <span className="font-mono text-text-primary">{Object.keys(textStats.letterFrequency).length}</span>
+                      <span className="font-mono text-text-primary">
+                        {Object.keys(textStats.letterFrequency).length}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -592,22 +618,26 @@ export default function CharacterCounter() {
               {/* Frequência de letras */}
               {getSortedLetterFrequency().length > 0 && (
                 <div className="rounded-lg bg-gray-900 p-6">
-                  <h4 className="mb-4 font-semibold text-primary-blue-dark">📈 Frequência das Letras (Top 20)</h4>
+                  <h4 className="mb-4 font-semibold text-primary-blue-dark">
+                    📈 Frequência das Letras (Top 20)
+                  </h4>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-5">
                     {getSortedLetterFrequency().map(([letter, count], index) => {
                       const percentage = Math.round((count / textStats.lettersOnly) * 10000) / 100;
                       const isTop = index < 3;
-                      
+
                       return (
                         <div
                           key={letter}
                           className={`rounded p-3 text-center transition-colors ${
-                            isTop 
-                              ? 'bg-primary-blue/20 border border-primary-blue/40' 
-                              : 'bg-neutral-surface border border-neutral-surface-variant'
+                            isTop
+                              ? "border border-primary-blue/40 bg-primary-blue/20"
+                              : "border border-neutral-surface-variant bg-neutral-surface"
                           }`}
                         >
-                          <div className={`text-2xl font-bold ${isTop ? 'text-primary-blue' : 'text-text-primary'}`}>
+                          <div
+                            className={`text-2xl font-bold ${isTop ? "text-primary-blue" : "text-text-primary"}`}
+                          >
                             {letter.toUpperCase()}
                           </div>
                           <div className="text-sm text-text-secondary">
@@ -615,7 +645,7 @@ export default function CharacterCounter() {
                           </div>
                           {isTop && (
                             <div className="mt-1">
-                              <span className="text-xs rounded-full bg-primary-blue px-2 py-0.5 text-white">
+                              <span className="rounded-full bg-primary-blue px-2 py-0.5 text-xs text-white">
                                 #{index + 1}
                               </span>
                             </div>
@@ -635,11 +665,14 @@ export default function CharacterCounter() {
                     <strong>Analisado em:</strong> {textStats.analyzedAt.toLocaleString("pt-BR")}
                   </p>
                   <p>
-                    <strong>Opções aplicadas:</strong> 
+                    <strong>Opções aplicadas:</strong>
                     {options.ignoreSpaces && " Espaços ignorados"}
                     {options.ignorePunctuation && " Pontuação ignorada"}
                     {options.caseSensitive && " Diferencia maiúsculas"}
-                    {!options.ignoreSpaces && !options.ignorePunctuation && !options.caseSensitive && " Nenhuma"}
+                    {!options.ignoreSpaces &&
+                      !options.ignorePunctuation &&
+                      !options.caseSensitive &&
+                      " Nenhuma"}
                   </p>
                 </div>
               </div>
@@ -665,9 +698,11 @@ export default function CharacterCounter() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-primary-blue-dark">🔢 Contagem em Tempo Real</h4>
+                  <h4 className="mb-3 font-semibold text-primary-blue-dark">
+                    🔢 Contagem em Tempo Real
+                  </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Utiliza algoritmos otimizados para análise instantânea, processando texto 
+                    Utiliza algoritmos otimizados para análise instantânea, processando texto
                     conforme você digita usando técnicas de memoização e processamento eficiente.
                   </p>
 
@@ -683,8 +718,8 @@ export default function CharacterCounter() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🎯 Análise Avançada</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Calcula estatísticas complexas como médias, frequências e padrões, 
-                    identificando as letras mais e menos utilizadas automaticamente.
+                    Calcula estatísticas complexas como médias, frequências e padrões, identificando
+                    as letras mais e menos utilizadas automaticamente.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-success">✅ Precisão</h4>
@@ -708,20 +743,36 @@ export default function CharacterCounter() {
                 <div>
                   <h4 className="mb-3 font-semibold text-system-success">📏 Contagens Básicas</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• <strong>Total de caracteres:</strong> Todos os símbolos</li>
-                    <li>• <strong>Sem espaços:</strong> Excluindo espaços em branco</li>
-                    <li>• <strong>Sem pontuação:</strong> Apenas letras e números</li>
-                    <li>• <strong>Apenas letras:</strong> Somente caracteres alfabéticos</li>
+                    <li>
+                      • <strong>Total de caracteres:</strong> Todos os símbolos
+                    </li>
+                    <li>
+                      • <strong>Sem espaços:</strong> Excluindo espaços em branco
+                    </li>
+                    <li>
+                      • <strong>Sem pontuação:</strong> Apenas letras e números
+                    </li>
+                    <li>
+                      • <strong>Apenas letras:</strong> Somente caracteres alfabéticos
+                    </li>
                   </ul>
                 </div>
 
                 <div>
                   <h4 className="mb-3 font-semibold text-system-info">🔤 Análise de Frequência</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• <strong>Letra mais frequente:</strong> Maior ocorrência</li>
-                    <li>• <strong>Letra menos frequente:</strong> Menor ocorrência</li>
-                    <li>• <strong>Top 20 letras:</strong> Ranking completo</li>
-                    <li>• <strong>Percentuais:</strong> Distribuição relativa</li>
+                    <li>
+                      • <strong>Letra mais frequente:</strong> Maior ocorrência
+                    </li>
+                    <li>
+                      • <strong>Letra menos frequente:</strong> Menor ocorrência
+                    </li>
+                    <li>
+                      • <strong>Top 20 letras:</strong> Ranking completo
+                    </li>
+                    <li>
+                      • <strong>Percentuais:</strong> Distribuição relativa
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -823,21 +874,24 @@ export default function CharacterCounter() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Este <strong className="text-primary-blue-dark">contador de caracteres</strong> oferece{" "}
-              <strong className="text-growth-green">análise completa em tempo real</strong> do seu texto.
-              Digite ou cole qualquer texto para ver estatísticas detalhadas instantaneamente.
+              Este <strong className="text-primary-blue-dark">contador de caracteres</strong>{" "}
+              oferece <strong className="text-growth-green">análise completa em tempo real</strong>{" "}
+              do seu texto. Digite ou cole qualquer texto para ver estatísticas detalhadas
+              instantaneamente.
             </p>
             <p>
               <strong>Recursos avançados:</strong> Contagem de caracteres, letras, palavras, frases,
-              análise de frequência de letras, estatísticas médias e opções de filtro personalizáveis.
+              análise de frequência de letras, estatísticas médias e opções de filtro
+              personalizáveis.
             </p>
             <p>
-              <strong className="text-system-info">Ideal para:</strong> Redatores, estudantes, pesquisadores,
-              desenvolvedores e qualquer pessoa que precise de <strong>análise textual precisa</strong> e detalhada.
+              <strong className="text-system-info">Ideal para:</strong> Redatores, estudantes,
+              pesquisadores, desenvolvedores e qualquer pessoa que precise de{" "}
+              <strong>análise textual precisa</strong> e detalhada.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚡ Análise em tempo real • 📊 Estatísticas detalhadas • 🔤 Frequência de letras • 📱 Mobile-friendly • 🌙
-              Modo escuro • 🎯 Precisão total
+              ⚡ Análise em tempo real • 📊 Estatísticas detalhadas • 🔤 Frequência de letras • 📱
+              Mobile-friendly • 🌙 Modo escuro • 🎯 Precisão total
             </p>
           </div>
         </CardContent>

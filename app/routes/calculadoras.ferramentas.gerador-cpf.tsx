@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "gerador CPF, CPF válido, CPF sem pontuação, CPF com pontuação, validador CPF, teste CPF, desenvolvimento CPF",
+        "gerador CPF, CPF válido, CPF sem pontuação, CPF com pontuação, validador CPF, teste CPF, desenvolvimento CPF, criar CPF, CPF falso, CPF fictício, CPF para teste, CPF temporário",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -102,6 +102,8 @@ export const meta: MetaFunction = () => {
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
     { name: "theme-color", content: "#64B5F6" },
+    { name: "msapplication-TileColor", content: "#1f2937" },
+    { name: "apple-mobile-web-app-title", content: "Gerador CPF" },
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
@@ -118,7 +120,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-09-02",
+        dateModified: "2025-09-07",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -435,7 +437,7 @@ export default function CpfGenerator() {
               <button
                 type="button"
                 onClick={() => setWithFormatting(true)}
-                className={`flex-1 py-3 px-4 text-center text-base font-medium transition ${
+                className={`flex-1 px-4 py-3 text-center text-base font-medium transition ${
                   withFormatting
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -446,7 +448,7 @@ export default function CpfGenerator() {
               <button
                 type="button"
                 onClick={() => setWithFormatting(false)}
-                className={`flex-1 py-3 px-4 text-center text-base font-medium transition ${
+                className={`flex-1 px-4 py-3 text-center text-base font-medium transition ${
                   !withFormatting
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
