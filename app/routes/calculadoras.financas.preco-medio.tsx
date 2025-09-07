@@ -623,7 +623,7 @@ export default function AveragePriceCalculator() {
                 <MoneyInput
                   label="Preço por Ação"
                   value={price}
-                  onChange={(value) => setPrice(value)}
+                  onChange={(value) => setPrice(parseMoney(value))}
                   placeholder="25,50"
                   fullWidth
                   className="h-12 text-lg"
@@ -639,7 +639,7 @@ export default function AveragePriceCalculator() {
                 <MoneyInput
                   label="Preço Atual"
                   value={marketPrice}
-                  onChange={(value) => setMarketPrice(value)}
+                  onChange={(value) => setMarketPrice(parseMoney(value))}
                   placeholder="10,90"
                   fullWidth
                   className="h-12 text-lg"

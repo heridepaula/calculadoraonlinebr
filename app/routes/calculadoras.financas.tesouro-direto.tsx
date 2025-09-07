@@ -26,6 +26,14 @@ import {
 import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
+// Função para converter valores formatados no padrão brasileiro para número
+const parseBrazilianNumber = (value: string | number): number => {
+  if (typeof value === 'number') return value;
+  if (!value) return 0;
+  // Remove pontos de milhares e substitui vírgula por ponto
+  return parseFloat(value.toString().replace(/\./g, '').replace(',', '.')) || 0;
+};
+
 // Loader para buscar dados dos títulos do Tesouro Direto
 export async function loader({ request }: LoaderFunctionArgs) {
   try {
@@ -408,7 +416,7 @@ export default function TreasuryDirectCalculator() {
         setCouponRate(bond.rate.toFixed(2));
 
         // Ajusta valor mínimo se necessário
-        const currentPrincipal = parseFloat(principal);
+        const currentPrincipal = parseBrazilianNumber(principal);
         const minimumRequired = Math.max(bond.minInvestment, 30);
         if (currentPrincipal < minimumRequired) {
           // Arredonda para cima para múltiplos de 30 para valores pequenos
@@ -430,12 +438,12 @@ export default function TreasuryDirectCalculator() {
     setError("");
 
     try {
-      const principalNum = parseFloat(principal) || 0;
-      const purchaseRateNum = parseFloat(purchaseRate) || 0;
-      const currentSelicRateNum = parseFloat(currentSelicRate) || ECONOMIC_INDICATORS.SELIC.rate;
-      const currentIPCARateNum = parseFloat(currentIPCARate) || ECONOMIC_INDICATORS.IPCA.rate;
-      const couponRateNum = parseFloat(couponRate) || 10.0;
-      const monthlyInvestmentNum = parseFloat(monthlyInvestment) || 0;
+      const principalNum = parseBrazilianNumber(principal);
+      const purchaseRateNum = parseBrazilianNumber(purchaseRate);
+      const currentSelicRateNum = parseBrazilianNumber(currentSelicRate) || ECONOMIC_INDICATORS.SELIC.rate;
+      const currentIPCARateNum = parseBrazilianNumber(currentIPCARate) || ECONOMIC_INDICATORS.IPCA.rate;
+      const couponRateNum = parseBrazilianNumber(couponRate) || 10.0;
+      const monthlyInvestmentNum = parseBrazilianNumber(monthlyInvestment);
 
       if (principalNum <= 0) {
         throw new Error("Valor inicial deve ser maior que zero");
@@ -469,13 +477,13 @@ export default function TreasuryDirectCalculator() {
         couponRate: couponRateNum,
         monthlyInvestment: monthlyInvestmentNum,
         // Taxas de custódia
-        treasuryCustodyRate: parseFloat(treasuryCustodyRate) || 0.2,
-        bankCustodyRate: parseFloat(bankCustodyRate) || 0,
+        treasuryCustodyRate: parseBrazilianNumber(treasuryCustodyRate) || 0.2,
+        bankCustodyRate: parseBrazilianNumber(bankCustodyRate) || 0,
         // Resgate antecipado
         earlyRedemption: enableEarlyRedemption,
         earlyRedemptionDate: enableEarlyRedemption ? earlyRedemptionDate : undefined,
         marketRateAtRedemption: enableEarlyRedemption
-          ? parseFloat(marketRateAtRedemption) || purchaseRateNum
+          ? parseBrazilianNumber(marketRateAtRedemption) || purchaseRateNum
           : undefined,
       };
 
