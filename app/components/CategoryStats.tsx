@@ -52,7 +52,7 @@ export default function CategoryStats({ category, stats }: CategoryStatsProps) {
   return (
     <section className="bg-surface-dark/30 py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <div
               key={index}

@@ -51,7 +51,7 @@ export default function FerramentasIndex() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
-      <div className="border-border-primary bg-surface-light border-b px-6 py-4">
+      <div className="border-border-primary bg-surface-light border-b px-3 sm:px-6 py-4">
         <div className="mx-auto max-w-7xl">
           <Breadcrumb>
             <BreadcrumbItem href="/">Início</BreadcrumbItem>
@@ -78,18 +78,18 @@ export default function FerramentasIndex() {
       />
 
       {/* Quick Access to Most Used Tools */}
-      <section className="bg-surface-dark/30 py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+      <section className="bg-surface-dark/30 py-8 sm:py-12">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="mb-8 sm:mb-12 text-center">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-text-primary">
               🚀 Acesso Rápido - Mais Usadas
             </h2>
-            <p className="mt-2 text-text-secondary">
+            <p className="mt-2 text-sm sm:text-base text-text-secondary">
               Comece por aqui: as ferramentas mais populares para o dia a dia
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <QuickAccessCard
               title="Diferença entre Datas"
               description="Calcule a diferença exata entre duas datas em anos, meses, dias e horas. Ideal para idade e prazos."
@@ -99,33 +99,37 @@ export default function FerramentasIndex() {
               isPopular={true}
               complexity="basic"
             />
-            <div className="rounded-2xl border border-system-info/20 bg-gradient-to-br from-system-info/10 to-system-info/5 p-6 opacity-60">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info/20">
+            <div className="rounded-2xl border border-system-info/20 bg-gradient-to-br from-system-info/10 to-system-info/5 p-4 sm:p-6 opacity-60">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info/20 mx-auto sm:mx-0">
                   <span className="text-xl">🔄</span>
                 </div>
-                <h3 className="text-lg font-semibold text-text-primary">Conversor de Unidades</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-text-primary">Conversor de Unidades</h3>
               </div>
-              <p className="mb-4 text-sm text-text-secondary">
+              <p className="mb-4 text-sm text-text-secondary text-center sm:text-left truncate sm:whitespace-normal">
                 Converta medidas de peso, distância, temperatura e muito mais. (Em breve)
               </p>
-              <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
-                Em desenvolvimento
-              </span>
+              <div className="flex justify-center sm:justify-start">
+                <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
+                  Em desenvolvimento
+                </span>
+              </div>
             </div>
-            <div className="rounded-2xl border border-growth-green/20 bg-gradient-to-br from-growth-green/10 to-growth-green/5 p-6 opacity-60">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green/20">
+            <div className="rounded-2xl border border-growth-green/20 bg-gradient-to-br from-growth-green/10 to-growth-green/5 p-4 sm:p-6 opacity-60">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green/20 mx-auto sm:mx-0">
                   <span className="text-xl">📊</span>
                 </div>
-                <h3 className="text-lg font-semibold text-text-primary">Gerador de Código</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-text-primary">Gerador de Código</h3>
               </div>
-              <p className="mb-4 text-sm text-text-secondary">
+              <p className="mb-4 text-sm text-text-secondary text-center sm:text-left truncate sm:whitespace-normal">
                 Gere códigos QR, barras e outros formatos para seus projetos. (Em breve)
               </p>
-              <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
-                Em desenvolvimento
-              </span>
+              <div className="flex justify-center sm:justify-start">
+                <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
+                  Em desenvolvimento
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -163,25 +167,25 @@ export default function FerramentasIndex() {
       />
 
       {/* Tools by Category */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+      <section className="py-8 sm:py-12">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="mb-8 sm:mb-12 text-center">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-text-primary">
               Ferramentas por Categoria
             </h2>
-            <p className="mt-2 text-text-secondary">
+            <p className="mt-2 text-sm sm:text-base text-text-secondary">
               Organize suas tarefas diárias por tipo de necessidade
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-3">
             {/* Date & Time Tools */}
-            <div className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-blue/25">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
+            <div className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-blue/25">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110 mx-auto sm:mx-0">
                   <span className="text-xl">📅</span>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Datas e Tempo</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Datas e Tempo</h3>
               </div>
               <p className="mb-4 text-sm text-text-secondary">
                 Calculadoras para trabalhar com datas, horários e intervalos
@@ -209,12 +213,12 @@ export default function FerramentasIndex() {
             </div>
 
             {/* Converters */}
-            <div className="group rounded-2xl bg-gradient-to-br from-system-info/10 to-system-info/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-info/25">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
+            <div className="group rounded-2xl bg-gradient-to-br from-system-info/10 to-system-info/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-info/25">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110 mx-auto sm:mx-0">
                   <span className="text-xl">🔄</span>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Conversores</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Conversores</h3>
               </div>
               <p className="mb-4 text-sm text-text-secondary">
                 Converta unidades de medida, moedas e formatos diversos
@@ -233,12 +237,12 @@ export default function FerramentasIndex() {
             </div>
 
             {/* Generators */}
-            <div className="group rounded-2xl bg-gradient-to-br from-growth-green/10 to-growth-green/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-growth-green/25">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
+            <div className="group rounded-2xl bg-gradient-to-br from-growth-green/10 to-growth-green/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-growth-green/25">
+              <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110 mx-auto sm:mx-0">
                   <span className="text-xl">📊</span>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Geradores</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Geradores</h3>
               </div>
               <p className="mb-4 text-sm text-text-secondary">
                 Gere códigos, senhas e outros elementos úteis
@@ -260,18 +264,18 @@ export default function FerramentasIndex() {
       </section>
 
       {/* All Tools */}
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-8 sm:py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-text-primary sm:text-4xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary">
               Todas as Ferramentas Disponíveis
             </h2>
-            <p className="mt-4 text-lg text-text-secondary-dark">
+            <p className="mt-4 text-base sm:text-lg text-text-secondary-dark">
               Escolha a ferramenta ideal para suas necessidades diárias
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {ferramentasCalculators.map((calculator: Calculator) => (
               <CalculatorCard key={calculator.id} calculator={calculator} category="ferramentas" />
             ))}
@@ -279,40 +283,44 @@ export default function FerramentasIndex() {
             {/* Coming Soon Cards */}
             {ferramentasCalculators.length < 3 && (
               <>
-                <div className="to-system-info/2 rounded-2xl border border-system-info/20 bg-gradient-to-br from-system-info/5 p-6 opacity-60">
-                  <div className="mb-4 flex items-center space-x-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info/20">
+                <div className="to-system-info/2 rounded-2xl border border-system-info/20 bg-gradient-to-br from-system-info/5 p-4 sm:p-6 opacity-60">
+                  <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info/20 mx-auto sm:mx-0">
                       <span className="text-xl">🔄</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-text-primary">
+                      <h3 className="text-base sm:text-lg font-semibold text-text-primary">
                         Conversor de Unidades
                       </h3>
-                      <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
-                        Em breve
-                      </span>
+                      <div className="flex justify-center sm:justify-start mt-1">
+                        <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
+                          Em breve
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-sm text-text-secondary">
+                  <p className="text-sm text-text-secondary text-center sm:text-left">
                     Converta peso, distância, volume, temperatura e outras unidades de medida.
                   </p>
                 </div>
 
-                <div className="to-growth-green/2 rounded-2xl border border-growth-green/20 bg-gradient-to-br from-growth-green/5 p-6 opacity-60">
-                  <div className="mb-4 flex items-center space-x-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green/20">
+                <div className="to-growth-green/2 rounded-2xl border border-growth-green/20 bg-gradient-to-br from-growth-green/5 p-4 sm:p-6 opacity-60">
+                  <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green/20 mx-auto sm:mx-0">
                       <span className="text-xl">📊</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-text-primary">
+                      <h3 className="text-base sm:text-lg font-semibold text-text-primary">
                         Gerador de QR Code
                       </h3>
-                      <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
-                        Em breve
-                      </span>
+                      <div className="flex justify-center sm:justify-start mt-1">
+                        <span className="rounded-full bg-system-warning/20 px-2 py-1 text-xs text-system-warning">
+                          Em breve
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-sm text-text-secondary">
+                  <p className="text-sm text-text-secondary text-center sm:text-left">
                     Gere códigos QR para URLs, textos, WiFi e outros dados.
                   </p>
                 </div>
@@ -323,15 +331,15 @@ export default function FerramentasIndex() {
       </section>
 
       {/* Benefits & Education */}
-      <section className="from-surface-light to-surface bg-gradient-to-r py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="from-surface-light to-surface bg-gradient-to-r py-8 sm:py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-text-primary">
               Por Que Usar Nossas Ferramentas?
             </h2>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
                 <span className="text-2xl">⚡</span>
@@ -376,16 +384,16 @@ export default function FerramentasIndex() {
       </section>
 
       {/* Interactive CTA Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-system-info-dark to-system-info py-16">
+      <section className="relative overflow-hidden bg-gradient-to-r from-system-info-dark to-system-info py-8 sm:py-12 lg:py-16">
         <div className="absolute inset-0 opacity-30">
           <div className="h-full w-full bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
         </div>
 
-        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="animate-pulse text-3xl font-bold text-white sm:text-4xl">
+        <div className="relative mx-auto max-w-4xl px-3 sm:px-6 text-center lg:px-8">
+          <h2 className="animate-pulse text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
             🚀 Simplifique seu Dia a Dia
           </h2>
-          <p className="text-system-info-light mt-4 text-lg">
+          <p className="text-system-info-light mt-4 text-base sm:text-lg">
             Ferramentas gratuitas e práticas para <strong>facilitar cálculos cotidianos</strong> e
             economizar seu tempo
           </p>
@@ -439,9 +447,9 @@ export default function FerramentasIndex() {
       </section>
 
       {/* Tips Section */}
-      <section className="bg-growth-green/5 py-12">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="rounded-2xl border border-growth-green/20 bg-growth-green/10 p-8">
+      <section className="bg-growth-green/5 py-8 sm:py-12">
+        <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-growth-green/20 bg-growth-green/10 p-4 sm:p-6 lg:p-8">
             <div className="flex items-start space-x-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-growth-green/20">
                 <span className="text-xl">💡</span>

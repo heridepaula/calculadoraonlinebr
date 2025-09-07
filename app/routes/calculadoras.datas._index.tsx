@@ -191,7 +191,7 @@ export default function DatasIndex() {
       />
 
       {/* Breadcrumb Navigation */}
-      <div className="border-b border-border-primary bg-surface-light px-6 py-4">
+      <div className="border-b border-border-primary bg-surface-light px-3 sm:px-6 py-4">
         <div className="mx-auto max-w-7xl">
           <Breadcrumb>
             <BreadcrumbItem href="/">Início</BreadcrumbItem>
@@ -218,10 +218,10 @@ export default function DatasIndex() {
       />
 
       {/* Quick Access to Most Used Calculators */}
-      <section className="bg-surface-dark/30 py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+      <section className="bg-surface-dark/30 py-8 sm:py-12">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl font-bold text-text-primary sm:text-2xl lg:text-3xl">
               🚀 Acesso Rápido - Mais Usadas
             </h2>
             <p className="mt-2 text-text-secondary">
@@ -229,7 +229,7 @@ export default function DatasIndex() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <QuickAccessCard
               title="Diferença entre Datas"
               description="Calcule períodos, intervalos e diferenças entre duas datas." 
@@ -292,10 +292,10 @@ export default function DatasIndex() {
       />
 
       {/* Date Categories */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+      <section className="py-8 sm:py-12">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl font-bold text-text-primary sm:text-2xl lg:text-3xl">
               Calculadoras por Especialidade
             </h2>
             <p className="mt-2 text-text-secondary">
@@ -303,19 +303,19 @@ export default function DatasIndex() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-3">
             {/* Date Calculations */}
-            <div className="group rounded-2xl bg-gradient-to-br from-system-info/10 to-system-info/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-info/25">
-              <div className="flex items-center space-x-3 mb-4">
+            <div className="group rounded-2xl bg-gradient-to-br from-system-info/10 to-system-info/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-info/25">
+              <div className="flex flex-col items-center text-center space-y-3 mb-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <span className="text-xl">📊</span>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Cálculos de Períodos</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Cálculos de Períodos</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="text-sm text-text-secondary mb-4 text-center">
                 Calcule diferenças e intervalos entre datas facilmente
               </p>
-              <div className="space-y-2">
+              <div className="space-y-2 text-center">
                 <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                   <span className="text-system-info-dark">•</span> Diferença entre Datas
                 </div>
@@ -329,17 +329,17 @@ export default function DatasIndex() {
             </div>
 
             {/* Business Days */}
-            <div className="group rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-success/25">
-              <div className="flex items-center space-x-3 mb-4">
+            <div className="group rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-system-success/25">
+              <div className="flex flex-col items-center text-center space-y-3 mb-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <span className="text-xl">💼</span>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Dias Úteis</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Dias Úteis</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="text-sm text-text-secondary mb-4 text-center">
                 Calcule períodos de trabalho considerando feriados e finais de semana
               </p>
-              <div className="space-y-2">
+              <div className="space-y-2 text-center">
                 <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                   <span className="text-system-success-dark">•</span> Dias Úteis entre Datas
                 </div>
@@ -353,17 +353,17 @@ export default function DatasIndex() {
             </div>
 
             {/* Planning Tools */}
-            <div className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-blue/25">
-              <div className="flex items-center space-x-3 mb-4">
+            <div className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-blue/25">
+              <div className="flex flex-col items-center text-center space-y-3 mb-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <span className="text-xl">🗓️</span>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Planejamento</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Planejamento</h3>
               </div>
-              <p className="text-sm text-text-secondary mb-4">
+              <p className="text-sm text-text-secondary mb-4 text-center">
                 Ferramentas para organização temporal e planejamento de eventos
               </p>
-              <div className="space-y-2">
+              <div className="space-y-2 text-center">
                 <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
                   <span className="text-primary-blue-dark">•</span> Adicionar/Subtrair Dias
                 </div>
@@ -381,18 +381,18 @@ export default function DatasIndex() {
 
       {/* All Date Calculators */}
       {datasCalculators.length > 0 && (
-        <section className="py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <section className="py-8 sm:py-12 lg:py-16">
+          <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-text-primary sm:text-4xl">
+              <h2 className="text-2xl font-bold text-text-primary sm:text-3xl lg:text-4xl">
                 Todas as Calculadoras de Datas
               </h2>
-              <p className="mt-4 text-lg text-text-secondary-dark">
+              <p className="mt-4 text-base sm:text-lg text-text-secondary-dark">
                 Escolha a ferramenta ideal para seus cálculos temporais
               </p>
             </div>
             
-            <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {datasCalculators.map((calculator: Calculator) => (
                 <CalculatorCard key={calculator.id} calculator={calculator} category="datas" />
               ))}
@@ -403,20 +403,20 @@ export default function DatasIndex() {
 
       {/* Coming Soon Message */}
       {datasCalculators.length === 0 && (
-        <section className="py-16">
-          <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-            <div className="rounded-2xl bg-gradient-to-br from-system-info/10 to-system-info/5 p-12">
+        <section className="py-8 sm:py-12 lg:py-16">
+          <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8 text-center">
+            <div className="rounded-2xl bg-gradient-to-br from-system-info/10 to-system-info/5 p-6 sm:p-8 lg:p-12">
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-system-info/20 mb-6">
                 <span className="text-3xl">🚧</span>
               </div>
-              <h2 className="text-2xl font-bold text-text-primary mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-text-primary mb-4">
                 Calculadoras em Desenvolvimento
               </h2>
-              <p className="text-lg text-text-secondary mb-6">
+              <p className="text-base sm:text-lg text-text-secondary mb-6">
                 Estamos criando ferramentas incríveis de datas para você! Em breve teremos calculadoras de:
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
                 <div className="bg-background-primary/50 rounded-lg p-4">
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl">📅</span>
@@ -460,15 +460,15 @@ export default function DatasIndex() {
       )}
 
       {/* Date Education & Benefits */}
-      <section className="bg-gradient-to-r from-surface-light to-surface py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-gradient-to-r from-surface-light to-surface py-8 sm:py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+            <h2 className="text-xl font-bold text-text-primary sm:text-2xl lg:text-3xl">
               Organização através do Tempo
             </h2>
           </div>
           
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-system-info/20">
                 <span className="text-2xl">📊</span>
@@ -513,23 +513,23 @@ export default function DatasIndex() {
       </section>
 
       {/* Interactive CTA Section */}
-      <section className="bg-gradient-to-r from-system-info-dark to-system-info py-16 relative overflow-hidden">
+      <section className="bg-gradient-to-r from-system-info-dark to-system-info py-8 sm:py-12 lg:py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="h-full w-full bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
         </div>
         
-        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl animate-pulse">
+        <div className="relative mx-auto max-w-4xl px-3 sm:px-6 text-center lg:px-8">
+          <h2 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl animate-pulse">
             ⏰ Organize seu Tempo Facilmente
           </h2>
-          <p className="mt-4 text-lg text-system-info-light">
+          <p className="mt-4 text-base sm:text-lg text-system-info-light">
             Ferramentas gratuitas para <strong>calcular períodos e datas</strong> de forma fácil
           </p>
           
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-6 sm:mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <a 
               href="/calculadoras/datas/diferenca-entre-datas"
-              className="group inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-system-info-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-system-info-dark transform"
+              className="group inline-flex items-center justify-center rounded-xl bg-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-system-info-dark shadow-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-system-info-dark transform"
               aria-label="Calcular diferença entre datas"
             >
               <span className="mr-2 text-xl group-hover:animate-bounce">📅</span>
@@ -541,7 +541,7 @@ export default function DatasIndex() {
             
             <a 
               href="/calculadoras/datas/idade"
-              className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-system-info-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-system-info-dark transform"
+              className="group inline-flex items-center justify-center rounded-xl border-2 border-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:bg-white hover:text-system-info-dark hover:shadow-2xl hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-system-info-dark transform"
               aria-label="Calcular idade"
             >
               <span className="mr-2 text-xl group-hover:animate-spin">🎂</span>
@@ -550,7 +550,7 @@ export default function DatasIndex() {
           </div>
           
           {/* Trust indicators */}
-          <div className="mt-8 flex items-center justify-center gap-8 text-sm text-system-info-light">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-system-info-light">
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-white animate-pulse"></div>
               <span>Cálculos Confiáveis</span>
@@ -568,15 +568,15 @@ export default function DatasIndex() {
       </section>
 
       {/* Tips for Date Calculations */}
-      <section className="bg-system-info/5 py-12">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="rounded-2xl border border-system-info/20 bg-system-info/10 p-8">
-            <div className="flex items-start space-x-4">
+      <section className="bg-system-info/5 py-8 sm:py-12">
+        <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-system-info/20 bg-system-info/10 p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-system-info/20">
                 <span className="text-xl">💡</span>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-text-primary">
+                <h3 className="text-base sm:text-lg font-semibold text-text-primary">
                   Dica para Cálculos de Datas
                 </h3>
                 <p className="mt-2 text-text-secondary">

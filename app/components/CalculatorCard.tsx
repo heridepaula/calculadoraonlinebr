@@ -274,51 +274,51 @@ export function CalculatorCard({ calculator, category }: CalculatorCardProps) {
   const tags = getCalculatorTags(calculator.id);
 
   return (
-    <Card className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.02] ${colors.cardBg} border-2 ${colors.borderColor} ${colors.shadow} hover:shadow-xl h-full flex flex-col`}>
+    <Card className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] ${colors.cardBg} border ${colors.borderColor} ${colors.shadow} hover:shadow-lg h-full flex flex-col`}>
       {/* Gradient Background Overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bgGradient} opacity-50`} />
+      <div className={`absolute inset-0 bg-gradient-to-br ${colors.bgGradient} opacity-40`} />
       
-      <CardContent className="relative p-6 flex flex-col h-full">
+      <CardContent className="relative p-3 sm:p-4 lg:p-5 flex flex-col h-full">
         {/* Header with Specific Calculator Icon */}
-        <div className="mb-4 flex items-start space-x-4">
-          {/* Large Calculator-Specific Icon */}
-          <div className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl ${colors.iconBg} shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-            <span className="text-2xl">{calculatorIcon}</span>
+        <div className="mb-3 flex items-start space-x-3">
+          {/* Smaller Calculator-Specific Icon */}
+          <div className={`flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-lg ${colors.iconBg} shadow-md transition-all duration-300 group-hover:scale-105`}>
+            <span className="text-lg sm:text-xl">{calculatorIcon}</span>
           </div>
           
           {/* Calculator Info */}
           <div className="flex-1 min-w-0">
-            {/* Title - More prominent */}
-            <h3 className={`text-xl font-bold leading-tight ${colors.titleColor} mb-2 line-clamp-2`}>
+            {/* Title - Most prominent */}
+            <h3 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight ${colors.titleColor} mb-1 sm:mb-2 line-clamp-2`}>
               {calculator.name.replace('Calculadora de ', '').replace('Calculadora ', '')}
             </h3>
             
-            {/* Description - Better readability */}
-            <p className={`text-sm leading-relaxed ${colors.descriptionColor} mb-3 line-clamp-3`}>
+            {/* Description - Subtle */}
+            <p className={`text-xs sm:text-sm leading-snug ${colors.descriptionColor} opacity-80 mb-2 line-clamp-2 sm:line-clamp-3`}>
               {calculator.description}
             </p>
-            
-            {/* Specific Feature Tags */}
-            <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center rounded-full bg-gray-700 px-3 py-1 text-xs font-medium text-gray-200">
-                {tags.primary}
-              </span>
-              <span className="inline-flex items-center rounded-full bg-gray-700 px-3 py-1 text-xs font-medium text-gray-200">
-                {tags.secondary}
-              </span>
-            </div>
           </div>
+        </div>
+        
+        {/* Specific Feature Tags */}
+        <div className="flex flex-wrap gap-1 mb-3">
+          <span className="inline-flex items-center rounded-md bg-gray-700/60 px-2 py-0.5 text-xs font-medium text-gray-300">
+            {tags.primary}
+          </span>
+          <span className="inline-flex items-center rounded-md bg-gray-700/60 px-2 py-0.5 text-xs font-medium text-gray-300">
+            {tags.secondary}
+          </span>
         </div>
 
         {/* Spacer para empurrar o botão e footer para baixo */}
         <div className="flex-1"></div>
 
-        {/* Enhanced CTA Button */}
-        <div className="mt-6">
+        {/* Compact CTA Button */}
+        <div className="mt-2">
           <Link to={calculator.path} className="block w-full group/btn">
-            <button className={`w-full ${colors.buttonBg} ${colors.buttonText} px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center gap-2`}>
+            <button className={`w-full ${colors.buttonBg} ${colors.buttonText} px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-1.5`}>
               <span>Usar Calculadora</span>
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </button>
@@ -326,13 +326,13 @@ export function CalculatorCard({ calculator, category }: CalculatorCardProps) {
         </div>
 
         {/* Footer with Category and Status */}
-        <div className="mt-4 flex items-center justify-between pt-3 border-t border-gray-600">
-          <span className={`inline-flex items-center rounded-full ${colors.categoryBadgeBg} px-3 py-1 text-xs font-medium ${colors.categoryBadgeText}`}>
+        <div className="mt-2 sm:mt-3 flex items-center justify-between pt-2 border-t border-gray-600/50">
+          <span className={`inline-flex items-center rounded-md ${colors.categoryBadgeBg} px-2 py-0.5 text-xs font-medium ${colors.categoryBadgeText}`}>
             {colors.categoryIcon} {colors.categoryName}
           </span>
           
           <div className="flex items-center gap-1">
-            <div className="h-2 w-2 rounded-full bg-system-success animate-pulse"></div>
+            <div className="h-1.5 w-1.5 rounded-full bg-system-success animate-pulse"></div>
             <span className="text-xs font-medium text-system-success">
               Gratuito
             </span>
