@@ -77,6 +77,24 @@ export default function SaudeIndex() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <QuickAccessCard
+              title="Desenvolvimento Infantil"
+              description="Acompanhe o crescimento e desenvolvimento do seu filho com base em padrões médicos reconhecidos."
+              icon="👶"
+              href="/calculadoras/saude/desenvolvimento-infantil"
+              category="saude"
+              isPopular={true}
+              complexity="basic"
+            />
+            <QuickAccessCard
+              title="Gordura Corporal"
+              description="Calcule seu percentual de gordura corporal usando diferentes métodos científicos validados."
+              icon="📊"
+              href="/calculadoras/saude/gordura-corporal"
+              category="saude"
+              isPopular={true}
+              complexity="intermediate"
+            />
+            <QuickAccessCard
               title="Calculadora de IMC"
               description="Descubra se seu peso está dentro da faixa ideal usando os padrões da Organização Mundial da Saúde (OMS)."
               icon="⚖️"
@@ -84,22 +102,6 @@ export default function SaudeIndex() {
               category="saude"
               isPopular={true}
               complexity="basic"
-            />
-            <QuickAccessCard
-              title="Hidratação Diária"
-              description="Calcule a quantidade ideal de água que você deve beber por dia baseado no seu peso e atividade."
-              icon="💧"
-              href="/calculadoras/saude/hidratacao"
-              category="saude"
-              complexity="basic"
-            />
-            <QuickAccessCard
-              title="Taxa Metabólica"
-              description="Descubra quantas calorias seu corpo queima em repouso e planeje melhor sua alimentação."
-              icon="🔥"
-              href="/calculadoras/saude/metabolismo"
-              category="saude"
-              complexity="intermediate"
             />
           </div>
         </div>

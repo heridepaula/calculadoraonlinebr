@@ -316,7 +316,8 @@ export default function MortgageCalculator() {
     const firstPayment = amortization + firstInterest;
     const lastInterest = amortization * monthlyRate;
     const lastPayment = amortization + lastInterest;
-    const totalInterest = (amortization * monthlyRate * (periods + 1)) / 2;
+    // Fórmula correta SAC: Total de juros = (principal × taxa × (períodos + 1)) / 2
+    const totalInterest = (principal * monthlyRate * (periods + 1)) / 2;
     const totalAmount = principal + totalInterest;
 
     return {

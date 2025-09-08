@@ -117,72 +117,214 @@ export default function Index() {
 
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Link
-              to="/calculadoras/saude/imc"
-              className="group rounded-2xl bg-gradient-to-br from-health-red/10 to-health-red/5 p-6 transition-all duration-300 hover:from-health-red/20 hover:to-health-red/10 hover:shadow-lg"
+              to="/calculadoras/financas/tesouro-direto"
+              className="group rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-6 transition-all duration-300 hover:from-finance-gold/20 hover:to-finance-gold/10 hover:shadow-lg"
             >
               <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-health-red text-white">
-                  <span className="text-xl">⚖️</span>
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white">
+                  <span className="text-xl">🏛️</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-health-red-dark">
-                    IMC
+                  <h3 className="font-semibold text-text-primary group-hover:text-finance-gold-dark">
+                    Tesouro Direto
                   </h3>
-                  <p className="text-xs text-text-secondary">Índice Massa Corporal</p>
+                  <p className="text-xs text-text-secondary">Títulos Públicos</p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              to="/calculadoras/financas/financiamento-imobiliario"
+              className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-6 transition-all duration-300 hover:from-primary-blue/20 hover:to-primary-blue/10 hover:shadow-lg"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white">
+                  <span className="text-xl">🏠</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-text-primary group-hover:text-primary-blue-dark">
+                    Financiamento
+                  </h3>
+                  <p className="text-xs text-text-secondary">Imobiliário</p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              to="/calculadoras/financas/cdb"
+              className="group rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-6 transition-all duration-300 hover:from-system-success/20 hover:to-system-success/10 hover:shadow-lg"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white">
+                  <span className="text-xl">💰</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-text-primary group-hover:text-system-success-dark">
+                    CDB
+                  </h3>
+                  <p className="text-xs text-text-secondary">Certificado de Depósito</p>
                 </div>
               </div>
             </Link>
 
             <Link
               to="/calculadoras/financas/juros-compostos"
-              className="group rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-6 transition-all duration-300 hover:from-finance-gold/20 hover:to-finance-gold/10 hover:shadow-lg"
+              className="group rounded-2xl bg-gradient-to-br from-math-purple/10 to-math-purple/5 p-6 transition-all duration-300 hover:from-math-purple/20 hover:to-math-purple/10 hover:shadow-lg"
             >
               <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white">
                   <span className="text-xl">📈</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-finance-gold-dark">
+                  <h3 className="font-semibold text-text-primary group-hover:text-math-purple-dark">
                     Juros Compostos
                   </h3>
                   <p className="text-xs text-text-secondary">Investimentos</p>
                 </div>
               </div>
             </Link>
+          </div>
+        </div>
+      </section>
 
-            <Link
-              to="/calculadoras/matematica/porcentagem"
-              className="group rounded-2xl bg-gradient-to-br from-math-purple/10 to-math-purple/5 p-6 transition-all duration-300 hover:from-math-purple/20 hover:to-math-purple/10 hover:shadow-lg"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white">
-                  <span className="text-xl">%</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-math-purple-dark">
-                    Porcentagem
-                  </h3>
-                  <p className="text-xs text-text-secondary">Cálculos Rápidos</p>
-                </div>
-              </div>
-            </Link>
+      {/* Top Calculators by Category */}
+      <section className="bg-surface-dark/30 py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
+              Destaques por Categoria
+            </h2>
+            <p className="mt-2 text-text-secondary">
+              As calculadoras mais procuradas em cada área
+            </p>
+          </div>
 
-            <Link
-              to="/calculadoras/trabalhista/rescisao"
-              className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-6 transition-all duration-300 hover:from-primary-blue/20 hover:to-primary-blue/10 hover:shadow-lg"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white">
-                  <span className="text-xl">⚖️</span>
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Saúde */}
+            <div className="rounded-2xl bg-gradient-to-br from-health-red/5 to-health-red/10 p-6">
+              <div className="mb-4 flex items-center space-x-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-health-red text-white">
+                  <span className="text-lg">🏥</span>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-primary-blue-dark">
-                    Rescisão
-                  </h3>
-                  <p className="text-xs text-text-secondary">Direitos Trabalhistas</p>
-                </div>
+                <h3 className="text-xl font-bold text-text-primary">Saúde</h3>
               </div>
-            </Link>
+              <div className="space-y-3">
+                <Link
+                  to="/calculadoras/saude/desenvolvimento-infantil"
+                  className="block rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-3 transition-colors hover:from-yellow-500/30 hover:to-yellow-400/30 border border-yellow-500/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥇</span>
+                    <span className="text-sm font-medium text-text-primary">Desenvolvimento Infantil</span>
+                    <span className="ml-auto text-xs font-semibold text-yellow-600">#1</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/calculadoras/saude/gordura-corporal"
+                  className="block rounded-lg bg-gradient-to-r from-gray-400/20 to-gray-300/20 p-3 transition-colors hover:from-gray-400/30 hover:to-gray-300/30 border border-gray-400/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥈</span>
+                    <span className="text-sm font-medium text-text-primary">Gordura Corporal</span>
+                    <span className="ml-auto text-xs font-semibold text-gray-600">#2</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/calculadoras/saude/imc"
+                  className="block rounded-lg bg-gradient-to-r from-amber-600/20 to-amber-500/20 p-3 transition-colors hover:from-amber-600/30 hover:to-amber-500/30 border border-amber-600/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥉</span>
+                    <span className="text-sm font-medium text-text-primary">IMC</span>
+                    <span className="ml-auto text-xs font-semibold text-amber-700">#3</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Trabalhista */}
+            <div className="rounded-2xl bg-gradient-to-br from-primary-blue/5 to-primary-blue/10 p-6">
+              <div className="mb-4 flex items-center space-x-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-blue text-white">
+                  <span className="text-lg">⚖️</span>
+                </div>
+                <h3 className="text-xl font-bold text-text-primary">Trabalhista</h3>
+              </div>
+              <div className="space-y-3">
+                <Link
+                  to="/calculadoras/trabalhista/aposentadoria"
+                  className="block rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-3 transition-colors hover:from-yellow-500/30 hover:to-yellow-400/30 border border-yellow-500/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥇</span>
+                    <span className="text-sm font-medium text-text-primary">Aposentadoria</span>
+                    <span className="ml-auto text-xs font-semibold text-yellow-600">#1</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/calculadoras/trabalhista/rescisao"
+                  className="block rounded-lg bg-gradient-to-r from-gray-400/20 to-gray-300/20 p-3 transition-colors hover:from-gray-400/30 hover:to-gray-300/30 border border-gray-400/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥈</span>
+                    <span className="text-sm font-medium text-text-primary">Rescisão</span>
+                    <span className="ml-auto text-xs font-semibold text-gray-600">#2</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/calculadoras/trabalhista/auxilio-doenca"
+                  className="block rounded-lg bg-gradient-to-r from-amber-600/20 to-amber-500/20 p-3 transition-colors hover:from-amber-600/30 hover:to-amber-500/30 border border-amber-600/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥉</span>
+                    <span className="text-sm font-medium text-text-primary">Auxílio-Doença</span>
+                    <span className="ml-auto text-xs font-semibold text-amber-700">#3</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Matemática */}
+            <div className="rounded-2xl bg-gradient-to-br from-math-purple/5 to-math-purple/10 p-6">
+              <div className="mb-4 flex items-center space-x-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-math-purple text-white">
+                  <span className="text-lg">🔢</span>
+                </div>
+                <h3 className="text-xl font-bold text-text-primary">Matemática</h3>
+              </div>
+              <div className="space-y-3">
+                <Link
+                  to="/calculadoras/matematica/porcentagem"
+                  className="block rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-3 transition-colors hover:from-yellow-500/30 hover:to-yellow-400/30 border border-yellow-500/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥇</span>
+                    <span className="text-sm font-medium text-text-primary">Porcentagem</span>
+                    <span className="ml-auto text-xs font-semibold text-yellow-600">#1</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/calculadoras/matematica/equacao-segundo-grau"
+                  className="block rounded-lg bg-gradient-to-r from-gray-400/20 to-gray-300/20 p-3 transition-colors hover:from-gray-400/30 hover:to-gray-300/30 border border-gray-400/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥈</span>
+                    <span className="text-sm font-medium text-text-primary">Equação 2º Grau</span>
+                    <span className="ml-auto text-xs font-semibold text-gray-600">#2</span>
+                  </div>
+                </Link>
+                <Link
+                  to="/calculadoras/matematica/mmc-mdc"
+                  className="block rounded-lg bg-gradient-to-r from-amber-600/20 to-amber-500/20 p-3 transition-colors hover:from-amber-600/30 hover:to-amber-500/30 border border-amber-600/30"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">🥉</span>
+                    <span className="text-sm font-medium text-text-primary">MMC e MDC</span>
+                    <span className="ml-auto text-xs font-semibold text-amber-700">#3</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

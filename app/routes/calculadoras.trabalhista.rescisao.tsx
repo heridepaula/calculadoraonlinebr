@@ -1310,95 +1310,95 @@ export default function RescisaoTrabalhistaCalculator() {
                     💰 Valores da Rescisão (Acerto)
                   </h4>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                      <span className="font-medium">Saldo de Salário:</span>
-                      <span className="font-bold tabular-nums text-growth-green">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                      <span className="font-medium text-sm sm:text-base">Saldo de Salário:</span>
+                      <span className="font-bold tabular-nums text-growth-green text-right">
                         {formatCurrency(result.saldoSalario)}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                      <span className="font-medium">Férias Proporcionais:</span>
-                      <span className="font-bold tabular-nums text-growth-green">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                      <span className="font-medium text-sm sm:text-base">Férias Proporcionais:</span>
+                      <span className="font-bold tabular-nums text-growth-green text-right">
                         {formatCurrency(result.feriasProporcionais)}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                      <span className="font-medium">1/3 de Férias Proporcionais:</span>
-                      <span className="font-bold tabular-nums text-growth-green">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                      <span className="font-medium text-sm sm:text-base">1/3 de Férias Proporcionais:</span>
+                      <span className="font-bold tabular-nums text-growth-green text-right">
                         {formatCurrency(result.tercoFerias)}
                       </span>
                     </div>
                     {result.feriasVencidas > 0 && (
                       <>
-                        <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                          <span className="font-medium">Férias Vencidas:</span>
-                          <span className="font-bold tabular-nums text-growth-green">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                          <span className="font-medium text-sm sm:text-base">Férias Vencidas:</span>
+                          <span className="font-bold tabular-nums text-growth-green text-right">
                             {formatCurrency(result.feriasVencidas)}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                          <span className="font-medium">1/3 de Férias Vencidas:</span>
-                          <span className="font-bold tabular-nums text-growth-green">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                          <span className="font-medium text-sm sm:text-base">1/3 de Férias Vencidas:</span>
+                          <span className="font-bold tabular-nums text-growth-green text-right">
                             {formatCurrency(result.tercoFeriasVencidas)}
                           </span>
                         </div>
                       </>
                     )}
-                    <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                      <span className="font-medium">13º Proporcional:</span>
-                      <span className="font-bold tabular-nums text-growth-green">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                      <span className="font-medium text-sm sm:text-base">13º Proporcional:</span>
+                      <span className="font-bold tabular-nums text-growth-green text-right">
                         {formatCurrency(result.decimoTerceiroProporional)}
                       </span>
                     </div>
                     {result.avisoPrevio > 0 && (
-                      <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                        <span className="font-medium">Aviso Prévio:</span>
-                        <span className="font-bold tabular-nums text-growth-green">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                        <span className="font-medium text-sm sm:text-base">Aviso Prévio:</span>
+                        <span className="font-bold tabular-nums text-growth-green text-right">
                           {formatCurrency(result.avisoPrevio)}
                         </span>
                       </div>
                     )}
                     {result.salarioFamilia > 0 && (
-                      <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                        <span className="font-medium">Salário Família:</span>
-                        <span className="font-bold tabular-nums text-growth-green">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                        <span className="font-medium text-sm sm:text-base">Salário Família:</span>
+                        <span className="font-bold tabular-nums text-growth-green text-right">
                           {formatCurrency(result.salarioFamilia)}
                         </span>
                       </div>
                     )}
                     {result.feriasAvisoPrevio > 0 && (
-                      <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                        <span className="font-medium">Férias Aviso Prévio:</span>
-                        <span className="font-bold tabular-nums text-growth-green">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                        <span className="font-medium text-sm sm:text-base">Férias Aviso Prévio:</span>
+                        <span className="font-bold tabular-nums text-growth-green text-right">
                           {formatCurrency(result.feriasAvisoPrevio)}
                         </span>
                       </div>
                     )}
                     {result.decimoTerceiroIndenizado > 0 && (
-                      <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                        <span className="font-medium">13º Indenizado:</span>
-                        <span className="font-bold tabular-nums text-growth-green">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                        <span className="font-medium text-sm sm:text-base">13º Indenizado:</span>
+                        <span className="font-bold tabular-nums text-growth-green text-right">
                           {formatCurrency(result.decimoTerceiroIndenizado)}
                         </span>
                       </div>
                     )}
                     {result.multaFgts > 0 && (
-                      <div className="flex items-center justify-between border-b border-neutral-surface-variant py-2">
-                        <span className="font-medium">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-surface-variant py-2 gap-1">
+                        <span className="font-medium text-sm sm:text-base">
                           Multa FGTS {tipoRescisao === "acordo-mutuo" ? "20%" : "40%"}:
                         </span>
-                        <span className="font-bold tabular-nums text-growth-green">
+                        <span className="font-bold tabular-nums text-growth-green text-right">
                           {formatCurrency(result.multaFgts)}
                         </span>
                       </div>
                     )}
                   </div>
                   <div className="mt-4 rounded-lg border-t-2 border-growth-green bg-growth-green/10 p-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-growth-green">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <span className="text-base sm:text-lg font-bold text-growth-green">
                         Valor a Receber de Rescisão (Acerto):
                       </span>
-                      <span className="text-xl font-bold tabular-nums text-growth-green">
+                      <span className="text-xl font-bold tabular-nums text-growth-green text-right">
                         {formatCurrency(result.totalReceber)}
                       </span>
                     </div>
@@ -1409,9 +1409,9 @@ export default function RescisaoTrabalhistaCalculator() {
                 <div className="rounded-lg border border-system-warning/30 bg-system-warning/10 p-4">
                   <h4 className="mb-4 text-center font-bold text-system-warning">🏦 FGTS</h4>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between border-b border-system-warning/20 py-2">
-                      <span className="font-medium">FGTS:</span>
-                      <span className="font-bold tabular-nums text-system-warning">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-system-warning/20 py-2 gap-1">
+                      <span className="font-medium text-sm sm:text-base">FGTS:</span>
+                      <span className="font-bold tabular-nums text-system-warning text-right">
                         {formatCurrency(
                           (result.fgtsDepositadoPeriodo || 0) + (result.fgtsRescisao || 0)
                         )}
@@ -1426,17 +1426,17 @@ export default function RescisaoTrabalhistaCalculator() {
                     <h4 className="mb-4 text-center font-bold text-system-error">📉 Descontos</h4>
                     <div className="space-y-3">
                       {result.inss > 0 && (
-                        <div className="flex items-center justify-between border-b border-system-error/20 py-2">
-                          <span className="font-medium">INSS:</span>
-                          <span className="font-bold tabular-nums text-system-error">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-system-error/20 py-2 gap-1">
+                          <span className="font-medium text-sm sm:text-base">INSS:</span>
+                          <span className="font-bold tabular-nums text-system-error text-right">
                             - {formatCurrency(result.inss)}
                           </span>
                         </div>
                       )}
                       {result.irrf > 0 && (
-                        <div className="flex items-center justify-between border-b border-system-error/20 py-2">
-                          <span className="font-medium">IRRF:</span>
-                          <span className="font-bold tabular-nums text-system-error">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-system-error/20 py-2 gap-1">
+                          <span className="font-medium text-sm sm:text-base">IRRF:</span>
+                          <span className="font-bold tabular-nums text-system-error text-right">
                             - {formatCurrency(result.irrf)}
                           </span>
                         </div>
@@ -1451,18 +1451,18 @@ export default function RescisaoTrabalhistaCalculator() {
                     📊 Totais Finais
                   </h4>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between border-b border-primary-blue/30 py-2">
-                      <span className="text-lg font-bold">Valor Líquido (Acerto - Descontos):</span>
-                      <span className="text-xl font-bold tabular-nums text-primary-blue-dark">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-primary-blue/30 py-2 gap-1">
+                      <span className="text-base sm:text-lg font-bold">Valor Líquido (Acerto - Descontos):</span>
+                      <span className="text-xl font-bold tabular-nums text-primary-blue-dark text-right">
                         {formatCurrency(result.totalLiquido)}
                       </span>
                     </div>
                     <div className="rounded-lg bg-primary-blue p-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-lg font-bold text-white">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <span className="text-sm sm:text-lg font-bold text-white">
                           Total Geral da Rescisão + FGTS + Multa FGTS:
                         </span>
-                        <span className="text-2xl font-bold tabular-nums text-white">
+                        <span className="text-xl sm:text-2xl font-bold tabular-nums text-white text-right">
                           {formatCurrency(
                             result.totalLiquido +
                               (result.fgtsDepositadoPeriodo || 0) +

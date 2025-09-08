@@ -81,6 +81,15 @@ export default function TrabalhistaIndex() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <QuickAccessCard
+              title="Aposentadoria"
+              description="Calcule sua aposentadoria por tempo de contribuição e benefícios previdenciários."
+              icon="🏛️"
+              href="/calculadoras/trabalhista/aposentadoria"
+              category="trabalhista"
+              isPopular={true}
+              complexity="intermediate"
+            />
+            <QuickAccessCard
               title="Rescisão Trabalhista"
               description="Calcule todos os valores da sua rescisão: FGTS, seguro desemprego, férias e 13º salário conforme a CLT."
               icon="📋"
@@ -90,20 +99,12 @@ export default function TrabalhistaIndex() {
               complexity="intermediate"
             />
             <QuickAccessCard
-              title="Salário Líquido"
-              description="Descubra quanto você recebe após os descontos de INSS e Imposto de Renda com tabelas 2025."
-              icon="💵"
-              href="/calculadoras/trabalhista/salario-liquido"
+              title="Auxílio-Doença"
+              description="Calcule o valor do auxílio-doença baseado no salário de contribuição e tempo de afastamento."
+              icon="🏥"
+              href="/calculadoras/trabalhista/auxilio-doenca"
               category="trabalhista"
               isPopular={true}
-              complexity="basic"
-            />
-            <QuickAccessCard
-              title="Férias e 13º"
-              description="Calcule seus direitos a férias, terço constitucional e décimo terceiro salário."
-              icon="🌴"
-              href="/calculadoras/trabalhista/ferias-decimo-terceiro"
-              category="trabalhista"
               complexity="basic"
             />
           </div>

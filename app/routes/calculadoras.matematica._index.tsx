@@ -96,21 +96,22 @@ export default function MatematicaIndex() {
               complexity="basic"
             />
             <QuickAccessCard
-              title="Regra de Três"
-              description="Resolva proporções e regra de três simples e composta com explicações passo a passo."
+              title="Equação do Segundo Grau"
+              description="Resolva equações quadráticas usando a fórmula de Bhaskara com explicações passo a passo."
+              icon="x²"
+              href="/calculadoras/matematica/equacao-segundo-grau"
+              category="matematica"
+              isPopular={true}
+              complexity="intermediate"
+            />
+            <QuickAccessCard
+              title="MMC e MDC"
+              description="Calcule o Mínimo Múltiplo Comum e Máximo Divisor Comum de números inteiros."
               icon="🔢"
-              href="/calculadoras/matematica/regra-de-tres"
+              href="/calculadoras/matematica/mmc-mdc"
               category="matematica"
               isPopular={true}
               complexity="basic"
-            />
-            <QuickAccessCard
-              title="Frações"
-              description="Some, subtraia, multiplique e divida frações com resultados simplificados automaticamente."
-              icon="½"
-              href="/calculadoras/matematica/fracoes"
-              category="matematica"
-              complexity="intermediate"
             />
           </div>
         </div>

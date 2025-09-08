@@ -81,22 +81,13 @@ export default function FinancasIndex() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <QuickAccessCard
-              title="Juros Compostos"
-              description="Descubra o poder dos juros compostos e simule o crescimento dos seus investimentos ao longo do tempo."
-              icon="📈"
-              href="/calculadoras/financas/juros-compostos"
+              title="Tesouro Direto"
+              description="Simule investimentos em títulos públicos e compare rendimentos com diferentes cenários."
+              icon="🏛️"
+              href="/calculadoras/financas/tesouro-direto"
               category="financas"
               isPopular={true}
               complexity="basic"
-            />
-            <QuickAccessCard
-              title="Primeiro Milhão"
-              description="Calcule quanto tempo e dinheiro você confiável para conquistar seu primeiro milhão de reais."
-              icon="🎯"
-              href="/calculadoras/financas/primeiro-milhao"
-              category="financas"
-              isPopular={true}
-              complexity="intermediate"
             />
             <QuickAccessCard
               title="Financiamento Imobiliário"
@@ -104,7 +95,17 @@ export default function FinancasIndex() {
               icon="🏠"
               href="/calculadoras/financas/financiamento-imobiliario"
               category="financas"
+              isPopular={true}
               complexity="intermediate"
+            />
+            <QuickAccessCard
+              title="CDB"
+              description="Compare rendimentos de CDBs com diferentes bancos e prazos de investimento."
+              icon="💰"
+              href="/calculadoras/financas/cdb"
+              category="financas"
+              isPopular={true}
+              complexity="basic"
             />
           </div>
         </div>
@@ -169,12 +170,12 @@ export default function FinancasIndex() {
                 {financasCalculators
                   .filter((calc) =>
                     [
+                      "tesouro-direto",
+                      "cdb", 
                       "juros-compostos",
                       "primeiro-milhao",
-                      "lci-lca",
-                      "cdb",
                       "preco-medio",
-                      "tesouro-direto",
+                      "lci-lca",
                       "renda-fixa-comparativa",
                     ].includes(calc.id)
                   )
@@ -205,7 +206,7 @@ export default function FinancasIndex() {
               <div className="space-y-2">
                 {financasCalculators
                   .filter((calc) =>
-                    ["financiamento-imobiliario", "emprestimo-consignado", "consorcio"].includes(
+                    ["financiamento-imobiliario", "consorcio", "emprestimo-consignado"].includes(
                       calc.id
                     )
                   )
