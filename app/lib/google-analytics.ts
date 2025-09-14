@@ -139,6 +139,49 @@ export const trackPageView = (url?: string, title?: string): void => {
 };
 
 /**
+ * Rastreia um evento personalizado no Google Analytics
+ * @param eventName - Nome do evento (ex: 'share', 'download', 'purchase')
+ * @param parameters - Parâmetros adicionais do evento
+ */
+export const trackEvent = (
+  eventName: string,
+  parameters: {
+    event_category?: string;
+    event_label?: string;
+    value?: number;
+    custom_parameters?: Record<string, any>;
+  } = {}
+): void => {
+  if (!isGAEnabled() || typeof window === 'undefined' || !window.gtag) {
+    return;
+  }
+
+  try {
+    const {
+      event_category,
+      event_label,
+      value,
+      custom_parameters = {}
+    } = parameters;
+
+    window.gtag('event', eventName, {
+      event_category,
+      event_label,
+      value,
+      ...custom_parameters,
+      // Manter configurações cookieless
+      transport_type: 'beacon'
+    });
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[GA] Event tracked:', { eventName, parameters });
+    }
+  } catch (error) {
+    console.error('[GA] Erro ao rastrear evento:', error);
+  }
+};
+
+/**
  * Hook personalizado para tracking automático de page views no Remix
  * Deve ser usado em componentes que representam páginas
  */

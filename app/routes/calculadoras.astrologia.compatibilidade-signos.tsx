@@ -7,6 +7,7 @@ import {
   ResponsiveBreadcrumb,
   createCalculatorBreadcrumb,
 } from "~/components";
+import { trackEvent } from "~/lib/google-analytics";
 
 export const meta: MetaFunction = () => {
   return [
@@ -462,10 +463,183 @@ const CompatibilityResults = ({
   };
 
   const getScoreIcon = (score: number) => {
-    if (score >= 85) return "🔥";
-    if (score >= 70) return "✨";
-    if (score >= 55) return "⚡";
-    return "💫";
+    if (score >= 85) return "❤️";
+    if (score >= 70) return "💖";
+    if (score >= 55) return "💛";
+    return "💚";
+  };
+
+  const generateWhatsAppText = () => {
+    const emoji = getScoreIcon(result?.geral?.porcentagem || 0);
+    const score = result?.geral?.porcentagem || 0;
+    const categoria = result?.geral?.categoria || '';
+
+    return `${emoji} *Compatibilidade Astrologica* ${emoji}
+
+*${s1?.nome}* + *${s2?.nome}*
+
+*Resultado:* ${score}% - ${categoria}
+
+${result?.geral?.resumo || ''}
+
+Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos
+
+#Astrologia #Compatibilidade #Signos`;
+  };
+
+  const handleWhatsAppShare = () => {
+    const text = generateWhatsAppText();
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+
+    // Track GA event
+    trackEvent('share', {
+      event_category: 'Social Share',
+      event_label: 'WhatsApp',
+      custom_parameters: {
+        content_type: 'compatibility_result',
+        signs: `${s1?.nome}_${s2?.nome}`,
+        compatibility_score: result?.geral?.porcentagem || 0,
+        share_method: 'whatsapp'
+      }
+    });
+
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleTwitterShare = () => {
+    const emoji = getScoreIcon(result?.geral?.porcentagem || 0);
+    const score = result?.geral?.porcentagem || 0;
+    const categoria = result?.geral?.categoria || '';
+
+    const twitterText = `${emoji} Compatibilidade ${s1?.nome} + ${s2?.nome}: ${score}% - ${categoria}!
+
+✨ Descubra sua compatibilidade astrológica em:`;
+
+    // Track GA event
+    trackEvent('share', {
+      event_category: 'Social Share',
+      event_label: 'Twitter',
+      custom_parameters: {
+        content_type: 'compatibility_result',
+        signs: `${s1?.nome}_${s2?.nome}`,
+        compatibility_score: score,
+        share_method: 'twitter'
+      }
+    });
+
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent('https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos')}&hashtags=Astrologia,Compatibilidade,Signos`;
+    window.open(twitterUrl, '_blank');
+  };
+
+  const handleFacebookShare = () => {
+    // Track GA event
+    trackEvent('share', {
+      event_category: 'Social Share',
+      event_label: 'Facebook',
+      custom_parameters: {
+        content_type: 'compatibility_result',
+        signs: `${s1?.nome}_${s2?.nome}`,
+        compatibility_score: result?.geral?.porcentagem || 0,
+        share_method: 'facebook'
+      }
+    });
+
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos')}&quote=${encodeURIComponent(`${getScoreIcon(result?.geral?.porcentagem || 0)} Acabei de descobrir minha compatibilidade astrológica: ${s1?.nome} + ${s2?.nome} = ${result?.geral?.porcentagem || 0}% - ${result?.geral?.categoria || ''}! Faça o seu teste também!`)}`;
+    window.open(facebookUrl, '_blank');
+  };
+
+  const handleTelegramShare = () => {
+    const text = generateWhatsAppText();
+
+    // Track GA event
+    trackEvent('share', {
+      event_category: 'Social Share',
+      event_label: 'Telegram',
+      custom_parameters: {
+        content_type: 'compatibility_result',
+        signs: `${s1?.nome}_${s2?.nome}`,
+        compatibility_score: result?.geral?.porcentagem || 0,
+        share_method: 'telegram'
+      }
+    });
+
+    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent('https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos')}&text=${encodeURIComponent(text)}`;
+    window.open(telegramUrl, '_blank');
+  };
+
+  const handleCopyLink = async () => {
+    const text = generateWhatsAppText();
+    const fullText = `${text}\n\nLeia mais em: https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos`;
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(fullText);
+
+        // Track GA event
+        trackEvent('share', {
+          event_category: 'Social Share',
+          event_label: 'Copy Text',
+          custom_parameters: {
+            content_type: 'compatibility_result',
+            signs: `${s1?.nome}_${s2?.nome}`,
+            compatibility_score: result?.geral?.porcentagem || 0,
+            share_method: 'copy'
+          }
+        });
+
+        alert('Texto copiado para área de transferência! ✅');
+      } else {
+        // Fallback para browsers mais antigos
+        const textArea = document.createElement('textarea');
+        textArea.value = fullText;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        textArea.remove();
+
+        // Track GA event
+        trackEvent('share', {
+          event_category: 'Social Share',
+          event_label: 'Copy Text',
+          custom_parameters: {
+            content_type: 'compatibility_result',
+            signs: `${s1?.nome}_${s2?.nome}`,
+            compatibility_score: result?.geral?.porcentagem || 0,
+            share_method: 'copy'
+          }
+        });
+
+        alert('Texto copiado para área de transferência! ✅');
+      }
+    } catch (error) {
+      console.error('Erro ao copiar:', error);
+      alert('Erro ao copiar texto. Tente novamente.');
+    }
+  };
+
+  const handleEmailShare = () => {
+    const text = generateWhatsAppText();
+    const subject = `${getScoreIcon(result?.geral?.porcentagem || 0)} Compatibilidade Astrológica: ${s1?.nome} + ${s2?.nome}`;
+    const body = `${text}\n\nDescubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos`;
+
+    // Track GA event
+    trackEvent('share', {
+      event_category: 'Social Share',
+      event_label: 'Email',
+      custom_parameters: {
+        content_type: 'compatibility_result',
+        signs: `${s1?.nome}_${s2?.nome}`,
+        compatibility_score: result?.geral?.porcentagem || 0,
+        share_method: 'email'
+      }
+    });
+
+    const emailUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = emailUrl;
   };
 
   return (
@@ -909,6 +1083,101 @@ const CompatibilityResults = ({
             <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_3}</p>
             <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_4}</p>
             <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_5}</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Seção de Compartilhamento */}
+      <Card className="border-2 border-growth-green bg-gradient-to-r from-growth-green/10 to-growth-green/5">
+        <CardContent className="p-6">
+          <div className="text-center">
+            <h3 className="mb-4 text-2xl font-bold text-text-primary">
+              📱 Compartilhe seu Resultado
+            </h3>
+            <p className="mb-8 text-lg text-text-secondary">
+              Que tal compartilhar sua compatibilidade astrológica com amigos e família?
+            </p>
+
+            {/* Botões de Redes Sociais */}
+            <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+              {/* WhatsApp */}
+              <button
+                onClick={handleWhatsAppShare}
+                className="group flex flex-col items-center gap-2 rounded-lg bg-green-500 p-4 text-white shadow-lg transition-all duration-300 hover:bg-green-600 hover:scale-105 hover:shadow-xl"
+                title="Compartilhar no WhatsApp"
+              >
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.384"/>
+                </svg>
+                <span className="text-sm font-medium">WhatsApp</span>
+              </button>
+
+              {/* Facebook */}
+              <button
+                onClick={handleFacebookShare}
+                className="group flex flex-col items-center gap-2 rounded-lg bg-blue-600 p-4 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+                title="Compartilhar no Facebook"
+              >
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                <span className="text-sm font-medium">Facebook</span>
+              </button>
+
+              {/* Twitter */}
+              <button
+                onClick={handleTwitterShare}
+                className="group flex flex-col items-center gap-2 rounded-lg bg-sky-500 p-4 text-white shadow-lg transition-all duration-300 hover:bg-sky-600 hover:scale-105 hover:shadow-xl"
+                title="Compartilhar no Twitter"
+              >
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+                <span className="text-sm font-medium">Twitter</span>
+              </button>
+
+              {/* Telegram */}
+              <button
+                onClick={handleTelegramShare}
+                className="group flex flex-col items-center gap-2 rounded-lg bg-blue-500 p-4 text-white shadow-lg transition-all duration-300 hover:bg-blue-600 hover:scale-105 hover:shadow-xl"
+                title="Compartilhar no Telegram"
+              >
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                <span className="text-sm font-medium">Telegram</span>
+              </button>
+
+              {/* Email */}
+              <button
+                onClick={handleEmailShare}
+                className="group flex flex-col items-center gap-2 rounded-lg bg-gray-600 p-4 text-white shadow-lg transition-all duration-300 hover:bg-gray-700 hover:scale-105 hover:shadow-xl"
+                title="Compartilhar por Email"
+              >
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span className="text-sm font-medium">Email</span>
+              </button>
+
+              {/* Copiar Link */}
+              <button
+                onClick={handleCopyLink}
+                className="group flex flex-col items-center gap-2 rounded-lg bg-primary-blue p-4 text-white shadow-lg transition-all duration-300 hover:bg-primary-blue-dark hover:scale-105 hover:shadow-xl"
+                title="Copiar texto"
+              >
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span className="text-sm font-medium">Copiar</span>
+              </button>
+            </div>
+
+            <div className="rounded-lg border border-growth-green/30 bg-growth-green/5 p-4">
+              <p className="text-sm text-text-secondary">
+                💡 <strong>Dica:</strong> O resultado será formatado automaticamente para cada plataforma com emojis e hashtags otimizadas!
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
