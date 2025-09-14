@@ -8,6 +8,7 @@ interface QuickAccessCardProps {
   category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas";
   isPopular?: boolean;
   complexity?: "basic" | "intermediate" | "advanced";
+  ctaText?: string;
 }
 
 const CATEGORY_STYLES = {
@@ -76,6 +77,7 @@ export default function QuickAccessCard({
   category,
   isPopular = false,
   complexity,
+  ctaText = "Usar calculadora",
 }: QuickAccessCardProps) {
   const styles = CATEGORY_STYLES[category];
   
@@ -119,7 +121,7 @@ export default function QuickAccessCard({
           
           {/* Call to action */}
           <div className={`mt-3 flex items-center text-sm font-semibold ${styles.textAccent} group-hover:translate-x-1 transition-transform duration-300`}>
-            Usar calculadora
+            {ctaText}
             <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

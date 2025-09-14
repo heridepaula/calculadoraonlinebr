@@ -4,66 +4,79 @@ import type { Calculator } from "~/types";
 
 interface CalculatorCardProps {
   calculator: Calculator;
-  category: "saude" | "financas" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas";
+  category:
+    | "saude"
+    | "financas"
+    | "matematica"
+    | "trabalhista"
+    | "ferramentas"
+    | "astrologia"
+    | "datas";
 }
 
 // Mapa de ícones específicos para cada calculadora
 const getCalculatorIcon = (calculatorId: string): string => {
   const iconMap: Record<string, string> = {
     // Saúde
-    "imc": "⚖️",
+    imc: "⚖️",
     "gordura-corporal": "📊",
     "ciclo-menstrual": "🌸",
     "desenvolvimento-infantil": "👶",
-    "hidratacao": "💧",
-    
+    hidratacao: "💧",
+
     // Finanças
     "primeiro-milhao": "🎯",
     "juros-compostos": "📈",
     "juros-simples": "📊",
     "lci-lca": "🏛️",
     "preco-medio": "📋",
-    "cdb": "💰",
+    cdb: "💰",
     "financiamento-imobiliario": "🏠",
     "emprestimo-consignado": "💳",
-    "consorcio": "🤝",
+    consorcio: "🤝",
     "renda-fixa-comparativa": "⚖️",
     "tesouro-direto": "🏛️",
-    
+
     // Matemática
-    "porcentagem": "📊",
+    porcentagem: "📊",
     "regra-de-tres": "🔄",
     "equacao-segundo-grau": "🔬",
     "mmc-mdc": "🔢",
     "area-perimetro": "📐",
-    "volume": "📦",
-    "fracoes": "🧮",
+    volume: "📦",
+    fracoes: "🧮",
     "teorema-pitagoras": "📏",
-    
+
     // Trabalhista
-    "rescisao": "📋",
-    "ferias": "🏖️",
+    rescisao: "📋",
+    ferias: "🏖️",
     "13-salario": "💰",
     "auxilio-desemprego": "🤝",
-    "aposentadoria": "👴",
+    aposentadoria: "👴",
     "pensao-morte": "👥",
-    
+
     // Ferramentas
     "gerador-cpf": "🆔",
-    
+    "gerador-cnpj": "🏢",
+    "validar-cpf": "✅",
+    "validar-cnpj": "✅",
+    "contador-caracteres": "📝",
+    "gerador-cartao-credito": "💳",
+    "gerador-uuid-guid": "🔗",
+
     // Datas
     "diferenca-entre-datas": "📅",
     "contagem-regressiva": "⏰",
     "operacao-datas": "➕➖",
     "idade-exata": "🎂",
     "dias-uteis": "📊",
-    
+
     // Astrologia
     "ascendente-astrologico": "🌅",
-    "signo": "♈",
+    signo: "♈",
     "compatibilidade-signos": "💞",
   };
-  
+
   return iconMap[calculatorId] || "🧮";
 };
 
@@ -71,59 +84,65 @@ const getCalculatorIcon = (calculatorId: string): string => {
 const getCalculatorTags = (calculatorId: string): { primary: string; secondary: string } => {
   const tagMap: Record<string, { primary: string; secondary: string }> = {
     // Saúde
-    "imc": { primary: "📊 Análise", secondary: "🎯 Confiável" },
+    imc: { primary: "📊 Análise", secondary: "🎯 Confiável" },
     "gordura-corporal": { primary: "🔬 Científico", secondary: "📈 Detalhado" },
     "ciclo-menstrual": { primary: "🌸 Feminino", secondary: "📅 Ciclos" },
     "desenvolvimento-infantil": { primary: "👶 Bebês", secondary: "📈 Marcos" },
-    "hidratacao": { primary: "💧 Personalizado", secondary: "⏱️ Diário" },
-    
+    hidratacao: { primary: "💧 Personalizado", secondary: "⏱️ Diário" },
+
     // Finanças
     "primeiro-milhao": { primary: "🎯 Meta", secondary: "⏱️ Prazo" },
     "juros-compostos": { primary: "📈 Crescimento", secondary: "💰 Aportes" },
     "juros-simples": { primary: "📊 Básico", secondary: "⏱️ Rápido" },
     "lci-lca": { primary: "🏛️ Isento IR", secondary: "📈 Renda Fixa" },
     "preco-medio": { primary: "📋 Ações", secondary: "💰 Controle" },
-    "cdb": { primary: "💰 CDB", secondary: "📊 Tributação" },
+    cdb: { primary: "💰 CDB", secondary: "📊 Tributação" },
     "financiamento-imobiliario": { primary: "🏠 Casa Própria", secondary: "📋 Completo" },
     "emprestimo-consignado": { primary: "💳 Consignado", secondary: "📊 Margem" },
-    "consorcio": { primary: "🤝 Consórcio", secondary: "🚗 Veículos" },
+    consorcio: { primary: "🤝 Consórcio", secondary: "🚗 Veículos" },
     "renda-fixa-comparativa": { primary: "⚖️ Comparar", secondary: "🏆 Ranking" },
     "tesouro-direto": { primary: "🏛️ Tesouro", secondary: "📊 Completa" },
-    
+
     // Matemática
-    "porcentagem": { primary: "📊 Percentual", secondary: "⚡ Rápido" },
+    porcentagem: { primary: "📊 Percentual", secondary: "⚡ Rápido" },
     "regra-de-tres": { primary: "🔄 Proporção", secondary: "📚 Passo a Passo" },
     "equacao-segundo-grau": { primary: "🔬 Bhaskara", secondary: "📊 Gráfico" },
     "mmc-mdc": { primary: "🔢 Fatores", secondary: "📚 Educativo" },
     "area-perimetro": { primary: "📐 Geometria", secondary: "📏 Medidas" },
-    "volume": { primary: "📦 3D", secondary: "🔬 Fórmulas" },
-    "fracoes": { primary: "🧮 Frações", secondary: "📚 Passo a Passo" },
+    volume: { primary: "📦 3D", secondary: "🔬 Fórmulas" },
+    fracoes: { primary: "🧮 Frações", secondary: "📚 Passo a Passo" },
     "teorema-pitagoras": { primary: "📏 Pitágoras", secondary: "📐 Triângulos" },
-    
+
     // Trabalhista
     "rescisao-trabalhista": { primary: "📋 Rescisão", secondary: "💰 Direitos" },
-    "aposentadoria": { primary: "👴 INSS", secondary: "📊 Planejamento" },
-    "ferias": { primary: "🏖️ Férias", secondary: "💰 1/3" },
+    aposentadoria: { primary: "👴 INSS", secondary: "📊 Planejamento" },
+    ferias: { primary: "🏖️ Férias", secondary: "💰 1/3" },
     "13-salario": { primary: "💰 13º", secondary: "📅 Proporcional" },
     "auxilio-desemprego": { primary: "🤝 Seguro", secondary: "📊 Parcelas" },
     "pensao-morte": { primary: "👥 Pensão", secondary: "💰 Benefício" },
-    
+
     // Ferramentas
-    "gerador-cpf": { primary: "🆔 Válidos", secondary: "⚡ Instantâneo" },
-    
+    "gerador-cpf": { primary: "🆔 CPF Válido", secondary: "⚡ Instantâneo" },
+    "gerador-cnpj": { primary: "🏢 CNPJ Válido", secondary: "⚡ Instantâneo" },
+    "validar-cpf": { primary: "✅ Validação", secondary: "🔍 Verificação" },
+    "validar-cnpj": { primary: "✅ Validação", secondary: "🔍 Verificação" },
+    "contador-caracteres": { primary: "📝 Análise", secondary: "📊 Estatísticas" },
+    "gerador-cartao-credito": { primary: "💳 Cartões", secondary: "🧪 Teste" },
+    "gerador-uuid-guid": { primary: "🔗 UUID/GUID", secondary: "🌐 Múltiplos Formatos" },
+
     // Datas
     "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Rápida" },
     "contagem-regressiva": { primary: "⏰ Tempo Real", secondary: "🎉 Eventos" },
     "operacao-datas": { primary: "🧮 Operações", secondary: "➕➖ Somar/Subtrair" },
     "idade-exata": { primary: "🎂 Idade Exata", secondary: "⏱️ Contador Tempo Real" },
     "dias-uteis": { primary: "📊 Dias Úteis", secondary: "🇧🇷 Feriados Brasil" },
-    
+
     // Astrologia
     "ascendente-astrologico": { primary: "🌅 Ascendente", secondary: "🌍 Localização" },
-    "signo": { primary: "♈ Zodíaco", secondary: "🌟 Personalidade" },
+    signo: { primary: "♈ Zodíaco", secondary: "🌟 Personalidade" },
     "compatibilidade-signos": { primary: "💞 Amor", secondary: "👥 Amizade" },
   };
-  
+
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
 };
 
@@ -274,34 +293,42 @@ export function CalculatorCard({ calculator, category }: CalculatorCardProps) {
   const tags = getCalculatorTags(calculator.id);
 
   return (
-    <Card className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] ${colors.cardBg} border ${colors.borderColor} ${colors.shadow} hover:shadow-lg h-full flex flex-col`}>
+    <Card
+      className={`group relative overflow-hidden transition-all duration-300 hover:scale-[1.01] ${colors.cardBg} border ${colors.borderColor} ${colors.shadow} flex h-full flex-col hover:shadow-lg`}
+    >
       {/* Gradient Background Overlay */}
       <div className={`absolute inset-0 bg-gradient-to-br ${colors.bgGradient} opacity-40`} />
-      
-      <CardContent className="relative p-3 sm:p-4 lg:p-5 flex flex-col h-full">
+
+      <CardContent className="relative flex h-full flex-col p-3 sm:p-4 lg:p-5">
         {/* Header with Specific Calculator Icon */}
         <div className="mb-3 flex items-start space-x-3">
           {/* Smaller Calculator-Specific Icon */}
-          <div className={`flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-lg ${colors.iconBg} shadow-md transition-all duration-300 group-hover:scale-105`}>
+          <div
+            className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg sm:h-12 sm:w-12 ${colors.iconBg} shadow-md transition-all duration-300 group-hover:scale-105`}
+          >
             <span className="text-lg sm:text-xl">{calculatorIcon}</span>
           </div>
-          
+
           {/* Calculator Info */}
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             {/* Title - Most prominent */}
-            <h3 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight ${colors.titleColor} mb-1 sm:mb-2 line-clamp-2`}>
-              {calculator.name.replace('Calculadora de ', '').replace('Calculadora ', '')}
+            <h3
+              className={`text-base font-bold leading-tight sm:text-lg lg:text-xl ${colors.titleColor} mb-1 line-clamp-2 sm:mb-2`}
+            >
+              {calculator.name.replace("Calculadora de ", "").replace("Calculadora ", "")}
             </h3>
-            
+
             {/* Description - Subtle */}
-            <p className={`text-xs sm:text-sm leading-snug ${colors.descriptionColor} opacity-80 mb-2 line-clamp-2 sm:line-clamp-3`}>
+            <p
+              className={`text-xs leading-snug sm:text-sm ${colors.descriptionColor} mb-2 line-clamp-2 opacity-80 sm:line-clamp-3`}
+            >
               {calculator.description}
             </p>
           </div>
         </div>
-        
+
         {/* Specific Feature Tags */}
-        <div className="flex flex-wrap gap-1 mb-3">
+        <div className="mb-3 flex flex-wrap gap-1">
           <span className="inline-flex items-center rounded-md bg-gray-700/60 px-2 py-0.5 text-xs font-medium text-gray-300">
             {tags.primary}
           </span>
@@ -315,27 +342,39 @@ export function CalculatorCard({ calculator, category }: CalculatorCardProps) {
 
         {/* Compact CTA Button */}
         <div className="mt-2">
-          <Link to={calculator.path} className="block w-full group/btn">
-            <button className={`w-full ${colors.buttonBg} ${colors.buttonText} px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg font-medium text-xs sm:text-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-1.5`}>
-              <span>Usar Calculadora</span>
-              <svg className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          <Link to={calculator.path} className="group/btn block w-full">
+            <button
+              className={`w-full ${colors.buttonBg} ${colors.buttonText} flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98] sm:px-4 sm:py-2.5 sm:text-sm`}
+            >
+              <span>Acessar</span>
+              <svg
+                className="h-3 w-3 transition-transform duration-300 group-hover/btn:translate-x-0.5 sm:h-4 sm:w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
               </svg>
             </button>
           </Link>
         </div>
 
         {/* Footer with Category and Status */}
-        <div className="mt-2 sm:mt-3 flex items-center justify-between pt-2 border-t border-gray-600/50">
-          <span className={`inline-flex items-center rounded-md ${colors.categoryBadgeBg} px-2 py-0.5 text-xs font-medium ${colors.categoryBadgeText}`}>
+        <div className="mt-2 flex items-center justify-between border-t border-gray-600/50 pt-2 sm:mt-3">
+          <span
+            className={`inline-flex items-center rounded-md ${colors.categoryBadgeBg} px-2 py-0.5 text-xs font-medium ${colors.categoryBadgeText}`}
+          >
             {colors.categoryIcon} {colors.categoryName}
           </span>
-          
+
           <div className="flex items-center gap-1">
-            <div className="h-1.5 w-1.5 rounded-full bg-system-success animate-pulse"></div>
-            <span className="text-xs font-medium text-system-success">
-              Gratuito
-            </span>
+            <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-system-success"></div>
+            <span className="text-xs font-medium text-system-success">Gratuito</span>
           </div>
         </div>
       </CardContent>

@@ -98,11 +98,12 @@ export default function FerramentasIndex() {
               category="ferramentas"
               isPopular={true}
               complexity="basic"
+              ctaText="Usar gerador"
             />
             <div className="rounded-2xl border border-system-info/20 bg-gradient-to-br from-system-info/10 to-system-info/5 p-4 sm:p-6 opacity-60">
               <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info/20 mx-auto sm:mx-0">
-                  <span className="text-xl">🔄</span>
+                  <span className="text-xl">⚖️</span>
                 </div>
                 <h3 className="text-base sm:text-lg font-semibold text-text-primary">Conversor de Unidades</h3>
               </div>
@@ -118,7 +119,7 @@ export default function FerramentasIndex() {
             <div className="rounded-2xl border border-growth-green/20 bg-gradient-to-br from-growth-green/10 to-growth-green/5 p-4 sm:p-6 opacity-60">
               <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green/20 mx-auto sm:mx-0">
-                  <span className="text-xl">📊</span>
+                  <span className="text-xl">🔗</span>
                 </div>
                 <h3 className="text-base sm:text-lg font-semibold text-text-primary">Gerador de Código</h3>
               </div>
@@ -140,10 +141,10 @@ export default function FerramentasIndex() {
         category="ferramentas"
         stats={[
           {
-            icon: "🔧",
-            number: "1+",
+            icon: "🛠️",
+            number: "7+",
             label: "Ferramentas",
-            description: "Soluções práticas",
+            description: "Utilitários prontos",
           },
           {
             icon: "⚡",
@@ -152,16 +153,16 @@ export default function FerramentasIndex() {
             description: "Resultados instantâneos",
           },
           {
-            icon: "📱",
+            icon: "💻",
             number: "100%",
-            label: "Mobile",
-            description: "Compatível móvel",
+            label: "Dev-Ready",
+            description: "Para desenvolvedores",
           },
           {
-            icon: "🎯",
-            number: "24/7",
-            label: "Disponível",
-            description: "Sempre acessível",
+            icon: "🔒",
+            number: "Local",
+            label: "Privacidade",
+            description: "Processamento local",
           },
         ]}
       />
@@ -287,7 +288,7 @@ export default function FerramentasIndex() {
                 <div className="to-system-info/2 rounded-2xl border border-system-info/20 bg-gradient-to-br from-system-info/5 p-4 sm:p-6 opacity-60">
                   <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-info/20 mx-auto sm:mx-0">
-                      <span className="text-xl">🔄</span>
+                      <span className="text-xl">⚖️</span>
                     </div>
                     <div>
                       <h3 className="text-base sm:text-lg font-semibold text-text-primary">
@@ -308,7 +309,7 @@ export default function FerramentasIndex() {
                 <div className="to-growth-green/2 rounded-2xl border border-growth-green/20 bg-gradient-to-br from-growth-green/5 p-4 sm:p-6 opacity-60">
                   <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green/20 mx-auto sm:mx-0">
-                      <span className="text-xl">📊</span>
+                      <span className="text-xl">📱</span>
                     </div>
                     <div>
                       <h3 className="text-base sm:text-lg font-semibold text-text-primary">
