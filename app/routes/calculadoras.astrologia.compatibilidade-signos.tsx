@@ -10,16 +10,16 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora de Compatibilidade de Signos - Grátis 2025" },
+    { title: "Combinação de Signos no Amor | Compatibilidade Astrológica Grátis 2025" },
     {
       name: "description",
       content:
-        "Descubra a compatibilidade astrológica entre signos grátis. Análise completa do amor, amizade, trabalho e elementos astrológicos.",
+        "Áries combina com Libra? Descubra GRÁTIS a compatibilidade entre todos os signos do zodíaco no amor, amizade e trabalho. Análise astrológica completa com percentuais de compatibilidade, pontos fortes, desafios e dicas para relacionamentos.",
     },
     {
       name: "keywords",
       content:
-        "compatibilidade signos, compatibilidade astrológica, signos compatíveis, astrologia amor, compatibilidade zodíaco, mapa astral, relacionamento signos",
+        "combinação de signos, compatibilidade astrológica, signos que combinam, compatibilidade no amor, signos compatíveis, astrologia amor, relacionamento signos, zodíaco compatibilidade, signos opostos, elementos astrológicos, mapa astral compatibilidade, sinastria",
     },
     {
       name: "robots",
@@ -27,24 +27,38 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "author",
-      content: "CalculadoraOnlineBR",
+      content: "CalculadoraOnlineBR - Astrologia",
     },
     {
       name: "viewport",
       content: "width=device-width, initial-scale=1.0",
     },
+    // Geo targeting for Brazilian users
+    {
+      name: "geo.region",
+      content: "BR",
+    },
+    {
+      name: "geo.placename",
+      content: "Brasil",
+    },
+    {
+      name: "language",
+      content: "pt-BR",
+    },
+    // Open Graph tags
     {
       property: "og:title",
-      content: "Calculadora de Compatibilidade de Signos - Grátis 2025",
+      content: "Combinação de Signos no Amor | Teste de Compatibilidade Grátis",
     },
     {
       property: "og:description",
       content:
-        "Descubra a compatibilidade astrológica entre signos grátis. Análise completa do amor, amizade, trabalho e elementos astrológicos.",
+        "🔮 Descubra se vocês combinam! Teste GRÁTIS de compatibilidade entre signos com análise completa de amor, amizade e trabalho. Resultados instantâneos!",
     },
     {
       property: "og:type",
-      content: "website",
+      content: "article",
     },
     {
       property: "og:url",
@@ -58,7 +72,15 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image:alt",
       content:
-        "Calculadora de Compatibilidade de Signos - Interface mostrando seleção de signos e análise de compatibilidade",
+        "Combinação de Signos - Teste de compatibilidade astrológica grátis entre todos os signos do zodíaco",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     {
       property: "og:site_name",
@@ -69,17 +91,30 @@ export const meta: MetaFunction = () => {
       content: "pt_BR",
     },
     {
+      property: "article:author",
+      content: "CalculadoraOnlineBR",
+    },
+    {
+      property: "article:section",
+      content: "Astrologia",
+    },
+    {
+      property: "article:tag",
+      content: "signos, compatibilidade, astrologia, amor, relacionamento",
+    },
+    // Twitter Cards
+    {
       name: "twitter:card",
       content: "summary_large_image",
     },
     {
       name: "twitter:title",
-      content: "Calculadora de Compatibilidade de Signos Grátis 2025",
+      content: "🔮 Combinação de Signos: Teste Grátis de Compatibilidade Astrológica",
     },
     {
       name: "twitter:description",
       content:
-        "Descubra a compatibilidade entre signos GRÁTIS! Análise completa de amor, amizade e trabalho.",
+        "Descubra se vocês combinam! Teste GRÁTIS com análise completa de compatibilidade entre signos no amor, amizade e trabalho.",
     },
     {
       name: "twitter:image",
@@ -88,7 +123,20 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image:alt",
       content:
-        "Calculadora de Compatibilidade de Signos - Interface mostrando seleção de signos e análise de compatibilidade",
+        "Teste de compatibilidade entre signos - Análise astrológica gratuita",
+    },
+    {
+      name: "twitter:creator",
+      content: "@CalculadoraBR",
+    },
+    // Additional SEO tags
+    {
+      name: "format-detection",
+      content: "telephone=no",
+    },
+    {
+      name: "theme-color",
+      content: "#64B5F6",
     },
     {
       rel: "canonical",
@@ -965,33 +1013,76 @@ export default function CalculadoraCompatibilidadeSignos() {
       />
 
       <div className="space-y-8 px-3 py-6 sm:px-6">
-        {/* Structured Data */}
+        {/* Enhanced Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "Calculadora de Compatibilidade de Signos",
+              "@type": ["WebApplication", "Article"],
+              name: "Combinação de Signos no Amor - Compatibilidade Astrológica",
+              headline: "Teste Grátis de Compatibilidade Entre Signos do Zodíaco",
               description:
-                "Calculadora gratuita para descobrir a compatibilidade astrológica entre signos zodiacais",
+                "Descubra GRÁTIS se vocês combinam! Análise completa de compatibilidade astrológica entre todos os signos do zodíaco no amor, amizade e trabalho com percentuais detalhados.",
               url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
-              applicationCategory: "UtilitiesApplication",
+              applicationCategory: ["UtilitiesApplication", "Entertainment"],
               operatingSystem: "Web",
               isAccessibleForFree: true,
+              inLanguage: "pt-BR",
+              author: {
+                "@type": "Organization",
+                name: "CalculadoraOnlineBR",
+                url: "https://www.calculadoraonlinebr.com.br"
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "CalculadoraOnlineBR",
+                url: "https://www.calculadoraonlinebr.com.br",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://www.calculadoraonlinebr.com.br/logo.png"
+                }
+              },
+              datePublished: "2025-01-01",
+              dateModified: new Date().toISOString().split('T')[0],
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos"
+              },
               offers: {
                 "@type": "Offer",
                 price: "0",
                 priceCurrency: "BRL",
+                availability: "https://schema.org/InStock"
               },
               featureList: [
-                "Compatibilidade amorosa",
+                "Compatibilidade amorosa entre signos",
                 "Compatibilidade na amizade",
                 "Compatibilidade profissional",
-                "Análise de elementos astrológicos",
-                "Dicas de relacionamento",
-                "Pontos de crescimento",
+                "Análise de elementos astrológicos (Fogo, Terra, Ar, Água)",
+                "Dicas personalizadas para relacionamentos",
+                "Pontos fortes e desafios do casal",
+                "Percentuais de compatibilidade detalhados"
               ],
+              keywords: "combinação de signos, compatibilidade astrológica, signos que combinam, compatibilidade no amor, astrologia, zodíaco, relacionamento",
+              about: [
+                {
+                  "@type": "Thing",
+                  name: "Astrologia"
+                },
+                {
+                  "@type": "Thing",
+                  name: "Compatibilidade de Signos"
+                },
+                {
+                  "@type": "Thing",
+                  name: "Zodíaco"
+                }
+              ],
+              mentions: [
+                "Áries", "Touro", "Gêmeos", "Câncer", "Leão", "Virgem",
+                "Libra", "Escorpião", "Sagitário", "Capricórnio", "Aquário", "Peixes"
+              ]
             }),
           }}
         />
