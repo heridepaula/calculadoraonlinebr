@@ -28,7 +28,11 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora horas extras, CLT, adicional 50%, 100% domingo feriado, hora extra noturna, Art 59 CLT, trabalhista",
+        "calculadora horas extras, CLT Art 59, adicional 50% 100%, hora extra noturna, trabalhista",
+    },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/horas-extras",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -54,6 +58,17 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-horas-extras-clt.webp",
+    },
+    {
+      property: "og:image:alt",
+      content:
+        "Calculadora de Horas Extras CLT - Interface mostrando cálculo de adicional 50% e 100%",
+    },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
@@ -65,6 +80,10 @@ export const meta: MetaFunction = () => {
         "Ferramenta completa para calcular horas extras: CLT Art. 59, adicional 50% dia útil, 100% domingo/feriado, 20% noturno.",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-horas-extras-clt.webp",
+    },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
@@ -86,7 +105,8 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-01-14",
+        datePublished: "2025-09-14",
+        dateModified: "2025-09-14",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -539,7 +559,9 @@ export default function OvertimeCalculator() {
                 <div className="rounded-lg border border-primary-blue/30 bg-primary-blue/15 p-4">
                   <div className="text-sm text-text-primary">
                     <span className="font-bold text-primary-blue-dark">🌙 Adicional Noturno:</span>{" "}
-                    Trabalho realizado entre <strong>22h e 5h</strong> recebe adicional de <strong>20%</strong> que se acumula com o adicional de horas extras <strong>(CLT Art. 73)</strong>.
+                    Trabalho realizado entre <strong>22h e 5h</strong> recebe adicional de{" "}
+                    <strong>20%</strong> que se acumula com o adicional de horas extras{" "}
+                    <strong>(CLT Art. 73)</strong>.
                   </div>
                 </div>
 
