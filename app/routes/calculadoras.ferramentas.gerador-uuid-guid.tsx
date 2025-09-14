@@ -29,7 +29,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "gerador UUID, gerador GUID, UUID v4, UUID v1, UUID v5, JavaScript UUID, SQL UUID, MongoDB UUID, Python UUID, export UUID, lote UUID",
+        "gerador UUID, UUID v4, GUID generator, Base64 UUID, JavaScript UUID, SQL UUID, MongoDB UUID",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -112,7 +112,7 @@ export const meta: MetaFunction = () => {
     {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "WebApplication",
+        "@type": ["WebApplication", "SoftwareApplication"],
         name: "Gerador de UUID/GUID - Múltiplos Formatos e Tipos 2025",
         description:
           "Ferramenta gratuita para gerar UUIDs/GUIDs com múltiplos formatos de saída (JavaScript, SQL, MongoDB, Python, Base64). Suporte para tipos v1, v4, v5, geração em lote até 1000 IDs, exportação e copy to clipboard.",
@@ -145,7 +145,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-uuid-guid",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-uuid-guid",
           name: "Gerador de UUID/GUID 2025 - Múltiplos Formatos e Tipos",
           description:
             "Gerador de UUID/GUID com múltiplos formatos de saída e tipos. Suporte para JavaScript, SQL, MongoDB, Python, Base64, tipos v1/v4/v5, geração em lote até 1000 e exportação.",
@@ -218,7 +219,13 @@ export const meta: MetaFunction = () => {
           "Exemplos ORM",
           "Interface responsiva",
           "Histórico local",
+          "RFC 4122 compliant",
+          "Compatível com microserviços",
+          "Zero dependências externas",
         ],
+        softwareVersion: "1.0.0",
+        releaseNotes:
+          "Versão inicial com suporte completo a UUID v1, v4, v5 e múltiplos formatos de exportação",
       }),
     },
     {
@@ -250,6 +257,22 @@ export const meta: MetaFunction = () => {
               text: "Sim. UUIDs são amplamente usados em produção como chaves primárias, identificadores de sessão, IDs de recursos em APIs REST, e muito mais. São seguros e únicos globalmente.",
             },
           },
+          {
+            "@type": "Question",
+            name: "Como funciona a codificação Base64 de UUIDs?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A codificação Base64 converte UUIDs (sem hífens) em strings mais compactas para transmissão e armazenamento. Útil em URLs, tokens e sistemas que precisam de identificadores mais curtos mantendo a unicidade.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual a performance de geração em lote?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Este gerador suporta até 1000 UUIDs por vez com performance otimizada. A geração é local no navegador, sem dependências de servidor, garantindo velocidade e privacidade dos dados.",
+            },
+          },
         ],
       }),
     },
@@ -257,7 +280,15 @@ export const meta: MetaFunction = () => {
 };
 
 type UuidVersion = "v1" | "v4" | "v5" | "guid" | "no-hyphens";
-type OutputFormat = "simple" | "js-array" | "sql-server" | "mongodb" | "postgresql" | "python" | "json" | "base64";
+type OutputFormat =
+  | "simple"
+  | "js-array"
+  | "sql-server"
+  | "mongodb"
+  | "postgresql"
+  | "python"
+  | "json"
+  | "base64";
 
 interface UuidResult {
   id: string;
@@ -320,9 +351,9 @@ export default function UuidGenerator() {
 
   // Generate random UUID v4
   const generateUuidV4 = (): string => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = Math.random() * 16 | 0;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   };
@@ -331,15 +362,18 @@ export default function UuidGenerator() {
   const generateUuidV1 = (): string => {
     const timestamp = Date.now();
     const randomNode = Math.floor(Math.random() * 0xffffffffffff);
-    const timeHex = timestamp.toString(16).padStart(12, '0');
+    const timeHex = timestamp.toString(16).padStart(12, "0");
 
     return [
       timeHex.slice(-8),
       timeHex.slice(-12, -8),
-      '1' + timeHex.slice(-15, -12),
-      '8' + Math.floor(Math.random() * 16).toString(16) + Math.floor(Math.random() * 16).toString(16) + Math.floor(Math.random() * 16).toString(16),
-      randomNode.toString(16).padStart(12, '0')
-    ].join('-');
+      "1" + timeHex.slice(-15, -12),
+      "8" +
+        Math.floor(Math.random() * 16).toString(16) +
+        Math.floor(Math.random() * 16).toString(16) +
+        Math.floor(Math.random() * 16).toString(16),
+      randomNode.toString(16).padStart(12, "0"),
+    ].join("-");
   };
 
   // Generate namespace-based UUID v5 (simplified using hash)
@@ -348,10 +382,10 @@ export default function UuidGenerator() {
     return [
       hash.slice(0, 8),
       hash.slice(8, 12),
-      '5' + hash.slice(13, 16),
-      '8' + hash.slice(17, 20),
-      hash.slice(20, 32)
-    ].join('-');
+      "5" + hash.slice(13, 16),
+      "8" + hash.slice(17, 20),
+      hash.slice(20, 32),
+    ].join("-");
   };
 
   // Simple hash function for UUID v5
@@ -359,10 +393,10 @@ export default function UuidGenerator() {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
-    return Math.abs(hash).toString(16).padStart(32, '0');
+    return Math.abs(hash).toString(16).padStart(32, "0");
   };
 
   // Format UUID based on version type
@@ -371,7 +405,7 @@ export default function UuidGenerator() {
       case "guid":
         return `{${baseUuid.toUpperCase()}}`;
       case "no-hyphens":
-        return baseUuid.replace(/-/g, '');
+        return baseUuid.replace(/-/g, "");
       default:
         return baseUuid;
     }
@@ -406,23 +440,29 @@ export default function UuidGenerator() {
       case "js-array":
         return `const uuids = [\n  "${uuids.join('",\n  "')}"\n];`;
       case "sql-server":
-        return uuids.map(uuid => `INSERT INTO table (id) VALUES ('${uuid}');`).join('\n');
+        return uuids.map((uuid) => `INSERT INTO table (id) VALUES ('${uuid}');`).join("\n");
       case "mongodb":
-        return `db.collection.insertMany([\n  ${uuids.map(uuid => `{ _id: "${uuid}" }`).join(',\n  ')}\n]);`;
+        return `db.collection.insertMany([\n  ${uuids.map((uuid) => `{ _id: "${uuid}" }`).join(",\n  ")}\n]);`;
       case "postgresql":
         return `ARRAY['${uuids.join("', '")}']::UUID[]`;
       case "python":
         return `uuids = [\n    "${uuids.join('",\n    "')}"\n]`;
       case "json":
-        return JSON.stringify({ uuids, count: uuids.length, generated_at: new Date().toISOString() }, null, 2);
+        return JSON.stringify(
+          { uuids, count: uuids.length, generated_at: new Date().toISOString() },
+          null,
+          2
+        );
       case "base64":
-        return uuids.map(uuid => {
-          const base64 = btoa(uuid.replace(/-/g, ''));
-          return `${uuid} => ${base64}`;
-        }).join('\n');
+        return uuids
+          .map((uuid) => {
+            const base64 = btoa(uuid.replace(/-/g, ""));
+            return `${uuid} => ${base64}`;
+          })
+          .join("\n");
       case "simple":
       default:
-        return uuids.join('\n');
+        return uuids.join("\n");
     }
   };
 
@@ -453,32 +493,36 @@ export default function UuidGenerator() {
 
   // Export function
   const exportUuids = (format: "txt" | "json" | "sql") => {
-    const uuids = results.map(r => r.uuid);
+    const uuids = results.map((r) => r.uuid);
     let content: string;
     let filename: string;
     let mimeType: string;
 
     switch (format) {
       case "txt":
-        content = uuids.join('\n');
+        content = uuids.join("\n");
         filename = `uuids-${Date.now()}.txt`;
-        mimeType = 'text/plain';
+        mimeType = "text/plain";
         break;
       case "json":
-        content = JSON.stringify({ uuids, metadata: { count: uuids.length, generated_at: new Date().toISOString() } }, null, 2);
+        content = JSON.stringify(
+          { uuids, metadata: { count: uuids.length, generated_at: new Date().toISOString() } },
+          null,
+          2
+        );
         filename = `uuids-${Date.now()}.json`;
-        mimeType = 'application/json';
+        mimeType = "application/json";
         break;
       case "sql":
-        content = uuids.map(uuid => `INSERT INTO table (id) VALUES ('${uuid}');`).join('\n');
+        content = uuids.map((uuid) => `INSERT INTO table (id) VALUES ('${uuid}');`).join("\n");
         filename = `uuids-${Date.now()}.sql`;
-        mimeType = 'text/sql';
+        mimeType = "text/sql";
         break;
     }
 
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = filename;
     document.body.appendChild(a);
@@ -554,7 +598,7 @@ export default function UuidGenerator() {
 
   const handleCopyOutput = async () => {
     if (results.length === 0) return;
-    const uuids = results.map(r => r.uuid);
+    const uuids = results.map((r) => r.uuid);
     const formattedOutput = formatOutput(uuids, outputFormat);
     const copied = await copyToClipboard(formattedOutput);
 
@@ -593,8 +637,8 @@ export default function UuidGenerator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Gere <strong className="text-primary-blue-dark">UUIDs/GUIDs únicos</strong> com múltiplos{" "}
-          <strong className="text-growth-green">formatos de saída</strong>. Suporte para tipos v1, v4, v5,
-          geração em lote e exportação para desenvolvimento.
+          <strong className="text-growth-green">formatos de saída</strong>. Suporte para tipos v1,
+          v4, v5, geração em lote e exportação para desenvolvimento.
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -702,7 +746,9 @@ export default function UuidGenerator() {
                   </strong>
                 </p>
                 <p className="mt-1 text-xs text-text-secondary opacity-80">
-                  {copySuccess ? "✓ UUID copiado para área de transferência!" : "O primeiro UUID será copiado automaticamente"}
+                  {copySuccess
+                    ? "✓ UUID copiado para área de transferência!"
+                    : "O primeiro UUID será copiado automaticamente"}
                 </p>
               </div>
             </div>
@@ -730,7 +776,8 @@ export default function UuidGenerator() {
           <Card className="border-2 border-growth-green bg-growth-green-soft">
             <CardHeader>
               <CardTitle as="h3" className="text-growth-green">
-                🎉 {results.length} UUID{results.length > 1 ? "s" : ""} Gerado{results.length > 1 ? "s" : ""} com Sucesso!
+                🎉 {results.length} UUID{results.length > 1 ? "s" : ""} Gerado
+                {results.length > 1 ? "s" : ""} com Sucesso!
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -738,7 +785,9 @@ export default function UuidGenerator() {
                 {/* Saída formatada */}
                 <div className="rounded-lg bg-gray-900 p-6">
                   <div className="mb-4 flex items-center justify-between">
-                    <h4 className="text-lg font-semibold text-primary-blue-dark">Resultado ({outputFormat})</h4>
+                    <h4 className="text-lg font-semibold text-primary-blue-dark">
+                      Resultado ({outputFormat})
+                    </h4>
                     <div className="flex gap-2">
                       <Button
                         onClick={handleCopyOutput}
@@ -751,7 +800,10 @@ export default function UuidGenerator() {
                     </div>
                   </div>
                   <pre className="overflow-x-auto rounded bg-gray-800 p-4 text-sm text-green-400">
-                    {formatOutput(results.map(r => r.uuid), outputFormat)}
+                    {formatOutput(
+                      results.map((r) => r.uuid),
+                      outputFormat
+                    )}
                   </pre>
                 </div>
 
@@ -818,7 +870,8 @@ export default function UuidGenerator() {
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🔍 Definição</h4>
                   <p className="mb-4 text-sm text-text-secondary">
                     UUID (Universally Unique Identifier) ou GUID (Globally Unique Identifier) são
-                    identificadores únicos de 128 bits usados para garantir unicidade em sistemas distribuídos.
+                    identificadores únicos de 128 bits usados para garantir unicidade em sistemas
+                    distribuídos.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Formato</h4>
@@ -900,15 +953,21 @@ export default function UuidGenerator() {
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h4 className="mb-3 font-semibold text-system-success">🔧 Linguagens de Programação</h4>
+                  <h4 className="mb-3 font-semibold text-system-success">
+                    🔧 Linguagens de Programação
+                  </h4>
                   <ul className="mb-4 space-y-2 text-sm text-text-secondary">
                     <li>
                       <strong>JavaScript/TypeScript:</strong>
-                      <code className="block rounded bg-gray-800 p-1 text-xs">const ids = ["uuid1", "uuid2"];</code>
+                      <code className="block rounded bg-gray-800 p-1 text-xs">
+                        const ids = ["uuid1", "uuid2"];
+                      </code>
                     </li>
                     <li>
                       <strong>Python:</strong>
-                      <code className="block rounded bg-gray-800 p-1 text-xs">uuids = ["uuid1", "uuid2"]</code>
+                      <code className="block rounded bg-gray-800 p-1 text-xs">
+                        uuids = ["uuid1", "uuid2"]
+                      </code>
                     </li>
                   </ul>
                 </div>
@@ -918,11 +977,15 @@ export default function UuidGenerator() {
                   <ul className="space-y-2 text-sm text-text-secondary">
                     <li>
                       <strong>SQL Server:</strong>
-                      <code className="block rounded bg-gray-800 p-1 text-xs">INSERT INTO table VALUES ('uuid');</code>
+                      <code className="block rounded bg-gray-800 p-1 text-xs">
+                        INSERT INTO table VALUES ('uuid');
+                      </code>
                     </li>
                     <li>
                       <strong>MongoDB:</strong>
-                      <code className="block rounded bg-gray-800 p-1 text-xs">db.col.insertMany([{`{_id: "uuid"}`}]);</code>
+                      <code className="block rounded bg-gray-800 p-1 text-xs">
+                        db.col.insertMany([{`{_id: "uuid"}`}]);
+                      </code>
                     </li>
                   </ul>
                 </div>
@@ -993,7 +1056,7 @@ export default function UuidGenerator() {
               <div>
                 <h4 className="mb-2 font-semibold text-primary-blue-dark">JavaScript/Node.js</h4>
                 <pre className="rounded bg-gray-800 p-3 text-xs text-green-400">
-{`// Nativo (moderno)
+                  {`// Nativo (moderno)
 const uuid = crypto.randomUUID();
 
 // Com biblioteca uuid
@@ -1005,7 +1068,7 @@ const uuid = uuidv4();`}
               <div>
                 <h4 className="mb-2 font-semibold text-primary-blue-dark">Python</h4>
                 <pre className="rounded bg-gray-800 p-3 text-xs text-green-400">
-{`import uuid
+                  {`import uuid
 
 # UUID v4 (random)
 uuid4 = str(uuid.uuid4())
@@ -1018,7 +1081,7 @@ uuid1 = str(uuid.uuid1())`}
               <div>
                 <h4 className="mb-2 font-semibold text-primary-blue-dark">C#/.NET</h4>
                 <pre className="rounded bg-gray-800 p-3 text-xs text-green-400">
-{`// Novo GUID
+                  {`// Novo GUID
 var guid = Guid.NewGuid();
 var guidString = guid.ToString();
 
@@ -1031,7 +1094,7 @@ guid.ToString("N"); // sem hífens`}
               <div>
                 <h4 className="mb-2 font-semibold text-primary-blue-dark">SQL</h4>
                 <pre className="rounded bg-gray-800 p-3 text-xs text-green-400">
-{`-- SQL Server
+                  {`-- SQL Server
 SELECT NEWID() as uuid;
 
 -- PostgreSQL
