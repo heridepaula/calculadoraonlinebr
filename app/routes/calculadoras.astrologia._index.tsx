@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora astrológica grátis, mapa astral online, ascendente astrológico, compatibilidade signos, numerologia pessoal, horóscopo, autoconhecimento, espiritualidade, zodíaco brasileiro",
+        "calculadora astrológica grátis, mapa astral online, ascendente astrológico, compatibilidade signos, horóscopo, autoconhecimento, espiritualidade, zodíaco brasileiro",
     },
     {
       name: "robots",
@@ -77,7 +77,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:description",
-      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais.",
+      content: "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, mapa astral e mais.",
     },
     {
       name: "twitter:image",
@@ -126,7 +126,7 @@ export default function AstrologiaIndex() {
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#webpage",
                 "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
                 "name": "Calculadoras de Astrologia Grátis 2025",
-                "description": "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, numerologia e mais. Ferramentas confiáveis para autoconhecimento.",
+                "description": "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, mapa astral e mais. Ferramentas confiáveis para autoconhecimento.",
                 "isPartOf": {
                   "@id": "https://www.calculadoraonlinebr.com.br/#website"
                 },
@@ -160,9 +160,9 @@ export default function AstrologiaIndex() {
                     },
                     {
                       "@type": "SoftwareApplication",
-                      "name": "Calculadora de Numerologia",
-                      "description": "Explore os números da sua vida e descubra seus significados ocultos",
-                      "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
+                      "name": "Descubra Seu Signo",
+                      "description": "Descubra seu signo zodiacal baseado na data de nascimento. Conheça as características do seu signo solar na astrologia",
+                      "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
                       "applicationCategory": "UtilitiesApplication",
                       "operatingSystem": "Web",
                       "isAccessibleForFree": true
@@ -250,10 +250,10 @@ export default function AstrologiaIndex() {
               complexity="basic"
             />
             <QuickAccessCard
-              title="Numerologia"
-              description="Explore os números da sua vida e descubra seus significados ocultos."
-              icon="🔢"
-              href="/calculadoras/astrologia/numerologia"
+              title="Descubra Seu Signo"
+              description="Descubra seu signo zodiacal baseado na data de nascimento."
+              icon="♈"
+              href="/calculadoras/astrologia/signo"
               category="astrologia"
               complexity="basic"
             />
@@ -321,10 +321,10 @@ export default function AstrologiaIndex() {
                   <span className="text-math-purple-dark">•</span> Ascendente Astrológico
                 </div>
                 <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
-                  <span className="text-math-purple-dark">•</span> Mapa Astral Completo
+                  <span className="text-math-purple-dark">•</span> Descubra Seu Signo
                 </div>
                 <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
-                  <span className="text-math-purple-dark">•</span> Planetas em Signos
+                  <span className="text-math-purple-dark">•</span> Mapa Astral Completo
                 </div>
               </div>
             </div>
@@ -353,29 +353,6 @@ export default function AstrologiaIndex() {
               </div>
             </div>
 
-            {/* Numerology & Divination */}
-            <div className="group rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-6 sm:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-finance-gold/25">
-              <div className="flex flex-col items-center text-center space-y-3 mb-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                  <span className="text-xl">🔢</span>
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Numerologia</h3>
-              </div>
-              <p className="text-sm text-text-secondary mb-4 text-center">
-                Explore o poder dos números e sua influência na sua vida
-              </p>
-              <div className="space-y-2">
-                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
-                  <span className="text-finance-gold-dark">•</span> Número do Destino
-                </div>
-                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
-                  <span className="text-finance-gold-dark">•</span> Número da Alma
-                </div>
-                <div className="text-sm group-hover:translate-x-1 transition-transform duration-300">
-                  <span className="text-finance-gold-dark">•</span> Compatibilidade Numérica
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -428,12 +405,6 @@ export default function AstrologiaIndex() {
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl">💕</span>
                     <span className="font-medium">Compatibilidade de Signos</span>
-                  </div>
-                </div>
-                <div className="bg-background-primary/50 rounded-lg p-4">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">🔢</span>
-                    <span className="font-medium">Numerologia Pessoal</span>
                   </div>
                 </div>
                 <div className="bg-background-primary/50 rounded-lg p-4">
