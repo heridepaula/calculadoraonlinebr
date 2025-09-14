@@ -314,6 +314,14 @@ export const CALCULATORS = [
     path: "/calculadoras/trabalhista/ferias-decimo-terceiro",
   },
   {
+    id: "horas-extras",
+    name: "Calculadora de Horas Extras CLT",
+    description:
+      "Calcule horas extras conforme CLT Art. 59: adicional 50% dia útil, 100% domingo/feriado, 20% noturno. Base legal garantida",
+    category: "trabalhista",
+    path: "/calculadoras/trabalhista/horas-extras",
+  },
+  {
     id: "diferenca-entre-datas",
     name: "Calculadora de Diferença entre Datas",
     description:
