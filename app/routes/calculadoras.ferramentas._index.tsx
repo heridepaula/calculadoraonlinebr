@@ -14,31 +14,31 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Ferramentas Grátis: Datas, CPF e Conversões Online" },
+    { title: "Ferramentas Grátis: CPF, CNPJ, UUID, Datas e Conversões Online" },
     {
       name: "description",
       content:
-        "Ferramentas práticas gratuitas para o dia a dia. Calcule diferenças entre datas, gere CPF, converta unidades e simplifique cálculos cotidianos.",
+        "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
     },
     {
       name: "keywords",
       content:
-        "calculadora ferramentas, diferença entre datas, calcular idade, dias úteis, conversores, utilidades, ferramentas online, calculadora data, intervalo datas, contador dias, ferramentas práticas",
+        "gerador CPF, gerador CNPJ, gerador UUID, validador CPF, validador CNPJ, contador caracteres, gerador cartão crédito, ferramentas desenvolvedor",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
-    { property: "og:title", content: "Ferramentas Grátis: Datas, CPF e Conversões Online" },
+    { property: "og:title", content: "Ferramentas Grátis: CPF, CNPJ, UUID, Datas e Conversões Online" },
     {
       property: "og:description",
       content:
-        "Ferramentas práticas gratuitas para o dia a dia. Calcule diferenças entre datas, gere CPF, converta unidades e simplifique cálculos cotidianos.",
+        "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: "Ferramentas Grátis: Datas, CPF e Conversões Online" },
+    { name: "twitter:title", content: "Ferramentas Grátis: CPF, CNPJ, UUID, Datas e Conversões Online" },
     {
       name: "twitter:description",
       content:
-        "Ferramentas práticas gratuitas para o dia a dia. Calcule diferenças entre datas, gere CPF, converta unidades e simplifique cálculos cotidianos.",
+        "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
     },
   ];
 };
@@ -65,7 +65,7 @@ export default function FerramentasIndex() {
         category="ferramentas"
         title="Calculadoras e"
         subtitle="Ferramentas"
-        description="Simplifique seu dia a dia com ferramentas práticas para **datas, conversões e cálculos cotidianos**. Soluções rápidas e confiáveis para suas necessidades diárias."
+        description="Ferramentas práticas para **desenvolvedores e uso diário**. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas. Soluções rápidas e confiáveis."
         badge={{
           icon: "🔧",
           text: "Ferramentas Práticas para o Dia a Dia",
@@ -91,10 +91,10 @@ export default function FerramentasIndex() {
 
           <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <QuickAccessCard
-              title="Diferença entre Datas"
-              description="Calcule a diferença exata entre duas datas em anos, meses, dias e horas. Ideal para idade e prazos."
-              icon="📅"
-              href="/calculadoras/ferramentas/diferenca-entre-datas"
+              title="Gerador de CPF"
+              description="Gere CPFs válidos para testes e desenvolvimento com formatação automática e cópia para área de transferência."
+              icon="🆔"
+              href="/calculadoras/ferramentas/gerador-cpf"
               category="ferramentas"
               isPopular={true}
               complexity="basic"
@@ -179,35 +179,31 @@ export default function FerramentasIndex() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:gap-8 lg:grid-cols-3">
-            {/* Date & Time Tools */}
+            {/* Development Tools */}
             <div className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-blue/25">
               <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110 mx-auto sm:mx-0">
-                  <span className="text-xl">📅</span>
+                  <span className="text-xl">💻</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Datas e Tempo</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Desenvolvimento</h3>
               </div>
               <p className="mb-4 text-sm text-text-secondary">
-                Calculadoras para trabalhar com datas, horários e intervalos
+                Ferramentas essenciais para desenvolvedores e testes
               </p>
               <div className="space-y-2">
                 {ferramentasCalculators
-                  .filter((calc) => ["diferenca-entre-datas"].includes(calc.id))
+                  .filter((calc) => ["gerador-cpf", "gerador-cnpj", "gerador-uuid-guid", "validar-cpf", "validar-cnpj"].includes(calc.id))
                   .map((calc) => (
                     <div
                       key={calc.id}
                       className="text-sm transition-transform duration-300 group-hover:translate-x-1"
                     >
                       <span className="text-primary-blue-dark">•</span>{" "}
-                      {calc.name.replace("Calculadora de ", "").replace("Calculadora ", "")}
+                      {calc.name.replace("Gerador de ", "").replace("Validador de ", "").replace("Calculadora de ", "")}
                     </div>
                   ))}
                 <div className="text-sm opacity-60 transition-transform duration-300 group-hover:translate-x-1">
-                  <span className="text-primary-blue-dark">•</span> Adicionar/Subtrair Datas (em
-                  breve)
-                </div>
-                <div className="text-sm opacity-60 transition-transform duration-300 group-hover:translate-x-1">
-                  <span className="text-primary-blue-dark">•</span> Fuso Horário (em breve)
+                  <span className="text-primary-blue-dark">•</span> Gerador de Senhas (em breve)
                 </div>
               </div>
             </div>
@@ -236,26 +232,31 @@ export default function FerramentasIndex() {
               </div>
             </div>
 
-            {/* Generators */}
+            {/* Text & Content Tools */}
             <div className="group rounded-2xl bg-gradient-to-br from-growth-green/10 to-growth-green/5 p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-growth-green/25">
               <div className="mb-4 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-center sm:text-left">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-growth-green text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110 mx-auto sm:mx-0">
-                  <span className="text-xl">📊</span>
+                  <span className="text-xl">📝</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Geradores</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary">Texto e Conteúdo</h3>
               </div>
               <p className="mb-4 text-sm text-text-secondary">
-                Gere códigos, senhas e outros elementos úteis
+                Ferramentas para análise e manipulação de texto
               </p>
               <div className="space-y-2">
+                {ferramentasCalculators
+                  .filter((calc) => ["contador-caracteres", "gerador-cartao-credito"].includes(calc.id))
+                  .map((calc) => (
+                    <div
+                      key={calc.id}
+                      className="text-sm transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      <span className="text-growth-green-dark">•</span>{" "}
+                      {calc.name.replace("Gerador de ", "").replace("Contador de ", "")}
+                    </div>
+                  ))}
                 <div className="text-sm opacity-60 transition-transform duration-300 group-hover:translate-x-1">
                   <span className="text-growth-green-dark">•</span> Código QR (em breve)
-                </div>
-                <div className="text-sm opacity-60 transition-transform duration-300 group-hover:translate-x-1">
-                  <span className="text-growth-green-dark">•</span> Gerador de Senhas (em breve)
-                </div>
-                <div className="text-sm opacity-60 transition-transform duration-300 group-hover:translate-x-1">
-                  <span className="text-growth-green-dark">•</span> Hash Generator (em breve)
                 </div>
               </div>
             </div>

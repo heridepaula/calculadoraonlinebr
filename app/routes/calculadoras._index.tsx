@@ -9,19 +9,19 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Explore nossas calculadoras organizadas por categoria: Saúde, Finanças e Matemática. Ferramentas gratuitas para facilitar seu dia a dia.",
+        "Explore nossas calculadoras organizadas por categoria: Saúde, Finanças, Matemática, Trabalhista, Ferramentas, Astrologia e Datas. Ferramentas gratuitas para facilitar seu dia a dia.",
     },
     {
       name: "keywords",
       content:
-        "calculadoras online, categorias, saúde, finanças, matemática, ferramentas gratuitas, calcular",
+        "calculadoras online, categorias, saúde, finanças, matemática, trabalhista, ferramentas, astrologia, datas, calcular",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { property: "og:title", content: `Calculadoras por Categoria - ${APP_NAME}` },
     {
       property: "og:description",
       content:
-        "Acesse calculadoras organizadas por categoria. Saúde, finanças e matemática em um só lugar.",
+        "Acesse calculadoras organizadas por categoria. Saúde, finanças, matemática, trabalhista, ferramentas, astrologia e datas em um só lugar.",
     },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
