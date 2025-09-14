@@ -406,6 +406,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/gerador-cartao-credito",
   },
   {
+    id: "gerador-uuid-guid",
+    name: "Gerador de UUID/GUID",
+    description:
+      "Gere UUIDs/GUIDs únicos com múltiplos formatos (JS, SQL, MongoDB, Python, Base64). Tipos v1, v4, v5, geração em lote até 1000, export e copy to clipboard",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/gerador-uuid-guid",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
