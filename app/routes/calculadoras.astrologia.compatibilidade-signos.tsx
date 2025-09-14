@@ -336,37 +336,37 @@ const SignSelector = ({
   return (
     <div>
       <label className="mb-3 block text-sm font-medium text-text-primary">{label}</label>
-      <div className="grid grid-cols-3 gap-3 md:grid-cols-6">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-6">
         {SIGNOS.map((signo) => (
           <button
             key={signo.id}
             type="button"
             disabled={disabled}
             onClick={() => onChange(signo.id)}
-            className={`group relative flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all duration-200 hover:scale-105 ${
+            className={`group relative flex flex-col items-center justify-center rounded-lg border-2 p-2 sm:p-3 md:p-4 text-center transition-all duration-300 hover:scale-105 ${
               value === signo.id
-                ? `border-primary-blue bg-gradient-to-br ${signo.cores} text-white shadow-lg`
-                : "bg-background-primary border-neutral-surface-variant text-text-primary hover:border-primary-blue hover:shadow-md"
-            } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} aspect-square min-h-[100px]`}
+                ? `border-primary-blue bg-gradient-to-br ${signo.cores} text-white shadow-lg shadow-primary-blue/25`
+                : "bg-background-primary border-neutral-surface-variant text-text-primary hover:border-primary-blue hover:shadow-md hover:bg-primary-blue/5"
+            } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} aspect-square min-h-[85px] sm:min-h-[100px] md:min-h-[120px]`}
           >
             {/* Símbolo do signo */}
             <div
-              className={`mb-2 text-4xl md:text-5xl ${value === signo.id ? "text-white" : "text-text-primary"}`}
+              className={`mb-1 sm:mb-1.5 md:mb-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl transition-all duration-300 ${value === signo.id ? "text-white drop-shadow-sm" : "text-text-primary"}`}
             >
               {signo.simbolo}
             </div>
 
             {/* Nome do signo */}
             <div
-              className={`text-sm md:text-base font-semibold ${value === signo.id ? "text-white" : "text-text-primary"}`}
+              className={`text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold leading-tight px-0.5 transition-all duration-300 ${value === signo.id ? "text-white drop-shadow-sm" : "text-text-primary"}`}
             >
               {signo.nome}
             </div>
 
-            {/* Elemento (apenas para telas maiores) */}
+            {/* Elemento - visível apenas em telas maiores no mobile */}
             <div
-              className={`mt-1 hidden text-xs md:text-sm font-medium sm:block ${
-                value === signo.id ? "text-white/80" : "text-text-secondary"
+              className={`mt-0.5 hidden text-[8px] font-medium sm:block sm:text-[10px] md:text-xs lg:text-sm transition-all duration-300 ${
+                value === signo.id ? "text-white/85 drop-shadow-sm" : "text-text-secondary"
               }`}
             >
               {signo.elemento}
