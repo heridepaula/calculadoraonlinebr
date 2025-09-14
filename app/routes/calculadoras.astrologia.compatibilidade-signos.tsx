@@ -343,29 +343,29 @@ const SignSelector = ({
             type="button"
             disabled={disabled}
             onClick={() => onChange(signo.id)}
-            className={`group relative flex flex-col items-center justify-center rounded-lg border-2 p-3 text-center transition-all duration-200 hover:scale-105 ${
+            className={`group relative flex flex-col items-center justify-center rounded-lg border-2 p-4 text-center transition-all duration-200 hover:scale-105 ${
               value === signo.id
                 ? `border-primary-blue bg-gradient-to-br ${signo.cores} text-white shadow-lg`
                 : "bg-background-primary border-neutral-surface-variant text-text-primary hover:border-primary-blue hover:shadow-md"
-            } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} aspect-square min-h-[80px]`}
+            } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} aspect-square min-h-[100px]`}
           >
             {/* Símbolo do signo */}
             <div
-              className={`mb-1 text-2xl ${value === signo.id ? "text-white" : "text-text-primary"}`}
+              className={`mb-2 text-4xl md:text-5xl ${value === signo.id ? "text-white" : "text-text-primary"}`}
             >
               {signo.simbolo}
             </div>
 
             {/* Nome do signo */}
             <div
-              className={`text-xs font-medium ${value === signo.id ? "text-white" : "text-text-primary"}`}
+              className={`text-sm md:text-base font-semibold ${value === signo.id ? "text-white" : "text-text-primary"}`}
             >
               {signo.nome}
             </div>
 
             {/* Elemento (apenas para telas maiores) */}
             <div
-              className={`mt-1 hidden text-[10px] sm:block ${
+              className={`mt-1 hidden text-xs md:text-sm font-medium sm:block ${
                 value === signo.id ? "text-white/80" : "text-text-secondary"
               }`}
             >
