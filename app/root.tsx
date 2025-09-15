@@ -11,7 +11,7 @@ import { useGoogleAnalytics } from "~/hooks/useGoogleAnalytics";
 import { isGAEnabled, GA_TRACKING_ID } from "~/lib/google-analytics";
 import { useCloudflareAnalyticsSimple } from "~/hooks/useCloudflareAnalytics";
 import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytics";
-import { CookieConsent } from "~/components";
+import { CookieConsent, CSSLoadingDetector } from "~/components";
 import { Footer } from "~/components/layout/Footer";
 
 import "./tailwind.css";
@@ -167,6 +167,34 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
 
+        {/* Critical CSS - Inline for reliability */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Critical CSS fallback to prevent FOUC */
+            body {
+              background-color: #121212;
+              color: #ffffff;
+              font-family: Inter, sans-serif;
+              margin: 0;
+              min-height: 100vh;
+            }
+            /* Loading spinner for CSS loading issues */
+            .css-loading:after {
+              content: "";
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              border: 3px solid #64B5F6;
+              border-radius: 50%;
+              border-top-color: transparent;
+              animation: spin 1s ease-in-out infinite;
+            }
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          `
+        }} />
+
         {/* Analytics Scripts - apenas em produção */}
         {data?.ENV?.NODE_ENV === "production" && (
           <>
@@ -307,6 +335,9 @@ export default function App() {
 
             <Footer />
           </div>
+
+          {/* CSS Loading Detector */}
+          <CSSLoadingDetector />
 
           {/* Cookie Consent Banner */}
           <CookieConsent />

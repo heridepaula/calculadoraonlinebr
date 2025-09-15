@@ -4,6 +4,7 @@ export { CalculatorCard } from "./CalculatorCard";
 export { CategoryCard } from "./CategoryCard";
 export { AdSense, HeaderAd, SidebarAd, InContentAd, FooterAd, ResponsiveAd } from "./AdSense";
 export { CookieConsent, useCookieConsent, shouldLoadAnalytics } from "./CookieConsent";
+export { CSSLoadingDetector } from "./CSSLoadingDetector";
 export { default as CategoryHero } from "./CategoryHero";
 export { default as CategoryStats } from "./CategoryStats";
 export { default as QuickAccessCard } from "./QuickAccessCard";
