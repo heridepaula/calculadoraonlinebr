@@ -437,6 +437,14 @@ export const CALCULATORS = [
     category: "astrologia",
     path: "/calculadoras/astrologia/compatibilidade-signos",
   },
+  {
+    id: "numerologia",
+    name: "Calculadora de Numerologia",
+    description:
+      "Descubra seus números da vida, personalidade, destino e alma. Interpretações detalhadas baseadas em nome completo e data de nascimento",
+    category: "astrologia",
+    path: "/calculadoras/astrologia/numerologia",
+  },
 ];
 
 export const BREAKPOINTS = {
