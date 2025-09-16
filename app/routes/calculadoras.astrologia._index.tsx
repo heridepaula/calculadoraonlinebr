@@ -365,6 +365,30 @@ export default function AstrologiaIndex() {
                 </div>
               </div>
             </div>
+
+            {/* Numerology & Mystical */}
+            <div className="group rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-6 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-finance-gold/25 sm:p-8">
+              <div className="mb-4 flex flex-col items-center space-y-3 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
+                  <span className="text-xl">🔢</span>
+                </div>
+                <h3 className="text-lg font-bold text-text-primary sm:text-xl">Numerologia</h3>
+              </div>
+              <p className="mb-4 text-center text-sm text-text-secondary">
+                Explore os mistérios dos números e seu significado pessoal
+              </p>
+              <div className="space-y-2">
+                <div className="text-sm transition-transform duration-300 group-hover:translate-x-1">
+                  <span className="text-finance-gold-dark">•</span> Número da Personalidade
+                </div>
+                <div className="text-sm transition-transform duration-300 group-hover:translate-x-1">
+                  <span className="text-finance-gold-dark">•</span> Caminho de Vida
+                </div>
+                <div className="text-sm transition-transform duration-300 group-hover:translate-x-1">
+                  <span className="text-finance-gold-dark">•</span> Números do Destino
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

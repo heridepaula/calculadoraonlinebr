@@ -252,8 +252,8 @@ const CitySearch = ({ onCitySelect }: { onCitySelect: (city: City) => void }) =>
           value={query}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
-          placeholder="Digite sua cidade (ex: São Paulo, Rio de Janeiro...)"
-          className="bg-background-primary w-full rounded-lg border-2 border-neutral-surface-variant p-3 pr-10 text-text-primary transition-all duration-200 placeholder:text-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/30"
+          placeholder="Digite sua cidade..."
+          className="bg-background-primary w-full rounded-lg border-2 border-neutral-surface-variant p-3 pr-10 text-text-primary transition-all duration-200 placeholder:text-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/30 text-sm sm:text-base"
           autoComplete="off"
         />
 
@@ -280,7 +280,7 @@ const CitySearch = ({ onCitySelect }: { onCitySelect: (city: City) => void }) =>
 
         {/* Dropdown de cidades */}
         {showDropdown && (
-          <div className="absolute left-0 right-0 top-full z-[9999] mt-1 max-h-64 overflow-y-auto rounded-lg border-2 border-neutral-surface-variant/50 bg-white shadow-2xl backdrop-blur-sm dark:bg-gray-800">
+          <div className="absolute left-0 right-0 top-full z-[9999] mt-1 max-h-60 sm:max-h-64 overflow-y-auto rounded-lg border-2 border-neutral-surface-variant/50 bg-white shadow-2xl backdrop-blur-sm dark:bg-gray-800 max-w-full">
             {cities.length > 0 ? (
               <>
                 <div className="border-b border-neutral-surface-variant/20 bg-primary-blue/5 px-3 py-2 text-xs font-semibold text-primary-blue">
@@ -290,21 +290,25 @@ const CitySearch = ({ onCitySelect }: { onCitySelect: (city: City) => void }) =>
                 {cities.map((city, index) => (
                   <button
                     key={`${city.city}-${city.state}-${index}`}
-                    className="w-full border-b border-gray-100 p-4 text-left transition-colors duration-200 last:border-b-0 hover:bg-primary-blue/10 focus:bg-primary-blue/10 focus:outline-none dark:border-gray-700"
+                    className="w-full border-b border-gray-100 p-3 sm:p-4 text-left transition-colors duration-200 last:border-b-0 hover:bg-primary-blue/10 focus:bg-primary-blue/10 focus:outline-none dark:border-gray-700"
                     onClick={() => handleCitySelect(city)}
                     type="button"
                   >
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
                       <div className="flex-shrink-0">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-blue/20">
-                          <span className="text-sm text-primary-blue">📍</span>
+                        <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-primary-blue/20">
+                          <span className="text-xs sm:text-sm text-primary-blue">📍</span>
                         </div>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="truncate font-semibold text-text-primary">{city.city}</div>
-                        <div className="text-sm text-text-secondary">{city.state}</div>
+                      <div className="min-w-0 flex-1 overflow-hidden">
+                        <div className="truncate font-semibold text-text-primary text-sm sm:text-base leading-tight break-words">
+                          {city.city}
+                        </div>
+                        <div className="truncate text-xs sm:text-sm text-text-secondary leading-tight break-words">
+                          {city.state}
+                        </div>
                       </div>
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 hidden sm:block">
                         <svg
                           className="h-4 w-4 text-text-secondary"
                           fill="none"
