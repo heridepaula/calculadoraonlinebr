@@ -1,8 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
+import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Política Privacidade 2025 – Proteção Dados" },
+    { title: `Política Privacidade | ${APP_NAME}` },
     {
       name: "description",
       content:

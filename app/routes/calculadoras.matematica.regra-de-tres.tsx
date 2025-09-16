@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Regra de Três 2025 – Calculadora Simples",
+      title: `Calculadora de Regra de Três 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -925,8 +925,8 @@ export default function RuleOfThreeCalculator() {
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
               fins educacionais e resolução de exercícios. Para aplicações científicas ou de
               engenharia que exigem alta qualidade, consulte sempre um{" "}
-              <strong>profissional qualificado</strong> e considere limitações numérica.
-              Explore também nossas calculadoras de
+              <strong>profissional qualificado</strong> e considere limitações numérica. Explore
+              também nossas calculadoras de
               <a
                 href="/calculadoras/matematica/porcentagem"
                 className="font-medium text-primary-blue-dark underline hover:text-primary-blue"

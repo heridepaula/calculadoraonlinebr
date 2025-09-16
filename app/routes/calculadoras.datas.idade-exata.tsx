@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora de Idade Exata Online – Descubra Anos, Meses e Dias",
+      title: `Calculadora de Idade Online | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -374,7 +374,9 @@ export default function AgeCalculator() {
     if (nextBirthday <= currentDate) {
       nextBirthday.setFullYear(currentDate.getFullYear() + 1);
     }
-    const daysToNextBirthday = Math.ceil((nextBirthday.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+    const daysToNextBirthday = Math.ceil(
+      (nextBirthday.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
 
     const ageString = `${years} anos, ${months} meses e ${days} dias`;
 
@@ -468,8 +470,9 @@ export default function AgeCalculator() {
           Calculadora de Idade Exata 2025 – Descubra Anos, Meses e Dias
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Calcule sua <strong className="text-growth-green">idade exata em anos, meses e dias</strong>{" "}
-          com precisão. Descubra{" "}
+          Calcule sua{" "}
+          <strong className="text-growth-green">idade exata em anos, meses e dias</strong> com
+          precisão. Descubra{" "}
           <strong className="text-primary-blue-dark">quantos dias você viveu</strong> e tenha um
           contador em tempo real com horas, minutos e segundos.
         </p>
@@ -603,7 +606,9 @@ export default function AgeCalculator() {
                     </div>
                   </div>
 
-                  <div className={`mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 ${includeTime ? 'md:grid-cols-4' : 'md:grid-cols-2'}`}>
+                  <div
+                    className={`mb-6 grid grid-cols-1 gap-6 rounded-lg bg-gray-900 p-4 ${includeTime ? "md:grid-cols-4" : "md:grid-cols-2"}`}
+                  >
                     <div className="text-center">
                       <div className="text-sm text-text-secondary">Dias Úteis</div>
                       <div className="text-xl font-bold text-growth-green">
@@ -622,12 +627,16 @@ export default function AgeCalculator() {
                       <>
                         <div className="text-center">
                           <div className="text-sm text-text-secondary">Horas</div>
-                          <div className="text-xl font-bold text-system-warning">{result.hours}h</div>
+                          <div className="text-xl font-bold text-system-warning">
+                            {result.hours}h
+                          </div>
                           <div className="text-xs text-text-secondary">Vividas</div>
                         </div>
                         <div className="text-center">
                           <div className="text-sm text-text-secondary">Minutos</div>
-                          <div className="text-xl font-bold text-text-primary">{result.minutes}m</div>
+                          <div className="text-xl font-bold text-text-primary">
+                            {result.minutes}m
+                          </div>
                           <div className="text-xs text-text-secondary">Vividos</div>
                         </div>
                       </>

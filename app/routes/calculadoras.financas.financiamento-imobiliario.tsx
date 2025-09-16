@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -12,13 +12,12 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
+      title: `Calculadora de Financiamento Imobiliário 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

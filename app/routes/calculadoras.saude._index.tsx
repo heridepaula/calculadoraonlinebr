@@ -1,18 +1,19 @@
 import type { MetaFunction } from "@remix-run/node";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "~/components/ui";
-import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard, ResponsiveBreadcrumb, createCategoryBreadcrumb } from "~/components";
+  RelatedCalculators,
+  CategoryHero,
+  CategoryStats,
+  QuickAccessCard,
+  ResponsiveBreadcrumb,
+  createCategoryBreadcrumb,
+} from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
+    { title: `Calculadoras de Saúde 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -45,7 +46,7 @@ export default function SaudeIndex() {
   return (
     <div className="min-h-screen">
       {/* Responsive Breadcrumb Navigation */}
-      <ResponsiveBreadcrumb items={createCategoryBreadcrumb('saude')} />
+      <ResponsiveBreadcrumb items={createCategoryBreadcrumb("saude")} />
 
       <CategoryHero
         category="saude"
@@ -66,7 +67,7 @@ export default function SaudeIndex() {
       {/* Quick Access - Health Monitoring */}
       <section className="bg-surface-dark/30 py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12 text-center">
+          <div className="mb-8 text-center sm:mb-12">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               🎯 Monitore Sua Saúde Agora
             </h2>
@@ -145,12 +146,12 @@ export default function SaudeIndex() {
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl lg:text-4xl">
               Todas as Calculadoras de Saúde
             </h2>
-            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-text-secondary-dark">
+            <p className="mt-3 text-base text-text-secondary-dark sm:mt-4 sm:text-lg">
               Escolha a ferramenta ideal para monitorar sua saúde
             </p>
           </div>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {saudeCalculators.map((calculator: Calculator) => (
               <CalculatorCard key={calculator.id} calculator={calculator} category="saude" />
             ))}
@@ -167,35 +168,41 @@ export default function SaudeIndex() {
             </h2>
           </div>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-            <div className="rounded-2xl bg-white/50 p-4 sm:p-6 lg:p-8 shadow-lg backdrop-blur-sm">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-health-red/20">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-health-red/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">🎯</span>
               </div>
-              <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-text-primary">Prevenção</h3>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-text-secondary">
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Prevenção
+              </h3>
+              <p className="mt-3 text-sm text-text-secondary sm:mt-4 sm:text-base">
                 Identifique riscos à saúde antes que se tornem problemas sérios. Monitoramento
                 preventivo é a chave para uma vida mais saudável.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white/50 p-4 sm:p-6 lg:p-8 shadow-lg backdrop-blur-sm">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-system-success/20">
+            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-system-success/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">📊</span>
               </div>
-              <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-text-primary">Controle</h3>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-text-secondary">
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Controle
+              </h3>
+              <p className="mt-3 text-sm text-text-secondary sm:mt-4 sm:text-base">
                 Acompanhe a evolução dos seus indicadores de saúde ao longo do tempo. Informações
                 úteis para melhores decisões.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white/50 p-4 sm:p-6 lg:p-8 shadow-lg backdrop-blur-sm">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
+            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-blue/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">💪</span>
               </div>
-              <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-text-primary">Motivação</h3>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-text-secondary">
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Motivação
+              </h3>
+              <p className="mt-3 text-sm text-text-secondary sm:mt-4 sm:text-base">
                 Visualize o progresso dos seus hábitos saudáveis e mantenha-se motivado para
                 continuar cuidando da sua saúde.
               </p>
@@ -210,19 +217,19 @@ export default function SaudeIndex() {
           <div className="h-full w-full bg-gradient-to-br from-transparent via-white/10 to-transparent"></div>
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-3 sm:px-6 text-center lg:px-8">
+        <div className="relative mx-auto max-w-6xl px-3 text-center sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-center sm:text-left lg:text-left">
               <h2 className="animate-pulse text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
                 🌟 Sua Jornada de Saúde Começa Aqui
               </h2>
-              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-health-red-light">
+              <p className="mt-3 text-base text-health-red-light sm:mt-4 sm:text-lg">
                 Monitore sua saúde com{" "}
                 <strong>ferramentas baseadas em padrões médicos reconhecidos</strong> pela
                 Organização Mundial da Saúde
               </p>
 
-              <div className="mt-4 sm:mt-6 flex flex-col gap-3 sm:flex-row sm:justify-start lg:flex-col xl:flex-row">
+              <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-start lg:flex-col xl:flex-row">
                 <a
                   href="/calculadoras/saude/imc"
                   className="group inline-flex transform items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-health-red-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-health-red-dark"
@@ -255,32 +262,46 @@ export default function SaudeIndex() {
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-spin block mb-2">⚕️</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">OMS</h3>
-                  <p className="text-xs text-health-red-light leading-tight">Diretrizes</p>
+                  <span className="mb-2 block text-xl group-hover:animate-spin sm:text-2xl">
+                    ⚕️
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">OMS</h3>
+                  <p className="text-xs leading-tight text-health-red-light">Diretrizes</p>
                 </div>
               </div>
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-pulse block mb-2">🔬</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">Científico</h3>
-                  <p className="text-xs text-health-red-light leading-tight">Métodos</p>
+                  <span className="mb-2 block text-xl group-hover:animate-pulse sm:text-2xl">
+                    🔬
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
+                    Científico
+                  </h3>
+                  <p className="text-xs leading-tight text-health-red-light">Métodos</p>
                 </div>
               </div>
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-bounce block mb-2">📈</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">Progresso</h3>
-                  <p className="text-xs text-health-red-light leading-tight">Evolução</p>
+                  <span className="mb-2 block text-xl group-hover:animate-bounce sm:text-2xl">
+                    📈
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
+                    Progresso
+                  </h3>
+                  <p className="text-xs leading-tight text-health-red-light">Evolução</p>
                 </div>
               </div>
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-pulse block mb-2">🔒</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">Privado</h3>
-                  <p className="text-xs text-health-red-light leading-tight">Seguro</p>
+                  <span className="mb-2 block text-xl group-hover:animate-pulse sm:text-2xl">
+                    🔒
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
+                    Privado
+                  </h3>
+                  <p className="text-xs leading-tight text-health-red-light">Seguro</p>
                 </div>
               </div>
             </div>
@@ -293,12 +314,14 @@ export default function SaudeIndex() {
         <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-system-warning/20 bg-system-warning/10 p-4 sm:p-6 lg:p-8">
             <div className="flex items-start space-x-3 sm:space-x-4">
-              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-system-warning/20 flex-shrink-0">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-system-warning/20 sm:h-10 sm:w-10">
                 <span className="text-lg sm:text-xl">⚠️</span>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-text-primary">Aviso Médico Importante</h3>
-                <p className="mt-2 text-sm sm:text-base text-text-secondary">
+                <h3 className="text-base font-semibold text-text-primary sm:text-lg">
+                  Aviso Médico Importante
+                </h3>
+                <p className="mt-2 text-sm text-text-secondary sm:text-base">
                   Nossas calculadoras são ferramentas informativas baseadas em padrões médicos
                   reconhecidos. Os resultados{" "}
                   <strong className="text-system-warning-dark">

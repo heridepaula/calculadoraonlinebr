@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -9,7 +9,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
-import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
@@ -18,7 +17,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Gerador CNPJ – Gere CNPJ Válido com ou sem Pontuação",
+      title: `Gerador de CNPJ Online | ${APP_NAME}`,
     },
     {
       name: "description",

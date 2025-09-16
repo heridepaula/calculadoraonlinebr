@@ -1,18 +1,19 @@
 import type { MetaFunction } from "@remix-run/node";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "~/components/ui";
-import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard, ResponsiveBreadcrumb, createCategoryBreadcrumb } from "~/components";
+  RelatedCalculators,
+  CategoryHero,
+  CategoryStats,
+  QuickAccessCard,
+  ResponsiveBreadcrumb,
+  createCategoryBreadcrumb,
+} from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadoras Financeiras – Juros e Investimentos" },
+    { title: `Calculadoras Financeiras 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -49,7 +50,7 @@ export default function FinancasIndex() {
   return (
     <div className="min-h-screen">
       {/* Responsive Breadcrumb Navigation */}
-      <ResponsiveBreadcrumb items={createCategoryBreadcrumb('financas')} />
+      <ResponsiveBreadcrumb items={createCategoryBreadcrumb("financas")} />
 
       <CategoryHero
         category="financas"
@@ -70,7 +71,7 @@ export default function FinancasIndex() {
       {/* Quick Access to Most Used Calculators */}
       <section className="bg-surface-dark/30 py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12 text-center">
+          <div className="mb-8 text-center sm:mb-12">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               🚀 Acesso Rápido - Mais Usadas
             </h2>
@@ -145,11 +146,11 @@ export default function FinancasIndex() {
       {/* Investment vs Other Categories */}
       <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12 text-center">
+          <div className="mb-8 text-center sm:mb-12">
             <h2 className="text-xl font-bold text-text-primary sm:text-2xl lg:text-3xl">
               Calculadoras por Especialidade
             </h2>
-            <p className="mt-2 text-base sm:text-lg text-text-secondary">
+            <p className="mt-2 text-base text-text-secondary sm:text-lg">
               Organize sua vida financeira por área de atuação
             </p>
           </div>
@@ -171,7 +172,7 @@ export default function FinancasIndex() {
                   .filter((calc) =>
                     [
                       "tesouro-direto",
-                      "cdb", 
+                      "cdb",
                       "juros-compostos",
                       "primeiro-milhao",
                       "preco-medio",
@@ -264,12 +265,12 @@ export default function FinancasIndex() {
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl lg:text-4xl">
               Todas as Calculadoras Financeiras
             </h2>
-            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-text-secondary-dark">
+            <p className="mt-3 text-base text-text-secondary-dark sm:mt-4 sm:text-lg">
               Escolha a ferramenta ideal para suas necessidades financeiras
             </p>
           </div>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {financasCalculators.map((calculator: Calculator) => (
               <CalculatorCard key={calculator.id} calculator={calculator} category="financas" />
             ))}
@@ -286,43 +287,51 @@ export default function FinancasIndex() {
             </h2>
           </div>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-finance-gold/20">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-finance-gold/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">📊</span>
               </div>
-              <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold text-text-primary">Simulações</h3>
-              <p className="mt-2 text-xs sm:text-sm text-text-secondary">
+              <h3 className="mt-3 text-base font-semibold text-text-primary sm:mt-4 sm:text-lg">
+                Simulações
+              </h3>
+              <p className="mt-2 text-xs text-text-secondary sm:text-sm">
                 Veja cenários diferentes antes de investir ou financiar
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-system-success/20">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-system-success/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">⚖️</span>
               </div>
-              <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold text-text-primary">Comparações</h3>
-              <p className="mt-2 text-xs sm:text-sm text-text-secondary">
+              <h3 className="mt-3 text-base font-semibold text-text-primary sm:mt-4 sm:text-lg">
+                Comparações
+              </h3>
+              <p className="mt-2 text-xs text-text-secondary sm:text-sm">
                 Analise diferentes opções de investimento lado a lado
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-blue/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">🎯</span>
               </div>
-              <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold text-text-primary">Decisões</h3>
-              <p className="mt-2 text-xs sm:text-sm text-text-secondary">
+              <h3 className="mt-3 text-base font-semibold text-text-primary sm:mt-4 sm:text-lg">
+                Decisões
+              </h3>
+              <p className="mt-2 text-xs text-text-secondary sm:text-sm">
                 Tome escolhas baseadas em dados concretos e análises
               </p>
             </div>
 
             <div className="text-center">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-finance-gold/20">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-finance-gold/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">💡</span>
               </div>
-              <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold text-text-primary">Aprendizado</h3>
-              <p className="mt-2 text-xs sm:text-sm text-text-secondary">
+              <h3 className="mt-3 text-base font-semibold text-text-primary sm:mt-4 sm:text-lg">
+                Aprendizado
+              </h3>
+              <p className="mt-2 text-xs text-text-secondary sm:text-sm">
                 Entenda conceitos financeiros através da prática
               </p>
             </div>
@@ -336,16 +345,16 @@ export default function FinancasIndex() {
           <div className="h-full w-full bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
         </div>
 
-        <div className="relative mx-auto max-w-4xl px-3 sm:px-6 text-center lg:px-8">
+        <div className="relative mx-auto max-w-4xl px-3 text-center sm:px-6 lg:px-8">
           <h2 className="animate-pulse text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
             🚀 Comece sua Jornada Financeira Agora
           </h2>
-          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-finance-gold-light">
+          <p className="mt-3 text-base text-finance-gold-light sm:mt-4 sm:text-lg">
             Ferramentas gratuitas e úteis para <strong>decisões financeiras inteligentes</strong> e
             planejamento do seu futuro
           </p>
 
-          <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:justify-center sm:gap-4">
             <a
               href="/calculadoras/financas/juros-compostos"
               className="group inline-flex transform items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-finance-gold-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-finance-gold-dark"
@@ -407,14 +416,14 @@ export default function FinancasIndex() {
         <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-system-info/20 bg-system-info/10 p-4 sm:p-6 lg:p-8">
             <div className="flex items-start space-x-3 sm:space-x-4">
-              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-system-info/20 flex-shrink-0">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-system-info/20 sm:h-10 sm:w-10">
                 <span className="text-lg sm:text-xl">💡</span>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-text-primary">
+                <h3 className="text-base font-semibold text-text-primary sm:text-lg">
                   Dica para Maximizar Resultados
                 </h3>
-                <p className="mt-2 text-sm sm:text-base text-text-secondary">
+                <p className="mt-2 text-sm text-text-secondary sm:text-base">
                   Use nossas calculadoras para simular diferentes cenários antes de tomar decisões
                   financeiras.
                   <strong className="text-finance-gold-dark">

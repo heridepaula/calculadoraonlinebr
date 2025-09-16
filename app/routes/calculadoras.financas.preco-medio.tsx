@@ -9,10 +9,9 @@ import {
   Breadcrumb,
   BreadcrumbItem,
 } from "~/components/ui";
-import { MoneyInput, RateInput, Input } from "~/components/ui";
+import { MoneyInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -25,7 +24,6 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { Line, Pie } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -41,7 +39,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Preço Médio Ações 2025 – Simulador Grátis",
+      title: `Calculadora de Preço Médio Ações 2025 | ${APP_NAME}`,
     },
     {
       name: "viewport",

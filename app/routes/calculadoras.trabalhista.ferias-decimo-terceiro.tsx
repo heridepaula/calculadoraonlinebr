@@ -27,7 +27,7 @@ import {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Férias e 13º Salário 2025 – Calculadora CLT",
+      title: `Calculadora de Férias e 13º Salário 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -68,7 +68,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -127,7 +128,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
           name: "Calculadora de Férias e 13º Salário 2025 - Simulador CLT",
           description:
             "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
@@ -176,7 +178,8 @@ export const meta: MetaFunction = () => {
         about: {
           "@type": "Service",
           name: "Férias e Décimo Terceiro Salário CLT",
-          description: "Direitos trabalhistas garantidos pela CLT para trabalhadores com carteira assinada",
+          description:
+            "Direitos trabalhistas garantidos pela CLT para trabalhadores com carteira assinada",
           category: "LaborRights",
         },
         featureList: [
@@ -201,28 +204,28 @@ export const meta: MetaFunction = () => {
             name: "Como calcular férias e 13º salário?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Férias: salário + 1/3 constitucional. 13º salário: salário ÷ 12 × meses trabalhados. Ambos têm descontos de INSS e IRRF conforme tabelas 2025."
-            }
+              text: "Férias: salário + 1/3 constitucional. 13º salário: salário ÷ 12 × meses trabalhados. Ambos têm descontos de INSS e IRRF conforme tabelas 2025.",
+            },
           },
           {
-            "@type": "Question", 
+            "@type": "Question",
             name: "Quando tenho direito a férias integrais?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Direito a 30 dias de férias após 12 meses de trabalho. Férias proporcionais para período menor. Pode vender até 10 dias (abono pecuniário)."
-            }
+              text: "Direito a 30 dias de férias após 12 meses de trabalho. Férias proporcionais para período menor. Pode vender até 10 dias (abono pecuniário).",
+            },
           },
           {
             "@type": "Question",
             name: "Como funciona o abono pecuniário?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Venda de até 1/3 das férias (10 dias). Valor: salário ÷ 30 × dias vendidos + 1/3 constitucional sobre o valor vendido."
-            }
-          }
-        ]
-      })
-    }
+              text: "Venda de até 1/3 das férias (10 dias). Valor: salário ÷ 30 × dias vendidos + 1/3 constitucional sobre o valor vendido.",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 
@@ -248,18 +251,18 @@ export default function VacationAndThirteenthCalculator() {
   const [installmentType, setInstallmentType] = useState<"first" | "second" | "single">("single");
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "ferias_decimo_terceiro",
-    category: "trabalhista"
+    category: "trabalhista",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("ferias_decimo_terceiro");
 
   // Função para processar valor monetário

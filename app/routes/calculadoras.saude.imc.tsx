@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "IMC 2025 – Calculadora Índice Massa Corporal",
+      title: `Calculadora de IMC 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -1188,9 +1188,9 @@ export default function BMICalculator() {
               percentual de gordura estimado com classificação personalizada por idade e sexo.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Cálculo de IMC confiável, taxa metabólica (TMB), gasto
-              calórico diário, percentual de gordura estimado, classificação por faixa etária e
-              análise de risco à saúde.
+              <strong>Funcionalidades:</strong> Cálculo de IMC confiável, taxa metabólica (TMB),
+              gasto calórico diário, percentual de gordura estimado, classificação por faixa etária
+              e análise de risco à saúde.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para

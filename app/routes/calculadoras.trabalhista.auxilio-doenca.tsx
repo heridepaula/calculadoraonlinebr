@@ -84,7 +84,7 @@ interface AuxilioDoencaResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Auxílio-Doença INSS 2025 – Simulador Benefício",
+      title: `Calculadora de Auxílio-Doença INSS 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -283,28 +283,28 @@ export const meta: MetaFunction = () => {
             name: "Como calcular auxílio-doença INSS?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Para calcular auxílio-doença INSS, considere: carência de 12 contribuições, média dos 12 últimos salários ou média geral (o que for maior), aplicar 91% sobre a média. Algumas doenças têm isenção de carência."
-            }
+              text: "Para calcular auxílio-doença INSS, considere: carência de 12 contribuições, média dos 12 últimos salários ou média geral (o que for maior), aplicar 91% sobre a média. Algumas doenças têm isenção de carência.",
+            },
           },
           {
-            "@type": "Question", 
+            "@type": "Question",
             name: "Quais doenças têm isenção de carência?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Doenças com isenção: tuberculose ativa, hanseníase, transtorno mental grave, neoplasia maligna, cegueira, paralisia irreversível, cardiopatia grave, Parkinson, AIDS, contaminação por radiação."
-            }
+              text: "Doenças com isenção: tuberculose ativa, hanseníase, transtorno mental grave, neoplasia maligna, cegueira, paralisia irreversível, cardiopatia grave, Parkinson, AIDS, contaminação por radiação.",
+            },
           },
           {
             "@type": "Question",
             name: "Qual o valor do auxílio-doença em 2025?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O auxílio-doença é calculado como 91% da média salarial, limitado ao teto INSS (R$ 8.157,41) e não pode ser inferior ao salário mínimo (R$ 1.518,00)."
-            }
-          }
-        ]
-      })
-    }
+              text: "O auxílio-doença é calculado como 91% da média salarial, limitado ao teto INSS (R$ 8.157,41) e não pode ser inferior ao salário mínimo (R$ 1.518,00).",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 
@@ -430,18 +430,18 @@ export default function CalculadoraAuxilioDoenca() {
   const [showFloatingButtons, setShowFloatingButtons] = useState(false);
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "auxilio_doenca",
-    category: "trabalhista"
+    category: "trabalhista",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("auxilio_doenca");
 
   const handleAddSalario = () => {

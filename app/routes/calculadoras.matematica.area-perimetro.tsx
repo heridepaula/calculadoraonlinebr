@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Área e Perímetro 2025 – Calculadora Geométrica",
+      title: `Calculadora de Área e Perímetro 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

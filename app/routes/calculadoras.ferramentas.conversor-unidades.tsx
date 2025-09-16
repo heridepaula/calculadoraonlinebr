@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Conversor de Unidades – 17 Categorias com Conversão Instantânea",
+      title: `Conversor de Unidades Online | ${APP_NAME}`,
     },
     {
       name: "description",

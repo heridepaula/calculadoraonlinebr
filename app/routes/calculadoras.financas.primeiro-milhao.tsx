@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Primeiro Milhão – Simule Tempo e Investimento",
+      title: `Calculadora Primeiro Milhão | ${APP_NAME}`,
     },
     {
       name: "viewport",

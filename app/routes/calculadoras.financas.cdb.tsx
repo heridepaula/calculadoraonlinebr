@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Calculadora CDB – Simule Rendimento e Compare Taxa",
+      title: `Calculadora de CDB | ${APP_NAME}`,
     },
     {
       name: "description",

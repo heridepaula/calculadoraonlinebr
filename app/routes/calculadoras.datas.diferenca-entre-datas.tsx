@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Diferença entre Datas – Calcular Idade e Intervalos",
+      title: `Calculadora de Diferença entre Datas | ${APP_NAME}`,
     },
     {
       name: "description",

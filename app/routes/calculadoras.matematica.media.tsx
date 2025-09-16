@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Média Estatística 2025 – Aritmética e Geométrica",
+      title: `Calculadora de Média Estatística 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

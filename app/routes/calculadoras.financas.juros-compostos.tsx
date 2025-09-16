@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Juros Compostos – Calculadora de Investimentos Grátis",
+      title: `Calculadora de Juros Compostos | ${APP_NAME}`,
     },
     {
       name: "viewport",

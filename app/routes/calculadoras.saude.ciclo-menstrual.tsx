@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -24,7 +24,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { Line, Pie } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -40,7 +40,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Ciclo Menstrual 2025 – Período Fértil e Ovulação",
+      title: `Calculadora Ciclo Menstrual 2025 | ${APP_NAME}`,
     },
     {
       name: "viewport",

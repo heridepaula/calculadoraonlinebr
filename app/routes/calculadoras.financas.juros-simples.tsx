@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Juros Simples 2025 – Calculadora Online Gratuita",
+      title: `Calculadora de Juros Simples 2025 | ${APP_NAME}`,
     },
     {
       name: "viewport",

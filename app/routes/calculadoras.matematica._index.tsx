@@ -1,13 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "~/components/ui";
-import {
   RelatedCalculators,
-  FAQ,
   CategoryHero,
   CategoryStats,
   QuickAccessCard,
@@ -20,7 +13,7 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
+    { title: `Calculadoras Matemáticas 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -55,7 +48,7 @@ export default function MatematicaIndex() {
   return (
     <div className="min-h-screen">
       {/* Responsive Breadcrumb Navigation */}
-      <ResponsiveBreadcrumb items={createCategoryBreadcrumb('matematica')} />
+      <ResponsiveBreadcrumb items={createCategoryBreadcrumb("matematica")} />
 
       <CategoryHero
         category="matematica"
@@ -165,7 +158,9 @@ export default function MatematicaIndex() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-math-purple text-white transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 sm:h-12 sm:w-12">
                   <span className="text-lg sm:text-xl">%</span>
                 </div>
-                <h3 className="text-lg font-bold text-text-primary sm:text-xl">Operações Básicas</h3>
+                <h3 className="text-lg font-bold text-text-primary sm:text-xl">
+                  Operações Básicas
+                </h3>
               </div>
               <p className="mb-3 text-xs text-text-secondary sm:mb-4 sm:text-sm">
                 Cálculos fundamentais para o dia a dia
@@ -197,7 +192,9 @@ export default function MatematicaIndex() {
                 </div>
                 <h3 className="text-lg font-bold text-text-primary sm:text-xl">Geometria</h3>
               </div>
-              <p className="mb-3 text-xs text-text-secondary sm:mb-4 sm:text-sm">Cálculos de formas geométricas</p>
+              <p className="mb-3 text-xs text-text-secondary sm:mb-4 sm:text-sm">
+                Cálculos de formas geométricas
+              </p>
               <div className="space-y-2">
                 <div className="text-sm">
                   <span className="text-primary-blue-dark">•</span> Área e Perímetro
@@ -272,7 +269,9 @@ export default function MatematicaIndex() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-math-purple/20 sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                 <span className="text-xl sm:text-2xl">🎓</span>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">Estudantes</h3>
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Estudantes
+              </h3>
               <p className="mt-4 text-text-secondary">
                 Verifique seus cálculos, aprenda métodos de resolução e tenha explicações passo a
                 passo de cada operação.
@@ -283,7 +282,9 @@ export default function MatematicaIndex() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-blue/20 sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                 <span className="text-xl sm:text-2xl">👨‍🏫</span>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">Professores</h3>
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Professores
+              </h3>
               <p className="mt-4 text-text-secondary">
                 Use como ferramenta de apoio em aulas, demonstrações práticas e correção rápida de
                 exercícios.
@@ -294,7 +295,9 @@ export default function MatematicaIndex() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-system-success/20 sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                 <span className="text-xl sm:text-2xl">💼</span>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">Profissionais</h3>
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Profissionais
+              </h3>
               <p className="mt-4 text-text-secondary">
                 Agilize cálculos do trabalho, resolva problemas técnicos e faça conversões
                 confiáveis de unidades.

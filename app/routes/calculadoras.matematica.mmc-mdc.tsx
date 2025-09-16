@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "MMC e MDC 2025 – Calculadora Mínimo Múltiplo",
+      title: `Calculadora de MMC e MDC 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

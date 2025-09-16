@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "LCI e LCA 2025 – Simulador Isenção IR",
+      title: `Calculadora de LCI e LCA 2025 | ${APP_NAME}`,
     },
     {
       name: "viewport",

@@ -1,8 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
+import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Sobre 2025 – Calculadoras Grátis Online" },
+    { title: `Sobre | ${APP_NAME}` },
     {
       name: "description",
       content:

@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Gordura Corporal 2025 – Percentual e Massa Magra",
+      title: `Calculadora de Gordura Corporal 2025 ${APP_NAME}`,
     },
     {
       name: "description",
@@ -1232,8 +1232,9 @@ export default function BodyFatCalculator() {
               Esta{" "}
               <strong className="text-primary-blue-dark">calculadora de gordura corporal</strong>{" "}
               permite calcular{" "}
-              <strong className="text-growth-green">composição corporal confiável</strong>: percentual
-              de gordura, massa magra e análise de saúde com métodos científicos validados.
+              <strong className="text-growth-green">composição corporal confiável</strong>:
+              percentual de gordura, massa magra e análise de saúde com métodos científicos
+              validados.
             </p>
             <p>
               <strong>Funcionalidades:</strong> Métodos US Navy e Jackson-Pollock, análise por idade

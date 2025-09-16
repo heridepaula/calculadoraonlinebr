@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Equação 2º Grau 2025 – Fórmula de Bhaskara",
+      title: `Calculadora de Equação 2º Grau 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

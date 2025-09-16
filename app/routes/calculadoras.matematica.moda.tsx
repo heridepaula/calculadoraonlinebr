@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Moda Estatística 2025 – Calculadora Grátis",
+      title: `Calculadora de Moda Estatística 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

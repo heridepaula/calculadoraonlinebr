@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Validador CPF – Valide CPF com ou sem Pontuação",
+      title: `Validar CPF Online | ${APP_NAME}`,
     },
     {
       name: "description",

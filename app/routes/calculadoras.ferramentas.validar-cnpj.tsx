@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Validador CNPJ – Valide CNPJ com ou sem Pontuação",
+      title: `Validar CNPJ Online | ${APP_NAME}`,
     },
     {
       name: "description",

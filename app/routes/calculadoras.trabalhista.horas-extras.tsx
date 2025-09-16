@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -11,7 +11,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Select,
-  RateInput,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -19,7 +18,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora de Horas Extras CLT 2025 - Como Calcular 50% 100%" },
+    { title: `Calculadora de Horas Extras CLT 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:

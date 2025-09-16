@@ -31,7 +31,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Desenvolvimento Infantil 2025 – Crescimento OMS",
+      title: `Calculadora de Desenvolvimento Infantil 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Operações entre Datas Online Grátis | CalculadoraOnlineBR",
+      title: `Somar dias em datas | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -49,7 +49,8 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content: "Interface da calculadora de operações entre datas mostrando botões para somar e subtrair tempo com campos para anos, meses e dias",
+      content:
+        "Interface da calculadora de operações entre datas mostrando botões para somar e subtrair tempo com campos para anos, meses e dias",
     },
     {
       property: "og:image:width",
@@ -82,7 +83,8 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de operações entre datas com interface intuitiva para somar e subtrair tempo",
+      content:
+        "Calculadora de operações entre datas com interface intuitiva para somar e subtrair tempo",
     },
     { name: "twitter:site", content: "@CalculadoraBR" },
     { name: "twitter:creator", content: "@CalculadoraBR" },
@@ -106,14 +108,14 @@ export const meta: MetaFunction = () => {
         author: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
-          url: "https://www.calculadoraonlinebr.com.br"
+          url: "https://www.calculadoraonlinebr.com.br",
         },
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "BRL",
           availability: "https://schema.org/InStock",
-          validFrom: "2025-09-06"
+          validFrom: "2025-09-06",
         },
         publisher: {
           "@type": "Organization",
@@ -195,7 +197,7 @@ export const meta: MetaFunction = () => {
           "100% gratuito sem necessidade de cadastro",
           "Botões intuitivos para seleção de operação",
           "Validação automática de dados inseridos",
-          "Formatação brasileira de datas"
+          "Formatação brasileira de datas",
         ],
       }),
     },

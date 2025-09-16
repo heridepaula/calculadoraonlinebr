@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -12,13 +12,12 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Empréstimo Consignado 2025 – Simulador Online",
+      title: `Calculadora de Empréstimo Consignado 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -383,7 +382,8 @@ export default function PayrollLoanCalculator() {
 
   // Função para calcular com sistema Price (parcelas fixas)
   const calculatePrice = (loan: number, rate: number, months: number) => {
-    const monthlyPayment = (loan * (rate * Math.pow(1 + rate, months))) / (Math.pow(1 + rate, months) - 1);
+    const monthlyPayment =
+      (loan * (rate * Math.pow(1 + rate, months))) / (Math.pow(1 + rate, months) - 1);
     const schedule: AmortizationSchedule[] = [];
     let balance = loan;
     let totalAmount = 0;
@@ -399,7 +399,7 @@ export default function PayrollLoanCalculator() {
         payment: monthlyPayment,
         principal,
         interest,
-        balance: Math.max(0, balance)
+        balance: Math.max(0, balance),
       });
     }
 
@@ -409,7 +409,7 @@ export default function PayrollLoanCalculator() {
       totalInterest: totalAmount - loan,
       schedule,
       firstPayment: monthlyPayment,
-      lastPayment: monthlyPayment
+      lastPayment: monthlyPayment,
     };
   };
 
@@ -431,7 +431,7 @@ export default function PayrollLoanCalculator() {
         payment,
         principal: principalAmortization,
         interest,
-        balance: Math.max(0, balance)
+        balance: Math.max(0, balance),
       });
     }
 
@@ -441,7 +441,7 @@ export default function PayrollLoanCalculator() {
       totalInterest: totalAmount - loan,
       schedule,
       firstPayment: schedule[0].payment,
-      lastPayment: schedule[months - 1].payment
+      lastPayment: schedule[months - 1].payment,
     };
   };
 
@@ -455,9 +455,10 @@ export default function PayrollLoanCalculator() {
       const sal = parseMoney(salary);
 
       // Calcular baseado no sistema de amortização escolhido
-      const calculationResult = amortizationSystem === "price" 
-        ? calculatePrice(loan, rate, m)
-        : calculateSAC(loan, rate, m);
+      const calculationResult =
+        amortizationSystem === "price"
+          ? calculatePrice(loan, rate, m)
+          : calculateSAC(loan, rate, m);
 
       // IOF sobre o valor do empréstimo (0,38% do valor + 0,0082% por dia, limitado a 30 dias)
       const iofRate = 0.0038; // 0,38%
@@ -559,7 +560,7 @@ export default function PayrollLoanCalculator() {
               <button
                 type="button"
                 onClick={() => setLoanType("aposentado")}
-                className={`min-w-[80px] flex-1 basis-0 py-3 px-2 text-center text-xs sm:text-sm font-medium transition ${
+                className={`min-w-[80px] flex-1 basis-0 px-2 py-3 text-center text-xs font-medium transition sm:text-sm ${
                   loanType === "aposentado"
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -573,7 +574,7 @@ export default function PayrollLoanCalculator() {
               <button
                 type="button"
                 onClick={() => setLoanType("servidor")}
-                className={`min-w-[80px] flex-1 basis-0 py-3 px-2 text-center text-xs sm:text-sm font-medium transition ${
+                className={`min-w-[80px] flex-1 basis-0 px-2 py-3 text-center text-xs font-medium transition sm:text-sm ${
                   loanType === "servidor"
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -587,7 +588,7 @@ export default function PayrollLoanCalculator() {
               <button
                 type="button"
                 onClick={() => setLoanType("pensionista")}
-                className={`min-w-[80px] flex-1 basis-0 py-3 px-2 text-center text-xs sm:text-sm font-medium transition ${
+                className={`min-w-[80px] flex-1 basis-0 px-2 py-3 text-center text-xs font-medium transition sm:text-sm ${
                   loanType === "pensionista"
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -601,7 +602,7 @@ export default function PayrollLoanCalculator() {
               <button
                 type="button"
                 onClick={() => setLoanType("clt")}
-                className={`min-w-[80px] flex-1 basis-0 py-3 px-2 text-center text-xs sm:text-sm font-medium transition ${
+                className={`min-w-[80px] flex-1 basis-0 px-2 py-3 text-center text-xs font-medium transition sm:text-sm ${
                   loanType === "clt"
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -624,7 +625,7 @@ export default function PayrollLoanCalculator() {
               <button
                 type="button"
                 onClick={() => setAmortizationSystem("price")}
-                className={`py-3 px-4 text-center text-sm font-medium transition ${
+                className={`px-4 py-3 text-center text-sm font-medium transition ${
                   amortizationSystem === "price"
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -641,7 +642,7 @@ export default function PayrollLoanCalculator() {
               <button
                 type="button"
                 onClick={() => setAmortizationSystem("sac")}
-                className={`py-3 px-4 text-center text-sm font-medium transition ${
+                className={`px-4 py-3 text-center text-sm font-medium transition ${
                   amortizationSystem === "sac"
                     ? "bg-primary-blue text-white"
                     : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
@@ -657,8 +658,8 @@ export default function PayrollLoanCalculator() {
               </button>
             </div>
             <div className="mt-2 text-xs text-text-secondary">
-              {amortizationSystem === "price" 
-                ? "Price: Parcelas iguais com juros maiores no início" 
+              {amortizationSystem === "price"
+                ? "Price: Parcelas iguais com juros maiores no início"
                 : "SAC: Amortização igual com parcelas decrescentes"}
             </div>
           </div>
@@ -761,12 +762,12 @@ export default function PayrollLoanCalculator() {
             <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
               <div className="rounded-lg bg-gray-900 p-6 text-center">
                 <div className="text-4xl font-bold text-growth-green">
-                  {result.amortizationSystem === "price" 
+                  {result.amortizationSystem === "price"
                     ? currencyBR(result.monthlyPayment)
                     : `${currencyBR(result.firstPayment)} → ${currencyBR(result.lastPayment)}`}
                 </div>
                 <div className="text-sm text-text-secondary">
-                  {result.amortizationSystem === "price" 
+                  {result.amortizationSystem === "price"
                     ? "Parcela Fixa (Price)"
                     : "1ª → Última Parcela (SAC)"}
                 </div>
@@ -861,22 +862,35 @@ export default function PayrollLoanCalculator() {
               <h4 className="mb-4 text-lg font-semibold text-text-primary">
                 📋 Tabela de Amortização ({result.amortizationSystem === "price" ? "Price" : "SAC"})
               </h4>
-              
+
               {/* Versão Desktop */}
-              <div className="hidden sm:block overflow-x-auto rounded-lg border border-neutral-surface-variant">
+              <div className="hidden overflow-x-auto rounded-lg border border-neutral-surface-variant sm:block">
                 <table className="w-full bg-background-dark-secondary">
                   <thead className="bg-primary-blue/20">
                     <tr>
-                      <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary">Parcela</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">Valor</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">Juros</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">Amortização</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">Saldo</th>
+                      <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary">
+                        Parcela
+                      </th>
+                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">
+                        Valor
+                      </th>
+                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">
+                        Juros
+                      </th>
+                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">
+                        Amortização
+                      </th>
+                      <th className="px-4 py-3 text-right text-sm font-semibold text-text-primary">
+                        Saldo
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {result.schedule.slice(0, 6).map((payment) => (
-                      <tr key={payment.month} className="border-t border-neutral-surface-variant hover:bg-primary-blue/5">
+                      <tr
+                        key={payment.month}
+                        className="border-t border-neutral-surface-variant hover:bg-primary-blue/5"
+                      >
                         <td className="px-4 py-2 text-left text-text-primary">{payment.month}ª</td>
                         <td className="px-4 py-2 text-right font-medium text-growth-green">
                           {currencyBR(payment.payment)}
@@ -897,27 +911,40 @@ export default function PayrollLoanCalculator() {
               </div>
 
               {/* Versão Mobile */}
-              <div className="block sm:hidden space-y-3">
+              <div className="block space-y-3 sm:hidden">
                 {result.schedule.slice(0, 4).map((payment) => (
-                  <div key={payment.month} className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-3">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium text-text-primary">{payment.month}ª Parcela</span>
-                      <span className="text-lg font-bold text-growth-green">{currencyBR(payment.payment)}</span>
+                  <div
+                    key={payment.month}
+                    className="rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-3"
+                  >
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="font-medium text-text-primary">
+                        {payment.month}ª Parcela
+                      </span>
+                      <span className="text-lg font-bold text-growth-green">
+                        {currencyBR(payment.payment)}
+                      </span>
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <p className="text-text-secondary">Juros</p>
-                        <p className="font-medium text-system-warning">{currencyBR(payment.interest)}</p>
+                        <p className="font-medium text-system-warning">
+                          {currencyBR(payment.interest)}
+                        </p>
                       </div>
                       <div>
                         <p className="text-text-secondary">Amortização</p>
-                        <p className="font-medium text-primary-blue-dark">{currencyBR(payment.principal)}</p>
+                        <p className="font-medium text-primary-blue-dark">
+                          {currencyBR(payment.principal)}
+                        </p>
                       </div>
                     </div>
-                    <div className="mt-2 pt-2 border-t border-neutral-surface-variant">
+                    <div className="mt-2 border-t border-neutral-surface-variant pt-2">
                       <div className="flex justify-between">
-                        <span className="text-text-secondary text-xs">Saldo Devedor</span>
-                        <span className="text-text-secondary text-xs">{currencyBR(payment.balance)}</span>
+                        <span className="text-xs text-text-secondary">Saldo Devedor</span>
+                        <span className="text-xs text-text-secondary">
+                          {currencyBR(payment.balance)}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -926,7 +953,8 @@ export default function PayrollLoanCalculator() {
 
               {result.schedule.length > 6 && (
                 <p className="mt-3 text-center text-sm text-text-secondary">
-                  Mostrando primeiras {result.schedule.length > 6 ? "6" : result.schedule.length} de {result.schedule.length} parcelas
+                  Mostrando primeiras {result.schedule.length > 6 ? "6" : result.schedule.length} de{" "}
+                  {result.schedule.length} parcelas
                 </p>
               )}
             </div>

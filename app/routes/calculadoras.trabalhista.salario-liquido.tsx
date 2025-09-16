@@ -24,7 +24,7 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Salário Líquido 2025 – Calculadora INSS IRRF" },
+    { title: `Calculadora de Salário Líquido 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:

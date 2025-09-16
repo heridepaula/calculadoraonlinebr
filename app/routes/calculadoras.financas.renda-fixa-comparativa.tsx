@@ -25,7 +25,6 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { Line, Pie } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -41,7 +40,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Comparador Renda Fixa 2025 – Compare Investimentos",
+      title: `Comparador Renda Fixa 2025 | ${APP_NAME}`,
     },
     {
       name: "viewport",

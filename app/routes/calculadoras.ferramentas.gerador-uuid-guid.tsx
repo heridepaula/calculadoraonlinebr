@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Gerador UUID/GUID – Múltiplos Formatos e Tipos (v1, v4, v5)",
+      title: `Gerador de UUID GUID Online | ${APP_NAME}`,
     },
     {
       name: "description",

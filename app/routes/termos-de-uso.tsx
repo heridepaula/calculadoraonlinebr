@@ -1,8 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
+import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Termos Uso 2025 – Condições Plataforma" },
+    { title: `Termos Uso | ${APP_NAME}` },
     {
       name: "description",
       content:

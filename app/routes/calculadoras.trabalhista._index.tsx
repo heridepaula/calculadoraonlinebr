@@ -1,18 +1,19 @@
 import type { MetaFunction } from "@remix-run/node";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "~/components/ui";
-import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard, ResponsiveBreadcrumb, createCategoryBreadcrumb } from "~/components";
+  RelatedCalculators,
+  CategoryHero,
+  CategoryStats,
+  QuickAccessCard,
+  ResponsiveBreadcrumb,
+  createCategoryBreadcrumb,
+} from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
+    { title: `Calculadoras Trabalhistas 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -49,7 +50,7 @@ export default function TrabalhistaIndex() {
   return (
     <div className="min-h-screen">
       {/* Responsive Breadcrumb Navigation */}
-      <ResponsiveBreadcrumb items={createCategoryBreadcrumb('trabalhista')} />
+      <ResponsiveBreadcrumb items={createCategoryBreadcrumb("trabalhista")} />
 
       <CategoryHero
         category="trabalhista"
@@ -70,7 +71,7 @@ export default function TrabalhistaIndex() {
       {/* Quick Access - Labor Rights */}
       <section className="bg-surface-dark/30 py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12 text-center">
+          <div className="mb-8 text-center sm:mb-12">
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
               ⚖️ Proteja Seus Direitos Agora
             </h2>
@@ -145,16 +146,16 @@ export default function TrabalhistaIndex() {
       {/* Labor Rights Categories */}
       <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-12 text-center">
+          <div className="mb-8 text-center sm:mb-12">
             <h2 className="text-xl font-bold text-text-primary sm:text-2xl lg:text-3xl">
               Áreas dos Direitos Trabalhistas
             </h2>
-            <p className="mt-2 text-base sm:text-lg text-text-secondary">
+            <p className="mt-2 text-base text-text-secondary sm:text-lg">
               Calculadoras organizadas por tipo de situação trabalhista
             </p>
           </div>
 
-          <div className="mt-6 sm:mt-10 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-10 sm:gap-6 lg:grid-cols-3 lg:gap-8">
             {/* Resignation */}
             <div className="rounded-2xl bg-gradient-to-br from-system-error/10 to-system-error/5 p-8">
               <div className="mb-4 flex items-center space-x-3">
@@ -237,12 +238,12 @@ export default function TrabalhistaIndex() {
             <h2 className="text-2xl font-bold text-text-primary sm:text-3xl lg:text-4xl">
               Todas as Calculadoras Trabalhistas
             </h2>
-            <p className="mt-3 sm:mt-4 text-base sm:text-lg text-text-secondary-dark">
+            <p className="mt-3 text-base text-text-secondary-dark sm:mt-4 sm:text-lg">
               Proteja seus direitos com ferramentas baseadas na CLT
             </p>
           </div>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {trabalhistaCalculators.map((calculator) => (
               <CalculatorCard key={calculator.id} calculator={calculator} category="trabalhista" />
             ))}
@@ -259,35 +260,41 @@ export default function TrabalhistaIndex() {
             </h2>
           </div>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-            <div className="rounded-2xl bg-white/50 p-4 sm:p-6 lg:p-8 shadow-lg backdrop-blur-sm">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-system-error/20">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-system-error/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">🛡️</span>
               </div>
-              <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-text-primary">Proteção</h3>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-text-secondary">
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Proteção
+              </h3>
+              <p className="mt-3 text-sm text-text-secondary sm:mt-4 sm:text-base">
                 Evite prejuízos em rescisões e demissões. Conheça todos os valores que você tem
                 direito a receber.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white/50 p-4 sm:p-6 lg:p-8 shadow-lg backdrop-blur-sm">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-finance-gold/20">
+            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-finance-gold/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">📊</span>
               </div>
-              <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-text-primary">Planejamento</h3>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-text-secondary">
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Planejamento
+              </h3>
+              <p className="mt-3 text-sm text-text-secondary sm:mt-4 sm:text-base">
                 Calcule seus benefícios e direitos antecipadamente para tomar melhores decisões de
                 carreira.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white/50 p-4 sm:p-6 lg:p-8 shadow-lg backdrop-blur-sm">
-              <div className="mx-auto flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
+            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-blue/20 sm:h-16 sm:w-16">
                 <span className="text-xl sm:text-2xl">🔍</span>
               </div>
-              <h3 className="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold text-text-primary">Transparência</h3>
-              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-text-secondary">
+              <h3 className="mt-4 text-lg font-semibold text-text-primary sm:mt-6 sm:text-xl">
+                Transparência
+              </h3>
+              <p className="mt-3 text-sm text-text-secondary sm:mt-4 sm:text-base">
                 Entenda cada valor na sua rescisão trabalhista e tenha clareza sobre seus direitos.
               </p>
             </div>
@@ -301,18 +308,18 @@ export default function TrabalhistaIndex() {
           <div className="via-white/6 h-full w-full bg-gradient-to-bl from-transparent to-transparent"></div>
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-3 sm:px-6 text-center lg:px-8">
+        <div className="relative mx-auto max-w-6xl px-3 text-center sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-center sm:text-left lg:text-left">
               <h2 className="animate-pulse text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
                 🛡️ Conheça Seus Direitos
               </h2>
-              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-primary-blue-light">
+              <p className="mt-3 text-base text-primary-blue-light sm:mt-4 sm:text-lg">
                 Proteja seus direitos trabalhistas com <strong>ferramentas baseadas na CLT</strong>{" "}
                 e legislação brasileira atualizada
               </p>
 
-              <div className="mt-4 sm:mt-6 flex flex-col gap-3 sm:flex-row sm:justify-start lg:flex-col xl:flex-row">
+              <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-start lg:flex-col xl:flex-row">
                 <a
                   href="/calculadoras/trabalhista/rescisao"
                   className="group inline-flex transform items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-primary-blue-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
@@ -345,32 +352,46 @@ export default function TrabalhistaIndex() {
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-pulse block mb-2">📜</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">CLT</h3>
-                  <p className="text-xs text-primary-blue-light leading-tight">Leis</p>
+                  <span className="mb-2 block text-xl group-hover:animate-pulse sm:text-2xl">
+                    📜
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">CLT</h3>
+                  <p className="text-xs leading-tight text-primary-blue-light">Leis</p>
                 </div>
               </div>
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-bounce block mb-2">⚖️</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">Atualizado</h3>
-                  <p className="text-xs text-primary-blue-light leading-tight">2025</p>
+                  <span className="mb-2 block text-xl group-hover:animate-bounce sm:text-2xl">
+                    ⚖️
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
+                    Atualizado
+                  </h3>
+                  <p className="text-xs leading-tight text-primary-blue-light">2025</p>
                 </div>
               </div>
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-spin block mb-2">🛡️</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">Proteção</h3>
-                  <p className="text-xs text-primary-blue-light leading-tight">Direitos</p>
+                  <span className="mb-2 block text-xl group-hover:animate-spin sm:text-2xl">
+                    🛡️
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
+                    Proteção
+                  </h3>
+                  <p className="text-xs leading-tight text-primary-blue-light">Direitos</p>
                 </div>
               </div>
-              <div className="group rounded-lg bg-white/10 p-3 sm:p-4 lg:p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20">
+              <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="text-xl sm:text-2xl group-hover:animate-pulse block mb-2">🎯</span>
-                  <h3 className="text-xs sm:text-sm font-semibold text-white leading-tight">Detalhado</h3>
-                  <p className="text-xs text-primary-blue-light leading-tight">Completo</p>
+                  <span className="mb-2 block text-xl group-hover:animate-pulse sm:text-2xl">
+                    🎯
+                  </span>
+                  <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
+                    Detalhado
+                  </h3>
+                  <p className="text-xs leading-tight text-primary-blue-light">Completo</p>
                 </div>
               </div>
             </div>
@@ -383,12 +404,14 @@ export default function TrabalhistaIndex() {
         <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-system-warning/20 bg-system-warning/10 p-4 sm:p-6 lg:p-8">
             <div className="flex items-start space-x-3 sm:space-x-4">
-              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-system-warning/20 flex-shrink-0">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-system-warning/20 sm:h-10 sm:w-10">
                 <span className="text-lg sm:text-xl">⚠️</span>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-text-primary">Aviso Legal Importante</h3>
-                <p className="mt-2 text-sm sm:text-base text-text-secondary">
+                <h3 className="text-base font-semibold text-text-primary sm:text-lg">
+                  Aviso Legal Importante
+                </h3>
+                <p className="mt-2 text-sm text-text-secondary sm:text-base">
                   Nossas calculadoras são ferramentas informativas baseadas na legislação
                   trabalhista brasileira atual. Os resultados{" "}
                   <strong className="text-system-warning-dark">

@@ -85,7 +85,7 @@ interface RetirementResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Aposentadoria INSS 2025 – Simulador Regras CLT",
+      title: `Calculadora de Aposentadoria INSS 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -285,28 +285,28 @@ export const meta: MetaFunction = () => {
             name: "Como calcular aposentadoria pelo INSS?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Para calcular a aposentadoria INSS, considere: tempo de contribuição, idade, média salarial e modalidade (idade, pontos, pedágio 50% ou 100%). Use nossa calculadora para simular todas as opções disponíveis."
-            }
+              text: "Para calcular a aposentadoria INSS, considere: tempo de contribuição, idade, média salarial e modalidade (idade, pontos, pedágio 50% ou 100%). Use nossa calculadora para simular todas as opções disponíveis.",
+            },
           },
           {
-            "@type": "Question", 
+            "@type": "Question",
             name: "Qual a melhor modalidade de aposentadoria?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A melhor modalidade depende da sua situação: aposentadoria por idade (65H/62M), por pontos (96H/86M), pedágio 50% ou 100%. Nossa calculadora compara todas e mostra a mais vantajosa."
-            }
+              text: "A melhor modalidade depende da sua situação: aposentadoria por idade (65H/62M), por pontos (96H/86M), pedágio 50% ou 100%. Nossa calculadora compara todas e mostra a mais vantajosa.",
+            },
           },
           {
             "@type": "Question",
             name: "Como funciona o pedágio da aposentadoria?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Pedágio 50%: pague metade do tempo que faltava em 2019. Pedágio 100%: pague o dobro do tempo restante, mas sem idade mínima. Nossa calculadora simula ambas as opções."
-            }
-          }
-        ]
-      })
-    }
+              text: "Pedágio 50%: pague metade do tempo que faltava em 2019. Pedágio 100%: pague o dobro do tempo restante, mas sem idade mínima. Nossa calculadora simula ambas as opções.",
+            },
+          },
+        ],
+      }),
+    },
   ];
 };
 
@@ -697,18 +697,18 @@ export default function CalculadoraAposentadoriaINSS() {
   const [selectedModality, setSelectedModality] = useState<string>("");
 
   // Global Analytics Tracking
-  const { 
-    startCalculation, 
-    endCalculation, 
-    trackFeature, 
+  const {
+    startCalculation,
+    endCalculation,
+    trackFeature,
     trackButtonClick,
     trackStepsToggle,
-    trackInputFocus 
-  } = useAutoCalculatorTracking({ 
+    trackInputFocus,
+  } = useAutoCalculatorTracking({
     calculatorType: "aposentadoria",
-    category: "trabalhista"
+    category: "trabalhista",
   });
-  
+
   const { trackInputChange, trackFormSubmission } = useFormTracking("aposentadoria");
 
   const handleCalculate = () => {

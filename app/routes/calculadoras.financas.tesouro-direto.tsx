@@ -80,7 +80,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Tesouro Direto – Simule Rentabilidade dos Títulos",
+      title: `Calculadora de Tesouro Direto 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -395,7 +395,7 @@ export default function TreasuryDirectCalculator() {
   const [marketRateAtRedemption, setMarketRateAtRedemption] = useState(
     ECONOMIC_INDICATORS.SELIC.rate.toString()
   );
-  
+
   // Paginação dos cupons
   const [currentCouponPage, setCurrentCouponPage] = useState(1);
   const couponsPerPage = 6;
@@ -984,9 +984,9 @@ export default function TreasuryDirectCalculator() {
                         <h5 className="mb-2 font-medium text-system-warning">
                           📅 Cronograma dos Cupons:
                         </h5>
-                        
+
                         {/* Versão Desktop */}
-                        <div className="hidden sm:block overflow-x-auto">
+                        <div className="hidden overflow-x-auto sm:block">
                           <table className="w-full overflow-hidden rounded-lg bg-background-dark-secondary">
                             <thead className="bg-system-warning/20">
                               <tr>
@@ -1004,108 +1004,130 @@ export default function TreasuryDirectCalculator() {
                                 </th>
                               </tr>
                             </thead>
-                          <tbody>
-                            {(() => {
-                              const startIndex = (currentCouponPage - 1) * couponsPerPage;
-                              const endIndex = startIndex + couponsPerPage;
-                              const paginatedCoupons = result.coupons.slice(startIndex, endIndex);
-                              
-                              return paginatedCoupons.map((coupon, index) => {
-                                const globalIndex = startIndex + index;
-                                const couponDate = new Date(coupon.paymentDate);
-                                const year = couponDate.getFullYear();
-                                const month = couponDate.getMonth();
-                                const semesterText = month < 6 ? "1º Semestre" : "2º Semestre";
+                            <tbody>
+                              {(() => {
+                                const startIndex = (currentCouponPage - 1) * couponsPerPage;
+                                const endIndex = startIndex + couponsPerPage;
+                                const paginatedCoupons = result.coupons.slice(startIndex, endIndex);
 
-                                return (
-                                  <tr
-                                    key={globalIndex}
-                                    className="border-t border-neutral-surface-variant hover:bg-system-warning/5"
-                                  >
-                                    <td className="px-4 py-2">
-                                      <span className="font-medium text-system-warning">
-                                        {globalIndex + 1}º
-                                      </span>
-                                    </td>
-                                    <td className="px-4 py-2 text-center">
-                                      <span className="text-sm text-text-primary">
-                                        {semesterText} {year}
-                                      </span>
-                                    </td>
-                                    <td className="px-4 py-2 text-right">
-                                      <span className="text-sm font-bold text-system-success">
-                                        {coupon.couponValue.toLocaleString("pt-BR", {
-                                          style: "currency",
-                                          currency: "BRL",
-                                        })}
-                                      </span>
-                                    </td>
-                                    <td className="px-4 py-2 text-right">
-                                      <span className="text-sm font-medium text-primary-blue-dark">
-                                        {coupon.accumulatedValue.toLocaleString("pt-BR", {
-                                          style: "currency",
-                                          currency: "BRL",
-                                        })}
-                                      </span>
-                                    </td>
-                                  </tr>
-                                );
-                              });
-                            })()}
-                          </tbody>
-                        </table>
-                        
-                        {/* Paginação Desktop */}
-                        {result.coupons.length > couponsPerPage && (
-                          <div className="mt-4 space-y-2">
-                            <div className="text-center text-sm text-text-secondary">
-                              Mostrando {Math.min((currentCouponPage - 1) * couponsPerPage + 1, result.coupons.length)} a{' '}
-                              {Math.min(currentCouponPage * couponsPerPage, result.coupons.length)} de{' '}
-                              {result.coupons.length} cupons
+                                return paginatedCoupons.map((coupon, index) => {
+                                  const globalIndex = startIndex + index;
+                                  const couponDate = new Date(coupon.paymentDate);
+                                  const year = couponDate.getFullYear();
+                                  const month = couponDate.getMonth();
+                                  const semesterText = month < 6 ? "1º Semestre" : "2º Semestre";
+
+                                  return (
+                                    <tr
+                                      key={globalIndex}
+                                      className="border-t border-neutral-surface-variant hover:bg-system-warning/5"
+                                    >
+                                      <td className="px-4 py-2">
+                                        <span className="font-medium text-system-warning">
+                                          {globalIndex + 1}º
+                                        </span>
+                                      </td>
+                                      <td className="px-4 py-2 text-center">
+                                        <span className="text-sm text-text-primary">
+                                          {semesterText} {year}
+                                        </span>
+                                      </td>
+                                      <td className="px-4 py-2 text-right">
+                                        <span className="text-sm font-bold text-system-success">
+                                          {coupon.couponValue.toLocaleString("pt-BR", {
+                                            style: "currency",
+                                            currency: "BRL",
+                                          })}
+                                        </span>
+                                      </td>
+                                      <td className="px-4 py-2 text-right">
+                                        <span className="text-sm font-medium text-primary-blue-dark">
+                                          {coupon.accumulatedValue.toLocaleString("pt-BR", {
+                                            style: "currency",
+                                            currency: "BRL",
+                                          })}
+                                        </span>
+                                      </td>
+                                    </tr>
+                                  );
+                                });
+                              })()}
+                            </tbody>
+                          </table>
+
+                          {/* Paginação Desktop */}
+                          {result.coupons.length > couponsPerPage && (
+                            <div className="mt-4 space-y-2">
+                              <div className="text-center text-sm text-text-secondary">
+                                Mostrando{" "}
+                                {Math.min(
+                                  (currentCouponPage - 1) * couponsPerPage + 1,
+                                  result.coupons.length
+                                )}{" "}
+                                a{" "}
+                                {Math.min(
+                                  currentCouponPage * couponsPerPage,
+                                  result.coupons.length
+                                )}{" "}
+                                de {result.coupons.length} cupons
+                              </div>
+
+                              <div className="flex items-center justify-center space-x-4">
+                                <button
+                                  onClick={() =>
+                                    setCurrentCouponPage((prev) => Math.max(1, prev - 1))
+                                  }
+                                  disabled={currentCouponPage === 1}
+                                  className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
+                                    currentCouponPage === 1
+                                      ? "cursor-not-allowed border-neutral-surface-variant bg-neutral-surface text-text-secondary"
+                                      : "cursor-pointer border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white"
+                                  }`}
+                                  aria-label="Página anterior"
+                                >
+                                  &lt;
+                                </button>
+
+                                <span className="text-sm font-medium text-text-primary">
+                                  Página {currentCouponPage} de{" "}
+                                  {Math.ceil(result.coupons.length / couponsPerPage)}
+                                </span>
+
+                                <button
+                                  onClick={() =>
+                                    setCurrentCouponPage((prev) =>
+                                      Math.min(
+                                        Math.ceil(result.coupons.length / couponsPerPage),
+                                        prev + 1
+                                      )
+                                    )
+                                  }
+                                  disabled={
+                                    currentCouponPage >=
+                                    Math.ceil(result.coupons.length / couponsPerPage)
+                                  }
+                                  className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
+                                    currentCouponPage >=
+                                    Math.ceil(result.coupons.length / couponsPerPage)
+                                      ? "cursor-not-allowed border-neutral-surface-variant bg-neutral-surface text-text-secondary"
+                                      : "cursor-pointer border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white"
+                                  }`}
+                                  aria-label="Próxima página"
+                                >
+                                  &gt;
+                                </button>
+                              </div>
                             </div>
-                            
-                            <div className="flex items-center justify-center space-x-4">
-                              <button
-                                onClick={() => setCurrentCouponPage(prev => Math.max(1, prev - 1))}
-                                disabled={currentCouponPage === 1}
-                                className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
-                                  currentCouponPage === 1
-                                    ? 'border-neutral-surface-variant bg-neutral-surface text-text-secondary cursor-not-allowed'
-                                    : 'border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white cursor-pointer'
-                                }`}
-                                aria-label="Página anterior"
-                              >
-                                &lt;
-                              </button>
-                              
-                              <span className="text-sm font-medium text-text-primary">
-                                Página {currentCouponPage} de {Math.ceil(result.coupons.length / couponsPerPage)}
-                              </span>
-                              
-                              <button
-                                onClick={() => setCurrentCouponPage(prev => Math.min(Math.ceil(result.coupons.length / couponsPerPage), prev + 1))}
-                                disabled={currentCouponPage >= Math.ceil(result.coupons.length / couponsPerPage)}
-                                className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
-                                  currentCouponPage >= Math.ceil(result.coupons.length / couponsPerPage)
-                                    ? 'border-neutral-surface-variant bg-neutral-surface text-text-secondary cursor-not-allowed'
-                                    : 'border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white cursor-pointer'
-                                }`}
-                                aria-label="Próxima página"
-                              >
-                                &gt;
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                        
+                          )}
+                        </div>
+
                         {/* Versão Mobile */}
-                        <div className="block sm:hidden space-y-3">
+                        <div className="block space-y-3 sm:hidden">
                           {(() => {
                             const startIndex = (currentCouponPage - 1) * couponsPerPage;
                             const endIndex = startIndex + couponsPerPage;
                             const paginatedCoupons = result.coupons.slice(startIndex, endIndex);
-                            
+
                             return paginatedCoupons.map((coupon, index) => {
                               const globalIndex = startIndex + index;
                               const couponDate = new Date(coupon.paymentDate);
@@ -1118,7 +1140,7 @@ export default function TreasuryDirectCalculator() {
                                   key={globalIndex}
                                   className="rounded-lg border border-system-warning/20 bg-background-dark-secondary p-3"
                                 >
-                                  <div className="flex items-center justify-between mb-2">
+                                  <div className="mb-2 flex items-center justify-between">
                                     <span className="font-medium text-system-warning">
                                       {globalIndex + 1}º Semestre
                                     </span>
@@ -1128,7 +1150,9 @@ export default function TreasuryDirectCalculator() {
                                   </div>
                                   <div className="grid grid-cols-2 gap-2 text-sm">
                                     <div>
-                                      <p className="text-xs text-text-secondary mb-1">Valor do Cupom</p>
+                                      <p className="mb-1 text-xs text-text-secondary">
+                                        Valor do Cupom
+                                      </p>
                                       <p className="font-bold text-system-success">
                                         {coupon.couponValue.toLocaleString("pt-BR", {
                                           style: "currency",
@@ -1137,7 +1161,7 @@ export default function TreasuryDirectCalculator() {
                                       </p>
                                     </div>
                                     <div className="text-right">
-                                      <p className="text-xs text-text-secondary mb-1">Acumulado</p>
+                                      <p className="mb-1 text-xs text-text-secondary">Acumulado</p>
                                       <p className="font-medium text-primary-blue-dark">
                                         {coupon.accumulatedValue.toLocaleString("pt-BR", {
                                           style: "currency",
@@ -1150,41 +1174,63 @@ export default function TreasuryDirectCalculator() {
                               );
                             });
                           })()}
-                          
+
                           {/* Paginação Mobile */}
                           {result.coupons.length > couponsPerPage && (
                             <div className="mt-4 space-y-2">
                               <div className="text-center text-sm text-text-secondary">
-                                Mostrando {Math.min((currentCouponPage - 1) * couponsPerPage + 1, result.coupons.length)} a{' '}
-                                {Math.min(currentCouponPage * couponsPerPage, result.coupons.length)} de{' '}
-                                {result.coupons.length} cupons
+                                Mostrando{" "}
+                                {Math.min(
+                                  (currentCouponPage - 1) * couponsPerPage + 1,
+                                  result.coupons.length
+                                )}{" "}
+                                a{" "}
+                                {Math.min(
+                                  currentCouponPage * couponsPerPage,
+                                  result.coupons.length
+                                )}{" "}
+                                de {result.coupons.length} cupons
                               </div>
-                              
+
                               <div className="flex items-center justify-center space-x-4">
                                 <button
-                                  onClick={() => setCurrentCouponPage(prev => Math.max(1, prev - 1))}
+                                  onClick={() =>
+                                    setCurrentCouponPage((prev) => Math.max(1, prev - 1))
+                                  }
                                   disabled={currentCouponPage === 1}
                                   className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
                                     currentCouponPage === 1
-                                      ? 'border-neutral-surface-variant bg-neutral-surface text-text-secondary cursor-not-allowed'
-                                      : 'border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white cursor-pointer'
+                                      ? "cursor-not-allowed border-neutral-surface-variant bg-neutral-surface text-text-secondary"
+                                      : "cursor-pointer border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white"
                                   }`}
                                   aria-label="Página anterior"
                                 >
                                   &lt;
                                 </button>
-                                
+
                                 <span className="text-sm font-medium text-text-primary">
-                                  Página {currentCouponPage} de {Math.ceil(result.coupons.length / couponsPerPage)}
+                                  Página {currentCouponPage} de{" "}
+                                  {Math.ceil(result.coupons.length / couponsPerPage)}
                                 </span>
-                                
+
                                 <button
-                                  onClick={() => setCurrentCouponPage(prev => Math.min(Math.ceil(result.coupons.length / couponsPerPage), prev + 1))}
-                                  disabled={currentCouponPage >= Math.ceil(result.coupons.length / couponsPerPage)}
+                                  onClick={() =>
+                                    setCurrentCouponPage((prev) =>
+                                      Math.min(
+                                        Math.ceil(result.coupons.length / couponsPerPage),
+                                        prev + 1
+                                      )
+                                    )
+                                  }
+                                  disabled={
+                                    currentCouponPage >=
+                                    Math.ceil(result.coupons.length / couponsPerPage)
+                                  }
                                   className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors ${
-                                    currentCouponPage >= Math.ceil(result.coupons.length / couponsPerPage)
-                                      ? 'border-neutral-surface-variant bg-neutral-surface text-text-secondary cursor-not-allowed'
-                                      : 'border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white cursor-pointer'
+                                    currentCouponPage >=
+                                    Math.ceil(result.coupons.length / couponsPerPage)
+                                      ? "cursor-not-allowed border-neutral-surface-variant bg-neutral-surface text-text-secondary"
+                                      : "cursor-pointer border-primary-blue bg-primary-blue/10 text-primary-blue hover:bg-primary-blue hover:text-white"
                                   }`}
                                   aria-label="Próxima página"
                                 >

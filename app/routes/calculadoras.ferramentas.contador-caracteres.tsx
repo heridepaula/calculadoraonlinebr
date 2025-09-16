@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Contador de Caracteres – Contagem de Letras, Palavras e Frases Online",
+      title: `Contador de Caracteres Online | ${APP_NAME}`,
     },
     {
       name: "description",

@@ -11,7 +11,7 @@ import { trackEvent } from "~/lib/google-analytics";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Compatibilidade de Signos Grátis 2025 | Sinastria Amorosa e Combinação Astral" },
+    { title: `Compatibilidade de Signos Grátis 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -1472,8 +1472,7 @@ export default function CalculadoraCompatibilidadeSignos() {
             🔮 Teste de Compatibilidade de Signos Grátis 2025 - Sinastria Amorosa
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-            Descubra a{" "}
-            <strong className="text-math-purple-dark">sinastria amorosa</strong> e{" "}
+            Descubra a <strong className="text-math-purple-dark">sinastria amorosa</strong> e{" "}
             <strong className="text-primary-blue-dark">combinação astral</strong> entre signos.
             Análise completa de{" "}
             <strong className="text-primary-blue-dark">amor, amizade e trabalho</strong> com{" "}

@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: "Gerador Cartão de Crédito – Gere Números de Teste para Desenvolvimento",
+      title: `Gerador Cartão de Crédito Online | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -72,7 +72,8 @@ export const meta: MetaFunction = () => {
     { property: "og:type", content: "website" },
     {
       property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
+      content:
+        "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
@@ -142,7 +143,8 @@ export const meta: MetaFunction = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
+          "@id":
+            "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
           name: "Gerador Cartão de Crédito 2025 - Números de Teste Válidos",
           description:
             "Gerador de números de cartão de crédito para testes e desenvolvimento. Suporte para todas as principais bandeiras e validação com algoritmo de Luhn.",
@@ -394,9 +396,10 @@ export default function CreditCardGenerator() {
     const month = Math.floor(Math.random() * 12) + 1;
 
     // Se for o mesmo ano, garante que o mês seja no futuro
-    const finalMonth = futureYear === currentYear && month <= currentMonth 
-      ? currentMonth + Math.floor(Math.random() * (12 - currentMonth)) + 1 
-      : month;
+    const finalMonth =
+      futureYear === currentYear && month <= currentMonth
+        ? currentMonth + Math.floor(Math.random() * (12 - currentMonth)) + 1
+        : month;
 
     return `${finalMonth.toString().padStart(2, "0")}/${futureYear.toString().slice(-2)}`;
   };
@@ -503,8 +506,8 @@ export default function CreditCardGenerator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Gere <strong className="text-primary-blue-dark">números de cartão válidos</strong> para{" "}
-          <strong className="text-growth-green">testes e desenvolvimento</strong>. Suporte para todas
-          as principais bandeiras com algoritmo de Luhn.
+          <strong className="text-growth-green">testes e desenvolvimento</strong>. Suporte para
+          todas as principais bandeiras com algoritmo de Luhn.
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
@@ -556,8 +559,8 @@ export default function CreditCardGenerator() {
                 </strong>
               </p>
               <p className="mt-1 text-xs text-text-secondary opacity-80">
-                CVV: {CARD_BRANDS[selectedBrand].cvvLength} dígitos •{" "}
-                Comprimento: {CARD_BRANDS[selectedBrand].lengths.join(" ou ")} dígitos
+                CVV: {CARD_BRANDS[selectedBrand].cvvLength} dígitos • Comprimento:{" "}
+                {CARD_BRANDS[selectedBrand].lengths.join(" ou ")} dígitos
               </p>
             </div>
           </div>
@@ -602,9 +605,9 @@ export default function CreditCardGenerator() {
                       {result.brandName}
                     </div>
                   </div>
-                  
+
                   <div className="mb-4">
-                    <div className="mb-2 text-xl font-mono tracking-wider">
+                    <div className="mb-2 font-mono text-xl tracking-wider">
                       {result.numberFormatted}
                     </div>
                   </div>
@@ -636,7 +639,11 @@ export default function CreditCardGenerator() {
                 </Button>
 
                 <Button
-                  onClick={() => copyToClipboard(`${result.numberFormatted} | ${result.expiryDate} | ${result.cvv}`)}
+                  onClick={() =>
+                    copyToClipboard(
+                      `${result.numberFormatted} | ${result.expiryDate} | ${result.cvv}`
+                    )
+                  }
                   variant="outline"
                   className="border-growth-green text-growth-green hover:bg-growth-green hover:text-white"
                 >
@@ -654,12 +661,12 @@ export default function CreditCardGenerator() {
 
               <div className="rounded-lg bg-primary-blue-light p-4">
                 <h4 className="mb-3 font-semibold text-primary-blue-dark">Dados do Cartão</h4>
-                
+
                 {/* Número do Cartão */}
                 <div className="mb-3 flex items-center justify-between rounded bg-gray-800 p-3">
                   <div className="flex-1">
                     <div className="text-xs text-gray-400">Número do Cartão</div>
-                    <code className="text-sm font-mono text-white">{result.numberFormatted}</code>
+                    <code className="font-mono text-sm text-white">{result.numberFormatted}</code>
                   </div>
                   <Button
                     onClick={() => copyToClipboard(result.numberFormatted)}
@@ -677,7 +684,7 @@ export default function CreditCardGenerator() {
                   <div className="flex items-center justify-between rounded bg-gray-800 p-3">
                     <div className="flex-1">
                       <div className="text-xs text-gray-400">Validade</div>
-                      <code className="text-sm font-mono text-white">{result.expiryDate}</code>
+                      <code className="font-mono text-sm text-white">{result.expiryDate}</code>
                     </div>
                     <Button
                       onClick={() => copyToClipboard(result.expiryDate)}
@@ -693,7 +700,7 @@ export default function CreditCardGenerator() {
                   <div className="flex items-center justify-between rounded bg-gray-800 p-3">
                     <div className="flex-1">
                       <div className="text-xs text-gray-400">CVV</div>
-                      <code className="text-sm font-mono text-white">{result.cvv}</code>
+                      <code className="font-mono text-sm text-white">{result.cvv}</code>
                     </div>
                     <Button
                       onClick={() => copyToClipboard(result.cvv)}
@@ -708,8 +715,12 @@ export default function CreditCardGenerator() {
 
                 {/* Informações adicionais */}
                 <div className="mt-3 text-center text-sm text-text-secondary">
-                  <div><strong>Bandeira:</strong> {result.brandName}</div>
-                  <div><strong>Gerado em:</strong> {result.generatedAt.toLocaleString("pt-BR")}</div>
+                  <div>
+                    <strong>Bandeira:</strong> {result.brandName}
+                  </div>
+                  <div>
+                    <strong>Gerado em:</strong> {result.generatedAt.toLocaleString("pt-BR")}
+                  </div>
                 </div>
               </div>
 
@@ -756,8 +767,8 @@ export default function CreditCardGenerator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-growth-green">🏛️ Estrutura dos Números</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Cada bandeira tem padrões específicos de numeração que identificam
-                    o emissor, tipo de cartão e outras informações.
+                    Cada bandeira tem padrões específicos de numeração que identificam o emissor,
+                    tipo de cartão e outras informações.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-success">✅ Validação</h4>
@@ -890,22 +901,25 @@ export default function CreditCardGenerator() {
         <CardContent>
           <div className="space-y-3 text-sm text-text-secondary">
             <p>
-              Este <strong className="text-primary-blue-dark">gerador de cartão de crédito</strong> cria
-              números <strong className="text-growth-green">matematicamente válidos</strong> usando o
-              algoritmo de Luhn. Todos os dados são fictícios e servem apenas para educação.
+              Este <strong className="text-primary-blue-dark">gerador de cartão de crédito</strong>{" "}
+              cria números <strong className="text-growth-green">matematicamente válidos</strong>{" "}
+              usando o algoritmo de Luhn. Todos os dados são fictícios e servem apenas para
+              educação.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Suporte a 6 bandeiras principais, geração de CVV e data
-              de validade, cópia automática, interface responsiva e validação completa com algoritmo de Luhn.
+              <strong>Funcionalidades:</strong> Suporte a 6 bandeiras principais, geração de CVV e
+              data de validade, cópia automática, interface responsiva e validação completa com
+              algoritmo de Luhn.
             </p>
             <p>
               <strong className="text-system-error">Aviso Legal:</strong> Esta ferramenta é
-              exclusivamente educacional. <strong>É crime usar números fictícios para fraudes</strong> ou
-              tentativas de compra. Use apenas para desenvolvimento e aprendizado.
+              exclusivamente educacional.{" "}
+              <strong>É crime usar números fictícios para fraudes</strong> ou tentativas de compra.
+              Use apenas para desenvolvimento e aprendizado.
             </p>
             <p className="mt-4 border-t border-primary-blue/20 pt-3 text-xs opacity-75">
-              ⚡ Geração instantânea • 🔒 Algoritmo de Luhn • 📋 Cópia automática • 📱 Mobile-friendly • 🎓
-              Uso educacional • 🛡️ Totalmente seguro
+              ⚡ Geração instantânea • 🔒 Algoritmo de Luhn • 📋 Cópia automática • 📱
+              Mobile-friendly • 🎓 Uso educacional • 🛡️ Totalmente seguro
             </p>
           </div>
         </CardContent>

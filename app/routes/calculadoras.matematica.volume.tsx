@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Volume 2025 – Calculadora Cubo, Esfera, Cilindro",
+      title: `Calculadora de Volume 2025 | ${APP_NAME}`,
     },
     {
       name: "description",

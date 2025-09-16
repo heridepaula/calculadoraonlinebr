@@ -1,19 +1,19 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect, useRef } from "react";
+import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  Button,
-} from "~/components/ui";
-import { RelatedCalculators, FAQ, ResponsiveBreadcrumb, createCalculatorBreadcrumb } from "~/components";
+  RelatedCalculators,
+  FAQ,
+  ResponsiveBreadcrumb,
+  createCalculatorBreadcrumb,
+} from "~/components";
 import { calculateSolarSign, fetchAscendantDescription } from "~/utils/astrology";
 import type { AscendantDescription } from "~/types";
+import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Calculadora Ascendente – Descubra seu Signo Grátis" },
+    { title: `Descubra seu Ascendente Online Grátis | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -42,7 +42,8 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:description",
-      content: "Calcule seu ascendente astrológico grátis com data, hora e local de nascimento. Descubra sua personalidade externa e primeiras impressões.",
+      content:
+        "Calcule seu ascendente astrológico grátis com data, hora e local de nascimento. Descubra sua personalidade externa e primeiras impressões.",
     },
     {
       property: "og:type",
@@ -58,7 +59,8 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:alt",
-      content: "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
+      content:
+        "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
     },
     {
       property: "og:site_name",
@@ -78,7 +80,8 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:description",
-      content: "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
+      content:
+        "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
     },
     {
       name: "twitter:image",
@@ -86,7 +89,8 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image:alt",
-      content: "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
+      content:
+        "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
     },
     {
       rel: "canonical",
@@ -1283,597 +1287,608 @@ export default function CalculadoraAscendente() {
 
   return (
     <div className="min-h-screen">
-      <ResponsiveBreadcrumb items={createCalculatorBreadcrumb('astrologia', 'Ascendente Astrológico')} />
-      
-      <div className="space-y-8 px-3 sm:px-6 py-6">
-
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "WebSite",
-                "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                "url": "https://www.calculadoraonlinebr.com.br/",
-                "name": "CalculadoraOnlineBR",
-                "description": "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
-                "inLanguage": "pt-BR",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#webpage",
-                "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
-                "name": "Calculadora de Ascendente Astrológico Grátis 2025",
-                "isPartOf": {
-                  "@id": "https://www.calculadoraonlinebr.com.br/#website"
-                },
-                "description": "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
-                "inLanguage": "pt-BR",
-                "breadcrumb": {
-                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb"
-                },
-                "mainEntity": {
-                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#software"
-                }
-              },
-              {
-                "@type": "BreadcrumbList",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb",
-                "itemListElement": [
-                  {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Início",
-                    "item": "https://www.calculadoraonlinebr.com.br/"
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Calculadoras",
-                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras"
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Astrologia",
-                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia"
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 4,
-                    "name": "Ascendente Astrológico",
-                    "item": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente"
-                  }
-                ]
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#software",
-                "name": "Calculadora de Ascendente Astrológico",
-                "description": "Calculadora gratuita para descobrir o signo ascendente com base em data, hora e local de nascimento. Análise completa da personalidade astrológica.",
-                "url": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
-                "applicationCategory": "UtilitiesApplication",
-                "operatingSystem": "Web",
-                "permissions": "Não requer permissões especiais",
-                "isAccessibleForFree": true,
-                "offers": {
-                  "@type": "Offer",
-                  "price": "0",
-                  "priceCurrency": "BRL",
-                  "availability": "https://schema.org/InStock"
-                },
-                "author": {
-                  "@type": "Organization",
-                  "name": "CalculadoraOnlineBR",
-                  "url": "https://www.calculadoraonlinebr.com.br"
-                },
-                "provider": {
-                  "@type": "Organization",
-                  "name": "CalculadoraOnlineBR"
-                },
-                "featureList": [
-                  "Cálculo do signo ascendente",
-                  "Busca automática de cidades brasileiras",
-                  "Análise detalhada da personalidade",
-                  "Compatibilidade amorosa",
-                  "Orientação profissional",
-                  "Interface responsiva"
-                ],
-                "screenshot": "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg"
-              },
-              {
-                "@type": "FAQPage",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#faq",
-                "mainEntity": [
-                  {
-                    "@type": "Question",
-                    "name": "O que é o ascendente astrológico?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "O ascendente é o signo que estava nascendo no horizonte leste no momento exato do seu nascimento. Representa sua máscara social, primeira impressão e como você se apresenta ao mundo. Muda aproximadamente a cada 2 horas."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Por que é necessária a hora exata de nascimento?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "O ascendente muda a cada 2 horas aproximadamente, por isso a hora exata é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza."
-                    }
-                  },
-                  {
-                    "@type": "Question",
-                    "name": "Qual a diferença entre Sol, Lua e Ascendente?",
-                    "acceptedAnswer": {
-                      "@type": "Answer",
-                      "text": "O Sol representa sua essência e identidade core. A Lua governa suas emoções e instintos íntimos. O Ascendente é sua máscara social - como você se comporta e é visto pelos outros, especialmente em primeiros encontros."
-                    }
-                  }
-                ]
-              }
-            ]
-          })
-        }}
+      <ResponsiveBreadcrumb
+        items={createCalculatorBreadcrumb("astrologia", "Ascendente Astrológico")}
       />
 
-      {/* Header */}
-      <header className="space-y-4 text-center">
-        <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Ascendente Astrológico
-        </h1>
-        <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
-          Descubra seu <strong className="text-math-purple-dark">signo ascendente</strong>{" "}
-          e entenda como você se apresenta ao mundo. O ascendente representa{" "}
-          <strong className="text-primary-blue-dark">sua persona social</strong> e primeira
-          impressão que causa nos outros.
-        </p>
-        <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
-          <p className="text-sm font-medium text-text-primary">
-            🌟 <strong>Cálculo Completo</strong> • 🎭 <strong>Personalidade Completa</strong> • ✨{" "}
-            <strong>Análise Detalhada</strong>
+      <div className="space-y-8 px-3 py-6 sm:px-6">
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://www.calculadoraonlinebr.com.br/#website",
+                  url: "https://www.calculadoraonlinebr.com.br/",
+                  name: "CalculadoraOnlineBR",
+                  description:
+                    "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
+                  inLanguage: "pt-BR",
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string",
+                  },
+                },
+                {
+                  "@type": "WebPage",
+                  "@id":
+                    "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#webpage",
+                  url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+                  name: "Calculadora de Ascendente Astrológico Grátis 2025",
+                  isPartOf: {
+                    "@id": "https://www.calculadoraonlinebr.com.br/#website",
+                  },
+                  description:
+                    "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
+                  inLanguage: "pt-BR",
+                  breadcrumb: {
+                    "@id":
+                      "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb",
+                  },
+                  mainEntity: {
+                    "@id":
+                      "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#software",
+                  },
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "@id":
+                    "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#breadcrumb",
+                  itemListElement: [
+                    {
+                      "@type": "ListItem",
+                      position: 1,
+                      name: "Início",
+                      item: "https://www.calculadoraonlinebr.com.br/",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 2,
+                      name: "Calculadoras",
+                      item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 3,
+                      name: "Astrologia",
+                      item: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 4,
+                      name: "Ascendente Astrológico",
+                      item: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+                    },
+                  ],
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "@id":
+                    "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#software",
+                  name: "Calculadora de Ascendente Astrológico",
+                  description:
+                    "Calculadora gratuita para descobrir o signo ascendente com base em data, hora e local de nascimento. Análise completa da personalidade astrológica.",
+                  url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+                  applicationCategory: "UtilitiesApplication",
+                  operatingSystem: "Web",
+                  permissions: "Não requer permissões especiais",
+                  isAccessibleForFree: true,
+                  offers: {
+                    "@type": "Offer",
+                    price: "0",
+                    priceCurrency: "BRL",
+                    availability: "https://schema.org/InStock",
+                  },
+                  author: {
+                    "@type": "Organization",
+                    name: "CalculadoraOnlineBR",
+                    url: "https://www.calculadoraonlinebr.com.br",
+                  },
+                  provider: {
+                    "@type": "Organization",
+                    name: "CalculadoraOnlineBR",
+                  },
+                  featureList: [
+                    "Cálculo do signo ascendente",
+                    "Busca automática de cidades brasileiras",
+                    "Análise detalhada da personalidade",
+                    "Compatibilidade amorosa",
+                    "Orientação profissional",
+                    "Interface responsiva",
+                  ],
+                  screenshot:
+                    "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg",
+                },
+                {
+                  "@type": "FAQPage",
+                  "@id":
+                    "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#faq",
+                  mainEntity: [
+                    {
+                      "@type": "Question",
+                      name: "O que é o ascendente astrológico?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "O ascendente é o signo que estava nascendo no horizonte leste no momento exato do seu nascimento. Representa sua máscara social, primeira impressão e como você se apresenta ao mundo. Muda aproximadamente a cada 2 horas.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Por que é necessária a hora exata de nascimento?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "O ascendente muda a cada 2 horas aproximadamente, por isso a hora exata é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Qual a diferença entre Sol, Lua e Ascendente?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "O Sol representa sua essência e identidade core. A Lua governa suas emoções e instintos íntimos. O Ascendente é sua máscara social - como você se comporta e é visto pelos outros, especialmente em primeiros encontros.",
+                      },
+                    },
+                  ],
+                },
+              ],
+            }),
+          }}
+        />
+
+        {/* Header */}
+        <header className="space-y-4 text-center">
+          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
+            Calculadora de Ascendente Astrológico
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
+            Descubra seu <strong className="text-math-purple-dark">signo ascendente</strong> e
+            entenda como você se apresenta ao mundo. O ascendente representa{" "}
+            <strong className="text-primary-blue-dark">sua persona social</strong> e primeira
+            impressão que causa nos outros.
           </p>
-        </div>
-      </header>
+          <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
+            <p className="text-sm font-medium text-text-primary">
+              🌟 <strong>Cálculo Completo</strong> • 🎭 <strong>Personalidade Completa</strong> • ✨{" "}
+              <strong>Análise Detalhada</strong>
+            </p>
+          </div>
+        </header>
 
-      {/* Formulário */}
-      <Card className="mx-auto max-w-2xl">
-        <CardHeader>
-          <CardTitle>Dados de Nascimento</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleCalculate} className="space-y-6">
-            {/* Data de nascimento */}
-            <div>
-              <label
-                htmlFor="birth-date"
-                className="mb-2 block text-sm font-medium text-text-primary"
+        {/* Formulário */}
+        <Card className="mx-auto max-w-2xl">
+          <CardHeader>
+            <CardTitle>Dados de Nascimento</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleCalculate} className="space-y-6">
+              {/* Data de nascimento */}
+              <div>
+                <label
+                  htmlFor="birth-date"
+                  className="mb-2 block text-sm font-medium text-text-primary"
+                >
+                  Data de Nascimento:
+                </label>
+                <input
+                  id="birth-date"
+                  type="date"
+                  value={birthData.date}
+                  onChange={(e) => setBirthData({ ...birthData, date: e.target.value })}
+                  className="bg-background-primary w-full rounded-lg border border-neutral-surface-variant p-3 text-text-primary transition-colors duration-200 focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
+                  required
+                />
+              </div>
+
+              {/* Hora de nascimento */}
+              <div>
+                <label
+                  htmlFor="birth-time"
+                  className="mb-2 block text-sm font-medium text-text-primary"
+                >
+                  Hora de Nascimento:
+                </label>
+                <input
+                  id="birth-time"
+                  type="time"
+                  value={birthData.time}
+                  onChange={(e) => setBirthData({ ...birthData, time: e.target.value })}
+                  className="bg-background-primary w-full rounded-lg border border-neutral-surface-variant p-3 text-text-primary transition-colors duration-200 focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
+                  required
+                />
+                <small className="mt-1 block text-xs text-text-secondary">
+                  ⚠️ A hora exata é essencial! Consulte sua certidão de nascimento.
+                </small>
+              </div>
+
+              {/* Local de nascimento */}
+              <CitySearch onCitySelect={(city) => setBirthData({ ...birthData, city })} />
+
+              {birthData.city && (
+                <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
+                  <div className="flex items-start space-x-3">
+                    <span className="text-xl text-system-success">✅</span>
+                    <div>
+                      <p className="font-medium text-text-primary">
+                        Selecionado: {birthData.city.city}, {birthData.city.state}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-math-purple hover:bg-math-purple-dark"
               >
-                Data de Nascimento:
-              </label>
-              <input
-                id="birth-date"
-                type="date"
-                value={birthData.date}
-                onChange={(e) => setBirthData({ ...birthData, date: e.target.value })}
-                className="bg-background-primary w-full rounded-lg border border-neutral-surface-variant p-3 text-text-primary transition-colors duration-200 focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
-                required
-              />
-            </div>
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                    Calculando...
+                  </span>
+                ) : (
+                  "Calcular Ascendente"
+                )}
+              </Button>
 
-            {/* Hora de nascimento */}
-            <div>
-              <label
-                htmlFor="birth-time"
-                className="mb-2 block text-sm font-medium text-text-primary"
-              >
-                Hora de Nascimento:
-              </label>
-              <input
-                id="birth-time"
-                type="time"
-                value={birthData.time}
-                onChange={(e) => setBirthData({ ...birthData, time: e.target.value })}
-                className="bg-background-primary w-full rounded-lg border border-neutral-surface-variant p-3 text-text-primary transition-colors duration-200 focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
-                required
-              />
-              <small className="mt-1 block text-xs text-text-secondary">
-                ⚠️ A hora exata é essencial! Consulte sua certidão de nascimento.
-              </small>
-            </div>
+              {error && (
+                <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
+                  <p className="text-sm text-system-error">{error}</p>
+                </div>
+              )}
+            </form>
+          </CardContent>
+        </Card>
 
-            {/* Local de nascimento */}
-            <CitySearch onCitySelect={(city) => setBirthData({ ...birthData, city })} />
+        {/* Resultado */}
+        {result && birthData.city && (
+          <div className="mx-auto max-w-4xl">
+            <DetailedResultDisplay result={result} city={birthData.city} birthData={birthData} />
+          </div>
+        )}
 
-            {birthData.city && (
-              <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-4">
-                <div className="flex items-start space-x-3">
-                  <span className="text-xl text-system-success">✅</span>
+        {/* Seção: Detalhes dos Tipos de Signos - Guia Completo */}
+        <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple/10 to-primary-blue/10 duration-300">
+          <CardHeader>
+            <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
+              🌟 Elementos dos Signos – Guia Completo 2025
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              {/* Signos de Fogo */}
+              <div className="rounded-xl border border-red-500/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-red-600">
+                  🔥 Signos de Fogo
+                </h3>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
-                    <p className="font-medium text-text-primary">
-                      Selecionado: {birthData.city.city}, {birthData.city.state}
+                    <h4 className="mb-3 font-semibold text-orange-600">🔍 Características</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Signos dinâmicos, enérgicos e pioneiros. Representam a iniciativa, coragem e o
+                      impulso para a ação.
                     </p>
+
+                    <h4 className="mb-3 font-semibold text-yellow-600">⭐ Signos</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Áries (21/03 - 20/04)</li>
+                      <li>• Leão (23/07 - 22/08)</li>
+                      <li>• Sagitário (22/11 - 21/12)</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Liderança natural</li>
+                      <li>• Entusiasmo contagiante</li>
+                      <li>• Coragem para novos desafios</li>
+                    </ul>
+
+                    <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Impulsividade excessiva</li>
+                      <li>• Tendência à agressividade</li>
+                    </ul>
                   </div>
                 </div>
               </div>
-            )}
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-math-purple hover:bg-math-purple-dark"
-            >
-              {loading ? (
-                <span className="flex items-center gap-2">
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                  Calculando...
-                </span>
-              ) : (
-                "Calcular Ascendente"
-              )}
-            </Button>
+              {/* Signos de Terra */}
+              <div className="rounded-xl border border-green-600/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-green-600">
+                  🌍 Signos de Terra
+                </h3>
 
-            {error && (
-              <div className="rounded-lg border border-system-error/20 bg-system-error/10 p-4">
-                <p className="text-sm text-system-error">{error}</p>
-              </div>
-            )}
-          </form>
-        </CardContent>
-      </Card>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div>
+                    <h4 className="mb-3 font-semibold text-emerald-600">🔍 Características</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Signos práticos, estáveis e materialistas. Representam a perseverança,
+                      organização e o foco em resultados concretos.
+                    </p>
 
-      {/* Resultado */}
-      {result && birthData.city && (
-        <div className="mx-auto max-w-4xl">
-          <DetailedResultDisplay result={result} city={birthData.city} birthData={birthData} />
-        </div>
-      )}
+                    <h4 className="mb-3 font-semibold text-teal-600">⭐ Signos</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Touro (21/04 - 20/05)</li>
+                      <li>• Virgem (23/08 - 22/09)</li>
+                      <li>• Capricórnio (22/12 - 20/01)</li>
+                    </ul>
+                  </div>
 
-      {/* Seção: Detalhes dos Tipos de Signos - Guia Completo */}
-      <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple/10 to-primary-blue/10 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🌟 Elementos dos Signos – Guia Completo 2025
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-8">
-            {/* Signos de Fogo */}
-            <div className="rounded-xl border border-red-500/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-red-600">
-                🔥 Signos de Fogo
-              </h3>
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Confiabilidade e estabilidade</li>
+                      <li>• Organização e método</li>
+                      <li>• Persistência em objetivos</li>
+                    </ul>
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-semibold text-orange-600">🔍 Características</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    Signos dinâmicos, enérgicos e pioneiros. Representam a iniciativa, 
-                    coragem e o impulso para a ação.
-                  </p>
-
-                  <h4 className="mb-3 font-semibold text-yellow-600">⭐ Signos</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Áries (21/03 - 20/04)</li>
-                    <li>• Leão (23/07 - 22/08)</li>
-                    <li>• Sagitário (22/11 - 21/12)</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Liderança natural</li>
-                    <li>• Entusiasmo contagiante</li>
-                    <li>• Coragem para novos desafios</li>
-                  </ul>
-
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Impulsividade excessiva</li>
-                    <li>• Tendência à agressividade</li>
-                  </ul>
+                    <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Resistência a mudanças</li>
+                      <li>• Materialismo excessivo</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Signos de Terra */}
-            <div className="rounded-xl border border-green-600/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-green-600">
-                🌍 Signos de Terra
-              </h3>
+              {/* Signos de Ar */}
+              <div className="rounded-xl border border-sky-500/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-sky-600">
+                  💨 Signos de Ar
+                </h3>
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-semibold text-emerald-600">🔍 Características</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    Signos práticos, estáveis e materialistas. Representam a perseverança,
-                    organização e o foco em resultados concretos.
-                  </p>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div>
+                    <h4 className="mb-3 font-semibold text-blue-600">🔍 Características</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Signos intelectuais, comunicativos e sociais. Representam o pensamento, a
+                      comunicação e as ideias.
+                    </p>
 
-                  <h4 className="mb-3 font-semibold text-teal-600">⭐ Signos</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Touro (21/04 - 20/05)</li>
-                    <li>• Virgem (23/08 - 22/09)</li>
-                    <li>• Capricórnio (22/12 - 20/01)</li>
-                  </ul>
-                </div>
+                    <h4 className="mb-3 font-semibold text-cyan-600">⭐ Signos</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Gêmeos (21/05 - 20/06)</li>
+                      <li>• Libra (23/09 - 22/10)</li>
+                      <li>• Aquário (21/01 - 19/02)</li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Confiabilidade e estabilidade</li>
-                    <li>• Organização e método</li>
-                    <li>• Persistência em objetivos</li>
-                  </ul>
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Comunicação excepcional</li>
+                      <li>• Inteligência e versatilidade</li>
+                      <li>• Sociabilidade natural</li>
+                    </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Resistência a mudanças</li>
-                    <li>• Materialismo excessivo</li>
-                  </ul>
+                    <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Superficialidade emocional</li>
+                      <li>• Indecisão constante</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Signos de Ar */}
-            <div className="rounded-xl border border-sky-500/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-sky-600">
-                💨 Signos de Ar
-              </h3>
+              {/* Signos de Água */}
+              <div className="rounded-xl border border-indigo-500/20 bg-gray-900 p-6">
+                <h3 className="mb-4 flex items-center text-xl font-bold text-indigo-600">
+                  🌊 Signos de Água
+                </h3>
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-semibold text-blue-600">🔍 Características</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    Signos intelectuais, comunicativos e sociais. Representam o pensamento,
-                    a comunicação e as ideias.
-                  </p>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div>
+                    <h4 className="mb-3 font-semibold text-purple-600">🔍 Características</h4>
+                    <p className="mb-4 text-sm text-text-secondary">
+                      Signos emotivos, intuitivos e sensíveis. Representam os sentimentos, a empatia
+                      e a intuição.
+                    </p>
 
-                  <h4 className="mb-3 font-semibold text-cyan-600">⭐ Signos</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Gêmeos (21/05 - 20/06)</li>
-                    <li>• Libra (23/09 - 22/10)</li>
-                    <li>• Aquário (21/01 - 19/02)</li>
-                  </ul>
-                </div>
+                    <h4 className="mb-3 font-semibold text-violet-600">⭐ Signos</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Câncer (21/06 - 22/07)</li>
+                      <li>• Escorpião (23/10 - 21/11)</li>
+                      <li>• Peixes (20/02 - 20/03)</li>
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Comunicação excepcional</li>
-                    <li>• Inteligência e versatilidade</li>
-                    <li>• Sociabilidade natural</li>
-                  </ul>
+                  <div>
+                    <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
+                    <ul className="mb-4 space-y-1 text-sm text-text-secondary">
+                      <li>• Intuição e sensibilidade</li>
+                      <li>• Empatia profunda</li>
+                      <li>• Capacidade de cura emocional</li>
+                    </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Superficialidade emocional</li>
-                    <li>• Indecisão constante</li>
-                  </ul>
+                    <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
+                    <ul className="space-y-1 text-sm text-text-secondary">
+                      <li>• Instabilidade emocional</li>
+                      <li>• Tendência à melancolia</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
 
-            {/* Signos de Água */}
-            <div className="rounded-xl border border-indigo-500/20 bg-gray-900 p-6">
-              <h3 className="mb-4 flex items-center text-xl font-bold text-indigo-600">
-                🌊 Signos de Água
-              </h3>
+        {/* Seção: Comparação Sol, Lua e Ascendente */}
+        <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
+          <CardHeader>
+            <CardTitle as="h2" className="text-xl font-bold text-text-primary">
+              ⚖️ Tabela Comparativa: Sol, Lua e Ascendente
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b-2 border-neutral-surface-variant">
+                    <th className="p-3 text-left font-semibold">Aspecto</th>
+                    <th className="p-3 text-center font-semibold text-yellow-600">
+                      ☀️ Signo Solar
+                    </th>
+                    <th className="p-3 text-center font-semibold text-blue-400">🌙 Signo Lunar</th>
+                    <th className="p-3 text-center font-semibold text-purple-500">🌅 Ascendente</th>
+                  </tr>
+                </thead>
+                <tbody className="space-y-2">
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">O que representa</td>
+                    <td className="p-3 text-center text-yellow-500">Essência e identidade</td>
+                    <td className="p-3 text-center text-blue-400">Emoções e instintos</td>
+                    <td className="p-3 text-center text-purple-400">Máscara social</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Visibilidade</td>
+                    <td className="p-3 text-center">⭐⭐⭐⭐</td>
+                    <td className="p-3 text-center">⭐⭐</td>
+                    <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Facilidade de identificação</td>
+                    <td className="p-3 text-center text-yellow-500">Média (requer convivência)</td>
+                    <td className="p-3 text-center text-blue-400">Difícil (íntimo)</td>
+                    <td className="p-3 text-center text-purple-400">Fácil (primeira impressão)</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Mudança com idade</td>
+                    <td className="p-3 text-center">Pouca mudança</td>
+                    <td className="p-3 text-center">Pouca mudança</td>
+                    <td className="p-3 text-center">Pode suavizar</td>
+                  </tr>
+                  <tr className="border-b border-neutral-surface-variant">
+                    <td className="p-3 font-medium">Influência no dia a dia</td>
+                    <td className="p-3 text-center">Objetivos e propósito</td>
+                    <td className="p-3 text-center">Reações emocionais</td>
+                    <td className="p-3 text-center">Comportamento social</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-medium">Como descobrir</td>
+                    <td className="p-3 text-center text-yellow-500">Data de nascimento</td>
+                    <td className="p-3 text-center text-blue-400">Data e local</td>
+                    <td className="p-3 text-center text-purple-400">Data, hora e local</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="mb-3 font-semibold text-purple-600">🔍 Características</h4>
-                  <p className="mb-4 text-sm text-text-secondary">
-                    Signos emotivos, intuitivos e sensíveis. Representam os sentimentos,
-                    a empatia e a intuição.
-                  </p>
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
+                <h4 className="mb-2 font-bold text-yellow-600">☀️ Sol</h4>
+                <p className="text-sm text-text-secondary">
+                  Representa seu <strong>eu verdadeiro</strong>, propósito de vida e como você
+                  brilha no mundo.
+                </p>
+              </div>
 
-                  <h4 className="mb-3 font-semibold text-violet-600">⭐ Signos</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Câncer (21/06 - 22/07)</li>
-                    <li>• Escorpião (23/10 - 21/11)</li>
-                    <li>• Peixes (20/02 - 20/03)</li>
-                  </ul>
-                </div>
+              <div className="rounded-lg border border-blue-400/20 bg-blue-400/5 p-4">
+                <h4 className="mb-2 font-bold text-blue-400">🌙 Lua</h4>
+                <p className="text-sm text-text-secondary">
+                  Governa suas <strong>emoções</strong>, instintos e como você reage
+                  inconscientemente.
+                </p>
+              </div>
 
-                <div>
-                  <h4 className="mb-3 font-semibold text-system-success">✅ Qualidades</h4>
-                  <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Intuição e sensibilidade</li>
-                    <li>• Empatia profunda</li>
-                    <li>• Capacidade de cura emocional</li>
-                  </ul>
-
-                  <h4 className="mb-3 font-semibold text-system-warning">⚠️ Desafios</h4>
-                  <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Instabilidade emocional</li>
-                    <li>• Tendência à melancolia</li>
-                  </ul>
-                </div>
+              <div className="rounded-lg border border-purple-500/20 bg-purple-500/5 p-4">
+                <h4 className="mb-2 font-bold text-purple-500">🌅 Ascendente</h4>
+                <p className="text-sm text-text-secondary">
+                  Sua <strong>persona social</strong>, primeira impressão e como os outros te veem
+                  inicialmente.
+                </p>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      {/* Seção: Comparação Sol, Lua e Ascendente */}
-      <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            ⚖️ Tabela Comparativa: Sol, Lua e Ascendente
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b-2 border-neutral-surface-variant">
-                  <th className="p-3 text-left font-semibold">Aspecto</th>
-                  <th className="p-3 text-center font-semibold text-yellow-600">
-                    ☀️ Signo Solar
-                  </th>
-                  <th className="p-3 text-center font-semibold text-blue-400">🌙 Signo Lunar</th>
-                  <th className="p-3 text-center font-semibold text-purple-500">
-                    🌅 Ascendente
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="space-y-2">
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">O que representa</td>
-                  <td className="p-3 text-center text-yellow-500">Essência e identidade</td>
-                  <td className="p-3 text-center text-blue-400">Emoções e instintos</td>
-                  <td className="p-3 text-center text-purple-400">Máscara social</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Visibilidade</td>
-                  <td className="p-3 text-center">⭐⭐⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐</td>
-                  <td className="p-3 text-center">⭐⭐⭐⭐⭐</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Facilidade de identificação</td>
-                  <td className="p-3 text-center text-yellow-500">Média (requer convivência)</td>
-                  <td className="p-3 text-center text-blue-400">Difícil (íntimo)</td>
-                  <td className="p-3 text-center text-purple-400">Fácil (primeira impressão)</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Mudança com idade</td>
-                  <td className="p-3 text-center">Pouca mudança</td>
-                  <td className="p-3 text-center">Pouca mudança</td>
-                  <td className="p-3 text-center">Pode suavizar</td>
-                </tr>
-                <tr className="border-b border-neutral-surface-variant">
-                  <td className="p-3 font-medium">Influência no dia a dia</td>
-                  <td className="p-3 text-center">Objetivos e propósito</td>
-                  <td className="p-3 text-center">Reações emocionais</td>
-                  <td className="p-3 text-center">Comportamento social</td>
-                </tr>
-                <tr>
-                  <td className="p-3 font-medium">Como descobrir</td>
-                  <td className="p-3 text-center text-yellow-500">Data de nascimento</td>
-                  <td className="p-3 text-center text-blue-400">Data e local</td>
-                  <td className="p-3 text-center text-purple-400">Data, hora e local</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <FAQ
+          title="Perguntas Frequentes - Calculadora de Ascendente"
+          items={[
+            {
+              question: "O que é o ascendente astrológico?",
+              answer:
+                "O ascendente é o signo que estava nascendo no horizonte leste no momento exato do seu nascimento. Representa sua máscara social, primeira impressão e como você se apresenta ao mundo. Muda aproximadamente a cada 2 horas.",
+              borderColor: "math-purple",
+            },
+            {
+              question: "Por que é necessária a hora exata de nascimento?",
+              answer:
+                "O ascendente muda a cada 2 horas aproximadamente, por isso a hora exata é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza.",
+              borderColor: "primary-blue",
+            },
+            {
+              question: "Qual a diferença entre Sol, Lua e Ascendente?",
+              answer:
+                "O Sol representa sua essência e identidade core. A Lua governa suas emoções e instintos íntimos. O Ascendente é sua máscara social - como você se comporta e é visto pelos outros, especialmente em primeiros encontros.",
+              borderColor: "system-info",
+            },
+            {
+              question: "O ascendente pode mudar ao longo da vida?",
+              answer:
+                "Não, seu ascendente é fixo e determinado pelo momento do nascimento. No entanto, conforme amadurecemos, podemos integrar melhor as características do ascendente com nosso signo solar, criando uma personalidade mais equilibrada.",
+              borderColor: "system-warning",
+            },
+            {
+              question: "Como o ascendente influencia minha personalidade?",
+              answer:
+                "O ascendente influencia sua aparência física, maneirismos, primeira impressão que causa, como você inicia relacionamentos e projetos, e sua abordagem instintiva às situações. É especialmente visível em ambientes sociais e novos.",
+              borderColor: "growth-green",
+            },
+            {
+              question: "Posso ter características de outros signos além do meu Sol?",
+              answer:
+                "Sim! Você é uma mistura do seu signo solar, lunar, ascendente e outros planetas. É normal se identificar com características de vários signos. O mapa astral completo mostra todas essas influências planetárias em sua personalidade.",
+              borderColor: "system-error-dark",
+            },
+          ]}
+          tipSection={{
+            title: "Dica Importante sobre Ascendente",
+            content:
+              "<strong>Para melhor autoconhecimento:</strong> combine seu signo solar (essência), lunar (emoções) e ascendente (máscara social). Essa tríade astrológica oferece uma visão muito mais completa da sua personalidade do que apenas o signo solar.",
+          }}
+          footerText="<strong>Lembre-se:</strong> A astrologia é uma ferramenta de autoconhecimento. Use as informações para reflexão pessoal e crescimento, sempre mantendo seu livre arbítrio."
+        />
 
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
-              <h4 className="mb-2 font-bold text-yellow-600">☀️ Sol</h4>
-              <p className="text-sm text-text-secondary">
-                Representa seu <strong>eu verdadeiro</strong>, propósito de vida e como você 
-                brilha no mundo.
+        {/* Footer com informações adicionais */}
+        <Card className="border-l-4 border-math-purple bg-math-purple/5 duration-300">
+          <CardHeader>
+            <CardTitle as="h2" className="text-lg font-bold text-text-primary">
+              📚 Como Usar Esta Calculadora de Ascendente
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3 text-sm text-text-secondary">
+              <p>
+                Esta <strong className="text-math-purple-dark">calculadora de ascendente</strong>{" "}
+                utiliza <strong className="text-primary-blue-dark">cálculos astronômicos</strong>{" "}
+                baseados nos algoritmos de Meeus para determinar o signo que estava nascendo no
+                horizonte leste no momento do seu nascimento.
+              </p>
+              <p>
+                <strong>Dados necessários:</strong> Data de nascimento, hora exata e cidade. A
+                qualidade da hora é fundamental, pois o ascendente muda aproximadamente a cada 2
+                horas.
+              </p>
+              <p>
+                <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
+                fins de <strong>autoconhecimento e desenvolvimento pessoal</strong>. A astrologia
+                deve ser vista como um guia para reflexão, não como determinismo absoluto.
+              </p>
+              <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
+                🌟 Cálculos astronômicos completos • 🎭 Análise detalhada de personalidade • 🔒
+                Dados não armazenados • 📱 Compatível com todos os dispositivos • 🌙 Suporte a modo
+                escuro
               </p>
             </div>
-
-            <div className="rounded-lg border border-blue-400/20 bg-blue-400/5 p-4">
-              <h4 className="mb-2 font-bold text-blue-400">🌙 Lua</h4>
-              <p className="text-sm text-text-secondary">
-                Governa suas <strong>emoções</strong>, instintos e como você reage 
-                inconscientemente.
-              </p>
-            </div>
-
-            <div className="rounded-lg border border-purple-500/20 bg-purple-500/5 p-4">
-              <h4 className="mb-2 font-bold text-purple-500">🌅 Ascendente</h4>
-              <p className="text-sm text-text-secondary">
-                Sua <strong>persona social</strong>, primeira impressão e como os outros 
-                te veem inicialmente.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <FAQ
-        title="Perguntas Frequentes - Calculadora de Ascendente"
-        items={[
-          {
-            question: "O que é o ascendente astrológico?",
-            answer:
-              "O ascendente é o signo que estava nascendo no horizonte leste no momento exato do seu nascimento. Representa sua máscara social, primeira impressão e como você se apresenta ao mundo. Muda aproximadamente a cada 2 horas.",
-            borderColor: "math-purple",
-          },
-          {
-            question: "Por que é necessária a hora exata de nascimento?",
-            answer:
-              "O ascendente muda a cada 2 horas aproximadamente, por isso a hora exata é fundamental. Uma diferença de poucos minutos pode resultar em um ascendente completamente diferente. Consulte sua certidão de nascimento para ter certeza.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Qual a diferença entre Sol, Lua e Ascendente?",
-            answer:
-              "O Sol representa sua essência e identidade core. A Lua governa suas emoções e instintos íntimos. O Ascendente é sua máscara social - como você se comporta e é visto pelos outros, especialmente em primeiros encontros.",
-            borderColor: "system-info",
-          },
-          {
-            question: "O ascendente pode mudar ao longo da vida?",
-            answer:
-              "Não, seu ascendente é fixo e determinado pelo momento do nascimento. No entanto, conforme amadurecemos, podemos integrar melhor as características do ascendente com nosso signo solar, criando uma personalidade mais equilibrada.",
-            borderColor: "system-warning",
-          },
-          {
-            question: "Como o ascendente influencia minha personalidade?",
-            answer:
-              "O ascendente influencia sua aparência física, maneirismos, primeira impressão que causa, como você inicia relacionamentos e projetos, e sua abordagem instintiva às situações. É especialmente visível em ambientes sociais e novos.",
-            borderColor: "growth-green",
-          },
-          {
-            question: "Posso ter características de outros signos além do meu Sol?",
-            answer:
-              "Sim! Você é uma mistura do seu signo solar, lunar, ascendente e outros planetas. É normal se identificar com características de vários signos. O mapa astral completo mostra todas essas influências planetárias em sua personalidade.",
-            borderColor: "system-error-dark",
-          },
-        ]}
-        tipSection={{
-          title: "Dica Importante sobre Ascendente",
-          content:
-            "<strong>Para melhor autoconhecimento:</strong> combine seu signo solar (essência), lunar (emoções) e ascendente (máscara social). Essa tríade astrológica oferece uma visão muito mais completa da sua personalidade do que apenas o signo solar.",
-        }}
-        footerText="<strong>Lembre-se:</strong> A astrologia é uma ferramenta de autoconhecimento. Use as informações para reflexão pessoal e crescimento, sempre mantendo seu livre arbítrio."
-      />
-
-      {/* Footer com informações adicionais */}
-      <Card className="border-l-4 border-math-purple bg-math-purple/5 duration-300">
-        <CardHeader>
-          <CardTitle as="h2" className="text-lg font-bold text-text-primary">
-            📚 Como Usar Esta Calculadora de Ascendente
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3 text-sm text-text-secondary">
-            <p>
-              Esta <strong className="text-math-purple-dark">calculadora de ascendente</strong> utiliza{" "}
-              <strong className="text-primary-blue-dark">cálculos astronômicos</strong> baseados 
-              nos algoritmos de Meeus para determinar o signo que estava nascendo no horizonte leste 
-              no momento do seu nascimento.
-            </p>
-            <p>
-              <strong>Dados necessários:</strong> Data de nascimento, hora exata e cidade. A qualidade 
-              da hora é fundamental, pois o ascendente muda aproximadamente a cada 2 horas.
-            </p>
-            <p>
-              <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para 
-              fins de <strong>autoconhecimento e desenvolvimento pessoal</strong>. A astrologia deve 
-              ser vista como um guia para reflexão, não como determinismo absoluto.
-            </p>
-            <p className="mt-4 border-t border-math-purple/20 pt-3 text-xs opacity-75">
-              🌟 Cálculos astronômicos completos • 🎭 Análise detalhada de personalidade • 🔒 Dados não armazenados • 
-              📱 Compatível com todos os dispositivos • 🌙 Suporte a modo escuro
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
         <RelatedCalculators category="astrologia" />
       </div>

@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,12 +18,12 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Porcentagem 2025 – Calculadora Online Grátis",
+      title: `Calculadora de Porcentagem 2025 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Calcule porcentagem online: aumentos, descontos e diferenças percentuais. Grátis, confiável e com explicação passo a passo."
+        "Calcule porcentagem online: aumentos, descontos e diferenças percentuais. Grátis, confiável e com explicação passo a passo.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "generator", content: "Remix" },
@@ -701,8 +701,8 @@ export default function PercentageCalculator() {
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Realize <strong className="text-growth-green">cálculos de porcentagem</strong> de forma
-          simples e confiável. Calcule aumentos, descontos, diferenças percentuais e regra de três com{" "}
-          <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
+          simples e confiável. Calcule aumentos, descontos, diferenças percentuais e regra de três
+          com <strong className="text-primary-blue-dark">explicação passo a passo</strong> para seus
           estudos.
         </p>
         <div className="inline-block rounded-lg bg-growth-green-soft p-4 duration-300">
@@ -1328,8 +1328,8 @@ export default function PercentageCalculator() {
                 Esta <strong className="text-primary-blue-dark">calculadora de porcentagem</strong>{" "}
                 permite realizar{" "}
                 <strong className="text-growth-green">cálculos básicos com porcentagem</strong>:
-                aumentos, descontos, diferenças percentuais e regra de três facilmente matemática
-                e resultados instantâneos.
+                aumentos, descontos, diferenças percentuais e regra de três facilmente matemática e
+                resultados instantâneos.
               </p>
               <p>
                 <strong>Funcionalidades:</strong> Cálculo de aumentos e descontos, determinação de
@@ -1339,8 +1339,8 @@ export default function PercentageCalculator() {
               <p>
                 <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para
                 fins educacionais e comerciais básicos. Para aplicações financeiras que exigem alta
-                detalhamento, consulte sempre um <strong>profissional qualificado</strong> e considere
-                limitações numérica. Explore também nossas calculadoras de
+                detalhamento, consulte sempre um <strong>profissional qualificado</strong> e
+                considere limitações numérica. Explore também nossas calculadoras de
                 <a
                   href="/calculadoras/matematica/fracoes"
                   className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
