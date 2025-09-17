@@ -420,36 +420,135 @@ export default function GeradorLotofacil() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Seleção Manual de Números */}
+            {/* Volante da Lotofácil */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold">Seleção Manual (Opcional)</h3>
-              <div className="mb-4 grid grid-cols-5 gap-2 sm:grid-cols-10 lg:grid-cols-15">
-                {Array.from({ length: 25 }, (_, i) => i + 1).map((number) => (
-                  <button
-                    key={number}
-                    onClick={() => toggleNumber(number)}
-                    className={`aspect-square h-10 w-10 rounded-lg border-2 text-sm font-bold transition-all duration-200 ${
-                      selectedNumbers.includes(number)
-                        ? "border-system-success bg-system-success text-white shadow-lg"
-                        : "border-neutral-surface-variant bg-background-primary text-text-primary hover:border-system-success hover:bg-system-success/10"
-                    }`}
-                  >
-                    {number.toString().padStart(2, "0")}
-                  </button>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <span className="text-sm text-text-secondary">
-                  Selecionados: {selectedNumbers.length}/15
-                </span>
+              <h3 className="mb-4 text-lg font-semibold text-center">
+                🍀 Volante da Lotofácil - Marque até 15 números
+              </h3>
+
+              {/* Simulação do Talão Real */}
+              <div className="mx-auto max-w-lg rounded-xl border-4 border-system-success bg-gradient-to-b from-white to-green-50 p-6 shadow-2xl">
+                {/* Cabeçalho do Talão */}
+                <div className="mb-4 text-center">
+                  <div className="mb-2 text-xs font-bold uppercase tracking-wide text-green-800">
+                    LOTOFÁCIL
+                  </div>
+                  <div className="text-xs text-green-700">
+                    Marque de 15 a 18 números
+                  </div>
+                </div>
+
+                {/* Grid 5x5 como no volante real */}
+                <div className="mb-4 grid grid-cols-5 gap-1 rounded-lg bg-white p-3 shadow-inner">
+                  {Array.from({ length: 25 }, (_, i) => i + 1).map((number) => (
+                    <button
+                      key={number}
+                      onClick={() => toggleNumber(number)}
+                      className={`relative aspect-square h-12 w-12 rounded-md border-2 text-sm font-bold transition-all duration-200 ${
+                        selectedNumbers.includes(number)
+                          ? "border-green-600 bg-green-100 text-green-800 shadow-md"
+                          : "border-gray-300 bg-white text-gray-700 hover:border-green-400 hover:bg-green-50"
+                      }`}
+                    >
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        {number.toString().padStart(2, "0")}
+                      </span>
+                      {selectedNumbers.includes(number) && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="h-8 w-8 rounded-full bg-green-600 flex items-center justify-center">
+                            <span className="text-white font-bold text-lg">✓</span>
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Informações do Talão */}
+                <div className="space-y-2 text-center text-xs text-green-700">
+                  <div className="flex justify-between">
+                    <span>Números marcados:</span>
+                    <span className="font-bold">{selectedNumbers.length}/15</span>
+                  </div>
+
+                  {selectedNumbers.length > 0 && selectedNumbers.length < 15 && (
+                    <div className="text-orange-600">
+                      Marque mais {15 - selectedNumbers.length} número(s)
+                    </div>
+                  )}
+
+                  {selectedNumbers.length === 15 && (
+                    <div className="text-green-600 font-bold">
+                      ✅ Jogo completo! Pode gerar automaticamente
+                    </div>
+                  )}
+
+                  {selectedNumbers.length > 15 && (
+                    <div className="text-red-600">
+                      ❌ Muitos números! Máximo 15 para este gerador
+                    </div>
+                  )}
+                </div>
+
+                {/* Números Selecionados */}
                 {selectedNumbers.length > 0 && (
-                  <button
-                    onClick={clearSelection}
-                    className="text-sm text-system-error hover:underline"
-                  >
-                    Limpar seleção
-                  </button>
+                  <div className="mt-4 rounded-lg bg-green-50 p-3">
+                    <div className="mb-2 text-xs font-bold text-green-800 text-center">
+                      SEUS NÚMEROS:
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {selectedNumbers.map((number) => (
+                        <span
+                          key={number}
+                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white"
+                        >
+                          {number.toString().padStart(2, "0")}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 )}
+
+                {/* Botões do Talão */}
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  {selectedNumbers.length > 0 && (
+                    <button
+                      onClick={clearSelection}
+                      className="rounded-md bg-red-500 px-3 py-1 text-xs font-bold text-white hover:bg-red-600 transition-colors"
+                    >
+                      🗑️ Limpar
+                    </button>
+                  )}
+
+                  <button
+                    onClick={() => {
+                      // Surpresinha - seleção automática de 15 números
+                      const numbers: number[] = [];
+                      while (numbers.length < 15) {
+                        const random = Math.floor(Math.random() * 25) + 1;
+                        if (!numbers.includes(random)) {
+                          numbers.push(random);
+                        }
+                      }
+                      setSelectedNumbers(numbers.sort((a, b) => a - b));
+                    }}
+                    className="rounded-md bg-blue-500 px-3 py-1 text-xs font-bold text-white hover:bg-blue-600 transition-colors"
+                  >
+                    🎲 Surpresinha
+                  </button>
+                </div>
+
+                {/* Rodapé do Talão */}
+                <div className="mt-4 border-t border-green-200 pt-2 text-center text-xs text-green-600">
+                  <div>💰 Prêmio estimado: R$ 1.700.000,00</div>
+                  <div className="text-green-500">Sorteio: Segunda, Terça, Quarta, Quinta, Sexta e Sábado</div>
+                </div>
+              </div>
+
+              {/* Legenda */}
+              <div className="mt-4 text-center text-sm text-text-secondary">
+                <p>💡 <strong>Dica:</strong> No volante real da Lotofácil você pode marcar de 15 a 18 números.</p>
+                <p>Aqui geramos automaticamente jogos de 15 números com suas estratégias.</p>
               </div>
             </div>
 
@@ -682,50 +781,176 @@ export default function GeradorLotofacil() {
           </CardContent>
         </Card>
 
-        {/* Resultado Atual */}
+        {/* Comprovante do Jogo */}
         {currentNumbers.length > 0 && (
-          <Card className="mx-auto max-w-4xl border-l-4 border-system-success">
-            <CardHeader>
-              <CardTitle className="text-system-success-dark">
-                🎯 Último Jogo Gerado
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <div className="mb-4 flex flex-wrap justify-center gap-2">
-                  {currentNumbers.map((number) => (
+          <div className="mx-auto max-w-lg">
+            {/* Simulação de Comprovante */}
+            <div className="rounded-xl border-4 border-green-600 bg-gradient-to-b from-white to-green-50 p-6 shadow-2xl">
+              {/* Cabeçalho do Comprovante */}
+              <div className="mb-4 text-center border-b border-green-200 pb-4">
+                <div className="text-lg font-bold text-green-800 uppercase tracking-wide">
+                  🍀 LOTOFÁCIL
+                </div>
+                <div className="text-sm text-green-700">
+                  Comprovante de Jogo Gerado
+                </div>
+                <div className="text-xs text-gray-600 mt-1">
+                  {new Date().toLocaleDateString('pt-BR')} - {new Date().toLocaleTimeString('pt-BR')}
+                </div>
+              </div>
+
+              {/* Números do Jogo */}
+              <div className="mb-4">
+                <div className="mb-2 text-center text-sm font-bold text-green-800">
+                  SEUS NÚMEROS DA SORTE:
+                </div>
+
+                {/* Grid dos números como no comprovante real */}
+                <div className="grid grid-cols-5 gap-1 rounded-lg bg-white p-3 shadow-inner">
+                  {Array.from({ length: 25 }, (_, i) => i + 1).map((number) => (
                     <div
                       key={number}
-                      className="flex h-12 w-12 items-center justify-center rounded-full bg-system-success font-bold text-white shadow-lg"
+                      className={`relative aspect-square h-10 w-10 rounded-md border-2 text-sm font-bold flex items-center justify-center ${
+                        currentNumbers.includes(number)
+                          ? "border-green-600 bg-green-600 text-white shadow-md"
+                          : "border-gray-200 bg-gray-50 text-gray-400"
+                      }`}
                     >
                       {number.toString().padStart(2, "0")}
+                      {currentNumbers.includes(number) && (
+                        <div className="absolute -top-1 -right-1">
+                          <div className="h-3 w-3 rounded-full bg-green-800 flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
 
-                {generatedGames.length > 0 && (
-                  <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
-                    <div>
-                      <span className="font-medium text-text-secondary">Pares:</span>
-                      <span className="ml-1">{generatedGames[0].statistics.pairs}</span>
+                {/* Resumo dos números */}
+                <div className="mt-3 rounded-lg bg-green-100 p-3">
+                  <div className="text-center">
+                    <div className="text-sm font-bold text-green-800 mb-2">
+                      RESUMO DO JOGO:
                     </div>
-                    <div>
-                      <span className="font-medium text-text-secondary">Ímpares:</span>
-                      <span className="ml-1">{generatedGames[0].statistics.odds}</span>
-                    </div>
-                    <div>
-                      <span className="font-medium text-text-secondary">Soma:</span>
-                      <span className="ml-1">{generatedGames[0].statistics.sum}</span>
-                    </div>
-                    <div>
-                      <span className="font-medium text-text-secondary">Primos:</span>
-                      <span className="ml-1">{generatedGames[0].statistics.primes}</span>
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {currentNumbers.map((number) => (
+                        <span
+                          key={number}
+                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white"
+                        >
+                          {number.toString().padStart(2, "0")}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                )}
+                </div>
               </div>
-            </CardContent>
-          </Card>
+
+              {/* Estatísticas do Jogo */}
+              {generatedGames.length > 0 && (
+                <div className="mb-4 rounded-lg bg-blue-50 p-3">
+                  <div className="mb-2 text-center text-sm font-bold text-blue-800">
+                    📊 ANÁLISE ESTATÍSTICA:
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Números Pares:</span>
+                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.pairs}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Números Ímpares:</span>
+                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.odds}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Soma Total:</span>
+                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.sum}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Números Primos:</span>
+                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.primes}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Quentes:</span>
+                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.hotNumbers}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-blue-700">Frios:</span>
+                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.coldNumbers}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Estratégia Utilizada */}
+              {generatedGames.length > 0 && (
+                <div className="mb-4 rounded-lg bg-yellow-50 p-3">
+                  <div className="text-center">
+                    <div className="text-sm font-bold text-yellow-800">
+                      🎯 ESTRATÉGIA UTILIZADA:
+                    </div>
+                    <div className="text-sm text-yellow-700">
+                      {generatedGames[0].strategy}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Rodapé do Comprovante */}
+              <div className="border-t border-green-200 pt-3 text-center">
+                <div className="text-xs text-green-600 space-y-1">
+                  <div>💰 <strong>Prêmio Principal:</strong> 15 acertos</div>
+                  <div>🎯 <strong>Prêmios Secundários:</strong> 14, 13, 12 e 11 acertos</div>
+                  <div className="text-green-500 font-bold">BOA SORTE! 🍀</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Botões de Ação */}
+            <div className="mt-4 flex justify-center gap-2">
+              <button
+                onClick={() => {
+                  const printContent = `
+                    LOTOFÁCIL - NÚMEROS DA SORTE
+                    Data: ${new Date().toLocaleDateString('pt-BR')}
+
+                    Números: ${currentNumbers.join(', ')}
+
+                    Estatísticas:
+                    - Pares: ${generatedGames[0]?.statistics.pairs || 0}
+                    - Ímpares: ${generatedGames[0]?.statistics.odds || 0}
+                    - Soma: ${generatedGames[0]?.statistics.sum || 0}
+
+                    Estratégia: ${generatedGames[0]?.strategy || 'Padrão'}
+
+                    Gerado por: CalculadoraOnlineBR.com.br
+                  `;
+
+                  const printWindow = window.open('', '_blank');
+                  if (printWindow) {
+                    printWindow.document.write(`<pre>${printContent}</pre>`);
+                    printWindow.print();
+                    printWindow.close();
+                  }
+                }}
+                className="rounded-md bg-gray-600 px-4 py-2 text-sm font-bold text-white hover:bg-gray-700 transition-colors"
+              >
+                🖨️ Imprimir
+              </button>
+
+              <button
+                onClick={() => {
+                  const textContent = `Lotofácil: ${currentNumbers.join(', ')} - Gerado em ${new Date().toLocaleDateString('pt-BR')}`;
+                  navigator.clipboard.writeText(textContent);
+                  alert('Números copiados para a área de transferência!');
+                }}
+                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-bold text-white hover:bg-blue-700 transition-colors"
+              >
+                📋 Copiar
+              </button>
+            </div>
+          </div>
         )}
 
         {/* Jogos Gerados */}
