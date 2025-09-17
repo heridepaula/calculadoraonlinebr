@@ -53,6 +53,13 @@ export const CATEGORIES = [
     icon: "📅",
     path: "/calculadoras/datas",
   },
+  {
+    id: "loterias",
+    name: "Loterias",
+    description: "Geradores de jogos para Mega-Sena, Lotofácil, Quina e mais loterias",
+    icon: "🎰",
+    path: "/calculadoras/loterias",
+  },
 ];
 
 export const CALCULATORS = [
@@ -444,6 +451,27 @@ export const CALCULATORS = [
       "Descubra seus números da vida, personalidade, destino e alma. Interpretações detalhadas baseadas em nome completo e data de nascimento",
     category: "astrologia",
     path: "/calculadoras/astrologia/numerologia",
+  },
+  {
+    id: "gerador-megasena",
+    name: "Gerador de Mega-Sena",
+    description: "Gere números aleatórios para jogos da Mega-Sena com estatísticas e análises",
+    category: "loterias",
+    path: "/calculadoras/loterias/gerador-megasena",
+  },
+  {
+    id: "gerador-lotofacil",
+    name: "Gerador de Lotofácil",
+    description: "Gere números aleatórios para jogos da Lotofácil com estratégias inteligentes",
+    category: "loterias",
+    path: "/calculadoras/loterias/gerador-lotofacil",
+  },
+  {
+    id: "gerador-quina",
+    name: "Gerador de Quina",
+    description: "Gere números aleatórios para jogos da Quina com análise de frequência",
+    category: "loterias",
+    path: "/calculadoras/loterias/gerador-quina",
   },
 ];
 

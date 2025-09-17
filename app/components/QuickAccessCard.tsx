@@ -5,7 +5,7 @@ interface QuickAccessCardProps {
   description: string;
   icon: string;
   href: string;
-  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas";
+  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas" | "loterias";
   isPopular?: boolean;
   complexity?: "basic" | "intermediate" | "advanced";
   ctaText?: string;
@@ -60,6 +60,13 @@ const CATEGORY_STYLES = {
     iconBg: "bg-system-info",
     textAccent: "text-system-info-dark",
     hoverShadow: "hover:shadow-system-info/25",
+  },
+  loterias: {
+    gradient: "from-finance-gold/10 to-finance-gold/5",
+    border: "border-finance-gold/20",
+    iconBg: "bg-finance-gold",
+    textAccent: "text-finance-gold-dark",
+    hoverShadow: "hover:shadow-finance-gold/25",
   },
 } as const;
 

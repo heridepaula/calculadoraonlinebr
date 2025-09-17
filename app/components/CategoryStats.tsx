@@ -1,5 +1,5 @@
 interface CategoryStatsProps {
-  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas";
+  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas" | "loterias";
   stats: Array<{
     icon: string;
     number: string;
@@ -43,6 +43,11 @@ const CATEGORY_COLORS = {
     bg: "from-system-info/20 to-system-info/10",
     text: "text-system-info-dark",
     accent: "bg-system-info/30",
+  },
+  loterias: {
+    bg: "from-finance-gold/20 to-finance-gold/10",
+    text: "text-finance-gold-dark",
+    accent: "bg-finance-gold/30",
   },
 } as const;
 

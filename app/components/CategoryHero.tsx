@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface CategoryHeroProps {
-  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas";
+  category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas" | "loterias";
   title: string;
   subtitle: string;
   description: string;
@@ -80,9 +80,18 @@ const CATEGORY_STYLES = {
     textGradient: "from-primary-blue-dark via-primary-blue to-primary-blue-light",
     highlightColor: "text-primary-blue-dark",
   },
+  loterias: {
+    gradient: "from-finance-gold/5 via-surface to-surface-dark",
+    radial: "from-finance-gold/10",
+    badgeRing: "ring-finance-gold/20",
+    badgeBg: "bg-finance-gold/10",
+    badgeText: "text-finance-gold-dark",
+    textGradient: "from-finance-gold-dark via-finance-gold to-finance-gold-light",
+    highlightColor: "text-finance-gold-dark",
+  },
 } as const;
 
-function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas"): string {
+function getSubtitleColor(category: "financas" | "saude" | "matematica" | "trabalhista" | "ferramentas" | "astrologia" | "datas" | "loterias"): string {
   switch (category) {
     case "financas":
       return "text-finance-gold";
@@ -98,6 +107,8 @@ function getSubtitleColor(category: "financas" | "saude" | "matematica" | "traba
       return "text-math-purple";
     case "datas":
       return "text-primary-blue";
+    case "loterias":
+      return "text-finance-gold";
     default:
       return "text-primary-blue";
   }

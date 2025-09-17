@@ -13,7 +13,7 @@ interface RelatedCalculator {
 }
 
 interface RelatedCalculatorsProps {
-  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas" | "astrologia";
+  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas" | "astrologia" | "datas" | "loterias";
   currentCalculatorId?: string;
   customCalculators?: RelatedCalculator[];
 }
@@ -219,6 +219,76 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-finance-gold-dark",
     },
   ],
+  datas: [
+    {
+      id: "diferenca-entre-datas",
+      title: "📅 Diferença entre Datas",
+      description: "Calcule períodos, intervalos e diferenças entre duas datas.",
+      href: "/calculadoras/datas/diferenca-entre-datas",
+      bgColor: "bg-system-info/10",
+      textColor: "text-system-info",
+      borderColor: "border-system-info/20",
+      buttonColor: "bg-system-info",
+      buttonHoverColor: "hover:bg-system-info-dark",
+    },
+    {
+      id: "idade-exata",
+      title: "🎂 Calculadora de Idade",
+      description: "Descubra sua idade em anos, meses, dias, horas e minutos.",
+      href: "/calculadoras/datas/idade-exata",
+      bgColor: "bg-primary-blue/10",
+      textColor: "text-primary-blue",
+      borderColor: "border-primary-blue/20",
+      buttonColor: "bg-primary-blue",
+      buttonHoverColor: "hover:bg-primary-blue-dark",
+    },
+    {
+      id: "dias-uteis",
+      title: "💼 Dias Úteis",
+      description: "Calcule períodos de trabalho excluindo fins de semana e feriados.",
+      href: "/calculadoras/datas/dias-uteis",
+      bgColor: "bg-system-success/10",
+      textColor: "text-system-success",
+      borderColor: "border-system-success/20",
+      buttonColor: "bg-system-success",
+      buttonHoverColor: "hover:bg-system-success-dark",
+    },
+  ],
+  loterias: [
+    {
+      id: "gerador-megasena",
+      title: "💰 Gerador Mega-Sena",
+      description: "Gere números aleatórios para jogos da Mega-Sena com estatísticas.",
+      href: "/calculadoras/loterias/gerador-megasena",
+      bgColor: "bg-finance-gold/10",
+      textColor: "text-finance-gold",
+      borderColor: "border-finance-gold/20",
+      buttonColor: "bg-finance-gold",
+      buttonHoverColor: "hover:bg-finance-gold-dark",
+    },
+    {
+      id: "gerador-lotofacil",
+      title: "🍀 Gerador Lotofácil",
+      description: "Gere números para Lotofácil com estratégias inteligentes.",
+      href: "/calculadoras/loterias/gerador-lotofacil",
+      bgColor: "bg-system-success/10",
+      textColor: "text-system-success",
+      borderColor: "border-system-success/20",
+      buttonColor: "bg-system-success",
+      buttonHoverColor: "hover:bg-system-success-dark",
+    },
+    {
+      id: "gerador-quina",
+      title: "🎲 Gerador Quina",
+      description: "Gere números para Quina com análise de frequência.",
+      href: "/calculadoras/loterias/gerador-quina",
+      bgColor: "bg-primary-blue/10",
+      textColor: "text-primary-blue",
+      borderColor: "border-primary-blue/20",
+      buttonColor: "bg-primary-blue",
+      buttonHoverColor: "hover:bg-primary-blue-dark",
+    },
+  ],
 };
 
 export function RelatedCalculators({
@@ -246,6 +316,8 @@ export function RelatedCalculators({
       matematica: "🔗 Calculadoras Matemáticas Relacionadas",
       ferramentas: "🔗 Ferramentas Relacionadas",
       astrologia: "🔗 Calculadoras de Astrologia Relacionadas",
+      datas: "🔗 Calculadoras de Datas Relacionadas",
+      loterias: "🔗 Geradores de Loterias Relacionados",
     };
     return titles[cat] || "🔗 Calculadoras Relacionadas";
   };
@@ -259,6 +331,8 @@ export function RelatedCalculators({
       matematica: "Resolva problemas matemáticos com facilidade usando essas ferramentas",
       ferramentas: "Simplifique seu dia a dia com essas ferramentas práticas",
       astrologia: "Explore diferentes aspectos da astrologia para um autoconhecimento mais profundo",
+      datas: "Organize seu tempo e planeje eventos com essas calculadoras temporais",
+      loterias: "Teste sua sorte com diferentes tipos de jogos e estratégias inteligentes",
     };
     return tips[cat] || "Explore outras calculadoras úteis para suas necessidades";
   };
