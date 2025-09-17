@@ -13,7 +13,9 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Geradores de Loterias Grátis 2025 | Mega-Sena, Lotofácil, Quina | ${APP_NAME}` },
+    {
+      title: `Geradores de Jogos de Loterias Grátis 2025 | ${APP_NAME}`,
+    },
     {
       name: "description",
       content:
@@ -344,7 +346,9 @@ export default function LoteriasIndex() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
                   <span className="text-xl">🧠</span>
                 </div>
-                <h3 className="text-lg font-bold text-text-primary sm:text-xl">Estratégias Inteligentes</h3>
+                <h3 className="text-lg font-bold text-text-primary sm:text-xl">
+                  Estratégias Inteligentes
+                </h3>
               </div>
               <p className="mb-4 text-center text-sm text-text-secondary">
                 Análises estatísticas e padrões para melhorar suas chances
@@ -368,7 +372,9 @@ export default function LoteriasIndex() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
                   <span className="text-xl">🛠️</span>
                 </div>
-                <h3 className="text-lg font-bold text-text-primary sm:text-xl">Ferramentas Avançadas</h3>
+                <h3 className="text-lg font-bold text-text-primary sm:text-xl">
+                  Ferramentas Avançadas
+                </h3>
               </div>
               <p className="mb-4 text-center text-sm text-text-secondary">
                 Recursos extras para otimizar seus jogos de loteria
@@ -608,8 +614,8 @@ export default function LoteriasIndex() {
                 </h3>
                 <p className="mt-2 text-text-secondary">
                   Lembre-se que loterias são jogos de chance e não há garantia de ganho.
-                  <strong className="text-system-info-dark"> Jogue com responsabilidade</strong>
-                  , estabeleça limites de apostas e nunca aposte mais do que pode perder. Nossos
+                  <strong className="text-system-info-dark"> Jogue com responsabilidade</strong>,
+                  estabeleça limites de apostas e nunca aposte mais do que pode perder. Nossos
                   geradores apenas facilitam a escolha aleatória de números.
                 </p>
               </div>
