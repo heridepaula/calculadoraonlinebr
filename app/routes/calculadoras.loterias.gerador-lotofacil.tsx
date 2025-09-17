@@ -427,13 +427,13 @@ export default function GeradorLotofacil() {
               </h3>
 
               {/* Simulação do Talão Real */}
-              <div className="mx-auto max-w-lg rounded-xl border-4 border-system-success bg-gradient-to-b from-white to-green-50 p-6 shadow-2xl">
+              <div className="mx-auto max-w-lg rounded-xl border-4 border-pink-600 bg-gradient-to-b from-white to-pink-50 p-6 shadow-2xl">
                 {/* Cabeçalho do Talão */}
                 <div className="mb-4 text-center">
-                  <div className="mb-2 text-xs font-bold uppercase tracking-wide text-green-800">
+                  <div className="mb-2 text-xs font-bold uppercase tracking-wide text-pink-800">
                     LOTOFÁCIL
                   </div>
-                  <div className="text-xs text-green-700">
+                  <div className="text-xs text-pink-700">
                     Marque de 15 a 18 números
                   </div>
                 </div>
@@ -446,8 +446,8 @@ export default function GeradorLotofacil() {
                       onClick={() => toggleNumber(number)}
                       className={`relative aspect-square h-12 w-12 rounded-md border-2 text-sm font-bold transition-all duration-200 ${
                         selectedNumbers.includes(number)
-                          ? "border-green-600 bg-green-100 text-green-800 shadow-md"
-                          : "border-gray-300 bg-white text-gray-700 hover:border-green-400 hover:bg-green-50"
+                          ? "border-pink-600 bg-pink-100 text-pink-800 shadow-md"
+                          : "border-gray-300 bg-white text-gray-700 hover:border-pink-400 hover:bg-pink-50"
                       }`}
                     >
                       <span className="absolute inset-0 flex items-center justify-center">
@@ -455,7 +455,7 @@ export default function GeradorLotofacil() {
                       </span>
                       {selectedNumbers.includes(number) && (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-8 w-8 rounded-full bg-green-600 flex items-center justify-center">
+                          <div className="h-8 w-8 rounded-full bg-pink-600 flex items-center justify-center">
                             <span className="text-white font-bold text-lg">✓</span>
                           </div>
                         </div>
@@ -465,7 +465,7 @@ export default function GeradorLotofacil() {
                 </div>
 
                 {/* Informações do Talão */}
-                <div className="space-y-2 text-center text-xs text-green-700">
+                <div className="space-y-2 text-center text-xs text-pink-700">
                   <div className="flex justify-between">
                     <span>Números marcados:</span>
                     <span className="font-bold">{selectedNumbers.length}/15</span>
@@ -478,7 +478,7 @@ export default function GeradorLotofacil() {
                   )}
 
                   {selectedNumbers.length === 15 && (
-                    <div className="text-green-600 font-bold">
+                    <div className="text-pink-600 font-bold">
                       ✅ Jogo completo! Pode gerar automaticamente
                     </div>
                   )}
@@ -492,15 +492,15 @@ export default function GeradorLotofacil() {
 
                 {/* Números Selecionados */}
                 {selectedNumbers.length > 0 && (
-                  <div className="mt-4 rounded-lg bg-green-50 p-3">
-                    <div className="mb-2 text-xs font-bold text-green-800 text-center">
+                  <div className="mt-4 rounded-lg bg-pink-50 p-3">
+                    <div className="mb-2 text-xs font-bold text-pink-800 text-center">
                       SEUS NÚMEROS:
                     </div>
                     <div className="flex flex-wrap justify-center gap-1">
                       {selectedNumbers.map((number) => (
                         <span
                           key={number}
-                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white"
+                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-pink-600 text-xs font-bold text-white"
                         >
                           {number.toString().padStart(2, "0")}
                         </span>
@@ -532,16 +532,16 @@ export default function GeradorLotofacil() {
                       }
                       setSelectedNumbers(numbers.sort((a, b) => a - b));
                     }}
-                    className="rounded-md bg-blue-500 px-3 py-1 text-xs font-bold text-white hover:bg-blue-600 transition-colors"
+                    className="rounded-md bg-pink-500 px-3 py-1 text-xs font-bold text-white hover:bg-pink-600 transition-colors"
                   >
                     🎲 Surpresinha
                   </button>
                 </div>
 
                 {/* Rodapé do Talão */}
-                <div className="mt-4 border-t border-green-200 pt-2 text-center text-xs text-green-600">
+                <div className="mt-4 border-t border-pink-200 pt-2 text-center text-xs text-pink-600">
                   <div>💰 Prêmio estimado: R$ 1.700.000,00</div>
-                  <div className="text-green-500">Sorteio: Segunda, Terça, Quarta, Quinta, Sexta e Sábado</div>
+                  <div className="text-pink-500">Sorteio: Segunda, Terça, Quarta, Quinta, Sexta e Sábado</div>
                 </div>
               </div>
 
@@ -785,13 +785,13 @@ export default function GeradorLotofacil() {
         {currentNumbers.length > 0 && (
           <div className="mx-auto max-w-lg">
             {/* Simulação de Comprovante */}
-            <div className="rounded-xl border-4 border-green-600 bg-gradient-to-b from-white to-green-50 p-6 shadow-2xl">
+            <div className="rounded-xl border-4 border-pink-600 bg-gradient-to-b from-white to-pink-50 p-6 shadow-2xl">
               {/* Cabeçalho do Comprovante */}
-              <div className="mb-4 text-center border-b border-green-200 pb-4">
-                <div className="text-lg font-bold text-green-800 uppercase tracking-wide">
+              <div className="mb-4 text-center border-b border-pink-200 pb-4">
+                <div className="text-lg font-bold text-pink-800 uppercase tracking-wide">
                   🍀 LOTOFÁCIL
                 </div>
-                <div className="text-sm text-green-700">
+                <div className="text-sm text-pink-700">
                   Comprovante de Jogo Gerado
                 </div>
                 <div className="text-xs text-gray-600 mt-1">
@@ -801,7 +801,7 @@ export default function GeradorLotofacil() {
 
               {/* Números do Jogo */}
               <div className="mb-4">
-                <div className="mb-2 text-center text-sm font-bold text-green-800">
+                <div className="mb-2 text-center text-sm font-bold text-pink-800">
                   SEUS NÚMEROS DA SORTE:
                 </div>
 
@@ -812,14 +812,14 @@ export default function GeradorLotofacil() {
                       key={number}
                       className={`relative aspect-square h-10 w-10 rounded-md border-2 text-sm font-bold flex items-center justify-center ${
                         currentNumbers.includes(number)
-                          ? "border-green-600 bg-green-600 text-white shadow-md"
+                          ? "border-pink-600 bg-pink-600 text-white shadow-md"
                           : "border-gray-200 bg-gray-50 text-gray-400"
                       }`}
                     >
                       {number.toString().padStart(2, "0")}
                       {currentNumbers.includes(number) && (
                         <div className="absolute -top-1 -right-1">
-                          <div className="h-3 w-3 rounded-full bg-green-800 flex items-center justify-center">
+                          <div className="h-3 w-3 rounded-full bg-pink-800 flex items-center justify-center">
                             <span className="text-white text-xs">✓</span>
                           </div>
                         </div>
@@ -829,16 +829,16 @@ export default function GeradorLotofacil() {
                 </div>
 
                 {/* Resumo dos números */}
-                <div className="mt-3 rounded-lg bg-green-100 p-3">
+                <div className="mt-3 rounded-lg bg-pink-100 p-3">
                   <div className="text-center">
-                    <div className="text-sm font-bold text-green-800 mb-2">
+                    <div className="text-sm font-bold text-pink-800 mb-2">
                       RESUMO DO JOGO:
                     </div>
                     <div className="flex flex-wrap justify-center gap-1">
                       {currentNumbers.map((number) => (
                         <span
                           key={number}
-                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white"
+                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-pink-600 text-xs font-bold text-white"
                         >
                           {number.toString().padStart(2, "0")}
                         </span>
@@ -898,11 +898,11 @@ export default function GeradorLotofacil() {
               )}
 
               {/* Rodapé do Comprovante */}
-              <div className="border-t border-green-200 pt-3 text-center">
-                <div className="text-xs text-green-600 space-y-1">
+              <div className="border-t border-pink-200 pt-3 text-center">
+                <div className="text-xs text-pink-600 space-y-1">
                   <div>💰 <strong>Prêmio Principal:</strong> 15 acertos</div>
                   <div>🎯 <strong>Prêmios Secundários:</strong> 14, 13, 12 e 11 acertos</div>
-                  <div className="text-green-500 font-bold">BOA SORTE! 🍀</div>
+                  <div className="text-pink-500 font-bold">BOA SORTE! 🍀</div>
                 </div>
               </div>
             </div>
