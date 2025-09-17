@@ -189,6 +189,21 @@ export default function GeradorLotofacil() {
     localStorage.setItem("lotofacil-history", JSON.stringify(newHistory));
   };
 
+  // Remover item do histórico
+  const removeFromHistory = (gameId: string) => {
+    const updatedHistory = gameHistory.filter(game => game.id !== gameId);
+    setGameHistory(updatedHistory);
+    localStorage.setItem("lotofacil-history", JSON.stringify(updatedHistory));
+  };
+
+  // Limpar todo o histórico
+  const clearHistory = () => {
+    if (window.confirm("Tem certeza que deseja apagar todo o histórico? Esta ação não pode ser desfeita.")) {
+      setGameHistory([]);
+      localStorage.removeItem("lotofacil-history");
+    }
+  };
+
   // Função para gerar números aleatórios baseados na estratégia
   const generateNumbers = (): number[] => {
     const numbers: number[] = [];
@@ -1003,32 +1018,91 @@ export default function GeradorLotofacil() {
         {gameHistory.length > 0 && (
           <Card className="mx-auto max-w-6xl">
             <CardHeader>
-              <CardTitle>💾 Histórico de Jogos ({gameHistory.length})</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle>💾 Histórico de Jogos ({gameHistory.length})</CardTitle>
+                <button
+                  onClick={clearHistory}
+                  className="rounded-md bg-red-500 px-3 py-1 text-xs font-bold text-white hover:bg-red-600 transition-colors"
+                >
+                  🗑️ Limpar Tudo
+                </button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="mb-4 text-sm text-text-secondary">
-                Últimos jogos salvos automaticamente (máximo 50)
+                Últimos jogos salvos automaticamente (máximo 50). Clique no ❌ para remover jogos individuais.
               </div>
               <div className="space-y-3">
                 {gameHistory.slice(0, 10).map((game, index) => (
                   <div
                     key={game.id}
-                    className="rounded border border-neutral-surface-variant bg-background-primary p-3"
+                    className="group rounded border border-neutral-surface-variant bg-background-primary p-3 transition-all hover:bg-background-secondary"
                   >
                     <div className="mb-2 flex items-center justify-between text-sm">
-                      <span className="font-medium">{game.strategy}</span>
-                      <span className="text-text-secondary">{game.date}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium">{game.strategy}</span>
+                        <span className="text-xs text-text-secondary">#{index + 1}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-text-secondary">{game.date}</span>
+                        <button
+                          onClick={() => {
+                            if (window.confirm("Tem certeza que deseja remover este jogo do histórico?")) {
+                              removeFromHistory(game.id);
+                            }
+                          }}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-red-500 hover:bg-red-600 text-white w-6 h-6 flex items-center justify-center text-xs"
+                          title="Remover este jogo do histórico"
+                        >
+                          ❌
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-1">
+                    <div className="mb-2 flex flex-wrap gap-1">
                       {game.numbers.map((number) => (
                         <div
                           key={number}
-                          className="flex h-6 w-6 items-center justify-center rounded bg-primary-blue/20 text-xs font-medium text-primary-blue-dark"
+                          className="flex h-6 w-6 items-center justify-center rounded bg-pink-100 text-xs font-medium text-pink-800"
                         >
                           {number.toString().padStart(2, "0")}
                         </div>
                       ))}
+                    </div>
+
+                    {/* Estatísticas do jogo */}
+                    <div className="grid grid-cols-3 gap-2 text-xs text-text-secondary md:grid-cols-6">
+                      <div>Pares: {game.statistics.pairs}</div>
+                      <div>Ímpares: {game.statistics.odds}</div>
+                      <div>Soma: {game.statistics.sum}</div>
+                      <div>Primos: {game.statistics.primes}</div>
+                      <div>Quentes: {game.statistics.hotNumbers}</div>
+                      <div>Frios: {game.statistics.coldNumbers}</div>
+                    </div>
+
+                    {/* Botões de ação individual */}
+                    <div className="mt-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => {
+                          setSelectedNumbers(game.numbers);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="rounded bg-blue-500 px-2 py-1 text-xs text-white hover:bg-blue-600 transition-colors"
+                        title="Carregar estes números no volante"
+                      >
+                        🔄 Usar Números
+                      </button>
+                      <button
+                        onClick={() => {
+                          const textContent = `Lotofácil: ${game.numbers.join(', ')} - ${game.strategy} - ${game.date}`;
+                          navigator.clipboard.writeText(textContent);
+                          alert('Números copiados para a área de transferência!');
+                        }}
+                        className="rounded bg-green-500 px-2 py-1 text-xs text-white hover:bg-green-600 transition-colors"
+                        title="Copiar números para área de transferência"
+                      >
+                        📋 Copiar
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -1038,15 +1112,44 @@ export default function GeradorLotofacil() {
                 <div className="mt-4 text-center">
                   <button
                     onClick={() => {
-                      // Implementar visualização completa do histórico
-                      alert(`Você tem ${gameHistory.length} jogos no histórico!`);
+                      // Expandir para mostrar todos os jogos
+                      const allGamesText = gameHistory.map((game, i) =>
+                        `${i + 1}. ${game.strategy} - ${game.date}\nNúmeros: ${game.numbers.join(', ')}\n`
+                      ).join('\n');
+
+                      const newWindow = window.open('', '_blank');
+                      if (newWindow) {
+                        newWindow.document.write(`
+                          <html>
+                            <head><title>Histórico Completo - Lotofácil</title></head>
+                            <body style="font-family: monospace; padding: 20px;">
+                              <h2>Histórico Completo de Jogos da Lotofácil</h2>
+                              <pre>${allGamesText}</pre>
+                            </body>
+                          </html>
+                        `);
+                        newWindow.document.close();
+                      }
                     }}
                     className="text-sm text-primary-blue hover:underline"
                   >
-                    Ver todos os {gameHistory.length} jogos
+                    📄 Ver todos os {gameHistory.length} jogos
                   </button>
                 </div>
               )}
+
+              {/* Dicas do Histórico */}
+              <div className="mt-4 rounded-lg bg-blue-50 border border-blue-200 p-3">
+                <div className="text-sm text-blue-800">
+                  💡 <strong>Dicas do Histórico:</strong>
+                  <ul className="mt-1 ml-4 text-xs text-blue-700 space-y-1">
+                    <li>• Passe o mouse sobre um jogo para ver opções adicionais</li>
+                    <li>• Use "🔄 Usar Números" para carregar números antigos no volante</li>
+                    <li>• O histórico é salvo no seu navegador até 50 jogos</li>
+                    <li>• Números mostrados com cores da Lotofácil (rosa)</li>
+                  </ul>
+                </div>
+              </div>
             </CardContent>
           </Card>
         )}
