@@ -104,139 +104,6 @@ export const meta: MetaFunction = () => {
     { httpEquiv: "content-language", content: "pt-br" },
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
-    {
-      "script:ld+json": JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        name: "Calculadora Adiantamento Parcelas Nubank - Antecipação 2025",
-        description:
-          "Ferramenta gratuita para calcular descontos da antecipação de parcelas Nubank. Calcule custos, juros e descubra quanto pode economizar.",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
-        applicationCategory: "FinanceApplication",
-        operatingSystem: "Web Browser",
-        isAccessibleForFree: true,
-        inLanguage: "pt-BR",
-        dateModified: "2025-09-01",
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "BRL",
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "CalculadoraOnlineBR",
-          url: "https://www.calculadoraonlinebr.com.br",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
-            width: 180,
-            height: 180,
-          },
-          sameAs: [
-            "https://twitter.com/CalculadoraBR",
-            "https://www.facebook.com/CalculadoraOnlineBR",
-          ],
-        },
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id":
-            "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
-          name: "Calculadora Antecipação Nubank 2025 - Descontos",
-          description:
-            "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
-          inLanguage: "pt-BR",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "CalculadoraOnlineBR",
-            url: "https://www.calculadoraonlinebr.com.br",
-            description: "Calculadoras online gratuitas para facilitar seu dia a dia",
-            potentialAction: {
-              "@type": "SearchAction",
-              target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-              "query-input": "required name=search_term_string",
-            },
-          },
-          breadcrumb: {
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Início",
-                item: "https://www.calculadoraonlinebr.com.br",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Calculadoras",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: "Finanças",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
-              },
-              {
-                "@type": "ListItem",
-                position: 4,
-                name: "Antecipação Nubank",
-                item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
-              },
-            ],
-          },
-        },
-        about: {
-          "@type": "FinancialProduct",
-          name: "Antecipação de Parcelas Nubank",
-          description: "Serviço de quitação antecipada de empréstimos pessoais do Nubank",
-          category: "Personal Loan",
-        },
-        featureList: [
-          "Cálculo de descontos por antecipação",
-          "Cálculo de juros de antecipação",
-          "Tabela de descontos por parcelas",
-          "Análise de economia potencial",
-          "Recomendação personalizada",
-          "Interface móvel responsiva",
-          "Resultados em tempo real",
-        ],
-      }),
-    },
-    // FAQ Schema adicional para melhor SEO
-    {
-      "script:ld+json": JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "Como funciona a antecipação de parcelas no Nubank?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "O Nubank calcula um desconto sobre o valor total das parcelas restantes, considerando a taxa de juros do contrato original. Você paga menos do que a soma das parcelas restantes.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Qual é a taxa de desconto da antecipação?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "A taxa varia conforme seu contrato, mas geralmente fica em torno de 10% a 12% ao ano. O desconto é calculado com base no valor presente das parcelas futuras.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Quando vale a pena antecipar parcelas?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Vale a pena antecipar quando você tem recursos disponíveis e quer se livrar da dívida. A antecipação sempre gera economia e melhora sua situação financeira.",
-            },
-          },
-        ],
-      }),
-    },
   ];
 };
 
@@ -347,7 +214,7 @@ export default function AntecipacaoNubankCalculator() {
 
   const handleCalculate = () => {
     if (!validateInputs()) return;
-    startCalculation("calcular");
+    startCalculation();
     try {
       const valorParc = parseMoney(valorParcela);
       const numParcelas = parseInt(numeroParcelasRestantes, 10);
@@ -411,10 +278,10 @@ export default function AntecipacaoNubankCalculator() {
       setTimeout(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 50);
-      endCalculation("calcular", { success: true });
+      endCalculation(true);
     } catch {
       setErrors({ valorParcela: "Erro no cálculo. Verifique os valores inseridos." });
-      endCalculation("calcular", { success: false });
+      endCalculation(false);
     }
   };
 
@@ -429,8 +296,146 @@ export default function AntecipacaoNubankCalculator() {
   const ErrorMessage = ({ error }: { error?: string }) =>
     error ? <div className="mt-1 text-sm text-system-error">{error}</div> : null;
 
+  const webApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Calculadora Adiantamento Parcelas Nubank - Antecipação 2025",
+    description:
+      "Ferramenta gratuita para calcular descontos da antecipação de parcelas Nubank. Calcule custos, juros e descubra quanto pode economizar.",
+    url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Web Browser",
+    isAccessibleForFree: true,
+    inLanguage: "pt-BR",
+    dateModified: "2025-09-01",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "BRL",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CalculadoraOnlineBR",
+      url: "https://www.calculadoraonlinebr.com.br",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.calculadoraonlinebr.com.br/android-chrome-192x192.webp",
+        width: 180,
+        height: 180,
+      },
+      sameAs: [
+        "https://twitter.com/CalculadoraBR",
+        "https://www.facebook.com/CalculadoraOnlineBR",
+      ],
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id":
+        "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+      name: "Calculadora Antecipação Nubank 2025 - Descontos",
+      description:
+        "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
+      inLanguage: "pt-BR",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "CalculadoraOnlineBR",
+        url: "https://www.calculadoraonlinebr.com.br",
+        description: "Calculadoras online gratuitas para facilitar seu dia a dia",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
+      },
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://www.calculadoraonlinebr.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Finanças",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Antecipação Nubank",
+            item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+          },
+        ],
+      },
+    },
+    about: {
+      "@type": "FinancialProduct",
+      name: "Antecipação de Parcelas Nubank",
+      description: "Serviço de quitação antecipada de empréstimos pessoais do Nubank",
+      category: "Personal Loan",
+    },
+    featureList: [
+      "Cálculo de descontos por antecipação",
+      "Cálculo de juros de antecipação",
+      "Tabela de descontos por parcelas",
+      "Análise de economia potencial",
+      "Recomendação personalizada",
+      "Interface móvel responsiva",
+      "Resultados em tempo real",
+    ],
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Como funciona a antecipação de parcelas no Nubank?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "O Nubank calcula um desconto sobre o valor total das parcelas restantes, considerando a taxa de juros do contrato original. Você paga menos do que a soma das parcelas restantes.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Qual é a taxa de desconto da antecipação?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "A taxa varia conforme seu contrato, mas geralmente fica em torno de 10% a 12% ao ano. O desconto é calculado com base no valor presente das parcelas futuras.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Quando vale a pena antecipar parcelas?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Vale a pena antecipar quando você tem recursos disponíveis e quer se livrar da dívida. A antecipação sempre gera economia e melhora sua situação financeira.",
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl">
       <Breadcrumb>
         <BreadcrumbItem href="/">Início</BreadcrumbItem>
         <BreadcrumbItem href="/calculadoras">Calculadoras</BreadcrumbItem>
@@ -536,13 +541,14 @@ export default function AntecipacaoNubankCalculator() {
       </Card>
 
       {result && (
-        <Card ref={resultRef as any} className="border-2 border-growth-green bg-growth-green-soft">
+        <Card className="border-2 border-growth-green bg-growth-green-soft">
           <CardHeader>
             <CardTitle as="h3" className="text-growth-green">
               📊 Resultado da Antecipação
             </CardTitle>
           </CardHeader>
           <CardContent>
+            <div ref={resultRef}>
             <div className="mb-6 text-center">
               <div className="text-2xl font-bold text-growth-green">
                 🚀 VOCÊ ECONOMIZA {currencyBR(result.economiaAntecipacao)}!
@@ -834,6 +840,7 @@ export default function AntecipacaoNubankCalculator() {
                 </div>
               </div>
             </div>
+            </div>
           </CardContent>
         </Card>
       )}
@@ -943,6 +950,7 @@ export default function AntecipacaoNubankCalculator() {
       </Card>
 
       <RelatedCalculators category="financas" currentCalculatorId="antecipacao-parcelas-nubank" />
-    </div>
+      </div>
+    </>
   );
 }

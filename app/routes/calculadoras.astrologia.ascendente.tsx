@@ -13,37 +13,64 @@ import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Descubra seu Ascendente Online Grátis | ${APP_NAME}` },
+    // Title otimizado
+    { title: `Calculadora de Ascendente Grátis 2025 | ${APP_NAME}` },
+
+    // Meta description otimizada
     {
       name: "description",
       content:
-        "Calcule seu ascendente astrológico grátis com data, hora e local de nascimento. Descubra sua personalidade externa e primeiras impressões.",
+        "🔮 Calculadora de Ascendente Grátis! Informe data, hora e local de nascimento e descubra seu signo ascendente e como ele impacta sua personalidade.",
     },
+
+    // Keywords otimizadas
     {
       name: "keywords",
       content:
-        "ascendente astrológico, signo ascendente, mapa astral, calculadora ascendente grátis, signo solar, personalidade astrológica, autoconhecimento, máscara social, primeira impressão",
+        "calculadora de ascendente, qual é meu ascendente, signo ascendente, calcular ascendente pelo mapa astral, hora de nascimento ascendente, ascendente em aries, ascendente em touro, significado do ascendente, autoconhecimento astrológico",
     },
+
+    // Robots
     {
       name: "robots",
       content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
     },
+
+    // Author
     {
       name: "author",
-      content: "CalculadoraOnlineBR",
+      content: "CalculadoraOnlineBR – Astrologia Avançada",
     },
+
+    // Viewport
     {
       name: "viewport",
       content: "width=device-width, initial-scale=1.0",
     },
+
+    // Geo targeting
+    {
+      name: "geo.region",
+      content: "BR",
+    },
+    {
+      name: "geo.placename",
+      content: "Brasil",
+    },
+    {
+      name: "language",
+      content: "pt-BR",
+    },
+
+    // Open Graph
     {
       property: "og:title",
-      content: "Calculadora Ascendente – Descubra seu Signo Grátis",
+      content: "Calculadora de Ascendente: Descubra Seu Ascendente Grátis",
     },
     {
       property: "og:description",
       content:
-        "Calcule seu ascendente astrológico grátis com data, hora e local de nascimento. Descubra sua personalidade externa e primeiras impressões.",
+        "🔮 Teste grátis de ascendente astrológico! Informe data, hora e local e veja o impacto na sua personalidade e primeiras impressões.",
     },
     {
       property: "og:type",
@@ -55,12 +82,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-calculadora.jpg",
     },
     {
       property: "og:image:alt",
       content:
-        "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
+        "Interface da calculadora de ascendente astrológico com campos para data, hora e local de nascimento",
     },
     {
       property: "og:site_name",
@@ -70,28 +97,60 @@ export const meta: MetaFunction = () => {
       property: "og:locale",
       content: "pt_BR",
     },
+
+    // Twitter Cards
     {
       name: "twitter:card",
       content: "summary_large_image",
     },
     {
       name: "twitter:title",
-      content: "Calculadora de Ascendente Astrológico Grátis 2025",
+      content: "🔮 Calculadora de Ascendente Astrológico Grátis 2025",
     },
     {
       name: "twitter:description",
       content:
-        "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local. Análise completa da personalidade.",
+        "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local de nascimento e análise de personalidade.",
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-calculadora.jpg",
     },
     {
       name: "twitter:image:alt",
-      content:
-        "Calculadora de Ascendente Astrológico - Interface da calculadora mostrando campos para data, hora e local de nascimento",
+      content: "Calculadora de ascendente astrológico mostrando campos de data, hora e local",
     },
+    {
+      name: "twitter:creator",
+      content: "@CalculadoraBR",
+    },
+
+    // Application metadata
+    {
+      name: "application-name",
+      content: "Calculadora de Ascendente Astrológico",
+    },
+    {
+      name: "format-detection",
+      content: "telephone=no",
+    },
+    {
+      name: "theme-color",
+      content: "#64B5F6",
+    },
+
+    // Performance: preconnect para Google Fonts
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "anonymous",
+    },
+
+    // Canonical URL
     {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
@@ -253,7 +312,7 @@ const CitySearch = ({ onCitySelect }: { onCitySelect: (city: City) => void }) =>
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           placeholder="Digite sua cidade..."
-          className="bg-background-primary w-full rounded-lg border-2 border-neutral-surface-variant p-3 pr-10 text-text-primary transition-all duration-200 placeholder:text-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/30 text-sm sm:text-base"
+          className="bg-background-primary w-full rounded-lg border-2 border-neutral-surface-variant p-3 pr-10 text-sm text-text-primary transition-all duration-200 placeholder:text-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/30 sm:text-base"
           autoComplete="off"
         />
 
@@ -280,7 +339,7 @@ const CitySearch = ({ onCitySelect }: { onCitySelect: (city: City) => void }) =>
 
         {/* Dropdown de cidades */}
         {showDropdown && (
-          <div className="absolute left-0 right-0 top-full z-[9999] mt-1 max-h-60 sm:max-h-64 overflow-y-auto rounded-lg border-2 border-neutral-surface-variant/50 bg-white shadow-2xl backdrop-blur-sm dark:bg-gray-800 max-w-full">
+          <div className="absolute left-0 right-0 top-full z-[9999] mt-1 max-h-60 max-w-full overflow-y-auto rounded-lg border-2 border-neutral-surface-variant/50 bg-white shadow-2xl backdrop-blur-sm sm:max-h-64 dark:bg-gray-800">
             {cities.length > 0 ? (
               <>
                 <div className="border-b border-neutral-surface-variant/20 bg-primary-blue/5 px-3 py-2 text-xs font-semibold text-primary-blue">
@@ -290,25 +349,25 @@ const CitySearch = ({ onCitySelect }: { onCitySelect: (city: City) => void }) =>
                 {cities.map((city, index) => (
                   <button
                     key={`${city.city}-${city.state}-${index}`}
-                    className="w-full border-b border-gray-100 p-3 sm:p-4 text-left transition-colors duration-200 last:border-b-0 hover:bg-primary-blue/10 focus:bg-primary-blue/10 focus:outline-none dark:border-gray-700"
+                    className="w-full border-b border-gray-100 p-3 text-left transition-colors duration-200 last:border-b-0 hover:bg-primary-blue/10 focus:bg-primary-blue/10 focus:outline-none sm:p-4 dark:border-gray-700"
                     onClick={() => handleCitySelect(city)}
                     type="button"
                   >
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <div className="flex-shrink-0">
-                        <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-primary-blue/20">
-                          <span className="text-xs sm:text-sm text-primary-blue">📍</span>
+                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-blue/20 sm:h-8 sm:w-8">
+                          <span className="text-xs text-primary-blue sm:text-sm">📍</span>
                         </div>
                       </div>
                       <div className="min-w-0 flex-1 overflow-hidden">
-                        <div className="truncate font-semibold text-text-primary text-sm sm:text-base leading-tight break-words">
+                        <div className="truncate break-words text-sm font-semibold leading-tight text-text-primary sm:text-base">
                           {city.city}
                         </div>
-                        <div className="truncate text-xs sm:text-sm text-text-secondary leading-tight break-words">
+                        <div className="truncate break-words text-xs leading-tight text-text-secondary sm:text-sm">
                           {city.state}
                         </div>
                       </div>
-                      <div className="flex-shrink-0 hidden sm:block">
+                      <div className="hidden flex-shrink-0 sm:block">
                         <svg
                           className="h-4 w-4 text-text-secondary"
                           fill="none"
