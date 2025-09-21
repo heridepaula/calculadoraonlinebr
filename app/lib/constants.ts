@@ -289,6 +289,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/inequacoes",
   },
   {
+    id: "simplificador-funcoes-algebricas",
+    name: "Simplificador de Expressões Algébricas",
+    description:
+      "Simplifique expressões algébricas com fatoração automática e redução de termos semelhantes. Calculadora com explicação passo a passo e suporte a múltiplas variáveis",
+    category: "matematica",
+    path: "/calculadoras/matematica/simplificador-funcoes-algebricas",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:
