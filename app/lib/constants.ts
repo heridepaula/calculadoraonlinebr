@@ -265,6 +265,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/desvio-padrao",
   },
   {
+    id: "calculadora-cientifica",
+    name: "Calculadora Científica",
+    description:
+      "Calculadora científica completa com funções trigonométricas, logarítmicas, exponenciais e estatísticas. Interface profissional para estudantes e profissionais",
+    category: "matematica",
+    path: "/calculadoras/matematica/calculadora-cientifica",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:
