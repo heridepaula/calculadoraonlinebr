@@ -327,6 +327,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  fibonacci: {
+    id: "fibonacci",
+    title: "Calculadora de Fibonacci 2025 - Sequência Dourada e Proporção Áurea - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de Fibonacci GRATUITA! Explore a famosa sequência matemática, calcule termos específicos, visualize propriedades da proporção áurea e descubra a matemática presente na natureza.",
+    keywords:
+      "calculadora fibonacci, sequencia fibonacci, proporção aurea, razao aurea, fibonacci natureza, matematica fibonacci, sequencia dourada, espiral dourada, phi fibonacci, numeros fibonacci, leonardo fibonacci, matematica na natureza",
+    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/fibonacci",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
 
   // Tool Calculators
   "gerador-cpf": {

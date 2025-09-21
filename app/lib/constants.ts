@@ -297,6 +297,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/simplificador-funcoes-algebricas",
   },
   {
+    id: "fibonacci",
+    name: "Calculadora de Fibonacci",
+    description:
+      "Explore a sequência de Fibonacci e suas propriedades matemáticas. Calcule termos específicos, visualize a sequência e descubra a proporção áurea presente na natureza",
+    category: "matematica",
+    path: "/calculadoras/matematica/fibonacci",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:
