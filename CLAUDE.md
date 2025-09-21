@@ -157,3 +157,4 @@ Optimized for Vercel with:
 - Not run command `npm run dev` after implementation
 - Ao criar uma calculadora, sempre adicione a calculadora aos Cards da categoria referente
 - Ao criar uma calculadora, sempre adicione as configurações de SEO, como robots.txt e sitemap
+- Sempre use o Context7 para realizar suas implementações
