@@ -261,7 +261,7 @@ export default function FerramentasIndex() {
               <div className="space-y-2">
                 {ferramentasCalculators
                   .filter((calc) =>
-                    ["contador-caracteres", "gerador-cartao-credito"].includes(calc.id)
+                    ["contador-caracteres", "gerador-cartao-credito", "sorteador-online"].includes(calc.id)
                   )
                   .map((calc) => (
                     <div

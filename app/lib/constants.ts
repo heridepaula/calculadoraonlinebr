@@ -421,6 +421,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/gerador-uuid-guid",
   },
   {
+    id: "sorteador-online",
+    name: "Sorteador Online",
+    description:
+      "Sorteie nomes, objetos, animais ou qualquer lista com animação e suspense. Sem limite de caracteres, aleatoriedade garantida e histórico de sorteios",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/sorteador-online",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
