@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos de solução com gráficos e explicação passo a passo. Calculadora matemática online profissional.",
+        "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos e soluções com explicação passo a passo profissional.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -46,7 +46,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos de solução com gráficos e explicação passo a passo.",
+        "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos e soluções com explicação passo a passo.",
     },
     {
       property: "og:image",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:description",
       content:
-        "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos de solução com gráficos e explicação passo a passo.",
+        "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos e soluções com explicação passo a passo.",
     },
     {
       name: "twitter:image",
@@ -104,7 +104,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "inequações primeiro grau, inequações segundo grau, calculadora inequações, intervalos solução, gráfico inequação, matemática online, álgebra",
+        "inequações primeiro grau, inequações segundo grau, calculadora inequações, intervalos solução, matemática online",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
@@ -162,6 +162,7 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
+          alternateName: "Calculadora Online Brasil",
           url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
@@ -169,6 +170,8 @@ export const meta: MetaFunction = () => {
             width: 180,
             height: 180,
           },
+          foundingDate: "2024",
+          description: "Plataforma educacional gratuita com calculadoras online para matemática, finanças, saúde e direito trabalhista",
           sameAs: [
             "https://twitter.com/CalculadoraOnlineBR",
             "https://www.facebook.com/CalculadoraOnlineBR",
@@ -237,6 +240,7 @@ export const meta: MetaFunction = () => {
         publisher: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
+          alternateName: "Calculadora Online Brasil",
           url: "https://www.calculadoraonlinebr.com.br",
           logo: {
             "@type": "ImageObject",
@@ -244,6 +248,8 @@ export const meta: MetaFunction = () => {
             width: 180,
             height: 180,
           },
+          foundingDate: "2024",
+          description: "Plataforma educacional gratuita com calculadoras online para matemática, finanças, saúde e direito trabalhista",
         },
         about: [
           {
