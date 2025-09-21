@@ -281,6 +281,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/sistemas-equacoes-lineares",
   },
   {
+    id: "inequacoes",
+    name: "Inequações de 1º e 2º Grau",
+    description:
+      "Resolva inequações de primeiro e segundo grau com análise de sinais e intervalos de solução. Calculadora com explicação passo a passo e múltiplos operadores",
+    category: "matematica",
+    path: "/calculadoras/matematica/inequacoes",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:
