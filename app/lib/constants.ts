@@ -273,6 +273,14 @@ export const CALCULATORS = [
     path: "/calculadoras/matematica/calculadora-cientifica",
   },
   {
+    id: "sistemas-equacoes-lineares",
+    name: "Sistemas de Equações Lineares",
+    description:
+      "Resolva sistemas de equações lineares 2x2 e 3x3 com métodos de eliminação de Gauss e regra de Cramer. Solução passo a passo para álgebra linear",
+    category: "matematica",
+    path: "/calculadoras/matematica/sistemas-equacoes-lineares",
+  },
+  {
     id: "tesouro-direto",
     name: "Calculadora do Tesouro Direto",
     description:
