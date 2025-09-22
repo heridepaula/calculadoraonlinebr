@@ -100,6 +100,13 @@ export const CALCULATORS = [
     path: "/calculadoras/saude/hidratacao",
   },
   {
+    id: "peso-gravidez",
+    name: "Calculadora de Peso na Gravidez",
+    description: "Monitore ganho peso gestacional segundo OMS com análise trimestral personalizada",
+    category: "saude",
+    path: "/calculadoras/saude/peso-gravidez",
+  },
+  {
     id: "primeiro-milhao",
     name: "Calculadora do Primeiro Milhão",
     description: "Descubra quanto tempo para chegar ao seu primeiro milhão",
