@@ -469,6 +469,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/sorteador-online",
   },
   {
+    id: "gerador-senha-segura",
+    name: "Gerador de Senhas Seguras",
+    description:
+      "Gere senhas seguras personalizáveis com controle de tamanho, caracteres especiais, números e letras. Análise de força da senha e cópia automática para segurança digital",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/gerador-senha-segura",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
