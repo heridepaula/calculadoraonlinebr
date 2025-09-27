@@ -508,6 +508,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/economia-energia-eletrica",
   },
   {
+    id: "consumo-energia-eletrica",
+    name: "Calculadora de Consumo de Energia Elétrica",
+    description:
+      "Calcule o consumo elétrico de aparelhos domésticos com biblioteca integrada, selo Procel e detecção de standby. Simule cenários e compare lâmpadas LED vs incandescente",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/consumo-energia-eletrica",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
