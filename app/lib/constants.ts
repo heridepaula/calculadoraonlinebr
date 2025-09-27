@@ -484,6 +484,22 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/gerador-senha-segura",
   },
   {
+    id: "clicks-por-segundo",
+    name: "Teste CPS - Clicks Por Segundo",
+    description:
+      "Teste sua velocidade de clique com análise avançada de padrões, anti-cheat com IA, rankings e classificações. Ferramenta gamificada para medir CPS com técnicas profissionais",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/clicks-por-segundo",
+  },
+  {
+    id: "carro-eletrico-combustao",
+    name: "Calculadora: Carro Elétrico vs Combustão",
+    description:
+      "Compare custos completos entre carros elétricos e combustão com análise de payback inteligente, economia por perfil de uso, equivalência em litros e impacto ambiental",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/carro-eletrico-combustao",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
