@@ -500,6 +500,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/carro-eletrico-combustao",
   },
   {
+    id: "economia-energia-eletrica",
+    name: "Calculadora de Economia de Energia Elétrica",
+    description:
+      "Analise o consumo energético por ambiente, compare lâmpadas LED, simule energia solar e identifique vampirismo energético. Economize até 50% na conta de luz",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/economia-energia-eletrica",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:

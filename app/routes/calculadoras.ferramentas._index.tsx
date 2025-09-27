@@ -261,7 +261,7 @@ export default function FerramentasIndex() {
               <div className="space-y-2">
                 {ferramentasCalculators
                   .filter((calc) =>
-                    ["contador-caracteres", "gerador-cartao-credito", "sorteador-online"].includes(calc.id)
+                    ["contador-caracteres", "gerador-cartao-credito", "sorteador-online", "clicks-por-segundo"].includes(calc.id)
                   )
                   .map((calc) => (
                     <div
@@ -269,7 +269,7 @@ export default function FerramentasIndex() {
                       className="text-sm transition-transform duration-300 group-hover:translate-x-1"
                     >
                       <span className="text-growth-green-dark">•</span>{" "}
-                      {calc.name.replace("Gerador de ", "").replace("Contador de ", "")}
+                      {calc.name.replace("Gerador de ", "").replace("Contador de ", "").replace("Teste CPS - ", "")}
                     </div>
                   ))}
                 <div className="text-sm opacity-60 transition-transform duration-300 group-hover:translate-x-1">
