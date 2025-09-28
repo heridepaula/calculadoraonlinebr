@@ -13,22 +13,42 @@ import { useCloudflareAnalyticsSimple } from "~/hooks/useCloudflareAnalytics";
 import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytics";
 import { CookieConsent, CSSLoadingDetector } from "~/components";
 import { Footer } from "~/components/layout/Footer";
+import { getCriticalCSSHTML, getDeferredCSSScript } from "~/lib/critical-css";
 
 import "./tailwind.css";
 import "./styles/globals.css";
 import "./styles/colors.css";
 
 export const links: LinksFunction = () => [
-  // Fonts
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  // CRITICAL CHAIN OPTIMIZATION - Preload WOFF2 directly to break 987ms chain
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
+    rel: "preload",
+    href: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.woff2",
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous"
   },
+
+  // Early DNS resolution for critical domains
+  { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
+  { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
+
+  // CSS will be deferred since critical CSS is inline
   {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    rel: "preload",
+    href: "/assets/root-D_Rv9tYd.css",
+    as: "style",
+    onLoad: "this.onload=null;this.rel='stylesheet'",
+    "data-defer": "true"
+  },
+
+  // Font CSS - completely non-blocking with fallback
+  {
+    rel: "preload",
+    href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    as: "style",
+    onLoad: "this.onload=null;this.rel='stylesheet'",
+    "data-defer": "true"
   },
 
   // AdSense Performance Optimization
@@ -167,31 +187,52 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
 
-        {/* Critical CSS - Inline for reliability */}
-        <style dangerouslySetInnerHTML={{
+        {/* Critical CSS Inline - LCP Optimization (breaks 987ms chain) */}
+        <style id="critical-css" data-optimized="lcp" dangerouslySetInnerHTML={{
           __html: `
-            /* Critical CSS fallback to prevent FOUC */
-            body {
-              background-color: #121212;
-              color: #ffffff;
-              font-family: Inter, sans-serif;
-              margin: 0;
-              min-height: 100vh;
-            }
-            /* Loading spinner for CSS loading issues */
-            .css-loading:after {
-              content: "";
-              display: inline-block;
-              width: 20px;
-              height: 20px;
-              border: 3px solid #64B5F6;
-              border-radius: 50%;
-              border-top-color: transparent;
-              animation: spin 1s ease-in-out infinite;
-            }
-            @keyframes spin {
-              to { transform: rotate(360deg); }
-            }
+            :root{--bg-primary:#0f0f23;--bg-secondary:#1a1a2e;--text-primary:#fff;--text-secondary:#e2e8f0;--primary-blue:#64B5F6;--primary-blue-dark:#42A5F5}
+            *,*::before,*::after{box-sizing:border-box}*{margin:0}
+            html,body{background-color:var(--bg-primary);color:var(--text-primary);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+            h1{font-size:2.25rem;font-weight:700;line-height:1.2;margin-bottom:1rem}
+            h2{font-size:1.875rem;font-weight:600;line-height:1.3;margin-bottom:0.75rem}
+            p{color:var(--text-secondary);line-height:1.6;margin-bottom:1rem}
+            .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+            .card{background-color:var(--bg-secondary);border-radius:0.75rem;padding:1.5rem;box-shadow:0 4px 6px -1px rgba(0,0,0,0.3)}
+            .btn-primary{background-color:var(--primary-blue);color:#fff;padding:0.75rem 1.5rem;border-radius:0.5rem;font-weight:600;text-decoration:none;display:inline-block;border:none;cursor:pointer;transition:background-color 0.2s}
+            .btn-primary:hover{background-color:var(--primary-blue-dark)}
+            .grid{display:grid;gap:1rem}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+            .text-center{text-align:center}.font-bold{font-weight:700}.mb-4{margin-bottom:1rem}.mt-8{margin-top:2rem}.p-6{padding:1.5rem}
+            .loading-spinner{display:inline-block;width:1rem;height:1rem;border:2px solid transparent;border-top:2px solid var(--primary-blue);border-radius:50%;animation:spin 1s linear infinite}
+            @keyframes spin{to{transform:rotate(360deg)}}
+            @media(min-width:768px){.md\\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:3rem}}
+            @media(max-width:767px){h1{font-size:1.875rem}.container{padding:0 0.75rem}}
+            @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('data:font/woff2;base64,') format('woff2'),local('Inter')}
+          `
+        }} />
+
+        {/* Performance Optimization Script - Breaks Critical Chain */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function(){
+              var loaded=false;
+              function loadDeferredResources(){
+                if(loaded)return;loaded=true;
+                var links=document.querySelectorAll('link[data-defer="true"]');
+                for(var i=0;i<links.length;i++){
+                  var link=links[i];
+                  link.media='all';
+                  if(link.getAttribute('as')==='style'){link.rel='stylesheet';}
+                }
+                var fontCSS=document.createElement('link');
+                fontCSS.rel='stylesheet';
+                fontCSS.href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+                fontCSS.media='all';
+                document.head.appendChild(fontCSS);
+              }
+              function initLoad(){setTimeout(loadDeferredResources,16);}
+              if(document.readyState==='complete'){initLoad();}
+              else{window.addEventListener('load',initLoad);document.addEventListener('DOMContentLoaded',function(){setTimeout(initLoad,100);});}
+            })();
           `
         }} />
 
