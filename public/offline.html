@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Offline - CalculadoraOnlineBR</title>
+  <style>
+    :root {
+      --bg-primary: #0f0f23;
+      --bg-secondary: #1a1a2e;
+      --text-primary: #ffffff;
+      --text-secondary: #e2e8f0;
+      --primary-blue: #64B5F6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .offline-container {
+      text-align: center;
+      max-width: 500px;
+      background-color: var(--bg-secondary);
+      padding: 3rem 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .offline-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-blue);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .retry-button {
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .retry-button:hover {
+      background-color: #42A5F5;
+      transform: translateY(-1px);
+    }
+
+    .offline-tips {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+
+    .offline-tips h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .offline-tips ul {
+      list-style: none;
+      color: var(--text-secondary);
+    }
+
+    .offline-tips li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .offline-tips li::before {
+      content: "•";
+      color: var(--primary-blue);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    @media (max-width: 640px) {
+      .offline-container {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .offline-icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📱</div>
+
+    <h1>Você está offline</h1>
+
+    <p>
+      Parece que você perdeu a conexão com a internet.
+      Não se preocupe, suas calculadoras favoritas estarão disponíveis assim que você se reconectar!
+    </p>
+
+    <button class="retry-button" onclick="location.reload()">
+      Tentar Novamente
+    </button>
+
+    <div class="offline-tips">
+      <h3>Enquanto isso...</h3>
+      <ul>
+        <li>Verifique sua conexão Wi-Fi ou dados móveis</li>
+        <li>Algumas funcionalidades podem estar disponíveis offline</li>
+        <li>Seus dados preenchidos foram salvos localmente</li>
+        <li>A página será recarregada automaticamente quando conectar</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Auto-retry quando voltar online
+    window.addEventListener('online', function() {
+      location.reload();
+    });
+
+    // Service Worker status
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(function(registration) {
+        console.log('[Offline] Service Worker ativo');
+      });
+    }
+  </script>
+</body>
+</html>

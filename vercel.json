@@ -8,11 +8,42 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=2592000, s-maxage=2592000, stale-while-revalidate=60"
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
         },
         {
           "key": "Content-Encoding",
           "value": "identity"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(css|js|woff2?|png|jpg|jpeg|webp|svg|ico))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=86400, stale-while-revalidate=86400"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
         }
       ]
     },

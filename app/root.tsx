@@ -14,6 +14,7 @@ import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytic
 import { CookieConsent, CSSLoadingDetector } from "~/components";
 import { Footer } from "~/components/layout/Footer";
 import { getCriticalCSSHTML, getDeferredCSSScript } from "~/lib/critical-css";
+import { usePrefetchOptimization } from "~/lib/prefetch-strategy";
 
 import "./tailwind.css";
 import "./styles/globals.css";
@@ -236,6 +237,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
           `
         }} />
 
+        {/* Service Worker Registration - Long-term Caching */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            if('serviceWorker' in navigator && location.protocol === 'https:'){
+              window.addEventListener('load', function(){
+                navigator.serviceWorker.register('/sw.js', {scope: '/'})
+                .then(function(registration){
+                  console.log('[SW] Registration successful:', registration.scope);
+                  registration.addEventListener('updatefound', function(){
+                    var newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', function(){
+                      if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
+                        newWorker.postMessage({type: 'SKIP_WAITING'});
+                      }
+                    });
+                  });
+                })
+                .catch(function(error){
+                  console.log('[SW] Registration failed:', error);
+                });
+              });
+            }
+          `
+        }} />
+
         {/* Analytics Scripts - apenas em produção */}
         {data?.ENV?.NODE_ENV === "production" && (
           <>
@@ -331,6 +357,9 @@ export default function App() {
 
   // Ativar Cloudflare Web Analytics como fallback/complemento
   useCloudflareAnalyticsSimple();
+
+  // Ativar prefetch inteligente para cache de longo prazo
+  usePrefetchOptimization();
 
   return (
     <GlobalErrorBoundary>
