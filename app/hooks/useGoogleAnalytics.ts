@@ -7,7 +7,13 @@
 
 import { useEffect, createContext, useContext, ReactNode } from 'react';
 import { useLocation } from '@remix-run/react';
-import { trackPageView, isGAEnabled } from '~/lib/google-analytics';
+import {
+  trackPageView,
+  isGAEnabled,
+  trackScrollDepth,
+  trackTimeOnPage,
+  trackCalculatorUsage
+} from '~/lib/google-analytics';
 
 /**
  * Hook principal para tracking automático de page views
@@ -58,6 +64,45 @@ export const useGoogleAnalytics = (options: UseGoogleAnalyticsOptions = {}) => {
     return () => clearTimeout(timeoutId);
   }, [location.pathname, location.search, disabled, customTitle, delay]);
 
+  // Enhanced tracking: scroll depth e time on page
+  useEffect(() => {
+    if (disabled || !isGAEnabled()) return;
+
+    let startTime = Date.now();
+    let maxScrollDepth = 0;
+    const timeOnPageInterval = setInterval(() => {
+      const secondsOnPage = Math.floor((Date.now() - startTime) / 1000);
+      trackTimeOnPage(secondsOnPage);
+    }, 30000); // Check every 30 seconds
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.round((scrollTop / documentHeight) * 100);
+
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent;
+        trackScrollDepth(scrollPercent);
+      }
+    };
+
+    // Track initial scroll position
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      clearInterval(timeOnPageInterval);
+      window.removeEventListener('scroll', handleScroll);
+
+      // Track final time on page
+      const finalSeconds = Math.floor((Date.now() - startTime) / 1000);
+      if (finalSeconds > 10) { // Only track if user stayed more than 10 seconds
+        trackTimeOnPage(finalSeconds);
+      }
+    };
+  }, [location.pathname, disabled]);
+
   return {
     /**
      * Função para tracking manual de page view
@@ -94,6 +139,55 @@ export const usePageTracking = (customTitle?: string) => {
  */
 export const useNoTracking = () => {
   return useGoogleAnalytics({ disabled: true });
+};
+
+/**
+ * Hook específico para tracking de calculadoras
+ * Inclui eventos customizados para interações com calculadoras
+ */
+export const useCalculatorTracking = (calculatorName: string) => {
+  const analytics = useGoogleAnalytics({
+    customTitle: `Calculadora ${calculatorName} | CalculadoraOnlineBR`
+  });
+
+  return {
+    ...analytics,
+
+    /**
+     * Rastreia início de cálculo
+     */
+    trackCalculationStart: () => {
+      trackCalculatorUsage(calculatorName, 'calculation_start');
+    },
+
+    /**
+     * Rastreia conclusão de cálculo
+     */
+    trackCalculationComplete: () => {
+      trackCalculatorUsage(calculatorName, 'calculation_complete');
+    },
+
+    /**
+     * Rastreia reset/limpeza da calculadora
+     */
+    trackCalculationReset: () => {
+      trackCalculatorUsage(calculatorName, 'calculation_reset');
+    },
+
+    /**
+     * Rastreia compartilhamento de resultado
+     */
+    trackResultShare: (platform?: string) => {
+      trackCalculatorUsage(calculatorName, 'result_share', platform);
+    },
+
+    /**
+     * Rastreia download de resultado
+     */
+    trackResultDownload: (format: string) => {
+      trackCalculatorUsage(calculatorName, 'result_download', format);
+    }
+  };
 };
 
 /**
