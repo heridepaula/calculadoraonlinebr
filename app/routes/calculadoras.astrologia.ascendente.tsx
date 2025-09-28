@@ -14,20 +14,20 @@ import { APP_NAME } from "~/lib/constants";
 export const meta: MetaFunction = () => {
   return [
     // Title otimizado
-    { title: `Calculadora de Ascendente Grátis 2025 | ${APP_NAME}` },
+    { title: `Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral | ${APP_NAME}` },
 
     // Meta description otimizada
     {
       name: "description",
       content:
-        "🔮 Calculadora de Ascendente Grátis! Informe data, hora e local de nascimento e descubra seu signo ascendente e como ele impacta sua personalidade.",
+        "🔮 Calcular Ascendente GRÁTIS! Informe data, hora exata e local de nascimento. Descubra seu signo ascendente e máscara social com mapa astral detalhado - Brasil 2025.",
     },
 
     // Keywords otimizadas
     {
       name: "keywords",
       content:
-        "calculadora de ascendente, qual é meu ascendente, signo ascendente, calcular ascendente pelo mapa astral, hora de nascimento ascendente, ascendente em aries, ascendente em touro, significado do ascendente, autoconhecimento astrológico",
+        "calcular ascendente grátis, qual meu ascendente astrológico, ascendente hora nascimento, mapa astral ascendente brasil, calculadora ascendente online, signo ascendente personalidade, máscara social astrologia, primeira impressão signo, autoconhecimento astral",
     },
 
     // Robots
@@ -65,12 +65,12 @@ export const meta: MetaFunction = () => {
     // Open Graph
     {
       property: "og:title",
-      content: "Calculadora de Ascendente: Descubra Seu Ascendente Grátis",
+      content: "🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral 2025",
     },
     {
       property: "og:description",
       content:
-        "🔮 Teste grátis de ascendente astrológico! Informe data, hora e local e veja o impacto na sua personalidade e primeiras impressões.",
+        "🔮 Calcular Ascendente GRÁTIS! Informe hora exata de nascimento e descubra máscara social com mapa astral. Primeira impressão e personalidade social.",
     },
     {
       property: "og:type",
@@ -105,12 +105,12 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "🔮 Calculadora de Ascendente Astrológico Grátis 2025",
+      content: "🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral",
     },
     {
       name: "twitter:description",
       content:
-        "Descubra seu signo ascendente GRÁTIS! Cálculo com data, hora e local de nascimento e análise de personalidade.",
+        "Calcule ascendente GRÁTIS! Hora exata + local nascimento. Descubra máscara social e primeira impressão com mapa astral detalhado.",
     },
     {
       name: "twitter:image",
@@ -1505,7 +1505,7 @@ export default function CalculadoraAscendente() {
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Calculadora de Ascendente Astrológico
+            🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral 2025
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Descubra seu <strong className="text-math-purple-dark">signo ascendente</strong> e

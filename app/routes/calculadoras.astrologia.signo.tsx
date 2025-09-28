@@ -11,16 +11,16 @@ import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Descubra seu Signo Grátis | ${APP_NAME}` },
+    { title: `Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2025 | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "Descubra seu signo solar grátis com apenas a data de nascimento. Análise completa de personalidade, amor, carreira e compatibilidade zodiacal.",
+        "🌟 Descubra seu Signo Solar GRÁTIS! Qual meu signo do zodíaco? Análise completa de personalidade, amor, carreira e compatibilidade - só com data nascimento.",
     },
     {
       name: "keywords",
       content:
-        "calculadora signo solar, descobrir meu signo, signo do zodíaco, personalidade astrológica, horóscopo grátis, astrologia online, características do signo, compatibilidade amorosa",
+        "descobrir meu signo grátis, qual meu signo zodiacal, características signo solar, personalidade astrológica, signo solar data nascimento, zodiac signo brasileiro, astrologia personalidade, autoconhecimento signo",
     },
     {
       name: "robots",
@@ -859,7 +859,7 @@ export default function CalculadoraSigno() {
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Calculadora de Signo Solar
+            🌟 Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2025
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Descubra seu <strong className="text-math-purple-dark">signo solar</strong> e entenda

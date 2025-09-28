@@ -13,20 +13,20 @@ import { APP_NAME } from "~/lib/constants";
 export const meta: MetaFunction = () => {
   return [
     // Title otimizado - palavra-chave principal no início, até 60 caracteres
-    { title: `Compatibilidade de Signos: Calculadora Grátis | ${APP_NAME}` },
+    { title: `Compatibilidade Signos Amor: Teste Grátis Sinastria 2025 | ${APP_NAME}` },
 
     // Meta description otimizada - 150-160 caracteres com CTA claro
     {
       name: "description",
       content:
-        "🔮 Calcule a compatibilidade entre signos GRÁTIS! Descubra se vocês combinam no amor, namoro e amizade. Análise completa com percentual de compatibilidade.",
+        "🔮 Teste Compatibilidade Signos GRÁTIS! Descubra sinastria amorosa, signos que combinam no amor e amizade. Análise percentual completa - Brasil 2025.",
     },
 
     // Keywords atualizadas com base nos termos mais buscados
     {
       name: "keywords",
       content:
-        "compatibilidade de signos, calculadora compatibilidade amorosa, signos que combinam, combinação de signos, compatibilidade amorosa, sinastria amorosa, signos compatíveis amor, qual signo combina, compatibilidade por elementos, mapa astral casal, teste compatibilidade grátis",
+        "compatibilidade signos amor, teste compatibilidade astrológica, signos que combinam namoro, sinastria amorosa grátis, calculadora compatibilidade zodiacal, mapa astral casal, combinação signos zodiac, relacionamento astrológico, horoscopo amor 2025"
     },
 
     {
@@ -1418,10 +1418,10 @@ export default function CalculadoraCompatibilidadeSignos() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": ["WebApplication", "Article"],
-              name: "Compatibilidade de Signos Grátis 2025 - Sinastria Amorosa e Combinação Astral",
-              headline: "Teste de Compatibilidade de Signos e Mapa Astral do Casal",
+              name: "🔮 Compatibilidade Signos Amor: Teste Grátis Sinastria Amorosa 2025",
+              headline: "Teste Compatibilidade Signos Amor - Sinastria Amorosa Grátis",
               description:
-                "Teste GRÁTIS de compatibilidade de signos com sinastria amorosa! Descubra combinação astral, mapa de relacionamento e análise completa de amor, amizade e trabalho entre todos os signos do zodíaco.",
+                "Teste GRÁTIS de compatibilidade signos amor! Sinastria amorosa, combinação zodiacal e análise completa de relacionamento. Descubra se vocês combinam no amor, amizade e trabalho.",
               url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
               applicationCategory: ["UtilitiesApplication", "Entertainment"],
               operatingSystem: "Web",
@@ -1500,7 +1500,7 @@ export default function CalculadoraCompatibilidadeSignos() {
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            🔮 Teste de Compatibilidade de Signos Grátis 2025 - Sinastria Amorosa
+            🔮 Compatibilidade Signos Amor: Teste Grátis Sinastria 2025
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Descubra a <strong className="text-math-purple-dark">sinastria amorosa</strong> e{" "}

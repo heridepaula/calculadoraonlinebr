@@ -13,16 +13,16 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Astrologia Grátis: Ascendente, Signo e Compatibilidade | ${APP_NAME}` },
+    { title: `Calculadora Astrológica Grátis 2025 - Mapa Astral Online | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "Descubra seu ascendente, signo solar e compatibilidade amorosa grátis. Ferramentas de autoconhecimento com análise detalhada dos astros.",
+        "🔮 Calculadoras Astrológicas GRÁTIS! Mapa astral, ascendente, compatibilidade de signos e numerologia. Autoconhecimento com análise detalhada dos astros - Brasil 2025.",
     },
     {
       name: "keywords",
       content:
-        "calculadora astrológica grátis, mapa astral online, ascendente astrológico, compatibilidade signos, horóscopo, autoconhecimento, espiritualidade, zodíaco brasileiro",
+        "calculadora astrológica grátis, mapa astral online brasil, ascendente astrológico hora nascimento, compatibilidade signos amor, numerologia pitagórica, autoconhecimento zodíaco, horóscopo personalizado 2025, astrologia brasileira",
     },
     {
       name: "robots",
@@ -38,12 +38,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Astrologia Grátis: Ascendente, Signo e Compatibilidade",
+      content: "🔮 Calculadoras Astrológicas Grátis 2025 - Mapa Astral Online",
     },
     {
       property: "og:description",
       content:
-        "Descubra seu ascendente, signo solar e compatibilidade amorosa grátis. Ferramentas de autoconhecimento com análise detalhada dos astros.",
+        "Ferramentas astrológicas GRÁTIS! Calcule ascendente, compatibilidade de signos, numerologia e mapa astral. Autoconhecimento completo com análise dos astros.",
     },
     {
       property: "og:type",
@@ -76,12 +76,12 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Calculadoras de Astrologia Grátis 2025 | Autoconhecimento",
+      content: "🔮 Calculadora Astrológica Grátis - Mapa Astral Online Brasil",
     },
     {
       name: "twitter:description",
       content:
-        "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, mapa astral e mais.",
+        "Descubra GRÁTIS: Ascendente, compatibilidade signos, numerologia e mapa astral completo. Autoconhecimento pelos astros!",
     },
     {
       name: "twitter:image",
@@ -131,9 +131,10 @@ export default function AstrologiaIndex() {
                 "@type": "CollectionPage",
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#webpage",
                 url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
-                name: "Calculadoras de Astrologia Grátis 2025",
+                name: "🔮 Calculadoras Astrológicas Grátis 2025 - Mapa Astral Online Brasil",
                 description:
-                  "Descubra os mistérios dos astros GRÁTIS! Ascendente, compatibilidade de signos, mapa astral e mais. Ferramentas confiáveis para autoconhecimento.",
+                  "Calculadoras astrológicas GRÁTIS! Mapa astral, ascendente por hora de nascimento, compatibilidade de signos amor, numerologia pitagórica. Autoconhecimento completo pelos astros.",
+                keywords: "calculadora astrológica grátis, mapa astral online brasil, ascendente hora nascimento, compatibilidade signos amor, numerologia, autoconhecimento zodíaco",
                 isPartOf: {
                   "@id": "https://www.calculadoraonlinebr.com.br/#website",
                 },
@@ -215,9 +216,9 @@ export default function AstrologiaIndex() {
 
       <CategoryHero
         category="astrologia"
-        title="Calculadoras"
-        subtitle="Astrológicas"
-        description="Descubra os mistérios dos astros com ferramentas especializadas para **autoconhecimento, orientação e crescimento espiritual**. Explore sua personalidade através da sabedoria ancestral."
+        title="Calculadoras Astrológicas"
+        subtitle="Grátis 2025"
+        description="🔮 **Mapa astral online**, **ascendente astrológico** e **compatibilidade de signos** GRÁTIS! Ferramentas para **autoconhecimento** e **crescimento espiritual** baseadas na **astrologia brasileira**."
         badge={{
           icon: "🌟",
           text: "Ferramentas Astrológicas para Autoconhecimento",
