@@ -30,54 +30,5 @@ Disallow: /tmp/
 Disallow: /temp/
 Disallow: /*~
 
-# DISALLOW OLD ROUTES (redirected with 301)
-# Financial - old routes
-Disallow: /calculadoras/calculadora-juros-compostos
-Disallow: /calculadoras/calculadora-lci-lca
-Disallow: /calculadoras/calculadora-primeiro-milhao
-Disallow: /calculadoras/calculadora-preco-medio
-Disallow: /calculadoras/calculadora-cdb
-Disallow: /calculadoras/calculadora-tesouro-direto
-Disallow: /calculadoras/calculadora-financiamento-imobiliario
-Disallow: /calculadoras/calculadora-emprestimo-consignado
-Disallow: /calculadoras/comparador-renda-fixa
-Disallow: /calculadoras/calculadora-consorcio
-Disallow: /calculadoras/calculadora-juros-simples
-Disallow: /calculadoras/calculadora-antecipacao-nubank
-Disallow: /calculadoras/antecipacao-nubank
-
-# Health - old routes
-Disallow: /calculadoras/calculadora-imc
-Disallow: /calculadoras/calculadora-gordura-corporal
-Disallow: /calculadoras/calculadora-ciclo-menstrual
-Disallow: /calculadoras/calculadora-desenvolvimento-infantil
-Disallow: /calculadoras/calculadora-hidratacao
-
-# Mathematics - old routes
-Disallow: /calculadoras/regra-de-tres-simples
-Disallow: /calculadoras/calculadora-bhaskara
-Disallow: /calculadoras/calculadora-mmc-mdc
-Disallow: /calculadoras/calculadora-area-perimetro
-Disallow: /calculadoras/calculadora-volume
-Disallow: /calculadoras/calculadora-pitagora
-Disallow: /calculadoras/calculadora-porcentagem
-Disallow: /calculadoras/calculadora-fracoes
-Disallow: /calculadoras/calculadora-moda
-Disallow: /calculadoras/calculadora-media
-Disallow: /calculadoras/calculadora-desvio-padrao
-
-# Labor Law - old routes
-Disallow: /calculadoras/calculadora-rescisao
-Disallow: /calculadoras/calculadora-aposentadoria
-Disallow: /calculadoras/calculadora-auxilio-doenca
-Disallow: /calculadoras/calculadora-salario-liquido
-Disallow: /calculadoras/calculadora-ferias-decimo-terceiro
-
-# Tools - old routes  
-Disallow: /calculadoras/calculadora-cpf
-Disallow: /calculadoras/gerador-cpf
-Disallow: /calculadoras/calculadora-diferenca-datas
-Disallow: /calculadoras/diferenca-datas
-
 # Performance and crawling optimization
 Crawl-delay: 1
