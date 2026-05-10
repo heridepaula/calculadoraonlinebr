@@ -551,7 +551,7 @@ export default function ConsumoEnergiaEletrica() {
       D: "text-orange-600",
       E: "text-red-600",
     };
-    return colors[rating as keyof typeof colors] || "text-gray-600";
+    return colors[rating as keyof typeof colors] || "text-text-secondary-dark";
   };
 
   const ErrorMessage = ({ error }: { error?: string }) =>
