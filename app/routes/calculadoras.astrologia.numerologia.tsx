@@ -593,7 +593,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
   return (
     <div className="space-y-8">
       {/* Cabeçalho mágico com números principais */}
-      <Card className="relative overflow-hidden border-2 border-pink-300/50 bg-gradient-to-br from-pink-50/30 via-purple-50/30 to-blue-50/30 shadow-2xl">
+      <Card className="relative overflow-hidden border-2 border-pink-300/50 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-blue-500/10 shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
 
         {/* Elementos decorativos flutuantes */}
@@ -611,14 +611,14 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 </h2>
                 <span className="animate-bounce text-3xl delay-300">✨</span>
               </div>
-              <p className="text-sm font-medium text-purple-600">
+              <p className="text-sm font-medium text-purple-400">
                 Os números que governam sua jornada espiritual nesta encarnação
               </p>
             </div>
 
             <div className="mb-6 grid grid-cols-2 gap-6 md:grid-cols-4">
               <div className="group transform transition-all duration-300 hover:scale-105">
-                <div className="rounded-2xl border border-pink-200/50 bg-gradient-to-b from-white/40 to-white/20 p-6 shadow-lg backdrop-blur-lg">
+                <div className="rounded-2xl border border-pink-500/30/50 bg-gradient-to-b from-white/40 to-white/20 p-6 shadow-lg backdrop-blur-lg">
                   <div
                     className={`mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r ${getNumberColor(result.lifePathNumber)} shadow-xl ring-4 ring-white/30`}
                   >
@@ -626,13 +626,13 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                       {result.lifePathNumber}
                     </span>
                   </div>
-                  <div className="mb-1 text-sm font-bold text-pink-700">✨ Número da Vida</div>
-                  <div className="text-xs text-purple-600 opacity-80">Sua missão divina</div>
+                  <div className="mb-1 text-sm font-bold text-pink-400">✨ Número da Vida</div>
+                  <div className="text-xs text-purple-400 opacity-80">Sua missão divina</div>
                 </div>
               </div>
 
               <div className="group transform transition-all duration-300 hover:scale-105">
-                <div className="rounded-2xl border border-purple-200/50 bg-gradient-to-b from-white/40 to-white/20 p-6 shadow-lg backdrop-blur-lg">
+                <div className="rounded-2xl border border-purple-500/30/50 bg-gradient-to-b from-white/40 to-white/20 p-6 shadow-lg backdrop-blur-lg">
                   <div
                     className={`mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r ${getNumberColor(result.destinyNumber)} shadow-xl ring-4 ring-white/30`}
                   >
@@ -640,13 +640,13 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                       {result.destinyNumber}
                     </span>
                   </div>
-                  <div className="mb-1 text-sm font-bold text-purple-700">🌟 Destino</div>
-                  <div className="text-xs text-blue-600 opacity-80">Seu propósito cósmico</div>
+                  <div className="mb-1 text-sm font-bold text-purple-400">🌟 Destino</div>
+                  <div className="text-xs text-blue-400 opacity-80">Seu propósito cósmico</div>
                 </div>
               </div>
 
               <div className="group transform transition-all duration-300 hover:scale-105">
-                <div className="rounded-2xl border border-blue-200/50 bg-gradient-to-b from-white/40 to-white/20 p-6 shadow-lg backdrop-blur-lg">
+                <div className="rounded-2xl border border-blue-500/30/50 bg-gradient-to-b from-white/40 to-white/20 p-6 shadow-lg backdrop-blur-lg">
                   <div
                     className={`mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r ${getNumberColor(result.personalityNumber)} shadow-xl ring-4 ring-white/30`}
                   >
@@ -654,8 +654,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                       {result.personalityNumber}
                     </span>
                   </div>
-                  <div className="mb-1 text-sm font-bold text-blue-700">🎭 Personalidade</div>
-                  <div className="text-xs text-teal-600 opacity-80">Sua máscara pessoal</div>
+                  <div className="mb-1 text-sm font-bold text-blue-400">🎭 Personalidade</div>
+                  <div className="text-xs text-teal-400 opacity-80">Sua máscara pessoal</div>
                 </div>
               </div>
 
@@ -668,8 +668,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                       {result.soulNumber}
                     </span>
                   </div>
-                  <div className="mb-1 text-sm font-bold text-teal-700">💎 Alma</div>
-                  <div className="text-xs text-purple-600 opacity-80">Seus desejos profundos</div>
+                  <div className="mb-1 text-sm font-bold text-teal-400">💎 Alma</div>
+                  <div className="text-xs text-purple-400 opacity-80">Seus desejos profundos</div>
                 </div>
               </div>
             </div>
@@ -750,7 +750,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
       {/* Interpretações mágicas detalhadas */}
       <div className="space-y-8">
         {/* Número da Vida - Versão Feminina Expandida */}
-        <Card className="relative overflow-hidden border-2 border-pink-200/60 bg-gradient-to-br from-pink-50/50 via-purple-50/30 to-blue-50/20 shadow-xl">
+        <Card className="relative overflow-hidden border-2 border-pink-500/30/60 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-blue-500/10 shadow-xl">
           <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-pink-200/20 to-purple-200/20 blur-2xl"></div>
 
           <CardHeader className="relative z-10">
@@ -767,16 +767,16 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                   <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-2xl font-bold text-transparent">
                     ✨ Número da Vida
                   </span>
-                  <p className="text-sm font-medium text-purple-600">Sua missão nesta encarnação</p>
+                  <p className="text-sm font-medium text-purple-400">Sua missão nesta encarnação</p>
                 </div>
               </div>
 
               {/* Informações adicionais do número */}
               <div className="flex flex-wrap gap-2 md:ml-auto">
-                <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-medium text-pink-700">
+                <span className="rounded-full bg-pink-500/20 px-3 py-1 text-xs font-medium text-pink-400">
                   {getNumberData(result.lifePathNumber).element}
                 </span>
-                <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
+                <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-medium text-purple-400">
                   {getNumberData(result.lifePathNumber).chakra.split(" ")[0]}
                 </span>
               </div>
@@ -836,8 +836,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
               </div>
 
               {/* Cores de Poder */}
-              <div className="rounded-xl border border-yellow-200/50 bg-gradient-to-br from-yellow-50 to-orange-50 p-5">
-                <h4 className="mb-3 flex items-center gap-2 font-bold text-orange-700">
+              <div className="rounded-xl border border-yellow-200/50 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 p-5">
+                <h4 className="mb-3 flex items-center gap-2 font-bold text-orange-400">
                   <span className="text-lg">🎨</span>
                   Cores de Poder:
                 </h4>
@@ -845,7 +845,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                   {getNumberData(result.lifePathNumber).colors.map((color, index) => (
                     <span
                       key={index}
-                      className="rounded-full border border-orange-200 bg-orange-100 px-3 py-1 text-sm font-medium text-orange-800"
+                      className="rounded-full border border-orange-500/30 bg-orange-500/20 px-3 py-1 text-sm font-medium text-orange-300"
                     >
                       {color}
                     </span>
@@ -857,44 +857,44 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
               </div>
 
               {/* Fase Lunar */}
-              <div className="rounded-xl border border-blue-200/50 bg-gradient-to-br from-indigo-50 to-blue-50 p-5">
-                <h4 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
+              <div className="rounded-xl border border-blue-500/30/50 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 p-5">
+                <h4 className="mb-3 flex items-center gap-2 font-bold text-blue-400">
                   <span className="text-lg">🌙</span>
                   Conexão Lunar:
                 </h4>
-                <p className="text-sm font-medium text-blue-800">
+                <p className="text-sm font-medium text-blue-300">
                   {getNumberData(result.lifePathNumber).moonPhase}
                 </p>
-                <p className="mt-2 text-xs italic text-blue-600">
+                <p className="mt-2 text-xs italic text-blue-400">
                   Momento ideal para rituais e manifestações
                 </p>
               </div>
             </div>
 
             {/* Afirmação Pessoal */}
-            <div className="rounded-2xl border-2 border-pink-300/50 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 p-6 text-center">
-              <h4 className="mb-3 flex items-center justify-center gap-2 font-bold text-purple-700">
+            <div className="rounded-2xl border-2 border-pink-300/50 bg-gradient-to-r from-pink-500/15 via-purple-500/15 to-blue-500/15 p-6 text-center">
+              <h4 className="mb-3 flex items-center justify-center gap-2 font-bold text-purple-400">
                 <span className="text-xl">🙏</span>
                 Sua Afirmação Pessoal:
               </h4>
-              <p className="text-lg font-semibold italic leading-relaxed text-purple-800">
+              <p className="text-lg font-semibold italic leading-relaxed text-purple-300">
                 "{getNumberData(result.lifePathNumber).affirmation}"
               </p>
-              <p className="mt-2 text-xs text-purple-600">
+              <p className="mt-2 text-xs text-purple-400">
                 Repita esta afirmação diariamente para alinhar-se com sua essência
               </p>
             </div>
 
             {/* Dons e Desafios */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="rounded-xl border border-emerald-200/50 bg-gradient-to-br from-emerald-50 to-teal-50 p-5">
-                <h4 className="mb-4 flex items-center gap-2 font-bold text-emerald-700">
+              <div className="rounded-xl border border-emerald-500/30/50 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-5">
+                <h4 className="mb-4 flex items-center gap-2 font-bold text-emerald-400">
                   <span className="text-lg">🎁</span>
                   Seus Dons Naturais:
                 </h4>
                 <ul className="space-y-2">
                   {getNumberData(result.lifePathNumber).gifts.map((gift, index) => (
-                    <li key={index} className="flex items-start gap-2 text-emerald-800">
+                    <li key={index} className="flex items-start gap-2 text-emerald-300">
                       <span className="mt-1 text-emerald-500">✨</span>
                       <span className="text-sm font-medium">{gift}</span>
                     </li>
@@ -902,14 +902,14 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 </ul>
               </div>
 
-              <div className="rounded-xl border border-rose-200/50 bg-gradient-to-br from-rose-50 to-pink-50 p-5">
-                <h4 className="mb-4 flex items-center gap-2 font-bold text-rose-700">
+              <div className="rounded-xl border border-rose-200/50 bg-gradient-to-br from-rose-500/10 to-pink-500/10 p-5">
+                <h4 className="mb-4 flex items-center gap-2 font-bold text-rose-400">
                   <span className="text-lg">🌱</span>
                   Oportunidades de Crescimento:
                 </h4>
                 <ul className="space-y-2">
                   {getNumberData(result.lifePathNumber).challenges.map((challenge, index) => (
-                    <li key={index} className="flex items-start gap-2 text-rose-800">
+                    <li key={index} className="flex items-start gap-2 text-rose-300">
                       <span className="mt-1 text-rose-500">💪</span>
                       <span className="text-sm font-medium">{challenge}</span>
                     </li>
@@ -919,8 +919,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
             </div>
 
             {/* Caminhos de Carreira */}
-            <div className="rounded-xl border border-violet-200/50 bg-gradient-to-r from-violet-50 to-purple-50 p-5">
-              <h4 className="mb-4 flex items-center gap-2 font-bold text-violet-700">
+            <div className="rounded-xl border border-violet-500/30/50 bg-gradient-to-r from-violet-500/10 to-purple-500/10 p-5">
+              <h4 className="mb-4 flex items-center gap-2 font-bold text-violet-400">
                 <span className="text-lg">🚀</span>
                 Caminhos de Realização Profissional:
               </h4>
@@ -928,7 +928,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 {getNumberData(result.lifePathNumber).careerPaths.map((career, index) => (
                   <span
                     key={index}
-                    className="rounded-lg border border-violet-200 bg-violet-100 px-4 py-2 text-sm font-medium text-violet-800 transition-colors hover:bg-violet-200"
+                    className="rounded-lg border border-violet-500/30 bg-violet-500/20 px-4 py-2 text-sm font-medium text-violet-300 transition-colors hover:bg-violet-200"
                   >
                     {career}
                   </span>
@@ -1052,7 +1052,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
       </Card>
 
       {/* Número do Destino - Interpretação Completa */}
-      <Card className="relative overflow-hidden border-2 border-green-200/60 bg-gradient-to-br from-green-50/50 via-emerald-50/30 to-teal-50/20 shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-green-500/30/60 bg-gradient-to-br from-green-500/10 via-emerald-500/10 to-teal-500/10 shadow-xl">
         <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-green-200/20 to-emerald-200/20 blur-2xl"></div>
 
         <CardHeader className="relative z-10">
@@ -1069,15 +1069,15 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-2xl font-bold text-transparent">
                   🌟 Número do Destino
                 </span>
-                <p className="text-sm font-medium text-green-600">Sua missão através do seu nome</p>
+                <p className="text-sm font-medium text-green-400">Sua missão através do seu nome</p>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2 md:ml-auto">
-              <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+              <span className="rounded-full bg-green-500/20 px-3 py-1 text-xs font-medium text-green-400">
                 {getNumberData(result.destinyNumber).element}
               </span>
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
+              <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-400">
                 {getNumberData(result.destinyNumber).chakra.split(" ")[0]}
               </span>
             </div>
@@ -1092,8 +1092,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-green-200 bg-gradient-to-br from-green-100 to-emerald-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-green-700">
+            <div className="rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/15 to-emerald-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-green-400">
                 <span className="text-lg">🚀</span>
                 Caminhos de Carreira:
               </h4>
@@ -1103,7 +1103,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                   .map((career, index) => (
                     <span
                       key={index}
-                      className="rounded-full bg-green-200 px-3 py-1 text-sm font-medium text-green-800"
+                      className="rounded-full bg-green-500/25 px-3 py-1 text-sm font-medium text-green-300"
                     >
                       {career}
                     </span>
@@ -1111,8 +1111,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
               </div>
             </div>
 
-            <div className="rounded-xl border border-emerald-200 bg-gradient-to-br from-emerald-100 to-teal-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-emerald-700">
+            <div className="rounded-xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/15 to-teal-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-emerald-400">
                 <span className="text-lg">🎁</span>
                 Dons Principais:
               </h4>
@@ -1120,7 +1120,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 {getNumberData(result.destinyNumber)
                   .gifts.slice(0, 3)
                   .map((gift, index) => (
-                    <li key={index} className="flex items-start gap-2 text-emerald-800">
+                    <li key={index} className="flex items-start gap-2 text-emerald-300">
                       <span className="mt-1 text-emerald-500">✨</span>
                       <span className="text-sm font-medium">{gift}</span>
                     </li>
@@ -1132,7 +1132,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
       </Card>
 
       {/* Número da Personalidade - Interpretação Completa */}
-      <Card className="relative overflow-hidden border-2 border-blue-200/60 bg-gradient-to-br from-blue-50/50 via-sky-50/30 to-cyan-50/20 shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-blue-500/30/60 bg-gradient-to-br from-blue-500/10 via-sky-500/10 to-cyan-500/10 shadow-xl">
         <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-blue-200/20 to-sky-200/20 blur-2xl"></div>
 
         <CardHeader className="relative z-10">
@@ -1149,15 +1149,15 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 <span className="bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-2xl font-bold text-transparent">
                   🎭 Número da Personalidade
                 </span>
-                <p className="text-sm font-medium text-blue-600">Como você se apresenta ao mundo</p>
+                <p className="text-sm font-medium text-blue-400">Como você se apresenta ao mundo</p>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2 md:ml-auto">
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+              <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs font-medium text-blue-400">
                 {getNumberData(result.personalityNumber).element}
               </span>
-              <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700">
+              <span className="rounded-full bg-sky-500/20 px-3 py-1 text-xs font-medium text-sky-400">
                 {getNumberData(result.personalityNumber).chakra.split(" ")[0]}
               </span>
             </div>
@@ -1172,8 +1172,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-100 to-sky-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
+            <div className="rounded-xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-sky-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-blue-400">
                 <span className="text-lg">🌈</span>
                 Cores de Poder:
               </h4>
@@ -1181,7 +1181,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 {getNumberData(result.personalityNumber).colors.map((color, index) => (
                   <span
                     key={index}
-                    className="rounded-full bg-blue-200 px-3 py-1 text-sm font-medium text-blue-800"
+                    className="rounded-full bg-blue-500/25 px-3 py-1 text-sm font-medium text-blue-300"
                   >
                     {color}
                   </span>
@@ -1189,8 +1189,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
               </div>
             </div>
 
-            <div className="rounded-xl border border-sky-200 bg-gradient-to-br from-sky-100 to-cyan-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-sky-700">
+            <div className="rounded-xl border border-sky-500/30 bg-gradient-to-br from-sky-500/15 to-cyan-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-sky-400">
                 <span className="text-lg">🌱</span>
                 Desafios de Crescimento:
               </h4>
@@ -1198,7 +1198,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 {getNumberData(result.personalityNumber)
                   .challenges.slice(0, 3)
                   .map((challenge, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sky-800">
+                    <li key={index} className="flex items-start gap-2 text-sky-300">
                       <span className="mt-1 text-sky-500">💪</span>
                       <span className="text-sm font-medium">{challenge}</span>
                     </li>
@@ -1210,7 +1210,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
       </Card>
 
       {/* Número da Alma - Interpretação Completa */}
-      <Card className="relative overflow-hidden border-2 border-purple-200/60 bg-gradient-to-br from-purple-50/50 via-violet-50/30 to-indigo-50/20 shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-purple-500/30/60 bg-gradient-to-br from-purple-500/10 via-violet-500/10 to-indigo-500/10 shadow-xl">
         <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-purple-200/20 to-violet-200/20 blur-2xl"></div>
 
         <CardHeader className="relative z-10">
@@ -1227,15 +1227,15 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                 <span className="bg-gradient-to-r from-purple-600 to-violet-600 bg-clip-text text-2xl font-bold text-transparent">
                   💎 Número da Alma
                 </span>
-                <p className="text-sm font-medium text-purple-600">Seus desejos mais profundos</p>
+                <p className="text-sm font-medium text-purple-400">Seus desejos mais profundos</p>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2 md:ml-auto">
-              <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
+              <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-medium text-purple-400">
                 {getNumberData(result.soulNumber).element}
               </span>
-              <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-medium text-violet-700">
+              <span className="rounded-full bg-violet-500/20 px-3 py-1 text-xs font-medium text-violet-400">
                 {getNumberData(result.soulNumber).chakra.split(" ")[0]}
               </span>
             </div>
@@ -1250,8 +1250,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-purple-200 bg-gradient-to-br from-purple-100 to-violet-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-purple-700">
+            <div className="rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-violet-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-purple-400">
                 <span className="text-lg">💎</span>
                 Cristais da Alma:
               </h4>
@@ -1261,7 +1261,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                   .map((crystal, index) => (
                     <span
                       key={index}
-                      className="rounded-full bg-purple-200 px-3 py-1 text-sm font-medium text-purple-800"
+                      className="rounded-full bg-purple-200 px-3 py-1 text-sm font-medium text-purple-300"
                     >
                       {crystal}
                     </span>
@@ -1269,8 +1269,8 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
               </div>
             </div>
 
-            <div className="rounded-xl border border-violet-200 bg-gradient-to-br from-violet-100 to-indigo-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-violet-700">
+            <div className="rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/15 to-indigo-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-violet-400">
                 <span className="text-lg">🌿</span>
                 Ervas Especiais:
               </h4>
@@ -1280,7 +1280,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
                   .map((herb, index) => (
                     <span
                       key={index}
-                      className="rounded-full bg-violet-200 px-3 py-1 text-sm font-medium text-violet-800"
+                      className="rounded-full bg-violet-200 px-3 py-1 text-sm font-medium text-violet-300"
                     >
                       {herb}
                     </span>
@@ -1289,12 +1289,12 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
             </div>
           </div>
 
-          <div className="rounded-2xl border-2 border-purple-300/50 bg-gradient-to-r from-purple-100 via-violet-100 to-indigo-100 p-6 text-center">
-            <h4 className="mb-3 flex items-center justify-center gap-2 font-bold text-violet-700">
+          <div className="rounded-2xl border-2 border-purple-300/50 bg-gradient-to-r from-purple-500/15 via-violet-500/15 to-indigo-500/15 p-6 text-center">
+            <h4 className="mb-3 flex items-center justify-center gap-2 font-bold text-violet-400">
               <span className="text-xl">🙏</span>
               Afirmação da Alma:
             </h4>
-            <p className="text-lg font-semibold italic leading-relaxed text-violet-800">
+            <p className="text-lg font-semibold italic leading-relaxed text-violet-300">
               "{getNumberData(result.soulNumber).affirmation}"
             </p>
             <p className="mt-2 text-xs text-violet-600">
@@ -1305,7 +1305,7 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
       </Card>
 
       {/* Seção Como Chegamos aos Seus Números */}
-      <Card className="relative overflow-hidden border-2 border-amber-200/60 bg-gradient-to-br from-amber-50/50 via-yellow-50/30 to-orange-50/20 shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-amber-200/60 bg-gradient-to-br from-amber-500/10 via-yellow-500/10 to-orange-500/10 shadow-xl">
         <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-amber-200/20 to-yellow-200/20 blur-2xl"></div>
 
         <CardHeader className="relative z-10">
@@ -1327,13 +1327,13 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Número da Vida */}
-            <div className="rounded-xl border border-pink-200 bg-gradient-to-br from-pink-100 to-rose-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-pink-700">
+            <div className="rounded-xl border border-pink-500/30 bg-gradient-to-br from-pink-500/15 to-rose-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-pink-400">
                 <span className="text-lg">🌟</span>
                 Número da Vida ({result.lifePathNumber})
               </h4>
-              <div className="rounded-lg border border-pink-200/50 bg-white/60 p-3">
-                <p className="font-mono text-sm text-gray-700">
+              <div className="rounded-lg border border-pink-500/30/50 bg-background-secondary p-3">
+                <p className="font-mono text-sm text-text-secondary-dark">
                   {result.calculations.lifePathCalculation}
                 </p>
               </div>
@@ -1343,49 +1343,49 @@ const DetailedResultDisplay = ({ result }: { result: NumerologyResult }) => {
             </div>
 
             {/* Número do Destino */}
-            <div className="rounded-xl border border-green-200 bg-gradient-to-br from-green-100 to-emerald-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-green-700">
+            <div className="rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/15 to-emerald-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-green-400">
                 <span className="text-lg">🌟</span>
                 Número do Destino ({result.destinyNumber})
               </h4>
-              <div className="rounded-lg border border-green-200/50 bg-white/60 p-3">
-                <p className="break-all font-mono text-sm text-gray-700">
+              <div className="rounded-lg border border-green-500/30/50 bg-background-secondary p-3">
+                <p className="break-all font-mono text-sm text-text-secondary-dark">
                   {result.calculations.destinyCalculation}
                 </p>
               </div>
-              <p className="mt-2 text-xs italic text-green-600">
+              <p className="mt-2 text-xs italic text-green-400">
                 Calculado a partir do seu nome completo
               </p>
             </div>
 
             {/* Número da Personalidade */}
-            <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-100 to-sky-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
+            <div className="rounded-xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-sky-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-blue-400">
                 <span className="text-lg">🎭</span>
                 Número da Personalidade ({result.personalityNumber})
               </h4>
-              <div className="rounded-lg border border-blue-200/50 bg-white/60 p-3">
-                <p className="break-all font-mono text-sm text-gray-700">
+              <div className="rounded-lg border border-blue-500/30/50 bg-background-secondary p-3">
+                <p className="break-all font-mono text-sm text-text-secondary-dark">
                   {result.calculations.personalityCalculation}
                 </p>
               </div>
-              <p className="mt-2 text-xs italic text-blue-600">
+              <p className="mt-2 text-xs italic text-blue-400">
                 Calculado usando as consoantes do seu nome
               </p>
             </div>
 
             {/* Número da Alma */}
-            <div className="rounded-xl border border-purple-200 bg-gradient-to-br from-purple-100 to-violet-100 p-4">
-              <h4 className="mb-3 flex items-center gap-2 font-bold text-purple-700">
+            <div className="rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-violet-500/15 p-4">
+              <h4 className="mb-3 flex items-center gap-2 font-bold text-purple-400">
                 <span className="text-lg">💎</span>
                 Número da Alma ({result.soulNumber})
               </h4>
-              <div className="rounded-lg border border-purple-200/50 bg-white/60 p-3">
-                <p className="break-all font-mono text-sm text-gray-700">
+              <div className="rounded-lg border border-purple-500/30/50 bg-background-secondary p-3">
+                <p className="break-all font-mono text-sm text-text-secondary-dark">
                   {result.calculations.soulCalculation}
                 </p>
               </div>
-              <p className="mt-2 text-xs italic text-purple-600">
+              <p className="mt-2 text-xs italic text-purple-400">
                 Calculado usando as vogais do seu nome
               </p>
             </div>
