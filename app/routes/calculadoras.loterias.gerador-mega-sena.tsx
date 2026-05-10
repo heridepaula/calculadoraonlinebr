@@ -213,10 +213,37 @@ const defaultStrategy: GenerationStrategy = {
   maxPrimes: 4,
 };
 
+function mergePresetsConfig(presetNames: string[], presets: StrategyPreset[]): GenerationStrategy {
+  const selected = presetNames
+    .map((name) => presets.find((p) => p.name === name)?.config)
+    .filter((c): c is GenerationStrategy => Boolean(c));
+  if (selected.length === 0) return defaultStrategy;
+  if (selected.length === 1) return selected[0];
+  return {
+    useFrequency: selected.some((c) => c.useFrequency),
+    frequencyType:
+      selected.find((c) => c.frequencyType === "hot")?.frequencyType ??
+      selected.find((c) => c.frequencyType === "cold")?.frequencyType ??
+      "balanced",
+    controlParity: selected.some((c) => c.controlParity),
+    minPairs: Math.max(...selected.map((c) => c.minPairs)),
+    maxPairs: Math.min(...selected.map((c) => c.maxPairs)),
+    controlSum: selected.some((c) => c.controlSum),
+    minSum: Math.max(...selected.map((c) => c.minSum)),
+    maxSum: Math.min(...selected.map((c) => c.maxSum)),
+    avoidConsecutive: selected.some((c) => c.avoidConsecutive),
+    maxConsecutive: Math.min(...selected.map((c) => c.maxConsecutive)),
+    includePrimes: selected.some((c) => c.includePrimes),
+    minPrimes: Math.max(...selected.map((c) => c.minPrimes)),
+    maxPrimes: Math.min(...selected.map((c) => c.maxPrimes)),
+  };
+}
+
 export default function GeradorMegaSena() {
   const [generatedGames, setGeneratedGames] = useState<MegaSenaGame[]>([]);
   const [currentNumbers, setCurrentNumbers] = useState<number[]>([]);
   const [strategy, setStrategy] = useState<GenerationStrategy>(defaultStrategy);
+  const [activePresets, setActivePresets] = useState<string[]>(["Equilibrado"]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [gameHistory, setGameHistory] = useState<MegaSenaGame[]>([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -373,6 +400,20 @@ export default function GeradorMegaSena() {
 
   const clearSelection = () => {
     setSelectedNumbers([]);
+  };
+
+  const togglePreset = (presetName: string) => {
+    let newActive: string[];
+    if (presetName === "Puro Aleatório") {
+      newActive = ["Puro Aleatório"];
+    } else if (activePresets.includes(presetName)) {
+      newActive = activePresets.filter((p) => p !== presetName);
+      if (newActive.length === 0) newActive = ["Equilibrado"];
+    } else {
+      newActive = [...activePresets.filter((p) => p !== "Puro Aleatório"), presetName];
+    }
+    setActivePresets(newActive);
+    setStrategy(mergePresetsConfig(newActive, MEGA_SENA_PRESETS));
   };
 
   const generateMultipleGames = async (count: number) => {
@@ -622,20 +663,49 @@ export default function GeradorMegaSena() {
               </div>
 
               {/* Estratégias Pré-definidas */}
-              <div className="mb-4 rounded-lg bg-background-secondary p-4">
-                <h4 className="mb-3 text-sm font-semibold text-text-secondary">Aplicar estratégia:</h4>
+              <div className="mb-4 rounded-lg border border-neutral-surface-variant bg-background-secondary p-4">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                  <h4 className="text-sm font-semibold">
+                    Estratégias{activePresets.length > 1 ? ` (${activePresets.length} combinadas)` : ""}
+                  </h4>
+                  {activePresets.length > 1 && (
+                    <span className="text-xs font-medium text-green-600">
+                      🔀 {activePresets.join(" + ")}
+                    </span>
+                  )}
+                </div>
                 <div className="flex flex-wrap gap-2">
-                  {MEGA_SENA_PRESETS.map((preset) => (
-                    <button
-                      key={preset.name}
-                      onClick={() => setStrategy(preset.config)}
-                      title={preset.description}
-                      className="rounded-lg border border-neutral-surface-variant bg-background-primary px-3 py-2 text-sm font-medium transition-all hover:border-green-500 hover:bg-green-600/10 hover:text-green-700"
-                    >
-                      {preset.icon} {preset.name}
-                    </button>
+                  {MEGA_SENA_PRESETS.map((preset) => {
+                    const isActive = activePresets.includes(preset.name);
+                    return (
+                      <button
+                        key={preset.name}
+                        onClick={() => togglePreset(preset.name)}
+                        className={`flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
+                          isActive
+                            ? "border-green-500 bg-green-600/20 text-green-700 shadow-sm ring-1 ring-green-500/50"
+                            : "border-neutral-surface-variant bg-background-primary text-text-primary hover:border-green-400 hover:bg-green-600/10"
+                        }`}
+                      >
+                        {isActive && <span className="text-green-600">✓</span>}
+                        <span>{preset.icon}</span>
+                        <span>{preset.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-3 space-y-1">
+                  {MEGA_SENA_PRESETS.filter((p) => activePresets.includes(p.name)).map((p) => (
+                    <p key={p.name} className="text-xs text-text-secondary">
+                      <strong>{p.icon} {p.name}:</strong> {p.description}
+                    </p>
                   ))}
                 </div>
+                {activePresets.length > 1 && (
+                  <p className="mt-2 border-t border-neutral-surface-variant pt-2 text-xs text-text-secondary">
+                    💡 Combinação ativa — filtros mesclados automaticamente (restrições mais rigorosas prevalecem).
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
