@@ -25,6 +25,8 @@ export const meta: MetaFunction = () => {
         "calculadora financeira, juros compostos, juros simples, primeiro milhão, investimento, financiamento, planejamento financeiro, simulação, aportes mensais, matemática financeira, educação financeira, rendimento, poupança, CDI, tesouro direto",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
+    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+    { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas" },
     { property: "og:title", content: "Calculadoras Financeiras – Juros e Investimentos" },
     {
       property: "og:description",
@@ -32,12 +34,37 @@ export const meta: MetaFunction = () => {
         "Calculadoras financeiras grátis para investimentos e planejamento. Juros compostos, simples, primeiro milhão, CDB e Tesouro Direto em um só lugar.",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
+    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas" },
+    { property: "og:site_name", content: "CalculadoraOnlineBR" },
+    { property: "og:locale", content: "pt_BR" },
+    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { property: "og:image:alt", content: "Calculadoras Financeiras - CalculadoraOnlineBR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     { name: "twitter:title", content: "Calculadoras Financeiras – Juros e Investimentos" },
     {
       name: "twitter:description",
       content:
         "Calculadoras financeiras grátis para investimentos e planejamento. Juros compostos, simples, primeiro milhão, CDB e Tesouro Direto em um só lugar.",
+    },
+    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Calculadoras Financeiras",
+        description: "Calculadoras financeiras gratuitas: juros compostos, tesouro direto, CDB, financiamento imobiliário e mais",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
+        inLanguage: "pt-BR",
+        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
+            { "@type": "ListItem", position: 2, name: "Finanças", item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas" },
+          ],
+        },
+      },
     },
   ];
 };

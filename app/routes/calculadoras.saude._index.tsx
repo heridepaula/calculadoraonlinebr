@@ -25,17 +25,44 @@ export const meta: MetaFunction = () => {
         "calculadora saúde, IMC, índice massa corporal, peso ideal, saúde online, calculadora médica, bem-estar",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
+    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+    { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
     { property: "og:title", content: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
     {
       property: "og:description",
       content: "Monitore sua saúde com nossas calculadoras médicas gratuitas e confiáveis.",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
+    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
+    { property: "og:site_name", content: "CalculadoraOnlineBR" },
+    { property: "og:locale", content: "pt_BR" },
+    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { property: "og:image:alt", content: "Calculadoras de Saúde - CalculadoraOnlineBR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     { name: "twitter:title", content: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
     {
       name: "twitter:description",
       content: "Ferramentas de saúde gratuitas para monitorar seu bem-estar.",
+    },
+    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Calculadoras de Saúde",
+        description: "Calculadoras de saúde gratuitas: IMC, gordura corporal, ciclo menstrual e mais",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude",
+        inLanguage: "pt-BR",
+        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
+            { "@type": "ListItem", position: 2, name: "Saúde", item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
+          ],
+        },
+      },
     },
   ];
 };

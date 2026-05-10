@@ -5,25 +5,30 @@ import { APP_NAME, CATEGORIES } from "~/lib/constants";
 import type { Category } from "~/types";
 
 export const meta: MetaFunction = () => {
+  const siteUrl = "https://www.calculadoraonlinebr.com.br";
+  const ogImage = `${siteUrl}/android-chrome-512x512.webp`;
+
   return [
     { title: `Calculadoras Online Gratuitas - IMC, Juros Compostos, Rescisão | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "🧮 Mais de 30 calculadoras online gratuitas: IMC, juros compostos, porcentagem, rescisão trabalhista e mais. Interface moderna, resultados instantâneos, sem cadastro. Mobile otimizado!",
+        "Mais de 60 calculadoras online gratuitas: IMC, juros compostos, porcentagem, rescisão trabalhista e mais. Interface moderna, resultados instantâneos, sem cadastro. Mobile otimizado!",
     },
     {
       name: "keywords",
       content:
         "calculadora online gratis, IMC calculadora, juros compostos, porcentagem, rescisao trabalhista, calculadora financeira, calculadora saude, matematica, tesouro direto, aposentadoria INSS",
     },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "robots", content: "index, follow" },
-    { name: "googlebot", content: "index, follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+    { name: "author", content: APP_NAME },
+    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+    { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+    { rel: "canonical", href: siteUrl },
+
+    // Open Graph
     {
       property: "og:title",
-      content: `Calculadoras Online Gratuitas - Mais de 30 Ferramentas | ${APP_NAME}`,
+      content: `Calculadoras Online Gratuitas - Mais de 60 Ferramentas | ${APP_NAME}`,
     },
     {
       property: "og:description",
@@ -32,21 +37,50 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:type", content: "website" },
     { property: "og:locale", content: "pt_BR" },
+    { property: "og:url", content: siteUrl },
+    { property: "og:site_name", content: APP_NAME },
+    { property: "og:image", content: ogImage },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
+    { property: "og:image:alt", content: "CalculadoraOnlineBR - Calculadoras Online Gratuitas" },
+
+    // Twitter Card
     { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     { name: "twitter:title", content: `Calculadoras Online Gratuitas - ${APP_NAME}` },
     {
       name: "twitter:description",
       content:
-        "Mais de 30 calculadoras gratuitas: IMC, juros compostos, rescisão trabalhista e muito mais. Use sem cadastro!",
+        "Mais de 60 calculadoras gratuitas: IMC, juros compostos, rescisão trabalhista e muito mais. Use sem cadastro!",
     },
-    // Structured Data for SEO
+    { name: "twitter:image", content: ogImage },
+
+    // App meta
+    { name: "application-name", content: APP_NAME },
+    { name: "apple-mobile-web-app-title", content: APP_NAME },
+
+    // JSON-LD: WebPage para a homepage
     {
-      name: "application-name",
-      content: APP_NAME,
-    },
-    {
-      name: "apple-mobile-web-app-title",
-      content: APP_NAME,
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Calculadoras Online Gratuitas",
+        description:
+          "Mais de 60 calculadoras online gratuitas para saúde, finanças, matemática e trabalhista",
+        url: siteUrl,
+        inLanguage: "pt-BR",
+        isPartOf: {
+          "@type": "WebSite",
+          name: APP_NAME,
+          url: siteUrl,
+        },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Início", item: siteUrl },
+          ],
+        },
+      },
     },
   ];
 };

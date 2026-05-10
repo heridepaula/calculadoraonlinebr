@@ -25,6 +25,8 @@ export const meta: MetaFunction = () => {
         "calculadora trabalhista, rescisão trabalhista, direitos trabalhistas, CLT, demissão sem justa causa, aviso prévio, FGTS, seguro desemprego, férias proporcionais, 13º salário, acordo mútuo, pedido demissão, cálculo trabalhista, direito do trabalho",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
+    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+    { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
     { property: "og:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
     {
       property: "og:description",
@@ -32,12 +34,37 @@ export const meta: MetaFunction = () => {
         "Conheça seus direitos trabalhistas com nossas calculadoras especializadas. Grátis e baseado na legislação brasileira.",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
+    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
+    { property: "og:site_name", content: "CalculadoraOnlineBR" },
+    { property: "og:locale", content: "pt_BR" },
+    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { property: "og:image:alt", content: "Calculadoras Trabalhistas - CalculadoraOnlineBR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     { name: "twitter:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
     {
       name: "twitter:description",
       content:
         "Ferramentas trabalhistas gratuitas para calcular rescisão, direitos e benefícios conforme a CLT.",
+    },
+    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Calculadoras Trabalhistas",
+        description: "Calculadoras trabalhistas gratuitas: rescisão, aposentadoria, auxílio-doença e mais conforme a CLT",
+        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
+        inLanguage: "pt-BR",
+        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
+            { "@type": "ListItem", position: 2, name: "Trabalhista", item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
+          ],
+        },
+      },
     },
   ];
 };

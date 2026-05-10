@@ -1,4 +1,4 @@
-import { CALCULATORS, CATEGORIES } from "~/lib/constants";
+import { APP_URL, CALCULATORS, CATEGORIES } from "~/lib/constants";
 import type { MetaFunction } from "@remix-run/node";
 import { generateStructuredData } from "~/utils/seo";
 
@@ -9,6 +9,7 @@ export interface CalculatorSEOData {
   keywords: string;
   ogTitle?: string;
   ogDescription?: string;
+  ogImage?: string;
   canonicalUrl: string;
   priority: number;
   changeFreq: string;
@@ -23,7 +24,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora IMC GRATUITA e atualizada! Calcule seu Índice de Massa Corporal, veja classificações da OMS e receba dicas personalizadas para uma vida mais saudável.",
     keywords:
       "calculadora imc, indice massa corporal, calcular imc, peso ideal, obesidade, sobrepeso, imc adulto, imc infantil, tabela imc oms, saude peso",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/imc",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
     priority: 0.9,
     changeFreq: "monthly",
   },
@@ -34,7 +35,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de gordura corporal com métodos científicos validados! Use fórmulas de Jackson-Pollock, Navy, YMCA e bioimpedância para análise completa da composição corporal.",
     keywords:
       "calculadora gordura corporal, percentual gordura, bioimpedancia, dobras cutaneas, composicao corporal, massa magra, jackson pollock, navy formula, ymca",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/gordura-corporal",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -45,7 +46,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de ciclo menstrual GRATUITA! Calcule período fértil, ovulação, próxima menstruação e janela de fertilidade. Acompanhe sua saúde reprodutiva facilmente.",
     keywords:
       "calculadora ciclo menstrual, periodo fertil, ovulacao, proxima menstruacao, fertilidade, tabelinha, calendario menstrual, saude feminina, engravidar",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/ciclo-menstrual",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -56,7 +57,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Acompanhe o desenvolvimento do seu bebê com marcos personalizados! Calculadora baseada em diretrizes pediátricas para motor, cognitivo, social e linguagem.",
     keywords:
       "desenvolvimento infantil, marcos do bebe, crescimento infantil, pediatria, desenvolvimento motor, cognitivo, social, linguagem, primeiros passos, primeiras palavras",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/desenvolvimento-infantil",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -67,7 +68,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calcule sua necessidade diária de água personalizada! Considera atividade física, clima, peso, idade e condições especiais. Mantenha-se hidratado adequadamente.",
     keywords:
       "calculadora hidratacao, necessidade agua, quantos litros agua beber, desidratacao, balance hidrico, agua diaria, sede, hidratacao exercicio, clima quente",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/saude/hidratacao",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -81,7 +82,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de juros compostos GRATUITA com aportes mensais e gráficos detalhados. Simule investimentos, entenda o poder dos juros sobre juros e descubra como multiplicar seu dinheiro.",
     keywords:
       "calculadora juros compostos, juros sobre juros, aportes mensais, investimento longo prazo, simulador financeiro, crescimento exponencial, planejamento aposentadoria, como calcular juros compostos, fórmula juros compostos, CDI, tesouro direto, fundos investimento",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/juros-compostos",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
     priority: 0.9,
     changeFreq: "monthly",
   },
@@ -92,7 +93,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora do Primeiro Milhão GRATUITA! Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente. Simulações realistas com juros compostos e estratégias comprovadas.",
     keywords:
       "calculadora primeiro milhão, como ficar milionário, quanto tempo para ser milionário, investir para ser milionário, planejamento financeiro milionário, simulação primeiro milhão, independência financeira, juros compostos primeiro milhão",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/primeiro-milhao",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
     priority: 0.9,
     changeFreq: "monthly",
   },
@@ -103,7 +104,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora CDB GRATUITA com simulação completa de tributação. Calcule rendimentos, imposto de renda, IOF e compare com LCI/LCA e Poupança. Ferramenta completa para investimentos em renda fixa.",
     keywords:
       "calculadora cdb, certificado depósito bancário, cdb tributação, imposto renda cdb, cdb vs lci lca, cdb aportes mensais, rendimento cdb, taxa cdb, cdb pré fixado, cdb pós fixado, cdb ipca",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/cdb",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/cdb",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -114,7 +115,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora Tesouro Direto GRATUITA com simulação completa! Calcule rendimentos, cupons semestrais, impostos e compare todos os títulos: Selic, Prefixado, IPCA+. Indexadores reais atualizados.",
     keywords:
       "calculadora tesouro direto, tesouro selic, tesouro prefixado, tesouro ipca, cupons semestrais, simulador títulos públicos, rendimento tesouro direto, imposto renda tesouro, taxa selic atual, ipca atual",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/tesouro-direto",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -127,7 +128,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     keywords:
       "calculadora antecipacao nubank, antecipar parcelas nubank, desconto antecipacao, quitar emprestimo nubank, economia antecipacao, simulador nubank, parcelas nubank, calculadora nubank",
     canonicalUrl:
-      "https://calculadoraonline.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
+      "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -138,7 +139,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora LCI e LCA GRATUITA com simulações completas. Compare rendimentos, veja vantagens fiscais, calcule carência e descubra se vale mais que CDB e Poupança.",
     keywords:
       "calculadora LCI, calculadora LCA, letra de crédito imobiliário, letra de crédito agronegócio, investimento LCI LCA, rendimento LCI LCA, carência LCI LCA, isenção imposto renda, CDI LCI LCA",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/lci-lca",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -150,7 +151,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de empréstimo consignado COMPLETA e GRATUITA para CLT, servidores públicos e aposentados. Simule parcelas, analise margem consignável, compare taxas e descubra o melhor consignado.",
     keywords:
       "calculadora empréstimo consignado, consignado CLT, consignado servidor público, consignado aposentado, margem consignável, simulador consignado, taxa empréstimo consignado, parcela consignado",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/emprestimo-consignado",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -163,7 +164,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     keywords:
       "calculadora financiamento imobiliário, simulador financiamento casa, SAC vs PRICE, tabela price, sistema SAC, prestação financiamento, juros financiamento imóvel, amortização constante, affordability imóvel",
     canonicalUrl:
-      "https://calculadoraonline.com.br/calculadoras/financas/financiamento-imobiliario",
+      "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -174,7 +175,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de Juros Simples GRATUITA e fácil de usar. Calcule juros, capital, taxa ou tempo com fórmulas detalhadas. Ideal para empréstimos, financiamentos e aplicações de curto prazo.",
     keywords:
       "calculadora juros simples, como calcular juros simples, fórmula juros simples, juros lineares, empréstimo curto prazo, desconto duplicata, calculadora financeira, matemática financeira",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/juros-simples",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -185,7 +186,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de preço médio GRATUITA para ações e investimentos. Controle ganhos/perdas com múltiplos métodos, acompanhe dividend yield e otimize sua carteira de investimentos.",
     keywords:
       "calculadora preço médio, preço médio ações, investimento ações, bolsa valores, dividend yield, carteira investimentos, ganhos perdas ações, estrategia investimento, buy and hold",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/financas/preco-medio",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -209,7 +210,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de porcentagem GRATUITA e fácil! Calcule porcentagens, aumentos, descontos, diferença percentual e muito mais. Ideal para compras, negócios e estudos.",
     keywords:
       "calculadora porcentagem, calcular porcentagem, aumento percentual, desconto percentual, diferença percentual, regra de três, matemática básica, porcentagem simples",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/porcentagem",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -220,7 +221,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de regra de três GRATUITA! Resolva regra de três simples e inversa com explicações passo a passo. Para estudos e aplicações práticas do dia a dia.",
     keywords:
       "calculadora regra de três, regra de três simples, regra de três inversa, proporção, matemática básica, regra de três composta, exercicios regra três, como fazer regra três",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/regra-de-tres",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -231,7 +232,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Resolva equações quadráticas usando a fórmula de Bhaskara com resolução passo a passo, análise do discriminante e propriedades da parábola. Ideal para estudos de matemática.",
     keywords:
       "calculadora equacao segundo grau, formula bhaskara, equacao quadratica, discriminante, parabola, raizes equacao, delta bhaskara, matematica ensino medio, algebra",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/equacao-segundo-grau",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -243,7 +244,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calcule MMC e MDC com decomposição em fatores primos, métodos passo a passo e aplicações práticas. Ideal para estudos de matemática básica e frações.",
     keywords:
       "calculadora mmc mdc, minimo multiplo comum, maximo divisor comum, fatores primos, decomposicao fatores, matematica basica, fracao, divisibilidade, algoritmo euclides",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/mmc-mdc",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -254,7 +255,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calcule área e perímetro de formas geométricas com explicações passo a passo, fórmulas detalhadas e aplicações práticas para arquitetura, engenharia e construção.",
     keywords:
       "calculadora area perimetro, geometria, formas geometricas, triangulo, quadrado, retangulo, circulo, losango, trapezio, matematica geometria, arquitetura, engenharia",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/area-perimetro",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -265,7 +266,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calcule volume e área superficial de sólidos 3D como cubo, esfera, cilindro, cone e pirâmide com fórmulas passo a passo e aplicações práticas para engenharia e arquitetura.",
     keywords:
       "calculadora volume, solidos geometricos, geometria espacial, cubo, esfera, cilindro, cone, piramide, prisma, area superficial, matematica 3d, engenharia, arquitetura",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/volume",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -276,7 +277,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calcule hipotenusa, catetos e ângulos em triângulos retângulos com o Teorema de Pitágoras. Verificação de triângulos, trigonometria e triângulos famosos com explicações passo a passo.",
     keywords:
       "calculadora teorema pitagoras, triangulo retangulo, hipotenusa, catetos, pitagoras, trigonometria, matematica geometria, triangulo 3 4 5, angulos triangulo",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/teorema-pitagoras",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -288,7 +289,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de frações GRATUITA e completa! Some, subtraia, multiplique e divida frações com explicações passo a passo. Converta entre frações, decimais e números mistos. Simplifique frações automaticamente com métodos educativos.",
     keywords:
       "calculadora frações, somar frações, subtrair frações, multiplicar frações, dividir frações, simplificar frações, converter decimal fração, números mistos, matemática frações, educação matemática, frações equivalentes, denominador comum, numerador",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/fracoes",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -299,7 +300,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de moda estatística GRATUITA! Calcule amodal, bimodal, multimodal com tabela de frequências. Análise completa de tendência central com explicações passo a passo.",
     keywords:
       "calculadora moda, moda estatística, calcular moda, amodal bimodal multimodal, frequência dados, tendência central, estatística básica, medidas posição, análise dados",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/moda",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/moda",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -311,7 +312,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de média estatística GRATUITA! Calcule média aritmética, geométrica e harmônica com análise completa. Desvio padrão, variância e medidas de tendência central com explicações detalhadas.",
     keywords:
       "calculadora média, média aritmética, média geométrica, média harmônica, tendência central, desvio padrão, variância, estatística descritiva, análise dados, estatística básica, matemática estatística",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/media",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/media",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -323,7 +324,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de desvio padrão GRATUITA! Calcule desvio padrão populacional e amostral com variância. Análise de dispersão estatística completa com explicações passo a passo e interpretação dos resultados.",
     keywords:
       "calculadora desvio padrão, desvio padrão populacional, desvio padrão amostral, variância, dispersão estatística, medidas variabilidade, correção Bessel, análise dados, estatística descritiva, sigma, estatística matemática, distribuição normal",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/desvio-padrao",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
     priority: 0.8,
     changeFreq: "monthly",
   },
@@ -334,7 +335,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de Fibonacci GRATUITA! Explore a famosa sequência matemática, calcule termos específicos, visualize propriedades da proporção áurea e descubra a matemática presente na natureza.",
     keywords:
       "calculadora fibonacci, sequencia fibonacci, proporção aurea, razao aurea, fibonacci natureza, matematica fibonacci, sequencia dourada, espiral dourada, phi fibonacci, numeros fibonacci, leonardo fibonacci, matematica na natureza",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/matematica/fibonacci",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fibonacci",
     priority: 0.7,
     changeFreq: "monthly",
   },
@@ -374,7 +375,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de rescisão trabalhista GRATUITA e completa! Calcule valores de demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego, férias, 13º e todos os direitos trabalhistas.",
     keywords:
       "calculadora rescisão trabalhista, demissão sem justa causa, demissão com justa causa, acordo mútuo, pedido demissão, direitos trabalhistas, FGTS multa 40%, seguro desemprego, aviso prévio, férias proporcionais, 13º salário proporcional, cálculo rescisão, trabalhista CLT",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/trabalhista/rescisao",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
     priority: 0.9,
     changeFreq: "monthly",
   },
@@ -385,7 +386,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Simulador de aposentadoria GRATUITO e completo! Planeje INSS + previdência privada, calcule tempo para aposentar, valores de benefício e estratégias otimizadas. Ferramenta essencial para seu planejamento previdenciário com cenários personalizados.",
     keywords:
       "calculadora aposentadoria, simulador aposentadoria inss, previdencia privada, tempo para aposentar, beneficio inss, planejamento previdenciario, aposentadoria idade, aposentadoria tempo contribuicao, factor previdenciario, regras transicao, PGBL, VGBL, reforma previdencia",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/trabalhista/aposentadoria",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
     priority: 0.9,
     changeFreq: "monthly",
   },
@@ -397,7 +398,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "★ Calculadora de auxílio-doença INSS GRATUITA! Calcule o valor do benefício, verifique carência automaticamente, aplica isenções para doenças graves e acidentes conforme legislação 2025.",
     keywords:
       "calculadora auxilio doenca, auxilio doenca inss, valor auxilio doenca, carencia auxilio doenca, beneficio inss doenca, afastamento trabalho, incapacidade temporaria, doenças graves isenção, acidente trabalho, legislação 2025 inss, pericia medica, auxilio incapacidade",
-    canonicalUrl: "https://calculadoraonline.com.br/calculadoras/trabalhista/auxilio-doenca",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
     priority: 0.9,
     changeFreq: "monthly",
   },
@@ -431,12 +432,26 @@ export function generateCalculatorMeta(calculatorId: string): ReturnType<MetaFun
     { property: "og:url", content: seoData.canonicalUrl },
     { property: "og:site_name", content: "CalculadoraOnlineBR" },
     { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: seoData.ogImage || `${APP_URL}/android-chrome-512x512.webp`,
+    },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
+    {
+      property: "og:image:alt",
+      content: `${seoData.ogTitle || seoData.title} - CalculadoraOnlineBR`,
+    },
 
     // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
     { name: "twitter:title", content: seoData.ogTitle || seoData.title },
     { name: "twitter:description", content: seoData.ogDescription || seoData.description },
+    {
+      name: "twitter:image",
+      content: seoData.ogImage || `${APP_URL}/android-chrome-512x512.webp`,
+    },
 
     // Additional SEO tags
     { name: "application-name", content: "CalculadoraOnlineBR" },
@@ -483,7 +498,7 @@ export function getCategorySEO(categoryId: string) {
       categoryCalculators.map((calc) => calc.name.toLowerCase()).join(", ") +
       ", " +
       category.name.toLowerCase(),
-    canonicalUrl: `https://calculadoraonline.com.br${category.path}`,
+    canonicalUrl: `https://www.calculadoraonlinebr.com.br${category.path}`,
     structuredData: generateStructuredData("category", { categoryId }),
   };
 }

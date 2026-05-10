@@ -57,7 +57,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/loterias-calculadoras.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
     {
       property: "og:image:alt",
@@ -87,7 +87,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/loterias-calculadoras.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
     {
       name: "twitter:image:alt",
@@ -153,7 +153,7 @@ export default function LoteriasIndex() {
                       "@type": "SoftwareApplication",
                       name: "Gerador de Mega-Sena",
                       description: "Gere números aleatórios para jogos da Mega-Sena",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-megasena",
+                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena",
                       applicationCategory: "UtilitiesApplication",
                       operatingSystem: "Web",
                       isAccessibleForFree: true,
@@ -244,7 +244,7 @@ export default function LoteriasIndex() {
               title="Gerador Mega-Sena"
               description="Gere números aleatórios para jogos da Mega-Sena com análises estatísticas."
               icon="💰"
-              href="/calculadoras/loterias/gerador-megasena"
+              href="/calculadoras/loterias/gerador-mega-sena"
               category="loterias"
               isPopular={true}
               complexity="basic"
@@ -545,7 +545,7 @@ export default function LoteriasIndex() {
 
           <div className="mt-6 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:justify-center">
             <a
-              href="/calculadoras/loterias/gerador-megasena"
+              href="/calculadoras/loterias/gerador-mega-sena"
               className="group inline-flex transform items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-finance-gold-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-finance-gold-dark sm:px-8 sm:py-4 sm:text-base"
               aria-label="Gerar números da Mega-Sena"
             >

@@ -256,10 +256,10 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
   ],
   loterias: [
     {
-      id: "gerador-megasena",
-      title: "💰 Gerador Mega-Sena",
+      id: "gerador-mega-sena",
+      title: "🍀 Gerador Mega-Sena",
       description: "Gere números aleatórios para jogos da Mega-Sena com estatísticas.",
-      href: "/calculadoras/loterias/gerador-megasena",
+      href: "/calculadoras/loterias/gerador-mega-sena",
       bgColor: "bg-finance-gold/10",
       textColor: "text-finance-gold",
       borderColor: "border-finance-gold/20",

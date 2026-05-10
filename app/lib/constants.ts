@@ -548,11 +548,11 @@ export const CALCULATORS = [
     path: "/calculadoras/astrologia/numerologia",
   },
   {
-    id: "gerador-megasena",
+    id: "gerador-mega-sena",
     name: "Gerador de Mega-Sena",
     description: "Gere números aleatórios para jogos da Mega-Sena com estatísticas e análises",
     category: "loterias",
-    path: "/calculadoras/loterias/gerador-megasena",
+    path: "/calculadoras/loterias/gerador-mega-sena",
   },
   {
     id: "gerador-lotofacil",

@@ -1,4 +1,4 @@
-import { CALCULATORS, CATEGORIES } from "~/lib/constants";
+import { APP_URL, CALCULATORS, CATEGORIES } from "~/lib/constants";
 
 export interface StructuredDataConfig {
   website: {
@@ -18,9 +18,9 @@ const STRUCTURED_DATA_CONFIG: StructuredDataConfig = {
     name: "CalculadoraOnlineBR",
     description:
       "Calculadoras online gratuitas para facilitar seu dia a dia - saúde, finanças e matemática",
-    url: "https://calculadoraonline.com.br",
+    url: APP_URL,
     author: "CalculadoraOnlineBR",
-    logo: "https://calculadoraonline.com.br/logo.png",
+    logo: `${APP_URL}/android-chrome-512x512.webp`,
     sameAs: [
       "https://facebook.com/calculadoraonlinebr",
       "https://twitter.com/calculadorabr",

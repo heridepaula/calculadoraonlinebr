@@ -128,13 +128,32 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     },
     { property: "og:site_name", content: "CalculadoraOnlineBR" },
     { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
+    {
+      property: "og:image:alt",
+      content: "CalculadoraOnlineBR - Calculadoras Online Gratuitas",
+    },
+    {
+      property: "og:url",
+      content: "https://www.calculadoraonlinebr.com.br",
+    },
 
     // Twitter Card
-    { name: "twitter:card", content: "summary" },
-    { name: "twitter:title", content: "CalculadoraOnlineBR" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
+    { name: "twitter:title", content: "CalculadoraOnlineBR - Calculadoras Gratuitas" },
     {
       name: "twitter:description",
       content: "Calculadoras online gratuitas para facilitar seu dia a dia",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
   ];
 };
@@ -187,6 +206,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
         <Meta />
         <Links />
+
+        {/* JSON-LD: WebSite + SearchAction - global structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "CalculadoraOnlineBR",
+              description:
+                "Calculadoras online gratuitas para facilitar seu dia a dia - saúde, finanças e matemática",
+              url: "https://www.calculadoraonlinebr.com.br",
+              inLanguage: "pt-BR",
+              author: { "@type": "Organization", name: "CalculadoraOnlineBR" },
+              publisher: {
+                "@type": "Organization",
+                name: "CalculadoraOnlineBR",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+                },
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://www.calculadoraonlinebr.com.br/calculadoras?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
 
         {/* Critical CSS Inline - LCP Optimization (breaks 987ms chain) */}
         <style id="critical-css" data-optimized="lcp" dangerouslySetInnerHTML={{
