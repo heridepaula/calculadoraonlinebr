@@ -59,7 +59,19 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
+    { property: "og:image:alt", content: "Calculadora de Salário Líquido - INSS e IRRF 2025 - CalculadoraOnlineBR" },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
+    },
     { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
       content: `Calculadora Salário Líquido Online - INSS e IRRF 2025 - ${APP_NAME}`,
@@ -68,6 +80,10 @@ export const meta: MetaFunction = () => {
       name: "twitter:description",
       content:
         "Ferramenta mais confiável para calcular salário líquido: INSS, IRRF, dependentes e todos os descontos trabalhistas.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },

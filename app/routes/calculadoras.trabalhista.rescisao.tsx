@@ -55,7 +55,19 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
+    { property: "og:image:alt", content: "Calculadora de Rescisão Trabalhista - CalculadoraOnlineBR" },
+    {
+      rel: "canonical",
+      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
+    },
     { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
       content: `Calculadora Rescisão Trabalhista Online - Direitos CLT - ${APP_NAME}`,
@@ -64,6 +76,10 @@ export const meta: MetaFunction = () => {
       name: "twitter:description",
       content:
         "Ferramenta mais completa para calcular rescisão: demissão, FGTS, seguro desemprego e todos os direitos trabalhistas.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },

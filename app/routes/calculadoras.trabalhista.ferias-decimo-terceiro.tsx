@@ -73,7 +73,15 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:locale", content: "pt_BR" },
+    {
+      property: "og:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
+    { property: "og:image:alt", content: "Calculadora de Férias e 13º Salário CLT 2025 - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
       content: `Calculadora de Férias e 13º Salário CLT 2025 - ${APP_NAME}`,
@@ -82,6 +90,10 @@ export const meta: MetaFunction = () => {
       name: "twitter:description",
       content:
         "Descubra quanto você vai receber de férias e décimo terceiro! Cálculo completo com todas as tabelas oficiais 2025.",
+    },
+    {
+      name: "twitter:image",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },

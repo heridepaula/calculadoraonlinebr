@@ -206,6 +206,46 @@ export const meta: MetaFunction = () => {
         ],
       }),
     },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Qual a diferença entre média aritmética, geométrica e harmônica?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Média aritmética é a soma dividida pela quantidade — usada para dados gerais. Média geométrica é ideal para taxas de crescimento e retornos. Média harmônica é usada para velocidades médias e taxas de produtividade.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Quando devo usar a média geométrica em vez da aritmética?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Use a média geométrica quando trabalhar com taxas de crescimento, retornos de investimento percentuais ou qualquer dado multiplicativo. Por exemplo, para calcular o rendimento médio anual de um investimento ao longo de vários anos.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "O que são desvio padrão e variância?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Variância mede o quão espalhados os dados estão em relação à média. Desvio padrão é a raiz quadrada da variância e tem a mesma unidade dos dados originais, sendo mais fácil de interpretar.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como interpretar quando as três médias são muito diferentes?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Quando aritmética, geométrica e harmônica divergem muito, os dados têm alta variabilidade ou há valores extremos (outliers). A média aritmética é sempre a maior, a harmônica a menor. Essa diferença indica dados heterogêneos.",
+            },
+          },
+        ],
+      },
+    },
   ];
 };
 

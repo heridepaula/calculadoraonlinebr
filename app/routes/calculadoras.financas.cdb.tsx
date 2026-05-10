@@ -106,6 +106,54 @@ export const meta: MetaFunction = () => {
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é um CDB?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "CDB (Certificado de Depósito Bancário) é um título de renda fixa emitido por bancos que remunera o investidor com base em uma taxa acordada, prefixada, pós-fixada ao CDI ou híbrida (IPCA+).",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como funciona a tributação do CDB?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Os rendimentos do CDB são sujeitos a IR regressivo de 22,5% (até 6 meses) a 15% (acima de 2 anos), e IOF se resgatados em até 30 dias.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "CDB tem garantia do FGC?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim. O FGC cobre até R$ 250.000 por CPF e por instituição (limite global de R$ 1 milhão a cada 4 anos), garantindo o valor aplicado e os rendimentos contratados.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Posso resgatar o CDB antes do vencimento?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Depende da liquidez oferecida: muitos CDBs pós-fixados permitem resgate diário, mas prefixados e IPCA+ costumam liberar apenas no vencimento. Resgates antecipados podem sofrer marcação a mercado.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como escolher entre CDB pós-fixado, prefixado e IPCA+?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Combine seu objetivo com o cenário de juros: CDB pós-fixado para liquidez e curto prazo, prefixado para travar taxa em cenário de queda de juros, e IPCA+ para proteção inflacionária no longo prazo.",
+            },
+          },
+        ],
+      },
+    },
   ];
 };
 

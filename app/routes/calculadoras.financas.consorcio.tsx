@@ -209,6 +209,54 @@ export const meta: MetaFunction = () => {
         ],
       }),
     },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "O que é um consórcio?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Consórcio é um sistema de aquisição programada de bens (imóveis, veículos, motos) por meio de grupo organizado, onde participantes pagam parcelas mensais até serem contemplados por sorteio ou lance.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como funciona a contemplação no consórcio?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A contemplação ocorre por sorteio mensal ou lance. No sorteio, todos têm chances iguais. No lance, quem oferece maior valor tem prioridade. A contemplação dá direito ao crédito para aquisição do bem.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Qual é a taxa de administração do consórcio?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "A taxa varia conforme o bem e administradora: imóveis (15-25%), veículos (18-30%), motos (20-35%). Esta taxa é cobrada sobre o valor do crédito e divide-se entre todas as parcelas do grupo.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Consórcio tem garantia do Banco Central?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Consórcios são regulamentados pelo Banco Central. Não há garantia do FGC, mas existe regulação específica que protege os consorciados em caso de problemas da administradora.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Como escolher entre consórcio, financiamento ou poupança?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Consórcio é ideal para quem tem disciplina e não tem pressa. Financiamento dá posse imediata mas custa mais. Poupança é mais segura mas pode não acompanhar a inflação do bem desejado.",
+            },
+          },
+        ],
+      },
+    },
   ];
 };
 
