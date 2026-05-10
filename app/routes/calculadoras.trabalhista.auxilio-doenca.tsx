@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -24,8 +24,8 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
-// Constantes 2025
-const CONSTANTS_2025 = {
+// Constantes 2026
+const CONSTANTS_2026 = {
   SALARIO_MINIMO: 1518.0,
   TETO_INSS: 8157.41,
   CARENCIA_MINIMA: 12,
@@ -84,12 +84,12 @@ interface AuxilioDoencaResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Auxílio-Doença INSS 2025 | ${APP_NAME}`,
+      title: `Calculadora de Auxílio-Doença INSS 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Calcule auxílio-doença INSS 2025: valor do benefício, verificação carência e isenções. Regras atualizadas e resultado instantâneo.",
+        "Calcule auxílio-doença INSS 2026: valor do benefício, verificação carência e isenções. Regras atualizadas e resultado instantâneo.",
     },
     {
       name: "keywords",
@@ -113,12 +113,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Completo",
+      content: "Calculadora de Auxílio-Doença INSS 2026 – Cálculo Completo",
     },
     {
       property: "og:description",
       content:
-        "Calcule auxílio-doença INSS 2025 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+        "Calcule auxílio-doença INSS 2026 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
     },
     {
       property: "og:image",
@@ -147,7 +147,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Auxílio-Doença INSS 2025 – Cálculo Completo",
+      content: "Calculadora de Auxílio-Doença INSS 2026 – Cálculo Completo",
     },
     {
       name: "twitter:description",
@@ -178,7 +178,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Auxílio-Doença INSS - Simulador de Benefício 2025",
+        name: "Calculadora de Auxílio-Doença INSS - Simulador de Benefício 2026",
         description:
           "Simulador gratuito e confiável de auxílio-doença INSS com verificação automática de carência, isenções e cálculo do benefício por incapacidade temporária.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
@@ -210,9 +210,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
-          name: "Calculadora de Auxílio-Doença INSS 2025 - Simulador de Benefício",
+          name: "Calculadora de Auxílio-Doença INSS 2026 - Simulador de Benefício",
           description:
-            "Calcule auxílio-doença INSS 2025 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
+            "Calcule auxílio-doença INSS 2026 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -296,7 +296,7 @@ export const meta: MetaFunction = () => {
           },
           {
             "@type": "Question",
-            name: "Qual o valor do auxílio-doença em 2025?",
+            name: "Qual o valor do auxílio-doença em 2026?",
             acceptedAnswer: {
               "@type": "Answer",
               text: "O auxílio-doença é calculado como 91% da média salarial, limitado ao teto INSS (R$ 8.157,41) e não pode ser inferior ao salário mínimo (R$ 1.518,00).",
@@ -336,7 +336,7 @@ function calcularAuxilioDoenca(form: AuxilioDoencaForm): AuxilioDoencaResult {
 
   // Verificar carência
   const { isencao, motivo } = verificaIsencaoCarencia(form.cidDoenca, form.isAcidente);
-  const temCarencia = numeroContribuicoes >= CONSTANTS_2025.CARENCIA_MINIMA || isencao;
+  const temCarencia = numeroContribuicoes >= CONSTANTS_2026.CARENCIA_MINIMA || isencao;
 
   if (!temCarencia && !isencao) {
     return {
@@ -354,7 +354,7 @@ function calcularAuxilioDoenca(form: AuxilioDoencaForm): AuxilioDoencaResult {
         mediaGeral: 0,
         media12Meses: 0,
         numeroContribuicoes,
-        contribuicoesCarencia: CONSTANTS_2025.CARENCIA_MINIMA,
+        contribuicoesCarencia: CONSTANTS_2026.CARENCIA_MINIMA,
       },
     };
   }
@@ -372,11 +372,11 @@ function calcularAuxilioDoenca(form: AuxilioDoencaForm): AuxilioDoencaResult {
   const tipoMedia = mediaGeral <= media12Meses ? "geral" : "12_meses";
 
   // Calcular benefício (91% da menor média)
-  let valorBruto = menorMedia * CONSTANTS_2025.PERCENTUAL_BENEFICIO;
+  let valorBruto = menorMedia * CONSTANTS_2026.PERCENTUAL_BENEFICIO;
 
   // Aplicar limites mínimo e máximo
-  valorBruto = Math.max(valorBruto, CONSTANTS_2025.SALARIO_MINIMO);
-  valorBruto = Math.min(valorBruto, CONSTANTS_2025.TETO_INSS);
+  valorBruto = Math.max(valorBruto, CONSTANTS_2026.SALARIO_MINIMO);
+  valorBruto = Math.min(valorBruto, CONSTANTS_2026.TETO_INSS);
 
   // Observações
   const observacoes = [
@@ -402,7 +402,7 @@ function calcularAuxilioDoenca(form: AuxilioDoencaForm): AuxilioDoencaResult {
       mediaGeral,
       media12Meses,
       numeroContribuicoes,
-      contribuicoesCarencia: CONSTANTS_2025.CARENCIA_MINIMA,
+      contribuicoesCarencia: CONSTANTS_2026.CARENCIA_MINIMA,
     },
   };
 }
@@ -556,7 +556,7 @@ export default function CalculadoraAuxilioDoenca() {
 
       <header className="space-y-3 text-center sm:space-y-4">
         <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
-          <span className="hidden sm:inline">🏥 Calculadora Auxílio-Doença INSS 2025</span>
+          <span className="hidden sm:inline">🏥 Calculadora Auxílio-Doença INSS 2026</span>
           <span className="sm:hidden">🏥 Auxílio-Doença INSS</span>
         </h1>
         <p className="mx-auto max-w-3xl px-4 text-sm text-text-secondary-dark sm:text-base lg:text-lg">
@@ -569,7 +569,7 @@ export default function CalculadoraAuxilioDoenca() {
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
           <p className="text-xs font-medium text-text-primary sm:text-sm">
-            🏥 <strong>Regras 2025</strong> • ⚖️ <strong>Carência Automática</strong> • 💡{" "}
+            🏥 <strong>Regras 2026</strong> • ⚖️ <strong>Carência Automática</strong> • 💡{" "}
             <strong>Isenções</strong> • ⚡ <strong>Cálculo Instantâneo</strong>
           </p>
         </div>
@@ -1164,7 +1164,7 @@ export default function CalculadoraAuxilioDoenca() {
       <Card className="mt-6 border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📚 Guia Completo: Auxílio-Doença INSS 2025
+            📚 Guia Completo: Auxílio-Doença INSS 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1330,7 +1330,7 @@ export default function CalculadoraAuxilioDoenca() {
                   <span>Benefício condicionado à aprovação em perícia médica</span>
                 </p>
                 <p className="flex items-start gap-2">
-                  <span className="min-w-fit font-bold text-amber-800">• Dados 2025:</span>
+                  <span className="min-w-fit font-bold text-amber-800">• Dados 2026:</span>
                   <span>Salário mínimo R$ 1.518,00, Teto R$ 8.157,41</span>
                 </p>
                 <p className="flex items-start gap-2">

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Validador de CNPJ 2025 – Validação Rápida e Precisa",
+      content: "Validador de CNPJ 2026 – Validação Rápida e Precisa",
     },
     {
       name: "twitter:description",
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Validador de CNPJ - Validação Oficial com Algoritmo da Receita Federal 2025",
+        name: "Validador de CNPJ - Validação Oficial com Algoritmo da Receita Federal 2026",
         description:
           "Ferramenta gratuita para validar CNPJs com ou sem pontuação. Usa algoritmo oficial da Receita Federal para verificar se CNPJ é válido. Validação instantânea e precisa.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
@@ -143,7 +143,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
-          name: "Validador de CNPJ 2025 - Validação Rápida e Precisa",
+          name: "Validador de CNPJ 2026 - Validação Rápida e Precisa",
           description:
             "Validador de CNPJ gratuito com algoritmo oficial da Receita Federal. Valide CNPJs com ou sem pontuação, validação instantânea e precisa.",
           inLanguage: "pt-BR",
@@ -421,7 +421,7 @@ export default function CnpjValidator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Validador de CNPJ 2025 – Validação Rápida e Precisa
+          Validador de CNPJ 2026 – Validação Rápida e Precisa
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Valide <strong className="text-primary-blue-dark">CNPJs</strong> com ou sem pontuação

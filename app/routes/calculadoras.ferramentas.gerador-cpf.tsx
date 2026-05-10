@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Gerador de CPF 2025 – Geração Rápida com e sem Pontuação",
+      content: "Gerador de CPF 2026 – Geração Rápida com e sem Pontuação",
     },
     {
       name: "twitter:description",
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Gerador de CPF - Geração Válida com Formatação 2025",
+        name: "Gerador de CPF - Geração Válida com Formatação 2026",
         description:
           "Ferramenta gratuita para gerar CPFs válidos com ou sem pontuação. Ideal para testes, desenvolvimento e validação de sistemas. Cópia automática para área de transferência.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cpf",
@@ -143,7 +143,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cpf",
-          name: "Gerador de CPF 2025 - Geração Rápida com e sem Pontuação",
+          name: "Gerador de CPF 2026 - Geração Rápida com e sem Pontuação",
           description:
             "Gerador de CPF válido e gratuito com opção de formatação. Gere CPFs com ou sem pontuação, cópia automática para área de transferência.",
           inLanguage: "pt-BR",
@@ -410,7 +410,7 @@ export default function CpfGenerator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Gerador de CPF 2025 – Geração Rápida com e sem Pontuação
+          Gerador de CPF 2026 – Geração Rápida com e sem Pontuação
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Gere <strong className="text-primary-blue-dark">CPFs válidos</strong> com ou sem pontuação
@@ -567,7 +567,7 @@ export default function CpfGenerator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 CPF – Guia Completo 2025
+            🎯 CPF – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

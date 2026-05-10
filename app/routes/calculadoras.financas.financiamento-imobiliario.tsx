@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Financiamento Imobiliário 2025 | ${APP_NAME}`,
+      title: `Calculadora de Financiamento Imobiliário 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -35,7 +35,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
+      content: "Financiamento Imobiliário 2026 – Simulador SAC e PRICE",
     },
     {
       property: "og:description",
@@ -70,7 +70,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Financiamento Imobiliário 2025 – Simulador SAC e PRICE",
+      content: "Calculadora de Financiamento Imobiliário 2026 – Simulador SAC e PRICE",
     },
     {
       name: "twitter:description",
@@ -102,7 +102,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Financiamento Imobiliário - Simulador SAC e PRICE 2025",
+        name: "Calculadora de Financiamento Imobiliário - Simulador SAC e PRICE 2026",
         description:
           "Simulador gratuito de financiamento imobiliário com cálculo SAC e PRICE, parcelas, amortização e juros para compra da casa própria.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
@@ -135,7 +135,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
-          name: "Calculadora de Financiamento Imobiliário 2025 - Simulador SAC e PRICE",
+          name: "Calculadora de Financiamento Imobiliário 2026 - Simulador SAC e PRICE",
           description:
             "Simule financiamento imobiliário com cálculo SAC e PRICE, parcelas, amortização e juros para compra da casa própria.",
           inLanguage: "pt-BR",
@@ -437,7 +437,7 @@ export default function MortgageCalculator() {
 
       <header className="space-y-4 text-center" role="banner">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Financiamento Imobiliário 2025 – Simulador SAC e PRICE
+          Calculadora de Financiamento Imobiliário 2026 – Simulador SAC e PRICE
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule as{" "}
@@ -687,7 +687,7 @@ export default function MortgageCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Sistemas de Financiamento Imobiliário – Guia Completo 2025
+            🎯 Sistemas de Financiamento Imobiliário – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

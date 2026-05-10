@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -40,7 +40,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora Ciclo Menstrual 2025 | ${APP_NAME}`,
+      title: `Calculadora Ciclo Menstrual 2026 | ${APP_NAME}`,
     },
     {
       name: "viewport",
@@ -85,7 +85,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Ciclo Menstrual 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Ciclo Menstrual 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -119,7 +119,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Ciclo Menstrual 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Ciclo Menstrual 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -149,7 +149,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Ciclo Menstrual - Acompanhe Período Fértil 2025",
+        name: "Calculadora de Ciclo Menstrual - Acompanhe Período Fértil 2026",
         description:
           "Calculadora gratuita e confiável de ciclo menstrual. Acompanhe período fértil, ovulação, próximas menstruações e visualize calendário completo do seu ciclo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
@@ -181,7 +181,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
-          name: "Calculadora de Ciclo Menstrual 2025 - Período Fértil e Ovulação",
+          name: "Calculadora de Ciclo Menstrual 2026 - Período Fértil e Ovulação",
           description:
             "Acompanhe seu ciclo menstrual facilmente. Calcule período fértil, ovulação, próximas menstruações e visualize calendário completo. Ferramenta confiável para saúde feminina.",
           inLanguage: "pt-BR",
@@ -511,7 +511,7 @@ export default function MenstrualCycleCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Ciclo Menstrual 2025 – Período Fértil e Ovulação
+          Calculadora de Ciclo Menstrual 2026 – Período Fértil e Ovulação
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Acompanhe seu <strong className="text-health-red">ciclo menstrual</strong> facilmente.
@@ -981,7 +981,7 @@ export default function MenstrualCycleCalculator() {
       <Card className="from-health-red-soft border-l-4 border-health-red bg-gradient-to-r to-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Ciclo Menstrual – Guia Completo 2025
+            🎯 Ciclo Menstrual – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

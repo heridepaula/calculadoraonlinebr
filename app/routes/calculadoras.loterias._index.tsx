@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -14,7 +14,7 @@ import type { Calculator } from "~/types";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Geradores de Jogos de Loterias Grátis 2025 | ${APP_NAME}`,
+      title: `Geradores de Jogos de Loterias Grátis 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -78,7 +78,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Geradores de Loterias Grátis 2025 | Números da Sorte",
+      content: "Geradores de Loterias Grátis 2026 | Números da Sorte",
     },
     {
       name: "twitter:description",
@@ -133,7 +133,7 @@ export default function LoteriasIndex() {
                 "@type": "CollectionPage",
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/loterias#webpage",
                 url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
-                name: "Geradores de Loterias Grátis 2025",
+                name: "Geradores de Loterias Grátis 2026",
                 description:
                   "Gere números da sorte para Mega-Sena, Lotofácil, Quina e outras loterias GRÁTIS! Estratégias inteligentes e análises estatísticas para aumentar suas chances.",
                 isPartOf: {

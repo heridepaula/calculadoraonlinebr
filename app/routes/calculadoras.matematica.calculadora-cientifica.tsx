@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora Científica Online 2025 | ${APP_NAME}`,
+      title: `Calculadora Científica Online 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -44,7 +44,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Científica Online 2025 – Funções Completas",
+      content: "Calculadora Científica Online 2026 – Funções Completas",
     },
     {
       property: "og:description",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Científica Online 2025 – Funções Completas",
+      content: "Calculadora Científica Online 2026 – Funções Completas",
     },
     {
       name: "twitter:description",
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Científica Online 2025",
+        name: "Calculadora Científica Online 2026",
         description:
           "Calculadora científica online gratuita com trigonometria, logaritmos, exponenciais, raízes e fatorial. Interface intuitiva para estudantes, professores e engenheiros.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/calculadora-cientifica",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/calculadora-cientifica",
-          name: "Calculadora Científica Online 2025",
+          name: "Calculadora Científica Online 2026",
           description:
             "Calculadora científica online gratuita com trigonometria, logaritmos, exponenciais, raízes e fatorial. Interface intuitiva para estudantes e engenheiros.",
           inLanguage: "pt-BR",
@@ -571,7 +571,7 @@ export default function ScientificCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora Científica Online Gratuita 2025
+          Calculadora Científica Online Gratuita 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calculadora científica <strong className="text-growth-green">completa e gratuita</strong> com
@@ -745,10 +745,10 @@ export default function ScientificCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📚 Guia Completo da Calculadora Científica 2025
+            📚 Guia Completo da Calculadora Científica 2026
           </CardTitle>
           <div className="text-xs text-text-secondary mt-2">
-            <time dateTime="2025-09-20">Última atualização: 20 de setembro de 2025</time>
+            <time dateTime="2025-09-20">Última atualização: 20 de setembro de 2026</time>
           </div>
         </CardHeader>
         <CardContent>

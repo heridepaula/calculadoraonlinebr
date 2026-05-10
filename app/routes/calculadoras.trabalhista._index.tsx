@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -13,11 +13,11 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Trabalhistas 2025 | ${APP_NAME}` },
+    { title: `Calculadoras Trabalhistas 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "Calculadoras trabalhistas grátis: rescisão, férias, 13º salário, auxílio-doença e aposentadoria. Ferramentas baseadas na CLT atualizada 2025.",
+        "Calculadoras trabalhistas grátis: rescisão, férias, 13º salário, auxílio-doença e aposentadoria. Ferramentas baseadas na CLT atualizada 2026.",
     },
     {
       name: "keywords",
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
     { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
-    { property: "og:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
+    { property: "og:title", content: "Calculadoras Trabalhistas 2026 – Direitos CLT" },
     {
       property: "og:description",
       content:
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     { property: "og:image:alt", content: "Calculadoras Trabalhistas - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: "Calculadoras Trabalhistas 2025 – Direitos CLT" },
+    { name: "twitter:title", content: "Calculadoras Trabalhistas 2026 – Direitos CLT" },
     {
       name: "twitter:description",
       content:
@@ -151,7 +151,7 @@ export default function TrabalhistaIndex() {
           },
           {
             icon: "📅",
-            number: "2025",
+            number: "2026",
             label: "Atualizado",
             description: "Valores e tabelas",
           },
@@ -396,7 +396,7 @@ export default function TrabalhistaIndex() {
                   <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">
                     Atualizado
                   </h3>
-                  <p className="text-xs leading-tight text-primary-blue-light">2025</p>
+                  <p className="text-xs leading-tight text-primary-blue-light">2026</p>
                 </div>
               </div>
               <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">

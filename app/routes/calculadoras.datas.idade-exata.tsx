@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Idade Exata 2025 – Contador em Tempo Real",
+      content: "Calculadora de Idade Exata 2026 – Contador em Tempo Real",
     },
     {
       name: "twitter:description",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Idade Exata - Contador em Tempo Real 2025",
+        name: "Calculadora de Idade Exata - Contador em Tempo Real 2026",
         description:
           "Ferramenta gratuita para calcular idade exata em anos, meses e dias. Inclui contador em tempo real com horas, minutos e segundos incrementando automaticamente.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/idade-exata",
@@ -142,7 +142,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas/idade-exata",
-          name: "Calculadora de Idade Exata 2025 - Contador em Tempo Real",
+          name: "Calculadora de Idade Exata 2026 - Contador em Tempo Real",
           description:
             "Calcule sua idade exata em anos, meses e dias. Inclui contador em tempo real com horas, minutos e segundos incrementando automaticamente.",
           inLanguage: "pt-BR",
@@ -467,7 +467,7 @@ export default function AgeCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Idade Exata 2025 – Descubra Anos, Meses e Dias
+          Calculadora de Idade Exata 2026 – Descubra Anos, Meses e Dias
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule sua{" "}
@@ -678,7 +678,7 @@ export default function AgeCalculator() {
                 id="practical-applications"
                 className="text-2xl font-bold text-text-primary"
               >
-                🎯 Aplicações Práticas – Guia Completo 2025
+                🎯 Aplicações Práticas – Guia Completo 2026
               </CardTitle>
             </CardHeader>
             <CardContent>

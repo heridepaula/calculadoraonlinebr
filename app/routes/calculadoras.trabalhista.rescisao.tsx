@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import {
   Card,
@@ -19,12 +19,12 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Rescisão Trabalhista 2025 | ${APP_NAME}`,
+      title: `Calculadora de Rescisão Trabalhista 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados.",
+        "Calcule rescisão trabalhista 2026: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados.",
     },
     {
       name: "keywords",
@@ -95,9 +95,9 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Rescisão Trabalhista - Simulador CLT 2025",
+        name: "Calculadora de Rescisão Trabalhista - Simulador CLT 2026",
         description:
-          "Simulador gratuito e completo de rescisão trabalhista conforme CLT 2025: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º salário.",
+          "Simulador gratuito e completo de rescisão trabalhista conforme CLT 2026: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º salário.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -127,9 +127,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
-          name: "Calculadora de Rescisão Trabalhista 2025 - Simulador CLT",
+          name: "Calculadora de Rescisão Trabalhista 2026 - Simulador CLT",
           description:
-            "Calcule rescisão trabalhista 2025: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º. Valores atualizados!",
+            "Calcule rescisão trabalhista 2026: demissão, acordo mútuo, FGTS, seguro desemprego, férias e 13º. Valores atualizados!",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -357,7 +357,7 @@ function calculateTotalMonths(startDate: string, endDate: string): number {
 
 function calculateSalaryFamily(dependents: number, salary: number): number {
   // CLT Art. 65 - Salário família devido para filhos até 14 anos ou inválidos
-  // Valor 2025: R$ 62,04 para salários até R$ 1.906,04
+  // Valor 2026: R$ 62,04 para salários até R$ 1.906,04
   const VALOR_SALARIO_FAMILIA = 62.04;
   const LIMITE_SALARIO = 1906.04;
 
@@ -369,7 +369,7 @@ function calculateSalaryFamily(dependents: number, salary: number): number {
 }
 
 function calculateINSSRate(salary: number): number {
-  // Retorna apenas a alíquota efetiva do INSS para o salário - 2025
+  // Retorna apenas a alíquota efetiva do INSS para o salário - 2026
   if (salary <= 1518.0) {
     return 0.075; // 7,5%
   } else if (salary <= 2862.4) {
@@ -382,7 +382,7 @@ function calculateINSSRate(salary: number): number {
 }
 
 function calculateINSS(salary: number): number {
-  // Tabela INSS 2025 - Atualizada
+  // Tabela INSS 2026 - Atualizada
   let inss = 0;
 
   if (salary <= 1518.0) {
@@ -394,14 +394,14 @@ function calculateINSS(salary: number): number {
   } else if (salary <= 8365.13) {
     inss = 407.05 + (salary - 4296.64) * 0.14; // 14%
   } else {
-    inss = 976.64; // Teto máximo 2025
+    inss = 976.64; // Teto máximo 2026
   }
 
   return Math.round(inss * 100) / 100;
 }
 
 function calculateIRRF(baseCalculoIRRF: number, dependents: number): number {
-  // Tabela IRRF 2025 - Atualizada
+  // Tabela IRRF 2026 - Atualizada
   const deducaoPorDependente = 203.78;
   const baseCalculo = baseCalculoIRRF - dependents * deducaoPorDependente;
 
@@ -616,8 +616,8 @@ function calculateUnemploymentBenefit(
   }
 
   // Valor: 80% do salário, limitado ao teto
-  const TETO_SEGURO = 2486.73; // 2025
-  const PISO_SEGURO = 1518.0; // Salário mínimo 2025
+  const TETO_SEGURO = 2486.73; // 2026
+  const PISO_SEGURO = 1518.0; // Salário mínimo 2026
 
   const baseValue = salary * 0.8;
   const installmentValue = Math.max(PISO_SEGURO, Math.min(baseValue, TETO_SEGURO));
@@ -1107,7 +1107,7 @@ export default function RescisaoTrabalhistaCalculator() {
         </p>
         <div className="inline-block rounded-lg bg-gradient-to-r from-growth-green-soft via-primary-blue-light to-system-warning/20 p-4 duration-300">
           <p className="text-sm font-medium text-text-primary">
-            ⚖️ <strong>Atualizado 2025</strong> • 📄 <strong>Cálculos Jurídicos</strong> • 🏛️{" "}
+            ⚖️ <strong>Atualizado 2026</strong> • 📄 <strong>Cálculos Jurídicos</strong> • 🏛️{" "}
             <strong>Base Legal Oficial</strong> • ⏰ <strong>Resultado Instantâneo</strong>
           </p>
         </div>
@@ -1503,7 +1503,7 @@ export default function RescisaoTrabalhistaCalculator() {
 
                 {isPositiveResult && (
                   <p className="text-center font-medium text-growth-green">
-                    ✓ Cálculos conforme legislação brasileira (CLT) atualizada para 2025!
+                    ✓ Cálculos conforme legislação brasileira (CLT) atualizada para 2026!
                   </p>
                 )}
               </div>
@@ -1646,7 +1646,7 @@ export default function RescisaoTrabalhistaCalculator() {
                         • <strong className="text-white">Salário:</strong> R$ 14.000,00
                       </p>
                       <p>
-                        • <strong className="text-white">Período:</strong> 20/03/2023 a 13/08/2025
+                        • <strong className="text-white">Período:</strong> 20/03/2023 a 13/08/2026
                         (≈ 29 meses)
                       </p>
                       <p>
@@ -1749,7 +1749,7 @@ export default function RescisaoTrabalhistaCalculator() {
                       direito trabalhista
                     </p>
                     <p>
-                      • <strong>Tabelas 2025:</strong> INSS (R$ 1.518 - R$ 976,64), IRRF e salário
+                      • <strong>Tabelas 2026:</strong> INSS (R$ 1.518 - R$ 976,64), IRRF e salário
                       família (R$ 62,04) atualizados
                     </p>
                     <p>

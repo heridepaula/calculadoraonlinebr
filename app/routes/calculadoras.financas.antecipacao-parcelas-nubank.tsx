@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     {
       name: "keywords",
       content:
-        "calculadora adiantamento parcelas nubank, antecipação nubank, adiantamento nubank, quitar parcelas nubank, simulador nubank, desconto antecipação, calculadora nubank 2025",
+        "calculadora adiantamento parcelas nubank, antecipação nubank, adiantamento nubank, quitar parcelas nubank, simulador nubank, desconto antecipação, calculadora nubank 2026",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia",
+      content: "Calculadora Adiantamento Parcelas Nubank 2026 – Antecipação e Economia",
     },
     {
       property: "og:description",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia",
+      content: "Calculadora Adiantamento Parcelas Nubank 2026 – Antecipação e Economia",
     },
     {
       name: "twitter:description",
@@ -299,7 +299,7 @@ export default function AntecipacaoNubankCalculator() {
   const webApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "Calculadora Adiantamento Parcelas Nubank - Antecipação 2025",
+    name: "Calculadora Adiantamento Parcelas Nubank - Antecipação 2026",
     description:
       "Ferramenta gratuita para calcular descontos da antecipação de parcelas Nubank. Calcule custos, juros e descubra quanto pode economizar.",
     url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
@@ -332,9 +332,9 @@ export default function AntecipacaoNubankCalculator() {
       "@type": "WebPage",
       "@id":
         "https://www.calculadoraonlinebr.com.br/calculadoras/financas/antecipacao-parcelas-nubank",
-      name: "Calculadora Antecipação Nubank 2025 - Descontos",
+      name: "Calculadora Antecipação Nubank 2026 - Descontos",
       description:
-        "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2025.",
+        "Calcule os descontos da antecipação de parcelas do Nubank. Descubra quanto pode economizar antecipando suas parcelas em 2026.",
       inLanguage: "pt-BR",
       isPartOf: {
         "@type": "WebSite",
@@ -445,7 +445,7 @@ export default function AntecipacaoNubankCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora Adiantamento Parcelas Nubank 2025 – Antecipação e Economia
+          Calculadora Adiantamento Parcelas Nubank 2026 – Antecipação e Economia
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           <strong className="text-growth-green">

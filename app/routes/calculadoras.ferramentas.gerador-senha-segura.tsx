@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: `Gerador de Senhas Seguras 2025 | ${APP_NAME}`,
+      title: `Gerador de Senhas Seguras 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Gerador de Senhas Seguras 2025 – Crie Senhas Fortes Personalizadas",
+      content: "Gerador de Senhas Seguras 2026 – Crie Senhas Fortes Personalizadas",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Gerador de Senhas Seguras - Personalização Completa 2025",
+        name: "Gerador de Senhas Seguras - Personalização Completa 2026",
         description:
           "Ferramenta gratuita para gerar senhas seguras personalizáveis com controle de tamanho, caracteres especiais, números e letras. Análise de força da senha e cópia automática.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-senha-segura",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-senha-segura",
-          name: "Gerador de Senhas Seguras 2025 - Personalização Completa",
+          name: "Gerador de Senhas Seguras 2026 - Personalização Completa",
           description:
             "Gerador de senhas seguras com controle total sobre tamanho, caracteres especiais, números e letras. Análise de força da senha e cópia automática.",
           inLanguage: "pt-BR",
@@ -576,7 +576,7 @@ export default function PasswordGenerator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Gerador de Senhas Seguras 2025 – Personalização Completa
+          Gerador de Senhas Seguras 2026 – Personalização Completa
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Crie <strong className="text-primary-blue-dark">senhas seguras</strong> personalizáveis com
@@ -911,7 +911,7 @@ export default function PasswordGenerator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🛡️ Guia Completo de Segurança de Senhas 2025
+            🛡️ Guia Completo de Segurança de Senhas 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

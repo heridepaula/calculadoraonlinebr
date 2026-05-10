@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -24,16 +24,16 @@ import {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Salário Líquido 2025 | ${APP_NAME}` },
+    { title: `Calculadora de Salário Líquido 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo.",
+        "Calcule salário líquido 2026: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo.",
     },
     {
       name: "keywords",
       content:
-        "calculadora salário líquido, INSS IRRF 2025, desconto salário, tabela INSS, imposto renda, CLT PJ",
+        "calculadora salário líquido, INSS IRRF 2026, desconto salário, tabela INSS, imposto renda, CLT PJ",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -45,12 +45,12 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       property: "og:title",
-      content: `Calculadora de Salário Líquido 2025 - Descontos INSS e IRRF - ${APP_NAME}`,
+      content: `Calculadora de Salário Líquido 2026 - Descontos INSS e IRRF - ${APP_NAME}`,
     },
     {
       property: "og:description",
       content:
-        "Calcule seu salário líquido facilmente usando as tabelas de INSS e IRRF atualizadas para 2025. Gratuita e completa!",
+        "Calcule seu salário líquido facilmente usando as tabelas de INSS e IRRF atualizadas para 2026. Gratuita e completa!",
     },
     { property: "og:type", content: "website" },
     {
@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:image:width", content: "512" },
     { property: "og:image:height", content: "512" },
-    { property: "og:image:alt", content: "Calculadora de Salário Líquido - INSS e IRRF 2025 - CalculadoraOnlineBR" },
+    { property: "og:image:alt", content: "Calculadora de Salário Líquido - INSS e IRRF 2026 - CalculadoraOnlineBR" },
     {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
-      content: `Calculadora Salário Líquido Online - INSS e IRRF 2025 - ${APP_NAME}`,
+      content: `Calculadora Salário Líquido Online - INSS e IRRF 2026 - ${APP_NAME}`,
     },
     {
       name: "twitter:description",
@@ -99,9 +99,9 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Salário Líquido - Simulador INSS e IRRF 2025",
+        name: "Calculadora de Salário Líquido - Simulador INSS e IRRF 2026",
         description:
-          "Simulador gratuito de salário líquido com tabelas INSS e IRRF 2025 atualizadas. Calcula descontos CLT, PJ e MEI facilmente.",
+          "Simulador gratuito de salário líquido com tabelas INSS e IRRF 2026 atualizadas. Calcula descontos CLT, PJ e MEI facilmente.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -131,9 +131,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
-          name: "Calculadora de Salário Líquido 2025 - Simulador INSS e IRRF",
+          name: "Calculadora de Salário Líquido 2026 - Simulador INSS e IRRF",
           description:
-            "Calcule salário líquido 2025: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo!",
+            "Calcule salário líquido 2026: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo!",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -184,7 +184,7 @@ export const meta: MetaFunction = () => {
         },
         featureList: [
           "Cálculo de salário líquido CLT",
-          "Descontos INSS e IRRF 2025",
+          "Descontos INSS e IRRF 2026",
           "Simulação para CLT, PJ e MEI",
           "Cálculo com dependentes",
           "Horas extras e adições salariais",
@@ -204,7 +204,7 @@ export const meta: MetaFunction = () => {
             name: "Como calcular salário líquido?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Use tabelas 2025: INSS até 8,14% e IRRF de 7,5% a 27,5% conforme faixa salarial.",
+              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Use tabelas 2026: INSS até 8,14% e IRRF de 7,5% a 27,5% conforme faixa salarial.",
             },
           },
           {
@@ -484,21 +484,21 @@ export default function NetSalaryCalculator() {
       <div className="flex flex-col items-center space-y-8">
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            💰 Calculadora de Salário Líquido - Tabelas 2025
+            💰 Calculadora de Salário Líquido - Tabelas 2026
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Calcule seu <strong className="text-growth-green">salário líquido</strong> facilmente
             usando as
             <strong className="text-primary-blue-dark">
               {" "}
-              tabelas atualizadas de INSS e IRRF 2025
+              tabelas atualizadas de INSS e IRRF 2026
             </strong>
             . Inclui dedução por dependentes, horas extras e diferentes tipos de contratação.
             <strong className="text-system-warning"> Resultado em tempo real</strong>!
           </p>
           <div className="inline-block rounded-lg bg-gradient-to-r from-growth-green-soft via-primary-blue-light to-system-warning/20 p-4">
             <p className="text-sm font-medium text-text-primary">
-              📊 <strong>Tabelas 2025</strong> • 💼 <strong>CLT e PJ</strong> • 👨‍👩‍👧‍👦{" "}
+              📊 <strong>Tabelas 2026</strong> • 💼 <strong>CLT e PJ</strong> • 👨‍👩‍👧‍👦{" "}
               <strong>Dependentes</strong> • ⚡ <strong>Cálculo Instantâneo</strong>
             </p>
           </div>
@@ -673,7 +673,7 @@ export default function NetSalaryCalculator() {
                   <div className="space-y-2 text-sm text-text-secondary">
                     <p>Como MEI, você tem tributação fixa mensal muito baixa.</p>
                     <div>
-                      <p className="font-semibold text-growth-green">💰 Valores Fixos MEI 2025:</p>
+                      <p className="font-semibold text-growth-green">💰 Valores Fixos MEI 2026:</p>
                       <ul className="mt-1 space-y-1 text-xs">
                         <li>
                           • <strong>Comércio/Indústria:</strong> R$ 70,60/mês (digite R$ 70,60 no
@@ -990,7 +990,7 @@ export default function NetSalaryCalculator() {
                   </h3>
                   <div className="space-y-3">
                     <div className="rounded-lg bg-primary-blue-light p-3">
-                      <h4 className="mb-2 font-semibold text-primary-blue-dark">Faixas 2025:</h4>
+                      <h4 className="mb-2 font-semibold text-primary-blue-dark">Faixas 2026:</h4>
                       <div className="space-y-1 text-sm text-text-secondary">
                         <div>
                           • Até R$ 1.518: <strong>7,5%</strong>
@@ -1021,7 +1021,7 @@ export default function NetSalaryCalculator() {
                   </h3>
                   <div className="space-y-3">
                     <div className="rounded-lg bg-growth-green-soft p-3">
-                      <h4 className="mb-2 font-semibold text-growth-green">Novidade 2025:</h4>
+                      <h4 className="mb-2 font-semibold text-growth-green">Novidade 2026:</h4>
                       <div className="space-y-1 text-sm text-text-secondary">
                         <div>
                           • <strong>Isento</strong> até R$ 3.036 (2 salários mínimos)
@@ -1035,7 +1035,7 @@ export default function NetSalaryCalculator() {
                       </div>
                     </div>
                     <p className="text-sm text-text-secondary">
-                      A partir de <strong>maio de 2025</strong>, quem ganha até R$ 3.036 ficou
+                      A partir de <strong>maio de 2026</strong>, quem ganha até R$ 3.036 ficou
                       <strong className="text-growth-green"> isento do Imposto de Renda</strong>.
                     </p>
                   </div>
@@ -1089,7 +1089,7 @@ export default function NetSalaryCalculator() {
                         <li>• Receita Federal do Brasil</li>
                         <li>• Ministério do Trabalho</li>
                         <li>• INSS - Instituto Nacional do Seguro Social</li>
-                        <li>• Tabelas salariais 2025</li>
+                        <li>• Tabelas salariais 2026</li>
                       </ul>
                     </div>
                     <div>
@@ -1139,21 +1139,21 @@ export default function NetSalaryCalculator() {
           title="Perguntas Frequentes - Calculadora de Salário Líquido"
           items={[
             {
-              question: "Como calcular salário líquido a partir do bruto em 2025?",
+              question: "Como calcular salário líquido a partir do bruto em 2026?",
               answer:
-                "<strong>Fórmula:</strong> Salário Líquido = Salário Bruto - INSS - IRRF - Outros Descontos. Use nossa calculadora para aplicar automaticamente as <strong>tabelas oficiais 2025</strong> facilmente total. O cálculo considera a progressão das alíquotas por faixa salarial.",
+                "<strong>Fórmula:</strong> Salário Líquido = Salário Bruto - INSS - IRRF - Outros Descontos. Use nossa calculadora para aplicar automaticamente as <strong>tabelas oficiais 2026</strong> facilmente total. O cálculo considera a progressão das alíquotas por faixa salarial.",
               borderColor: "primary-blue",
             },
             {
-              question: "Qual o desconto do INSS em 2025? Como funciona a tabela progressiva?",
+              question: "Qual o desconto do INSS em 2026? Como funciona a tabela progressiva?",
               answer:
-                "O INSS 2025 varia de <strong>7,5% a 14%</strong> conforme a faixa salarial. É progressivo: <strong>até R$ 1.518 (7,5%)</strong>, de R$ 1.518 a R$ 2.793 (9%), de R$ 2.793 a R$ 4.190 (12%), <strong>acima de R$ 4.190 (14%)</strong>. O desconto máximo é limitado ao teto previdenciário.",
+                "O INSS 2026 varia de <strong>7,5% a 14%</strong> conforme a faixa salarial. É progressivo: <strong>até R$ 1.518 (7,5%)</strong>, de R$ 1.518 a R$ 2.793 (9%), de R$ 2.793 a R$ 4.190 (12%), <strong>acima de R$ 4.190 (14%)</strong>. O desconto máximo é limitado ao teto previdenciário.",
               borderColor: "growth-green",
             },
             {
-              question: "Quem está isento do Imposto de Renda em 2025?",
+              question: "Quem está isento do Imposto de Renda em 2026?",
               answer:
-                "A partir de <strong>maio de 2025</strong>, estão isentos os trabalhadores que recebem <strong>até R$ 3.036</strong> (dois salários mínimos). Antes era R$ 2.259. Esta mudança beneficia milhões de brasileiros e aumenta significativamente o salário líquido dessa faixa.",
+                "A partir de <strong>maio de 2026</strong>, estão isentos os trabalhadores que recebem <strong>até R$ 3.036</strong> (dois salários mínimos). Antes era R$ 2.259. Esta mudança beneficia milhões de brasileiros e aumenta significativamente o salário líquido dessa faixa.",
               borderColor: "system-info",
             },
             {
@@ -1192,7 +1192,7 @@ export default function NetSalaryCalculator() {
             content:
               "<strong>1. Tempo Real:</strong> Cálculos instantâneos conforme você digita. <strong>2. Simulação Comparativa:</strong> Veja o impacto de aumentos automaticamente. <strong>3. Educação Financeira:</strong> Explicações detalhadas sobre cada desconto e dicas para otimização legal.",
           }}
-          footerText="<strong>Tabelas 2025 atualizadas:</strong> Todos os cálculos seguem as <strong>tabelas oficiais da Receita Federal</strong> e são validados com ferramentas de referência do mercado."
+          footerText="<strong>Tabelas 2026 atualizadas:</strong> Todos os cálculos seguem as <strong>tabelas oficiais da Receita Federal</strong> e são validados com ferramentas de referência do mercado."
         />
 
         {/* Seção sobre Detalhamento e Metodologia */}
@@ -1210,20 +1210,20 @@ export default function NetSalaryCalculator() {
                 <strong className="text-system-success"> 100% gratuita</strong> e utiliza as
                 <strong className="text-growth-green">
                   {" "}
-                  tabelas oficiais de INSS e IRRF para 2025
+                  tabelas oficiais de INSS e IRRF para 2026
                 </strong>
                 . Desenvolvida para oferecer cálculos confiáveis e educação financeira completa.
               </p>
               <p>
                 <strong>Funcionalidades exclusivas:</strong> Cálculo em tempo real, simulação
-                comparativa de aumentos, tabelas atualizadas 2025, suporte a CLT e PJ, dedução por
+                comparativa de aumentos, tabelas atualizadas 2026, suporte a CLT e PJ, dedução por
                 dependentes, horas extras, interface mobile-first, explicações educativas detalhadas
                 e comparações entre tipos de contratação.
               </p>
               <p>
                 <strong>Metodologia validada:</strong> Cálculos baseados nas tabelas da Receita
                 Federal, validados com ferramentas de referência como iDinheiro, Mobills e
-                Contabilidade Scalabrini. Atualizada conforme as mudanças tributárias de 2025.
+                Contabilidade Scalabrini. Atualizada conforme as mudanças tributárias de 2026.
               </p>
               <p>
                 <strong className="text-system-warning">Disclaimer:</strong> Os cálculos são

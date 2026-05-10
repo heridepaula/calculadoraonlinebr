@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Desvio Padrão 2025 | ${APP_NAME}`,
+      title: `Calculadora de Desvio Padrão 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Desvio Padrão 2025 – Variância Estatística",
+      content: "Calculadora Desvio Padrão 2026 – Variância Estatística",
     },
     {
       property: "og:description",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Desvio Padrão 2025 – Variância Estatística",
+      content: "Calculadora Desvio Padrão 2026 – Variância Estatística",
     },
     {
       name: "twitter:description",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Desvio Padrão - Estatística Descritiva 2025",
+        name: "Calculadora de Desvio Padrão - Estatística Descritiva 2026",
         description:
           "Calculadora gratuita e confiável de desvio padrão e variância. Analise medidas de dispersão estatística com explicações detalhadas, fórmulas e interpretação dos resultados.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
@@ -142,7 +142,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
-          name: "Calculadora de Desvio Padrão 2025 - Estatística e Variabilidade",
+          name: "Calculadora de Desvio Padrão 2026 - Estatística e Variabilidade",
           description:
             "Calculadora gratuita de desvio padrão e variância. Calcule medidas de dispersão estatística com explicações passo a passo e análise completa dos dados.",
           inLanguage: "pt-BR",
@@ -399,7 +399,7 @@ export default function StandardDeviationCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Desvio Padrão e Variância 2025
+          Calculadora de Desvio Padrão e Variância 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule o <strong className="text-math-purple">desvio padrão e variância</strong> de

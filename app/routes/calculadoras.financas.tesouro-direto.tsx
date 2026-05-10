@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+﻿import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useState, useEffect } from "react";
@@ -80,7 +80,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Tesouro Direto 2025 | ${APP_NAME}`,
+      title: `Calculadora de Tesouro Direto 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -146,7 +146,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Tesouro Direto 2025 - Simulador",
+      content: "Tesouro Direto 2026 - Simulador",
     },
     {
       name: "twitter:description",
@@ -176,7 +176,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Tesouro Direto - Simulador com Dados Oficiais 2025",
+        name: "Calculadora Tesouro Direto - Simulador com Dados Oficiais 2026",
         description:
           "Simulador gratuito de Tesouro Direto com dados oficiais: Tesouro Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, taxas de custódia e resgate antecipado.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
@@ -208,7 +208,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
-          name: "Calculadora Tesouro Direto 2025 - Simulador com Dados Oficiais",
+          name: "Calculadora Tesouro Direto 2026 - Simulador com Dados Oficiais",
           description:
             "Simule Tesouro Direto com dados oficiais: Selic, Prefixado, IPCA+, com juros semestrais. Calcule IR, custódia e resgate antecipado.",
           inLanguage: "pt-BR",
@@ -559,7 +559,7 @@ export default function TreasuryDirectCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora Tesouro Direto 2025 – Simulador com Dados Oficiais
+          Calculadora Tesouro Direto 2026 – Simulador com Dados Oficiais
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Simule <strong className="text-growth-green">Tesouro Selic, Prefixado e IPCA+</strong>
@@ -1596,7 +1596,7 @@ export default function TreasuryDirectCalculator() {
               id="guia-completo-heading"
               className="text-2xl font-bold text-text-primary"
             >
-              🏛️ Tesouro Direto – Guia Completo 2025
+              🏛️ Tesouro Direto – Guia Completo 2026
             </CardTitle>
           </CardHeader>
           <CardContent>

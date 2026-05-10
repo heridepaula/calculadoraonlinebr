@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import {
   Card,
@@ -18,11 +18,11 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Horas Extras CLT 2025 | ${APP_NAME}` },
+    { title: `Calculadora de Horas Extras CLT 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "Calcule horas extras CLT 2025: adicional 50% dias úteis, 100% domingos/feriados, 20% noturno. Resultado instantâneo e educativo.",
+        "Calcule horas extras CLT 2026: adicional 50% dias úteis, 100% domingos/feriados, 20% noturno. Resultado instantâneo e educativo.",
     },
     {
       name: "keywords",
@@ -43,7 +43,7 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       property: "og:title",
-      content: `Calculadora de Horas Extras CLT 2025 - Adicional 50% e 100% - ${APP_NAME}`,
+      content: `Calculadora de Horas Extras CLT 2026 - Adicional 50% e 100% - ${APP_NAME}`,
     },
     {
       property: "og:description",
@@ -96,7 +96,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Horas Extras CLT 2025 - Art. 59",
+        name: "Calculadora de Horas Extras CLT 2026 - Art. 59",
         description:
           "Calculadora gratuita de horas extras conforme CLT: adicional 50% dia útil, 100% domingo/feriado, 20% noturno. Base legal Art. 59.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/horas-extras",
@@ -129,9 +129,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/horas-extras",
-          name: "Calculadora de Horas Extras CLT 2025 - Art. 59",
+          name: "Calculadora de Horas Extras CLT 2026 - Art. 59",
           description:
-            "Calcule horas extras CLT 2025: adicional 50% dias úteis, 100% domingos/feriados, 20% noturno. Resultado instantâneo e educativo.",
+            "Calcule horas extras CLT 2026: adicional 50% dias úteis, 100% domingos/feriados, 20% noturno. Resultado instantâneo e educativo.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -471,7 +471,7 @@ export default function OvertimeCalculator() {
       <div className="flex flex-col items-center space-y-8">
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            ⏰ Calculadora de Horas Extras CLT 2025
+            ⏰ Calculadora de Horas Extras CLT 2026
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Calcule suas <strong className="text-growth-green">horas extras</strong> conforme a{" "}

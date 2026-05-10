@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Primeiro Milhão: Calculadora 2025 | CalculadoraOnlineBR",
+      content: "Primeiro Milhão: Calculadora 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -141,7 +141,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora do Primeiro Milhão - Simulador de Independência Financeira 2025",
+        name: "Calculadora do Primeiro Milhão - Simulador de Independência Financeira 2026",
         description:
           "Descubra quanto tempo leva para se tornar milionário ou quanto investir mensalmente para alcançar seu primeiro milhão. Simulações realistas com estratégias comprovadas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
@@ -174,7 +174,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
-          name: "Calculadora do Primeiro Milhão 2025 - Simulador de Independência Financeira",
+          name: "Calculadora do Primeiro Milhão 2026 - Simulador de Independência Financeira",
           description:
             "Descubra seu caminho para o primeiro milhão com simulações realistas de investimentos. Calcule tempo necessário ou aporte mensal para alcançar a independência financeira.",
           inLanguage: "pt-BR",
@@ -591,7 +591,7 @@ export default function FirstMillionCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora do Primeiro Milhão 2025 – Simulador de Independência Financeira
+          Calculadora do Primeiro Milhão 2026 – Simulador de Independência Financeira
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Descubra{" "}
@@ -1242,7 +1242,7 @@ export default function FirstMillionCalculator() {
                 id="guia-completo-heading"
                 className="text-2xl font-bold text-text-primary"
               >
-                🎯 Primeiro Milhão – Guia Completo 2025
+                🎯 Primeiro Milhão – Guia Completo 2026
               </CardTitle>
             </CardHeader>
             <CardContent>

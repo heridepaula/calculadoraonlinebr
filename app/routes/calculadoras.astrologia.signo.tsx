@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
 import {
@@ -11,7 +11,7 @@ import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2025 | ${APP_NAME}` },
+    { title: `Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Calculadora de Signo Solar Grátis 2025 | Descubra seu Signo",
+      content: "Calculadora de Signo Solar Grátis 2026 | Descubra seu Signo",
     },
     {
       name: "twitter:description",
@@ -737,7 +737,7 @@ export default function CalculadoraSigno() {
                   "@id":
                     "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo#webpage",
                   url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
-                  name: "Calculadora de Signo Solar Grátis 2025",
+                  name: "Calculadora de Signo Solar Grátis 2026",
                   isPartOf: {
                     "@id": "https://www.calculadoraonlinebr.com.br/#website",
                   },
@@ -859,7 +859,7 @@ export default function CalculadoraSigno() {
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            🌟 Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2025
+            🌟 Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2026
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Descubra seu <strong className="text-math-purple-dark">signo solar</strong> e entenda
@@ -938,7 +938,7 @@ export default function CalculadoraSigno() {
         <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple/10 to-primary-blue/10 duration-300">
           <CardHeader>
             <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-              🌟 Os 12 Signos do Zodíaco – Guia Completo 2025
+              🌟 Os 12 Signos do Zodíaco – Guia Completo 2026
             </CardTitle>
           </CardHeader>
           <CardContent>

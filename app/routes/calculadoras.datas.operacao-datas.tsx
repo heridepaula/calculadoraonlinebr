@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -135,7 +135,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas/operacao-datas",
-          name: "Calculadora de Operações entre Datas 2025 - Somar e Subtrair Tempo",
+          name: "Calculadora de Operações entre Datas 2026 - Somar e Subtrair Tempo",
           description:
             "Some ou subtraia anos, meses e dias de qualquer data. Descubra datas futuras e passadas com nossa calculadora online grátis.",
           inLanguage: "pt-BR",
@@ -717,7 +717,7 @@ export default function DateOperationCalculator() {
                 id="practical-applications"
                 className="text-2xl font-bold text-text-primary"
               >
-                🎯 Aplicações Práticas – Guia Completo 2025
+                🎯 Aplicações Práticas – Guia Completo 2026
               </CardTitle>
             </CardHeader>
             <CardContent>

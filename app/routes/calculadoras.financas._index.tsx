@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -13,7 +13,7 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Financeiras 2025 | ${APP_NAME}` },
+    { title: `Calculadoras Financeiras 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:

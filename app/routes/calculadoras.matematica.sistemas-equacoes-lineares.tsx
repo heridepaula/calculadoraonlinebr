@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Sistemas de Equações Lineares 2025 | ${APP_NAME}`,
+      title: `Calculadora de Sistemas de Equações Lineares 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Sistemas de Equações Lineares 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Sistemas de Equações Lineares 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Sistemas de Equações Lineares 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Sistemas de Equações Lineares 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Sistemas de Equações Lineares Online 2025",
+        name: "Calculadora de Sistemas de Equações Lineares Online 2026",
         description:
           "Ferramenta educacional online gratuita para resolver sistemas de equações lineares usando métodos de eliminação de Gauss, regra de Cramer e matriz inversa. Solução passo a passo com verificação automática.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/sistemas-equacoes-lineares",
@@ -192,7 +192,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Calculadora de Sistemas de Equações Lineares 2025",
+        name: "Calculadora de Sistemas de Equações Lineares 2026",
         description: "Resolva sistemas de equações lineares com métodos de eliminação de Gauss, Cramer e matriz inversa. Calculadora online gratuita com solução passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/sistemas-equacoes-lineares",
         inLanguage: "pt-BR",
@@ -670,7 +670,7 @@ export default function LinearSystemCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Sistemas de Equações Lineares 2025
+          Calculadora de Sistemas de Equações Lineares 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Resolva <strong className="text-growth-green">sistemas de equações lineares</strong> com{" "}
@@ -1109,7 +1109,7 @@ export default function LinearSystemCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Sistemas de Equações Lineares – Guia Completo 2025
+            🎯 Sistemas de Equações Lineares – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

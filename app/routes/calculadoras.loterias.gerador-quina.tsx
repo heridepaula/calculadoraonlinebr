@@ -73,7 +73,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Gerador de Quina Grátis 2025 | Estratégias Inteligentes",
+      content: "Gerador de Quina Grátis 2026 | Estratégias Inteligentes",
     },
     {
       name: "twitter:description",
@@ -93,6 +93,64 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
+
+interface StrategyPreset {
+  name: string;
+  icon: string;
+  description: string;
+  config: GenerationStrategy;
+}
+
+const QUINA_PRESETS: StrategyPreset[] = [
+  {
+    name: "Equilibrado",
+    icon: "🎯",
+    description: "Mix de quentes e médios com filtros balanceados — recomendado",
+    config: { useFrequency: true, frequencyType: "balanced", controlParity: true, minPairs: 2, maxPairs: 3, controlSum: true, minSum: 160, maxSum: 240, avoidConsecutive: true, maxConsecutive: 2, includePrimes: true, minPrimes: 1, maxPrimes: 3 },
+  },
+  {
+    name: "Só Quentes",
+    icon: "🔥",
+    description: "Prioriza os números mais sorteados historicamente na Quina",
+    config: { useFrequency: true, frequencyType: "hot", controlParity: true, minPairs: 2, maxPairs: 3, controlSum: true, minSum: 150, maxSum: 240, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 5 },
+  },
+  {
+    name: "Revanche",
+    icon: "🧊",
+    description: "Números frios — teoria da revanche estatística (menos jogados por outros)",
+    config: { useFrequency: true, frequencyType: "cold", controlParity: false, minPairs: 0, maxPairs: 5, controlSum: false, minSum: 15, maxSum: 390, avoidConsecutive: false, maxConsecutive: 5, includePrimes: false, minPrimes: 0, maxPrimes: 5 },
+  },
+  {
+    name: "Alta Soma",
+    icon: "⬆️",
+    description: "Concentra os 5 números na faixa alta (soma 220–280)",
+    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 2, maxPairs: 3, controlSum: true, minSum: 220, maxSum: 280, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 5 },
+  },
+  {
+    name: "Baixa Soma",
+    icon: "⬇️",
+    description: "Concentra os 5 números na faixa baixa (soma 130–175)",
+    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 2, maxPairs: 3, controlSum: true, minSum: 130, maxSum: 175, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 5 },
+  },
+  {
+    name: "Mais Ímpares",
+    icon: "1️⃣",
+    description: "Favorece ímpares no jogo (0–2 pares de 5 números)",
+    config: { useFrequency: true, frequencyType: "balanced", controlParity: true, minPairs: 0, maxPairs: 2, controlSum: true, minSum: 160, maxSum: 240, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 5 },
+  },
+  {
+    name: "Máx. Primos",
+    icon: "🔢",
+    description: "Maximiza números primos no jogo (3–4 primos entre 2, 3, 5, 7...79)",
+    config: { useFrequency: true, frequencyType: "balanced", controlParity: false, minPairs: 0, maxPairs: 5, controlSum: true, minSum: 160, maxSum: 240, avoidConsecutive: true, maxConsecutive: 2, includePrimes: true, minPrimes: 3, maxPrimes: 4 },
+  },
+  {
+    name: "Puro Aleatório",
+    icon: "🎲",
+    description: "Sem filtros — seleção totalmente aleatória de 5 números entre 1 e 80",
+    config: { useFrequency: false, frequencyType: "balanced", controlParity: false, minPairs: 0, maxPairs: 5, controlSum: false, minSum: 15, maxSum: 390, avoidConsecutive: false, maxConsecutive: 5, includePrimes: false, minPrimes: 0, maxPrimes: 5 },
+  },
+];
 
 // Dados estatísticos da Quina baseados em análises históricas (Caixa Econômica Federal)
 const QUINA_STATS = {
@@ -540,7 +598,6 @@ export default function GeradorQuina() {
 
                 {/* Rodapé do Talão */}
                 <div className="mt-4 border-t border-blue-200 pt-2 text-center text-xs text-blue-600">
-                  <div>💰 Prêmio estimado: R$ 500.000,00</div>
                   <div className="text-blue-500">Sorteio: Segunda a Sábado (diário!)</div>
                 </div>
               </div>
@@ -565,6 +622,23 @@ export default function GeradorQuina() {
                 >
                   {showAdvanced ? "Ocultar" : "Mostrar"} Avançadas
                 </button>
+              </div>
+
+              {/* Estratégias Pré-definidas */}
+              <div className="mb-4 rounded-lg bg-background-secondary p-4">
+                <h4 className="mb-3 text-sm font-semibold text-text-secondary">Aplicar estratégia:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {QUINA_PRESETS.map((preset) => (
+                    <button
+                      key={preset.name}
+                      onClick={() => setStrategy(preset.config)}
+                      title={preset.description}
+                      className="rounded-lg border border-neutral-surface-variant bg-background-primary px-3 py-2 text-sm font-medium transition-all hover:border-blue-500 hover:bg-blue-600/10 hover:text-blue-700"
+                    >
+                      {preset.icon} {preset.name}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
 import {
@@ -13,20 +13,20 @@ import { APP_NAME } from "~/lib/constants";
 export const meta: MetaFunction = () => {
   return [
     // Title otimizado - palavra-chave principal no início, até 60 caracteres
-    { title: `Compatibilidade Signos Amor: Teste Grátis Sinastria 2025 | ${APP_NAME}` },
+    { title: `Compatibilidade Signos Amor: Teste Grátis Sinastria 2026 | ${APP_NAME}` },
 
     // Meta description otimizada - 150-160 caracteres com CTA claro
     {
       name: "description",
       content:
-        "🔮 Teste Compatibilidade Signos GRÁTIS! Descubra sinastria amorosa, signos que combinam no amor e amizade. Análise percentual completa - Brasil 2025.",
+        "🔮 Teste Compatibilidade Signos GRÁTIS! Descubra sinastria amorosa, signos que combinam no amor e amizade. Análise percentual completa - Brasil 2026.",
     },
 
     // Keywords atualizadas com base nos termos mais buscados
     {
       name: "keywords",
       content:
-        "compatibilidade signos amor, teste compatibilidade astrológica, signos que combinam namoro, sinastria amorosa grátis, calculadora compatibilidade zodiacal, mapa astral casal, combinação signos zodiac, relacionamento astrológico, horoscopo amor 2025"
+        "compatibilidade signos amor, teste compatibilidade astrológica, signos que combinam namoro, sinastria amorosa grátis, calculadora compatibilidade zodiacal, mapa astral casal, combinação signos zodiac, relacionamento astrológico, horoscopo amor 2026"
     },
 
     {
@@ -62,7 +62,7 @@ export const meta: MetaFunction = () => {
     // Open Graph otimizado
     {
       property: "og:title",
-      content: "Compatibilidade de Signos: Calculadora Amorosa Grátis 2025",
+      content: "Compatibilidade de Signos: Calculadora Amorosa Grátis 2026",
     },
     {
       property: "og:description",
@@ -1418,7 +1418,7 @@ export default function CalculadoraCompatibilidadeSignos() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": ["WebApplication", "Article"],
-              name: "🔮 Compatibilidade Signos Amor: Teste Grátis Sinastria Amorosa 2025",
+              name: "🔮 Compatibilidade Signos Amor: Teste Grátis Sinastria Amorosa 2026",
               headline: "Teste Compatibilidade Signos Amor - Sinastria Amorosa Grátis",
               description:
                 "Teste GRÁTIS de compatibilidade signos amor! Sinastria amorosa, combinação zodiacal e análise completa de relacionamento. Descubra se vocês combinam no amor, amizade e trabalho.",
@@ -1500,7 +1500,7 @@ export default function CalculadoraCompatibilidadeSignos() {
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            🔮 Compatibilidade Signos Amor: Teste Grátis Sinastria 2025
+            🔮 Compatibilidade Signos Amor: Teste Grátis Sinastria 2026
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Descubra a <strong className="text-math-purple-dark">sinastria amorosa</strong> e{" "}

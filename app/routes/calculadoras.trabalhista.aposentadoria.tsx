@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -30,8 +30,8 @@ function formatDate(date: Date): string {
   return date.toLocaleDateString("pt-BR");
 }
 
-// Constantes 2025
-const CONSTANTS_2025 = {
+// Constantes 2026
+const CONSTANTS_2026 = {
   SALARIO_MINIMO: 1518.0,
   TETO_INSS: 8157.41,
   EXPECTATIVA_VIDA: 76.4,
@@ -85,12 +85,12 @@ interface RetirementResult {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Aposentadoria INSS 2025 | ${APP_NAME}`,
+      title: `Calculadora de Aposentadoria INSS 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção de aposentadoria.",
+        "Simule aposentadoria INSS 2026: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção de aposentadoria.",
     },
     {
       name: "keywords",
@@ -114,12 +114,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Aposentadoria INSS 2025 – Todas as Modalidades",
+      content: "Calculadora de Aposentadoria INSS 2026 – Todas as Modalidades",
     },
     {
       property: "og:description",
       content:
-        "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
+        "Simule aposentadoria INSS 2026: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
     },
     {
       property: "og:image",
@@ -148,7 +148,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Aposentadoria INSS 2025 – Todas as Modalidades",
+      content: "Calculadora de Aposentadoria INSS 2026 – Todas as Modalidades",
     },
     {
       name: "twitter:description",
@@ -178,7 +178,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Aposentadoria INSS - Simulador de Modalidades 2025",
+        name: "Calculadora de Aposentadoria INSS - Simulador de Modalidades 2026",
         description:
           "Simulador gratuito e confiável de aposentadoria INSS com todas as modalidades: idade, pontos, pedágio 50% e 100%, regras de transição. Compare opções e descubra a melhor para você.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
@@ -210,9 +210,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
-          name: "Calculadora de Aposentadoria INSS 2025 - Simulador de Modalidades",
+          name: "Calculadora de Aposentadoria INSS 2026 - Simulador de Modalidades",
           description:
-            "Simule aposentadoria INSS 2025: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
+            "Simule aposentadoria INSS 2026: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -362,13 +362,13 @@ function calculateBenefit(
   birthDate: string,
   beforeReform: boolean = false
 ): number {
-  const limitedSalary = Math.min(averageSalary, CONSTANTS_2025.TETO_INSS);
+  const limitedSalary = Math.min(averageSalary, CONSTANTS_2026.TETO_INSS);
   const contributionYears = contributionTimeMonths / 12;
 
   if (beforeReform && modality === "pedagio-50") {
     // Regra antes da reforma: 70% + 1% por ano
     const percentage = Math.min(1.0, 0.7 + Math.max(0, contributionYears - 25) * 0.01);
-    return Math.max(limitedSalary * percentage, CONSTANTS_2025.SALARIO_MINIMO);
+    return Math.max(limitedSalary * percentage, CONSTANTS_2026.SALARIO_MINIMO);
   }
 
   // Regra pós reforma: 60% + 2% por ano acima do mínimo
@@ -384,15 +384,15 @@ function calculateBenefit(
   // Aplicar fator previdenciário se for regra de transição por idade progressiva
   if (modality === "idade-progressiva") {
     const age = calculateAge(birthDate).years;
-    const expectancy = CONSTANTS_2025.EXPECTATIVA_VIDA;
+    const expectancy = CONSTANTS_2026.EXPECTATIVA_VIDA;
     const factor =
-      (contributionYears * CONSTANTS_2025.FATOR_ATUARIAL * (1 + age + contributionYears)) /
+      (contributionYears * CONSTANTS_2026.FATOR_ATUARIAL * (1 + age + contributionYears)) /
       (expectancy * 100);
     const appliedFactor = Math.min(factor, 1.0);
     percentage *= appliedFactor;
   }
 
-  return Math.max(limitedSalary * percentage, CONSTANTS_2025.SALARIO_MINIMO);
+  return Math.max(limitedSalary * percentage, CONSTANTS_2026.SALARIO_MINIMO);
 }
 
 function calculateRetirementModalites(params: RetirementCalculation): RetirementResult {
@@ -451,19 +451,19 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
   modalidades.push(idadeMod);
 
   // 2. Regra de transição por pontos
-  const pontosNecessarios2025 = params.sexo === "masculino" ? 102 : 92;
+  const pontosNecessarios2026 = params.sexo === "masculino" ? 102 : 92;
   const pontosMod: RetirementModality = {
     id: "por-pontos",
     name: "Regra de Transição por Pontos",
-    description: `${pontosNecessarios2025} pontos necessários (idade + tempo de contribuição)`,
+    description: `${pontosNecessarios2026} pontos necessários (idade + tempo de contribuição)`,
     isEligible:
-      currentPoints >= pontosNecessarios2025 && params.tempoContribuicao >= tempoMinimoIdade,
+      currentPoints >= pontosNecessarios2026 && params.tempoContribuicao >= tempoMinimoIdade,
     timeRemaining: {
-      years: Math.max(0, Math.floor((pontosNecessarios2025 - currentPoints) / 1)),
+      years: Math.max(0, Math.floor((pontosNecessarios2026 - currentPoints) / 1)),
       months: 0,
       days: 0,
     },
-    requiredPoints: pontosNecessarios2025,
+    requiredPoints: pontosNecessarios2026,
     minimumContribution: tempoMinimoIdade,
     estimatedBenefit: calculateBenefit(
       params.mediaSalarial,
@@ -473,10 +473,10 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
       params.dataNascimento
     ),
     retirementDate: new Date(
-      Date.now() + Math.max(0, pontosNecessarios2025 - currentPoints) * 365.25 * 24 * 60 * 60 * 1000
+      Date.now() + Math.max(0, pontosNecessarios2026 - currentPoints) * 365.25 * 24 * 60 * 60 * 1000
     ),
     rules: [
-      `${pontosNecessarios2025} pontos em 2025`,
+      `${pontosNecessarios2026} pontos em 2026`,
       "Soma idade + tempo de contribuição",
       "Aumenta 1 ponto por ano até 2033 (H) / 2031 (M)",
     ],
@@ -490,19 +490,19 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
   modalidades.push(pontosMod);
 
   // 3. Regra idade progressiva (com fator previdenciário)
-  const idadeProgressiva2025 = params.sexo === "masculino" ? 64 : 59;
+  const idadeProgressiva2026 = params.sexo === "masculino" ? 64 : 59;
   const progressivaMod: RetirementModality = {
     id: "idade-progressiva",
     name: "Regra Idade Progressiva",
-    description: `${idadeProgressiva2025} anos + fator previdenciário`,
-    isEligible: currentAge >= idadeProgressiva2025 && params.tempoContribuicao >= tempoMinimoIdade,
+    description: `${idadeProgressiva2026} anos + fator previdenciário`,
+    isEligible: currentAge >= idadeProgressiva2026 && params.tempoContribuicao >= tempoMinimoIdade,
     timeRemaining: calculateTimeRemaining(
       currentAge,
-      idadeProgressiva2025,
+      idadeProgressiva2026,
       params.tempoContribuicao,
       tempoMinimoIdade
     ),
-    minimumAge: idadeProgressiva2025,
+    minimumAge: idadeProgressiva2026,
     minimumContribution: tempoMinimoIdade,
     estimatedBenefit: calculateBenefit(
       params.mediaSalarial,
@@ -515,7 +515,7 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
       Date.now() +
         calculateTimeRemaining(
           currentAge,
-          idadeProgressiva2025,
+          idadeProgressiva2026,
           params.tempoContribuicao,
           tempoMinimoIdade
         ).years *
@@ -526,7 +526,7 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
           1000
     ),
     rules: [
-      `${idadeProgressiva2025} anos em 2025`,
+      `${idadeProgressiva2026} anos em 2026`,
       "Aumenta 6 meses por ano",
       "Aplica fator previdenciário",
     ],
@@ -759,9 +759,9 @@ export default function CalculadoraAposentadoriaINSS() {
       <header className="space-y-3 text-center sm:space-y-4">
         <h1 className="mb-3 text-2xl font-bold text-text-primary sm:mb-4 sm:text-3xl lg:text-4xl">
           <span className="hidden sm:inline">
-            🏛️ Calculadora Aposentadoria INSS - Múltiplas Modalidades 2025
+            🏛️ Calculadora Aposentadoria INSS - Múltiplas Modalidades 2026
           </span>
-          <span className="sm:hidden">🏛️ Aposentadoria INSS 2025</span>
+          <span className="sm:hidden">🏛️ Aposentadoria INSS 2026</span>
         </h1>
         <p className="mx-auto max-w-3xl px-4 text-sm text-text-secondary-dark sm:text-base lg:text-lg">
           Calcule{" "}
@@ -773,7 +773,7 @@ export default function CalculadoraAposentadoriaINSS() {
         </p>
         <div className="inline-block rounded-lg bg-primary-blue-light p-3 duration-300 sm:p-4">
           <p className="text-xs font-medium text-text-primary sm:text-sm">
-            🏛️ <strong>Regras 2025</strong> • 📊 <strong>5 Modalidades</strong> • 💡{" "}
+            🏛️ <strong>Regras 2026</strong> • 📊 <strong>5 Modalidades</strong> • 💡{" "}
             <strong>Comparativo Inteligente</strong> • ⚡ <strong>Cálculo Instantâneo</strong>
           </p>
         </div>
@@ -1456,7 +1456,7 @@ Consulte sempre um especialista para análise detalhada.
       <Card className="mt-6 border-l-4 border-primary-blue bg-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📚 Guia Completo: Modalidades de Aposentadoria INSS 2025
+            📚 Guia Completo: Modalidades de Aposentadoria INSS 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1538,7 +1538,7 @@ Consulte sempre um especialista para análise detalhada.
                       <strong className="text-growth-green">Regra por Pontos:</strong>
                     </p>
                     <p className="ml-4">• Soma idade + tempo contribuição</p>
-                    <p className="ml-4">• 2025: 102 pontos (H) / 92 pontos (M)</p>
+                    <p className="ml-4">• 2026: 102 pontos (H) / 92 pontos (M)</p>
                     <p className="ml-4">• Benefício integral sem idade mínima</p>
                   </div>
 
@@ -1546,7 +1546,7 @@ Consulte sempre um especialista para análise detalhada.
                     <p>
                       <strong className="text-system-warning">Idade Progressiva:</strong>
                     </p>
-                    <p className="ml-4">• 2025: 64 anos (H) / 59 anos (M)</p>
+                    <p className="ml-4">• 2026: 64 anos (H) / 59 anos (M)</p>
                     <p className="ml-4">• Aumenta 6 meses por ano</p>
                     <p className="ml-4">• Com fator previdenciário (reduz benefício)</p>
                   </div>
@@ -1641,7 +1641,7 @@ Consulte sempre um especialista para análise detalhada.
                   INSS
                 </p>
                 <p>
-                  • <strong>Dados 2025:</strong> Salário mínimo R$ 1.518,00, Teto R$ 8.157,41
+                  • <strong>Dados 2026:</strong> Salário mínimo R$ 1.518,00, Teto R$ 8.157,41
                 </p>
                 <p>
                   • <strong>Consultoria:</strong> Para análise detalhada, consulte um advogado
@@ -1725,7 +1725,7 @@ Consulte sempre um especialista para análise detalhada.
           {
             question: "Como calcular minha aposentadoria pelo INSS de forma confiável?",
             answer:
-              "Para calcular sua aposentadoria INSS, considere: <strong>idade atual</strong>, <strong>tempo de contribuição</strong>, <strong>média salarial</strong> e <strong>modalidade escolhida</strong>. Nossa calculadora aplica as <strong>regras 2025</strong>: benefício base de 60% + 2% por ano acima do mínimo (15 anos mulheres/20 anos homens). O valor final é limitado ao <strong>teto INSS de R$ 8.157,41</strong>.",
+              "Para calcular sua aposentadoria INSS, considere: <strong>idade atual</strong>, <strong>tempo de contribuição</strong>, <strong>média salarial</strong> e <strong>modalidade escolhida</strong>. Nossa calculadora aplica as <strong>regras 2026</strong>: benefício base de 60% + 2% por ano acima do mínimo (15 anos mulheres/20 anos homens). O valor final é limitado ao <strong>teto INSS de R$ 8.157,41</strong>.",
             borderColor: "primary-blue",
           },
           {
@@ -1747,9 +1747,9 @@ Consulte sempre um especialista para análise detalhada.
             borderColor: "system-warning",
           },
           {
-            question: "Como calcular o valor da aposentadoria em 2025?",
+            question: "Como calcular o valor da aposentadoria em 2026?",
             answer:
-              "Fórmula 2025: <strong>60% da média salarial + 2% por ano acima do mínimo</strong>. Exemplo: mulher com 25 anos contribuição = 60% + (25-15) × 2% = 80%. <strong>Salário mínimo:</strong> R$ 1.518,00. <strong>Teto:</strong> R$ 8.157,41. <strong>Média salarial:</strong> calculada sobre todos os salários desde julho/1994, corrigidos monetariamente.",
+              "Fórmula 2026: <strong>60% da média salarial + 2% por ano acima do mínimo</strong>. Exemplo: mulher com 25 anos contribuição = 60% + (25-15) × 2% = 80%. <strong>Salário mínimo:</strong> R$ 1.518,00. <strong>Teto:</strong> R$ 8.157,41. <strong>Média salarial:</strong> calculada sobre todos os salários desde julho/1994, corrigidos monetariamente.",
             borderColor: "system-error-dark",
           },
           {

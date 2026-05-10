@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState, useMemo } from "react";
 import {
   Card,
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Contador de Caracteres 2025 – Análise Completa de Texto",
+      content: "Contador de Caracteres 2026 – Análise Completa de Texto",
     },
     {
       name: "twitter:description",
@@ -112,7 +112,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Contador de Caracteres - Análise Completa de Texto 2025",
+        name: "Contador de Caracteres - Análise Completa de Texto 2026",
         description:
           "Ferramenta gratuita para contar caracteres, letras, palavras e frases. Análise detalhada com estatísticas avançadas e opções de filtro para espaços e pontuação.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
-          name: "Contador de Caracteres 2025 - Análise Completa de Texto",
+          name: "Contador de Caracteres 2026 - Análise Completa de Texto",
           description:
             "Contador de caracteres gratuito e completo. Análise detalhada com contagem de letras, palavras, frases e estatísticas avançadas.",
           inLanguage: "pt-BR",
@@ -409,7 +409,7 @@ export default function CharacterCounter() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Contador de Caracteres 2025 – Análise Completa de Texto
+          Contador de Caracteres 2026 – Análise Completa de Texto
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Analise seu texto de forma{" "}

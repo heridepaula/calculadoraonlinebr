@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Empréstimo Consignado 2025 | ${APP_NAME}`,
+      title: `Calculadora de Empréstimo Consignado 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -35,7 +35,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Empréstimo Consignado 2025 – Simulador Online",
+      content: "Empréstimo Consignado 2026 – Simulador Online",
     },
     {
       property: "og:description",
@@ -69,7 +69,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Empréstimo Consignado 2025 – Simulador Completo",
+      content: "Calculadora de Empréstimo Consignado 2026 – Simulador Completo",
     },
     {
       name: "twitter:description",
@@ -101,7 +101,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Empréstimo Consignado - Simulador Completo 2025",
+        name: "Calculadora de Empréstimo Consignado - Simulador Completo 2026",
         description:
           "Simulador gratuito de empréstimo consignado com cálculo de parcelas, CET, IOF e taxas para aposentados, pensionistas e servidores públicos.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
@@ -134,7 +134,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
-          name: "Calculadora de Empréstimo Consignado 2025 - Simulador Completo",
+          name: "Calculadora de Empréstimo Consignado 2026 - Simulador Completo",
           description:
             "Simule empréstimo consignado com cálculo de parcelas, CET, IOF e taxas para aposentados, pensionistas e servidores públicos.",
           inLanguage: "pt-BR",
@@ -528,7 +528,7 @@ export default function PayrollLoanCalculator() {
 
       <header className="space-y-4 text-center" role="banner">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Empréstimo Consignado 2025 – Simulador Completo
+          Calculadora de Empréstimo Consignado 2026 – Simulador Completo
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a{" "}
@@ -966,7 +966,7 @@ export default function PayrollLoanCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Modalidades de Empréstimo Consignado – Guia Completo 2025
+            🎯 Modalidades de Empréstimo Consignado – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

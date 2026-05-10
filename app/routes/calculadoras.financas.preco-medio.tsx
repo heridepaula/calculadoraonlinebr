@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -39,7 +39,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Preço Médio Ações 2025 | ${APP_NAME}`,
+      title: `Calculadora de Preço Médio Ações 2026 | ${APP_NAME}`,
     },
     {
       name: "viewport",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     { name: "referrer", content: "strict-origin-when-cross-origin" },
     {
       property: "og:title",
-      content: "Preço Médio Ações 2025 – Simulador Grátis",
+      content: "Preço Médio Ações 2026 – Simulador Grátis",
     },
     {
       property: "og:description",
@@ -118,7 +118,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Preço Médio Ações 2025 – Simulador Grátis",
+      content: "Preço Médio Ações 2026 – Simulador Grátis",
     },
     {
       name: "twitter:description",
@@ -147,7 +147,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Preço Médio de Ações - Simulador 2025",
+        name: "Calculadora de Preço Médio de Ações - Simulador 2026",
         description:
           "Calculadora gratuita e confiável de preço médio de ações. Adicione compras e vendas, visualize evolução do preço médio ponderado e quantidade total de cotas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
@@ -180,7 +180,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
-          name: "Calculadora de Preço Médio de Ações 2025 - Simulador Completo",
+          name: "Calculadora de Preço Médio de Ações 2026 - Simulador Completo",
           description:
             "Calcule preço médio ponderado de ações com compras e vendas. Visualize gráficos interativos, tabela detalhada de operações e acompanhe a evolução da sua carteira de investimentos.",
           inLanguage: "pt-BR",
@@ -551,7 +551,7 @@ export default function AveragePriceCalculator() {
       <main>
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            Calculadora de Preço Médio de Ações 2025 – Simulador Completo
+            Calculadora de Preço Médio de Ações 2026 – Simulador Completo
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Calcule o <strong className="text-growth-green">preço médio ponderado</strong> das suas
@@ -878,7 +878,7 @@ export default function AveragePriceCalculator() {
         <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
           <CardHeader>
             <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-              🎯 Preço Médio de Ações – Guia Completo 2025
+              🎯 Preço Médio de Ações – Guia Completo 2026
             </CardTitle>
           </CardHeader>
           <CardContent>

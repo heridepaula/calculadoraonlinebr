@@ -73,7 +73,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Gerador de Mega-Sena Grátis 2025 | Estratégias Inteligentes",
+      content: "Gerador de Mega-Sena Grátis 2026 | Estratégias Inteligentes",
     },
     {
       name: "twitter:description",
@@ -93,6 +93,58 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
+
+interface StrategyPreset {
+  name: string;
+  icon: string;
+  description: string;
+  config: GenerationStrategy;
+}
+
+const MEGA_SENA_PRESETS: StrategyPreset[] = [
+  {
+    name: "Equilibrado",
+    icon: "🎯",
+    description: "Mix de quentes e médios com filtros balanceados — recomendado",
+    config: { useFrequency: true, frequencyType: "balanced", controlParity: true, minPairs: 2, maxPairs: 4, controlSum: true, minSum: 150, maxSum: 210, avoidConsecutive: true, maxConsecutive: 2, includePrimes: true, minPrimes: 2, maxPrimes: 4 },
+  },
+  {
+    name: "Só Quentes",
+    icon: "🔥",
+    description: "Prioriza os números mais sorteados historicamente na Mega-Sena",
+    config: { useFrequency: true, frequencyType: "hot", controlParity: true, minPairs: 2, maxPairs: 4, controlSum: true, minSum: 140, maxSum: 215, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 6 },
+  },
+  {
+    name: "Revanche",
+    icon: "🧊",
+    description: "Números frios — teoria da revanche estatística (menos jogados por outros)",
+    config: { useFrequency: true, frequencyType: "cold", controlParity: false, minPairs: 0, maxPairs: 6, controlSum: false, minSum: 21, maxSum: 355, avoidConsecutive: false, maxConsecutive: 6, includePrimes: false, minPrimes: 0, maxPrimes: 6 },
+  },
+  {
+    name: "Alta Soma",
+    icon: "⬆️",
+    description: "Concentra os 6 números na faixa alta (soma 200–240)",
+    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 2, maxPairs: 4, controlSum: true, minSum: 200, maxSum: 240, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 6 },
+  },
+  {
+    name: "Baixa Soma",
+    icon: "⬇️",
+    description: "Concentra os 6 números na faixa baixa (soma 100–155)",
+    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 2, maxPairs: 4, controlSum: true, minSum: 100, maxSum: 155, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 6 },
+  },
+  {
+    name: "Máx. Primos",
+    icon: "🔢",
+    description: "Maximiza números primos no jogo (4–6 primos entre 2, 3, 5, 7, 11...59)",
+    config: { useFrequency: true, frequencyType: "balanced", controlParity: false, minPairs: 0, maxPairs: 6, controlSum: true, minSum: 130, maxSum: 220, avoidConsecutive: true, maxConsecutive: 2, includePrimes: true, minPrimes: 4, maxPrimes: 6 },
+  },
+  {
+    name: "Puro Aleatório",
+    icon: "🎲",
+    description: "Sem filtros — seleção totalmente aleatória de 6 números entre 1 e 60",
+    config: { useFrequency: false, frequencyType: "balanced", controlParity: false, minPairs: 0, maxPairs: 6, controlSum: false, minSum: 21, maxSum: 355, avoidConsecutive: false, maxConsecutive: 6, includePrimes: false, minPrimes: 0, maxPrimes: 6 },
+  },
+];
 
 // Dados estatísticos da Mega-Sena baseados em análises históricas (Caixa Econômica Federal)
 const MEGA_SENA_STATS = {
@@ -543,7 +595,6 @@ export default function GeradorMegaSena() {
 
                 {/* Rodapé do Talão */}
                 <div className="mt-4 border-t border-green-200 pt-2 text-center text-xs text-green-600">
-                  <div>💰 Prêmio estimado: R$ 3.000.000,00</div>
                   <div className="text-green-500">Sorteio: Quarta-feira e Sábado</div>
                 </div>
               </div>
@@ -568,6 +619,23 @@ export default function GeradorMegaSena() {
                 >
                   {showAdvanced ? "Ocultar" : "Mostrar"} Avançadas
                 </button>
+              </div>
+
+              {/* Estratégias Pré-definidas */}
+              <div className="mb-4 rounded-lg bg-background-secondary p-4">
+                <h4 className="mb-3 text-sm font-semibold text-text-secondary">Aplicar estratégia:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {MEGA_SENA_PRESETS.map((preset) => (
+                    <button
+                      key={preset.name}
+                      onClick={() => setStrategy(preset.config)}
+                      title={preset.description}
+                      className="rounded-lg border border-neutral-surface-variant bg-background-primary px-3 py-2 text-sm font-medium transition-all hover:border-green-500 hover:bg-green-600/10 hover:text-green-700"
+                    >
+                      {preset.icon} {preset.name}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

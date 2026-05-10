@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de MMC e MDC 2025 | ${APP_NAME}`,
+      title: `Calculadora de MMC e MDC 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora MMC e MDC Online 2025 – Mínimo Múltiplo Comum e Máximo Divisor Comum",
+      content: "Calculadora MMC e MDC Online 2026 – Mínimo Múltiplo Comum e Máximo Divisor Comum",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora MMC e MDC Online 2025 – Mínimo Múltiplo Comum",
+      content: "Calculadora MMC e MDC Online 2026 – Mínimo Múltiplo Comum",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum 2025",
+        name: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum 2026",
         description:
           "Calculadora online gratuita para MMC e MDC com fatoração prima. Calcule Mínimo Múltiplo Comum e Máximo Divisor Comum com explicação passo a passo detalhada.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
-          name: "Calculadora MMC e MDC 2025 - Mínimo Múltiplo Comum e Máximo Divisor Comum",
+          name: "Calculadora MMC e MDC 2026 - Mínimo Múltiplo Comum e Máximo Divisor Comum",
           description:
             "Calcule MMC e MDC com fatoração prima e algoritmo de Euclides. Explicação passo a passo dos métodos para encontrar Mínimo Múltiplo Comum e Máximo Divisor Comum.",
           inLanguage: "pt-BR",
@@ -600,7 +600,7 @@ export default function MMCMDCCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora MMC e MDC 2025 – Mínimo Múltiplo Comum e Máximo Divisor Comum
+          Calculadora MMC e MDC 2026 – Mínimo Múltiplo Comum e Máximo Divisor Comum
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule <strong className="text-growth-green">MMC e MDC</strong> com fatoração prima e{" "}
@@ -768,7 +768,7 @@ export default function MMCMDCCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 MMC e MDC – Guia Completo 2025
+            🎯 MMC e MDC – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,17 +17,17 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Dias Úteis 2025 | ${APP_NAME}`,
+      title: `Calculadora de Dias Úteis 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso 2025.",
+        "Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso 2026.",
     },
     {
       name: "keywords",
       content:
-        "calculadora dias úteis, feriados nacionais brasil, carnaval páscoa 2025, emendas feriados, algoritmo gauss, dias trabalhados, calendário brasileiro, corpus christi, consciência negra",
+        "calculadora dias úteis, feriados nacionais brasil, carnaval páscoa 2026, emendas feriados, algoritmo gauss, dias trabalhados, calendário brasileiro, corpus christi, consciência negra",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     {
@@ -45,12 +45,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Dias Úteis 2025 – Feriados Nacionais e Emendas Brasil",
+      content: "Calculadora de Dias Úteis 2026 – Feriados Nacionais e Emendas Brasil",
     },
     {
       property: "og:description",
       content:
-        "Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso 2025.",
+        "Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso 2026.",
     },
     {
       property: "og:image",
@@ -79,12 +79,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Dias Úteis 2025 – Feriados e Emendas Brasil",
+      content: "Calculadora de Dias Úteis 2026 – Feriados e Emendas Brasil",
     },
     {
       name: "twitter:description",
       content:
-        "Calcule dias úteis com feriados nacionais! Carnaval, Páscoa, emendas automáticas. Algoritmo Gauss preciso 2025.",
+        "Calcule dias úteis com feriados nacionais! Carnaval, Páscoa, emendas automáticas. Algoritmo Gauss preciso 2026.",
     },
     {
       name: "twitter:image",
@@ -438,9 +438,9 @@ export default function WorkdaysCalculator() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Calculadora de Dias Úteis 2025",
+            name: "Calculadora de Dias Úteis 2026",
             description:
-              "Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso 2025.",
+              "Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso 2026.",
             url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/dias-uteis",
             inLanguage: "pt-BR",
             isPartOf: {
@@ -499,7 +499,7 @@ export default function WorkdaysCalculator() {
                 "Feriados nacionais brasileiros",
                 "Algoritmo de Gauss para Páscoa",
                 "Detecção automática de emendas",
-                "Calendário 2025 atualizado",
+                "Calendário 2026 atualizado",
               ],
             },
           }),
@@ -517,7 +517,7 @@ export default function WorkdaysCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Dias Úteis 2025 – Feriados Nacionais e Emendas
+          Calculadora de Dias Úteis 2026 – Feriados Nacionais e Emendas
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule <strong className="text-growth-green">dias úteis entre datas</strong> considerando{" "}
@@ -844,11 +844,11 @@ export default function WorkdaysCalculator() {
         </CardContent>
       </Card>
 
-      {/* Tabela de Feriados 2025 */}
+      {/* Tabela de Feriados 2026 */}
       <Card className="border border-neutral-surface-variant bg-background-dark-secondary duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-xl font-bold text-text-primary">
-            📋 Calendário de Feriados Nacionais 2025
+            📋 Calendário de Feriados Nacionais 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -975,7 +975,7 @@ export default function WorkdaysCalculator() {
             </div>
 
             <div className="rounded-lg border border-growth-green/20 bg-growth-green-soft p-4">
-              <h4 className="mb-2 font-bold text-growth-green">🌉 Emendas 2025</h4>
+              <h4 className="mb-2 font-bold text-growth-green">🌉 Emendas 2026</h4>
               <p className="text-sm text-text-secondary">
                 <strong>6 oportunidades</strong> de emendas com fins de semana prolongados.
               </p>

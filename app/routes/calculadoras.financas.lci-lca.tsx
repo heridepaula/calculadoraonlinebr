@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de LCI e LCA 2025 | ${APP_NAME}`,
+      title: `Calculadora de LCI e LCA 2026 | ${APP_NAME}`,
     },
     {
       name: "viewport",
@@ -89,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "LCI e LCA 2025 – Simulador Isenção IR",
+      content: "LCI e LCA 2026 – Simulador Isenção IR",
     },
     {
       property: "og:description",
@@ -125,7 +125,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "LCI e LCA 2025 – Simulador Isenção IR",
+      content: "LCI e LCA 2026 – Simulador Isenção IR",
     },
     {
       name: "twitter:description",
@@ -155,7 +155,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de LCI e LCA - Simulador de Rendimentos 2025",
+        name: "Calculadora de LCI e LCA - Simulador de Rendimentos 2026",
         description:
           "Calculadora gratuita de LCI e LCA com cálculos baseados no CDI. Simule rendimentos isentos de IR, compare opções e otimize seus investimentos.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
@@ -192,7 +192,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
-          name: "Calculadora de LCI e LCA 2025 - Simulador Completo",
+          name: "Calculadora de LCI e LCA 2026 - Simulador Completo",
           description:
             "Simule rendimentos de LCI e LCA baseados no CDI. Calcule ganhos isentos de IR, compare rentabilidade e tome decisões de investimento mais inteligentes.",
           inLanguage: "pt-BR",
@@ -530,7 +530,7 @@ export default function LciLcaCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de LCI e LCA 2025 – Simulador de Rendimentos
+          Calculadora de LCI e LCA 2026 – Simulador de Rendimentos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule os <strong className="text-growth-green">rendimentos de LCI e LCA</strong> isentos
@@ -1037,7 +1037,7 @@ export default function LciLcaCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 LCI e LCA – Guia Completo 2025
+            🎯 LCI e LCA – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

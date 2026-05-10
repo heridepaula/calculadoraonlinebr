@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Gerador UUID/GUID 2025 – Múltiplos Formatos e Exportação",
+      content: "Gerador UUID/GUID 2026 – Múltiplos Formatos e Exportação",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": ["WebApplication", "SoftwareApplication"],
-        name: "Gerador de UUID/GUID - Múltiplos Formatos e Tipos 2025",
+        name: "Gerador de UUID/GUID - Múltiplos Formatos e Tipos 2026",
         description:
           "Ferramenta gratuita para gerar UUIDs/GUIDs com múltiplos formatos de saída (JavaScript, SQL, MongoDB, Python, Base64). Suporte para tipos v1, v4, v5, geração em lote até 1000 IDs, exportação e copy to clipboard.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-uuid-guid",
@@ -147,7 +147,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-uuid-guid",
-          name: "Gerador de UUID/GUID 2025 - Múltiplos Formatos e Tipos",
+          name: "Gerador de UUID/GUID 2026 - Múltiplos Formatos e Tipos",
           description:
             "Gerador de UUID/GUID com múltiplos formatos de saída e tipos. Suporte para JavaScript, SQL, MongoDB, Python, Base64, tipos v1/v4/v5, geração em lote até 1000 e exportação.",
           inLanguage: "pt-BR",
@@ -633,7 +633,7 @@ export default function UuidGenerator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Gerador UUID/GUID 2025 – Múltiplos Formatos e Tipos
+          Gerador UUID/GUID 2026 – Múltiplos Formatos e Tipos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Gere <strong className="text-primary-blue-dark">UUIDs/GUIDs únicos</strong> com múltiplos{" "}
@@ -854,7 +854,7 @@ export default function UuidGenerator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 UUID/GUID – Guia Completo 2025
+            🎯 UUID/GUID – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

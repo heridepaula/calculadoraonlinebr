@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useRef } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
 import { Input } from "~/components/ui";
@@ -44,7 +44,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Numerologia Pitagórica Grátis 2025 | Mapa Numerológico Completo",
+      content: "Calculadora Numerologia Pitagórica Grátis 2026 | Mapa Numerológico Completo",
     },
     {
       property: "og:description",
@@ -78,7 +78,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Numerologia Pitagórica Grátis 2025 🔮 Mapa Completo",
+      content: "Calculadora Numerologia Pitagórica Grátis 2026 🔮 Mapa Completo",
     },
     {
       name: "twitter:description",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Numerologia - Descubra Seus Números da Vida 2025",
+        name: "Calculadora de Numerologia - Descubra Seus Números da Vida 2026",
         description:
           "Calculadora numerológica completa e gratuita para descobrir seu número da vida, personalidade, destino e alma. Interpretações detalhadas baseadas em nome completo e data de nascimento com análise profunda da personalidade.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
@@ -143,7 +143,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
-          name: "Calculadora de Numerologia 2025 - Números da Vida",
+          name: "Calculadora de Numerologia 2026 - Números da Vida",
           description:
             "Calculadora numerológica com interpretações detalhadas para autoconhecimento e desenvolvimento pessoal através dos números.",
           inLanguage: "pt-BR",
@@ -1560,7 +1560,7 @@ export default function CalculadoraNumerologia() {
 
           <h1 className="relative z-10 mb-6 text-3xl font-bold text-text-primary md:text-4xl">
             <span className="bg-gradient-to-r from-math-purple via-primary-blue to-pink-500 bg-clip-text text-transparent">
-              🔮 Calculadora de Numerologia Pitagórica Grátis 2025
+              🔮 Calculadora de Numerologia Pitagórica Grátis 2026
             </span>
             <br />
             <span className="text-2xl font-light md:text-3xl">
@@ -1910,7 +1910,7 @@ export default function CalculadoraNumerologia() {
       <Card className="from-growth-green-light border-l-4 border-growth-green bg-gradient-to-r to-primary-blue-light">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📚 O que é Numerologia Pitagórica? Guia Completo 2025
+            📚 O que é Numerologia Pitagórica? Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">

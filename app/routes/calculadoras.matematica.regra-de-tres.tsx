@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Regra de Três 2025 | ${APP_NAME}`,
+      title: `Calculadora de Regra de Três 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Regra de 3 Simples 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Regra de 3 Simples 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Regra de 3 Simples 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Regra de 3 Simples 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Regra de 3 Simples e Composta Online 2025",
+        name: "Calculadora de Regra de 3 Simples e Composta Online 2026",
         description:
           "Ferramenta educacional online gratuita para resolver problemas de regra de três simples direta, inversa e composta. Calcule proporções matemáticas com explicação passo a passo e resultados instantâneos.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
@@ -512,7 +512,7 @@ export default function RuleOfThreeCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Regra de 3 Online 2025
+          Calculadora de Regra de 3 Online 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Resolva <strong className="text-growth-green">regra de três simples e composta</strong> de
@@ -716,7 +716,7 @@ export default function RuleOfThreeCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Regra de Três – Guia Completo 2025
+            🎯 Regra de Três – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

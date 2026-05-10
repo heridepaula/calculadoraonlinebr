@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Equação 2º Grau 2025 | ${APP_NAME}`,
+      title: `Calculadora de Equação 2º Grau 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara",
+      content: "Calculadora de Equação de Segundo Grau 2026 – Fórmula de Bhaskara",
     },
     {
       property: "og:description",
@@ -76,7 +76,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara",
+      content: "Calculadora de Equação de Segundo Grau 2026 – Fórmula de Bhaskara",
     },
     {
       name: "twitter:description",
@@ -108,7 +108,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2025",
+        name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2026",
         description:
           "Calculadora gratuita e confiável para resolver equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
@@ -141,7 +141,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
-          name: "Calculadora de Equação de Segundo Grau 2025 - Fórmula de Bhaskara",
+          name: "Calculadora de Equação de Segundo Grau 2026 - Fórmula de Bhaskara",
           description:
             "Resolva equações de segundo grau usando a fórmula de Bhaskara. Calcule delta, raízes reais e complexas com explicação passo a passo.",
           inLanguage: "pt-BR",
@@ -488,7 +488,7 @@ export default function QuadraticEquationCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Equação de Segundo Grau 2025 – Fórmula de Bhaskara
+          Calculadora de Equação de Segundo Grau 2026 – Fórmula de Bhaskara
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Resolva <strong className="text-growth-green">equações de segundo grau</strong> usando a{" "}
@@ -651,7 +651,7 @@ export default function QuadraticEquationCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Equações de Segundo Grau – Guia Completo 2025
+            🎯 Equações de Segundo Grau – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Simplificador de Expressões Algébricas - Fatoração e Simplificação 2025 | ${APP_NAME}`,
+      title: `Simplificador de Expressões Algébricas - Fatoração e Simplificação 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Simplificador de Expressões Algébricas - Fatoração e Simplificação 2025 | CalculadoraOnlineBR",
+      content: "Simplificador de Expressões Algébricas - Fatoração e Simplificação 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Simplificador de Expressões Algébricas - Fatoração e Simplificação 2025 | CalculadoraOnlineBR",
+      content: "Simplificador de Expressões Algébricas - Fatoração e Simplificação 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Simplificador de Expressões Algébricas Online 2025",
+        name: "Simplificador de Expressões Algébricas Online 2026",
         description:
           "Ferramenta educacional online gratuita para simplificar expressões algébricas. Fatoração automática, redução de termos semelhantes e explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/simplificador-funcoes-algebricas",
@@ -195,7 +195,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Simplificador de Expressões Algébricas 2025",
+        name: "Simplificador de Expressões Algébricas 2026",
         description: "Simplifique expressões algébricas com fatoração automática e redução de termos semelhantes. Ferramenta educacional gratuita.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/simplificador-funcoes-algebricas",
         inLanguage: "pt-BR",
@@ -759,7 +759,7 @@ export default function AlgebraicSimplifier() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Simplificador de Expressões Algébricas 2025
+          Simplificador de Expressões Algébricas 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Simplifique <strong className="text-growth-green">expressões algébricas</strong> com{" "}
@@ -944,7 +944,7 @@ export default function AlgebraicSimplifier() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Expressões Algébricas – Guia Completo 2025
+            🎯 Expressões Algébricas – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

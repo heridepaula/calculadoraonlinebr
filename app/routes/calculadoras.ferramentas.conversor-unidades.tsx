@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Conversor de Unidades 2025 – 17 Categorias de Conversão",
+      content: "Conversor de Unidades 2026 – 17 Categorias de Conversão",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Conversor de Unidades - 17 Categorias de Conversão 2025",
+        name: "Conversor de Unidades - 17 Categorias de Conversão 2026",
         description:
           "Conversor de unidades completo e gratuito com 17 categorias: comprimento, massa, volume, área, temperatura, tempo, velocidade, dados, energia, pressão, força, potência, concentração, fluxo, ângulo, iluminação e frequência. Conversão instantânea e precisa.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/conversor-unidades",
@@ -147,7 +147,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/conversor-unidades",
-          name: "Conversor de Unidades 2025 - 17 Categorias de Conversão",
+          name: "Conversor de Unidades 2026 - 17 Categorias de Conversão",
           description:
             "Conversor de unidades completo com 17 categorias de conversão. Interface intuitiva, conversão instantânea e suporte a dezenas de unidades de medida diferentes.",
           inLanguage: "pt-BR",
@@ -731,7 +731,7 @@ export default function UnitConverter() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Conversor de Unidades 2025 – 17 Categorias de Conversão
+          Conversor de Unidades 2026 – 17 Categorias de Conversão
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Converta <strong className="text-primary-blue-dark">qualquer unidade de medida</strong>{" "}

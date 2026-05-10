@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Média Estatística 2025 | ${APP_NAME}`,
+      title: `Calculadora de Média Estatística 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Média Estatística 2025 – 3 Tipos",
+      content: "Calculadora de Média Estatística 2026 – 3 Tipos",
     },
     {
       property: "og:description",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Média Estatística 2025 – 3 Tipos",
+      content: "Calculadora de Média Estatística 2026 – 3 Tipos",
     },
     {
       name: "twitter:description",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Média Estatística - Tendência Central 2025",
+        name: "Calculadora de Média Estatística - Tendência Central 2026",
         description:
           "Calculadora gratuita e confiável para calcular média aritmética, geométrica e harmônica. Análise completa de medidas de tendência central com desvio padrão, variância e explicações detalhadas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/media",
@@ -142,7 +142,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/media",
-          name: "Calculadora de Média Estatística 2025 - Tendência Central",
+          name: "Calculadora de Média Estatística 2026 - Tendência Central",
           description:
             "Calcule média aritmética, geométrica e harmônica com análise completa. Identifique medidas de tendência central, desvio padrão e variância com explicações passo a passo.",
           inLanguage: "pt-BR",
@@ -409,7 +409,7 @@ export default function MediaCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Média Estatística 2025 – Tendência Central
+          Calculadora de Média Estatística 2026 – Tendência Central
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a{" "}

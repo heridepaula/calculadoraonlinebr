@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -13,16 +13,16 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Astrológica Grátis 2025 - Mapa Astral Online | ${APP_NAME}` },
+    { title: `Calculadora Astrológica Grátis 2026 - Mapa Astral Online | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "🔮 Calculadoras Astrológicas GRÁTIS! Mapa astral, ascendente, compatibilidade de signos e numerologia. Autoconhecimento com análise detalhada dos astros - Brasil 2025.",
+        "🔮 Calculadoras Astrológicas GRÁTIS! Mapa astral, ascendente, compatibilidade de signos e numerologia. Autoconhecimento com análise detalhada dos astros - Brasil 2026.",
     },
     {
       name: "keywords",
       content:
-        "calculadora astrológica grátis, mapa astral online brasil, ascendente astrológico hora nascimento, compatibilidade signos amor, numerologia pitagórica, autoconhecimento zodíaco, horóscopo personalizado 2025, astrologia brasileira",
+        "calculadora astrológica grátis, mapa astral online brasil, ascendente astrológico hora nascimento, compatibilidade signos amor, numerologia pitagórica, autoconhecimento zodíaco, horóscopo personalizado 2026, astrologia brasileira",
     },
     {
       name: "robots",
@@ -38,7 +38,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "🔮 Calculadoras Astrológicas Grátis 2025 - Mapa Astral Online",
+      content: "🔮 Calculadoras Astrológicas Grátis 2026 - Mapa Astral Online",
     },
     {
       property: "og:description",
@@ -131,7 +131,7 @@ export default function AstrologiaIndex() {
                 "@type": "CollectionPage",
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#webpage",
                 url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
-                name: "🔮 Calculadoras Astrológicas Grátis 2025 - Mapa Astral Online Brasil",
+                name: "🔮 Calculadoras Astrológicas Grátis 2026 - Mapa Astral Online Brasil",
                 description:
                   "Calculadoras astrológicas GRÁTIS! Mapa astral, ascendente por hora de nascimento, compatibilidade de signos amor, numerologia pitagórica. Autoconhecimento completo pelos astros.",
                 keywords: "calculadora astrológica grátis, mapa astral online brasil, ascendente hora nascimento, compatibilidade signos amor, numerologia, autoconhecimento zodíaco",
@@ -217,7 +217,7 @@ export default function AstrologiaIndex() {
       <CategoryHero
         category="astrologia"
         title="Calculadoras Astrológicas"
-        subtitle="Grátis 2025"
+        subtitle="Grátis 2026"
         description="🔮 **Mapa astral online**, **ascendente astrológico** e **compatibilidade de signos** GRÁTIS! Ferramentas para **autoconhecimento** e **crescimento espiritual** baseadas na **astrologia brasileira**."
         badge={{
           icon: "🌟",

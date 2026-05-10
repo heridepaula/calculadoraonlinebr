@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Porcentagem 2025 | ${APP_NAME}`,
+      title: `Calculadora de Porcentagem 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -43,7 +43,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Porcentagem Online Gratuita - Cálculos Confiáveis 2025",
+      content: "Calculadora de Porcentagem Online Gratuita - Cálculos Confiáveis 2026",
     },
     {
       property: "og:description",
@@ -117,7 +117,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Porcentagem Online Gratuita - Cálculos Matemáticos 2025",
+        name: "Calculadora de Porcentagem Online Gratuita - Cálculos Matemáticos 2026",
         description:
           "Ferramenta educacional online gratuita para realizar cálculos confiáveis de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Resultados instantâneos com explicação passo a passo.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
@@ -697,7 +697,7 @@ export default function PercentageCalculator() {
 
       <header className="space-y-4 text-center" role="banner">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Porcentagem 2025
+          Calculadora de Porcentagem 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Realize <strong className="text-growth-green">cálculos de porcentagem</strong> de forma
@@ -1039,7 +1039,7 @@ export default function PercentageCalculator() {
               className="text-2xl font-bold text-text-primary"
               id="guia-porcentagem"
             >
-              🎯 Porcentagem – Guia Completo 2025
+              🎯 Porcentagem – Guia Completo 2026
             </CardTitle>
           </CardHeader>
           <CardContent>

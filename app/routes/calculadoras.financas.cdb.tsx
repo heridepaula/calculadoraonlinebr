@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -390,7 +390,7 @@ export default function CdbCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de CDB 2025 – Simulador com IR e IOF
+          Calculadora de CDB 2026 – Simulador com IR e IOF
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">rentabilidade líquida do seu CDB</strong>{" "}
@@ -651,7 +651,7 @@ export default function CdbCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Tipos de CDB – Guia Completo 2025
+            🎯 Tipos de CDB – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

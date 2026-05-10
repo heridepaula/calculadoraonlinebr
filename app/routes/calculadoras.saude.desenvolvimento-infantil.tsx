@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -31,7 +31,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Desenvolvimento Infantil 2025 | ${APP_NAME}`,
+      title: `Calculadora de Desenvolvimento Infantil 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -54,7 +54,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Desenvolvimento Infantil 2025 | CalculadoraOnlineBR",
+      content: "Calculadora Desenvolvimento Infantil 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -88,7 +88,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Desenvolvimento Infantil 2025 | CalculadoraOnlineBR",
+      content: "Calculadora Desenvolvimento Infantil 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -118,7 +118,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Desenvolvimento Infantil 2025",
+        name: "Calculadora de Desenvolvimento Infantil 2026",
         description:
           "Ferramenta gratuita para acompanhar o crescimento e desenvolvimento de crianças. Calcule percentis de altura e peso, marcos do desenvolvimento baseados em padrões da OMS.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
@@ -151,7 +151,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
-          name: "Calculadora de Desenvolvimento Infantil 2025 - Percentis e Crescimento",
+          name: "Calculadora de Desenvolvimento Infantil 2026 - Percentis e Crescimento",
           description:
             "Monitore o crescimento infantil facilmente. Calcule percentis de altura e peso, acompanhe marcos do desenvolvimento baseados em padrões da OMS. Ferramenta essencial para pais e profissionais da saúde.",
           inLanguage: "pt-BR",
@@ -785,7 +785,7 @@ export default function ChildDevelopmentCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Desenvolvimento Infantil 2025 – Percentis e Crescimento
+          Calculadora de Desenvolvimento Infantil 2026 – Percentis e Crescimento
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Monitore o <strong className="text-health-red">crescimento da criança</strong> com
@@ -1542,7 +1542,7 @@ export default function ChildDevelopmentCalculator() {
       <Card className="from-health-red-soft border-l-4 border-health-red bg-gradient-to-r to-primary-blue-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📚 Desenvolvimento Infantil – Guia Completo 2025
+            📚 Desenvolvimento Infantil – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

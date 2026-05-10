@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { APP_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
@@ -20,7 +20,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function TermosDeUso() {
-  const lastUpdated = "31 de agosto de 2025";
+  const lastUpdated = "31 de agosto de 2026";
 
   return (
     <div className="mx-auto max-w-4xl space-y-8">

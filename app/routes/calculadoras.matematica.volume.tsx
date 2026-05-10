@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Volume 2025 | ${APP_NAME}`,
+      title: `Calculadora de Volume 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -40,7 +40,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Área e Volume 2025 – Formas Geométricas",
+      content: "Calculadora de Área e Volume 2026 – Formas Geométricas",
     },
     {
       property: "og:description",
@@ -73,7 +73,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Área e Volume 2025 – Formas Geométricas",
+      content: "Calculadora de Área e Volume 2026 – Formas Geométricas",
     },
     {
       name: "twitter:description",
@@ -103,7 +103,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Área e Volume - Formas Geométricas 2025",
+        name: "Calculadora de Área e Volume - Formas Geométricas 2026",
         description:
           "Calculadora gratuita e confiável de área e volume para diferentes formas geométricas: cubo, esfera, cilindro, retângulo e círculo. Fórmulas matemáticas exatas 2D e 3D.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
@@ -135,7 +135,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
-          name: "Calculadora de Área e Volume 2025 - Formas Geométricas",
+          name: "Calculadora de Área e Volume 2026 - Formas Geométricas",
           description:
             "Calcule área e volume de formas geométricas: cubo, esfera, cilindro, retângulo, círculo. Fórmulas confiáveis 2D e 3D com resultados instantâneos.",
           inLanguage: "pt-BR",
@@ -488,7 +488,7 @@ export default function AreaVolumeCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Área e Perímetro 2025 – Formas Geométricas
+          Calculadora de Área e Perímetro 2026 – Formas Geométricas
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">área e perímetro</strong> de diferentes{" "}
@@ -760,7 +760,7 @@ export default function AreaVolumeCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Formas Geométricas – Guia Completo 2025
+            🎯 Formas Geométricas – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

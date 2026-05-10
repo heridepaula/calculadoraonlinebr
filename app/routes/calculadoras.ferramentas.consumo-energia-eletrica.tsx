@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: `Calculadora de Consumo de Energia Elétrica 2025 | ${APP_NAME}`,
+      title: `Calculadora de Consumo de Energia Elétrica 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Consumo Energia Elétrica 2025 – Analise por Aparelho",
+      content: "Calculadora Consumo Energia Elétrica 2026 – Analise por Aparelho",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Consumo de Energia Elétrica - Análise por Aparelho 2025",
+        name: "Calculadora de Consumo de Energia Elétrica - Análise por Aparelho 2026",
         description:
           "Ferramenta completa para calcular consumo de energia elétrica por aparelho. Analise kWh mensal, custo da conta de luz, vampirismo energético e compare diferentes equipamentos domésticos.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/consumo-energia-eletrica",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/consumo-energia-eletrica",
-          name: "Calculadora Consumo Energia Elétrica 2025 - Análise por Aparelho",
+          name: "Calculadora Consumo Energia Elétrica 2026 - Análise por Aparelho",
           description:
             "Calcule o consumo de energia elétrica de qualquer aparelho doméstico. Análise completa de kWh, custo mensal e vampirismo energético com biblioteca de equipamentos.",
           inLanguage: "pt-BR",
@@ -317,7 +317,7 @@ const APPLIANCES_DATABASE = {
   ],
 };
 
-// Bandeiras tarifárias atualizadas 2025
+// Bandeiras tarifárias atualizadas 2026
 const TARIFF_FLAGS = {
   verde: { name: "Verde", cost: 0.0, color: "text-green-600" },
   amarela: { name: "Amarela", cost: 0.01885, color: "text-yellow-600" },
@@ -568,7 +568,7 @@ export default function ConsumoEnergiaEletrica() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          🔌⚡ Calculadora de Consumo de Energia Elétrica 2025
+          🔌⚡ Calculadora de Consumo de Energia Elétrica 2026
         </h1>
         <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark">
           Calcule o <strong className="text-primary-blue-dark">consumo real de qualquer aparelho</strong>, analise

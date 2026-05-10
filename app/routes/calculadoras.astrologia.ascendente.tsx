@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect, useRef } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
 import {
@@ -20,7 +20,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "🔮 Calcular Ascendente GRÁTIS! Informe data, hora exata e local de nascimento. Descubra seu signo ascendente e máscara social com mapa astral detalhado - Brasil 2025.",
+        "🔮 Calcular Ascendente GRÁTIS! Informe data, hora exata e local de nascimento. Descubra seu signo ascendente e máscara social com mapa astral detalhado - Brasil 2026.",
     },
 
     // Keywords otimizadas
@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     // Open Graph
     {
       property: "og:title",
-      content: "🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral 2025",
+      content: "🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral 2026",
     },
     {
       property: "og:description",
@@ -1381,7 +1381,7 @@ export default function CalculadoraAscendente() {
                   "@id":
                     "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente#webpage",
                   url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
-                  name: "Calculadora de Ascendente Astrológico Grátis 2025",
+                  name: "Calculadora de Ascendente Astrológico Grátis 2026",
                   isPartOf: {
                     "@id": "https://www.calculadoraonlinebr.com.br/#website",
                   },
@@ -1505,7 +1505,7 @@ export default function CalculadoraAscendente() {
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral 2025
+            🔮 Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral 2026
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Descubra seu <strong className="text-math-purple-dark">signo ascendente</strong> e
@@ -1618,7 +1618,7 @@ export default function CalculadoraAscendente() {
         <Card className="border-l-4 border-math-purple bg-gradient-to-r from-math-purple/10 to-primary-blue/10 duration-300">
           <CardHeader>
             <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-              🌟 Elementos dos Signos – Guia Completo 2025
+              🌟 Elementos dos Signos – Guia Completo 2026
             </CardTitle>
           </CardHeader>
           <CardContent>

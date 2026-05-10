@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -40,7 +40,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Comparador Renda Fixa 2025 | ${APP_NAME}`,
+      title: `Comparador Renda Fixa 2026 | ${APP_NAME}`,
     },
     {
       name: "viewport",
@@ -64,7 +64,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Compare renda fixa 2025: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
+        "Compare renda fixa 2026: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "publisher", content: "CalculadoraOnlineBR" },
@@ -89,12 +89,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Comparador Renda Fixa 2025 – Compare Investimentos",
+      content: "Comparador Renda Fixa 2026 – Compare Investimentos",
     },
     {
       property: "og:description",
       content:
-        "Compare renda fixa 2025: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
+        "Compare renda fixa 2026: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
     },
     {
       property: "og:image",
@@ -126,7 +126,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Comparador Renda Fixa 2025 – Compare Investimentos",
+      content: "Comparador Renda Fixa 2026 – Compare Investimentos",
     },
     {
       name: "twitter:description",
@@ -156,7 +156,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Comparador de Renda Fixa - Simulador de Investimentos 2025",
+        name: "Comparador de Renda Fixa - Simulador de Investimentos 2026",
         description:
           "Comparador gratuito de renda fixa: CDB, LCI, LCA, Tesouro Direto e Poupança. Compare rendimentos com impostos e encontre o melhor investimento.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
@@ -194,7 +194,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
-          name: "Comparador de Renda Fixa 2025 - Simulador Completo",
+          name: "Comparador de Renda Fixa 2026 - Simulador Completo",
           description:
             "Compare CDB, LCI/LCA, Tesouro Direto e Poupança com cálculos completos de IR. Descubra o investimento com melhor rentabilidade líquida.",
           inLanguage: "pt-BR",
@@ -614,7 +614,7 @@ export default function FixedIncomeComparison() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Comparador de Renda Fixa 2025 – Compare Investimentos
+          Comparador de Renda Fixa 2026 – Compare Investimentos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Compare{" "}
@@ -973,7 +973,7 @@ export default function FixedIncomeComparison() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Renda Fixa – Guia Completo 2025
+            🎯 Renda Fixa – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

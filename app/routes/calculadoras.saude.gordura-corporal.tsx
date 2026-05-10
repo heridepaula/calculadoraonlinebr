@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Gordura Corporal 2025 ${APP_NAME}`,
+      title: `Calculadora de Gordura Corporal 2026 ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Gordura Corporal 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Gordura Corporal 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Gordura Corporal 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Gordura Corporal 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Gordura Corporal Online 2025",
+        name: "Calculadora de Gordura Corporal Online 2026",
         description:
           "Ferramenta gratuita para calcular percentual de gordura corporal, massa magra e composição corporal. Métodos científicos US Navy e Jackson-Pollock com análise personalizada.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
@@ -620,7 +620,7 @@ export default function BodyFatCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Gordura Corporal 2025
+          Calculadora de Gordura Corporal 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule <strong className="text-health-red">percentual de gordura corporal</strong> com
@@ -1031,7 +1031,7 @@ export default function BodyFatCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Gordura Corporal – Guia Completo 2025
+            🎯 Gordura Corporal – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

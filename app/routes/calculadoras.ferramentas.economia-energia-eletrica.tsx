@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: `Calculadora de Economia de Energia Elétrica 2025 | ${APP_NAME}`,
+      title: `Calculadora de Economia de Energia Elétrica 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Economia Energia Elétrica 2025 – Reduza sua Conta",
+      content: "Calculadora Economia Energia Elétrica 2026 – Reduza sua Conta",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Economia de Energia Elétrica - Análise Completa 2025",
+        name: "Calculadora de Economia de Energia Elétrica - Análise Completa 2026",
         description:
           "Ferramenta completa para otimização de consumo elétrico. Analise consumo por aparelho, simule troca de lâmpadas LED, bandeiras tarifárias, energia solar e vampirismo energético.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/economia-energia-eletrica",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/economia-energia-eletrica",
-          name: "Calculadora Economia Energia Elétrica 2025 - Análise Completa",
+          name: "Calculadora Economia Energia Elétrica 2026 - Análise Completa",
           description:
             "Reduza sua conta de luz com análise completa de consumo. Simuladores de LED, energia solar, bandeiras tarifárias e vampirismo energético.",
           inLanguage: "pt-BR",
@@ -305,7 +305,7 @@ const APPLIANCES_DATABASE = {
   ],
 };
 
-// Bandeiras tarifárias 2025
+// Bandeiras tarifárias 2026
 const TARIFF_FLAGS = {
   verde: { name: "Verde", cost: 0.0, color: "text-green-600" },
   amarela: { name: "Amarela", cost: 0.01885, color: "text-yellow-600" },
@@ -553,7 +553,7 @@ export default function EconomiaEnergiaEletrica() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          💡⚡ Calculadora de Economia de Energia Elétrica 2025
+          💡⚡ Calculadora de Economia de Energia Elétrica 2026
         </h1>
         <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark">
           Analise seu <strong className="text-primary-blue-dark">consumo por aparelho</strong>, simule economia com
@@ -1070,7 +1070,7 @@ export default function EconomiaEnergiaEletrica() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎓 Guia Completo: Economia de Energia Elétrica 2025
+            🎓 Guia Completo: Economia de Energia Elétrica 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1109,7 +1109,7 @@ export default function EconomiaEnergiaEletrica() {
             {/* Bandeiras Tarifárias */}
             <div className="rounded-xl border border-system-warning/20 bg-gray-900 p-6">
               <h3 className="mb-4 flex items-center text-xl font-bold text-system-warning">
-                🚩 Bandeiras Tarifárias 2025
+                🚩 Bandeiras Tarifárias 2026
               </h3>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">

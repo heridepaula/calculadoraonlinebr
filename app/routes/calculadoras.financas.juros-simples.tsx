@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import {
   Card,
@@ -41,7 +41,7 @@ ChartJS.register(
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Juros Simples 2025 | ${APP_NAME}`,
+      title: `Calculadora de Juros Simples 2026 | ${APP_NAME}`,
     },
     {
       name: "viewport",
@@ -83,7 +83,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Juros Simples 2025 – Calculadora Online Gratuita",
+      content: "Juros Simples 2026 – Calculadora Online Gratuita",
     },
     {
       property: "og:description",
@@ -117,7 +117,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Juros Simples 2025 – Calculadora Online Gratuita",
+      content: "Juros Simples 2026 – Calculadora Online Gratuita",
     },
     {
       name: "twitter:description",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Juros Simples - Simulador Completo 2025",
+        name: "Calculadora de Juros Simples - Simulador Completo 2026",
         description:
           "Calculadora gratuita e confiável de juros simples. Simule o crescimento linear do seu capital, visualize gráficos e tabela detalhada com resultados claros.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
@@ -177,7 +177,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
-          name: "Calculadora de Juros Simples 2025 - Simulador Completo",
+          name: "Calculadora de Juros Simples 2026 - Simulador Completo",
           description:
             "Simule crescimento linear do capital com juros simples. Visualize gráficos claros, tabela detalhada e entenda como funciona o cálculo de juros simples.",
           inLanguage: "pt-BR",
@@ -473,7 +473,7 @@ export default function SimpleInterestCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Juros Simples 2025 – Simulador Completo
+          Calculadora de Juros Simples 2026 – Simulador Completo
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule o <strong className="text-growth-green">crescimento linear do seu capital</strong>{" "}
@@ -1023,7 +1023,7 @@ export default function SimpleInterestCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Juros Simples – Guia Completo 2025
+            🎯 Juros Simples – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

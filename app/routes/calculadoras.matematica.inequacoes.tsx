@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Inequações 1º e 2º Grau 2025 | ${APP_NAME}`,
+      title: `Calculadora de Inequações 1º e 2º Grau 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Inequações 1º e 2º Grau 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Inequações 1º e 2º Grau 2026 | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Inequações 1º e 2º Grau 2025 | CalculadoraOnlineBR",
+      content: "Calculadora de Inequações 1º e 2º Grau 2026 | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Inequações de 1º e 2º Grau Online 2025",
+        name: "Calculadora de Inequações de 1º e 2º Grau Online 2026",
         description:
           "Ferramenta educacional online gratuita para resolver inequações de primeiro e segundo grau. Encontre intervalos de solução com explicação passo a passo e representação gráfica.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/inequacoes",
@@ -195,7 +195,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Calculadora de Inequações de 1º e 2º Grau 2025",
+        name: "Calculadora de Inequações de 1º e 2º Grau 2026",
         description: "Resolva inequações de 1º e 2º grau com explicação passo a passo e representação gráfica. Ferramenta educacional gratuita.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/inequacoes",
         inLanguage: "pt-BR",
@@ -717,7 +717,7 @@ export default function InequalityCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Inequações de 1º e 2º Grau 2025
+          Calculadora de Inequações de 1º e 2º Grau 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Resolva <strong className="text-growth-green">inequações de primeiro e segundo grau</strong> com{" "}
@@ -932,7 +932,7 @@ export default function InequalityCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Inequações – Guia Completo 2025
+            🎯 Inequações – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

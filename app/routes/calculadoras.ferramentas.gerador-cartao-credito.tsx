@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Gerador Cartão de Crédito 2025 – Números de Teste Válidos",
+      content: "Gerador Cartão de Crédito 2026 – Números de Teste Válidos",
     },
     {
       name: "twitter:description",
@@ -112,7 +112,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Gerador de Cartão de Crédito - Números de Teste para Desenvolvimento 2025",
+        name: "Gerador de Cartão de Crédito - Números de Teste para Desenvolvimento 2026",
         description:
           "Ferramenta educacional para gerar números de cartão de crédito válidos para testes e desenvolvimento. Suporte para Visa, Mastercard, American Express e outras bandeiras.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
-          name: "Gerador Cartão de Crédito 2025 - Números de Teste Válidos",
+          name: "Gerador Cartão de Crédito 2026 - Números de Teste Válidos",
           description:
             "Gerador de números de cartão de crédito para testes e desenvolvimento. Suporte para todas as principais bandeiras e validação com algoritmo de Luhn.",
           inLanguage: "pt-BR",
@@ -502,7 +502,7 @@ export default function CreditCardGenerator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Gerador Cartão de Crédito 2025 – Números de Teste Válidos
+          Gerador Cartão de Crédito 2026 – Números de Teste Válidos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Gere <strong className="text-primary-blue-dark">números de cartão válidos</strong> para{" "}

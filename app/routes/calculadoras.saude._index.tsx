@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -13,7 +13,7 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras de Saúde 2025 | ${APP_NAME}` },
+    { title: `Calculadoras de Saúde 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
     { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
-    { property: "og:title", content: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
+    { property: "og:title", content: "Calculadoras Saúde 2026 – Ferramentas Médicas" },
     {
       property: "og:description",
       content: "Monitore sua saúde com nossas calculadoras médicas gratuitas e confiáveis.",
@@ -40,7 +40,7 @@ export const meta: MetaFunction = () => {
     { property: "og:image:alt", content: "Calculadoras de Saúde - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: "Calculadoras Saúde 2025 – Ferramentas Médicas" },
+    { name: "twitter:title", content: "Calculadoras Saúde 2026 – Ferramentas Médicas" },
     {
       name: "twitter:description",
       content: "Ferramentas de saúde gratuitas para monitorar seu bem-estar.",

@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: `Calculadora: Carro Elétrico vs Combustão 2025 | ${APP_NAME}`,
+      title: `Calculadora: Carro Elétrico vs Combustão 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -47,7 +47,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Carro Elétrico vs Combustão – Análise Completa de Custos 2025",
+      content: "Calculadora Carro Elétrico vs Combustão – Análise Completa de Custos 2026",
     },
     {
       property: "og:description",
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora Carro Elétrico vs Combustão 2025 – Análise Completa",
+      content: "Calculadora Carro Elétrico vs Combustão 2026 – Análise Completa",
     },
     {
       name: "twitter:description",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Carro Elétrico vs Combustão - Análise Completa 2025",
+        name: "Calculadora Carro Elétrico vs Combustão - Análise Completa 2026",
         description:
           "Ferramenta completa para comparar custos entre carros elétricos e combustão. Análise de payback inteligente, simulação de perfis de uso real, equivalência em litros e impacto ambiental integrado.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/carro-eletrico-combustao",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/carro-eletrico-combustao",
-          name: "Calculadora Carro Elétrico vs Combustão 2025 - Análise Completa",
+          name: "Calculadora Carro Elétrico vs Combustão 2026 - Análise Completa",
           description:
             "Compare custos entre carros elétricos e combustão com análise de payback, perfis de uso e impacto ambiental. Calculadora mais completa do Brasil.",
           inLanguage: "pt-BR",
@@ -217,7 +217,7 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
-            name: "Vale a pena comprar um carro elétrico em 2025?",
+            name: "Vale a pena comprar um carro elétrico em 2026?",
             acceptedAnswer: {
               "@type": "Answer",
               text: "Depende do seu perfil de uso. Para motoristas que fazem mais de 1.000 km/mês, especialmente em área urbana, carros elétricos podem gerar economia de 60-70%. Use nossa calculadora para análise personalizada.",
@@ -361,7 +361,7 @@ export default function CarroEletricoVsCombustao() {
 
   // Estados brasileiros com dados de IPVA e benefícios para elétricos
   const stateData = {
-    SP: { ipva: 4.0, electricBenefits: ["Isenção IPVA até 2025", "Rodízio liberado"] },
+    SP: { ipva: 4.0, electricBenefits: ["Isenção IPVA até 2026", "Rodízio liberado"] },
     RJ: { ipva: 4.0, electricBenefits: ["50% desconto IPVA", "Rodízio liberado"] },
     MG: { ipva: 3.8, electricBenefits: ["Isenção IPVA", "Benefícios municipais"] },
     RS: { ipva: 3.0, electricBenefits: ["Isenção IPVA", "Desconto taxas"] },
@@ -653,7 +653,7 @@ export default function CarroEletricoVsCombustao() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          🚗⚡ Calculadora: Carro Elétrico vs Combustão 2025
+          🚗⚡ Calculadora: Carro Elétrico vs Combustão 2026
         </h1>
         <p className="mx-auto max-w-4xl text-lg text-text-secondary-dark">
           Compare <strong className="text-primary-blue-dark">custos completos</strong> entre carros elétricos e combustão.
@@ -1294,7 +1294,7 @@ export default function CarroEletricoVsCombustao() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎓 Guia Completo: Elétrico vs Combustão 2025
+            🎓 Guia Completo: Elétrico vs Combustão 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1411,7 +1411,7 @@ export default function CarroEletricoVsCombustao() {
       <Card className="border-l-4 border-system-info bg-system-info-light duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🚗 Comparativo: Modelos Populares no Brasil 2025
+            🚗 Comparativo: Modelos Populares no Brasil 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -1582,7 +1582,7 @@ export default function CarroEletricoVsCombustao() {
               <h3 className="mb-3 text-lg font-semibold text-primary-blue">📈 Crescimento</h3>
               <div className="space-y-2 text-sm text-text-secondary">
                 <div>• <strong>+91%</strong> vendas de elétricos em 2024</div>
-                <div>• <strong>15.000</strong> eletropostos previstos para 2025</div>
+                <div>• <strong>15.000</strong> eletropostos previstos para 2026</div>
                 <div>• <strong>R$ 2 bi</strong> em investimentos confirmados</div>
                 <div>• <strong>12 marcas</strong> com elétricos no Brasil</div>
               </div>
@@ -1605,7 +1605,7 @@ export default function CarroEletricoVsCombustao() {
         title="Perguntas Frequentes - Carro Elétrico vs Combustão"
         items={[
           {
-            question: "Vale a pena comprar um carro elétrico em 2025?",
+            question: "Vale a pena comprar um carro elétrico em 2026?",
             answer:
               "Depende do seu perfil de uso. Para motoristas que fazem mais de 1.000 km/mês, especialmente em área urbana, carros elétricos podem gerar economia de 60-70%. Motoristas de app e uso comercial se beneficiam mais. Use nossa calculadora para análise personalizada do seu caso.",
             borderColor: "primary-blue",

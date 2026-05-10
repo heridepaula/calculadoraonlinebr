@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -14,7 +14,7 @@ import type { Calculator } from "~/types";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadoras de Datas Grátis 2025 | Diferença entre Datas, Idade e Dias Úteis | ${APP_NAME}`,
+      title: `Calculadoras de Datas Grátis 2026 | Diferença entre Datas, Idade e Dias Úteis | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -78,7 +78,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:title",
-      content: "Calculadoras de Datas Grátis 2025 | Cálculo de Tempo",
+      content: "Calculadoras de Datas Grátis 2026 | Cálculo de Tempo",
     },
     {
       name: "twitter:description",
@@ -131,7 +131,7 @@ export default function DatasIndex() {
                 "@type": "CollectionPage",
                 "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas#webpage",
                 url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
-                name: "Calculadoras de Datas Grátis 2025",
+                name: "Calculadoras de Datas Grátis 2026",
                 description:
                   "Calcule diferenças entre datas, períodos e intervalos temporais GRÁTIS! Ferramentas confiáveis para planejamento, dias úteis e cálculos de tempo.",
                 isPartOf: {

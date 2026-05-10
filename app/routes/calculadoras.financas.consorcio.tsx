@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Consórcio 2025 | ${APP_NAME}`,
+      title: `Calculadora de Consórcio 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -46,7 +46,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora Consórcio 2025 – Simulador Gratuito",
+      content: "Calculadora Consórcio 2026 – Simulador Gratuito",
     },
     {
       property: "og:description",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Consórcio 2025 – Simulador de Parcelas e Contemplação",
+      content: "Calculadora de Consórcio 2026 – Simulador de Parcelas e Contemplação",
     },
     {
       name: "twitter:description",
@@ -114,7 +114,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Consórcio - Simulador de Parcelas e Contemplação 2025",
+        name: "Calculadora de Consórcio - Simulador de Parcelas e Contemplação 2026",
         description:
           "Simulador gratuito de consórcio para imóveis e veículos. Calcule parcelas, taxa de administração, valor do crédito e probabilidade de contemplação por sorteio.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
@@ -146,7 +146,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
-          name: "Calculadora de Consórcio 2025 - Simulador de Parcelas e Contemplação",
+          name: "Calculadora de Consórcio 2026 - Simulador de Parcelas e Contemplação",
           description:
             "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação por sorteio.",
           inLanguage: "pt-BR",
@@ -480,7 +480,7 @@ export default function ConsortiumCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora Consórcio 2025 – Simule Parcelas
+          Calculadora Consórcio 2026 – Simule Parcelas
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule as <strong className="text-growth-green">parcelas do seu consórcio</strong>{" "}
@@ -784,7 +784,7 @@ export default function ConsortiumCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🎯 Tipos de Consórcio – Guia Completo 2025
+            🎯 Tipos de Consórcio – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

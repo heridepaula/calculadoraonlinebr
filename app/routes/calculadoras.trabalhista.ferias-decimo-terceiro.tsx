@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -27,12 +27,12 @@ import {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Férias e 13º Salário 2025 | ${APP_NAME}`,
+      title: `Calculadora de Férias e 13º Salário 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Calcule férias e 13º salário 2025: valores líquidos, INSS, IRRF e abono pecuniário. Calculadora atualizada conforme CLT brasileira.",
+        "Calcule férias e 13º salário 2026: valores líquidos, INSS, IRRF e abono pecuniário. Calculadora atualizada conforme CLT brasileira.",
     },
     {
       name: "keywords",
@@ -58,12 +58,12 @@ export const meta: MetaFunction = () => {
     { name: "bingbot", content: "index,follow" },
     {
       property: "og:title",
-      content: "Calculadora de Férias e 13º Salário 2025 – CLT Atualizada",
+      content: "Calculadora de Férias e 13º Salário 2026 – CLT Atualizada",
     },
     {
       property: "og:description",
       content:
-        "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+        "Calcule férias e 13º salário 2026 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
     },
     { property: "og:type", content: "website" },
     {
@@ -79,17 +79,17 @@ export const meta: MetaFunction = () => {
     },
     { property: "og:image:width", content: "512" },
     { property: "og:image:height", content: "512" },
-    { property: "og:image:alt", content: "Calculadora de Férias e 13º Salário CLT 2025 - CalculadoraOnlineBR" },
+    { property: "og:image:alt", content: "Calculadora de Férias e 13º Salário CLT 2026 - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
     {
       name: "twitter:title",
-      content: `Calculadora de Férias e 13º Salário CLT 2025 - ${APP_NAME}`,
+      content: `Calculadora de Férias e 13º Salário CLT 2026 - ${APP_NAME}`,
     },
     {
       name: "twitter:description",
       content:
-        "Descubra quanto você vai receber de férias e décimo terceiro! Cálculo completo com todas as tabelas oficiais 2025.",
+        "Descubra quanto você vai receber de férias e décimo terceiro! Cálculo completo com todas as tabelas oficiais 2026.",
     },
     {
       name: "twitter:image",
@@ -109,9 +109,9 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Férias e 13º Salário - Simulador CLT 2025",
+        name: "Calculadora de Férias e 13º Salário - Simulador CLT 2026",
         description:
-          "Simulador gratuito e confiável de férias e décimo terceiro salário com tabelas INSS e IRRF 2025. Calcule valores líquidos, abono pecuniário e adiantamentos conforme CLT.",
+          "Simulador gratuito e confiável de férias e décimo terceiro salário com tabelas INSS e IRRF 2026. Calcule valores líquidos, abono pecuniário e adiantamentos conforme CLT.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
         applicationCategory: "FinanceApplication",
         operatingSystem: "Web Browser",
@@ -142,9 +142,9 @@ export const meta: MetaFunction = () => {
           "@type": "WebPage",
           "@id":
             "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
-          name: "Calculadora de Férias e 13º Salário 2025 - Simulador CLT",
+          name: "Calculadora de Férias e 13º Salário 2026 - Simulador CLT",
           description:
-            "Calcule férias e 13º salário 2025 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
+            "Calcule férias e 13º salário 2026 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -216,7 +216,7 @@ export const meta: MetaFunction = () => {
             name: "Como calcular férias e 13º salário?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Férias: salário + 1/3 constitucional. 13º salário: salário ÷ 12 × meses trabalhados. Ambos têm descontos de INSS e IRRF conforme tabelas 2025.",
+              text: "Férias: salário + 1/3 constitucional. 13º salário: salário ÷ 12 × meses trabalhados. Ambos têm descontos de INSS e IRRF conforme tabelas 2026.",
             },
           },
           {
@@ -480,7 +480,7 @@ export default function VacationAndThirteenthCalculator() {
       <div className="flex flex-col items-center space-y-8">
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-            🏖️ Calculadora de Férias e 13º Salário - CLT 2025
+            🏖️ Calculadora de Férias e 13º Salário - CLT 2026
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
             Calcule{" "}
@@ -488,11 +488,11 @@ export default function VacationAndThirteenthCalculator() {
             detalhamento! Inclui{" "}
             <strong className="text-growth-green">INSS, IRRF, abono pecuniário</strong> e
             <strong className="text-system-warning"> adiantamentos</strong> conforme as regras da
-            CLT e tabelas oficiais 2025.
+            CLT e tabelas oficiais 2026.
           </p>
           <div className="inline-block rounded-lg bg-gradient-to-r from-primary-blue-light via-growth-green-soft to-system-warning/20 p-4">
             <p className="text-sm font-medium text-text-primary">
-              📊 <strong>Tabelas Oficiais 2025</strong> • ⚖️ <strong>100% Conforme CLT</strong> • 💰{" "}
+              📊 <strong>Tabelas Oficiais 2026</strong> • ⚖️ <strong>100% Conforme CLT</strong> • 💰{" "}
               <strong>Cálculo em Tempo Real</strong> • 📋 <strong>Memória de Cálculo</strong>
             </p>
           </div>
@@ -707,7 +707,7 @@ export default function VacationAndThirteenthCalculator() {
               <div className="rounded-lg border border-primary-blue/20 bg-gradient-to-r from-primary-blue/10 to-growth-green/10 p-4">
                 <div className="text-center">
                   <h4 className="mb-2 font-semibold text-primary-blue-dark">
-                    📊 Tabelas Oficiais 2025
+                    📊 Tabelas Oficiais 2026
                   </h4>
                   <p className="text-sm text-text-secondary">
                     💼 <strong>INSS:</strong> 7.5% até R$ 1.518 | 9% até R$ 2.794 | 12% até R$ 4.191
@@ -997,7 +997,7 @@ export default function VacationAndThirteenthCalculator() {
         {/* Conteúdo Educacional */}
         <Card className="w-full">
           <CardHeader>
-            <CardTitle as="h2">📚 Guia Completo: Férias e 13º Salário - CLT 2025</CardTitle>
+            <CardTitle as="h2">📚 Guia Completo: Férias e 13º Salário - CLT 2026</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6 text-text-secondary">
@@ -1195,11 +1195,11 @@ export default function VacationAndThirteenthCalculator() {
               {/* Tabelas Oficiais */}
               <section>
                 <h3 className="mb-3 text-xl font-semibold text-text-primary">
-                  📋 Tabelas Oficiais 2025
+                  📋 Tabelas Oficiais 2026
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">🏛️ Tabela INSS 2025</h4>
+                    <h4 className="mb-2 font-semibold text-system-info">🏛️ Tabela INSS 2026</h4>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
                         <span>Até R$ 1.518,00:</span>
@@ -1226,7 +1226,7 @@ export default function VacationAndThirteenthCalculator() {
                     </div>
                   </div>
                   <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">💰 Tabela IRRF 2025</h4>
+                    <h4 className="mb-2 font-semibold text-system-warning">💰 Tabela IRRF 2026</h4>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
                         <span>Até R$ 2.259,20:</span>

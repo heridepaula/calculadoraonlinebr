@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Peso na Gravidez 2025 | ${APP_NAME}`,
+      title: `Peso na Gravidez 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Peso na Gravidez 2025 segundo OMS | CalculadoraOnlineBR",
+      content: "Peso na Gravidez 2026 segundo OMS | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Peso na Gravidez 2025 segundo OMS | CalculadoraOnlineBR",
+      content: "Peso na Gravidez 2026 segundo OMS | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -149,7 +149,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora Peso na Gravidez segundo OMS 2025",
+        name: "Calculadora Peso na Gravidez segundo OMS 2026",
         description:
           "Ferramenta gratuita para monitorar ganho de peso gestacional segundo diretrizes da OMS. Calcula IMC pré-gestacional, ganho recomendado por trimestre e acompanha evolução da gravidez.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
@@ -661,7 +661,7 @@ export default function PregnancyWeightCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Peso na Gravidez 2025 segundo OMS
+          Peso na Gravidez 2026 segundo OMS
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Monitore seu <strong className="text-health-red">ganho de peso gestacional</strong> com base
@@ -1085,7 +1085,7 @@ export default function PregnancyWeightCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🤰 Peso na Gravidez – Guia Completo OMS 2025
+            🤰 Peso na Gravidez – Guia Completo OMS 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

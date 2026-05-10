@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Moda Estatística 2025 | ${APP_NAME}`,
+      title: `Calculadora de Moda Estatística 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Moda 2025 – Cálculo Estatístico de Moda",
+      content: "Calculadora de Moda 2026 – Cálculo Estatístico de Moda",
     },
     {
       property: "og:description",
@@ -78,7 +78,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Moda 2025 – Cálculo Estatístico de Moda",
+      content: "Calculadora de Moda 2026 – Cálculo Estatístico de Moda",
     },
     {
       name: "twitter:description",
@@ -109,7 +109,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Moda - Estatística 2025",
+        name: "Calculadora de Moda - Estatística 2026",
         description:
           "Ferramenta gratuita para calcular a moda estatística de conjuntos de números. Identifica amodal, bimodal e multimodal com explicações detalhadas.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/moda",
@@ -141,7 +141,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/moda",
-          name: "Calculadora de Moda 2025 - Estatística",
+          name: "Calculadora de Moda 2026 - Estatística",
           description:
             "Calculadora gratuita de moda estatística. Calcule a moda de números, identifique amodal, bimodal, multimodal com explicações passo a passo.",
           inLanguage: "pt-BR",
@@ -370,7 +370,7 @@ export default function ModeCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Moda Estatística 2025
+          Calculadora de Moda Estatística 2026
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           <strong className="text-math-purple">Calcule a moda de números</strong> facilmente.

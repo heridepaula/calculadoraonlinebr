@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -13,7 +13,7 @@ import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Matemáticas 2025 | ${APP_NAME}` },
+    { title: `Calculadoras Matemáticas 2026 | ${APP_NAME}` },
     {
       name: "description",
       content:
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
     { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica" },
-    { property: "og:title", content: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
+    { property: "og:title", content: "Calculadoras Matemáticas 2026 – Ferramenta Grátis" },
     {
       property: "og:description",
       content: "Resolva cálculos matemáticos do dia a dia com nossas ferramentas gratuitas.",
@@ -40,7 +40,7 @@ export const meta: MetaFunction = () => {
     { property: "og:image:alt", content: "Calculadoras Matemáticas - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: "Calculadoras Matemáticas 2025 – Ferramenta Grátis" },
+    { name: "twitter:title", content: "Calculadoras Matemáticas 2026 – Ferramenta Grátis" },
     {
       name: "twitter:description",
       content: "Ferramentas matemáticas gratuitas para resolver cálculos rapidamente.",

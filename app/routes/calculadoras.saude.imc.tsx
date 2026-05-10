@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { useIndexNow } from "~/hooks/useIndexNow";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de IMC 2025 | ${APP_NAME}`,
+      title: `Calculadora de IMC 2026 | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de IMC 2025 com Taxa Metabólica | CalculadoraOnlineBR",
+      content: "Calculadora de IMC 2026 com Taxa Metabólica | CalculadoraOnlineBR",
     },
     {
       property: "og:description",
@@ -74,7 +74,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de IMC 2025 com Taxa Metabólica | CalculadoraOnlineBR",
+      content: "Calculadora de IMC 2026 com Taxa Metabólica | CalculadoraOnlineBR",
     },
     {
       name: "twitter:description",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de IMC com Taxa Metabólica 2025",
+        name: "Calculadora de IMC com Taxa Metabólica 2026",
         description:
           "Ferramenta gratuita para calcular IMC, taxa metabólica basal e percentual de gordura corporal. Análise completa por idade, sexo e classificação de saúde.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
@@ -648,7 +648,7 @@ export default function BMICalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de IMC 2025 com Taxa Metabólica
+          Calculadora de IMC 2026 com Taxa Metabólica
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule <strong className="text-health-red">IMC, taxa metabólica basal</strong> e
@@ -976,7 +976,7 @@ export default function BMICalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            📏 IMC e Taxa Metabólica – Guia Completo 2025
+            📏 IMC e Taxa Metabólica – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>

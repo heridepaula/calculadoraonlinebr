@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Diferença entre Datas 2025 – Calcule Intervalos",
+      content: "Calculadora de Diferença entre Datas 2026 – Calcule Intervalos",
     },
     {
       name: "twitter:description",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Diferença entre Datas - Calculador de Intervalos 2025",
+        name: "Calculadora de Diferença entre Datas - Calculador de Intervalos 2026",
         description:
           "Ferramenta gratuita para calcular diferenças entre datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
@@ -142,7 +142,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
-          name: "Calculadora de Diferença entre Datas 2025 - Calcule Intervalos",
+          name: "Calculadora de Diferença entre Datas 2026 - Calcule Intervalos",
           description:
             "Calcule a diferença entre duas datas em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e idade.",
           inLanguage: "pt-BR",
@@ -462,7 +462,7 @@ export default function DateDifferenceCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Diferença entre Datas 2025 – Calcule Intervalos
+          Calculadora de Diferença entre Datas 2026 – Calcule Intervalos
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Calcule a <strong className="text-growth-green">diferença exata entre duas datas</strong>{" "}
@@ -698,7 +698,7 @@ export default function DateDifferenceCalculator() {
                 id="practical-applications"
                 className="text-2xl font-bold text-text-primary"
               >
-                🎯 Aplicações Práticas – Guia Completo 2025
+                🎯 Aplicações Práticas – Guia Completo 2026
               </CardTitle>
             </CardHeader>
             <CardContent>

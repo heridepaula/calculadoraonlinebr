@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import {
   Card,
@@ -17,12 +17,12 @@ export const meta: MetaFunction = () => {
   return [
     { name: "viewport", content: "width=device-width,initial-scale=1" },
     {
-      title: `Teste CPS 2025: Clicks Por Segundo Grátis | ${APP_NAME}`,
+      title: `Teste CPS 2026: Clicks Por Segundo Grátis | ${APP_NAME}`,
     },
     {
       name: "description",
       content:
-        "Teste sua velocidade de clique com CPS (Clicks Por Segundo) 2025. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!",
+        "Teste sua velocidade de clique com CPS (Clicks Por Segundo) 2026. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!",
     },
     {
       name: "keywords",
@@ -48,12 +48,12 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Teste CPS 2025: Clicks Por Segundo Grátis",
+      content: "Teste CPS 2026: Clicks Por Segundo Grátis",
     },
     {
       property: "og:description",
       content:
-        "Teste sua velocidade de clique com CPS 2025. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!",
+        "Teste sua velocidade de clique com CPS 2026. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!",
     },
     {
       property: "og:image",
@@ -83,12 +83,12 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Teste CPS 2025: Clicks Por Segundo Grátis",
+      content: "Teste CPS 2026: Clicks Por Segundo Grátis",
     },
     {
       name: "twitter:description",
       content:
-        "Teste sua velocidade de clique com CPS 2025. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis!",
+        "Teste sua velocidade de clique com CPS 2026. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis!",
     },
     {
       name: "twitter:image",
@@ -122,7 +122,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Teste CPS - Clicks Por Segundo 2025",
+        name: "Teste CPS - Clicks Por Segundo 2026",
         description:
           "Ferramenta avançada para testar velocidade de clique com análise de padrões, rankings e treinamento adaptativo. CPS com gamificação completa.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
@@ -182,7 +182,7 @@ export const meta: MetaFunction = () => {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
-        name: "Teste CPS 2025 - Clicks Por Segundo Avançado",
+        name: "Teste CPS 2026 - Clicks Por Segundo Avançado",
         description: "Teste sua velocidade de clique com análise de padrões e rankings em tempo real.",
         inLanguage: "pt-BR",
         isPartOf: {
@@ -198,7 +198,7 @@ export const meta: MetaFunction = () => {
         },
         mainEntity: {
           "@type": "WebApplication",
-          name: "Teste CPS - Clicks Por Segundo 2025"
+          name: "Teste CPS - Clicks Por Segundo 2026"
         },
         breadcrumb: {
           "@type": "BreadcrumbList",
@@ -626,7 +626,7 @@ export default function CPSTest() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Teste CPS 2025 – Clicks Por Segundo Grátis e Avançado
+          Teste CPS 2026 – Clicks Por Segundo Grátis e Avançado
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Teste sua <strong className="text-primary-blue-dark">velocidade de clique</strong> com análise

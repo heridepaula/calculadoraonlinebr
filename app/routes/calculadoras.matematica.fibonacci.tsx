@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+﻿import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -17,7 +17,7 @@ import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalcu
 export const meta: MetaFunction = () => {
   return [
     {
-      title: `Calculadora de Fibonacci 2025 - Sequência Dourada | ${APP_NAME}`,
+      title: `Calculadora de Fibonacci 2026 - Sequência Dourada | ${APP_NAME}`,
     },
     {
       name: "description",
@@ -44,7 +44,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:title",
-      content: "Calculadora de Fibonacci 2025 – Sequência Dourada",
+      content: "Calculadora de Fibonacci 2026 – Sequência Dourada",
     },
     {
       property: "og:description",
@@ -78,7 +78,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:card", content: "summary_large_image" },
     {
       name: "twitter:title",
-      content: "Calculadora de Fibonacci 2025 – Sequência Dourada",
+      content: "Calculadora de Fibonacci 2026 – Sequência Dourada",
     },
     {
       name: "twitter:description",
@@ -109,7 +109,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Calculadora de Fibonacci - Sequência Dourada 2025",
+        name: "Calculadora de Fibonacci - Sequência Dourada 2026",
         description:
           "Calculadora gratuita da sequência de Fibonacci: calcule números, termos específicos e explore as propriedades matemáticas da famosa sequência dourada.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fibonacci",
@@ -143,7 +143,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fibonacci",
-          name: "Calculadora de Fibonacci 2025 - Sequência Dourada",
+          name: "Calculadora de Fibonacci 2026 - Sequência Dourada",
           description:
             "Calcule a sequência de Fibonacci: números, termo específico e propriedades matemáticas. Explore a proporção áurea e sequências numéricas.",
           inLanguage: "pt-BR",
@@ -493,7 +493,7 @@ export default function FibonacciCalculator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Fibonacci 2025 – Sequência Dourada
+          Calculadora de Fibonacci 2026 – Sequência Dourada
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Explore a fascinante <strong className="text-growth-green">sequência de Fibonacci</strong> e suas{" "}
@@ -690,7 +690,7 @@ export default function FibonacciCalculator() {
       <Card className="border-l-4 border-primary-blue bg-gradient-to-r from-primary-blue-light to-growth-green-soft duration-300">
         <CardHeader>
           <CardTitle as="h2" className="text-2xl font-bold text-text-primary">
-            🌸 Sequência de Fibonacci – Guia Completo 2025
+            🌸 Sequência de Fibonacci – Guia Completo 2026
           </CardTitle>
         </CardHeader>
         <CardContent>
