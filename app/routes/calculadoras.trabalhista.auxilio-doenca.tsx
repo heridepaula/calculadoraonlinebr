@@ -629,7 +629,7 @@ export default function CalculadoraAuxilioDoenca() {
                     type="checkbox"
                     checked={isAcidente}
                     onChange={(e) => setIsAcidente(e.target.checked)}
-                    className="rounded border-gray-300"
+                    className="rounded border-neutral-surface-variant"
                   />
                   <span>É decorrente de acidente?</span>
                 </label>
@@ -699,7 +699,7 @@ export default function CalculadoraAuxilioDoenca() {
                     disabled={
                       salariosContribuicao.length <= 1 && salariosContribuicao[0]?.valor === 0
                     }
-                    className="inline-flex items-center gap-2 rounded-lg border-2 border-red-300 bg-red-100 px-3 py-2 text-sm font-medium text-red-700 transition-all hover:border-red-400 hover:bg-red-200 hover:text-red-800 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-lg border-2 border-red-500/40 bg-red-500/15 px-3 py-2 text-sm font-medium text-red-400 transition-all hover:border-red-500/60 hover:bg-red-500/25 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -715,9 +715,9 @@ export default function CalculadoraAuxilioDoenca() {
               </div>
 
               {/* Barra de progresso dos salários */}
-              <div className="rounded-lg border border-gray-300 bg-gray-50 p-4 shadow-sm">
+              <div className="rounded-lg border border-neutral-surface-variant bg-background-secondary p-4 shadow-sm">
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-800">
+                  <span className="text-sm font-semibold text-text-primary-dark">
                     Progresso do preenchimento
                   </span>
                   <span className="rounded-md bg-primary-blue-light px-2 py-1 text-sm font-bold text-primary-blue">
@@ -739,7 +739,7 @@ export default function CalculadoraAuxilioDoenca() {
                     <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                   </div>
                 </div>
-                <p className="mt-2 text-sm font-medium text-gray-700">
+                <p className="mt-2 text-sm font-medium text-text-secondary-dark">
                   {salariosContribuicao.filter((s) => s.valor > 0).length} de 12 salários
                   recomendados
                 </p>
@@ -747,7 +747,7 @@ export default function CalculadoraAuxilioDoenca() {
 
               {/* Ações rápidas de preenchimento */}
               {salariosContribuicao.length > 1 && (
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-4">
                   <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-blue-800">
                     <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -762,25 +762,25 @@ export default function CalculadoraAuxilioDoenca() {
                   <div className="flex flex-wrap gap-2">
                     <Button
                       onClick={() => handlePreencherComMesmoValor(1518)}
-                      className="rounded-md border border-blue-300 bg-blue-100 px-3 py-1 text-xs text-blue-700 transition-all hover:bg-blue-200"
+                      className="rounded-md border border-blue-500/30 bg-blue-500/15 px-3 py-1 text-xs text-blue-400 transition-all hover:bg-blue-500/25"
                     >
                       Salário Mínimo (R$ 1.518)
                     </Button>
                     <Button
                       onClick={() => handlePreencherComMesmoValor(3000)}
-                      className="rounded-md border border-blue-300 bg-blue-100 px-3 py-1 text-xs text-blue-700 transition-all hover:bg-blue-200"
+                      className="rounded-md border border-blue-500/30 bg-blue-500/15 px-3 py-1 text-xs text-blue-400 transition-all hover:bg-blue-500/25"
                     >
                       R$ 3.000
                     </Button>
                     <Button
                       onClick={() => handlePreencherComMesmoValor(5000)}
-                      className="rounded-md border border-blue-300 bg-blue-100 px-3 py-1 text-xs text-blue-700 transition-all hover:bg-blue-200"
+                      className="rounded-md border border-blue-500/30 bg-blue-500/15 px-3 py-1 text-xs text-blue-400 transition-all hover:bg-blue-500/25"
                     >
                       R$ 5.000
                     </Button>
                     <Button
                       onClick={() => handlePreencherComMesmoValor(8157.41)}
-                      className="rounded-md border border-blue-300 bg-blue-100 px-3 py-1 text-xs text-blue-700 transition-all hover:bg-blue-200"
+                      className="rounded-md border border-blue-500/30 bg-blue-500/15 px-3 py-1 text-xs text-blue-400 transition-all hover:bg-blue-500/25"
                     >
                       Teto INSS (R$ 8.157)
                     </Button>
@@ -799,7 +799,7 @@ export default function CalculadoraAuxilioDoenca() {
                     className={`group relative rounded-xl border-2 p-4 shadow-sm transition-all duration-200 ${
                       salario.valor > 0
                         ? "border-growth-green bg-growth-green-soft shadow-growth-green/10 hover:border-growth-green hover:bg-growth-green-soft/80"
-                        : "border-gray-300 bg-gray-50 shadow-gray-200/50 hover:border-gray-400 hover:bg-gray-100"
+                        : "border-neutral-surface-variant bg-background-secondary shadow-gray-200/50 hover:border-neutral-surface-variant/80 hover:bg-neutral-surface-variant"
                     }`}
                   >
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -836,7 +836,7 @@ export default function CalculadoraAuxilioDoenca() {
                         {salariosContribuicao.length > 1 && (
                           <Button
                             onClick={() => handleRemoveSalario(index)}
-                            className="w-full rounded-lg border-2 border-red-300 bg-red-100 px-3 py-2 text-sm font-medium text-red-700 transition-all hover:border-red-400 hover:bg-red-200 hover:text-red-800 group-hover:border-red-500 sm:w-auto"
+                            className="w-full rounded-lg border-2 border-red-500/40 bg-red-500/15 px-3 py-2 text-sm font-medium text-red-400 transition-all hover:border-red-500/60 hover:bg-red-500/25 hover:text-red-300 group-hover:border-red-500 sm:w-auto"
                           >
                             <svg
                               className="h-4 w-4 sm:mr-2"
@@ -871,7 +871,7 @@ export default function CalculadoraAuxilioDoenca() {
                           Salário válido
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-2 rounded-md bg-gray-200 px-2 py-1 font-medium text-gray-700">
+                        <span className="inline-flex items-center gap-2 rounded-md bg-background-secondary px-2 py-1 font-medium text-text-secondary-dark">
                           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                             <path
                               fillRule="evenodd"
@@ -1097,7 +1097,7 @@ export default function CalculadoraAuxilioDoenca() {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="border-b border-gray-200">
+                        <tr className="border-b border-neutral-surface-variant">
                           <td className="p-3">
                             <div>
                               <div className="font-semibold">Média Geral</div>
@@ -1114,7 +1114,7 @@ export default function CalculadoraAuxilioDoenca() {
                             {result.tipoMedia === "geral" ? "✅" : "❌"}
                           </td>
                         </tr>
-                        <tr className="border-b border-gray-200">
+                        <tr className="border-b border-neutral-surface-variant">
                           <td className="p-3">
                             <div>
                               <div className="font-semibold">Média 12 Meses</div>
@@ -1147,7 +1147,7 @@ export default function CalculadoraAuxilioDoenca() {
             <CardContent>
               <div className="space-y-3">
                 {result.observacoes.map((observacao, index) => (
-                  <div key={index} className="flex items-start gap-3 rounded-lg bg-white p-3">
+                  <div key={index} className="flex items-start gap-3 rounded-lg bg-background-secondary p-3">
                     <span className="mt-1 text-xl text-system-info">
                       {index === 0 ? "⚖️" : index === 1 ? "🏥" : index === 2 ? "⏰" : "💻"}
                     </span>
