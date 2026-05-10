@@ -793,8 +793,8 @@ export default function CPSTest() {
                 >
                   <div className="relative">
                     <div className="h-8 w-8 rounded-full bg-system-success/70 animate-ping"></div>
-                    <div className="absolute inset-0 h-8 w-8 rounded-full bg-system-success border-2 border-white animate-pulse"></div>
-                    <div className="absolute inset-2 h-4 w-4 rounded-full bg-white"></div>
+                    <div className="absolute inset-0 h-8 w-8 rounded-full bg-system-success border-2 border-white/80 animate-pulse"></div>
+                    <div className="absolute inset-2 h-4 w-4 rounded-full bg-white/90"></div>
                   </div>
                 </div>
               ))}
