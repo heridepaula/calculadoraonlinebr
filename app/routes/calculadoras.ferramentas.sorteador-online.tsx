@@ -777,7 +777,7 @@ E quantos mais você quiser! 🚀`}
                     className="group relative overflow-hidden bg-gradient-to-br from-emerald-500/20 to-teal-600/20 backdrop-blur-sm rounded-2xl border border-emerald-400/30 p-5 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/25"
                   >
                     {/* Background Animation */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-transparent to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-transparent to-teal-600/10 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300"></div>
 
                     <div className="relative">
                       <div className="flex items-center justify-between mb-3">
