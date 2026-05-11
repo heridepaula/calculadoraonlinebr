@@ -244,6 +244,7 @@ export default function GeradorMegaSena() {
   const [currentNumbers, setCurrentNumbers] = useState<number[]>([]);
   const [strategy, setStrategy] = useState<GenerationStrategy>(defaultStrategy);
   const [activePresets, setActivePresets] = useState<string[]>(["Equilibrado"]);
+  const [copyToast, setCopyToast] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [gameHistory, setGameHistory] = useState<MegaSenaGame[]>([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -371,10 +372,7 @@ export default function GeradorMegaSena() {
     }
 
     const statistics = calculateStatistics(numbers);
-    const strategyName =
-      strategy.useFrequency
-        ? `Frequência ${strategy.frequencyType === "hot" ? "Quente" : strategy.frequencyType === "cold" ? "Fria" : "Equilibrada"}`
-        : "Aleatório";
+    const strategyName = activePresets.join(" + ");
 
     const game: MegaSenaGame = {
       id: Date.now().toString(),
@@ -416,6 +414,12 @@ export default function GeradorMegaSena() {
     setStrategy(mergePresetsConfig(newActive, MEGA_SENA_PRESETS));
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopyToast("Copiado! ✓");
+    setTimeout(() => setCopyToast(null), 2000);
+  };
+
   const generateMultipleGames = async (count: number) => {
     setIsGenerating(true);
     const newGames: MegaSenaGame[] = [];
@@ -435,10 +439,7 @@ export default function GeradorMegaSena() {
       const game: MegaSenaGame = {
         id: `${Date.now()}-${i}`,
         numbers,
-        strategy:
-          strategy.useFrequency
-            ? `Frequência ${strategy.frequencyType === "hot" ? "Quente" : strategy.frequencyType === "cold" ? "Fria" : "Equilibrada"}`
-            : "Aleatório",
+        strategy: activePresets.join(" + "),
         date: new Date().toLocaleString("pt-BR"),
         statistics,
       };
@@ -718,7 +719,7 @@ export default function GeradorMegaSena() {
                       onChange={(e) =>
                         setStrategy({ ...strategy, useFrequency: e.target.checked })
                       }
-                      className="rounded border-neutral-surface-variant"
+                      className="h-4 w-4 rounded border-neutral-surface-variant"
                     />
                     <span className="font-medium">Usar Análise de Frequência</span>
                   </label>
@@ -753,7 +754,7 @@ export default function GeradorMegaSena() {
                       onChange={(e) =>
                         setStrategy({ ...strategy, controlParity: e.target.checked })
                       }
-                      className="rounded border-neutral-surface-variant"
+                      className="h-4 w-4 rounded border-neutral-surface-variant"
                     />
                     <span className="font-medium">Controlar Pares/Ímpares</span>
                   </label>
@@ -803,7 +804,7 @@ export default function GeradorMegaSena() {
                         onChange={(e) =>
                           setStrategy({ ...strategy, controlSum: e.target.checked })
                         }
-                        className="rounded border-neutral-surface-variant"
+                        className="h-4 w-4 rounded border-neutral-surface-variant"
                       />
                       <span className="font-medium">Controlar Soma Total</span>
                     </label>
@@ -849,7 +850,7 @@ export default function GeradorMegaSena() {
                         onChange={(e) =>
                           setStrategy({ ...strategy, includePrimes: e.target.checked })
                         }
-                        className="rounded border-neutral-surface-variant"
+                        className="h-4 w-4 rounded border-neutral-surface-variant"
                       />
                       <span className="font-medium">Controlar Números Primos</span>
                     </label>
@@ -890,11 +891,12 @@ export default function GeradorMegaSena() {
             </div>
 
             {/* Botões de Geração */}
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               <Button
                 onClick={handleGenerateGame}
                 disabled={isGenerating}
-                className="bg-system-success hover:bg-system-success-dark"
+                size="lg"
+                className="col-span-2 w-full bg-system-success hover:bg-system-success-dark sm:w-auto"
               >
                 {isGenerating ? (
                   <span className="flex items-center gap-2">
@@ -910,6 +912,7 @@ export default function GeradorMegaSena() {
                 onClick={() => generateMultipleGames(5)}
                 disabled={isGenerating}
                 variant="outline"
+                className="w-full sm:w-auto"
               >
                 Gerar 5 Jogos
               </Button>
@@ -918,6 +921,7 @@ export default function GeradorMegaSena() {
                 onClick={() => generateMultipleGames(10)}
                 disabled={isGenerating}
                 variant="outline"
+                className="w-full sm:w-auto"
               >
                 Gerar 10 Jogos
               </Button>
@@ -928,178 +932,91 @@ export default function GeradorMegaSena() {
         {/* Comprovante do Jogo */}
         {currentNumbers.length > 0 && (
           <div className="mx-auto max-w-lg">
-            <div className="rounded-xl border-4 border-green-600 bg-gradient-to-b from-white to-green-50 p-6 shadow-2xl">
-              {/* Cabeçalho do Comprovante */}
-              <div className="mb-4 border-b border-green-200 pb-4 text-center">
-                <div className="text-lg font-bold uppercase tracking-wide text-green-800">
-                  💰 MEGA-SENA
+            <div className="overflow-hidden rounded-2xl border border-green-500/30 bg-background-secondary shadow-xl">
+              {/* Header */}
+              <div className="border-b border-green-500/20 bg-green-600/10 px-6 py-4 text-center">
+                <div className="text-xs font-bold uppercase tracking-widest text-green-500">
+                  💰 Mega-Sena — Jogo Gerado
                 </div>
-                <div className="text-sm text-green-700">Comprovante de Jogo Gerado</div>
-                <div className="mt-1 text-xs text-gray-600">
-                  {new Date().toLocaleDateString("pt-BR")} -{" "}
-                  {new Date().toLocaleTimeString("pt-BR")}
+                <div className="mt-1 text-xs text-text-secondary">
+                  {new Date().toLocaleDateString("pt-BR")} às {new Date().toLocaleTimeString("pt-BR")}
                 </div>
               </div>
 
-              {/* Números do Jogo */}
-              <div className="mb-4">
-                <div className="mb-2 text-center text-sm font-bold text-green-800">
-                  SEUS NÚMEROS DA SORTE:
-                </div>
+              {/* Números em destaque */}
+              <div className="flex flex-wrap justify-center gap-3 px-6 py-6">
+                {currentNumbers.map((number) => (
+                  <div
+                    key={number}
+                    className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-xl font-bold text-white shadow-lg ring-2 ring-green-400/30"
+                  >
+                    {number.toString().padStart(2, "0")}
+                  </div>
+                ))}
+              </div>
 
-                {/* Grid dos números como no comprovante real */}
-                <div className="grid grid-cols-6 gap-1 rounded-lg bg-white p-3 shadow-inner sm:grid-cols-10">
-                  {Array.from({ length: 60 }, (_, i) => i + 1).map((number) => (
-                    <div
-                      key={number}
-                      className={`relative aspect-square rounded-md border-2 text-xs font-bold flex items-center justify-center ${
-                        currentNumbers.includes(number)
-                          ? "border-green-600 bg-green-600 text-white shadow-md"
-                          : "border-gray-200 bg-gray-50 text-gray-400"
-                      }`}
-                    >
-                      {number.toString().padStart(2, "0")}
-                      {currentNumbers.includes(number) && (
-                        <div className="absolute -right-1 -top-1">
-                          <div className="flex h-3 w-3 items-center justify-center rounded-full bg-green-800">
-                            <span className="text-white" style={{ fontSize: "8px" }}>
-                              ✓
-                            </span>
-                          </div>
-                        </div>
-                      )}
+              {/* Stats */}
+              {generatedGames.length > 0 && (
+                <div className="grid grid-cols-3 gap-px border-t border-green-500/20 bg-green-500/10">
+                  {[
+                    { label: "Pares", value: generatedGames[0].statistics.pairs },
+                    { label: "Ímpares", value: generatedGames[0].statistics.odds },
+                    { label: "Soma", value: generatedGames[0].statistics.sum },
+                    { label: "Primos", value: generatedGames[0].statistics.primes },
+                    { label: "🔥 Quentes", value: generatedGames[0].statistics.hotNumbers },
+                    { label: "🧊 Frios", value: generatedGames[0].statistics.coldNumbers },
+                  ].map((stat) => (
+                    <div key={stat.label} className="flex flex-col items-center bg-background-secondary px-3 py-3">
+                      <span className="text-lg font-bold text-text-primary">{stat.value}</span>
+                      <span className="text-xs text-text-secondary">{stat.label}</span>
                     </div>
                   ))}
                 </div>
+              )}
 
-                {/* Resumo dos números */}
-                <div className="mt-3 rounded-lg bg-green-100 p-3">
-                  <div className="text-center">
-                    <div className="mb-2 text-sm font-bold text-green-800">RESUMO DO JOGO:</div>
-                    <div className="flex flex-wrap justify-center gap-1">
-                      {currentNumbers.map((number) => (
-                        <span
-                          key={number}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-green-600 text-sm font-bold text-white"
-                        >
-                          {number.toString().padStart(2, "0")}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Estatísticas do Jogo */}
+              {/* Estratégia */}
               {generatedGames.length > 0 && (
-                <div className="mb-4 rounded-lg bg-blue-50 p-3">
-                  <div className="mb-2 text-center text-sm font-bold text-blue-800">
-                    📊 ANÁLISE ESTATÍSTICA:
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Números Pares:</span>
-                      <span className="font-bold text-blue-800">
-                        {generatedGames[0].statistics.pairs}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Números Ímpares:</span>
-                      <span className="font-bold text-blue-800">
-                        {generatedGames[0].statistics.odds}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Soma Total:</span>
-                      <span className="font-bold text-blue-800">
-                        {generatedGames[0].statistics.sum}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Números Primos:</span>
-                      <span className="font-bold text-blue-800">
-                        {generatedGames[0].statistics.primes}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Quentes:</span>
-                      <span className="font-bold text-blue-800">
-                        {generatedGames[0].statistics.hotNumbers}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Frios:</span>
-                      <span className="font-bold text-blue-800">
-                        {generatedGames[0].statistics.coldNumbers}
-                      </span>
-                    </div>
-                  </div>
+                <div className="border-t border-green-500/20 px-6 py-3 text-center">
+                  <span className="text-xs text-text-secondary">Estratégia: </span>
+                  <span className="text-xs font-semibold text-green-500">{generatedGames[0].strategy}</span>
                 </div>
               )}
 
-              {/* Estratégia Utilizada */}
-              {generatedGames.length > 0 && (
-                <div className="mb-4 rounded-lg bg-yellow-50 p-3">
-                  <div className="text-center">
-                    <div className="text-sm font-bold text-yellow-800">🎯 ESTRATÉGIA UTILIZADA:</div>
-                    <div className="text-sm text-yellow-700">{generatedGames[0].strategy}</div>
-                  </div>
+              {/* Faixas */}
+              <div className="border-t border-green-500/20 px-6 py-3 text-center">
+                <div className="text-xs text-text-secondary">
+                  Sena: 6 acertos · Quina: 5 acertos · Quadra: 4 acertos
                 </div>
-              )}
-
-              {/* Rodapé do Comprovante */}
-              <div className="border-t border-green-200 pt-3 text-center">
-                <div className="space-y-1 text-xs text-green-600">
-                  <div>
-                    💰 <strong>Sena:</strong> 6 acertos | <strong>Quina:</strong> 5 acertos |{" "}
-                    <strong>Quadra:</strong> 4 acertos
-                  </div>
-                  <div className="font-bold text-green-500">BOA SORTE! 🍀</div>
-                </div>
+                <div className="mt-1 text-sm font-bold text-green-500">BOA SORTE! 🍀</div>
               </div>
-            </div>
 
-            {/* Botões de Ação */}
-            <div className="mt-4 flex justify-center gap-2">
-              <button
-                onClick={() => {
-                  const printContent = `
-MEGA-SENA - NÚMEROS DA SORTE
-Data: ${new Date().toLocaleDateString("pt-BR")}
-
-Números: ${currentNumbers.join(", ")}
-
-Estatísticas:
-- Pares: ${generatedGames[0]?.statistics.pairs || 0}
-- Ímpares: ${generatedGames[0]?.statistics.odds || 0}
-- Soma: ${generatedGames[0]?.statistics.sum || 0}
-
-Estratégia: ${generatedGames[0]?.strategy || "Padrão"}
-
-Gerado por: CalculadoraOnlineBR.com.br
-                  `;
-                  const printWindow = window.open("", "_blank");
-                  if (printWindow) {
-                    printWindow.document.write(`<pre>${printContent}</pre>`);
-                    printWindow.print();
-                    printWindow.close();
+              {/* Ações */}
+              <div className="flex gap-2 border-t border-green-500/20 p-4">
+                <button
+                  onClick={() =>
+                    copyToClipboard(
+                      `Mega-Sena: ${currentNumbers.join(", ")} — ${generatedGames[0]?.strategy || "Padrão"} — ${new Date().toLocaleDateString("pt-BR")}`
+                    )
                   }
-                }}
-                className="rounded-md bg-gray-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-gray-700"
-              >
-                🖨️ Imprimir
-              </button>
-
-              <button
-                onClick={() => {
-                  const textContent = `Mega-Sena: ${currentNumbers.join(", ")} - Gerado em ${new Date().toLocaleDateString("pt-BR")}`;
-                  navigator.clipboard.writeText(textContent);
-                  alert("Números copiados para a área de transferência!");
-                }}
-                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-blue-700"
-              >
-                📋 Copiar
-              </button>
+                  className="flex-1 rounded-lg bg-green-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+                >
+                  📋 Copiar Números
+                </button>
+                <button
+                  onClick={() => {
+                    const printContent = `MEGA-SENA - NÚMEROS DA SORTE\nData: ${new Date().toLocaleDateString("pt-BR")}\n\nNúmeros: ${currentNumbers.join(", ")}\n\nEstatísticas:\n- Pares: ${generatedGames[0]?.statistics.pairs || 0}\n- Ímpares: ${generatedGames[0]?.statistics.odds || 0}\n- Soma: ${generatedGames[0]?.statistics.sum || 0}\n\nEstratégia: ${generatedGames[0]?.strategy || "Padrão"}\n\nGerado por: CalculadoraOnlineBR.com.br`;
+                    const printWindow = window.open("", "_blank");
+                    if (printWindow) {
+                      printWindow.document.write(`<pre>${printContent}</pre>`);
+                      printWindow.print();
+                      printWindow.close();
+                    }
+                  }}
+                  className="rounded-lg border border-neutral-surface-variant bg-background-primary px-4 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:bg-background-secondary"
+                >
+                  🖨️ Imprimir
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -1190,7 +1107,7 @@ Gerado por: CalculadoraOnlineBR.com.br
                               removeFromHistory(game.id);
                             }
                           }}
-                          className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white opacity-0 transition-opacity hover:bg-red-600 group-hover:opacity-100"
+                          className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white transition-opacity hover:bg-red-600 sm:opacity-0 sm:group-hover:opacity-100"
                           title="Remover este jogo do histórico"
                         >
                           ❌
@@ -1218,7 +1135,7 @@ Gerado por: CalculadoraOnlineBR.com.br
                       <div>Frios: {game.statistics.coldNumbers}</div>
                     </div>
 
-                    <div className="mt-2 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="mt-2 flex gap-2 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
                       <button
                         onClick={() => {
                           setSelectedNumbers(game.numbers);
@@ -1230,11 +1147,9 @@ Gerado por: CalculadoraOnlineBR.com.br
                         🔄 Usar Números
                       </button>
                       <button
-                        onClick={() => {
-                          const textContent = `Mega-Sena: ${game.numbers.join(", ")} - ${game.strategy} - ${game.date}`;
-                          navigator.clipboard.writeText(textContent);
-                          alert("Números copiados para a área de transferência!");
-                        }}
+                        onClick={() =>
+                          copyToClipboard(`Mega-Sena: ${game.numbers.join(", ")} - ${game.strategy} - ${game.date}`)
+                        }
                         className="rounded bg-green-500 px-2 py-1 text-xs text-white transition-colors hover:bg-green-600"
                         title="Copiar números para área de transferência"
                       >
@@ -1325,7 +1240,7 @@ Gerado por: CalculadoraOnlineBR.com.br
                     {MEGA_SENA_STATS.numbersFrequency.warm.map((number) => (
                       <div
                         key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded bg-system-warning/20 text-sm font-medium text-system-warning-dark"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-system-warning/20 text-sm font-medium text-system-warning-dark"
                       >
                         {number.toString().padStart(2, "0")}
                       </div>
@@ -1341,7 +1256,7 @@ Gerado por: CalculadoraOnlineBR.com.br
                     {MEGA_SENA_STATS.numbersFrequency.cold.map((number) => (
                       <div
                         key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded bg-primary-blue/20 text-sm font-medium text-primary-blue-dark"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-blue/20 text-sm font-medium text-primary-blue-dark"
                       >
                         {number.toString().padStart(2, "0")}
                       </div>
@@ -1421,6 +1336,13 @@ Gerado por: CalculadoraOnlineBR.com.br
 
         <RelatedCalculators category="loterias" currentCalculatorId="gerador-mega-sena" />
       </div>
+
+      {/* Toast de cópia */}
+      {copyToast && (
+        <div className="fixed bottom-6 right-6 z-50 rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-2xl">
+          {copyToast}
+        </div>
+      )}
     </div>
   );
 }

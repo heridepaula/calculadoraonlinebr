@@ -259,6 +259,7 @@ export default function GeradorLotofacil() {
   const [currentNumbers, setCurrentNumbers] = useState<number[]>([]);
   const [strategy, setStrategy] = useState<GenerationStrategy>(defaultStrategy);
   const [activePresets, setActivePresets] = useState<string[]>(["Equilibrado"]);
+  const [copyToast, setCopyToast] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [gameHistory, setGameHistory] = useState<LotofacilGame[]>([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -396,9 +397,7 @@ export default function GeradorLotofacil() {
     }
 
     const statistics = calculateStatistics(numbers);
-    const strategyName = strategy.useFrequency ?
-      `Frequência ${strategy.frequencyType === 'hot' ? 'Quente' : strategy.frequencyType === 'cold' ? 'Fria' : 'Equilibrada'}` :
-      'Aleatório';
+    const strategyName = activePresets.join(" + ");
 
     const game: LotofacilGame = {
       id: Date.now().toString(),
@@ -442,6 +441,12 @@ export default function GeradorLotofacil() {
     setStrategy(mergePresetsConfig(newActive, LOTOFACIL_PRESETS));
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopyToast("Copiado! ✓");
+    setTimeout(() => setCopyToast(null), 2000);
+  };
+
   // Gerar múltiplos jogos
   const generateMultipleGames = async (count: number) => {
     setIsGenerating(true);
@@ -462,9 +467,7 @@ export default function GeradorLotofacil() {
       const game: LotofacilGame = {
         id: `${Date.now()}-${i}`,
         numbers,
-        strategy: strategy.useFrequency ?
-          `Frequência ${strategy.frequencyType === 'hot' ? 'Quente' : strategy.frequencyType === 'cold' ? 'Fria' : 'Equilibrada'}` :
-          'Aleatório',
+        strategy: activePresets.join(" + "),
         date: new Date().toLocaleString('pt-BR'),
         statistics,
       };
@@ -742,7 +745,7 @@ export default function GeradorLotofacil() {
                       onChange={(e) =>
                         setStrategy({ ...strategy, useFrequency: e.target.checked })
                       }
-                      className="rounded border-neutral-surface-variant"
+                      className="h-4 w-4 rounded border-neutral-surface-variant"
                     />
                     <span className="font-medium">Usar Análise de Frequência</span>
                   </label>
@@ -777,7 +780,7 @@ export default function GeradorLotofacil() {
                       onChange={(e) =>
                         setStrategy({ ...strategy, controlParity: e.target.checked })
                       }
-                      className="rounded border-neutral-surface-variant"
+                      className="h-4 w-4 rounded border-neutral-surface-variant"
                     />
                     <span className="font-medium">Controlar Pares/Ímpares</span>
                   </label>
@@ -827,7 +830,7 @@ export default function GeradorLotofacil() {
                         onChange={(e) =>
                           setStrategy({ ...strategy, controlSum: e.target.checked })
                         }
-                        className="rounded border-neutral-surface-variant"
+                        className="h-4 w-4 rounded border-neutral-surface-variant"
                       />
                       <span className="font-medium">Controlar Soma Total</span>
                     </label>
@@ -873,7 +876,7 @@ export default function GeradorLotofacil() {
                         onChange={(e) =>
                           setStrategy({ ...strategy, includePrimes: e.target.checked })
                         }
-                        className="rounded border-neutral-surface-variant"
+                        className="h-4 w-4 rounded border-neutral-surface-variant"
                       />
                       <span className="font-medium">Controlar Números Primos</span>
                     </label>
@@ -914,11 +917,12 @@ export default function GeradorLotofacil() {
             </div>
 
             {/* Botões de Geração */}
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               <Button
                 onClick={handleGenerateGame}
                 disabled={isGenerating}
-                className="bg-system-success hover:bg-system-success-dark"
+                size="lg"
+                className="col-span-2 w-full bg-system-success hover:bg-system-success-dark sm:w-auto"
               >
                 {isGenerating ? (
                   <span className="flex items-center gap-2">
@@ -934,6 +938,7 @@ export default function GeradorLotofacil() {
                 onClick={() => generateMultipleGames(5)}
                 disabled={isGenerating}
                 variant="outline"
+                className="w-full sm:w-auto"
               >
                 Gerar 5 Jogos
               </Button>
@@ -942,6 +947,7 @@ export default function GeradorLotofacil() {
                 onClick={() => generateMultipleGames(10)}
                 disabled={isGenerating}
                 variant="outline"
+                className="w-full sm:w-auto"
               >
                 Gerar 10 Jogos
               </Button>
@@ -952,171 +958,91 @@ export default function GeradorLotofacil() {
         {/* Comprovante do Jogo */}
         {currentNumbers.length > 0 && (
           <div className="mx-auto max-w-lg">
-            {/* Simulação de Comprovante */}
-            <div className="rounded-xl border-4 border-pink-600 bg-gradient-to-b from-white to-pink-50 p-6 shadow-2xl">
-              {/* Cabeçalho do Comprovante */}
-              <div className="mb-4 text-center border-b border-pink-200 pb-4">
-                <div className="text-lg font-bold text-pink-800 uppercase tracking-wide">
-                  🍀 LOTOFÁCIL
+            <div className="overflow-hidden rounded-2xl border border-pink-500/30 bg-background-secondary shadow-xl">
+              {/* Header */}
+              <div className="border-b border-pink-500/20 bg-pink-600/10 px-6 py-4 text-center">
+                <div className="text-xs font-bold uppercase tracking-widest text-pink-500">
+                  🍀 Lotofácil — Jogo Gerado
                 </div>
-                <div className="text-sm text-pink-700">
-                  Comprovante de Jogo Gerado
-                </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  {new Date().toLocaleDateString('pt-BR')} - {new Date().toLocaleTimeString('pt-BR')}
+                <div className="mt-1 text-xs text-text-secondary">
+                  {new Date().toLocaleDateString("pt-BR")} às {new Date().toLocaleTimeString("pt-BR")}
                 </div>
               </div>
 
-              {/* Números do Jogo */}
-              <div className="mb-4">
-                <div className="mb-2 text-center text-sm font-bold text-pink-800">
-                  SEUS NÚMEROS DA SORTE:
-                </div>
+              {/* Números em destaque */}
+              <div className="flex flex-wrap justify-center gap-2 px-6 py-5">
+                {currentNumbers.map((number) => (
+                  <div
+                    key={number}
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-pink-600 text-base font-bold text-white shadow-lg ring-2 ring-pink-400/30"
+                  >
+                    {number.toString().padStart(2, "0")}
+                  </div>
+                ))}
+              </div>
 
-                {/* Grid dos números como no comprovante real */}
-                <div className="grid grid-cols-5 gap-1 rounded-lg bg-white p-3 shadow-inner">
-                  {Array.from({ length: 25 }, (_, i) => i + 1).map((number) => (
-                    <div
-                      key={number}
-                      className={`relative aspect-square h-10 w-10 rounded-md border-2 text-sm font-bold flex items-center justify-center ${
-                        currentNumbers.includes(number)
-                          ? "border-pink-600 bg-pink-600 text-white shadow-md"
-                          : "border-gray-200 bg-gray-50 text-gray-400"
-                      }`}
-                    >
-                      {number.toString().padStart(2, "0")}
-                      {currentNumbers.includes(number) && (
-                        <div className="absolute -top-1 -right-1">
-                          <div className="h-3 w-3 rounded-full bg-pink-800 flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                        </div>
-                      )}
+              {/* Stats */}
+              {generatedGames.length > 0 && (
+                <div className="grid grid-cols-3 gap-px border-t border-pink-500/20 bg-pink-500/10">
+                  {[
+                    { label: "Pares", value: generatedGames[0].statistics.pairs },
+                    { label: "Ímpares", value: generatedGames[0].statistics.odds },
+                    { label: "Soma", value: generatedGames[0].statistics.sum },
+                    { label: "Primos", value: generatedGames[0].statistics.primes },
+                    { label: "🔥 Quentes", value: generatedGames[0].statistics.hotNumbers },
+                    { label: "🧊 Frios", value: generatedGames[0].statistics.coldNumbers },
+                  ].map((stat) => (
+                    <div key={stat.label} className="flex flex-col items-center bg-background-secondary px-3 py-3">
+                      <span className="text-lg font-bold text-text-primary">{stat.value}</span>
+                      <span className="text-xs text-text-secondary">{stat.label}</span>
                     </div>
                   ))}
                 </div>
+              )}
 
-                {/* Resumo dos números */}
-                <div className="mt-3 rounded-lg bg-pink-100 p-3">
-                  <div className="text-center">
-                    <div className="text-sm font-bold text-pink-800 mb-2">
-                      RESUMO DO JOGO:
-                    </div>
-                    <div className="flex flex-wrap justify-center gap-1">
-                      {currentNumbers.map((number) => (
-                        <span
-                          key={number}
-                          className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-pink-600 text-xs font-bold text-white"
-                        >
-                          {number.toString().padStart(2, "0")}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Estatísticas do Jogo */}
+              {/* Estratégia */}
               {generatedGames.length > 0 && (
-                <div className="mb-4 rounded-lg bg-blue-50 p-3">
-                  <div className="mb-2 text-center text-sm font-bold text-blue-800">
-                    📊 ANÁLISE ESTATÍSTICA:
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Números Pares:</span>
-                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.pairs}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Números Ímpares:</span>
-                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.odds}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Soma Total:</span>
-                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.sum}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Números Primos:</span>
-                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.primes}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Quentes:</span>
-                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.hotNumbers}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-blue-700">Frios:</span>
-                      <span className="font-bold text-blue-800">{generatedGames[0].statistics.coldNumbers}</span>
-                    </div>
-                  </div>
+                <div className="border-t border-pink-500/20 px-6 py-3 text-center">
+                  <span className="text-xs text-text-secondary">Estratégia: </span>
+                  <span className="text-xs font-semibold text-pink-500">{generatedGames[0].strategy}</span>
                 </div>
               )}
 
-              {/* Estratégia Utilizada */}
-              {generatedGames.length > 0 && (
-                <div className="mb-4 rounded-lg bg-yellow-50 p-3">
-                  <div className="text-center">
-                    <div className="text-sm font-bold text-yellow-800">
-                      🎯 ESTRATÉGIA UTILIZADA:
-                    </div>
-                    <div className="text-sm text-yellow-700">
-                      {generatedGames[0].strategy}
-                    </div>
-                  </div>
+              {/* Faixas */}
+              <div className="border-t border-pink-500/20 px-6 py-3 text-center">
+                <div className="text-xs text-text-secondary">
+                  Principal: 15 acertos · Prêmios secundários: 14, 13, 12 e 11 acertos
                 </div>
-              )}
-
-              {/* Rodapé do Comprovante */}
-              <div className="border-t border-pink-200 pt-3 text-center">
-                <div className="text-xs text-pink-600 space-y-1">
-                  <div>💰 <strong>Prêmio Principal:</strong> 15 acertos</div>
-                  <div>🎯 <strong>Prêmios Secundários:</strong> 14, 13, 12 e 11 acertos</div>
-                  <div className="text-pink-500 font-bold">BOA SORTE! 🍀</div>
-                </div>
+                <div className="mt-1 text-sm font-bold text-pink-500">BOA SORTE! 🍀</div>
               </div>
-            </div>
 
-            {/* Botões de Ação */}
-            <div className="mt-4 flex justify-center gap-2">
-              <button
-                onClick={() => {
-                  const printContent = `
-                    LOTOFÁCIL - NÚMEROS DA SORTE
-                    Data: ${new Date().toLocaleDateString('pt-BR')}
-
-                    Números: ${currentNumbers.join(', ')}
-
-                    Estatísticas:
-                    - Pares: ${generatedGames[0]?.statistics.pairs || 0}
-                    - Ímpares: ${generatedGames[0]?.statistics.odds || 0}
-                    - Soma: ${generatedGames[0]?.statistics.sum || 0}
-
-                    Estratégia: ${generatedGames[0]?.strategy || 'Padrão'}
-
-                    Gerado por: CalculadoraOnlineBR.com.br
-                  `;
-
-                  const printWindow = window.open('', '_blank');
-                  if (printWindow) {
-                    printWindow.document.write(`<pre>${printContent}</pre>`);
-                    printWindow.print();
-                    printWindow.close();
+              {/* Ações */}
+              <div className="flex gap-2 border-t border-pink-500/20 p-4">
+                <button
+                  onClick={() =>
+                    copyToClipboard(
+                      `Lotofácil: ${currentNumbers.join(", ")} — ${generatedGames[0]?.strategy || "Padrão"} — ${new Date().toLocaleDateString("pt-BR")}`
+                    )
                   }
-                }}
-                className="rounded-md bg-gray-600 px-4 py-2 text-sm font-bold text-white hover:bg-gray-700 transition-colors"
-              >
-                🖨️ Imprimir
-              </button>
-
-              <button
-                onClick={() => {
-                  const textContent = `Lotofácil: ${currentNumbers.join(', ')} - Gerado em ${new Date().toLocaleDateString('pt-BR')}`;
-                  navigator.clipboard.writeText(textContent);
-                  alert('Números copiados para a área de transferência!');
-                }}
-                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-bold text-white hover:bg-blue-700 transition-colors"
-              >
-                📋 Copiar
-              </button>
+                  className="flex-1 rounded-lg bg-pink-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-pink-700"
+                >
+                  📋 Copiar Números
+                </button>
+                <button
+                  onClick={() => {
+                    const printContent = `LOTOFÁCIL - NÚMEROS DA SORTE\nData: ${new Date().toLocaleDateString("pt-BR")}\n\nNúmeros: ${currentNumbers.join(", ")}\n\nEstatísticas:\n- Pares: ${generatedGames[0]?.statistics.pairs || 0}\n- Ímpares: ${generatedGames[0]?.statistics.odds || 0}\n- Soma: ${generatedGames[0]?.statistics.sum || 0}\n\nEstratégia: ${generatedGames[0]?.strategy || "Padrão"}\n\nGerado por: CalculadoraOnlineBR.com.br`;
+                    const printWindow = window.open("", "_blank");
+                    if (printWindow) {
+                      printWindow.document.write(`<pre>${printContent}</pre>`);
+                      printWindow.print();
+                      printWindow.close();
+                    }
+                  }}
+                  className="rounded-lg border border-neutral-surface-variant bg-background-primary px-4 py-2.5 text-sm font-semibold text-text-primary transition-colors hover:bg-background-secondary"
+                >
+                  🖨️ Imprimir
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -1145,7 +1071,7 @@ export default function GeradorLotofacil() {
                       {game.numbers.map((number) => (
                         <div
                           key={number}
-                          className="flex h-8 w-8 items-center justify-center rounded bg-system-success/20 text-sm font-medium text-system-success-dark"
+                          className="flex h-8 w-8 items-center justify-center rounded-full bg-system-success/20 text-sm font-medium text-system-success-dark"
                         >
                           {number.toString().padStart(2, "0")}
                         </div>
@@ -1204,7 +1130,7 @@ export default function GeradorLotofacil() {
                               removeFromHistory(game.id);
                             }
                           }}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-red-500 hover:bg-red-600 text-white w-6 h-6 flex items-center justify-center text-xs"
+                          className="transition-opacity sm:opacity-0 sm:group-hover:opacity-100 rounded-full bg-red-500 hover:bg-red-600 text-white w-6 h-6 flex items-center justify-center text-xs"
                           title="Remover este jogo do histórico"
                         >
                           ❌
@@ -1216,7 +1142,7 @@ export default function GeradorLotofacil() {
                       {game.numbers.map((number) => (
                         <div
                           key={number}
-                          className="flex h-6 w-6 items-center justify-center rounded bg-pink-100 text-xs font-medium text-pink-800"
+                          className="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100 text-xs font-medium text-pink-800"
                         >
                           {number.toString().padStart(2, "0")}
                         </div>
@@ -1234,7 +1160,7 @@ export default function GeradorLotofacil() {
                     </div>
 
                     {/* Botões de ação individual */}
-                    <div className="mt-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="mt-2 flex gap-2 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
                       <button
                         onClick={() => {
                           setSelectedNumbers(game.numbers);
@@ -1246,11 +1172,9 @@ export default function GeradorLotofacil() {
                         🔄 Usar Números
                       </button>
                       <button
-                        onClick={() => {
-                          const textContent = `Lotofácil: ${game.numbers.join(', ')} - ${game.strategy} - ${game.date}`;
-                          navigator.clipboard.writeText(textContent);
-                          alert('Números copiados para a área de transferência!');
-                        }}
+                        onClick={() =>
+                          copyToClipboard(`Lotofácil: ${game.numbers.join(", ")} - ${game.strategy} - ${game.date}`)
+                        }
                         className="rounded bg-green-500 px-2 py-1 text-xs text-white hover:bg-green-600 transition-colors"
                         title="Copiar números para área de transferência"
                       >
@@ -1341,7 +1265,7 @@ export default function GeradorLotofacil() {
                     {LOTOFACIL_STATS.numbersFrequency.warm.map((number) => (
                       <div
                         key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded bg-system-warning/20 text-sm font-medium text-system-warning-dark"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-system-warning/20 text-sm font-medium text-system-warning-dark"
                       >
                         {number.toString().padStart(2, "0")}
                       </div>
@@ -1357,7 +1281,7 @@ export default function GeradorLotofacil() {
                     {LOTOFACIL_STATS.numbersFrequency.cold.map((number) => (
                       <div
                         key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded bg-primary-blue/20 text-sm font-medium text-primary-blue-dark"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-blue/20 text-sm font-medium text-primary-blue-dark"
                       >
                         {number.toString().padStart(2, "0")}
                       </div>
@@ -1466,6 +1390,13 @@ export default function GeradorLotofacil() {
 
         <RelatedCalculators category="loterias" currentCalculatorId="gerador-lotofacil" />
       </div>
+
+      {/* Toast de cópia */}
+      {copyToast && (
+        <div className="fixed bottom-6 right-6 z-50 rounded-xl bg-pink-600 px-5 py-3 text-sm font-semibold text-white shadow-2xl">
+          {copyToast}
+        </div>
+      )}
     </div>
   );
 }
