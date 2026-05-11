@@ -89,6 +89,8 @@ export const meta: MetaFunction = () => {
       content:
         "Interface da calculadora de ascendente astrológico com campos para data, hora e local de nascimento",
     },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
     {
       property: "og:site_name",
       content: "CalculadoraOnlineBR",
@@ -680,27 +682,27 @@ const getSignColors = (sign: string) => {
       element: "fogo",
       colors: {
         bg: "from-red-500 to-orange-500",
-        text: "text-red-600",
+        text: "text-red-400",
         accent: "border-red-500",
-        gradient: "bg-gradient-to-br from-red-50 to-orange-50",
+        gradient: "bg-gradient-to-br from-red-500/10 to-orange-500/10",
       },
     },
     Leão: {
       element: "fogo",
       colors: {
         bg: "from-yellow-500 to-orange-500",
-        text: "text-orange-600",
+        text: "text-orange-400",
         accent: "border-yellow-500",
-        gradient: "bg-gradient-to-br from-yellow-50 to-orange-50",
+        gradient: "bg-gradient-to-br from-yellow-500/10 to-orange-500/10",
       },
     },
     Sagitário: {
       element: "fogo",
       colors: {
         bg: "from-purple-500 to-pink-500",
-        text: "text-purple-600",
+        text: "text-purple-400",
         accent: "border-purple-500",
-        gradient: "bg-gradient-to-br from-purple-50 to-pink-50",
+        gradient: "bg-gradient-to-br from-purple-500/10 to-pink-500/10",
       },
     },
 
@@ -708,27 +710,27 @@ const getSignColors = (sign: string) => {
       element: "terra",
       colors: {
         bg: "from-green-600 to-emerald-600",
-        text: "text-green-700",
+        text: "text-green-400",
         accent: "border-green-600",
-        gradient: "bg-gradient-to-br from-green-50 to-emerald-50",
+        gradient: "bg-gradient-to-br from-green-500/10 to-emerald-500/10",
       },
     },
     Virgem: {
       element: "terra",
       colors: {
         bg: "from-teal-600 to-green-600",
-        text: "text-teal-700",
+        text: "text-teal-400",
         accent: "border-teal-600",
-        gradient: "bg-gradient-to-br from-teal-50 to-green-50",
+        gradient: "bg-gradient-to-br from-teal-500/10 to-green-500/10",
       },
     },
     Capricórnio: {
       element: "terra",
       colors: {
         bg: "from-slate-600 to-gray-700",
-        text: "text-slate-700",
+        text: "text-slate-400",
         accent: "border-slate-600",
-        gradient: "bg-gradient-to-br from-slate-50 to-gray-100",
+        gradient: "bg-gradient-to-br from-slate-500/10 to-gray-500/10",
       },
     },
 
@@ -736,27 +738,27 @@ const getSignColors = (sign: string) => {
       element: "ar",
       colors: {
         bg: "from-sky-500 to-blue-500",
-        text: "text-sky-600",
+        text: "text-sky-400",
         accent: "border-sky-500",
-        gradient: "bg-gradient-to-br from-sky-50 to-blue-50",
+        gradient: "bg-gradient-to-br from-sky-500/10 to-blue-500/10",
       },
     },
     Libra: {
       element: "ar",
       colors: {
         bg: "from-pink-500 to-rose-500",
-        text: "text-pink-600",
+        text: "text-pink-400",
         accent: "border-pink-500",
-        gradient: "bg-gradient-to-br from-pink-50 to-rose-50",
+        gradient: "bg-gradient-to-br from-pink-500/10 to-rose-500/10",
       },
     },
     Aquário: {
       element: "ar",
       colors: {
         bg: "from-cyan-500 to-blue-500",
-        text: "text-cyan-600",
+        text: "text-cyan-400",
         accent: "border-cyan-500",
-        gradient: "bg-gradient-to-br from-cyan-50 to-blue-50",
+        gradient: "bg-gradient-to-br from-cyan-500/10 to-blue-500/10",
       },
     },
 
@@ -764,27 +766,27 @@ const getSignColors = (sign: string) => {
       element: "água",
       colors: {
         bg: "from-indigo-500 to-blue-600",
-        text: "text-indigo-600",
+        text: "text-indigo-400",
         accent: "border-indigo-500",
-        gradient: "bg-gradient-to-br from-indigo-50 to-blue-50",
+        gradient: "bg-gradient-to-br from-indigo-500/10 to-blue-500/10",
       },
     },
     Escorpião: {
       element: "água",
       colors: {
         bg: "from-red-600 to-red-800",
-        text: "text-red-700",
+        text: "text-red-400",
         accent: "border-red-600",
-        gradient: "bg-gradient-to-br from-red-50 to-red-100",
+        gradient: "bg-gradient-to-br from-red-500/10 to-red-500/10",
       },
     },
     Peixes: {
       element: "água",
       colors: {
         bg: "from-violet-500 to-purple-600",
-        text: "text-violet-600",
+        text: "text-violet-400",
         accent: "border-violet-500",
-        gradient: "bg-gradient-to-br from-violet-50 to-purple-50",
+        gradient: "bg-gradient-to-br from-violet-500/10 to-purple-500/10",
       },
     },
   };
@@ -794,9 +796,9 @@ const getSignColors = (sign: string) => {
       element: "neutro",
       colors: {
         bg: "from-gray-500 to-gray-600",
-        text: "text-gray-600",
+        text: "text-text-secondary-dark",
         accent: "border-gray-500",
-        gradient: "bg-gradient-to-br from-gray-50 to-gray-100",
+        gradient: "bg-gradient-to-br from-gray-500/10 to-gray-500/10",
       },
     }
   );
@@ -927,21 +929,21 @@ const DetailedResultDisplay = ({
                     <span className={`text-xl font-bold ${solarColors.colors.text}`}>
                       Sol em {detailedDescription.signo_solar}
                     </span>
-                    <p className="mt-1 text-sm text-gray-600">Sua essência e identidade core</p>
+                    <p className="mt-1 text-sm text-text-secondary-dark">Sua essência e identidade core</p>
                   </div>
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative z-10 space-y-6">
                 <div
-                  className={`rounded-lg border border-white/60 bg-white/85 p-4 shadow-md backdrop-blur-sm`}
+                  className={`rounded-lg border border-white/20 bg-background-secondary p-4 shadow-md backdrop-blur-sm`}
                 >
-                  <p className="font-medium leading-relaxed text-gray-800">
+                  <p className="font-medium leading-relaxed text-text-primary-dark">
                     {solarSection.descricao}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div className="rounded-lg border border-white/60 bg-white/75 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                     <h5
                       className={`font-bold ${solarColors.colors.text} mb-3 flex items-center gap-2`}
                     >
@@ -957,7 +959,7 @@ const DetailedResultDisplay = ({
                             >
                               ●
                             </span>
-                            <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                            <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                               {char}
                             </span>
                           </li>
@@ -966,8 +968,8 @@ const DetailedResultDisplay = ({
                     </ul>
                   </div>
 
-                  <div className="rounded-lg border border-white/60 bg-white/75 p-4 shadow-sm backdrop-blur-sm">
-                    <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-700">
+                  <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
+                    <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-400">
                       <span className="text-lg">⚠️</span>
                       Principais Desafios:
                     </h5>
@@ -975,7 +977,7 @@ const DetailedResultDisplay = ({
                       {solarSection.desafios?.map((desafio: string, index: number) => (
                         <li key={index} className="flex items-start gap-3">
                           <span className="mt-0.5 text-lg leading-none text-orange-600">●</span>
-                          <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                          <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                             {desafio}
                           </span>
                         </li>
@@ -1008,21 +1010,21 @@ const DetailedResultDisplay = ({
                     <span className={`text-xl font-bold ${ascendantColors.colors.text}`}>
                       Ascendente em {detailedDescription.ascendente}
                     </span>
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="mt-1 text-sm text-text-secondary-dark">
                       Sua máscara social e primeira impressão
                     </p>
                   </div>
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative z-10 space-y-6">
-                <div className="rounded-lg border border-white/60 bg-white/85 p-4 shadow-md backdrop-blur-sm">
-                  <p className="font-medium leading-relaxed text-gray-800">
+                <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-md backdrop-blur-sm">
+                  <p className="font-medium leading-relaxed text-text-primary-dark">
                     {ascendantSection.descricao}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  <div className="rounded-lg border border-white/60 bg-white/75 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                     <h5
                       className={`font-bold ${ascendantColors.colors.text} mb-3 flex items-center gap-2`}
                     >
@@ -1038,7 +1040,7 @@ const DetailedResultDisplay = ({
                             >
                               ●
                             </span>
-                            <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                            <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                               {item}
                             </span>
                           </li>
@@ -1047,7 +1049,7 @@ const DetailedResultDisplay = ({
                     </ul>
                   </div>
 
-                  <div className="rounded-lg border border-white/60 bg-white/75 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                     <h5
                       className={`font-bold ${ascendantColors.colors.text} mb-3 flex items-center gap-2`}
                     >
@@ -1062,7 +1064,7 @@ const DetailedResultDisplay = ({
                           >
                             ●
                           </span>
-                          <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                          <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                             {item}
                           </span>
                         </li>
@@ -1075,7 +1077,7 @@ const DetailedResultDisplay = ({
           )}
 
           {/* Personalidade Combinada */}
-          <Card className="relative overflow-hidden border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 shadow-lg transition-all duration-300 hover:shadow-xl">
+          <Card className="relative overflow-hidden border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 via-amber-500/10 to-orange-500/10 shadow-lg transition-all duration-300 hover:shadow-xl">
             <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 transform opacity-10">
               <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 blur-3xl"></div>
             </div>
@@ -1093,14 +1095,14 @@ const DetailedResultDisplay = ({
               </CardTitle>
             </CardHeader>
             <CardContent className="relative z-10 space-y-6">
-              <div className="rounded-lg border border-yellow-300 bg-white/85 p-4 shadow-md backdrop-blur-sm">
-                <p className="font-medium leading-relaxed text-gray-800">
+              <div className="rounded-lg border border-yellow-500/30 bg-background-secondary p-4 shadow-md backdrop-blur-sm">
+                <p className="font-medium leading-relaxed text-text-primary-dark">
                   {detailedDescription.personalidade_combinada.descricao}
                 </p>
               </div>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="rounded-lg border border-yellow-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-yellow-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-yellow-700">
                     <span className="text-lg">🌟</span>
                     Características Únicas:
@@ -1110,7 +1112,7 @@ const DetailedResultDisplay = ({
                       (char, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <span className="mt-0.5 text-lg leading-none text-yellow-500">●</span>
-                          <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                          <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                             {char}
                           </span>
                         </li>
@@ -1119,7 +1121,7 @@ const DetailedResultDisplay = ({
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-yellow-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-yellow-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-red-700">
                     <span className="text-lg">⚡</span>
                     Principais Dificuldades:
@@ -1129,7 +1131,7 @@ const DetailedResultDisplay = ({
                       (dif, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <span className="mt-0.5 text-lg leading-none text-red-500">●</span>
-                          <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                          <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                             {dif}
                           </span>
                         </li>
@@ -1161,7 +1163,7 @@ const DetailedResultDisplay = ({
             </CardHeader>
             <CardContent className="relative z-10 space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <div className="rounded-lg border border-pink-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-pink-700">
                     <span className="text-lg">💕</span>
                     Estilo Romântico:
@@ -1170,7 +1172,7 @@ const DetailedResultDisplay = ({
                     {detailedDescription.vida_amorosa.estilo_romantico.map((estilo, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <span className="mt-0.5 text-lg leading-none text-pink-500">●</span>
-                        <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                        <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                           {estilo}
                         </span>
                       </li>
@@ -1178,7 +1180,7 @@ const DetailedResultDisplay = ({
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-pink-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-pink-700">
                     <span className="text-lg">✨</span>
                     Compatibilidades:
@@ -1200,8 +1202,8 @@ const DetailedResultDisplay = ({
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-pink-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
-                  <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-700">
+                <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
+                  <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-400">
                     <span className="text-lg">⚡</span>
                     Desafios Amorosos:
                   </h5>
@@ -1209,7 +1211,7 @@ const DetailedResultDisplay = ({
                     {detailedDescription.vida_amorosa.desafios_amorosos.map((desafio, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <span className="mt-0.5 text-lg leading-none text-orange-500">●</span>
-                        <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                        <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                           {desafio}
                         </span>
                       </li>
@@ -1240,7 +1242,7 @@ const DetailedResultDisplay = ({
             </CardHeader>
             <CardContent className="relative z-10 space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-lg border border-blue-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
                     <span className="text-lg">🏢</span>
                     Ambiente Ideal:
@@ -1249,7 +1251,7 @@ const DetailedResultDisplay = ({
                     {detailedDescription.vida_profissional.ambiente_ideal.map((ambiente, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <span className="mt-0.5 text-lg leading-none text-blue-500">●</span>
-                        <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                        <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                           {ambiente}
                         </span>
                       </li>
@@ -1257,7 +1259,7 @@ const DetailedResultDisplay = ({
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-blue-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
                     <span className="text-lg">🎯</span>
                     Profissões Recomendadas:
@@ -1276,7 +1278,7 @@ const DetailedResultDisplay = ({
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-blue-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+                <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
                   <h5 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
                     <span className="text-lg">⭐</span>
                     Características Profissionais:
@@ -1286,7 +1288,7 @@ const DetailedResultDisplay = ({
                       (char, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <span className="mt-0.5 text-lg leading-none text-green-500">●</span>
-                          <span className="text-sm font-semibold leading-relaxed text-gray-800">
+                          <span className="text-sm font-semibold leading-relaxed text-text-primary-dark">
                             {char}
                           </span>
                         </li>
