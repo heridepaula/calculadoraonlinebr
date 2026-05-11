@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Gere números inteligentes para Quina com análise de frequência, filtros matemáticos e estratégias estatísticas. Histórico de jogos e técnicas avançadas.",
+        "Gerador gratuito de Quina com estratégias inteligentes: análise de frequência, filtros matemáticos e paridade. Gere 5 números equilibrados para Quina e salve no histórico.",
     },
     {
       name: "keywords",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Gere números inteligentes para Quina com análise de frequência, filtros matemáticos e estratégias estatísticas. Histórico de jogos e técnicas avançadas.",
+        "Gerador gratuito de Quina com estratégias inteligentes: análise de frequência, filtros matemáticos e paridade. Gere 5 números equilibrados para Quina e salve no histórico.",
     },
     {
       property: "og:type",
@@ -54,6 +54,14 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    {
+      property: "og:image:width",
+      content: "512",
+    },
+    {
+      property: "og:image:height",
+      content: "512",
     },
     {
       property: "og:image:alt",
@@ -487,6 +495,76 @@ export default function GeradorQuina() {
               "Histórico de jogos",
               "Seleção manual de números",
               "Geração em lote",
+            ],
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Como funcionam as estratégias de números quentes e frios na Quina?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Números quentes são aqueles que foram sorteados com maior frequência nos concursos históricos da Quina. Números frios são os menos sorteados. Nossa análise é baseada em dados históricos reais da Caixa Econômica Federal para identificar padrões estatísticos.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Qual é a diferença entre a Quina e a Mega-Sena?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A Quina tem 80 números possíveis (contra 60 da Mega-Sena) e você marca 5 números (contra 6). As chances de ganhar na Quina são de aproximadamente 1 em 24 milhões para acertar os 5 números. A Quina também tem sorteio diário (segunda a sábado), enquanto a Mega-Sena sorteio duas vezes por semana.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "A Quina tem prêmio para 2 acertos (duque)?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Sim! A Quina é especial pois premia até quem acertar 2 números (duque). A faixa de prêmios é: 5 acertos (quina), 4 acertos (quadra), 3 acertos (terno) e 2 acertos (duque). Isso torna a Quina uma das loterias com mais faixas de premiação do Brasil.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Qual a soma ideal para um jogo de Quina?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Para 5 números de 1 a 80, a soma esperada é em torno de 202. Estatisticamente, somas entre 160 e 240 são mais frequentes nos sorteios premiados. Valores extremos (abaixo de 130 ou acima de 280) são estatisticamente menos comuns.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Essas estratégias garantem que vou ganhar na Quina?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Não! A Quina é um jogo de azar e nenhuma estratégia garante vitória. As chances de ganhar a quina são de aproximadamente 1 em 24 milhões. Nosso gerador aplica filtros baseados em padrões estatísticos históricos para criar jogos mais equilibrados matematicamente, mas isso não aumenta suas chances reais de ganhar.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* BreadcrumbList Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
+              { "@type": "ListItem", position: 2, name: "Calculadoras", item: "https://www.calculadoraonlinebr.com.br/calculadoras" },
+              { "@type": "ListItem", position: 3, name: "Loterias", item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias" },
+              { "@type": "ListItem", position: 4, name: "Gerador de Quina", item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-quina" },
             ],
           }),
         }}

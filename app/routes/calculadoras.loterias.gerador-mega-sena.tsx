@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Gere números inteligentes para Mega-Sena com análise de frequência, filtros matemáticos e estratégias estatísticas. Histórico de jogos e técnicas avançadas.",
+        "Gerador gratuito de Mega-Sena com estratégias inteligentes: análise de frequência, filtros de paridade, soma e consecutivos. Gere jogos equilibrados e salve no histórico.",
     },
     {
       name: "keywords",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Gere números inteligentes para Mega-Sena com análise de frequência, filtros matemáticos e estratégias estatísticas. Histórico de jogos e técnicas avançadas.",
+        "Gerador gratuito de Mega-Sena com estratégias inteligentes: análise de frequência, filtros de paridade, soma e consecutivos. Gere jogos equilibrados e salve no histórico.",
     },
     {
       property: "og:type",
@@ -54,6 +54,14 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    {
+      property: "og:image:width",
+      content: "512",
+    },
+    {
+      property: "og:image:height",
+      content: "512",
     },
     {
       property: "og:image:alt",
@@ -481,6 +489,76 @@ export default function GeradorMegaSena() {
               "Histórico de jogos",
               "Seleção manual de números",
               "Geração em lote",
+            ],
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Como funcionam as estratégias de números quentes e frios na Mega-Sena?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Números quentes são aqueles que foram sorteados com maior frequência nos concursos históricos da Mega-Sena. Números frios são os menos sorteados. Nossa análise é baseada em dados históricos reais da Caixa Econômica Federal para identificar padrões estatísticos.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Qual é a soma ideal para um jogo de Mega-Sena?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Estatisticamente, a soma dos 6 números de um jogo premiado da Mega-Sena costuma ficar entre 150 e 210. Valores muito extremos (abaixo de 100 ou acima de 240) são menos comuns nos sorteios premiados, embora possam ocorrer.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Quantos números primos devo incluir no meu jogo?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A análise histórica da Mega-Sena sugere que a maioria dos jogos premiados contém entre 2 e 4 números primos (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59). Incluir pelo menos 2 primos é uma boa estratégia estatística.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Devo evitar números consecutivos na Mega-Sena?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Não é obrigatório evitar consecutivos, mas estatisticamente a maioria dos resultados premiados tem no máximo 2 números consecutivos. Jogos com 4 ou mais números em sequência são historicamente menos frequentes nos resultados.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Essas estratégias garantem que vou ganhar na Mega-Sena?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Não! A Mega-Sena é um jogo de azar e nenhuma estratégia garante vitória. As chances de ganhar a sena são de aproximadamente 1 em 50 milhões. Nosso gerador aplica filtros baseados em padrões estatísticos históricos para criar jogos mais equilibrados matematicamente, mas isso não aumenta suas chances reais de ganhar.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* BreadcrumbList Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
+              { "@type": "ListItem", position: 2, name: "Calculadoras", item: "https://www.calculadoraonlinebr.com.br/calculadoras" },
+              { "@type": "ListItem", position: 3, name: "Loterias", item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias" },
+              { "@type": "ListItem", position: 4, name: "Gerador de Mega-Sena", item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena" },
             ],
           }),
         }}

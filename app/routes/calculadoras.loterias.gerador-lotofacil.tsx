@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Gere números inteligentes para Lotofácil com análise de frequência, filtros matemáticos e estratégias estatísticas. Histórico de jogos e técnicas avançadas.",
+        "Gerador gratuito de Lotofácil com estratégias inteligentes: análise de frequência, paridade e filtros estatísticos. Gere 15 números equilibrados para Lotofácil agora.",
     },
     {
       name: "keywords",
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:description",
       content:
-        "Gere números inteligentes para Lotofácil com análise de frequência, filtros matemáticos e estratégias estatísticas. Histórico de jogos e técnicas avançadas.",
+        "Gerador gratuito de Lotofácil com estratégias inteligentes: análise de frequência, paridade e filtros estatísticos. Gere 15 números equilibrados para Lotofácil agora.",
     },
     {
       property: "og:type",
@@ -53,7 +53,15 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/gerador-lotofacil.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+    },
+    {
+      property: "og:image:width",
+      content: "512",
+    },
+    {
+      property: "og:image:height",
+      content: "512",
     },
     {
       property: "og:image:alt",
@@ -81,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/gerador-lotofacil.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
     },
     {
       name: "twitter:image:alt",
@@ -508,6 +516,76 @@ export default function GeradorLotofacil() {
               "Histórico de jogos",
               "Seleção manual de números",
               "Geração em lote",
+            ],
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Como funcionam as estratégias de números quentes e frios?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Números quentes são aqueles que foram sorteados com maior frequência nos últimos concursos. Números frios são os menos sorteados. Nossa análise é baseada em dados históricos reais da Lotofácil para identificar padrões estatísticos.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "O que significa controlar a paridade dos números?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Paridade refere-se ao equilíbrio entre números pares e ímpares. Estatisticamente, a maioria dos sorteios da Lotofácil tem entre 6-8 números pares e 7-9 ímpares. Controlar isso pode melhorar a qualidade estatística do jogo.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Por que a soma dos números é importante?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A soma total dos 15 números de um jogo da Lotofácil geralmente fica entre 180-210. Valores muito baixos ou muito altos são estatisticamente menos prováveis, então controlar a soma pode ser uma estratégia interessante.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "O histórico de jogos fica salvo permanentemente?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "O histórico fica salvo no seu navegador (localStorage) e permanece até você limpar os dados do navegador. Recomendamos anotar ou imprimir os jogos importantes, pois eles podem ser perdidos se os dados do navegador forem apagados.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Essas estratégias garantem que vou ganhar?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Não! As loterias são jogos de sorte e nenhuma estratégia garante vitória. Nosso gerador apenas aplica filtros baseados em padrões estatísticos históricos para criar jogos mais equilibrados matematicamente, mas isso não aumenta as chances reais de ganhar.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* BreadcrumbList Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
+              { "@type": "ListItem", position: 2, name: "Calculadoras", item: "https://www.calculadoraonlinebr.com.br/calculadoras" },
+              { "@type": "ListItem", position: 3, name: "Loterias", item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias" },
+              { "@type": "ListItem", position: 4, name: "Gerador de Lotofácil", item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-lotofacil" },
             ],
           }),
         }}
