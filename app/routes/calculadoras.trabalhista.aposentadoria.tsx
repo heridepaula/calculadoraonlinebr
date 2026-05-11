@@ -695,6 +695,8 @@ export default function CalculadoraAposentadoriaINSS() {
   // Estado dos resultados
   const [result, setResult] = useState<RetirementResult | null>(null);
   const [selectedModality, setSelectedModality] = useState<string>("");
+  const [saveToast, setSaveToast] = useState<string | null>(null);
+  const showSaveToast = (msg: string) => { setSaveToast(msg); setTimeout(() => setSaveToast(null), 2000); };
 
   // Global Analytics Tracking
   const {
@@ -1344,7 +1346,7 @@ export default function CalculadoraAposentadoriaINSS() {
                           JSON.stringify(historico.slice(0, 10))
                         ); // Manter apenas 10
 
-                        alert("Simulação salva com sucesso!");
+                        showSaveToast("Simulação salva com sucesso! ✅");
                       }}
                       className="w-full rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-700"
                     >
@@ -1780,6 +1782,12 @@ Consulte sempre um especialista para análise detalhada.
       />
 
       <RelatedCalculators category="trabalhista" currentCalculatorId="aposentadoria" />
+
+      {saveToast && (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-growth-green px-5 py-3 text-sm font-medium text-white shadow-lg">
+          {saveToast}
+        </div>
+      )}
     </div>
   );
 }
