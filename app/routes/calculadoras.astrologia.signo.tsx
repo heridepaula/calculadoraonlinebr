@@ -60,6 +60,8 @@ export const meta: MetaFunction = () => {
       content:
         "Calculadora de Signo Solar - Interface da calculadora mostrando os 12 signos do zodíaco",
     },
+    { property: "og:image:width", content: "512" },
+    { property: "og:image:height", content: "512" },
     {
       property: "og:site_name",
       content: "CalculadoraOnlineBR",
@@ -179,7 +181,7 @@ const getSignColors = (signo: string) => {
         bg: "from-red-500 to-orange-500",
         text: "text-red-600",
         accent: "border-red-500",
-        gradient: "bg-gradient-to-br from-red-50 to-orange-50",
+        gradient: "bg-gradient-to-br from-red-500/10 to-orange-500/10",
       },
     },
     Leão: {
@@ -188,7 +190,7 @@ const getSignColors = (signo: string) => {
         bg: "from-yellow-500 to-orange-500",
         text: "text-orange-600",
         accent: "border-yellow-500",
-        gradient: "bg-gradient-to-br from-yellow-50 to-orange-50",
+        gradient: "bg-gradient-to-br from-yellow-500/10 to-orange-500/10",
       },
     },
     Sagitário: {
@@ -197,7 +199,7 @@ const getSignColors = (signo: string) => {
         bg: "from-purple-500 to-pink-500",
         text: "text-purple-600",
         accent: "border-purple-500",
-        gradient: "bg-gradient-to-br from-purple-50 to-pink-50",
+        gradient: "bg-gradient-to-br from-purple-500/10 to-pink-500/10",
       },
     },
     Touro: {
@@ -206,7 +208,7 @@ const getSignColors = (signo: string) => {
         bg: "from-green-600 to-emerald-600",
         text: "text-green-700",
         accent: "border-green-600",
-        gradient: "bg-gradient-to-br from-green-50 to-emerald-50",
+        gradient: "bg-gradient-to-br from-green-500/10 to-emerald-500/10",
       },
     },
     Virgem: {
@@ -215,7 +217,7 @@ const getSignColors = (signo: string) => {
         bg: "from-teal-600 to-green-600",
         text: "text-teal-700",
         accent: "border-teal-600",
-        gradient: "bg-gradient-to-br from-teal-50 to-green-50",
+        gradient: "bg-gradient-to-br from-teal-500/10 to-green-500/10",
       },
     },
     Capricórnio: {
@@ -224,7 +226,7 @@ const getSignColors = (signo: string) => {
         bg: "from-slate-600 to-gray-700",
         text: "text-slate-700",
         accent: "border-slate-600",
-        gradient: "bg-gradient-to-br from-slate-50 to-gray-100",
+        gradient: "bg-gradient-to-br from-slate-500/10 to-gray-500/10",
       },
     },
     Gêmeos: {
@@ -233,7 +235,7 @@ const getSignColors = (signo: string) => {
         bg: "from-sky-500 to-blue-500",
         text: "text-sky-600",
         accent: "border-sky-500",
-        gradient: "bg-gradient-to-br from-sky-50 to-blue-50",
+        gradient: "bg-gradient-to-br from-sky-500/10 to-blue-500/10",
       },
     },
     Libra: {
@@ -242,7 +244,7 @@ const getSignColors = (signo: string) => {
         bg: "from-pink-500 to-rose-500",
         text: "text-pink-600",
         accent: "border-pink-500",
-        gradient: "bg-gradient-to-br from-pink-50 to-rose-50",
+        gradient: "bg-gradient-to-br from-pink-500/10 to-rose-500/10",
       },
     },
     Aquário: {
@@ -251,7 +253,7 @@ const getSignColors = (signo: string) => {
         bg: "from-cyan-500 to-blue-500",
         text: "text-cyan-600",
         accent: "border-cyan-500",
-        gradient: "bg-gradient-to-br from-cyan-50 to-blue-50",
+        gradient: "bg-gradient-to-br from-cyan-500/10 to-blue-500/10",
       },
     },
     Câncer: {
@@ -260,7 +262,7 @@ const getSignColors = (signo: string) => {
         bg: "from-indigo-500 to-blue-600",
         text: "text-indigo-600",
         accent: "border-indigo-500",
-        gradient: "bg-gradient-to-br from-indigo-50 to-blue-50",
+        gradient: "bg-gradient-to-br from-indigo-500/10 to-blue-500/10",
       },
     },
     Escorpião: {
@@ -269,7 +271,7 @@ const getSignColors = (signo: string) => {
         bg: "from-red-600 to-red-800",
         text: "text-red-700",
         accent: "border-red-600",
-        gradient: "bg-gradient-to-br from-red-50 to-red-100",
+        gradient: "bg-gradient-to-br from-red-500/10 to-red-500/10",
       },
     },
     Peixes: {
@@ -288,7 +290,7 @@ const getSignColors = (signo: string) => {
       element: "neutro",
       colors: {
         bg: "from-gray-500 to-gray-600",
-        text: "text-gray-600",
+        text: "text-text-secondary-dark",
         accent: "border-gray-500",
         gradient: "bg-gradient-to-br from-gray-50 to-gray-100",
       },
@@ -362,13 +364,13 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               <span className={`text-xl font-bold ${signColors.colors.text}`}>
                 Personalidade de {result.nome}
               </span>
-              <p className="mt-1 text-sm text-gray-600">Suas características principais</p>
+              <p className="mt-1 text-sm text-text-secondary-dark">Suas características principais</p>
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent className="relative z-10 space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="rounded-lg border border-white/60 bg-white/85 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className={`font-bold ${signColors.colors.text} mb-3 flex items-center gap-2`}>
                 <span className="text-lg">🌟</span>
                 Características Principais:
@@ -380,7 +382,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                       <span className={`${signColors.colors.text} mt-0.5 text-sm leading-none`}>
                         ●
                       </span>
-                      <span className="text-sm font-medium leading-relaxed text-gray-800">
+                      <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                         {char}
                       </span>
                     </li>
@@ -389,7 +391,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-white/60 bg-white/85 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-green-700">
                 <span className="text-lg">💪</span>
                 Pontos Fortes:
@@ -398,7 +400,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.personalidade.pontos_fortes.map((forte: string, index: number) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-green-600">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {forte}
                     </span>
                   </li>
@@ -406,7 +408,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-white/60 bg-white/85 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-white/20 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-700">
                 <span className="text-lg">⚠️</span>
                 Principais Desafios:
@@ -415,7 +417,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.personalidade.desafios.map((desafio: string, index: number) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-orange-600">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {desafio}
                     </span>
                   </li>
@@ -427,7 +429,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
       </Card>
 
       {/* Vida Amorosa */}
-      <Card className="relative overflow-hidden border-2 border-pink-200 bg-gradient-to-br from-pink-50 via-rose-50 to-red-50 shadow-lg transition-all duration-300 hover:shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-pink-500/30 bg-gradient-to-br from-pink-500/10 via-rose-500/10 to-red-500/10 shadow-lg transition-all duration-300 hover:shadow-xl">
         <div className="absolute right-0 top-0 h-40 w-40 opacity-20">
           <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-br from-pink-400 to-red-400 blur-3xl"></div>
         </div>
@@ -446,7 +448,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
         </CardHeader>
         <CardContent className="relative z-10 space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="rounded-lg border border-pink-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-pink-700">
                 <span className="text-lg">💕</span>
                 Estilo Romântico:
@@ -455,7 +457,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.vida_amorosa.estilo_romantico.map((estilo, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-pink-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {estilo}
                     </span>
                   </li>
@@ -463,7 +465,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-pink-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-pink-700">
                 <span className="text-lg">✨</span>
                 Compatibilidades:
@@ -472,7 +474,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.vida_amorosa.compatibilidades.map((comp, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-pink-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {comp}
                     </span>
                   </li>
@@ -480,7 +482,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-pink-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-700">
                 <span className="text-lg">⚡</span>
                 Desafios Amorosos:
@@ -489,7 +491,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.vida_amorosa.desafios_amorosos.map((desafio, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-orange-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {desafio}
                     </span>
                   </li>
@@ -501,7 +503,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
       </Card>
 
       {/* Vida Profissional */}
-      <Card className="relative overflow-hidden border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 shadow-lg transition-all duration-300 hover:shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-purple-500/10 shadow-lg transition-all duration-300 hover:shadow-xl">
         <div className="absolute bottom-0 left-0 h-40 w-40 opacity-20">
           <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-br from-blue-400 to-purple-500 blur-3xl"></div>
         </div>
@@ -518,7 +520,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
         </CardHeader>
         <CardContent className="relative z-10 space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="rounded-lg border border-blue-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
                 <span className="text-lg">🎯</span>
                 Talentos Profissionais:
@@ -527,7 +529,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.vida_profissional.talentos_profissionais.map((talento, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-blue-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {talento}
                     </span>
                   </li>
@@ -535,7 +537,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-blue-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
                 <span className="text-lg">💼</span>
                 Carreiras Ideais:
@@ -552,7 +554,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </div>
             </div>
 
-            <div className="rounded-lg border border-blue-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-blue-700">
                 <span className="text-lg">🏢</span>
                 Ambiente Ideal:
@@ -561,7 +563,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.vida_profissional.ambiente_trabalho_ideal.map((ambiente, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-green-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {ambiente}
                     </span>
                   </li>
@@ -573,7 +575,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
       </Card>
 
       {/* Saúde e Bem-estar */}
-      <Card className="relative overflow-hidden border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 shadow-lg transition-all duration-300 hover:shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-green-500/10 to-teal-500/10 shadow-lg transition-all duration-300 hover:shadow-xl">
         <div className="absolute right-0 top-0 h-40 w-40 opacity-20">
           <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 blur-3xl"></div>
         </div>
@@ -590,7 +592,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
         </CardHeader>
         <CardContent className="relative z-10 space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="rounded-lg border border-emerald-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-orange-700">
                 <span className="text-lg">⚠️</span>
                 Pontos de Atenção:
@@ -599,7 +601,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.saude_bem_estar.pontos_atencao.map((ponto, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-orange-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {ponto}
                     </span>
                   </li>
@@ -607,7 +609,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-emerald-300 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+            <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4 shadow-sm backdrop-blur-sm">
               <h5 className="mb-3 flex items-center gap-2 font-bold text-emerald-700">
                 <span className="text-lg">🏃</span>
                 Atividades Recomendadas:
@@ -616,7 +618,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
                 {result.saude_bem_estar.atividades_recomendadas.map((atividade, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="mt-0.5 text-sm leading-none text-emerald-500">●</span>
-                    <span className="text-sm font-medium leading-relaxed text-gray-800">
+                    <span className="text-sm font-medium leading-relaxed text-text-primary-dark">
                       {atividade}
                     </span>
                   </li>
@@ -628,7 +630,7 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
       </Card>
 
       {/* Dicas de Desenvolvimento */}
-      <Card className="relative overflow-hidden border-2 border-amber-200 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 shadow-lg transition-all duration-300 hover:shadow-xl">
+      <Card className="relative overflow-hidden border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-yellow-500/10 to-orange-500/10 shadow-lg transition-all duration-300 hover:shadow-xl">
         <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 transform opacity-10">
           <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-br from-amber-400 to-orange-400 blur-3xl"></div>
         </div>
@@ -648,14 +650,14 @@ const DetailedSignResult = ({ result }: { result: SignoResult }) => {
           </CardTitle>
         </CardHeader>
         <CardContent className="relative z-10 space-y-6">
-          <div className="rounded-lg border border-amber-300 bg-white/85 p-6 shadow-md backdrop-blur-sm">
+          <div className="rounded-lg border border-amber-500/30 bg-background-secondary p-6 shadow-md backdrop-blur-sm">
             <ul className="space-y-4">
               {result.dicas_desenvolvimento.map((dica, index) => (
                 <li key={index} className="flex items-start gap-4">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500 text-sm font-bold text-white">
                     {index + 1}
                   </div>
-                  <span className="flex-1 text-base font-medium leading-relaxed text-gray-800">
+                  <span className="flex-1 text-base font-medium leading-relaxed text-text-primary-dark">
                     {dica}
                   </span>
                 </li>
@@ -944,15 +946,15 @@ export default function CalculadoraSigno() {
           <CardContent>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {/* Áries */}
-              <div className="rounded-xl border border-red-500/20 bg-gradient-to-br from-red-50 to-orange-50 p-6">
+              <div className="rounded-xl border border-red-500/20 bg-gradient-to-br from-red-500/10 to-orange-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♈</span>
                   <div>
                     <h3 className="text-lg font-bold text-red-600">Áries</h3>
-                    <p className="text-sm text-gray-600">21/03 - 19/04</p>
+                    <p className="text-sm text-text-secondary-dark">21/03 - 19/04</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Dinâmico, corajoso e pioneiro. Lidera naturalmente e enfrenta desafios de cabeça
                   erguida.
                 </p>
@@ -960,22 +962,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
                     Fogo
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Marte
                   </span>
                 </div>
               </div>
 
               {/* Touro */}
-              <div className="rounded-xl border border-green-600/20 bg-gradient-to-br from-green-50 to-emerald-50 p-6">
+              <div className="rounded-xl border border-green-600/20 bg-gradient-to-br from-green-500/10 to-emerald-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♉</span>
                   <div>
                     <h3 className="text-lg font-bold text-green-700">Touro</h3>
-                    <p className="text-sm text-gray-600">20/04 - 20/05</p>
+                    <p className="text-sm text-text-secondary-dark">20/04 - 20/05</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Estável, persistente e amante do conforto. Constrói relacionamentos e patrimônio
                   duradouros.
                 </p>
@@ -983,22 +985,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
                     Terra
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Vênus
                   </span>
                 </div>
               </div>
 
               {/* Gêmeos */}
-              <div className="rounded-xl border border-sky-500/20 bg-gradient-to-br from-sky-50 to-blue-50 p-6">
+              <div className="rounded-xl border border-sky-500/20 bg-gradient-to-br from-sky-500/10 to-blue-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♊</span>
                   <div>
                     <h3 className="text-lg font-bold text-sky-600">Gêmeos</h3>
-                    <p className="text-sm text-gray-600">21/05 - 20/06</p>
+                    <p className="text-sm text-text-secondary-dark">21/05 - 20/06</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Comunicativo, versátil e curioso. Mente ágil e facilidade para se adaptar a
                   qualquer situação.
                 </p>
@@ -1006,22 +1008,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-sky-100 px-2 py-1 text-xs font-medium text-sky-700">
                     Ar
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Mercúrio
                   </span>
                 </div>
               </div>
 
               {/* Câncer */}
-              <div className="rounded-xl border border-indigo-500/20 bg-gradient-to-br from-indigo-50 to-blue-50 p-6">
+              <div className="rounded-xl border border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♋</span>
                   <div>
                     <h3 className="text-lg font-bold text-indigo-600">Câncer</h3>
-                    <p className="text-sm text-gray-600">21/06 - 22/07</p>
+                    <p className="text-sm text-text-secondary-dark">21/06 - 22/07</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Emotivo, protetor e familiar. Intuição aguçada e forte conexão com o lar e
                   tradições.
                 </p>
@@ -1029,22 +1031,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-indigo-100 px-2 py-1 text-xs font-medium text-indigo-700">
                     Água
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Lua
                   </span>
                 </div>
               </div>
 
               {/* Leão */}
-              <div className="rounded-xl border border-orange-500/20 bg-gradient-to-br from-yellow-50 to-orange-50 p-6">
+              <div className="rounded-xl border border-orange-500/20 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♌</span>
                   <div>
                     <h3 className="text-lg font-bold text-orange-600">Leão</h3>
-                    <p className="text-sm text-gray-600">23/07 - 22/08</p>
+                    <p className="text-sm text-text-secondary-dark">23/07 - 22/08</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Carismático, generoso e criativo. Presença marcante e talento natural para liderar
                   e inspirar.
                 </p>
@@ -1052,22 +1054,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-700">
                     Fogo
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Sol
                   </span>
                 </div>
               </div>
 
               {/* Virgem */}
-              <div className="rounded-xl border border-teal-600/20 bg-gradient-to-br from-teal-50 to-green-50 p-6">
+              <div className="rounded-xl border border-teal-600/20 bg-gradient-to-br from-teal-500/10 to-green-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♍</span>
                   <div>
                     <h3 className="text-lg font-bold text-teal-700">Virgem</h3>
-                    <p className="text-sm text-gray-600">23/08 - 22/09</p>
+                    <p className="text-sm text-text-secondary-dark">23/08 - 22/09</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Meticuloso, prático e prestativo. Busca a perfeição e tem talento para organizar e
                   servir.
                 </p>
@@ -1075,44 +1077,44 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-teal-100 px-2 py-1 text-xs font-medium text-teal-700">
                     Terra
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Mercúrio
                   </span>
                 </div>
               </div>
 
               {/* Libra */}
-              <div className="rounded-xl border border-pink-500/20 bg-gradient-to-br from-pink-50 to-rose-50 p-6">
+              <div className="rounded-xl border border-pink-500/20 bg-gradient-to-br from-pink-500/10 to-rose-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♎</span>
                   <div>
                     <h3 className="text-lg font-bold text-pink-600">Libra</h3>
-                    <p className="text-sm text-gray-600">23/09 - 22/10</p>
+                    <p className="text-sm text-text-secondary-dark">23/09 - 22/10</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Equilibrado, charmoso e diplomático. Busca harmonia e tem senso estético refinado.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <span className="rounded-full bg-pink-100 px-2 py-1 text-xs font-medium text-pink-700">
                     Ar
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Vênus
                   </span>
                 </div>
               </div>
 
               {/* Escorpião */}
-              <div className="rounded-xl border border-red-600/20 bg-gradient-to-br from-red-50 to-red-100 p-6">
+              <div className="rounded-xl border border-red-600/20 bg-gradient-to-br from-red-500/10 to-red-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♏</span>
                   <div>
                     <h3 className="text-lg font-bold text-red-700">Escorpião</h3>
-                    <p className="text-sm text-gray-600">23/10 - 21/11</p>
+                    <p className="text-sm text-text-secondary-dark">23/10 - 21/11</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Intenso, transformador e magnético. Profundidade emocional e capacidade de
                   renovação total.
                 </p>
@@ -1120,22 +1122,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
                     Água
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Plutão
                   </span>
                 </div>
               </div>
 
               {/* Sagitário */}
-              <div className="rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-50 to-pink-50 p-6">
+              <div className="rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♐</span>
                   <div>
                     <h3 className="text-lg font-bold text-purple-600">Sagitário</h3>
-                    <p className="text-sm text-gray-600">22/11 - 21/12</p>
+                    <p className="text-sm text-text-secondary-dark">22/11 - 21/12</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Otimista, aventureiro e filosófico. Busca liberdade, conhecimento e novos
                   horizontes.
                 </p>
@@ -1143,22 +1145,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-purple-100 px-2 py-1 text-xs font-medium text-purple-700">
                     Fogo
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Júpiter
                   </span>
                 </div>
               </div>
 
               {/* Capricórnio */}
-              <div className="rounded-xl border border-slate-600/20 bg-gradient-to-br from-slate-50 to-gray-100 p-6">
+              <div className="rounded-xl border border-slate-600/20 bg-gradient-to-br from-slate-500/10 to-gray-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♑</span>
                   <div>
                     <h3 className="text-lg font-bold text-slate-700">Capricórnio</h3>
-                    <p className="text-sm text-gray-600">22/12 - 20/01</p>
+                    <p className="text-sm text-text-secondary-dark">22/12 - 20/01</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Ambicioso, disciplinado e responsável. Constrói carreira sólida e alcança
                   objetivos de longo prazo.
                 </p>
@@ -1166,22 +1168,22 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
                     Terra
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Saturno
                   </span>
                 </div>
               </div>
 
               {/* Aquário */}
-              <div className="rounded-xl border border-cyan-500/20 bg-gradient-to-br from-cyan-50 to-blue-50 p-6">
+              <div className="rounded-xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-6">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="text-3xl">♒</span>
                   <div>
                     <h3 className="text-lg font-bold text-cyan-600">Aquário</h3>
-                    <p className="text-sm text-gray-600">21/01 - 19/02</p>
+                    <p className="text-sm text-text-secondary-dark">21/01 - 19/02</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Original, humanitário e visionário. Mente inovadora e desejo de contribuir para um
                   mundo melhor.
                 </p>
@@ -1189,7 +1191,7 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-cyan-100 px-2 py-1 text-xs font-medium text-cyan-700">
                     Ar
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Urano
                   </span>
                 </div>
@@ -1201,10 +1203,10 @@ export default function CalculadoraSigno() {
                   <span className="text-3xl">♓</span>
                   <div>
                     <h3 className="text-lg font-bold text-violet-600">Peixes</h3>
-                    <p className="text-sm text-gray-600">20/02 - 20/03</p>
+                    <p className="text-sm text-text-secondary-dark">20/02 - 20/03</p>
                   </div>
                 </div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-secondary-dark">
                   Empático, criativo e espiritual. Sensibilidade artística e capacidade única de
                   compreender emoções.
                 </p>
@@ -1212,7 +1214,7 @@ export default function CalculadoraSigno() {
                   <span className="rounded-full bg-violet-100 px-2 py-1 text-xs font-medium text-violet-700">
                     Água
                   </span>
-                  <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                  <span className="rounded-full bg-background-secondary px-2 py-1 text-xs font-medium text-text-secondary-dark">
                     Netuno
                   </span>
                 </div>
