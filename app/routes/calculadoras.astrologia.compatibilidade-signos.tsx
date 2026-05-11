@@ -626,7 +626,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           },
         });
 
-        alert("Texto copiado para área de transferência! ✅");
+        showCopyToast("Texto copiado para área de transferência! ✅");
       } else {
         // Fallback para browsers mais antigos
         const textArea = document.createElement("textarea");
@@ -652,11 +652,11 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           },
         });
 
-        alert("Texto copiado para área de transferência! ✅");
+        showCopyToast("Texto copiado para área de transferência! ✅");
       }
     } catch (error) {
       console.error("Erro ao copiar:", error);
-      alert("Erro ao copiar texto. Tente novamente.");
+      showCopyToast("Erro ao copiar texto. Tente novamente.");
     }
   };
 
@@ -759,7 +759,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               <span className="text-2xl">💖</span>
-              <span className="text-pink-700">Amor</span>
+              <span className="text-pink-400">Amor</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -775,7 +775,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               <span className="text-2xl">🤝</span>
-              <span className="text-blue-700">Amizade</span>
+              <span className="text-blue-400">Amizade</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -791,7 +791,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               <span className="text-2xl">💼</span>
-              <span className="text-green-700">Trabalho</span>
+              <span className="text-green-400">Trabalho</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -809,31 +809,31 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-xl">
             <span className="text-3xl">💕</span>
-            <span className="text-pink-700">{result.amor.titulo}</span>
+            <span className="text-pink-400">{result.amor.titulo}</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="rounded-lg border border-pink-200 bg-white/80 p-4">
-            <p className="text-gray-800">{result.amor.descricao_geral}</p>
+          <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4">
+            <p className="text-text-primary-dark">{result.amor.descricao_geral}</p>
           </div>
 
-          <div className="rounded-lg border border-pink-200 bg-white/80 p-4">
-            <h4 className="mb-2 font-semibold text-pink-700">✨ Atração Inicial</h4>
-            <p className="text-gray-800">{result.amor.atracao_inicial}</p>
+          <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4">
+            <h4 className="mb-2 font-semibold text-pink-400">✨ Atração Inicial</h4>
+            <p className="text-text-primary-dark">{result.amor.atracao_inicial}</p>
           </div>
 
-          <div className="rounded-lg border border-pink-200 bg-white/80 p-4">
-            <h4 className="mb-2 font-semibold text-pink-700">💑 Intimidade Física</h4>
-            <p className="text-gray-800">{result.amor.intimidade_fisica}</p>
+          <div className="rounded-lg border border-pink-500/30 bg-background-secondary p-4">
+            <h4 className="mb-2 font-semibold text-pink-400">💑 Intimidade Física</h4>
+            <p className="text-text-primary-dark">{result.amor.intimidade_fisica}</p>
           </div>
 
-          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
-            <h4 className="mb-3 font-semibold text-orange-700">⚠️ Principais Desafios</h4>
+          <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4">
+            <h4 className="mb-3 font-semibold text-orange-400">⚠️ Principais Desafios</h4>
             <ul className="space-y-2">
               {result.amor.desafios_principais.map((desafio, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <span className="text-orange-500">•</span>
-                  <span className="text-sm text-gray-800">{desafio}</span>
+                  <span className="text-sm text-text-primary-dark">{desafio}</span>
                 </li>
               ))}
             </ul>
@@ -846,34 +846,34 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-xl">
             <span className="text-3xl">👫</span>
-            <span className="text-blue-700">{result.amizade.titulo}</span>
+            <span className="text-blue-400">{result.amizade.titulo}</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="rounded-lg border border-blue-200 bg-white/80 p-4">
-            <p className="text-gray-800">{result.amizade.descricao_geral}</p>
+          <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4">
+            <p className="text-text-primary-dark">{result.amizade.descricao_geral}</p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg border border-blue-200 bg-white/70 p-4">
-              <h4 className="mb-3 font-semibold text-blue-700">🔥 Contribuição de {s1.nome}</h4>
-              <p className="text-sm text-gray-800">{result.amizade.contribuicao_signo1}</p>
+            <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4">
+              <h4 className="mb-3 font-semibold text-blue-400">🔥 Contribuição de {s1.nome}</h4>
+              <p className="text-sm text-text-primary-dark">{result.amizade.contribuicao_signo1}</p>
             </div>
 
-            <div className="rounded-lg border border-blue-200 bg-white/70 p-4">
-              <h4 className="mb-3 font-semibold text-blue-700">💙 Contribuição de {s2.nome}</h4>
-              <p className="text-sm text-gray-800">{result.amizade.contribuicao_signo2}</p>
+            <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4">
+              <h4 className="mb-3 font-semibold text-blue-400">💙 Contribuição de {s2.nome}</h4>
+              <p className="text-sm text-text-primary-dark">{result.amizade.contribuicao_signo2}</p>
             </div>
           </div>
 
-          <div className="rounded-lg border border-blue-200 bg-white/70 p-4">
-            <h4 className="mb-3 font-semibold text-blue-700">🎯 Atividades Compartilhadas</h4>
-            <p className="text-sm text-gray-800">{result.amizade.atividades_compartilhadas}</p>
+          <div className="rounded-lg border border-blue-500/30 bg-background-secondary p-4">
+            <h4 className="mb-3 font-semibold text-blue-400">🎯 Atividades Compartilhadas</h4>
+            <p className="text-sm text-text-primary-dark">{result.amizade.atividades_compartilhadas}</p>
           </div>
 
-          <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-            <h4 className="mb-3 font-semibold text-yellow-700">⚡ Conflitos Possíveis</h4>
-            <p className="text-sm text-gray-800">{result.amizade.conflitos_possiveis}</p>
+          <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
+            <h4 className="mb-3 font-semibold text-yellow-400">⚡ Conflitos Possíveis</h4>
+            <p className="text-sm text-text-primary-dark">{result.amizade.conflitos_possiveis}</p>
           </div>
         </CardContent>
       </Card>
@@ -883,34 +883,34 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-xl">
             <span className="text-3xl">💼</span>
-            <span className="text-green-700">{result.trabalho.titulo}</span>
+            <span className="text-green-400">{result.trabalho.titulo}</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="rounded-lg border border-green-200 bg-white/80 p-4">
-            <p className="text-gray-800">{result.trabalho.descricao_geral}</p>
+          <div className="rounded-lg border border-green-500/30 bg-background-secondary p-4">
+            <p className="text-text-primary-dark">{result.trabalho.descricao_geral}</p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg border border-green-200 bg-white/70 p-4">
-              <h4 className="mb-3 font-semibold text-green-700">🔥 Pontos Fortes de {s1.nome}</h4>
-              <p className="text-sm text-gray-800">{result.trabalho.pontos_fortes_signo1}</p>
+            <div className="rounded-lg border border-green-500/30 bg-background-secondary p-4">
+              <h4 className="mb-3 font-semibold text-green-400">🔥 Pontos Fortes de {s1.nome}</h4>
+              <p className="text-sm text-text-primary-dark">{result.trabalho.pontos_fortes_signo1}</p>
             </div>
 
-            <div className="rounded-lg border border-green-200 bg-white/70 p-4">
-              <h4 className="mb-3 font-semibold text-green-700">💙 Pontos Fortes de {s2.nome}</h4>
-              <p className="text-sm text-gray-800">{result.trabalho.pontos_fortes_signo2}</p>
+            <div className="rounded-lg border border-green-500/30 bg-background-secondary p-4">
+              <h4 className="mb-3 font-semibold text-green-400">💙 Pontos Fortes de {s2.nome}</h4>
+              <p className="text-sm text-text-primary-dark">{result.trabalho.pontos_fortes_signo2}</p>
             </div>
           </div>
 
-          <div className="rounded-lg border border-green-200 bg-white/70 p-4">
-            <h4 className="mb-3 font-semibold text-green-700">🎯 Setores Ideais</h4>
-            <p className="text-sm text-gray-800">{result.trabalho.setores_ideais}</p>
+          <div className="rounded-lg border border-green-500/30 bg-background-secondary p-4">
+            <h4 className="mb-3 font-semibold text-green-400">🎯 Setores Ideais</h4>
+            <p className="text-sm text-text-primary-dark">{result.trabalho.setores_ideais}</p>
           </div>
 
-          <div className="rounded-lg border border-green-200 bg-white/70 p-4">
-            <h4 className="mb-3 font-semibold text-green-700">⚠️ Desafio Principal</h4>
-            <p className="text-sm text-gray-800">{result.trabalho.desafio_principal}</p>
+          <div className="rounded-lg border border-green-500/30 bg-background-secondary p-4">
+            <h4 className="mb-3 font-semibold text-green-400">⚠️ Desafio Principal</h4>
+            <p className="text-sm text-text-primary-dark">{result.trabalho.desafio_principal}</p>
           </div>
         </CardContent>
       </Card>
@@ -920,41 +920,41 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-xl">
             <span className="text-3xl">⚡</span>
-            <span className="text-purple-700">{result.elementos.titulo}</span>
+            <span className="text-purple-400">{result.elementos.titulo}</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="text-center">
-            <div className="inline-flex items-center gap-4 rounded-full border border-purple-200 bg-white/80 px-6 py-3">
+            <div className="inline-flex items-center gap-4 rounded-full border border-purple-500/30 bg-background-secondary px-6 py-3">
               <span className="text-2xl">{s1.simbolo}</span>
-              <span className="font-semibold text-purple-700">{s1.elemento}</span>
+              <span className="font-semibold text-purple-400">{s1.elemento}</span>
               <span className="text-purple-500">+</span>
-              <span className="font-semibold text-purple-700">{s2.elemento}</span>
+              <span className="font-semibold text-purple-400">{s2.elemento}</span>
               <span className="text-2xl">{s2.simbolo}</span>
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-purple-700">
+            <h3 className="mt-4 text-lg font-semibold text-purple-400">
               {result.elementos.combinacao}
             </h3>
           </div>
 
-          <div className="rounded-lg border border-purple-200 bg-white/80 p-4">
-            <p className="text-gray-800">{result.elementos.descricao_geral}</p>
+          <div className="rounded-lg border border-purple-500/30 bg-background-secondary p-4">
+            <p className="text-text-primary-dark">{result.elementos.descricao_geral}</p>
           </div>
 
-          <div className="rounded-lg border border-purple-200 bg-white/80 p-4">
-            <h4 className="mb-2 font-semibold text-purple-700">🌟 Natureza Elemental</h4>
-            <p className="text-gray-800">{result.elementos.natureza_elemental}</p>
+          <div className="rounded-lg border border-purple-500/30 bg-background-secondary p-4">
+            <h4 className="mb-2 font-semibold text-purple-400">🌟 Natureza Elemental</h4>
+            <p className="text-text-primary-dark">{result.elementos.natureza_elemental}</p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-              <h4 className="mb-2 font-semibold text-green-700">✨ Sinergia Positiva</h4>
-              <p className="text-sm text-gray-800">{result.elementos.sinergia_positiva}</p>
+            <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-4">
+              <h4 className="mb-2 font-semibold text-green-400">✨ Sinergia Positiva</h4>
+              <p className="text-sm text-text-primary-dark">{result.elementos.sinergia_positiva}</p>
             </div>
 
-            <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
-              <h4 className="mb-2 font-semibold text-orange-700">⚠️ Riscos Elementais</h4>
-              <p className="text-sm text-gray-800">{result.elementos.riscos_elementais}</p>
+            <div className="rounded-lg border border-orange-500/30 bg-orange-500/10 p-4">
+              <h4 className="mb-2 font-semibold text-orange-400">⚠️ Riscos Elementais</h4>
+              <p className="text-sm text-text-primary-dark">{result.elementos.riscos_elementais}</p>
             </div>
           </div>
         </CardContent>
@@ -965,15 +965,15 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-xl">
             <span className="text-3xl">💪</span>
-            <span className="text-green-700">{result.pontos_fortes.titulo}</span>
+            <span className="text-green-400">{result.pontos_fortes.titulo}</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {result.pontos_fortes.lista.map((ponto, index) => (
-              <div key={index} className="rounded-lg border border-green-200 bg-white/80 p-4">
-                <h4 className="mb-2 font-semibold text-green-700">✨ {ponto.nome}</h4>
-                <p className="text-sm text-gray-800">{ponto.descricao}</p>
+              <div key={index} className="rounded-lg border border-green-500/30 bg-background-secondary p-4">
+                <h4 className="mb-2 font-semibold text-green-400">✨ {ponto.nome}</h4>
+                <p className="text-sm text-text-primary-dark">{ponto.descricao}</p>
               </div>
             ))}
           </div>
@@ -986,7 +986,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-xl">
               <span className="text-3xl">⚠️</span>
-              <span className="text-orange-700">
+              <span className="text-orange-400">
                 {result.desafios?.titulo ||
                   result.desafios_principais?.titulo ||
                   "Principais Desafios"}
@@ -997,9 +997,9 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {(result.desafios?.lista || result.desafios_principais?.lista || []).map(
                 (desafio, index) => (
-                  <div key={index} className="rounded-lg border border-orange-200 bg-white/80 p-4">
-                    <h4 className="mb-2 font-semibold text-orange-700">⚡ {desafio.nome}</h4>
-                    <p className="text-sm text-gray-800">{desafio.descricao}</p>
+                  <div key={index} className="rounded-lg border border-orange-500/30 bg-background-secondary p-4">
+                    <h4 className="mb-2 font-semibold text-orange-400">⚡ {desafio.nome}</h4>
+                    <p className="text-sm text-text-primary-dark">{desafio.descricao}</p>
                   </div>
                 )
               )}
@@ -1014,7 +1014,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-xl">
               <span className="text-3xl">💡</span>
-              <span className="text-yellow-700">
+              <span className="text-yellow-400">
                 {result.dicas?.titulo ||
                   result.dicas_relacionamento?.titulo ||
                   "Dicas para Fortalecer o Relacionamento"}
@@ -1024,7 +1024,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardContent className="space-y-6">
             {/* Dicas para o primeiro signo */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold text-yellow-700">
+              <h3 className="mb-4 text-lg font-semibold text-yellow-400">
                 {result.dicas?.para_signo1.titulo ||
                   result.dicas_relacionamento?.para_signo1.titulo}
               </h3>
@@ -1034,9 +1034,9 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
                   result.dicas_relacionamento?.para_signo1.dicas ||
                   []
                 ).map((dica, index) => (
-                  <div key={index} className="rounded-lg border border-yellow-200 bg-white/80 p-3">
-                    <h4 className="mb-2 text-sm font-semibold text-yellow-700">{dica.nome}</h4>
-                    <p className="text-xs text-gray-800">{dica.descricao}</p>
+                  <div key={index} className="rounded-lg border border-yellow-500/30 bg-background-secondary p-3">
+                    <h4 className="mb-2 text-sm font-semibold text-yellow-400">{dica.nome}</h4>
+                    <p className="text-xs text-text-primary-dark">{dica.descricao}</p>
                   </div>
                 ))}
               </div>
@@ -1044,7 +1044,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
 
             {/* Dicas para o segundo signo */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold text-yellow-700">
+              <h3 className="mb-4 text-lg font-semibold text-yellow-400">
                 {result.dicas?.para_signo2.titulo ||
                   result.dicas_relacionamento?.para_signo2.titulo}
               </h3>
@@ -1054,9 +1054,9 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
                   result.dicas_relacionamento?.para_signo2.dicas ||
                   []
                 ).map((dica, index) => (
-                  <div key={index} className="rounded-lg border border-yellow-200 bg-white/80 p-3">
-                    <h4 className="mb-2 text-sm font-semibold text-yellow-700">{dica.nome}</h4>
-                    <p className="text-xs text-gray-800">{dica.descricao}</p>
+                  <div key={index} className="rounded-lg border border-yellow-500/30 bg-background-secondary p-3">
+                    <h4 className="mb-2 text-sm font-semibold text-yellow-400">{dica.nome}</h4>
+                    <p className="text-xs text-text-primary-dark">{dica.descricao}</p>
                   </div>
                 ))}
               </div>
@@ -1064,7 +1064,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
 
             {/* Dicas para ambos */}
             <div>
-              <h3 className="mb-4 text-lg font-semibold text-yellow-700">
+              <h3 className="mb-4 text-lg font-semibold text-yellow-400">
                 {result.dicas?.para_ambos.titulo || result.dicas_relacionamento?.para_ambos.titulo}
               </h3>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -1073,9 +1073,9 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
                   result.dicas_relacionamento?.para_ambos.dicas ||
                   []
                 ).map((dica, index) => (
-                  <div key={index} className="rounded-lg border border-yellow-200 bg-white/80 p-3">
-                    <h4 className="mb-2 text-sm font-semibold text-yellow-700">{dica.nome}</h4>
-                    <p className="text-xs text-gray-800">{dica.descricao}</p>
+                  <div key={index} className="rounded-lg border border-yellow-500/30 bg-background-secondary p-3">
+                    <h4 className="mb-2 text-sm font-semibold text-yellow-400">{dica.nome}</h4>
+                    <p className="text-xs text-text-primary-dark">{dica.descricao}</p>
                   </div>
                 ))}
               </div>
@@ -1090,7 +1090,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-xl">
               <span className="text-3xl">🌱</span>
-              <span className="text-emerald-700">
+              <span className="text-emerald-400">
                 {result.crescimento?.titulo ||
                   result.potencial_crescimento?.titulo ||
                   "Potencial de Crescimento Juntos"}
@@ -1099,59 +1099,59 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           </CardHeader>
           <CardContent className="space-y-4">
             {result.crescimento ? (
-              <div className="space-y-4 rounded-lg border border-emerald-200 bg-white/80 p-4">
+              <div className="space-y-4 rounded-lg border border-emerald-500/30 bg-background-secondary p-4">
                 {result.crescimento.paragrafo_1 && (
-                  <p className="text-gray-800">{result.crescimento.paragrafo_1}</p>
+                  <p className="text-text-primary-dark">{result.crescimento.paragrafo_1}</p>
                 )}
                 {result.crescimento.paragrafo_2 && (
-                  <p className="text-gray-800">{result.crescimento.paragrafo_2}</p>
+                  <p className="text-text-primary-dark">{result.crescimento.paragrafo_2}</p>
                 )}
                 {result.crescimento.paragrafo_3 && (
-                  <p className="text-gray-800">{result.crescimento.paragrafo_3}</p>
+                  <p className="text-text-primary-dark">{result.crescimento.paragrafo_3}</p>
                 )}
                 {result.crescimento.paragrafo_4 && (
-                  <p className="text-gray-800">{result.crescimento.paragrafo_4}</p>
+                  <p className="text-text-primary-dark">{result.crescimento.paragrafo_4}</p>
                 )}
                 {result.crescimento.paragrafo_5 && (
-                  <p className="text-gray-800">{result.crescimento.paragrafo_5}</p>
+                  <p className="text-text-primary-dark">{result.crescimento.paragrafo_5}</p>
                 )}
               </div>
             ) : result.potencial_crescimento ? (
               <>
-                <div className="rounded-lg border border-emerald-200 bg-white/80 p-4">
-                  <p className="text-gray-800">{result.potencial_crescimento.introducao}</p>
+                <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4">
+                  <p className="text-text-primary-dark">{result.potencial_crescimento.introducao}</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded-lg border border-emerald-200 bg-white/80 p-4">
-                    <h4 className="mb-2 font-semibold text-emerald-700">
+                  <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4">
+                    <h4 className="mb-2 font-semibold text-emerald-400">
                       🔥 Crescimento para {s1.nome}
                     </h4>
-                    <p className="text-sm text-gray-800">
+                    <p className="text-sm text-text-primary-dark">
                       {result.potencial_crescimento.crescimento_signo1}
                     </p>
                   </div>
 
-                  <div className="rounded-lg border border-emerald-200 bg-white/80 p-4">
-                    <h4 className="mb-2 font-semibold text-emerald-700">
+                  <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4">
+                    <h4 className="mb-2 font-semibold text-emerald-400">
                       💙 Crescimento para {s2.nome}
                     </h4>
-                    <p className="text-sm text-gray-800">
+                    <p className="text-sm text-text-primary-dark">
                       {result.potencial_crescimento.crescimento_signo2}
                     </p>
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-emerald-200 bg-white/80 p-4">
-                  <h4 className="mb-2 font-semibold text-emerald-700">✨ Crescimento Conjunto</h4>
-                  <p className="text-sm text-gray-800">
+                <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4">
+                  <h4 className="mb-2 font-semibold text-emerald-400">✨ Crescimento Conjunto</h4>
+                  <p className="text-sm text-text-primary-dark">
                     {result.potencial_crescimento.crescimento_conjunto}
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-emerald-200 bg-white/80 p-4">
-                  <h4 className="mb-2 font-semibold text-emerald-700">💚 Potencial de Cura</h4>
-                  <p className="text-sm text-gray-800">
+                <div className="rounded-lg border border-emerald-500/30 bg-background-secondary p-4">
+                  <h4 className="mb-2 font-semibold text-emerald-400">💚 Potencial de Cura</h4>
+                  <p className="text-sm text-text-primary-dark">
                     {result.potencial_crescimento.potencial_cura}
                   </p>
                 </div>
@@ -1170,12 +1170,12 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-4 rounded-lg border border-primary-blue/20 bg-white/80 p-6">
-            <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_1}</p>
-            <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_2}</p>
-            <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_3}</p>
-            <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_4}</p>
-            <p className="leading-relaxed text-gray-800">{result.conclusao.paragrafo_5}</p>
+          <div className="space-y-4 rounded-lg border border-primary-blue/20 bg-background-secondary p-6">
+            <p className="leading-relaxed text-text-primary-dark">{result.conclusao.paragrafo_1}</p>
+            <p className="leading-relaxed text-text-primary-dark">{result.conclusao.paragrafo_2}</p>
+            <p className="leading-relaxed text-text-primary-dark">{result.conclusao.paragrafo_3}</p>
+            <p className="leading-relaxed text-text-primary-dark">{result.conclusao.paragrafo_4}</p>
+            <p className="leading-relaxed text-text-primary-dark">{result.conclusao.paragrafo_5}</p>
           </div>
         </CardContent>
       </Card>
@@ -1196,7 +1196,7 @@ Descubra sua compatibilidade em: https://www.calculadoraonlinebr.com.br/calculad
               {/* WhatsApp */}
               <button
                 onClick={handleWhatsAppShare}
-                className="group flex flex-col items-center gap-2 rounded-lg bg-green-500 p-4 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-green-600 hover:shadow-xl"
+                className="group flex flex-col items-center gap-2 rounded-lg bg-green-500/100 p-4 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-green-600 hover:shadow-xl"
                 title="Compartilhar no WhatsApp"
               >
                 <svg
@@ -1324,6 +1324,8 @@ export default function CalculadoraCompatibilidadeSignos() {
   const [result, setResult] = useState<CompatibilityResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [copyToast, setCopyToast] = useState<string | null>(null);
+  const showCopyToast = (msg: string) => { setCopyToast(msg); setTimeout(() => setCopyToast(null), 2000); };
 
   // Referencia para controle de scroll
   const signo2SelectorRef = useRef<HTMLDivElement>(null);
@@ -1492,6 +1494,57 @@ export default function CalculadoraCompatibilidadeSignos() {
                 "Capricórnio",
                 "Aquário",
                 "Peixes",
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "Como funciona a compatibilidade entre signos?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A compatibilidade astrológica é baseada na interação entre os elementos (Fogo, Terra, Ar, Água), modalidades e características específicas de cada signo. Signos do mesmo elemento tendem a se harmonizar, enquanto elementos complementares podem criar atrações intensas.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Os signos opostos são sempre incompatíveis?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Não necessariamente! Signos opostos podem criar relacionamentos muito intensos e complementares. A atração entre opostos pode levar a relacionamentos profundos, onde cada um aprende e cresce com as diferenças do outro.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Qual é o signo mais compatível com todos?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Não existe um signo universalmente compatível. A compatibilidade depende de muitos fatores além do signo solar, como ascendente, lua e outros aspectos astrológicos. Cada combinação tem suas características únicas.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "A compatibilidade astrológica determina o sucesso do relacionamento?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A astrologia oferece insights valiosos sobre dinâmicas de relacionamento, mas não determina o destino. Comunicação, respeito mútuo, crescimento pessoal e esforço consciente são fatores muito mais importantes para o sucesso de qualquer relacionamento.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Como melhorar a compatibilidade com signos 'difíceis'?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Foque no autoconhecimento e compreensão das diferenças. Pratique comunicação aberta, respeite as características únicas do outro, encontre pontos em comum e veja os desafios como oportunidades de crescimento mútuo.",
+                  },
+                },
               ],
             }),
           }}
@@ -1688,6 +1741,12 @@ export default function CalculadoraCompatibilidadeSignos() {
 
         <RelatedCalculators category="astrologia" />
       </div>
+
+      {copyToast && (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-growth-green px-5 py-3 text-sm font-medium text-white shadow-lg">
+          {copyToast}
+        </div>
+      )}
     </div>
   );
 }
