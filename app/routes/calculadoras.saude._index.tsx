@@ -1,4 +1,5 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import {
   RelatedCalculators,
   CategoryHero,
@@ -259,8 +260,8 @@ export default function SaudeIndex() {
               </p>
 
               <div className="mt-4 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-start lg:flex-col xl:flex-row">
-                <a
-                  href="/calculadoras/saude/imc"
+                <Link
+                  to="/calculadoras/saude/imc"
                   className="group inline-flex transform items-center justify-center rounded-xl bg-white px-6 py-3 text-base font-semibold text-health-red-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-health-red-dark"
                 >
                   <span className="mr-2 text-xl group-hover:animate-bounce">⚖️</span>
@@ -278,15 +279,15 @@ export default function SaudeIndex() {
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
-                </a>
+                </Link>
 
-                <a
-                  href="/calculadoras/saude/hidratacao"
+                <Link
+                  to="/calculadoras/saude/hidratacao"
                   className="group inline-flex transform items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-base font-semibold text-white transition-all duration-300 hover:-translate-y-2 hover:bg-white hover:text-health-red-dark hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-health-red-dark"
                 >
                   <span className="mr-2 text-xl group-hover:animate-bounce">💧</span>
                   Hidratação
-                </a>
+                </Link>
               </div>
             </div>
 
