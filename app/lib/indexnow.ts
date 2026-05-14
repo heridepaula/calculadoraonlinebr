@@ -1,11 +1,13 @@
 /**
  * IndexNow Implementation for CalculadoraOnlineBR
- * 
+ *
  * IndexNow is a protocol that allows website owners to notify search engines
  * about URL changes immediately, improving indexing speed and search visibility.
- * 
+ *
  * @see https://www.indexnow.org/documentation
  */
+
+import { CATEGORIES } from "~/lib/constants";
 
 interface IndexNowSubmissionResponse {
   success: boolean;
@@ -215,10 +217,7 @@ class IndexNowService {
     const urls = [
       baseUrl,
       `${baseUrl}/calculadoras`,
-      `${baseUrl}/calculadoras/saude`,
-      `${baseUrl}/calculadoras/financas`,
-      `${baseUrl}/calculadoras/matematica`,
-      `${baseUrl}/calculadoras/trabalhista`,
+      ...CATEGORIES.map((category) => `${baseUrl}${category.path}`),
       `${baseUrl}/sobre`,
       `${baseUrl}/privacidade`,
       `${baseUrl}/termos-de-uso`,

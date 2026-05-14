@@ -1,96 +1,96 @@
 {
   "planPath": "docs/superpowers/plans/2026-05-14-melhorias-seo-fase1.md",
-  "lastUpdated": "2026-05-14T00:00:00Z",
+  "lastUpdated": "2026-05-14T02:00:00Z",
   "tasks": [
     {
       "id": 0,
       "subject": "Task 0: Reescrever sitemap.xml e completar CALCULATORS",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Substituir o conteúdo errado da rota `/sitemap.xml` por loader que retorna XML válido com todas as calculadoras, categorias e páginas estáticas. Adicionar `conversor-unidades` ao `CALCULATORS`.\n\n**Files:**\n- Modify: `app/lib/constants.ts`\n- Rewrite: `app/routes/sitemap[.]xml.tsx`\n\n**Acceptance Criteria:**\n- conversor-unidades em CALCULATORS\n- rota retorna XML (não HTML da privacidade)\n- 78 <url> no XML (2 + 8 + 65 + 3)\n- priority/changefreq vêm de CALCULATOR_SEO_DATA quando existe\n- lastmod em YYYY-MM-DD, Cache-Control max-age=3600\n\n**Verify:** `npm run typecheck && npm run lint`, depois `curl -s http://localhost:3000/sitemap.xml | grep -c '<url>'` deve retornar 78.\n\n```json:metadata\n{\"files\": [\"app/lib/constants.ts\", \"app/routes/sitemap[.]xml.tsx\"], \"verifyCommand\": \"npm run typecheck && npm run lint\", \"acceptanceCriteria\": [\"conversor-unidades em CALCULATORS\", \"rota sitemap não tem mais HTML da privacidade\", \"Response com Content-Type application/xml\", \"78 <url> no XML\", \"lastmod em YYYY-MM-DD\", \"Cache-Control max-age=3600\"]}\n```"
     },
     {
       "id": 1,
       "subject": "Task 1: SEO data — astrologia (4 calculadoras)",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Adicionar entradas em CALCULATOR_SEO_DATA para 4 calculadoras de astrologia.\n\n**Files:**\n- Modify: `app/lib/calculator-seo.ts`\n\n**Acceptance Criteria:**\n- ascendente-astrologico (ID exato, não 'ascendente'), signo, compatibilidade-signos, numerologia\n- Cada entrada com title 2025, description ★, keywords 8-15 termos\n\n**Verify:** `npm run typecheck` + View Source mostra title customizado\n\n```json:metadata\n{\"files\": [\"app/lib/calculator-seo.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"4 entradas astrologia em CALCULATOR_SEO_DATA\", \"chaves casam com IDs em CALCULATORS\", \"padrão consistente com entradas existentes\"]}\n```"
     },
     {
       "id": 2,
       "subject": "Task 2: SEO data — datas (5 calculadoras) + fix diferenca-entre-datas",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [1],
       "description": "**Goal:** Adicionar 4 entradas novas de datas e corrigir canonicalUrl de diferenca-entre-datas (atualmente /ferramentas/, deveria ser /datas/).\n\n**Files:**\n- Modify: `app/lib/calculator-seo.ts`\n\n**Acceptance Criteria:**\n- diferenca-entre-datas canonicalUrl com /datas/ (não /ferramentas/)\n- contagem-regressiva, operacao-datas, idade-exata, dias-uteis\n\n**Verify:** `npm run typecheck`\n\n```json:metadata\n{\"files\": [\"app/lib/calculator-seo.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"diferenca-entre-datas canonical corrigido\", \"5 calculadoras de datas no map\", \"padrão consistente\"]}\n```"
     },
     {
       "id": 3,
       "subject": "Task 3: SEO data — ferramentas (13 calculadoras novas)",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [2],
       "description": "**Goal:** Adicionar 13 entradas em ferramentas (gerador-cpf já existe).\n\n**Files:**\n- Modify: `app/lib/calculator-seo.ts`\n\n**Acceptance Criteria:**\n- gerador-cnpj, validar-cpf, validar-cnpj, contador-caracteres, gerador-cartao-credito, gerador-uuid-guid, sorteador-online, gerador-senha-segura, clicks-por-segundo, carro-eletrico-combustao, economia-energia-eletrica, consumo-energia-eletrica, conversor-unidades\n\n**Verify:** `npm run typecheck`\n\n```json:metadata\n{\"files\": [\"app/lib/calculator-seo.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"13 ferramentas em CALCULATOR_SEO_DATA\", \"padrão consistente\"]}\n```"
     },
     {
       "id": 4,
       "subject": "Task 4: SEO data — loterias (3) + matemática (4 novas)",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [3],
       "description": "**Goal:** 3 calculadoras de loterias + 4 de matemática.\n\n**Files:**\n- Modify: `app/lib/calculator-seo.ts`\n\n**Acceptance Criteria:**\n- gerador-mega-sena, gerador-lotofacil, gerador-quina\n- calculadora-cientifica, sistemas-equacoes-lineares, inequacoes, simplificador-funcoes-algebricas\n\n**Verify:** `npm run typecheck`\n\n```json:metadata\n{\"files\": [\"app/lib/calculator-seo.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"3 loterias no map\", \"4 matemáticas novas no map\"]}\n```"
     },
     {
       "id": 5,
       "subject": "Task 5: SEO data — trabalhista (3) + saúde (1) + finanças (1)",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [4],
       "description": "**Goal:** Últimas 5 entradas — fecha 100% das 66 calculadoras.\n\n**Files:**\n- Modify: `app/lib/calculator-seo.ts`\n\n**Acceptance Criteria:**\n- ferias-decimo-terceiro, horas-extras, salario-liquido, peso-gravidez, renda-fixa-comparativa\n- 100% das calculadoras cobertas\n\n**Verify:** `npm run typecheck`\n\n```json:metadata\n{\"files\": [\"app/lib/calculator-seo.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"5 entradas finais\", \"100% das 66 calculadoras cobertas\"]}\n```"
     },
     {
       "id": 6,
       "subject": "Task 6: Remover aggregateRating fictício de Schema.org",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Remover blocos aggregateRating hardcoded (4.8/250) de structured-data.ts.\n\n**Files:**\n- Modify: `app/lib/structured-data.ts`\n\n**Acceptance Criteria:**\n- generateWebsiteStructuredData não tem aggregateRating\n- generateCalculatorStructuredData não tem aggregateRating\n- demais campos preservados\n\n**Verify:** `npm run typecheck && ! grep -q aggregateRating app/lib/structured-data.ts`\n\n```json:metadata\n{\"files\": [\"app/lib/structured-data.ts\"], \"verifyCommand\": \"npm run typecheck && ! grep -q aggregateRating app/lib/structured-data.ts\", \"acceptanceCriteria\": [\"aggregateRating removido de WebsiteStructuredData\", \"aggregateRating removido de CalculatorStructuredData\", \"demais campos preservados\"]}\n```"
     },
     {
       "id": 7,
       "subject": "Task 7: Gerar imagem Open Graph 1200x630",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Criar og-image-1200x630.webp via script Node (sharp + SVG inline).\n\n**Files:**\n- Create: `scripts/generate-og-image.mjs`\n- Create: `public/og-image-1200x630.webp`\n- Modify: `package.json`\n\n**Acceptance Criteria:**\n- sharp em devDependencies\n- script og:generate funciona\n- arquivo 1200x630 webp existe\n\n**Verify:** `npm run og:generate` produz arquivo com dimensões 1200x630.\n\n```json:metadata\n{\"files\": [\"scripts/generate-og-image.mjs\", \"public/og-image-1200x630.webp\", \"package.json\"], \"verifyCommand\": \"npm run og:generate\", \"acceptanceCriteria\": [\"sharp em devDependencies\", \"script og:generate funciona\", \"arquivo 1200x630 webp existe\"]}\n```"
     },
     {
       "id": 8,
       "subject": "Task 8: Atualizar referências og:image em root.tsx e calculator-seo.ts",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [7],
       "description": "**Goal:** Trocar android-chrome-512x512.webp para og-image-1200x630.webp em meta tags OG/Twitter.\n\n**Files:**\n- Modify: `app/root.tsx`\n- Modify: `app/lib/calculator-seo.ts`\n\n**Acceptance Criteria:**\n- og:image aponta para og-image-1200x630.webp\n- og:image:width 1200, height 630\n- twitter:image atualizado\n- default em calculator-seo atualizado\n\n**Verify:** `npm run typecheck && npm run lint`\n\n```json:metadata\n{\"files\": [\"app/root.tsx\", \"app/lib/calculator-seo.ts\"], \"verifyCommand\": \"npm run typecheck && npm run lint\", \"acceptanceCriteria\": [\"og:image em root.tsx aponta para og-image-1200x630.webp\", \"og:image:width 1200, height 630\", \"twitter:image atualizado\", \"default em calculator-seo atualizado\"]}\n```"
     },
     {
       "id": 9,
       "subject": "Task 9: Injetar window.__ENV em root.tsx e corrigir isGAEnabled",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Expor process.env.NODE_ENV no browser via window.__ENV injetado. Corrigir isGAEnabled para ler dali.\n\n**Files:**\n- Modify: `app/root.tsx`\n- Modify: `app/lib/google-analytics.ts`\n\n**Acceptance Criteria:**\n- window.__ENV injetado no head\n- isGAEnabled lê de window.__ENV\n- isGAActive lê de window.__ENV\n\n**Verify:** `npm run typecheck` + window.__ENV definido no console do browser\n\n```json:metadata\n{\"files\": [\"app/root.tsx\", \"app/lib/google-analytics.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"window.__ENV injetado no head\", \"isGAEnabled lê de window.__ENV\", \"isGAActive lê de window.__ENV\"]}\n```"
     },
     {
       "id": 10,
       "subject": "Task 10: Migrar analytics-provider para GA4 + mapeamento dinâmico",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [9],
       "description": "**Goal:** Migrar analytics-provider de @vercel/analytics para GA4. Remover pageview manual (duplica Vercel). CATEGORIES dinâmico.\n\n**Files:**\n- Modify: `app/lib/analytics-provider.tsx`\n\n**Acceptance Criteria:**\n- @vercel/analytics removido\n- trackEvent importado de google-analytics\n- CATEGORIES importado de constants\n- useEffect page_view removido\n\n**Verify:** `npm run typecheck` + `! grep -q '@vercel/analytics' app/lib/analytics-provider.tsx`\n\n```json:metadata\n{\"files\": [\"app/lib/analytics-provider.tsx\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"@vercel/analytics removido\", \"trackEvent importado de google-analytics\", \"CATEGORIES importado de constants\", \"useEffect page_view removido\"]}\n```"
     },
     {
       "id": 11,
       "subject": "Task 11: Converter analytics.ts em camada de compat sobre GA4",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [10],
       "description": "**Goal:** Converter analytics.ts em camada compat — todas funções delegam a GA4 via trackEvent.\n\n**Files:**\n- Modify: `app/lib/analytics.ts`\n- Modify: `app/hooks/useAnalytics.ts` (verificar)\n\n**Acceptance Criteria:**\n- @vercel/analytics removido de analytics.ts\n- todas funções legadas delegam para GA4\n- interface pública preservada (useAnalytics não quebra)\n\n**Verify:** `npm run typecheck` + `! grep -q '@vercel/analytics' app/lib/analytics.ts`\n\n```json:metadata\n{\"files\": [\"app/lib/analytics.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"@vercel/analytics removido de analytics.ts\", \"todas funções legadas delegam para GA4\", \"interface pública preservada\"]}\n```"
     },
     {
       "id": 12,
       "subject": "Task 12: IndexNow.submitMainPages itera CATEGORIES",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Substituir array hardcoded de 4 categorias em submitMainPages() por iteração sobre CATEGORIES.\n\n**Files:**\n- Modify: `app/lib/indexnow.ts`\n\n**Acceptance Criteria:**\n- CATEGORIES importado\n- submitMainPages itera dinamicamente\n- 13 URLs no array final\n\n**Verify:** `npm run typecheck` + leitura do código\n\n```json:metadata\n{\"files\": [\"app/lib/indexnow.ts\"], \"verifyCommand\": \"npm run typecheck\", \"acceptanceCriteria\": [\"CATEGORIES importado\", \"submitMainPages itera dinamicamente\", \"13 URLs no array final\"]}\n```"
     },
     {
       "id": 13,
       "subject": "Task 13: Validação final — typecheck, lint, build, Lighthouse, sitemap",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       "description": "**Goal:** Auditoria final antes do merge. Confirmar build limpo e critérios de aceitação.\n\n**Files:** Nenhum modificado.\n\n**Acceptance Criteria:**\n- typecheck/lint/build passam\n- sitemap retorna 78 URLs\n- 8 calculadoras amostradas com title custom\n- aggregateRating removido\n- Lighthouse SEO >= 95 em amostra de 8 calculadoras\n- (Pós-deploy) Sitemap submetido no GSC\n\n**Verify:** `npm run typecheck && npm run lint && npm run build`\n\n```json:metadata\n{\"files\": [], \"verifyCommand\": \"npm run typecheck && npm run lint && npm run build\", \"acceptanceCriteria\": [\"typecheck passa\", \"lint passa\", \"build passa\", \"sitemap retorna 78 URLs\", \"8 calculadoras amostradas com title custom\", \"aggregateRating removido\", \"Lighthouse SEO >= 95 em amostra\", \"GA4 inicializa em produção\", \"sitemap submetido no GSC após deploy\"]}\n```"
     }
