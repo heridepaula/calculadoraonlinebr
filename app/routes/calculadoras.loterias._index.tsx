@@ -57,7 +57,15 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
     },
     {
       property: "og:image:alt",
@@ -87,7 +95,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
     },
     {
       name: "twitter:image:alt",

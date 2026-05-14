@@ -36,7 +36,9 @@ export const meta: MetaFunction = () => {
     { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
     { property: "og:site_name", content: "CalculadoraOnlineBR" },
     { property: "og:locale", content: "pt_BR" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Calculadoras de Saúde - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
@@ -45,7 +47,7 @@ export const meta: MetaFunction = () => {
       name: "twitter:description",
       content: "Ferramentas de saúde gratuitas para monitorar seu bem-estar.",
     },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp" },
     {
       "script:ld+json": {
         "@context": "https://schema.org",

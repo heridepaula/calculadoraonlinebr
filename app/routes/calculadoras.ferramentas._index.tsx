@@ -34,7 +34,9 @@ export const meta: MetaFunction = () => {
     { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas" },
     { property: "og:site_name", content: "CalculadoraOnlineBR" },
     { property: "og:locale", content: "pt_BR" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Ferramentas Online - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
@@ -47,7 +49,7 @@ export const meta: MetaFunction = () => {
       content:
         "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
     },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp" },
+    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp" },
     {
       "script:ld+json": {
         "@context": "https://schema.org",
