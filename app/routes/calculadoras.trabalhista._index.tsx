@@ -340,7 +340,7 @@ export default function TrabalhistaIndex() {
         <div className="relative mx-auto max-w-6xl px-3 text-center sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
             <div className="text-center sm:text-left lg:text-left">
-              <h2 className="animate-pulse text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+              <h2 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
                 🛡️ Conheça Seus Direitos
               </h2>
               <p className="mt-3 text-base text-primary-blue-light sm:mt-4 sm:text-lg">
@@ -383,7 +383,7 @@ export default function TrabalhistaIndex() {
             <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
               <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="mb-2 block text-xl group-hover:animate-pulse sm:text-2xl">
+                  <span className="mb-2 block text-xl sm:text-2xl">
                     📜
                   </span>
                   <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">CLT</h3>
@@ -414,7 +414,7 @@ export default function TrabalhistaIndex() {
               </div>
               <div className="group rounded-lg bg-white/10 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-4 lg:p-6">
                 <div className="text-center">
-                  <span className="mb-2 block text-xl group-hover:animate-pulse sm:text-2xl">
+                  <span className="mb-2 block text-xl sm:text-2xl">
                     🎯
                   </span>
                   <h3 className="text-xs font-semibold leading-tight text-white sm:text-sm">

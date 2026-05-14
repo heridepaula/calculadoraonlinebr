@@ -345,7 +345,7 @@ export default function MatematicaIndex() {
         <div className="relative mx-auto max-w-6xl px-3 text-center sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:items-center lg:gap-8">
             <div className="text-left lg:text-left">
-              <h2 className="animate-pulse text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+              <h2 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
                 🧠 Aprenda Matemática Praticando
               </h2>
               <p className="mt-4 text-lg text-math-purple-light">
@@ -398,7 +398,7 @@ export default function MatematicaIndex() {
               </div>
               <div className="group rounded-xl bg-white/10 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 sm:p-6">
                 <div className="flex items-center space-x-3">
-                  <span className="text-2xl group-hover:animate-pulse">🎯</span>
+                  <span className="text-2xl">🎯</span>
                   <div>
                     <h3 className="font-semibold text-white">Confiável</h3>
                     <p className="text-sm text-math-purple-light">Métodos Testados</p>

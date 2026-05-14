@@ -543,7 +543,7 @@ export default function LoteriasIndex() {
         </div>
 
         <div className="relative mx-auto max-w-4xl px-3 text-center sm:px-6 lg:px-8">
-          <h2 className="animate-pulse text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+          <h2 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
             🎰 Teste sua Sorte Agora
           </h2>
           <p className="mt-4 text-base text-finance-gold-light sm:text-lg">
