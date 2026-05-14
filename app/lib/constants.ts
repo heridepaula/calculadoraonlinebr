@@ -516,6 +516,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/consumo-energia-eletrica",
   },
   {
+    id: "conversor-unidades",
+    name: "Conversor de Unidades",
+    description:
+      "Converta unidades de medida (comprimento, peso, volume, temperatura, área, velocidade) com precisão. Suporte a sistema métrico e imperial",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/conversor-unidades",
+  },
+  {
     id: "ascendente-astrologico",
     name: "Calculadora de Ascendente Astrológico",
     description:
