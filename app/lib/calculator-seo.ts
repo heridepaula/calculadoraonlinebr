@@ -72,6 +72,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "peso-gravidez": {
+    id: "peso-gravidez",
+    title:
+      "Calculadora de Peso na Gravidez 2025 - Ganho Gestacional pela OMS - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de peso na gravidez GRATUITA! Monitore o ganho de peso gestacional com base nas diretrizes da OMS, análise trimestral personalizada e faixas saudáveis por IMC pré-gestacional.",
+    keywords:
+      "calculadora peso gravidez, ganho peso gestacional, peso gestante, OMS gravidez, peso ideal gestante, IMC pré gestacional, peso trimestre, ganho peso saudável, monitoramento peso gravidez, pré-natal peso",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 
   // Financial Calculators
   "juros-compostos": {
@@ -199,6 +211,19 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "calculadora consórcio, simulador consórcio, consórcio imóvel, consórcio veículo, consórcio moto, parcelas consórcio, contemplação consórcio, taxa administração, grupos consórcio, lance consórcio, sorteio consórcio",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
     priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "renda-fixa-comparativa": {
+    id: "renda-fixa-comparativa",
+    title:
+      "Calculadora Comparativa de Renda Fixa 2025 - CDB, LCI, LCA, Tesouro e Poupança - CalculadoraOnlineBR",
+    description:
+      "★ Compare CDB, LCI, LCA, Tesouro Direto e Poupança GRATUITAMENTE lado a lado! Ranking automático com taxas reais 2025, descontos de IR e IOF, e análise completa de rendimentos líquidos.",
+    keywords:
+      "renda fixa comparativa, comparar investimentos, CDB vs LCI, CDB vs poupança, tesouro direto vs CDB, simulador renda fixa, ranking renda fixa, melhor investimento renda fixa, IR renda fixa, IOF renda fixa, rendimento líquido, taxa CDI",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
+    priority: 0.9,
     changeFreq: "monthly",
   },
 
@@ -339,6 +364,57 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.7,
     changeFreq: "monthly",
   },
+  "calculadora-cientifica": {
+    id: "calculadora-cientifica",
+    title:
+      "Calculadora Científica Online 2025 - Funções Avançadas e Trigonometria - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora científica online GRATUITA! Funções trigonométricas (sin, cos, tan), logaritmos, exponenciais, raízes, fatorial, constantes (π, e) e operações com graus/radianos. Ideal para ENEM, vestibular e engenharia.",
+    keywords:
+      "calculadora científica, calculadora científica online, trigonometria, seno cosseno tangente, logaritmo, exponencial, fatorial, raiz quadrada, calculadora ENEM, calculadora vestibular, pi, número de euler, radianos graus",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/calculadora-cientifica",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "sistemas-equacoes-lineares": {
+    id: "sistemas-equacoes-lineares",
+    title:
+      "Calculadora de Sistemas de Equações Lineares 2025 - Método de Gauss e Cramer - CalculadoraOnlineBR",
+    description:
+      "★ Resolva sistemas de equações lineares GRATUITAMENTE! Métodos de Gauss, Cramer e substituição com passo a passo. Sistemas 2x2, 3x3 e n x n com matriz aumentada e interpretação geométrica.",
+    keywords:
+      "sistema equações lineares, sistemas lineares, método Gauss, regra de Cramer, matriz aumentada, álgebra linear, sistema 2x2, sistema 3x3, substituição, escalonamento matrizes, determinante, ensino médio matemática",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/sistemas-equacoes-lineares",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  inequacoes: {
+    id: "inequacoes",
+    title:
+      "Calculadora de Inequações 2025 - 1º e 2º Grau com Resolução Passo a Passo - CalculadoraOnlineBR",
+    description:
+      "★ Resolva inequações de 1º e 2º grau GRATUITAMENTE! Estudo do sinal, intervalo solução, representação na reta numérica e em notação de conjunto. Ideal para ENEM e vestibulares.",
+    keywords:
+      "calculadora inequações, inequação primeiro grau, inequação segundo grau, estudo do sinal, intervalo solução, reta numérica, notação de conjunto, matemática ENEM, álgebra inequações, desigualdade",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/inequacoes",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "simplificador-funcoes-algebricas": {
+    id: "simplificador-funcoes-algebricas",
+    title:
+      "Simplificador de Funções Algébricas 2025 - Polinômios e Expressões - CalculadoraOnlineBR",
+    description:
+      "★ Simplificador de expressões algébricas GRATUITO! Fatore, expanda e simplifique polinômios, frações algébricas e expressões com variáveis. Mostra passo a passo educativo.",
+    keywords:
+      "simplificador algébrico, simplificar expressões, fatoração polinômios, expansão polinomial, fração algébrica, polinômios, álgebra, simplificar variáveis, matemática ENEM, expressão literal",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/simplificador-funcoes-algebricas",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
 
   // Astrology Calculators
   "ascendente-astrologico": {
@@ -457,6 +533,205 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "gerador-cnpj": {
+    id: "gerador-cnpj",
+    title:
+      "Gerador de CNPJ 2025 - Válido com/sem Pontuação + Cópia Automática - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de CNPJ GRATUITO e válido para testes! Gere CNPJs com ou sem máscara, dígitos verificadores corretos pelo algoritmo da Receita Federal. Ideal para QA, desenvolvimento e homologação.",
+    keywords:
+      "gerador CNPJ, CNPJ válido, CNPJ teste, CNPJ desenvolvimento, CNPJ sem pontuação, CNPJ formatado, validador CNPJ, algoritmo CNPJ, dígitos verificadores CNPJ, CNPJ falso, teste sistema, Receita Federal, CNPJ brasileiro, ferramenta CNPJ",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cnpj",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "validar-cpf": {
+    id: "validar-cpf",
+    title: "Validador de CPF 2025 - Verificação Online Instantânea - CalculadoraOnlineBR",
+    description:
+      "★ Validador de CPF GRATUITO e instantâneo! Verifique se um CPF é matematicamente válido com base nos dígitos verificadores da Receita Federal. Identifica CPFs inválidos e sequências repetidas.",
+    keywords:
+      "validador CPF, validar CPF, verificar CPF, CPF válido, CPF inválido, dígito verificador CPF, algoritmo CPF, conferir CPF, checar CPF, Receita Federal, autenticidade CPF, ferramenta validação",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cpf",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "validar-cnpj": {
+    id: "validar-cnpj",
+    title: "Validador de CNPJ 2025 - Verificação Online Instantânea - CalculadoraOnlineBR",
+    description:
+      "★ Validador de CNPJ GRATUITO e instantâneo! Verifique se um CNPJ é matematicamente válido pelos dígitos verificadores da Receita Federal. Detecta CNPJs inválidos e sequências repetidas.",
+    keywords:
+      "validador CNPJ, validar CNPJ, verificar CNPJ, CNPJ válido, CNPJ inválido, dígito verificador CNPJ, algoritmo CNPJ, conferir CNPJ, checar CNPJ, Receita Federal, autenticidade CNPJ, ferramenta validação",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "contador-caracteres": {
+    id: "contador-caracteres",
+    title:
+      "Contador de Caracteres, Palavras e Linhas 2025 - Online Gratuito - CalculadoraOnlineBR",
+    description:
+      "★ Contador de caracteres GRATUITO e em tempo real! Conte caracteres com e sem espaços, palavras, frases, linhas e parágrafos. Ideal para Twitter, redações, SEO, meta descriptions e textos acadêmicos.",
+    keywords:
+      "contador caracteres, contar caracteres, contar palavras, contador palavras, contador linhas, contador frases, contador parágrafos, caracteres twitter, redação enem, meta description, SEO texto, contador online",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/contador-caracteres",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "gerador-cartao-credito": {
+    id: "gerador-cartao-credito",
+    title:
+      "Gerador de Cartão de Crédito Válido 2025 - Visa, Master, Amex (Teste) - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de números de cartão de crédito GRATUITO para testes! Visa, MasterCard, Amex, Elo, Hipercard. Números válidos pelo algoritmo de Luhn — apenas para QA, desenvolvimento e homologação.",
+    keywords:
+      "gerador cartão crédito, número cartão válido, cartão teste, cartão desenvolvimento, algoritmo Luhn, visa teste, mastercard teste, amex teste, elo teste, hipercard teste, BIN cartão, número falso cartão, QA pagamento",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "gerador-uuid-guid": {
+    id: "gerador-uuid-guid",
+    title: "Gerador de UUID / GUID v4 2025 - Identificadores Únicos - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de UUID/GUID GRATUITO! Crie identificadores únicos universais v4 (RFC 4122) em lote, com ou sem hífens. Ideal para chaves primárias, tokens, banco de dados e integrações.",
+    keywords:
+      "gerador UUID, gerador GUID, UUID v4, GUID v4, identificador único, RFC 4122, UUID online, GUID online, chave primária, token único, hash aleatório, UUID lote, GUID lote",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-uuid-guid",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "sorteador-online": {
+    id: "sorteador-online",
+    title:
+      "Sorteador Online Grátis 2025 - Números, Nomes, Listas e Times - CalculadoraOnlineBR",
+    description:
+      "★ Sorteador online GRATUITO e imparcial! Sorteie números aleatórios, nomes, listas e times. Ideal para rifas, brincadeiras, lives, sorteios no Instagram e divisão de equipes.",
+    keywords:
+      "sorteador online, sorteio números, sorteio nomes, sorteio listas, sorteador times, sorteador grátis, sorteio aleatório, rifa online, sorteio instagram, sorteio live, gerador números aleatórios",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/sorteador-online",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "gerador-senha-segura": {
+    id: "gerador-senha-segura",
+    title:
+      "Gerador de Senha Segura 2025 - Criação de Senhas Fortes Online - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de senhas fortes GRATUITO! Crie senhas seguras com letras, números, símbolos e tamanho personalizável. Avalia entropia, força e exibe medidor visual em tempo real.",
+    keywords:
+      "gerador senha, senha segura, senha forte, gerador senha aleatória, criar senha, senha online, força senha, entropia senha, senha caracteres especiais, password generator, segurança digital, senha banco",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-senha-segura",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+  "clicks-por-segundo": {
+    id: "clicks-por-segundo",
+    title: "Teste de Clicks por Segundo (CPS) 2025 - Velocidade do Mouse - CalculadoraOnlineBR",
+    description:
+      "★ Teste de Clicks por Segundo (CPS) GRATUITO! Meça quantos clicks você faz em 1, 5, 10, 30 e 60 segundos. Ideal para gamers, Minecraft PvP, Fortnite e treinos de velocidade.",
+    keywords:
+      "clicks por segundo, CPS test, teste cps, velocidade mouse, click test, jitter click, butterfly click, drag click, cps minecraft, gamer cps, contador clicks, teste velocidade clique",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "carro-eletrico-combustao": {
+    id: "carro-eletrico-combustao",
+    title:
+      "Carro Elétrico vs Combustão 2025 - Comparativo Econômico Anual - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora carro elétrico vs combustão GRATUITA! Compare custo por km, manutenção, IPVA e consumo anual entre veículos elétricos, híbridos, gasolina e etanol. Descubra qual vale mais a pena.",
+    keywords:
+      "carro elétrico vs combustão, comparativo carro elétrico, custo carro elétrico, economia carro elétrico, gasolina vs elétrico, consumo veículo, custo por km, manutenção carro, IPVA elétrico, mobilidade sustentável",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/carro-eletrico-combustao",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "economia-energia-eletrica": {
+    id: "economia-energia-eletrica",
+    title:
+      "Calculadora de Economia de Energia Elétrica 2025 - Reduza sua Conta - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de economia de energia elétrica GRATUITA! Simule trocas de aparelhos por modelos mais eficientes (LED, inverter, A++) e descubra quanto pode economizar por mês e por ano na conta de luz.",
+    keywords:
+      "economia energia elétrica, reduzir conta luz, aparelho eficiente, lâmpada LED economia, geladeira inverter, ar condicionado A++, simulador economia energia, eficiência energética, ANEEL, kWh economia",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/economia-energia-eletrica",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "consumo-energia-eletrica": {
+    id: "consumo-energia-eletrica",
+    title:
+      "Calculadora de Consumo de Energia Elétrica 2025 - kWh, Watts e Conta de Luz - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de consumo de energia elétrica GRATUITA! Calcule kWh consumidos por aparelho, custo mensal na conta de luz e estime sua conta com base na tarifa local (ANEEL).",
+    keywords:
+      "calculadora consumo energia, kwh aparelho, consumo elétrico, conta de luz, watts hora, tarifa ANEEL, custo eletrodoméstico, geladeira consumo, chuveiro consumo, ar condicionado consumo, conta luz mensal",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/consumo-energia-eletrica",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "conversor-unidades": {
+    id: "conversor-unidades",
+    title:
+      "Conversor de Unidades 2025 - Comprimento, Peso, Volume, Temperatura - CalculadoraOnlineBR",
+    description:
+      "★ Conversor de unidades GRATUITO e completo! Converta comprimento, peso, volume, temperatura, área, velocidade e mais. Sistema métrico e imperial, com precisão decimal personalizável.",
+    keywords:
+      "conversor unidades, conversão medidas, metro pés, kg lb, litros galões, celsius fahrenheit, km milha, m2 ft2, conversor temperatura, conversor peso, conversor volume, sistema métrico, sistema imperial",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/conversor-unidades",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+
+  // Lottery Calculators
+  "gerador-mega-sena": {
+    id: "gerador-mega-sena",
+    title:
+      "Gerador de Mega-Sena 2025 - Jogos Aleatórios com Estatísticas - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de Mega-Sena GRATUITO! Gere jogos aleatórios de 6 a 15 dezenas com análise estatística, números mais e menos sorteados, ímpares/pares e probabilidade de acerto.",
+    keywords:
+      "gerador mega sena, jogos mega sena, números aleatórios mega sena, dezenas mega sena, gerador loteria, surpresinha, probabilidade mega sena, números quentes mega sena, números frios mega sena, Caixa loterias",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena",
+    priority: 0.8,
+    changeFreq: "weekly",
+  },
+  "gerador-lotofacil": {
+    id: "gerador-lotofacil",
+    title:
+      "Gerador de Lotofácil 2025 - Jogos Inteligentes com Estatísticas - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de Lotofácil GRATUITO! Crie jogos de 15 a 20 dezenas com estatísticas, números repetidos do concurso anterior, ímpares/pares e moldura/miolo para aumentar suas chances.",
+    keywords:
+      "gerador lotofácil, jogos lotofácil, números aleatórios lotofácil, dezenas lotofácil, gerador loteria, surpresinha lotofácil, probabilidade lotofácil, moldura miolo lotofácil, números quentes lotofácil, Caixa loterias",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-lotofacil",
+    priority: 0.8,
+    changeFreq: "weekly",
+  },
+  "gerador-quina": {
+    id: "gerador-quina",
+    title: "Gerador de Quina 2025 - Jogos Aleatórios com Estatísticas - CalculadoraOnlineBR",
+    description:
+      "★ Gerador de Quina GRATUITO! Gere jogos de 5 a 15 dezenas com análise estatística de números quentes e frios, ímpares/pares e probabilidade de acerto na Quina da Caixa.",
+    keywords:
+      "gerador quina, jogos quina, números aleatórios quina, dezenas quina, gerador loteria, surpresinha quina, probabilidade quina, números quentes quina, números frios quina, Caixa loterias",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-quina",
+    priority: 0.8,
+    changeFreq: "weekly",
+  },
 
   // Labor Calculators
   "rescisao-trabalhista": {
@@ -494,6 +769,43 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.9,
     changeFreq: "monthly",
   },
+  "salario-liquido": {
+    id: "salario-liquido",
+    title:
+      "Calculadora de Salário Líquido 2025 - INSS, IRRF, CLT e PJ - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de salário líquido 2025 GRATUITA! Use tabelas oficiais de INSS e IRRF, suporta CLT, PJ, dependentes, horas extras e descontos personalizados. Cálculo em tempo real.",
+    keywords:
+      "calculadora salário líquido, salário líquido 2025, INSS 2025, IRRF 2025, tabela INSS, tabela IRRF, salário CLT, salário PJ, dependentes IR, desconto INSS, simulador salário, contracheque, holerite",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
+    priority: 0.9,
+    changeFreq: "monthly",
+  },
+  "ferias-decimo-terceiro": {
+    id: "ferias-decimo-terceiro",
+    title:
+      "Calculadora de Férias e 13º Salário 2025 - INSS, IRRF e Abono - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de férias e décimo terceiro salário GRATUITA com tabelas oficiais 2025! Inclui INSS, IRRF, abono pecuniário (1/3), adiantamento e regras da CLT.",
+    keywords:
+      "calculadora férias, calculadora décimo terceiro, 13º salário 2025, férias proporcionais, abono pecuniário, terço constitucional férias, adiantamento 13, primeira parcela 13, segunda parcela 13, INSS férias, IRRF férias, CLT férias",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
+    priority: 0.9,
+    changeFreq: "monthly",
+  },
+  "horas-extras": {
+    id: "horas-extras",
+    title:
+      "Calculadora de Horas Extras CLT 2025 - 50%, 100% e Adicional Noturno - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de horas extras CLT GRATUITA! Calcule adicional de 50% (dia útil), 100% (domingo/feriado) e 20% noturno conforme CLT Art. 59. Reflexos em DSR, férias e 13º.",
+    keywords:
+      "calculadora horas extras, horas extras CLT, adicional 50%, adicional 100%, adicional noturno 20%, CLT Art 59, hora extra domingo, hora extra feriado, DSR sobre hora extra, jornada trabalho, banco de horas",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/horas-extras",
+    priority: 0.9,
+    changeFreq: "monthly",
+  },
 };
 
 export function getCalculatorSEO(calculatorId: string): CalculatorSEOData | null {
@@ -526,10 +838,10 @@ export function generateCalculatorMeta(calculatorId: string): ReturnType<MetaFun
     { property: "og:locale", content: "pt_BR" },
     {
       property: "og:image",
-      content: seoData.ogImage || `${APP_URL}/android-chrome-512x512.webp`,
+      content: seoData.ogImage || `${APP_URL}/og-image-1200x630.webp`,
     },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     {
       property: "og:image:alt",
       content: `${seoData.ogTitle || seoData.title} - CalculadoraOnlineBR`,
@@ -542,7 +854,7 @@ export function generateCalculatorMeta(calculatorId: string): ReturnType<MetaFun
     { name: "twitter:description", content: seoData.ogDescription || seoData.description },
     {
       name: "twitter:image",
-      content: seoData.ogImage || `${APP_URL}/android-chrome-512x512.webp`,
+      content: seoData.ogImage || `${APP_URL}/og-image-1200x630.webp`,
     },
 
     // Additional SEO tags
