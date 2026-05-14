@@ -10,6 +10,7 @@ import { useLocation } from '@remix-run/react';
 import {
   trackPageView,
   isGAEnabled,
+  isGAActive,
   trackScrollDepth,
   trackTimeOnPage,
   trackCalculatorUsage
@@ -50,10 +51,7 @@ export const useGoogleAnalytics = (options: UseGoogleAnalyticsOptions = {}) => {
   const { disabled = false, customTitle, delay = 100 } = options;
 
   useEffect(() => {
-    // Verificar se deve fazer tracking
-    if (disabled || !isGAEnabled()) {
-      return;
-    }
+    if (disabled || !isGAActive()) return;
 
     // Debounce para evitar tracking duplicado em navegação rápida
     const timeoutId = setTimeout(() => {

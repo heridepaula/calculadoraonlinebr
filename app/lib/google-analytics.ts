@@ -49,6 +49,15 @@ export const isGAEnabled = (): boolean => {
 };
 
 /**
+ * Verifica se o script do GA está carregado e pronto para receber eventos.
+ * Não exige consentimento — usado para page view tracking básico (cookieless).
+ */
+export const isGAActive = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  return Boolean(window.gtag) && Boolean(GA_TRACKING_ID);
+};
+
+/**
  * Utilitários para resolver dados (not set) - Attribution Helpers
  */
 
@@ -222,69 +231,23 @@ export const initGA = (): void => {
 };
 
 /**
- * Rastreia uma page view manualmente
- * @param url - URL da página (opcional, usa location atual se não fornecida)
- * @param title - Título da página (opcional, usa document.title se não fornecido)
+ * Rastreia uma page view manualmente — exatamente 1 evento por chamada.
+ * Usa isGAActive() para não exigir consentimento de cookies no tracking básico.
  */
 export const trackPageView = (url?: string, title?: string): void => {
-  if (!isGAEnabled() || typeof window === 'undefined' || !window.gtag) {
-    return;
-  }
+  if (!isGAActive()) return;
 
   try {
     const pageUrl = url || window.location.pathname + window.location.search;
     const pageTitle = title || document.title;
 
-    // Enviar page view com dimensões personalizadas
-    window.gtag('config', GA_TRACKING_ID, {
-      page_path: pageUrl,
-      page_title: pageTitle,
-      page_location: window.location.origin + pageUrl,
-
-      // Configurações first-party storage para atribuição
-      storage: 'first_party',
-      client_storage: 'first_party',
-      cookie_domain: 'auto',
-      cookie_update: true,
-      cookie_expires: 7776000,
-      transport_type: 'beacon',
-
-      // Dimensões customizadas para resolver (not set)
-      page_category: getPageCategory(),
-      calculator_type: getCalculatorType(),
-      traffic_source: getTrafficSource(),
-
-      // Campaign attribution para resolver source/medium
-      campaign_medium: getUTMParameter('utm_medium') || getTrafficSource(),
-      campaign_source: getUTMParameter('utm_source') || getReferrerSource(),
-      campaign_name: getUTMParameter('utm_campaign'),
-      campaign_content: getUTMParameter('utm_content'),
-      campaign_term: getUTMParameter('utm_term')
-    });
-
-    // Enviar event personalizado com dimensões
     window.gtag('event', 'page_view', {
       page_title: pageTitle,
       page_location: window.location.origin + pageUrl,
       page_path: pageUrl,
-      dimension2: getTrafficSource(),
-      dimension3: getUTMParameter('utm_campaign') || 'no-campaign',
-      dimension4: getPageCategory(),
-      dimension5: getCalculatorType()
+      page_category: getPageCategory(),
+      calculator_type: getCalculatorType(),
     });
-
-    if (process.env.NODE_ENV === 'development') {
-      console.log('[GA] Page view tracked with attribution:', {
-        url: pageUrl,
-        title: pageTitle,
-        traffic_source: getTrafficSource(),
-        page_category: getPageCategory(),
-        calculator_type: getCalculatorType(),
-        utm_source: getUTMParameter('utm_source'),
-        utm_medium: getUTMParameter('utm_medium'),
-        utm_campaign: getUTMParameter('utm_campaign')
-      });
-    }
   } catch (error) {
     console.error('[GA] Erro ao rastrear page view:', error);
   }

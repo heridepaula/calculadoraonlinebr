@@ -332,12 +332,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       function gtag(){dataLayer.push(arguments);}
                       gtag('js', new Date());
                       gtag('config', '${data.ENV.VITE_GA_ID}', {
-                        page_title: document.title,
-                        page_location: window.location.href,
                         anonymize_ip: true,
                         allow_google_signals: false,
                         allow_ad_personalization_signals: false,
-                        send_page_view: true,
+                        send_page_view: false,
                         storage: 'none',
                         client_storage: 'none',
                         cookie_domain: 'none',
