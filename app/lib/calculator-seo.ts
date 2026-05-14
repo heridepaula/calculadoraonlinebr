@@ -386,6 +386,64 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     changeFreq: "monthly",
   },
 
+  // Date Calculators
+  "diferenca-entre-datas": {
+    id: "diferenca-entre-datas",
+    title: "Calculadora de Diferença entre Datas 2025 - Idade e Dias Úteis - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de diferença entre datas GRATUITA! Calcule diferença em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e cálculo de idade.",
+    keywords:
+      "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "contagem-regressiva": {
+    id: "contagem-regressiva",
+    title: "Calculadora de Contagem Regressiva 2025 - Contador Personalizado - CalculadoraOnlineBR",
+    description:
+      "★ Contagem regressiva GRATUITA para eventos especiais! Contador personalizado em anos, meses, dias, horas, minutos e segundos. Para aniversários, casamentos, viagens e mais.",
+    keywords:
+      "contagem regressiva, contador regressivo, contador eventos, contagem dias, contador aniversário, contador casamento, tempo até evento, calculadora dias, countdown timer",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "operacao-datas": {
+    id: "operacao-datas",
+    title: "Calculadora de Operações entre Datas 2025 - Somar e Subtrair Datas - CalculadoraOnlineBR",
+    description:
+      "★ Some ou subtraia anos, meses e dias de qualquer data GRATUITAMENTE! Descubra datas futuras e passadas com precisão. Útil para prazos, vencimentos e planejamento.",
+    keywords:
+      "calculadora operação datas, somar datas, subtrair datas, adicionar dias, calcular data futura, data passada, prazos, vencimento data, planejamento datas",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/operacao-datas",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "idade-exata": {
+    id: "idade-exata",
+    title: "Calculadora de Idade Exata 2025 - Anos, Meses, Dias e Tempo Real - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de idade exata GRATUITA! Calcule sua idade em anos, meses, dias com contador em tempo real. Descubra quantos dias você viveu e quando será seu próximo aniversário.",
+    keywords:
+      "calculadora idade, idade exata, calcular idade, idade em dias, idade em meses, próximo aniversário, contador idade, idade tempo real, anos meses dias",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/idade-exata",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "dias-uteis": {
+    id: "dias-uteis",
+    title: "Calculadora de Dias Úteis 2025 - Feriados Nacionais Incluídos - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de dias úteis GRATUITA! Conte dias úteis entre datas considerando feriados nacionais brasileiros, Carnaval, Páscoa e emendas. Calendário 2025 atualizado.",
+    keywords:
+      "calculadora dias úteis, dias úteis entre datas, feriados nacionais 2025, contar dias úteis, calendário trabalhista, carnaval feriado, páscoa feriado, dias úteis prazo",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/dias-uteis",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+
   // Tool Calculators
   "gerador-cpf": {
     id: "gerador-cpf",
@@ -397,18 +455,6 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
       "gerador CPF, CPF válido, CPF teste, CPF desenvolvimento, CPF sem pontuação, CPF formatado, validador CPF, algoritmo CPF, dígitos verificadores, CPF falso, teste sistema, Receita Federal, CPF brasileiro, ferramenta CPF",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cpf",
     priority: 0.8,
-    changeFreq: "monthly",
-  },
-  "diferenca-entre-datas": {
-    id: "diferenca-entre-datas",
-    title: "Calculadora de Diferença entre Datas 2025 - Idade e Dias Úteis - CalculadoraOnlineBR",
-    description:
-      "★ Calculadora de diferença entre datas GRATUITA! Calcule diferença em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e cálculo de idade.",
-    keywords:
-      "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade",
-    canonicalUrl:
-      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/diferenca-entre-datas",
-    priority: 0.7,
     changeFreq: "monthly",
   },
 
