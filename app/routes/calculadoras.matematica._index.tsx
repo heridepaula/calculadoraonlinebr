@@ -294,7 +294,7 @@ export default function MatematicaIndex() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-            <div className="rounded-2xl bg-white/50 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
+            <div className="rounded-2xl border border-white/[0.05] bg-background-dark-secondary/40 p-4 shadow-lg backdrop-blur-sm sm:p-6 lg:p-8">
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-math-purple/20 sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                 <span className="text-xl sm:text-2xl">🎓</span>
               </div>
@@ -307,7 +307,7 @@ export default function MatematicaIndex() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/[0.05] bg-background-dark-secondary/40 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-blue/20 sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                 <span className="text-xl sm:text-2xl">👨‍🏫</span>
               </div>
@@ -320,7 +320,7 @@ export default function MatematicaIndex() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white/50 p-8 shadow-lg backdrop-blur-sm">
+            <div className="rounded-2xl border border-white/[0.05] bg-background-dark-secondary/40 p-8 shadow-lg backdrop-blur-sm">
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-system-success/20 sm:h-14 sm:w-14 lg:h-16 lg:w-16">
                 <span className="text-xl sm:text-2xl">💼</span>
               </div>
