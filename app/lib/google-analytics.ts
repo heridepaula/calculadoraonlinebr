@@ -40,10 +40,15 @@ export const hasAnalyticsConsent = (): boolean => {
  * Ativo apenas em produção com ID válido configurado E com consentimento do usuário
  */
 export const isGAEnabled = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const env = (window as any).__ENV;
+  const isProduction = env?.NODE_ENV === 'production';
+  const gaId = env?.VITE_GA_ID;
   return (
-    process.env.NODE_ENV === 'production' &&
-    Boolean(GA_TRACKING_ID) &&
-    GA_TRACKING_ID.startsWith('G-') &&
+    isProduction &&
+    Boolean(gaId) &&
+    typeof gaId === 'string' &&
+    gaId.startsWith('G-') &&
     hasAnalyticsConsent()
   );
 };
@@ -54,7 +59,8 @@ export const isGAEnabled = (): boolean => {
  */
 export const isGAActive = (): boolean => {
   if (typeof window === 'undefined') return false;
-  return Boolean(window.gtag) && Boolean(GA_TRACKING_ID);
+  const gaId = (window as any).__ENV?.VITE_GA_ID;
+  return Boolean(window.gtag) && Boolean(gaId);
 };
 
 /**

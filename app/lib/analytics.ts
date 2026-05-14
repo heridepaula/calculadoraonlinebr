@@ -1,11 +1,15 @@
 /**
- * Vercel Analytics Configuration
- * Configuração do Analytics da Vercel para CalculadoraOnlineBR
+ * Legacy Analytics Compatibility Layer
+ *
+ * Funções legadas que antes despachavam para @vercel/analytics agora delegam
+ * para o GA4 via trackEvent. Mantida a interface pública (tipos e nomes) para
+ * não quebrar callers existentes (useAnalytics, componentes legados).
+ *
+ * Para novos call-sites, importe `trackEvent` diretamente de `~/lib/google-analytics`.
  */
 
-import { track } from "@vercel/analytics";
+import { trackEvent } from "~/lib/google-analytics";
 
-// Types for analytics events
 export type AnalyticsEvent =
   | "calculator_used"
   | "result_calculated"
@@ -36,89 +40,95 @@ export interface FeatureClickedEvent {
   page_location: string;
 }
 
-/**
- * Track calculator usage
- */
 export const trackCalculatorUsed = (data: CalculatorUsedEvent) => {
-  track("calculator_used", {
-    calculator: data.calculator_type,
-    category: data.category,
-    // Don't track sensitive user inputs for privacy
-    has_inputs: !!data.user_inputs,
+  trackEvent("calculator_used", {
+    event_category: "calculator",
+    event_label: data.calculator_type,
+    custom_parameters: {
+      calculator: data.calculator_type,
+      category: data.category,
+      has_inputs: !!data.user_inputs,
+    },
   });
 };
 
-/**
- * Track calculation results
- */
 export const trackResultCalculated = (data: ResultCalculatedEvent) => {
-  track("result_calculated", {
-    calculator: data.calculator_type,
-    duration: data.calculation_time_ms,
-    success: data.success,
+  trackEvent("result_calculated", {
+    event_category: "calculator",
+    event_label: data.calculator_type,
+    value: data.calculation_time_ms,
+    custom_parameters: {
+      calculator: data.calculator_type,
+      duration: data.calculation_time_ms,
+      success: data.success,
+    },
   });
 };
 
-/**
- * Track category page views
- */
 export const trackCategoryViewed = (data: CategoryViewedEvent) => {
-  track("category_viewed", {
-    category: data.category_name,
-    calculators: data.calculators_count,
+  trackEvent("category_viewed", {
+    event_category: "navigation",
+    event_label: data.category_name,
+    value: data.calculators_count,
+    custom_parameters: {
+      category: data.category_name,
+      calculators: data.calculators_count,
+    },
   });
 };
 
-/**
- * Track feature interactions
- */
 export const trackFeatureClicked = (data: FeatureClickedEvent) => {
-  track("feature_clicked", {
-    feature: data.feature_name,
-    location: data.page_location,
+  trackEvent("feature_clicked", {
+    event_category: "feature",
+    event_label: data.feature_name,
+    custom_parameters: {
+      feature: data.feature_name,
+      location: data.page_location,
+    },
   });
 };
 
-/**
- * Track errors for debugging
- */
 export const trackError = (error: string, context?: string) => {
-  track("error_occurred", {
-    error_type: error,
-    context: context || "unknown",
+  trackEvent("error_occurred", {
+    event_category: "error",
+    event_label: context || "unknown",
+    custom_parameters: {
+      error_type: error,
+      context: context || "unknown",
+    },
   });
 };
 
-/**
- * Privacy-compliant user action tracking
- * Tracks user actions without collecting personal data
- */
 export const trackUserAction = (action: string, properties?: Record<string, any>) => {
-  // Filter out any potentially sensitive data
   const safeProperties = properties
     ? Object.fromEntries(
         Object.entries(properties).filter(
           ([_, value]) =>
-            typeof value === "string" || typeof value === "number" || typeof value === "boolean"
-        )
+            typeof value === "string" || typeof value === "number" || typeof value === "boolean",
+        ),
       )
     : {};
 
-  track(action, safeProperties);
+  trackEvent(action, {
+    event_category: "user_action",
+    event_label: action,
+    custom_parameters: safeProperties,
+  });
 };
 
-/**
- * Brazilian market specific tracking
- */
 export const trackBrazilianMarketMetrics = (data: {
   calculator_type: string;
   regulation_type?: "CLT" | "INSS" | "IRRF" | "FGTS";
   currency_used?: boolean;
 }) => {
-  track("brazilian_calculator_used", {
-    calculator: data.calculator_type,
-    regulation: data.regulation_type || "none",
-    uses_currency: data.currency_used || false,
-    locale: "pt-BR",
+  trackEvent("brazilian_calculator_used", {
+    event_category: "calculator",
+    event_label: data.calculator_type,
+    custom_parameters: {
+      calculator: data.calculator_type,
+      regulation: data.regulation_type || "none",
+      uses_currency: data.currency_used || false,
+      locale: "pt-BR",
+    },
   });
 };
