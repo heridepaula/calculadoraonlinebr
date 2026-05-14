@@ -236,13 +236,6 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Estratégias comprovadas de investimento",
         ],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          ratingCount: "2847",
-          bestRating: "5",
-          worstRating: "1",
-        },
         author: {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",

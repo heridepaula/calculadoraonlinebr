@@ -242,13 +242,6 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Resultados confiáveis em tempo real",
         ],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          bestRating: "5",
-          worstRating: "1",
-          ratingCount: "2847",
-        },
       }),
     },
     {

@@ -168,13 +168,6 @@ export const meta: MetaFunction = () => {
           "Interface responsiva",
           "Histórico de performance",
         ],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          ratingCount: "2847",
-          bestRating: "5",
-          worstRating: "1"
-        }
       }),
     },
     {

@@ -226,13 +226,6 @@ export const meta: MetaFunction = () => {
           "@type": "Organization",
           name: "CalculadoraOnlineBR",
           url: "https://www.calculadoraonlinebr.com.br"
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          ratingCount: "124",
-          bestRating: "5",
-          worstRating: "1"
         }
       }),
     },
