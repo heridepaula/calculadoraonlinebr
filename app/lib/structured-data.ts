@@ -219,6 +219,79 @@ function getCalculatorFeatures(category: string): string[] {
   );
 }
 
+/**
+ * Gera o grafo JSON-LD para uma página de categoria.
+ * Substitui scripts inline em datas/astrologia/loterias com um @graph
+ * contendo WebSite (com SearchAction), CollectionPage (com ItemList de
+ * SoftwareApplications registradas) e BreadcrumbList.
+ */
+export function generateCategoryPageGraph(categoryId: string): object | null {
+  const category = CATEGORIES.find((c) => c.id === categoryId);
+  if (!category) return null;
+
+  const config = STRUCTURED_DATA_CONFIG.website;
+  const url = `${APP_URL}${category.path}`;
+  const categoryCalculators = CALCULATORS.filter((calc) => calc.category === categoryId);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${APP_URL}/#website`,
+        url: `${APP_URL}/`,
+        name: config.name,
+        description: config.description,
+        inLanguage: "pt-BR",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${APP_URL}/search?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: `Calculadoras de ${category.name}`,
+        description: category.description,
+        inLanguage: "pt-BR",
+        isPartOf: { "@id": `${APP_URL}/#website` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        mainEntity: {
+          "@type": "ItemList",
+          name: `Calculadoras de ${category.name}`,
+          description: category.description,
+          numberOfItems: categoryCalculators.length,
+          itemListElement: categoryCalculators.map((calc) => ({
+            "@type": "SoftwareApplication",
+            name: calc.name,
+            description: calc.description,
+            url: `${APP_URL}${calc.path}`,
+            applicationCategory: getApplicationCategory(calc.category),
+            operatingSystem: "Web",
+            isAccessibleForFree: true,
+          })),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Início", item: `${APP_URL}/` },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Calculadoras",
+            item: `${APP_URL}/calculadoras`,
+          },
+          { "@type": "ListItem", position: 3, name: category.name, item: url },
+        ],
+      },
+    ],
+  };
+}
+
 export function generateBreadcrumbStructuredData(
   breadcrumbs: Array<{ name: string; url: string }>
 ) {

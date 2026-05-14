@@ -9,6 +9,7 @@ import {
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
@@ -104,6 +105,7 @@ export const meta: MetaFunction = () => {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
     },
+    { "script:ld+json": generateCategoryPageGraph("astrologia") },
   ];
 };
 
@@ -114,110 +116,6 @@ export default function AstrologiaIndex() {
 
   return (
     <div className="min-h-screen">
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "WebSite",
-                "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                url: "https://www.calculadoraonlinebr.com.br/",
-                name: "CalculadoraOnlineBR",
-                description:
-                  "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
-                inLanguage: "pt-BR",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string",
-                },
-              },
-              {
-                "@type": "CollectionPage",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#webpage",
-                url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
-                name: "🔮 Calculadoras Astrológicas Grátis 2026 - Mapa Astral Online Brasil",
-                description:
-                  "Calculadoras astrológicas GRÁTIS! Mapa astral, ascendente por hora de nascimento, compatibilidade de signos amor, numerologia pitagórica. Autoconhecimento completo pelos astros.",
-                keywords: "calculadora astrológica grátis, mapa astral online brasil, ascendente hora nascimento, compatibilidade signos amor, numerologia, autoconhecimento zodíaco",
-                isPartOf: {
-                  "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                },
-                inLanguage: "pt-BR",
-                breadcrumb: {
-                  "@id":
-                    "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#breadcrumb",
-                },
-                mainEntity: {
-                  "@type": "ItemList",
-                  name: "Calculadoras de Astrologia",
-                  description: "Lista de ferramentas astrológicas para autoconhecimento",
-                  numberOfItems: 3,
-                  itemListElement: [
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Calculadora de Ascendente Astrológico",
-                      description:
-                        "Descubra seu signo ascendente usando data, hora e local de nascimento",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Calculadora de Compatibilidade de Signos",
-                      description:
-                        "Descubra a compatibilidade astrológica entre diferentes signos do zodíaco",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Descubra Seu Signo",
-                      description:
-                        "Descubra seu signo zodiacal baseado na data de nascimento. Conheça as características do seu signo solar na astrologia",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                  ],
-                },
-              },
-              {
-                "@type": "BreadcrumbList",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Início",
-                    item: "https://www.calculadoraonlinebr.com.br/",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculadoras",
-                    item: "https://www.calculadoraonlinebr.com.br/calculadoras",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Astrologia",
-                    item: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
-                  },
-                ],
-              },
-            ],
-          }),
-        }}
-      />
 
       {/* Responsive Breadcrumb Navigation */}
       <ResponsiveBreadcrumb items={createCategoryBreadcrumb("astrologia")} />

@@ -9,6 +9,7 @@ import {
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
@@ -106,6 +107,7 @@ export const meta: MetaFunction = () => {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
     },
+    { "script:ld+json": generateCategoryPageGraph("datas") },
   ];
 };
 
@@ -114,88 +116,6 @@ export default function DatasIndex() {
 
   return (
     <div className="min-h-screen">
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "WebSite",
-                "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                url: "https://www.calculadoraonlinebr.com.br/",
-                name: "CalculadoraOnlineBR",
-                description:
-                  "Calculadoras online gratuitas para matemática, finanças, saúde e datas",
-                inLanguage: "pt-BR",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string",
-                },
-              },
-              {
-                "@type": "CollectionPage",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas#webpage",
-                url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
-                name: "Calculadoras de Datas Grátis 2026",
-                description:
-                  "Calcule diferenças entre datas, períodos e intervalos temporais GRÁTIS! Ferramentas confiáveis para planejamento, dias úteis e cálculos de tempo.",
-                isPartOf: {
-                  "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                },
-                inLanguage: "pt-BR",
-                breadcrumb: {
-                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas#breadcrumb",
-                },
-                mainEntity: {
-                  "@type": "ItemList",
-                  name: "Calculadoras de Datas",
-                  description: "Lista de ferramentas para cálculos temporais e planejamento",
-                  numberOfItems: 1,
-                  itemListElement: [
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Calculadora de Diferença entre Datas",
-                      description: "Calcule períodos, intervalos e diferenças entre datas",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/diferenca-entre-datas",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                  ],
-                },
-              },
-              {
-                "@type": "BreadcrumbList",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/datas#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Início",
-                    item: "https://www.calculadoraonlinebr.com.br/",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculadoras",
-                    item: "https://www.calculadoraonlinebr.com.br/calculadoras",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Datas",
-                    item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
-                  },
-                ],
-              },
-            ],
-          }),
-        }}
-      />
-
       {/* Responsive Breadcrumb Navigation */}
       <ResponsiveBreadcrumb items={createCategoryBreadcrumb("datas")} />
 

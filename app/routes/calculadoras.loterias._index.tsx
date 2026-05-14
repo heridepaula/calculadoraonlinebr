@@ -9,6 +9,7 @@ import {
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
 
 export const meta: MetaFunction = () => {
@@ -106,6 +107,7 @@ export const meta: MetaFunction = () => {
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
     },
+    { "script:ld+json": generateCategoryPageGraph("loterias") },
   ];
 };
 
@@ -116,106 +118,6 @@ export default function LoteriasIndex() {
 
   return (
     <div className="min-h-screen">
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "WebSite",
-                "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                url: "https://www.calculadoraonlinebr.com.br/",
-                name: "CalculadoraOnlineBR",
-                description:
-                  "Calculadoras online gratuitas para matemática, finanças, saúde e loterias",
-                inLanguage: "pt-BR",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string",
-                },
-              },
-              {
-                "@type": "CollectionPage",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/loterias#webpage",
-                url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
-                name: "Geradores de Loterias Grátis 2026",
-                description:
-                  "Gere números da sorte para Mega-Sena, Lotofácil, Quina e outras loterias GRÁTIS! Estratégias inteligentes e análises estatísticas para aumentar suas chances.",
-                isPartOf: {
-                  "@id": "https://www.calculadoraonlinebr.com.br/#website",
-                },
-                inLanguage: "pt-BR",
-                breadcrumb: {
-                  "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/loterias#breadcrumb",
-                },
-                mainEntity: {
-                  "@type": "ItemList",
-                  name: "Geradores de Loterias",
-                  description: "Lista de ferramentas para gerar números de loterias",
-                  numberOfItems: 3,
-                  itemListElement: [
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Gerador de Mega-Sena",
-                      description: "Gere números aleatórios para jogos da Mega-Sena",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Gerador de Lotofácil",
-                      description: "Gere números aleatórios para jogos da Lotofácil",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-lotofacil",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                    {
-                      "@type": "SoftwareApplication",
-                      name: "Gerador de Quina",
-                      description: "Gere números aleatórios para jogos da Quina",
-                      url: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-quina",
-                      applicationCategory: "UtilitiesApplication",
-                      operatingSystem: "Web",
-                      isAccessibleForFree: true,
-                    },
-                  ],
-                },
-              },
-              {
-                "@type": "BreadcrumbList",
-                "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/loterias#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Início",
-                    item: "https://www.calculadoraonlinebr.com.br/",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculadoras",
-                    item: "https://www.calculadoraonlinebr.com.br/calculadoras",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Loterias",
-                    item: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
-                  },
-                ],
-              },
-            ],
-          }),
-        }}
-      />
-
       {/* Responsive Breadcrumb Navigation */}
       <ResponsiveBreadcrumb items={createCategoryBreadcrumb("loterias")} />
 
