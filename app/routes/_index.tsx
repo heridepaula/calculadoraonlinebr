@@ -1,19 +1,20 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import { CategoryCard } from "~/components/CategoryCard";
-import { APP_NAME, CATEGORIES } from "~/lib/constants";
+import { APP_NAME, CATEGORIES, CALCULATORS } from "~/lib/constants";
 import type { Category } from "~/types";
 
 export const meta: MetaFunction = () => {
   const siteUrl = "https://www.calculadoraonlinebr.com.br";
-  const ogImage = `${siteUrl}/android-chrome-512x512.webp`;
+  const ogImage = `${siteUrl}/og-image-1200x630.webp`;
 
   return [
     { title: `Calculadoras Online Gratuitas - IMC, Juros Compostos, Rescisão | ${APP_NAME}` },
     {
       name: "description",
       content:
-        "Mais de 60 calculadoras online gratuitas: IMC, juros compostos, porcentagem, rescisão trabalhista e mais. Interface moderna, resultados instantâneos, sem cadastro. Mobile otimizado!",
+        "66+ calculadoras online gratuitas: IMC, juros compostos, porcentagem, rescisão trabalhista e mais. Interface moderna, resultados instantâneos, sem cadastro. Mobile otimizado!",
     },
     {
       name: "keywords",
@@ -25,10 +26,9 @@ export const meta: MetaFunction = () => {
     { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
     { rel: "canonical", href: siteUrl },
 
-    // Open Graph
     {
       property: "og:title",
-      content: `Calculadoras Online Gratuitas - Mais de 60 Ferramentas | ${APP_NAME}`,
+      content: `Calculadoras Online Gratuitas - 66+ Ferramentas | ${APP_NAME}`,
     },
     {
       property: "og:description",
@@ -40,33 +40,30 @@ export const meta: MetaFunction = () => {
     { property: "og:url", content: siteUrl },
     { property: "og:site_name", content: APP_NAME },
     { property: "og:image", content: ogImage },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "CalculadoraOnlineBR - Calculadoras Online Gratuitas" },
 
-    // Twitter Card
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
     { name: "twitter:title", content: `Calculadoras Online Gratuitas - ${APP_NAME}` },
     {
       name: "twitter:description",
       content:
-        "Mais de 60 calculadoras gratuitas: IMC, juros compostos, rescisão trabalhista e muito mais. Use sem cadastro!",
+        "66+ calculadoras gratuitas: IMC, juros compostos, rescisão trabalhista e muito mais. Use sem cadastro!",
     },
     { name: "twitter:image", content: ogImage },
 
-    // App meta
     { name: "application-name", content: APP_NAME },
     { name: "apple-mobile-web-app-title", content: APP_NAME },
 
-    // JSON-LD: WebPage para a homepage
     {
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: "Calculadoras Online Gratuitas",
         description:
-          "Mais de 60 calculadoras online gratuitas para saúde, finanças, matemática e trabalhista",
+          "66+ calculadoras online gratuitas para saúde, finanças, matemática e trabalhista",
         url: siteUrl,
         inLanguage: "pt-BR",
         isPartOf: {
@@ -85,297 +82,370 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Index() {
-  return (
-    <div className="min-h-screen">
-      {/* Hero Section with Strategic White Space */}
-      <section className="from-surface-light via-surface to-surface-dark relative overflow-hidden bg-gradient-to-br">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-blue/5 via-transparent to-transparent"></div>
+const TOTAL_CALCULATORS = CALCULATORS.length;
 
-        <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
-          <div className="text-center">
-            {/* Clear Visual Hierarchy */}
-            <div className="mb-8 inline-flex items-center rounded-full bg-primary-blue/10 px-4 py-2 text-sm font-medium text-primary-blue-dark ring-1 ring-inset ring-primary-blue/20">
-              <span className="mr-2">🆕</span>
-              Mais de 30 calculadoras gratuitas disponíveis
+// Top 3 per category — curated highlights surfaced as podium on each category card.
+const TOP_BY_CATEGORY: Record<string, string[]> = {
+  saude: ["imc", "gordura-corporal", "ciclo-menstrual"],
+  financas: ["tesouro-direto", "financiamento-imobiliario", "cdb"],
+  matematica: ["porcentagem", "calculadora-cientifica", "regra-de-tres"],
+  trabalhista: ["rescisao-trabalhista", "salario-liquido", "aposentadoria"],
+  ferramentas: ["gerador-cpf", "gerador-senha-segura", "conversor-unidades"],
+  astrologia: ["signo", "ascendente-astrologico", "numerologia"],
+  datas: ["diferenca-entre-datas", "idade-exata", "dias-uteis"],
+  loterias: ["gerador-mega-sena", "gerador-lotofacil", "gerador-quina"],
+};
+
+function getCalculator(id: string) {
+  return CALCULATORS.find((c) => c.id === id);
+}
+
+// Counter that animates from 0 to target on mount (respects prefers-reduced-motion).
+function useCountUp(target: number, durationMs = 1200) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setValue(target);
+      return;
+    }
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / durationMs);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(eased * target));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, durationMs]);
+
+  return value;
+}
+
+export default function Index() {
+  const liveCount = useCountUp(TOTAL_CALCULATORS);
+
+  return (
+    <div className="min-h-screen relative">
+      {/* Global atmospheric noise overlay — fixed, ignores scroll, sits above bg gradients */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "220px",
+        }}
+      />
+
+      {/* ────────────────────────────────────────────────── HERO ── */}
+      <section className="relative isolate overflow-hidden">
+        {/* Layered background: radial spotlight + diagonal mesh */}
+        <div className="absolute inset-0 -z-10 bg-background-dark" />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 opacity-[0.55]"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(100,181,246,0.18), transparent 60%), radial-gradient(circle at 85% 30%, rgba(255,213,79,0.10), transparent 50%), radial-gradient(circle at 15% 70%, rgba(186,104,200,0.10), transparent 55%)",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center">
+          {/* Left column — copy */}
+          <div className="lg:col-span-7">
+            <div
+              className="mb-8 inline-flex items-center rounded-full bg-primary-blue/10 px-4 py-2 text-sm font-medium text-primary-blue-dark ring-1 ring-inset ring-primary-blue/20 animate-slide-up"
+              style={{ animationDelay: "40ms", animationFillMode: "backwards" }}
+            >
+              <span className="mr-2 inline-block h-2 w-2 rounded-full bg-system-success animate-pulse" />
+              {TOTAL_CALCULATORS}+ calculadoras em 8 categorias
             </div>
 
-            <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-text-primary sm:text-6xl lg:text-7xl">
-              Calculadoras
-              <span className="block bg-gradient-to-r from-primary-blue via-primary-blue-light to-primary-blue bg-clip-text text-transparent">
-                Online Gratuitas
+            <h1
+              className="max-w-3xl text-5xl tracking-tight text-text-primary sm:text-6xl lg:text-7xl animate-slide-up"
+              style={{ animationDelay: "120ms", animationFillMode: "backwards" }}
+            >
+              <span className="font-display font-normal italic text-text-secondary-dark">A calculadora</span>
+              <span className="block font-bold">que resolve</span>
+              <span className="block bg-gradient-to-r from-primary-blue via-finance-gold to-math-purple bg-clip-text text-transparent font-bold">
+                tudo que você precisa.
               </span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-text-secondary-dark sm:text-xl">
-              <strong className="text-text-primary">
-                IMC, Juros Compostos, Porcentagem, Rescisão Trabalhista
-              </strong>{" "}
-              e muito mais. Interface moderna, resultados confiáveis e sem cadastro necessário.
+            <p
+              className="mt-8 max-w-2xl text-lg leading-8 text-text-secondary-dark sm:text-xl animate-slide-up"
+              style={{ animationDelay: "200ms", animationFillMode: "backwards" }}
+            >
+              <strong className="text-text-primary">IMC, Juros Compostos, Rescisão Trabalhista, Tesouro Direto</strong>
+              {" "}e muito mais. Resultados instantâneos, sem cadastro, otimizado para mobile.
             </p>
 
-            {/* Trust Indicators */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-system-success"></div>
-                <span className="font-medium">100% Gratuito</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary-blue"></div>
-                <span className="font-medium">Sem Cadastro</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-finance-gold"></div>
-                <span className="font-medium">Resultados Instantâneos</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-health-red"></div>
-                <span className="font-medium">Mobile Otimizado</span>
+            {/* Trust strip — real data, no fake numbers */}
+            <div
+              className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-text-secondary animate-slide-up"
+              style={{ animationDelay: "280ms", animationFillMode: "backwards" }}
+            >
+              {[
+                { dot: "bg-system-success", label: "100% Gratuito" },
+                { dot: "bg-primary-blue", label: "Sem Cadastro" },
+                { dot: "bg-finance-gold", label: "Resultados Instantâneos" },
+                { dot: "bg-health-red", label: "Mobile First" },
+              ].map((item, i) => (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 animate-slide-up"
+                  style={{
+                    animationDelay: `${320 + i * 60}ms`,
+                    animationFillMode: "backwards",
+                  }}
+                >
+                  <div className={`h-2 w-2 rounded-full ${item.dot}`} />
+                  <span className="font-medium">{item.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Primary CTA pair */}
+            <div
+              className="mt-10 flex flex-col gap-3 sm:flex-row animate-slide-up"
+              style={{ animationDelay: "560ms", animationFillMode: "backwards" }}
+            >
+              <Link
+                to="/calculadoras"
+                className="inline-flex items-center justify-center rounded-xl bg-primary-blue px-7 py-4 text-base font-semibold text-white shadow-lg shadow-primary-blue/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-blue/30 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-background-dark"
+              >
+                Ver todas as {TOTAL_CALCULATORS} calculadoras →
+              </Link>
+              <Link
+                to="/calculadoras/financas/juros-compostos"
+                className="inline-flex items-center justify-center rounded-xl border border-text-secondary/30 bg-transparent px-7 py-4 text-base font-semibold text-text-primary transition-all duration-300 hover:border-primary-blue hover:bg-primary-blue/5 focus:outline-none focus:ring-2 focus:ring-primary-blue"
+              >
+                Calcular juros compostos
+              </Link>
+            </div>
+          </div>
+
+          {/* Right column — animated big-number stat (display font) */}
+          <div className="hidden lg:col-span-5 lg:flex lg:items-center lg:justify-center">
+            <div
+              className="relative w-full max-w-md animate-slide-up"
+              style={{ animationDelay: "420ms", animationFillMode: "backwards" }}
+            >
+              <div className="rounded-3xl border border-primary-blue/20 bg-gradient-to-br from-background-dark-secondary/80 to-background-dark/50 backdrop-blur-sm p-10 shadow-2xl shadow-primary-blue/5">
+                <div className="text-xs uppercase tracking-[0.3em] text-text-secondary mb-4">
+                  Calculadoras disponíveis hoje
+                </div>
+                <div
+                  className="font-display font-normal leading-none text-transparent bg-clip-text bg-gradient-to-br from-primary-blue via-finance-gold to-math-purple"
+                  style={{ fontSize: "12rem", lineHeight: "0.85" }}
+                  aria-label={`${TOTAL_CALCULATORS} calculadoras disponíveis`}
+                >
+                  {liveCount}
+                </div>
+                <div className="mt-6 grid grid-cols-2 gap-3 text-xs">
+                  {CATEGORIES.slice(0, 8).map((cat) => (
+                    <div
+                      key={cat.id}
+                      className="flex items-center gap-2 rounded-md bg-white/[0.03] px-2 py-1.5"
+                    >
+                      <span className="text-base" aria-hidden>
+                        {cat.icon}
+                      </span>
+                      <span className="text-text-secondary truncate">{cat.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Popular Calculators Quick Access */}
-      <section className="bg-surface-dark/50 relative py-12">
+      {/* ──────────────────────────────────── POPULAR NOW (curated) ── */}
+      <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              Calculadoras Mais Populares
-            </h2>
-            <p className="mt-2 text-text-secondary">
-              Acesse rapidamente as calculadoras mais utilizadas
-            </p>
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+            <div>
+              <div className="text-xs uppercase tracking-[0.3em] text-finance-gold-dark mb-2">
+                Em alta
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
+                <span className="font-display italic font-normal">As mais</span> usadas no momento
+              </h2>
+            </div>
+            <Link
+              to="/calculadoras"
+              className="text-sm font-medium text-primary-blue hover:text-primary-blue-dark transition-colors"
+            >
+              Ver todas →
+            </Link>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Link
-              to="/calculadoras/financas/tesouro-direto"
-              className="group rounded-2xl bg-gradient-to-br from-finance-gold/10 to-finance-gold/5 p-6 transition-all duration-300 hover:from-finance-gold/20 hover:to-finance-gold/10 hover:shadow-lg"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-finance-gold text-white">
-                  <span className="text-xl">🏛️</span>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                to: "/calculadoras/financas/tesouro-direto",
+                title: "Tesouro Direto",
+                sub: "Títulos Públicos",
+                icon: "🏛️",
+                card: "border-finance-gold/15 bg-gradient-to-br from-finance-gold/[0.06] to-finance-gold/[0.02] hover:border-finance-gold/40 hover:shadow-finance-gold/10",
+                iconBg: "bg-finance-gold",
+              },
+              {
+                to: "/calculadoras/financas/financiamento-imobiliario",
+                title: "Financiamento",
+                sub: "Imobiliário",
+                icon: "🏠",
+                card: "border-primary-blue/15 bg-gradient-to-br from-primary-blue/[0.06] to-primary-blue/[0.02] hover:border-primary-blue/40 hover:shadow-primary-blue/10",
+                iconBg: "bg-primary-blue",
+              },
+              {
+                to: "/calculadoras/financas/cdb",
+                title: "CDB",
+                sub: "Certificado de Depósito",
+                icon: "💰",
+                card: "border-system-success/15 bg-gradient-to-br from-system-success/[0.06] to-system-success/[0.02] hover:border-system-success/40 hover:shadow-system-success/10",
+                iconBg: "bg-system-success",
+              },
+              {
+                to: "/calculadoras/financas/juros-compostos",
+                title: "Juros Compostos",
+                sub: "Investimentos",
+                icon: "📈",
+                card: "border-math-purple/15 bg-gradient-to-br from-math-purple/[0.06] to-math-purple/[0.02] hover:border-math-purple/40 hover:shadow-math-purple/10",
+                iconBg: "bg-math-purple",
+              },
+            ].map((c) => (
+              <Link
+                key={c.to}
+                to={c.to}
+                className={`group relative overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${c.card}`}
+              >
+                <div className="flex items-center space-x-3">
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl text-white transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 ${c.iconBg}`}
+                  >
+                    <span className="text-xl">{c.icon}</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-text-primary">{c.title}</h3>
+                    <p className="text-xs text-text-secondary">{c.sub}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-finance-gold-dark">
-                    Tesouro Direto
-                  </h3>
-                  <p className="text-xs text-text-secondary">Títulos Públicos</p>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              to="/calculadoras/financas/financiamento-imobiliario"
-              className="group rounded-2xl bg-gradient-to-br from-primary-blue/10 to-primary-blue/5 p-6 transition-all duration-300 hover:from-primary-blue/20 hover:to-primary-blue/10 hover:shadow-lg"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-blue text-white">
-                  <span className="text-xl">🏠</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-primary-blue-dark">
-                    Financiamento
-                  </h3>
-                  <p className="text-xs text-text-secondary">Imobiliário</p>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              to="/calculadoras/financas/cdb"
-              className="group rounded-2xl bg-gradient-to-br from-system-success/10 to-system-success/5 p-6 transition-all duration-300 hover:from-system-success/20 hover:to-system-success/10 hover:shadow-lg"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-system-success text-white">
-                  <span className="text-xl">💰</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-system-success-dark">
-                    CDB
-                  </h3>
-                  <p className="text-xs text-text-secondary">Certificado de Depósito</p>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              to="/calculadoras/financas/juros-compostos"
-              className="group rounded-2xl bg-gradient-to-br from-math-purple/10 to-math-purple/5 p-6 transition-all duration-300 hover:from-math-purple/20 hover:to-math-purple/10 hover:shadow-lg"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-math-purple text-white">
-                  <span className="text-xl">📈</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-text-primary group-hover:text-math-purple-dark">
-                    Juros Compostos
-                  </h3>
-                  <p className="text-xs text-text-secondary">Investimentos</p>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Top Calculators by Category */}
-      <section className="bg-surface-dark/30 py-12">
+      {/* ──────────────────────────── #1 BY CATEGORY (all 8 categories) ── */}
+      <section className="relative py-16 sm:py-20">
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 opacity-50"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+            maskImage:
+              "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 80%)",
+          }}
+        />
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              Destaques por Categoria
+          <div className="text-center mb-12">
+            <div className="text-xs uppercase tracking-[0.3em] text-math-purple-dark mb-2">
+              Pódio
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
+              <span className="font-display italic font-normal">Top 3</span> por categoria
             </h2>
-            <p className="mt-2 text-text-secondary">
-              As calculadoras mais procuradas em cada área
+            <p className="mt-3 text-text-secondary-dark">
+              As favoritas dos brasileiros em cada área
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Saúde */}
-            <div className="rounded-2xl bg-gradient-to-br from-health-red/5 to-health-red/10 p-6">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-health-red text-white">
-                  <span className="text-lg">🏥</span>
-                </div>
-                <h3 className="text-xl font-bold text-text-primary">Saúde</h3>
-              </div>
-              <div className="space-y-3">
-                <Link
-                  to="/calculadoras/saude/desenvolvimento-infantil"
-                  className="block rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-3 transition-colors hover:from-yellow-500/30 hover:to-yellow-400/30 border border-yellow-500/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥇</span>
-                    <span className="text-sm font-medium text-text-primary">Desenvolvimento Infantil</span>
-                    <span className="ml-auto text-xs font-semibold text-yellow-600">#1</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/calculadoras/saude/gordura-corporal"
-                  className="block rounded-lg bg-gradient-to-r from-gray-400/20 to-gray-300/20 p-3 transition-colors hover:from-gray-400/30 hover:to-gray-300/30 border border-gray-400/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥈</span>
-                    <span className="text-sm font-medium text-text-primary">Gordura Corporal</span>
-                    <span className="ml-auto text-xs font-semibold text-gray-600">#2</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/calculadoras/saude/imc"
-                  className="block rounded-lg bg-gradient-to-r from-amber-600/20 to-amber-500/20 p-3 transition-colors hover:from-amber-600/30 hover:to-amber-500/30 border border-amber-600/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥉</span>
-                    <span className="text-sm font-medium text-text-primary">IMC</span>
-                    <span className="ml-auto text-xs font-semibold text-amber-700">#3</span>
-                  </div>
-                </Link>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {CATEGORIES.map((category) => {
+              const topIds = TOP_BY_CATEGORY[category.id] ?? [];
+              const top = topIds.map(getCalculator).filter(Boolean);
+              if (top.length === 0) return null;
 
-            {/* Trabalhista */}
-            <div className="rounded-2xl bg-gradient-to-br from-primary-blue/5 to-primary-blue/10 p-6">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-blue text-white">
-                  <span className="text-lg">⚖️</span>
-                </div>
-                <h3 className="text-xl font-bold text-text-primary">Trabalhista</h3>
-              </div>
-              <div className="space-y-3">
-                <Link
-                  to="/calculadoras/trabalhista/aposentadoria"
-                  className="block rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-3 transition-colors hover:from-yellow-500/30 hover:to-yellow-400/30 border border-yellow-500/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥇</span>
-                    <span className="text-sm font-medium text-text-primary">Aposentadoria</span>
-                    <span className="ml-auto text-xs font-semibold text-yellow-600">#1</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/calculadoras/trabalhista/rescisao"
-                  className="block rounded-lg bg-gradient-to-r from-gray-400/20 to-gray-300/20 p-3 transition-colors hover:from-gray-400/30 hover:to-gray-300/30 border border-gray-400/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥈</span>
-                    <span className="text-sm font-medium text-text-primary">Rescisão</span>
-                    <span className="ml-auto text-xs font-semibold text-gray-600">#2</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/calculadoras/trabalhista/auxilio-doenca"
-                  className="block rounded-lg bg-gradient-to-r from-amber-600/20 to-amber-500/20 p-3 transition-colors hover:from-amber-600/30 hover:to-amber-500/30 border border-amber-600/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥉</span>
-                    <span className="text-sm font-medium text-text-primary">Auxílio-Doença</span>
-                    <span className="ml-auto text-xs font-semibold text-amber-700">#3</span>
-                  </div>
-                </Link>
-              </div>
-            </div>
+              const medals = ["🥇", "🥈", "🥉"];
+              const medalColors = [
+                "border-yellow-400/30 bg-yellow-500/[0.08] hover:bg-yellow-500/[0.14] text-yellow-300",
+                "border-gray-400/30 bg-gray-400/[0.08] hover:bg-gray-400/[0.14] text-gray-300",
+                "border-amber-500/30 bg-amber-500/[0.08] hover:bg-amber-500/[0.14] text-amber-400",
+              ];
 
-            {/* Matemática */}
-            <div className="rounded-2xl bg-gradient-to-br from-math-purple/5 to-math-purple/10 p-6">
-              <div className="mb-4 flex items-center space-x-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-math-purple text-white">
-                  <span className="text-lg">🔢</span>
+              return (
+                <div
+                  key={category.id}
+                  className="rounded-2xl border border-white/[0.05] bg-gradient-to-br from-background-dark-secondary/60 to-background-dark/40 p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/10 hover:-translate-y-0.5"
+                >
+                  <Link
+                    to={category.path}
+                    className="mb-5 flex items-center space-x-3 group"
+                  >
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.04] ring-1 ring-white/10 transition-all duration-300 group-hover:ring-primary-blue/40 group-hover:scale-105">
+                      <span className="text-xl" aria-hidden>
+                        {category.icon}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-text-primary group-hover:text-primary-blue transition-colors">
+                        {category.name}
+                      </h3>
+                      <p className="text-[10px] uppercase tracking-widest text-text-secondary">
+                        Ver categoria →
+                      </p>
+                    </div>
+                  </Link>
+
+                  <div className="space-y-2">
+                    {top.map((calc, i) => (
+                      <Link
+                        key={calc!.id}
+                        to={calc!.path}
+                        className={`flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm transition-all duration-200 ${medalColors[i]}`}
+                      >
+                        <span className="text-base flex-shrink-0" aria-hidden>
+                          {medals[i]}
+                        </span>
+                        <span className="font-medium text-text-primary flex-1 truncate">
+                          {calc!.name.replace(/^Calculadora de /, "").replace(/^Gerador de /, "")}
+                        </span>
+                        <span className="text-[10px] font-bold opacity-70">
+                          #{i + 1}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-text-primary">Matemática</h3>
-              </div>
-              <div className="space-y-3">
-                <Link
-                  to="/calculadoras/matematica/porcentagem"
-                  className="block rounded-lg bg-gradient-to-r from-yellow-500/20 to-yellow-400/20 p-3 transition-colors hover:from-yellow-500/30 hover:to-yellow-400/30 border border-yellow-500/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥇</span>
-                    <span className="text-sm font-medium text-text-primary">Porcentagem</span>
-                    <span className="ml-auto text-xs font-semibold text-yellow-600">#1</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/calculadoras/matematica/equacao-segundo-grau"
-                  className="block rounded-lg bg-gradient-to-r from-gray-400/20 to-gray-300/20 p-3 transition-colors hover:from-gray-400/30 hover:to-gray-300/30 border border-gray-400/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥈</span>
-                    <span className="text-sm font-medium text-text-primary">Equação 2º Grau</span>
-                    <span className="ml-auto text-xs font-semibold text-gray-600">#2</span>
-                  </div>
-                </Link>
-                <Link
-                  to="/calculadoras/matematica/mmc-mdc"
-                  className="block rounded-lg bg-gradient-to-r from-amber-600/20 to-amber-500/20 p-3 transition-colors hover:from-amber-600/30 hover:to-amber-500/30 border border-amber-600/30"
-                >
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🥉</span>
-                    <span className="text-sm font-medium text-text-primary">MMC e MDC</span>
-                    <span className="ml-auto text-xs font-semibold text-amber-700">#3</span>
-                  </div>
-                </Link>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Main Categories with Improved Layout */}
-      <section className="py-16">
+      {/* ───────────────────────────────────────── ALL CATEGORIES ── */}
+      <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-text-primary sm:text-4xl">
-              Todas as Categorias
+          <div className="text-center mb-12">
+            <div className="text-xs uppercase tracking-[0.3em] text-primary-blue mb-2">
+              Navegação
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
+              <span className="font-display italic font-normal">Explore</span> todas as categorias
             </h2>
-            <p className="mt-4 text-lg text-text-secondary-dark">
-              Encontre a calculadora perfeita para suas necessidades
-            </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {CATEGORIES.map((category: Category) => (
               <CategoryCard key={category.id} category={category} />
             ))}
@@ -383,86 +453,57 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Value Proposition with Better Visual Hierarchy */}
-      <section className="from-surface-light to-surface bg-gradient-to-r py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              Por que escolher nossas calculadoras?
-            </h2>
-          </div>
+      {/* ──────────────────────────────────────────── FINAL CTA ── */}
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        {/* Mesh gradient background, not a flat linear */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(circle at 20% 30%, rgba(100,181,246,0.5), transparent 50%), radial-gradient(circle at 80% 70%, rgba(255,213,79,0.35), transparent 50%), radial-gradient(circle at 50% 100%, rgba(186,104,200,0.3), transparent 60%), #0b1426",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 opacity-30"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
 
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-system-success/20">
-                <span className="text-2xl">✅</span>
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary">100% Gratuito</h3>
-              <p className="mt-2 text-sm text-text-secondary">
-                Todas as calculadoras são gratuitas. Sem pegadinhas, sem taxas ocultas.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-blue/20">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary">
-                Resultados Instantâneos
-              </h3>
-              <p className="mt-2 text-sm text-text-secondary">
-                Cálculos em tempo real. Digite e veja o resultado imediatamente.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-math-purple/20">
-                <span className="text-2xl">📱</span>
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary">Mobile First</h3>
-              <p className="mt-2 text-sm text-text-secondary">
-                Interface otimizada para celulares e tablets. Use em qualquer lugar.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-finance-gold/20">
-                <span className="text-2xl">🔒</span>
-              </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-primary">Sem Cadastro</h3>
-              <p className="mt-2 text-sm text-text-secondary">
-                Use todas as funcionalidades sem criar conta ou fornecer dados.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section with Improved Accessibility */}
-      <section className="bg-gradient-to-r from-primary-blue-dark to-primary-blue py-16">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Comece a calcular agora mesmo
+        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
+            <span className="font-display italic font-normal">Comece</span> a calcular agora
           </h2>
-          <p className="mt-4 text-lg text-primary-blue-light">
-            Escolha uma categoria e descubra como nossas calculadoras podem facilitar sua vida
+          <p className="mt-5 text-lg text-white/80 max-w-2xl mx-auto">
+            {TOTAL_CALCULATORS} ferramentas confiáveis em 8 categorias. Sem cadastro, sem anúncios pop-up, sem pegadinhas.
           </p>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center sm:items-center">
             <Link
-              to="/calculadoras/saude"
-              className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-primary-blue-dark shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-gray-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
-              aria-label="Explorar calculadoras de saúde"
+              to="/calculadoras"
+              className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-background-dark shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
+              aria-label="Ver todas as calculadoras"
             >
-              🏥 Calculadoras de Saúde
+              Ver todas as {TOTAL_CALCULATORS} calculadoras
             </Link>
-            <Link
-              to="/calculadoras/financas"
-              className="inline-flex items-center justify-center rounded-xl bg-finance-gold px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-finance-gold-dark hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
-              aria-label="Explorar calculadoras financeiras"
-            >
-              💰 Calculadoras Financeiras
-            </Link>
+          </div>
+
+          {/* Quick category chips */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+            {CATEGORIES.map((c) => (
+              <Link
+                key={c.id}
+                to={c.path}
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3.5 py-1.5 text-sm font-medium text-white/90 backdrop-blur-sm transition-all duration-200 hover:bg-white/15 hover:border-white/40"
+              >
+                <span aria-hidden>{c.icon}</span>
+                {c.name}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
