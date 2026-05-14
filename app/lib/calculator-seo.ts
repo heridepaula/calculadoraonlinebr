@@ -340,6 +340,52 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     changeFreq: "monthly",
   },
 
+  // Astrology Calculators
+  "ascendente-astrologico": {
+    id: "ascendente-astrologico",
+    title: "Calculadora de Ascendente Astrológico 2025 - Mapa Astral - CalculadoraOnlineBR",
+    description:
+      "★ Descubra seu signo ascendente GRATUITAMENTE! Calcule seu ascendente astrológico usando data, hora e local de nascimento. Entenda como você se apresenta ao mundo na astrologia natal.",
+    keywords:
+      "calculadora ascendente, ascendente astrológico, signo ascendente, mapa astral, astrologia natal, ascendente capricórnio, ascendente leão, calcular ascendente, hora nascimento, astrologia",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  signo: {
+    id: "signo",
+    title: "Descubra Seu Signo 2025 - Signo do Zodíaco por Data de Nascimento - CalculadoraOnlineBR",
+    description:
+      "★ Descubra seu signo zodiacal GRATUITAMENTE! Identifique seu signo solar pela data de nascimento e conheça características, elementos e personalidade na astrologia.",
+    keywords:
+      "calculadora signo, descobrir signo, signo do zodíaco, signo data nascimento, áries, touro, gêmeos, câncer, leão, virgem, libra, escorpião, sagitário, capricórnio, aquário, peixes, signo solar",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  "compatibilidade-signos": {
+    id: "compatibilidade-signos",
+    title: "Compatibilidade de Signos 2025 - Teste Astrológico para Amor - CalculadoraOnlineBR",
+    description:
+      "★ Teste a compatibilidade entre signos GRATUITAMENTE! Análise astrológica completa para amor, amizade e trabalho. Descubra a química entre você e seu par com dicas personalizadas.",
+    keywords:
+      "compatibilidade signos, teste compatibilidade amor, sinastria, signos compatíveis, sinastria amorosa, compatibilidade astrológica, par perfeito, química signos, relacionamento astrologia",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+  numerologia: {
+    id: "numerologia",
+    title: "Calculadora de Numerologia 2025 - Número da Vida e Destino - CalculadoraOnlineBR",
+    description:
+      "★ Calculadora de numerologia GRATUITA! Descubra seus números da vida, personalidade, destino e alma com interpretações detalhadas baseadas em nome completo e data de nascimento.",
+    keywords:
+      "calculadora numerologia, numero da vida, numero destino, numerologia cabalística, numerologia nome, numerologia data nascimento, numero pessoal, numero alma, mapa numerológico",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
+
   // Tool Calculators
   "gerador-cpf": {
     id: "gerador-cpf",
