@@ -17,7 +17,7 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          "Inter",
+          "Manrope",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
@@ -26,7 +26,19 @@ export default {
           "Segoe UI Symbol",
           "Noto Color Emoji",
         ],
-        inter: ["Inter", "sans-serif"],
+        display: [
+          "Instrument Serif",
+          "Georgia",
+          "ui-serif",
+          "serif",
+        ],
+        mono: [
+          "JetBrains Mono",
+          "ui-monospace",
+          "monospace",
+        ],
+        // Keep "inter" alias for legacy callers (now resolves to Manrope)
+        inter: ["Manrope", "sans-serif"],
       },
       colors: {
         // Dark Theme Only - Financial & Growth Palette

@@ -44,9 +44,10 @@ export const links: LinksFunction = () => [
   },
 
   // Font CSS - completely non-blocking with fallback
+  // Manrope = body, Instrument Serif = display headings
   {
     rel: "preload",
-    href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap",
     as: "style",
     onLoad: "this.onload=null;this.rel='stylesheet'",
     "data-defer": "true"
@@ -246,7 +247,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           __html: `
             :root{--bg-primary:#0f0f23;--bg-secondary:#1a1a2e;--text-primary:#fff;--text-secondary:#e2e8f0;--primary-blue:#64B5F6;--primary-blue-dark:#42A5F5}
             *,*::before,*::after{box-sizing:border-box}*{margin:0}
-            html,body{background-color:var(--bg-primary);color:var(--text-primary);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+            html,body{background-color:var(--bg-primary);color:var(--text-primary);font-family:Manrope,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+            .font-display{font-family:"Instrument Serif",Georgia,ui-serif,serif;font-weight:400}
             h1{font-size:2.25rem;font-weight:700;line-height:1.2;margin-bottom:1rem}
             h2{font-size:1.875rem;font-weight:600;line-height:1.3;margin-bottom:0.75rem}
             p{color:var(--text-secondary);line-height:1.6;margin-bottom:1rem}
@@ -260,7 +262,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             @keyframes spin{to{transform:rotate(360deg)}}
             @media(min-width:768px){.md\\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:3rem}}
             @media(max-width:767px){h1{font-size:1.875rem}.container{padding:0 0.75rem}}
-            @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('data:font/woff2;base64,') format('woff2'),local('Inter')}
+            @font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:local('Manrope')}
+            @font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:local('Instrument Serif')}
           `
         }} />
 
@@ -279,7 +282,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 }
                 var fontCSS=document.createElement('link');
                 fontCSS.rel='stylesheet';
-                fontCSS.href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+                fontCSS.href='https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap';
                 fontCSS.media='all';
                 document.head.appendChild(fontCSS);
               }
