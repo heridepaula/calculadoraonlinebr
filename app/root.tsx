@@ -130,10 +130,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { property: "og:locale", content: "pt_BR" },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
     },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     {
       property: "og:image:alt",
       content: "CalculadoraOnlineBR - Calculadoras Online Gratuitas",
@@ -153,7 +153,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
     },
   ];
 };
