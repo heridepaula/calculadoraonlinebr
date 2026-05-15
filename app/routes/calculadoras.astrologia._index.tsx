@@ -116,7 +116,6 @@ export default function AstrologiaIndex() {
 
   return (
     <div className="min-h-screen">
-
       {/* Responsive Breadcrumb Navigation */}
       <ResponsiveBreadcrumb items={createCategoryBreadcrumb("astrologia")} />
 

@@ -219,13 +219,23 @@ function getCalculatorFeatures(category: string): string[] {
   );
 }
 
+export type CategoryPageId =
+  | "saude"
+  | "financas"
+  | "matematica"
+  | "trabalhista"
+  | "ferramentas"
+  | "astrologia"
+  | "datas"
+  | "loterias";
+
 /**
  * Gera o grafo JSON-LD para uma página de categoria.
  * Substitui scripts inline em datas/astrologia/loterias com um @graph
  * contendo WebSite (com SearchAction), CollectionPage (com ItemList de
  * SoftwareApplications registradas) e BreadcrumbList.
  */
-export function generateCategoryPageGraph(categoryId: string): object | null {
+export function generateCategoryPageGraph(categoryId: CategoryPageId): object | null {
   const category = CATEGORIES.find((c) => c.id === categoryId);
   if (!category) return null;
 
