@@ -1,4 +1,4 @@
-﻿import { Link } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { Card, CardContent } from "~/components/ui";
 import type { Calculator } from "~/types";
 
@@ -15,142 +15,144 @@ interface CalculatorCardProps {
     | "loterias";
 }
 
-// Mapa de Ã­cones especÃ­ficos para cada calculadora
+// Mapa de ícones específicos para cada calculadora
 const getCalculatorIcon = (calculatorId: string): string => {
   const iconMap: Record<string, string> = {
-    // SaÃºde
-    imc: "âš–ï¸",
-    "gordura-corporal": "ðŸ“Š",
-    "ciclo-menstrual": "ðŸŒ¸",
-    "desenvolvimento-infantil": "ðŸ‘¶",
-    hidratacao: "ðŸ’§",
+    // Saúde
+    imc: "⚖️",
+    "gordura-corporal": "📊",
+    "ciclo-menstrual": "🌸",
+    "desenvolvimento-infantil": "👶",
+    hidratacao: "💧",
 
-    // FinanÃ§as
-    "primeiro-milhao": "ðŸŽ¯",
-    "juros-compostos": "ðŸ“ˆ",
-    "juros-simples": "ðŸ“Š",
-    "lci-lca": "ðŸ›ï¸",
-    "preco-medio": "ðŸ“‹",
-    cdb: "ðŸ’°",
-    "financiamento-imobiliario": "ðŸ ",
-    "emprestimo-consignado": "ðŸ’³",
-    consorcio: "ðŸ¤",
-    "renda-fixa-comparativa": "âš–ï¸",
-    "tesouro-direto": "ðŸ›ï¸",
+    // Finanças
+    "primeiro-milhao": "🎯",
+    "juros-compostos": "📈",
+    "juros-simples": "📊",
+    "lci-lca": "🏛️",
+    "preco-medio": "📋",
+    cdb: "💰",
+    "financiamento-imobiliario": "🏠",
+    "emprestimo-consignado": "💳",
+    consorcio: "🤝",
+    "renda-fixa-comparativa": "⚖️",
+    "tesouro-direto": "🏛️",
 
-    // MatemÃ¡tica
-    porcentagem: "ðŸ“Š",
-    "regra-de-tres": "ðŸ”„",
-    "equacao-segundo-grau": "ðŸ”¬",
-    "mmc-mdc": "ðŸ”¢",
-    "area-perimetro": "ðŸ“",
-    volume: "ðŸ“¦",
-    fracoes: "ðŸ§®",
-    "teorema-pitagoras": "ðŸ“",
+    // Matemática
+    porcentagem: "📊",
+    "regra-de-tres": "🔄",
+    "equacao-segundo-grau": "🔬",
+    "mmc-mdc": "🔢",
+    "area-perimetro": "📐",
+    volume: "📦",
+    fracoes: "🧮",
+    "teorema-pitagoras": "📐",
 
     // Trabalhista
-    rescisao: "ðŸ“‹",
-    ferias: "ðŸ–ï¸",
-    "13-salario": "ðŸ’°",
-    "auxilio-desemprego": "ðŸ¤",
-    aposentadoria: "ðŸ‘´",
-    "pensao-morte": "ðŸ‘¥",
+    rescisao: "📋",
+    ferias: "🏖️",
+    "13-salario": "💰",
+    "auxilio-desemprego": "🤝",
+    aposentadoria: "👴",
+    "pensao-morte": "👥",
 
     // Ferramentas
-    "gerador-cpf": "ðŸ†”",
-    "gerador-cnpj": "ðŸ¢",
-    "validar-cpf": "âœ…",
-    "validar-cnpj": "âœ…",
-    "contador-caracteres": "ðŸ“",
-    "gerador-cartao-credito": "ðŸ’³",
-    "gerador-uuid-guid": "ðŸ”—",
+    "gerador-cpf": "🆔",
+    "gerador-cnpj": "🏢",
+    "validar-cpf": "✅",
+    "validar-cnpj": "✅",
+    "contador-caracteres": "📝",
+    "gerador-cartao-credito": "💳",
+    "gerador-uuid-guid": "🔗",
 
     // Datas
-    "diferenca-entre-datas": "ðŸ“…",
-    "contagem-regressiva": "â°",
-    "operacao-datas": "âž•âž–",
-    "idade-exata": "ðŸŽ‚",
-    "dias-uteis": "ðŸ“Š",
+    "diferenca-entre-datas": "📅",
+    "contagem-regressiva": "⏰",
+    "operacao-datas": "➕➖",
+    "idade-exata": "🎂",
+    "dias-uteis": "📊",
 
     // Astrologia
-    "ascendente-astrologico": "ðŸŒ…",
-    signo: "â™ˆ",
-    "compatibilidade-signos": "ðŸ’ž",
+    "ascendente-astrologico": "🌅",
+    signo: "♈",
+    "compatibilidade-signos": "💞",
     // Loterias
     "gerador-mega-sena": "🎯",
     "gerador-lotofacil": "🍀",
-    "gerador-quina": "🎲",  };
+    "gerador-quina": "🎲",
+  };
 
-  return iconMap[calculatorId] || "ðŸ§®";
+  return iconMap[calculatorId] || "🧮";
 };
 
-// FunÃ§Ã£o para obter tags especÃ­ficas baseadas na calculadora
+// Função para obter tags específicas baseadas na calculadora
 const getCalculatorTags = (calculatorId: string): { primary: string; secondary: string } => {
   const tagMap: Record<string, { primary: string; secondary: string }> = {
-    // SaÃºde
-    imc: { primary: "ðŸ“Š AnÃ¡lise", secondary: "ðŸŽ¯ ConfiÃ¡vel" },
-    "gordura-corporal": { primary: "ðŸ”¬ CientÃ­fico", secondary: "ðŸ“ˆ Detalhado" },
-    "ciclo-menstrual": { primary: "ðŸŒ¸ Feminino", secondary: "ðŸ“… Ciclos" },
-    "desenvolvimento-infantil": { primary: "ðŸ‘¶ BebÃªs", secondary: "ðŸ“ˆ Marcos" },
-    hidratacao: { primary: "ðŸ’§ Personalizado", secondary: "â±ï¸ DiÃ¡rio" },
+    // Saúde
+    imc: { primary: "📊 Análise", secondary: "🎯 Confiável" },
+    "gordura-corporal": { primary: "🔬 Científico", secondary: "📈 Detalhado" },
+    "ciclo-menstrual": { primary: "🌸 Feminino", secondary: "📅 Ciclos" },
+    "desenvolvimento-infantil": { primary: "👶 Bebês", secondary: "📈 Marcos" },
+    hidratacao: { primary: "💧 Personalizado", secondary: "⏱️ Diário" },
 
-    // FinanÃ§as
-    "primeiro-milhao": { primary: "ðŸŽ¯ Meta", secondary: "â±ï¸ Prazo" },
-    "juros-compostos": { primary: "ðŸ“ˆ Crescimento", secondary: "ðŸ’° Aportes" },
-    "juros-simples": { primary: "ðŸ“Š BÃ¡sico", secondary: "â±ï¸ RÃ¡pido" },
-    "lci-lca": { primary: "ðŸ›ï¸ Isento IR", secondary: "ðŸ“ˆ Renda Fixa" },
-    "preco-medio": { primary: "ðŸ“‹ AÃ§Ãµes", secondary: "ðŸ’° Controle" },
-    cdb: { primary: "ðŸ’° CDB", secondary: "ðŸ“Š TributaÃ§Ã£o" },
-    "financiamento-imobiliario": { primary: "ðŸ  Casa PrÃ³pria", secondary: "ðŸ“‹ Completo" },
-    "emprestimo-consignado": { primary: "ðŸ’³ Consignado", secondary: "ðŸ“Š Margem" },
-    consorcio: { primary: "ðŸ¤ ConsÃ³rcio", secondary: "ðŸš— VeÃ­culos" },
-    "renda-fixa-comparativa": { primary: "âš–ï¸ Comparar", secondary: "ðŸ† Ranking" },
-    "tesouro-direto": { primary: "ðŸ›ï¸ Tesouro", secondary: "ðŸ“Š Completa" },
+    // Finanças
+    "primeiro-milhao": { primary: "🎯 Meta", secondary: "⏱️ Prazo" },
+    "juros-compostos": { primary: "📈 Crescimento", secondary: "💰 Aportes" },
+    "juros-simples": { primary: "📊 Básico", secondary: "⏱️ Rápido" },
+    "lci-lca": { primary: "🏛️ Isento IR", secondary: "📈 Renda Fixa" },
+    "preco-medio": { primary: "📋 Ações", secondary: "💰 Controle" },
+    cdb: { primary: "💰 CDB", secondary: "📊 Tributação" },
+    "financiamento-imobiliario": { primary: "🏠 Casa Própria", secondary: "📋 Completo" },
+    "emprestimo-consignado": { primary: "💳 Consignado", secondary: "📊 Margem" },
+    consorcio: { primary: "🤝 Consórcio", secondary: "🚗 Veículos" },
+    "renda-fixa-comparativa": { primary: "⚖️ Comparar", secondary: "🏆 Ranking" },
+    "tesouro-direto": { primary: "🏛️ Tesouro", secondary: "📊 Completa" },
 
-    // MatemÃ¡tica
-    porcentagem: { primary: "ðŸ“Š Percentual", secondary: "âš¡ RÃ¡pido" },
-    "regra-de-tres": { primary: "ðŸ”„ ProporÃ§Ã£o", secondary: "ðŸ“š Passo a Passo" },
-    "equacao-segundo-grau": { primary: "ðŸ”¬ Bhaskara", secondary: "ðŸ“Š GrÃ¡fico" },
-    "mmc-mdc": { primary: "ðŸ”¢ Fatores", secondary: "ðŸ“š Educativo" },
-    "area-perimetro": { primary: "ðŸ“ Geometria", secondary: "ðŸ“ Medidas" },
-    volume: { primary: "ðŸ“¦ 3D", secondary: "ðŸ”¬ FÃ³rmulas" },
-    fracoes: { primary: "ðŸ§® FraÃ§Ãµes", secondary: "ðŸ“š Passo a Passo" },
-    "teorema-pitagoras": { primary: "ðŸ“ PitÃ¡goras", secondary: "ðŸ“ TriÃ¢ngulos" },
+    // Matemática
+    porcentagem: { primary: "📊 Percentual", secondary: "⚡ Rápido" },
+    "regra-de-tres": { primary: "🔄 Proporção", secondary: "📚 Passo a Passo" },
+    "equacao-segundo-grau": { primary: "🔬 Bhaskara", secondary: "📊 Gráfico" },
+    "mmc-mdc": { primary: "🔢 Fatores", secondary: "📚 Educativo" },
+    "area-perimetro": { primary: "📐 Geometria", secondary: "📏 Medidas" },
+    volume: { primary: "📦 3D", secondary: "🔬 Fórmulas" },
+    fracoes: { primary: "🧮 Frações", secondary: "📚 Passo a Passo" },
+    "teorema-pitagoras": { primary: "📐 Pitágoras", secondary: "📏 Triângulos" },
 
     // Trabalhista
-    "rescisao-trabalhista": { primary: "ðŸ“‹ RescisÃ£o", secondary: "ðŸ’° Direitos" },
-    aposentadoria: { primary: "ðŸ‘´ INSS", secondary: "ðŸ“Š Planejamento" },
-    ferias: { primary: "ðŸ–ï¸ FÃ©rias", secondary: "ðŸ’° 1/3" },
-    "13-salario": { primary: "ðŸ’° 13Âº", secondary: "ðŸ“… Proporcional" },
-    "auxilio-desemprego": { primary: "ðŸ¤ Seguro", secondary: "ðŸ“Š Parcelas" },
-    "pensao-morte": { primary: "ðŸ‘¥ PensÃ£o", secondary: "ðŸ’° BenefÃ­cio" },
+    "rescisao-trabalhista": { primary: "📋 Rescisão", secondary: "💰 Direitos" },
+    aposentadoria: { primary: "👴 INSS", secondary: "📊 Planejamento" },
+    ferias: { primary: "🏖️ Férias", secondary: "💰 1/3" },
+    "13-salario": { primary: "💰 13º", secondary: "📅 Proporcional" },
+    "auxilio-desemprego": { primary: "🤝 Seguro", secondary: "📊 Parcelas" },
+    "pensao-morte": { primary: "👥 Pensão", secondary: "💰 Benefício" },
 
     // Ferramentas
-    "gerador-cpf": { primary: "ðŸ†” CPF VÃ¡lido", secondary: "âš¡ InstantÃ¢neo" },
-    "gerador-cnpj": { primary: "ðŸ¢ CNPJ VÃ¡lido", secondary: "âš¡ InstantÃ¢neo" },
-    "validar-cpf": { primary: "âœ… ValidaÃ§Ã£o", secondary: "ðŸ” VerificaÃ§Ã£o" },
-    "validar-cnpj": { primary: "âœ… ValidaÃ§Ã£o", secondary: "ðŸ” VerificaÃ§Ã£o" },
-    "contador-caracteres": { primary: "ðŸ“ AnÃ¡lise", secondary: "ðŸ“Š EstatÃ­sticas" },
-    "gerador-cartao-credito": { primary: "ðŸ’³ CartÃµes", secondary: "ðŸ§ª Teste" },
-    "gerador-uuid-guid": { primary: "ðŸ”— UUID/GUID", secondary: "ðŸŒ MÃºltiplos Formatos" },
+    "gerador-cpf": { primary: "🆔 CPF Válido", secondary: "⚡ Instantâneo" },
+    "gerador-cnpj": { primary: "🏢 CNPJ Válido", secondary: "⚡ Instantâneo" },
+    "validar-cpf": { primary: "✅ Validação", secondary: "🔍 Verificação" },
+    "validar-cnpj": { primary: "✅ Validação", secondary: "🔍 Verificação" },
+    "contador-caracteres": { primary: "📝 Análise", secondary: "📊 Estatísticas" },
+    "gerador-cartao-credito": { primary: "💳 Cartões", secondary: "🧪 Teste" },
+    "gerador-uuid-guid": { primary: "🔗 UUID/GUID", secondary: "🌐 Múltiplos Formatos" },
 
     // Datas
-    "diferenca-entre-datas": { primary: "ðŸ“… Intervalos", secondary: "âš¡ RÃ¡pida" },
-    "contagem-regressiva": { primary: "â° Tempo Real", secondary: "ðŸŽ‰ Eventos" },
-    "operacao-datas": { primary: "ðŸ§® OperaÃ§Ãµes", secondary: "âž•âž– Somar/Subtrair" },
-    "idade-exata": { primary: "ðŸŽ‚ Idade Exata", secondary: "â±ï¸ Contador Tempo Real" },
-    "dias-uteis": { primary: "ðŸ“Š Dias Ãšteis", secondary: "ðŸ‡§ðŸ‡· Feriados Brasil" },
+    "diferenca-entre-datas": { primary: "📅 Intervalos", secondary: "⚡ Rápida" },
+    "contagem-regressiva": { primary: "⏰ Tempo Real", secondary: "🎉 Eventos" },
+    "operacao-datas": { primary: "🧮 Operações", secondary: "➕➖ Somar/Subtrair" },
+    "idade-exata": { primary: "🎂 Idade Exata", secondary: "⏱️ Contador Tempo Real" },
+    "dias-uteis": { primary: "📊 Dias Úteis", secondary: "🇧🇷 Feriados Brasil" },
 
     // Astrologia
-    "ascendente-astrologico": { primary: "ðŸŒ… Ascendente", secondary: "ðŸŒ LocalizaÃ§Ã£o" },
-    signo: { primary: "â™ˆ ZodÃ­aco", secondary: "ðŸŒŸ Personalidade" },
-    "compatibilidade-signos": { primary: "ðŸ’ž Amor", secondary: "ðŸ‘¥ Amizade" },
+    "ascendente-astrologico": { primary: "🌅 Ascendente", secondary: "🌍 Localização" },
+    signo: { primary: "♈ Zodíaco", secondary: "🌟 Personalidade" },
+    "compatibilidade-signos": { primary: "💞 Amor", secondary: "👥 Amizade" },
     // Loterias
-    "gerador-mega-sena": { primary: "🎯 6 Numeros", secondary: "🍀 Mega-Sena" },
-    "gerador-lotofacil": { primary: "🍀 15 Numeros", secondary: "🎯 Loteria" },
-    "gerador-quina": { primary: "🎲 5 Numeros", secondary: "💰 Quina" },  };
+    "gerador-mega-sena": { primary: "🎯 6 Números", secondary: "🍀 Mega-Sena" },
+    "gerador-lotofacil": { primary: "🍀 15 Números", secondary: "🎯 Loteria" },
+    "gerador-quina": { primary: "🎲 5 Números", secondary: "💰 Quina" },
+  };
 
-  return tagMap[calculatorId] || { primary: "âš¡ RÃ¡pido", secondary: "ðŸŽ¯ ConfiÃ¡vel" };
+  return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
 };
 
 const getCategoryColors = (category: string) => {
@@ -168,8 +170,8 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-health-red/20",
         categoryBadgeText: "text-health-red-light",
-        categoryIcon: "ðŸ¥",
-        categoryName: "SaÃºde",
+        categoryIcon: "🏥",
+        categoryName: "Saúde",
         shadow: "hover:shadow-health-red/20",
       };
     case "financas":
@@ -185,11 +187,11 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-finance-gold/20",
         categoryBadgeText: "text-finance-gold-light",
-        categoryIcon: "ðŸ’°",
-        categoryName: "FinanÃ§as",
+        categoryIcon: "💰",
+        categoryName: "Finanças",
         shadow: "hover:shadow-finance-gold/20",
       };
-        case "loterias":
+    case "loterias":
       return {
         bgGradient: "from-finance-gold/20 via-finance-gold/15 to-finance-gold/5",
         cardBg: "bg-gray-800",
@@ -205,7 +207,8 @@ const getCategoryColors = (category: string) => {
         categoryIcon: "🎰",
         categoryName: "Loterias",
         shadow: "hover:shadow-finance-gold/20",
-      };    case "matematica":
+      };
+    case "matematica":
       return {
         bgGradient: "from-math-purple/20 via-math-purple/15 to-math-purple/5",
         cardBg: "bg-gray-800",
@@ -218,8 +221,8 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-math-purple/20",
         categoryBadgeText: "text-math-purple-light",
-        categoryIcon: "ðŸ”¢",
-        categoryName: "MatemÃ¡tica",
+        categoryIcon: "🔢",
+        categoryName: "Matemática",
         shadow: "hover:shadow-math-purple/20",
       };
     case "trabalhista":
@@ -235,7 +238,7 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-system-info/20",
         categoryBadgeText: "text-system-info-light",
-        categoryIcon: "âš–ï¸",
+        categoryIcon: "⚖️",
         categoryName: "Trabalhista",
         shadow: "hover:shadow-system-info/20",
       };
@@ -252,7 +255,7 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-system-success/20",
         categoryBadgeText: "text-system-success-light",
-        categoryIcon: "ðŸ”§",
+        categoryIcon: "🔧",
         categoryName: "Ferramentas",
         shadow: "hover:shadow-system-success/20",
       };
@@ -269,7 +272,7 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-purple-500/20",
         categoryBadgeText: "text-purple-300",
-        categoryIcon: "ðŸŒŸ",
+        categoryIcon: "🌟",
         categoryName: "Astrologia",
         shadow: "hover:shadow-purple-500/20",
       };
@@ -286,7 +289,7 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-blue-500/20",
         categoryBadgeText: "text-blue-300",
-        categoryIcon: "ðŸ“…",
+        categoryIcon: "📅",
         categoryName: "Datas",
         shadow: "hover:shadow-blue-500/20",
       };
@@ -303,7 +306,7 @@ const getCategoryColors = (category: string) => {
         buttonText: "text-white",
         categoryBadgeBg: "bg-primary-blue/20",
         categoryBadgeText: "text-primary-blue-light",
-        categoryIcon: "ðŸ§®",
+        categoryIcon: "🧮",
         categoryName: "Geral",
         shadow: "hover:shadow-primary-blue/20",
       };
@@ -360,7 +363,7 @@ export function CalculatorCard({ calculator, category }: CalculatorCardProps) {
           </span>
         </div>
 
-        {/* Spacer para empurrar o botÃ£o e footer para baixo */}
+        {/* Spacer para empurrar o botão e footer para baixo */}
         <div className="flex-1"></div>
 
         {/* Compact CTA Button */}
@@ -404,9 +407,3 @@ export function CalculatorCard({ calculator, category }: CalculatorCardProps) {
     </Card>
   );
 }
-
-
-
-
-
-
