@@ -596,7 +596,7 @@ export default function GeradorLotofacil() {
         items={createCalculatorBreadcrumb("loterias", "Gerador de Lotofácil")}
       />
 
-      <div className="space-y-8 px-3 py-6 sm:px-6">
+      <div className="space-y-8 px-2 py-6 sm:px-6">
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
@@ -616,7 +616,7 @@ export default function GeradorLotofacil() {
         </header>
 
         {/* Gerador Principal */}
-        <Card className="mx-auto max-w-4xl">
+        <Card padding="none" className="-mx-2 max-w-4xl p-2 sm:mx-auto sm:p-5 lg:p-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <span className="text-2xl">🎰</span>
@@ -631,7 +631,7 @@ export default function GeradorLotofacil() {
               </h3>
 
               {/* Simulação do Talão Real */}
-              <div className="mx-auto max-w-lg rounded-xl border-4 border-pink-600 bg-gradient-to-b from-white to-pink-50 p-6 shadow-2xl">
+              <div className="mx-auto max-w-lg rounded-xl border-4 border-pink-600 bg-gradient-to-b from-white to-pink-50 p-2 shadow-2xl sm:p-6">
                 {/* Cabeçalho do Talão */}
                 <div className="mb-4 text-center">
                   <div className="mb-2 text-xs font-bold uppercase tracking-wide text-pink-800">
@@ -642,13 +642,13 @@ export default function GeradorLotofacil() {
                   </div>
                 </div>
 
-                {/* Grid 5x5 como no volante real */}
-                <div className="mb-4 grid grid-cols-5 gap-1 rounded-lg bg-white p-3 shadow-inner">
+                {/* Grid 5x5 como no volante real — aspect-square + sm:h-12 sm:w-12 preserva tamanho desktop original */}
+                <div className="mb-4 grid grid-cols-5 place-items-center gap-1 rounded-lg bg-white p-2 shadow-inner sm:p-3">
                   {Array.from({ length: 25 }, (_, i) => i + 1).map((number) => (
                     <button
                       key={number}
                       onClick={() => toggleNumber(number)}
-                      className={`relative aspect-square h-12 w-12 rounded-md border-2 text-sm font-bold transition-all duration-200 ${
+                      className={`relative aspect-square w-full min-w-0 self-start rounded-md border !p-0 text-xs font-bold !leading-none transition-all duration-200 !min-h-0 sm:h-12 sm:w-12 sm:self-auto sm:border-2 sm:text-sm ${
                         selectedNumbers.includes(number)
                           ? "border-pink-600 bg-pink-100 text-pink-800 shadow-md"
                           : "border-gray-300 bg-white text-gray-700 hover:border-pink-400 hover:bg-pink-50"
@@ -659,8 +659,8 @@ export default function GeradorLotofacil() {
                       </span>
                       {selectedNumbers.includes(number) && (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-8 w-8 rounded-full bg-pink-600 flex items-center justify-center">
-                            <span className="text-white font-bold text-lg">✓</span>
+                          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-pink-600 sm:h-8 sm:w-8">
+                            <span className="text-base font-bold text-white sm:text-lg">✓</span>
                           </div>
                         </div>
                       )}
@@ -1048,11 +1048,11 @@ export default function GeradorLotofacil() {
               </div>
 
               {/* Números em destaque */}
-              <div className="flex flex-wrap justify-center gap-2 px-6 py-5">
+              <div className="flex flex-wrap justify-center gap-1.5 px-4 py-4 sm:gap-2 sm:px-6 sm:py-5">
                 {currentNumbers.map((number) => (
                   <div
                     key={number}
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-pink-600 text-base font-bold text-white shadow-lg ring-2 ring-pink-400/30"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-pink-600 text-sm font-bold text-white shadow-lg ring-2 ring-pink-400/30 sm:h-11 sm:w-11 sm:text-base"
                   >
                     {number.toString().padStart(2, "0")}
                   </div>
@@ -1070,9 +1070,9 @@ export default function GeradorLotofacil() {
                     { label: "🔥 Quentes", value: generatedGames[0].statistics.hotNumbers },
                     { label: "🧊 Frios", value: generatedGames[0].statistics.coldNumbers },
                   ].map((stat) => (
-                    <div key={stat.label} className="flex flex-col items-center bg-background-secondary px-3 py-3">
-                      <span className="text-lg font-bold text-text-primary">{stat.value}</span>
-                      <span className="text-xs text-text-secondary">{stat.label}</span>
+                    <div key={stat.label} className="flex flex-col items-center bg-background-secondary px-2 py-3 sm:px-3">
+                      <span className="text-base font-bold text-text-primary sm:text-lg">{stat.value}</span>
+                      <span className="text-[10px] text-text-secondary sm:text-xs">{stat.label}</span>
                     </div>
                   ))}
                 </div>

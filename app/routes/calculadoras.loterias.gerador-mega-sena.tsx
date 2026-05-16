@@ -568,7 +568,7 @@ export default function GeradorMegaSena() {
         items={createCalculatorBreadcrumb("loterias", "Gerador de Mega-Sena")}
       />
 
-      <div className="space-y-8 px-3 py-6 sm:px-6">
+      <div className="space-y-8 px-2 py-6 sm:px-6">
         {/* Header */}
         <header className="space-y-4 text-center">
           <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
@@ -588,7 +588,7 @@ export default function GeradorMegaSena() {
         </header>
 
         {/* Gerador Principal */}
-        <Card className="mx-auto max-w-4xl">
+        <Card padding="none" className="-mx-2 max-w-4xl p-2 sm:mx-auto sm:p-5 lg:p-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <span className="text-2xl">🎰</span>
@@ -603,7 +603,7 @@ export default function GeradorMegaSena() {
               </h3>
 
               {/* Simulação do Talão Real */}
-              <div className="mx-auto max-w-xl rounded-xl border-4 border-green-600 bg-gradient-to-b from-white to-green-50 p-6 shadow-2xl">
+              <div className="mx-auto max-w-xl rounded-xl border-4 border-green-600 bg-gradient-to-b from-white to-green-50 p-2 shadow-2xl sm:p-6">
                 {/* Cabeçalho do Talão */}
                 <div className="mb-4 text-center">
                   <div className="mb-2 text-xs font-bold uppercase tracking-wide text-green-800">
@@ -614,13 +614,13 @@ export default function GeradorMegaSena() {
                   </div>
                 </div>
 
-                {/* Grid 6x10 como no volante real */}
-                <div className="mb-4 grid grid-cols-6 gap-1 rounded-lg bg-white p-3 shadow-inner sm:grid-cols-10">
+                {/* Grid responsivo: 6 cols mobile, 10 sm+ (preserva desktop original) */}
+                <div className="mb-4 grid grid-cols-6 gap-1 rounded-lg bg-white p-2 shadow-inner sm:grid-cols-10 sm:p-3">
                   {Array.from({ length: 60 }, (_, i) => i + 1).map((number) => (
                     <button
                       key={number}
                       onClick={() => toggleNumber(number)}
-                      className={`relative aspect-square rounded-md border-2 text-xs font-bold transition-all duration-200 ${
+                      className={`relative aspect-square w-full min-w-0 self-start rounded-md border !p-0 text-[10px] font-bold !leading-none transition-all duration-200 !min-h-0 sm:self-auto sm:border-2 sm:text-xs ${
                         selectedNumbers.includes(number)
                           ? "border-green-600 bg-green-100 text-green-800 shadow-md"
                           : "border-gray-300 bg-white text-gray-700 hover:border-green-400 hover:bg-green-50"
@@ -631,8 +631,8 @@ export default function GeradorMegaSena() {
                       </span>
                       {selectedNumbers.includes(number) && (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-600">
-                            <span className="text-xs font-bold text-white">✓</span>
+                          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-600 sm:h-7 sm:w-7">
+                            <span className="text-[10px] font-bold text-white sm:text-xs">✓</span>
                           </div>
                         </div>
                       )}
@@ -1022,11 +1022,11 @@ export default function GeradorMegaSena() {
               </div>
 
               {/* Números em destaque */}
-              <div className="flex flex-wrap justify-center gap-3 px-6 py-6">
+              <div className="flex flex-wrap justify-center gap-2 px-4 py-5 sm:gap-3 sm:px-6 sm:py-6">
                 {currentNumbers.map((number) => (
                   <div
                     key={number}
-                    className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-xl font-bold text-white shadow-lg ring-2 ring-green-400/30"
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-lg font-bold text-white shadow-lg ring-2 ring-green-400/30 sm:h-14 sm:w-14 sm:text-xl"
                   >
                     {number.toString().padStart(2, "0")}
                   </div>
@@ -1044,9 +1044,9 @@ export default function GeradorMegaSena() {
                     { label: "🔥 Quentes", value: generatedGames[0].statistics.hotNumbers },
                     { label: "🧊 Frios", value: generatedGames[0].statistics.coldNumbers },
                   ].map((stat) => (
-                    <div key={stat.label} className="flex flex-col items-center bg-background-secondary px-3 py-3">
-                      <span className="text-lg font-bold text-text-primary">{stat.value}</span>
-                      <span className="text-xs text-text-secondary">{stat.label}</span>
+                    <div key={stat.label} className="flex flex-col items-center bg-background-secondary px-2 py-3 sm:px-3">
+                      <span className="text-base font-bold text-text-primary sm:text-lg">{stat.value}</span>
+                      <span className="text-[10px] text-text-secondary sm:text-xs">{stat.label}</span>
                     </div>
                   ))}
                 </div>

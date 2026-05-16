@@ -450,7 +450,7 @@ export default function App() {
 
             <main
               id="main-content"
-              className="mx-auto w-full max-w-7xl flex-1 px-8 py-8 sm:px-4 md:px-6 md:py-6"
+              className="mx-auto w-full max-w-7xl flex-1 px-2 py-6 sm:px-4 md:px-6 md:py-8"
               role="main"
               aria-label="Conteúdo principal"
             >
