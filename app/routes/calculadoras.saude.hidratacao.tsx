@@ -8,6 +8,7 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Checkbox,
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
@@ -870,24 +871,16 @@ export default function HydrationCalculator() {
                     👶 Condições Especiais (Mulheres)
                   </h4>
                   <div className="flex flex-wrap gap-4">
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={pregnancy}
-                        onChange={(e) => setPregnancy(e.target.checked)}
-                        className="rounded border-gray-300"
-                      />
-                      <span className="text-sm text-text-secondary">🤰 Gestante (+300ml)</span>
-                    </label>
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={breastfeeding}
-                        onChange={(e) => setBreastfeeding(e.target.checked)}
-                        className="rounded border-gray-300"
-                      />
-                      <span className="text-sm text-text-secondary">🍼 Amamentando (+700ml)</span>
-                    </label>
+                    <Checkbox
+                      checked={pregnancy}
+                      onChange={(e) => setPregnancy(e.target.checked)}
+                      label="🤰 Gestante (+300ml)"
+                    />
+                    <Checkbox
+                      checked={breastfeeding}
+                      onChange={(e) => setBreastfeeding(e.target.checked)}
+                      label="🍼 Amamentando (+700ml)"
+                    />
                   </div>
                 </div>
               )}

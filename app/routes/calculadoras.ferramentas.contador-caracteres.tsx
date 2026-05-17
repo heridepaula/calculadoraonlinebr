@@ -8,6 +8,7 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -453,35 +454,21 @@ export default function CharacterCounter() {
             <div className="rounded-lg border border-primary-blue/20 bg-primary-blue-light p-4">
               <h3 className="mb-4 font-semibold text-primary-blue-dark">Opções de Análise</h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={options.ignoreSpaces}
-                    onChange={() => handleOptionChange("ignoreSpaces")}
-                    className="h-4 w-4 rounded border-neutral-surface-variant text-primary-blue focus:ring-primary-blue"
-                  />
-                  <span className="text-sm text-text-primary">Ignorar espaços</span>
-                </label>
-
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={options.ignorePunctuation}
-                    onChange={() => handleOptionChange("ignorePunctuation")}
-                    className="h-4 w-4 rounded border-neutral-surface-variant text-primary-blue focus:ring-primary-blue"
-                  />
-                  <span className="text-sm text-text-primary">Ignorar pontuação</span>
-                </label>
-
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={options.caseSensitive}
-                    onChange={() => handleOptionChange("caseSensitive")}
-                    className="h-4 w-4 rounded border-neutral-surface-variant text-primary-blue focus:ring-primary-blue"
-                  />
-                  <span className="text-sm text-text-primary">Diferenciar maiúsculas</span>
-                </label>
+                <Checkbox
+                  checked={options.ignoreSpaces}
+                  onChange={() => handleOptionChange("ignoreSpaces")}
+                  label="Ignorar espaços"
+                />
+                <Checkbox
+                  checked={options.ignorePunctuation}
+                  onChange={() => handleOptionChange("ignorePunctuation")}
+                  label="Ignorar pontuação"
+                />
+                <Checkbox
+                  checked={options.caseSensitive}
+                  onChange={() => handleOptionChange("caseSensitive")}
+                  label="Diferenciar maiúsculas"
+                />
               </div>
             </div>
 

@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect } from "react";
-import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
+import { Card, CardHeader, CardTitle, CardContent, Button, Checkbox } from "~/components/ui";
 import {
   RelatedCalculators,
   FAQ,
@@ -816,17 +816,14 @@ export default function GeradorLotofacil() {
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {/* Análise de Frequência */}
                 <div className="space-y-3">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={strategy.useFrequency}
-                      onChange={(e) =>
-                        setStrategy({ ...strategy, useFrequency: e.target.checked })
-                      }
-                      className="h-4 w-4 rounded border-neutral-surface-variant"
-                    />
-                    <span className="font-medium">Usar Análise de Frequência</span>
-                  </label>
+                  <Checkbox
+                    checked={strategy.useFrequency}
+                    onChange={(e) =>
+                      setStrategy({ ...strategy, useFrequency: e.target.checked })
+                    }
+                    label="Usar Análise de Frequência"
+                    labelClassName="font-medium"
+                  />
 
                   {strategy.useFrequency && (
                     <div className="ml-6 space-y-2">
@@ -851,17 +848,14 @@ export default function GeradorLotofacil() {
 
                 {/* Controle de Paridade */}
                 <div className="space-y-3">
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={strategy.controlParity}
-                      onChange={(e) =>
-                        setStrategy({ ...strategy, controlParity: e.target.checked })
-                      }
-                      className="h-4 w-4 rounded border-neutral-surface-variant"
-                    />
-                    <span className="font-medium">Controlar Pares/Ímpares</span>
-                  </label>
+                  <Checkbox
+                    checked={strategy.controlParity}
+                    onChange={(e) =>
+                      setStrategy({ ...strategy, controlParity: e.target.checked })
+                    }
+                    label="Controlar Pares/Ímpares"
+                    labelClassName="font-medium"
+                  />
 
                   {strategy.controlParity && (
                     <div className="ml-6 grid grid-cols-2 gap-2">
@@ -901,17 +895,14 @@ export default function GeradorLotofacil() {
                 <div className="mt-4 grid grid-cols-1 gap-4 border-t border-neutral-surface-variant pt-4 md:grid-cols-2">
                   {/* Controle de Soma */}
                   <div className="space-y-3">
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={strategy.controlSum}
-                        onChange={(e) =>
-                          setStrategy({ ...strategy, controlSum: e.target.checked })
-                        }
-                        className="h-4 w-4 rounded border-neutral-surface-variant"
-                      />
-                      <span className="font-medium">Controlar Soma Total</span>
-                    </label>
+                    <Checkbox
+                      checked={strategy.controlSum}
+                      onChange={(e) =>
+                        setStrategy({ ...strategy, controlSum: e.target.checked })
+                      }
+                      label="Controlar Soma Total"
+                      labelClassName="font-medium"
+                    />
 
                     {strategy.controlSum && (
                       <div className="ml-6 grid grid-cols-2 gap-2">
@@ -947,17 +938,14 @@ export default function GeradorLotofacil() {
 
                   {/* Números Primos */}
                   <div className="space-y-3">
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={strategy.includePrimes}
-                        onChange={(e) =>
-                          setStrategy({ ...strategy, includePrimes: e.target.checked })
-                        }
-                        className="h-4 w-4 rounded border-neutral-surface-variant"
-                      />
-                      <span className="font-medium">Controlar Números Primos</span>
-                    </label>
+                    <Checkbox
+                      checked={strategy.includePrimes}
+                      onChange={(e) =>
+                        setStrategy({ ...strategy, includePrimes: e.target.checked })
+                      }
+                      label="Controlar Números Primos"
+                      labelClassName="font-medium"
+                    />
 
                     {strategy.includePrimes && (
                       <div className="ml-6 grid grid-cols-2 gap-2">

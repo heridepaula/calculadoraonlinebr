@@ -9,6 +9,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Input,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -489,17 +490,11 @@ export default function DateDifferenceCalculator() {
             <CardContent>
               {/* Opção de incluir horário */}
               <div className="mb-6 flex justify-center">
-                <label className="flex cursor-pointer items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={includeTime}
-                    onChange={(e) => setIncludeTime(e.target.checked)}
-                    className="h-5 w-5 rounded border-neutral-surface-variant bg-neutral-surface text-primary-blue focus:ring-2 focus:ring-primary-blue"
-                  />
-                  <span className="text-sm font-medium text-text-primary">
-                    🕒 Incluir horário no cálculo
-                  </span>
-                </label>
+                <Checkbox
+                  checked={includeTime}
+                  onChange={(e) => setIncludeTime(e.target.checked)}
+                  label="🕒 Incluir horário no cálculo"
+                />
               </div>
 
               {/* Datas */}

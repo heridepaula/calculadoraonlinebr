@@ -10,6 +10,7 @@ import {
   BreadcrumbItem,
   Input,
   Label,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -730,15 +731,11 @@ export default function ConsumoEnergiaEletrica() {
                 Vampirismo Energético (Standby)
               </Label>
               <div className="space-y-2">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={includeStandby}
-                    onChange={(e) => setIncludeStandby(e.target.checked)}
-                    className="rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
-                  />
-                  <span className="text-sm text-text-secondary">Incluir consumo standby</span>
-                </label>
+                <Checkbox
+                  checked={includeStandby}
+                  onChange={(e) => setIncludeStandby(e.target.checked)}
+                  label="Incluir consumo standby"
+                />
                 {includeStandby && (
                   <Input
                     type="number"

@@ -11,6 +11,7 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -624,15 +625,11 @@ export default function CalculadoraAuxilioDoenca() {
                   placeholder="Ex: M79.0 ou descrição da doença"
                   fullWidth
                 />
-                <label className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={isAcidente}
-                    onChange={(e) => setIsAcidente(e.target.checked)}
-                    className="rounded border-neutral-surface-variant"
-                  />
-                  <span>É decorrente de acidente?</span>
-                </label>
+                <Checkbox
+                  checked={isAcidente}
+                  onChange={(e) => setIsAcidente(e.target.checked)}
+                  label="É decorrente de acidente?"
+                />
               </div>
             </div>
 

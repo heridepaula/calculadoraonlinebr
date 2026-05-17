@@ -11,6 +11,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Select,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -593,36 +594,22 @@ export default function VacationAndThirteenthCalculator() {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                      <input
-                        type="checkbox"
+                    <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
+                      <Checkbox
                         id="pecuniaryBonus"
                         checked={pecuniaryBonus}
                         onChange={(e) => setPecuniaryBonus(e.target.checked)}
-                        className="border-neutral-stroke h-4 w-4 rounded text-primary-blue focus:ring-primary-blue"
+                        label={<><strong>Abono Pecuniário</strong> - Vender 1/3 das férias (10 dias)</>}
                       />
-                      <label
-                        htmlFor="pecuniaryBonus"
-                        className="text-sm font-medium text-text-primary"
-                      >
-                        <strong>Abono Pecuniário</strong> - Vender 1/3 das férias (10 dias)
-                      </label>
                     </div>
 
-                    <div className="flex items-center space-x-3 rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
-                      <input
-                        type="checkbox"
+                    <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
+                      <Checkbox
                         id="advance13th"
                         checked={advance13th}
                         onChange={(e) => setAdvance13th(e.target.checked)}
-                        className="border-neutral-stroke h-4 w-4 rounded text-primary-blue focus:ring-primary-blue"
+                        label={<><strong>Adiantar 1ª Parcela do 13º</strong> - Receber junto com as férias</>}
                       />
-                      <label
-                        htmlFor="advance13th"
-                        className="text-sm font-medium text-text-primary"
-                      >
-                        <strong>Adiantar 1ª Parcela do 13º</strong> - Receber junto com as férias
-                      </label>
                     </div>
                   </div>
                 </>

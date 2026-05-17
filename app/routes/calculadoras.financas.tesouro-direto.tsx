@@ -13,6 +13,7 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -804,20 +805,13 @@ export default function TreasuryDirectCalculator() {
                   🔄 Simulação de Resgate Antecipado
                 </h4>
 
-                <div className="mb-4 flex items-center gap-3">
-                  <input
-                    type="checkbox"
+                <div className="mb-4">
+                  <Checkbox
                     id="enableEarlyRedemption"
                     checked={enableEarlyRedemption}
                     onChange={(e) => setEnableEarlyRedemption(e.target.checked)}
-                    className="bg-background-primary h-4 w-4 rounded border border-neutral-surface-variant text-growth-green focus:ring-2 focus:ring-growth-green"
+                    label="Simular resgate antes do vencimento"
                   />
-                  <label
-                    htmlFor="enableEarlyRedemption"
-                    className="text-sm font-medium text-text-primary"
-                  >
-                    Simular resgate antes do vencimento
-                  </label>
                 </div>
 
                 {enableEarlyRedemption && (

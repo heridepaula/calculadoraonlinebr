@@ -8,6 +8,7 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Checkbox,
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
@@ -765,18 +766,12 @@ export default function PregnancyWeightCalculator() {
               {/* Gestação múltipla */}
               <div className="mt-6 flex justify-center">
                 <div className="w-full max-w-md">
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
-                      id="multiple"
-                      checked={isMultiple}
-                      onChange={(e) => setIsMultiple(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
-                    />
-                    <label htmlFor="multiple" className="text-sm font-medium text-text-primary">
-                      👶👶 Gestação múltipla (gêmeos)
-                    </label>
-                  </div>
+                  <Checkbox
+                    id="multiple"
+                    checked={isMultiple}
+                    onChange={(e) => setIsMultiple(e.target.checked)}
+                    label="👶👶 Gestação múltipla (gêmeos)"
+                  />
                   <div className="mt-1 text-center text-xs text-text-secondary">
                     Marque se esperando gêmeos ou mais
                   </div>

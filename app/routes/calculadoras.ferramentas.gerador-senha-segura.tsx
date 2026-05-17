@@ -10,6 +10,7 @@ import {
   BreadcrumbItem,
   Input,
   Label,
+  Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
@@ -632,14 +633,13 @@ export default function PasswordGenerator() {
             <div className="grid grid-cols-1 gap-4">
               {/* Maiúsculas */}
               <div className="flex items-center gap-4 rounded-lg border border-neutral-surface-variant p-4">
-                <div className="flex items-center space-x-3 flex-1">
-                  <input
-                    type="checkbox"
+                <div className="flex-1">
+                  <Checkbox
                     checked={options.includeUppercase}
                     onChange={(e) => setOptions(prev => ({ ...prev, includeUppercase: e.target.checked }))}
-                    className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
+                    label="Letras Maiúsculas (A-Z)"
+                    labelClassName="text-text-secondary"
                   />
-                  <span className="text-sm text-text-secondary">Letras Maiúsculas (A-Z)</span>
                 </div>
                 {options.includeUppercase && (
                   <div className="flex items-center gap-2">
@@ -661,14 +661,13 @@ export default function PasswordGenerator() {
 
               {/* Minúsculas */}
               <div className="flex items-center gap-4 rounded-lg border border-neutral-surface-variant p-4">
-                <div className="flex items-center space-x-3 flex-1">
-                  <input
-                    type="checkbox"
+                <div className="flex-1">
+                  <Checkbox
                     checked={options.includeLowercase}
                     onChange={(e) => setOptions(prev => ({ ...prev, includeLowercase: e.target.checked }))}
-                    className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
+                    label="Letras Minúsculas (a-z)"
+                    labelClassName="text-text-secondary"
                   />
-                  <span className="text-sm text-text-secondary">Letras Minúsculas (a-z)</span>
                 </div>
                 {options.includeLowercase && (
                   <div className="flex items-center gap-2">
@@ -690,14 +689,13 @@ export default function PasswordGenerator() {
 
               {/* Números */}
               <div className="flex items-center gap-4 rounded-lg border border-neutral-surface-variant p-4">
-                <div className="flex items-center space-x-3 flex-1">
-                  <input
-                    type="checkbox"
+                <div className="flex-1">
+                  <Checkbox
                     checked={options.includeNumbers}
                     onChange={(e) => setOptions(prev => ({ ...prev, includeNumbers: e.target.checked }))}
-                    className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
+                    label="Números (0-9)"
+                    labelClassName="text-text-secondary"
                   />
-                  <span className="text-sm text-text-secondary">Números (0-9)</span>
                 </div>
                 {options.includeNumbers && (
                   <div className="flex items-center gap-2">
@@ -719,14 +717,13 @@ export default function PasswordGenerator() {
 
               {/* Símbolos */}
               <div className="flex items-center gap-4 rounded-lg border border-neutral-surface-variant p-4">
-                <div className="flex items-center space-x-3 flex-1">
-                  <input
-                    type="checkbox"
+                <div className="flex-1">
+                  <Checkbox
                     checked={options.includeSymbols}
                     onChange={(e) => setOptions(prev => ({ ...prev, includeSymbols: e.target.checked }))}
-                    className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
+                    label="Símbolos (!@#$%)"
+                    labelClassName="text-text-secondary"
                   />
-                  <span className="text-sm text-text-secondary">Símbolos (!@#$%)</span>
                 </div>
                 {options.includeSymbols && (
                   <div className="flex items-center gap-2">
@@ -770,17 +767,12 @@ export default function PasswordGenerator() {
               Opções Avançadas
             </Label>
             <div className="space-y-3">
-              <label className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  checked={options.excludeSimilar}
-                  onChange={(e) => setOptions(prev => ({ ...prev, excludeSimilar: e.target.checked }))}
-                  className="h-4 w-4 rounded border-gray-300 text-primary-blue focus:ring-primary-blue"
-                />
-                <span className="text-sm text-text-secondary">
-                  Excluir caracteres similares (i, l, 1, I, o, 0, O)
-                </span>
-              </label>
+              <Checkbox
+                checked={options.excludeSimilar}
+                onChange={(e) => setOptions(prev => ({ ...prev, excludeSimilar: e.target.checked }))}
+                label="Excluir caracteres similares (i, l, 1, I, o, 0, O)"
+                labelClassName="text-text-secondary"
+              />
 
               {options.includeSymbols && (
                 <div>
