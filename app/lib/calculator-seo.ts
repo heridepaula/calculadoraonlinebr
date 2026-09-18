@@ -852,6 +852,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.9,
     changeFreq: "monthly",
   },
+  multipla: {
+    id: "multipla",
+    title: "Calculadora de Apostas Múltiplas (Acumulada) – Odd Combinada Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule a odd combinada, o retorno e a chance de acertar sua aposta múltipla de até 20 seleções. Veja como a margem da casa se acumula. Grátis e sem cadastro.",
+    keywords:
+      "calculadora de múltipla, calculadora aposta múltipla, calculadora acumulada, odd combinada, calcular múltipla, aposta acumulada, parlay calculadora, retorno aposta múltipla, combinada apostas",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/multipla",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 };
 
 export function getCalculatorSEO(calculatorId: string): CalculatorSEOData | null {

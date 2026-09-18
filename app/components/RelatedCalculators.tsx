@@ -335,6 +335,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:brightness-110",
     },
     {
+      id: "multipla",
+      title: "🎟️ Calculadora de Apostas Múltiplas",
+      description: "Calcule odd combinada, retorno e chance de acerto da sua acumulada.",
+      href: "/calculadoras/apostas/multipla",
+      bgColor: "bg-system-info/10",
+      textColor: "text-system-info",
+      borderColor: "border-system-info/20",
+      buttonColor: "bg-system-info",
+      buttonHoverColor: "hover:bg-system-info-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",

@@ -615,6 +615,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/dutching",
   },
+  {
+    id: "multipla",
+    name: "Calculadora de Apostas Múltiplas",
+    description:
+      "Calcule a odd combinada, o retorno e a chance de acertar sua aposta múltipla (acumulada) de até 20 seleções",
+    category: "apostas",
+    path: "/calculadoras/apostas/multipla",
+  },
 ];
 
 export const BREAKPOINTS = {

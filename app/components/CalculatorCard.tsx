@@ -86,6 +86,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     "valor-esperado": "📈",
     surebet: "⚖️",
     dutching: "🎯",
+    multipla: "🎟️",
   };
 
   return iconMap[calculatorId] || "🧮";
@@ -161,6 +162,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "valor-esperado": { primary: "📈 EV+ ou EV-", secondary: "📊 Gráficos" },
     surebet: { primary: "💰 Lucro Garantido", secondary: "⚖️ 2 e 3 Vias" },
     dutching: { primary: "🎯 Várias Seleções", secondary: "💰 Lucro Igual" },
+    multipla: { primary: "🎟️ Acumulada", secondary: "📈 Odd Combinada" },
   };
 
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
