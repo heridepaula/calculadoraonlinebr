@@ -60,6 +60,13 @@ export const CATEGORIES = [
     icon: "🎰",
     path: "/calculadoras/loterias",
   },
+  {
+    id: "apostas",
+    name: "Apostas",
+    description: "Calculadoras de gestão de banca, stake e valor esperado para apostas esportivas",
+    icon: "⚽",
+    path: "/calculadoras/apostas",
+  },
 ];
 
 export const CALCULATORS = [
@@ -575,6 +582,14 @@ export const CALCULATORS = [
     description: "Gere números aleatórios para jogos da Quina com análise de frequência",
     category: "loterias",
     path: "/calculadoras/loterias/gerador-quina",
+  },
+  {
+    id: "criterio-de-kelly",
+    name: "Calculadora Critério de Kelly",
+    description:
+      "Gestão de banca: descubra quanto apostar com a stake ideal, Half Kelly e valor esperado (EV+)",
+    category: "apostas",
+    path: "/calculadoras/apostas/criterio-de-kelly",
   },
 ];
 

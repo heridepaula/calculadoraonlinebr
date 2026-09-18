@@ -173,6 +173,7 @@ function getApplicationCategory(category: string): string {
     saude: "HealthApplication",
     financas: "FinanceApplication",
     matematica: "EducationalApplication",
+    apostas: "FinanceApplication",
   };
   return categories[category as keyof typeof categories] || "UtilitiesApplication";
 }
@@ -227,7 +228,8 @@ export type CategoryPageId =
   | "ferramentas"
   | "astrologia"
   | "datas"
-  | "loterias";
+  | "loterias"
+  | "apostas";
 
 /**
  * Gera o grafo JSON-LD para uma página de categoria.

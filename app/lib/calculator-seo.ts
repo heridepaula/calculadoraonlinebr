@@ -733,6 +733,19 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     changeFreq: "weekly",
   },
 
+  // Betting Calculators
+  "criterio-de-kelly": {
+    id: "criterio-de-kelly",
+    title: "Calculadora de Gestão de Banca (Critério de Kelly) – Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Descubra quanto apostar com a calculadora de Kelly: stake ideal, Half e Quarter Kelly, valor esperado (EV+) e limite de segurança. Grátis e sem cadastro.",
+    keywords:
+      "calculadora critério de kelly, gestão de banca, calculadora gestão de banca, fórmula de kelly, quanto apostar, stake apostas, half kelly, kelly fracionado, valor esperado apostas, aposta de valor, probabilidade implícita",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/criterio-de-kelly",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
+
   // Labor Calculators
   "rescisao-trabalhista": {
     id: "rescisao-trabalhista",

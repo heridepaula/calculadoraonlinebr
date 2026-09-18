@@ -12,7 +12,8 @@ interface CalculatorCardProps {
     | "ferramentas"
     | "astrologia"
     | "datas"
-    | "loterias";
+    | "loterias"
+    | "apostas";
 }
 
 // Mapa de ícones específicos para cada calculadora
@@ -80,6 +81,8 @@ const getCalculatorIcon = (calculatorId: string): string => {
     "gerador-mega-sena": "🎯",
     "gerador-lotofacil": "🍀",
     "gerador-quina": "🎲",
+    // Apostas
+    "criterio-de-kelly": "⚽",
   };
 
   return iconMap[calculatorId] || "🧮";
@@ -150,6 +153,8 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "gerador-mega-sena": { primary: "🎯 6 Números", secondary: "🍀 Mega-Sena" },
     "gerador-lotofacil": { primary: "🍀 15 Números", secondary: "🎯 Loteria" },
     "gerador-quina": { primary: "🎲 5 Números", secondary: "💰 Quina" },
+    // Apostas
+    "criterio-de-kelly": { primary: "📐 Stake Ideal", secondary: "⚽ Gestão de Banca" },
   };
 
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
@@ -207,6 +212,23 @@ const getCategoryColors = (category: string) => {
         categoryIcon: "🎰",
         categoryName: "Loterias",
         shadow: "hover:shadow-finance-gold/20",
+      };
+    case "apostas":
+      return {
+        bgGradient: "from-growth-green/20 via-growth-green/15 to-growth-green/5",
+        cardBg: "bg-gray-800",
+        borderColor: "border-growth-green/30 hover:border-growth-green/50",
+        iconBg: "bg-growth-green-soft",
+        iconColor: "text-white",
+        titleColor: "text-white",
+        descriptionColor: "text-gray-300",
+        buttonBg: "bg-growth-green hover:bg-growth-green-dark",
+        buttonText: "text-gray-900",
+        categoryBadgeBg: "bg-growth-green/20",
+        categoryBadgeText: "text-growth-green",
+        categoryIcon: "⚽",
+        categoryName: "Apostas",
+        shadow: "hover:shadow-growth-green/20",
       };
     case "matematica":
       return {

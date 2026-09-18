@@ -18,6 +18,8 @@ const categoryMap: Record<string, string> = {
   'saude': 'Saúde',
   'trabalhista': 'Trabalhista',
   'ferramentas': 'Ferramentas',
+  'loterias': 'Loterias',
+  'apostas': 'Apostas',
 };
 
 export function ResponsiveBreadcrumb({ items }: ResponsiveBreadcrumbProps) {

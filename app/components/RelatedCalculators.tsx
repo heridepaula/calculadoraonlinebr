@@ -13,7 +13,7 @@ interface RelatedCalculator {
 }
 
 interface RelatedCalculatorsProps {
-  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas" | "astrologia" | "datas" | "loterias";
+  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas" | "astrologia" | "datas" | "loterias" | "apostas";
   currentCalculatorId?: string;
   customCalculators?: RelatedCalculator[];
 }
@@ -289,6 +289,52 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-primary-blue-dark",
     },
   ],
+  apostas: [
+    {
+      id: "criterio-de-kelly",
+      title: "⚽ Calculadora Critério de Kelly",
+      description: "Descubra quanto apostar: stake ideal, Half Kelly e valor esperado (EV+).",
+      href: "/calculadoras/apostas/criterio-de-kelly",
+      bgColor: "bg-system-success/10",
+      textColor: "text-system-success",
+      borderColor: "border-system-success/20",
+      buttonColor: "bg-system-success",
+      buttonHoverColor: "hover:bg-system-success-dark",
+    },
+    {
+      id: "porcentagem",
+      title: "🔢 Calculadora de Porcentagem",
+      description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",
+      href: "/calculadoras/matematica/porcentagem",
+      bgColor: "bg-math-purple/10",
+      textColor: "text-math-purple",
+      borderColor: "border-math-purple/20",
+      buttonColor: "bg-math-purple",
+      buttonHoverColor: "hover:bg-math-purple-dark",
+    },
+    {
+      id: "juros-compostos",
+      title: "📈 Calculadora de Juros Compostos",
+      description: "Entenda o crescimento composto, a mesma lógica que o Kelly otimiza na banca.",
+      href: "/calculadoras/financas/juros-compostos",
+      bgColor: "bg-finance-gold/10",
+      textColor: "text-finance-gold",
+      borderColor: "border-finance-gold/20",
+      buttonColor: "bg-finance-gold",
+      buttonHoverColor: "hover:bg-finance-gold-dark",
+    },
+    {
+      id: "desvio-padrao",
+      title: "📊 Calculadora de Desvio Padrão",
+      description: "Meça a variância dos seus resultados e entenda sequências de perdas.",
+      href: "/calculadoras/matematica/desvio-padrao",
+      bgColor: "bg-primary-blue/10",
+      textColor: "text-primary-blue",
+      borderColor: "border-primary-blue/20",
+      buttonColor: "bg-primary-blue",
+      buttonHoverColor: "hover:bg-primary-blue-dark",
+    },
+  ],
 };
 
 export function RelatedCalculators({
@@ -318,6 +364,7 @@ export function RelatedCalculators({
       astrologia: "🔗 Calculadoras de Astrologia Relacionadas",
       datas: "🔗 Calculadoras de Datas Relacionadas",
       loterias: "🔗 Geradores de Loterias Relacionados",
+      apostas: "🔗 Calculadoras de Apostas Relacionadas",
     };
     return titles[cat] || "🔗 Calculadoras Relacionadas";
   };
@@ -333,6 +380,7 @@ export function RelatedCalculators({
       astrologia: "Explore diferentes aspectos da astrologia para um autoconhecimento mais profundo",
       datas: "Organize seu tempo e planeje eventos com essas calculadoras temporais",
       loterias: "Teste sua sorte com diferentes tipos de jogos e estratégias inteligentes",
+      apostas: "Combine matemática e gestão de risco para apostar com responsabilidade",
     };
     return tips[cat] || "Explore outras calculadoras úteis para suas necessidades";
   };
