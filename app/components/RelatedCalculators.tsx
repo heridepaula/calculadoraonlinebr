@@ -379,6 +379,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-health-red-dark",
     },
     {
+      id: "poisson",
+      title: "⚽ Calculadora de Poisson (Placar)",
+      description: "Probabilidade de cada placar, 1X2, gols e ambos marcam, com odds justas.",
+      href: "/calculadoras/apostas/poisson",
+      bgColor: "bg-primary-blue/10",
+      textColor: "text-primary-blue",
+      borderColor: "border-primary-blue/20",
+      buttonColor: "bg-primary-blue",
+      buttonHoverColor: "hover:bg-primary-blue-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",

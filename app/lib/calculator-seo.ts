@@ -896,6 +896,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  poisson: {
+    id: "poisson",
+    title: "Calculadora de Poisson para Futebol – Probabilidade de Placar Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule a probabilidade de cada placar, do 1X2, de mais/menos gols e de ambos marcam com a distribuição de Poisson, e veja as odds justas para comparar com o mercado. Grátis.",
+    keywords:
+      "calculadora poisson, poisson futebol, distribuição de poisson futebol, probabilidade de placar, calculadora placar exato, odd justa, probabilidade 1x2, over 2.5 probabilidade, ambos marcam probabilidade, modelo de poisson apostas",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/poisson",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 };
 
 export function getCalculatorSEO(calculatorId: string): CalculatorSEOData | null {

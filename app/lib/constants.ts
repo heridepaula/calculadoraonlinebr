@@ -647,6 +647,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/hedge",
   },
+  {
+    id: "poisson",
+    name: "Calculadora de Poisson (Placar)",
+    description:
+      "Estime a probabilidade de cada placar, do 1X2, de mais/menos gols e de ambos marcam a partir dos gols esperados",
+    category: "apostas",
+    path: "/calculadoras/apostas/poisson",
+  },
 ];
 
 export const BREAKPOINTS = {
