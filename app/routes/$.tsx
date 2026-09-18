@@ -1,6 +1,10 @@
 import type { MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
-import { APP_NAME } from "~/lib/constants";
+
+// Sem este loader o Remix responde 200 para URLs inexistentes ("soft 404"), e os buscadores
+// podem indexar a página de erro. O status 404 mantém a mesma página visível para o usuário.
+export const loader = () => json(null, { status: 404 });
 
 export const meta: MetaFunction = () => {
   return [
