@@ -874,6 +874,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "conversor-de-odds": {
+    id: "conversor-de-odds",
+    title: "Conversor de Odds – Decimal, Fracionária, Americana e Probabilidade Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Converta odds decimais, fracionárias e americanas e descubra a probabilidade implícita. Inclui tabela de conversão das odds mais comuns. Grátis e sem cadastro.",
+    keywords:
+      "conversor de odds, converter odds, odd decimal, odd fracionária, odd americana, odds em probabilidade, probabilidade implícita, tabela de odds, como converter odds, calculadora de odds",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/conversor-de-odds",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 };
 
 export function getCalculatorSEO(calculatorId: string): CalculatorSEOData | null {

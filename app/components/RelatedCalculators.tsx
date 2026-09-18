@@ -357,6 +357,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-growth-green-dark",
     },
     {
+      id: "conversor-de-odds",
+      title: "🔄 Conversor de Odds",
+      description: "Converta odds entre decimal, fracionária, americana e probabilidade.",
+      href: "/calculadoras/apostas/conversor-de-odds",
+      bgColor: "bg-system-warning/10",
+      textColor: "text-system-warning",
+      borderColor: "border-system-warning/20",
+      buttonColor: "bg-system-warning",
+      buttonHoverColor: "hover:bg-system-warning-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",

@@ -631,6 +631,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/gestao-de-banca",
   },
+  {
+    id: "conversor-de-odds",
+    name: "Conversor de Odds",
+    description:
+      "Converta odds entre decimal, fracionária, americana e probabilidade implícita",
+    category: "apostas",
+    path: "/calculadoras/apostas/conversor-de-odds",
+  },
 ];
 
 export const BREAKPOINTS = {

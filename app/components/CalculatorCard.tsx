@@ -88,6 +88,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     dutching: "🎯",
     multipla: "🎟️",
     "gestao-de-banca": "💼",
+    "conversor-de-odds": "🔄",
   };
 
   return iconMap[calculatorId] || "🧮";
@@ -165,6 +166,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     dutching: { primary: "🎯 Várias Seleções", secondary: "💰 Lucro Igual" },
     multipla: { primary: "🎟️ Acumulada", secondary: "📈 Odd Combinada" },
     "gestao-de-banca": { primary: "💼 Unidades", secondary: "📉 Simulação de Derrotas" },
+    "conversor-de-odds": { primary: "🔄 4 Formatos", secondary: "🎯 Probabilidade" },
   };
 
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
