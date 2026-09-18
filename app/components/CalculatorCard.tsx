@@ -84,6 +84,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     // Apostas
     "criterio-de-kelly": "⚽",
     "valor-esperado": "📈",
+    surebet: "⚖️",
   };
 
   return iconMap[calculatorId] || "🧮";
@@ -157,6 +158,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     // Apostas
     "criterio-de-kelly": { primary: "📐 Stake Ideal", secondary: "⚽ Gestão de Banca" },
     "valor-esperado": { primary: "📈 EV+ ou EV-", secondary: "📊 Gráficos" },
+    surebet: { primary: "💰 Lucro Garantido", secondary: "⚖️ 2 e 3 Vias" },
   };
 
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };

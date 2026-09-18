@@ -94,6 +94,7 @@ const TOP_BY_CATEGORY: Record<string, string[]> = {
   astrologia: ["signo", "ascendente-astrologico", "numerologia"],
   datas: ["diferenca-entre-datas", "idade-exata", "dias-uteis"],
   loterias: ["gerador-mega-sena", "gerador-lotofacil", "gerador-quina"],
+  apostas: ["valor-esperado", "criterio-de-kelly", "surebet"],
 };
 
 function getCalculator(id: string) {

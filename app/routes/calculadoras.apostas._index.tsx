@@ -17,7 +17,7 @@ import type { Calculator } from "~/types";
 const PAGE_URL = `${APP_URL}/calculadoras/apostas`;
 const PAGE_TITLE = `Calculadoras de Apostas Esportivas: Gestão de Banca e Stake | ${APP_NAME}`;
 const PAGE_DESCRIPTION =
-  "Calculadoras grátis para apostas esportivas: gestão de banca, critério de Kelly, stake ideal e valor esperado (EV+). Matemática para apostar com responsabilidade.";
+  "Calculadoras grátis para apostas esportivas: gestão de banca, critério de Kelly, valor esperado (EV+) e surebet. Matemática para apostar com responsabilidade.";
 const OG_IMAGE = `${APP_URL}/og-image-1200x630.webp`;
 
 const FAQ_ITEMS = [
@@ -54,7 +54,7 @@ export const meta: MetaFunction = () => [
   {
     name: "keywords",
     content:
-      "calculadora de apostas, gestão de banca, calculadora gestão de banca, critério de kelly, stake apostas, quanto apostar, valor esperado apostas, apostas esportivas",
+      "calculadora de apostas, gestão de banca, calculadora gestão de banca, critério de kelly, stake apostas, quanto apostar, valor esperado apostas, calculadora surebet, apostas esportivas",
   },
   {
     name: "robots",
@@ -133,7 +133,7 @@ export default function ApostasIndex() {
             </p>
           </div>
 
-          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <QuickAccessCard
               title="Calculadora de Valor Esperado (EV+)"
               description="Veja o EV em reais e em %, a odd justa e a projeção da banca em 100 apostas, com gráficos."
@@ -150,6 +150,14 @@ export default function ApostasIndex() {
               href="/calculadoras/apostas/criterio-de-kelly"
               category="apostas"
               isPopular={true}
+              complexity="intermediate"
+            />
+            <QuickAccessCard
+              title="Calculadora de Surebet"
+              description="Descubra se as odds de casas diferentes formam uma aposta segura e quanto apostar em cada resultado."
+              icon="⚖️"
+              href="/calculadoras/apostas/surebet"
+              category="apostas"
               complexity="intermediate"
             />
           </div>
@@ -250,7 +258,14 @@ export default function ApostasIndex() {
             >
               calculadora do critério de Kelly
             </Link>
-            .
+            . E quando casas diferentes discordam nas odds, a{" "}
+            <Link
+              to="/calculadoras/apostas/surebet"
+              className="font-semibold text-growth-green underline underline-offset-4 hover:text-growth-green-dark"
+            >
+              calculadora de surebet
+            </Link>{" "}
+            mostra se dá para garantir lucro apostando em todos os resultados.
           </p>
         </div>
       </section>

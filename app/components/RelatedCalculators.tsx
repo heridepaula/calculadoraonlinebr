@@ -313,6 +313,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-primary-blue-dark",
     },
     {
+      id: "surebet",
+      title: "⚖️ Calculadora de Surebet",
+      description: "Encontre apostas seguras de 2 e 3 resultados e quanto apostar em cada casa.",
+      href: "/calculadoras/apostas/surebet",
+      bgColor: "bg-finance-gold/10",
+      textColor: "text-finance-gold",
+      borderColor: "border-finance-gold/20",
+      buttonColor: "bg-finance-gold",
+      buttonHoverColor: "hover:bg-finance-gold-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",

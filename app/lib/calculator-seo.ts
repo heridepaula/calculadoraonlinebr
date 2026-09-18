@@ -756,6 +756,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  surebet: {
+    id: "surebet",
+    title: "Calculadora de Surebet (Arbitragem) – Apostas Seguras 2 e 3 Vias 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule surebets de 2 e 3 resultados: margem de arbitragem, lucro garantido, ROI e quanto apostar em cada casa. Com dica de stakes arredondadas. Grátis.",
+    keywords:
+      "calculadora surebet, calculadora de arbitragem, aposta segura, calculadora aposta segura, surebet 2 vias, surebet 3 vias, arbitragem apostas esportivas, como calcular surebet, lucro garantido apostas, margem de arbitragem",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/surebet",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 
   // Labor Calculators
   "rescisao-trabalhista": {

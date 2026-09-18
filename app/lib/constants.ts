@@ -599,6 +599,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/valor-esperado",
   },
+  {
+    id: "surebet",
+    name: "Calculadora de Surebet (Arbitragem)",
+    description:
+      "Descubra se as odds formam uma aposta segura e quanto apostar em cada resultado para lucro garantido",
+    category: "apostas",
+    path: "/calculadoras/apostas/surebet",
+  },
 ];
 
 export const BREAKPOINTS = {
