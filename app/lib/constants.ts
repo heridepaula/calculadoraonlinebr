@@ -639,6 +639,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/conversor-de-odds",
   },
+  {
+    id: "hedge",
+    name: "Calculadora de Hedge (Cash Out)",
+    description:
+      "Descubra quanto apostar no resultado contrário para garantir lucro ou recuperar a aposta, e compare com o cash out",
+    category: "apostas",
+    path: "/calculadoras/apostas/hedge",
+  },
 ];
 
 export const BREAKPOINTS = {

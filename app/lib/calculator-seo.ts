@@ -885,6 +885,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  hedge: {
+    id: "hedge",
+    title: "Calculadora de Hedge e Cash Out – Proteja sua Aposta Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule quanto apostar no resultado contrário para garantir lucro ou recuperar sua aposta, e compare o hedge com o cash out oferecido pela casa. Grátis.",
+    keywords:
+      "calculadora hedge, hedge apostas, calculadora cash out, cash out apostas, proteger aposta, aposta de proteção, cobrir aposta, hedge múltipla, garantir lucro aposta",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/hedge",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 };
 
 export function getCalculatorSEO(calculatorId: string): CalculatorSEOData | null {

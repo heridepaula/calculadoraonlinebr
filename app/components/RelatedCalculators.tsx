@@ -368,6 +368,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-system-warning-dark",
     },
     {
+      id: "hedge",
+      title: "🛡️ Calculadora de Hedge (Cash Out)",
+      description: "Proteja uma aposta já feita e compare o hedge com o cash out da casa.",
+      href: "/calculadoras/apostas/hedge",
+      bgColor: "bg-health-red/10",
+      textColor: "text-health-red",
+      borderColor: "border-health-red/20",
+      buttonColor: "bg-health-red",
+      buttonHoverColor: "hover:bg-health-red-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",
