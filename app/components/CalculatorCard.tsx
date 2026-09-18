@@ -87,6 +87,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     surebet: "⚖️",
     dutching: "🎯",
     multipla: "🎟️",
+    "gestao-de-banca": "💼",
   };
 
   return iconMap[calculatorId] || "🧮";
@@ -163,6 +164,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     surebet: { primary: "💰 Lucro Garantido", secondary: "⚖️ 2 e 3 Vias" },
     dutching: { primary: "🎯 Várias Seleções", secondary: "💰 Lucro Igual" },
     multipla: { primary: "🎟️ Acumulada", secondary: "📈 Odd Combinada" },
+    "gestao-de-banca": { primary: "💼 Unidades", secondary: "📉 Simulação de Derrotas" },
   };
 
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };

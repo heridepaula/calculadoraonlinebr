@@ -863,6 +863,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "gestao-de-banca": {
+    id: "gestao-de-banca",
+    title: "Calculadora de Gestão de Banca por Unidades – Stake Fixa e Percentual 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule o valor da unidade e quanto apostar por jogo conforme seu perfil de risco. Simule sequências de derrotas e compare stake fixa e percentual. Grátis.",
+    keywords:
+      "gestão de banca, calculadora gestão de banca, unidade apostas, stake fixa, stake percentual, quanto apostar por jogo, porcentagem da banca, gestão de banca apostas esportivas, planilha gestão de banca",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/gestao-de-banca",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 };
 
 export function getCalculatorSEO(calculatorId: string): CalculatorSEOData | null {

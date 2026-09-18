@@ -623,6 +623,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/multipla",
   },
+  {
+    id: "gestao-de-banca",
+    name: "Calculadora de Gestão de Banca",
+    description:
+      "Descubra o valor da sua unidade, quanto apostar por perfil de risco e quanto a banca aguenta em uma sequência de derrotas",
+    category: "apostas",
+    path: "/calculadoras/apostas/gestao-de-banca",
+  },
 ];
 
 export const BREAKPOINTS = {

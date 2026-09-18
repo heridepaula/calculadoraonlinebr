@@ -346,6 +346,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-system-info-dark",
     },
     {
+      id: "gestao-de-banca",
+      title: "💼 Calculadora de Gestão de Banca",
+      description: "Valor da unidade por perfil de risco e simulação de sequência de derrotas.",
+      href: "/calculadoras/apostas/gestao-de-banca",
+      bgColor: "bg-growth-green/10",
+      textColor: "text-growth-green",
+      borderColor: "border-growth-green/20",
+      buttonColor: "bg-growth-green",
+      buttonHoverColor: "hover:bg-growth-green-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",
