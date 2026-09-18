@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 export interface MoneyInputProps {
   label?: string;
+  /** Liga um <label> externo ao campo (ex.: label com tooltip); use com `label` omitido. */
+  id?: string;
   value: string | number;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -14,6 +16,7 @@ export interface MoneyInputProps {
 
 export const MoneyInput: React.FC<MoneyInputProps> = ({
   label,
+  id,
   value,
   onChange,
   placeholder,
@@ -218,7 +221,7 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
   return (
     <div className={containerClasses}>
       {label && (
-        <label className="block text-sm font-medium text-text-primary">
+        <label htmlFor={id} className="block text-sm font-medium text-text-primary">
           {label}
           {required && <span className="ml-1 text-system-error">*</span>}
         </label>
@@ -229,6 +232,7 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
         </span>
         <input
           ref={inputRef}
+          id={id}
           type="text"
           inputMode="numeric"
           value={displayValue}

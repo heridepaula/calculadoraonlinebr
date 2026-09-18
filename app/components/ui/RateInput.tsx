@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 export interface RateInputProps {
   label?: string;
+  /** Liga um <label> externo ao campo (ex.: label com tooltip); use com `label` omitido. */
+  id?: string;
   value: string | number;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -14,6 +16,7 @@ export interface RateInputProps {
 
 export const RateInput: React.FC<RateInputProps> = ({
   label,
+  id,
   value,
   onChange,
   placeholder,
@@ -209,7 +212,7 @@ export const RateInput: React.FC<RateInputProps> = ({
   return (
     <div className={containerClasses}>
       {label && (
-        <label className="block text-sm font-medium text-text-primary">
+        <label htmlFor={id} className="block text-sm font-medium text-text-primary">
           {label}
           {required && <span className="ml-1 text-system-error">*</span>}
         </label>
@@ -217,6 +220,7 @@ export const RateInput: React.FC<RateInputProps> = ({
       <div className="relative">
         <input
           ref={inputRef}
+          id={id}
           type="text"
           inputMode="numeric"
           value={displayValue}

@@ -1,21 +1,16 @@
-import {
-  useId,
-  useMemo,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-  type RefObject,
-} from "react";
+import { useId, useMemo, useRef, useState, type FormEvent, type RefObject } from "react";
 import {
   Button,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
+  FieldFeedback,
   MoneyInput,
+  OddsInput,
   RateInput,
 } from "~/components/ui";
+import { parseMaskedNumber } from "~/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Tipos
@@ -126,19 +121,6 @@ export function calculateKelly({
 }
 
 /**
- * Converte o valor dos campos com máscara (formato brasileiro, ex.: "1.234,56") em número.
- * Vazio e zero retornam NaN: os campos com máscara exibem "0,00" quando limpos, e zero não é
- * um valor válido para nenhum dos campos, então ambos são tratados como "não preenchido".
- */
-export function parseMaskedNumber(raw: string): number {
-  const trimmed = raw.trim();
-  if (trimmed === "") return Number.NaN;
-  const normalized = trimmed.includes(",") ? trimmed.replace(/\./g, "").replace(",", ".") : trimmed;
-  const value = Number(normalized);
-  return value === 0 ? Number.NaN : value;
-}
-
-/**
  * Valida os campos brutos do formulário. Retorna os números quando válidos.
  * Com `requireAll`, campos vazios também geram erro (usado ao clicar em "Calcular").
  */
@@ -218,68 +200,6 @@ const signedPercentFormatter = new Intl.NumberFormat("pt-BR", {
 // ---------------------------------------------------------------------------
 // Subcomponentes
 // ---------------------------------------------------------------------------
-
-/** Maior odd aceita pela máscara: 999,99 */
-const MAX_ODDS_CENTS = 99999;
-
-interface OddsInputProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-}
-
-/**
- * Campo de odd decimal com a mesma máscara de MoneyInput/RateInput: os dígitos preenchem a
- * partir das casas decimais (digitar "210" resulta em "2,10").
- */
-function OddsInput({ label, value, onChange, placeholder }: OddsInputProps) {
-  const id = useId();
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const digits = e.target.value.replace(/\D/g, "");
-    if (digits === "") {
-      onChange("");
-      return;
-    }
-    const cents = parseInt(digits, 10);
-    if (cents > MAX_ODDS_CENTS) return;
-    onChange(
-      (cents / 100).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    );
-  };
-
-  return (
-    <div className="w-full space-y-1">
-      <label htmlFor={id} className="block text-sm font-medium text-text-primary">
-        {label}
-      </label>
-      <input
-        id={id}
-        type="text"
-        inputMode="numeric"
-        autoComplete="off"
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        className="bg-background-primary h-12 w-full rounded-lg border border-neutral-surface-variant p-3 text-lg text-text-primary transition-colors duration-200 placeholder:text-text-secondary focus:border-primary-blue focus:outline-none focus:ring-2 focus:ring-primary-blue/20"
-      />
-    </div>
-  );
-}
-
-function FieldFeedback({ error, hint }: { error?: string; hint: string }) {
-  return (
-    <>
-      {error && (
-        <div role="alert" className="mt-1 text-sm text-system-error">
-          {error}
-        </div>
-      )}
-      <div className="mt-1 text-xs text-text-secondary">{hint}</div>
-    </>
-  );
-}
 
 interface FractionSelectorProps {
   value: KellyFraction;
