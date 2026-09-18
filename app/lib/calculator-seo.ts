@@ -767,6 +767,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  dutching: {
+    id: "dutching",
+    title: "Calculadora de Dutching – Lucro Igual em Várias Seleções Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule o dutching: quanto apostar em cada seleção para ter o mesmo lucro qualquer que seja a vencedora. Até 10 seleções, ROI, cobertura e alerta de prejuízo. Grátis.",
+    keywords:
+      "calculadora dutching, dutching apostas, como fazer dutching, calculadora de dutching, dutching placar exato, retornos iguais apostas, dividir aposta em várias seleções, odd equivalente, dutching calculator",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/dutching",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 
   // Labor Calculators
   "rescisao-trabalhista": {

@@ -324,6 +324,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-finance-gold-dark",
     },
     {
+      id: "dutching",
+      title: "🎯 Calculadora de Dutching",
+      description: "Divida o valor entre várias seleções com o mesmo lucro em qualquer vencedora.",
+      href: "/calculadoras/apostas/dutching",
+      bgColor: "bg-math-purple/10",
+      textColor: "text-math-purple",
+      borderColor: "border-math-purple/20",
+      buttonColor: "bg-math-purple",
+      buttonHoverColor: "hover:brightness-110",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",

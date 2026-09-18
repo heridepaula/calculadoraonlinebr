@@ -607,6 +607,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/surebet",
   },
+  {
+    id: "dutching",
+    name: "Calculadora de Dutching",
+    description:
+      "Distribua o valor entre várias seleções para ter o mesmo lucro qualquer que seja a vencedora",
+    category: "apostas",
+    path: "/calculadoras/apostas/dutching",
+  },
 ];
 
 export const BREAKPOINTS = {
