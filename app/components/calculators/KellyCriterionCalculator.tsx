@@ -11,6 +11,7 @@ import {
   RateInput,
 } from "~/components/ui";
 import { parseMaskedNumber } from "~/lib/utils";
+import { BettingDisclaimer } from "./betting-shared";
 
 // ---------------------------------------------------------------------------
 // Tipos
@@ -530,10 +531,7 @@ export function KellyCriterionCalculator({
         {calculated && <ResultCard {...calculated} />}
       </div>
 
-      <p className="text-center text-xs leading-relaxed text-text-secondary">
-        Apostas envolvem risco financeiro. Esta calculadora é uma ferramenta matemática e não
-        garante lucros. Jogue com responsabilidade. (18+)
-      </p>
+      <BettingDisclaimer />
     </div>
   );
 }

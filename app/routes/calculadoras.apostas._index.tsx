@@ -10,6 +10,7 @@ import {
   createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
+import { BettingDisclaimer } from "~/components/calculators/betting-shared";
 import { APP_NAME, APP_URL, CALCULATORS } from "~/lib/constants";
 import { generateCategoryPageGraph, generateFAQStructuredData } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
@@ -292,30 +293,10 @@ export default function ApostasIndex() {
         </div>
       </section>
 
-      {/* Jogo responsável */}
-      <section className="bg-system-warning/5 py-8 sm:py-12">
+      {/* Conteúdo educativo e jogo responsável */}
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-system-warning/30 bg-system-warning/10 p-4 sm:p-6 lg:p-8">
-            <div className="flex flex-col items-start gap-4 sm:flex-row">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-system-warning/20">
-                <span className="text-xl" aria-hidden="true">
-                  🔞
-                </span>
-              </div>
-              <div>
-                <h2 className="text-base font-semibold text-text-primary sm:text-lg">
-                  Jogo responsável
-                </h2>
-                <p className="mt-2 text-text-secondary-dark">
-                  Apostas envolvem risco financeiro e são proibidas para menores de 18 anos. Nossas
-                  calculadoras são ferramentas matemáticas e{" "}
-                  <strong className="text-system-warning-dark">não garantem lucro</strong>. Aposte
-                  apenas o que pode perder, estabeleça limites e, se sentir que perdeu o controle,
-                  procure ajuda nas ferramentas de autoexclusão das plataformas ou no CVV (188).
-                </p>
-              </div>
-            </div>
-          </div>
+          <BettingDisclaimer plural />
         </div>
       </section>
 

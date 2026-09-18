@@ -171,12 +171,84 @@ export function OptionCards<T extends string | number>({
   );
 }
 
-/** Aviso de jogo responsável exibido no rodapé de cada calculadora de apostas. */
-export function BettingDisclaimer({ extra }: { extra?: string }) {
+/** Canais de ajuda verificados (gratuitos) para quem perdeu o controle das apostas. */
+export const GAMBLING_HELP_LINKS = [
+  {
+    label: "Autoexclusão (gov.br)",
+    description: "bloqueie seu CPF em todas as casas de apostas autorizadas",
+    href: "https://www.gov.br/autoexclusaoapostas",
+  },
+  {
+    label: "Jogadores Anônimos",
+    description: "grupos de apoio gratuitos para jogadores e familiares",
+    href: "https://www.jogadoresanonimos.com.br/",
+  },
+  {
+    label: "CAPS e UBS (SUS)",
+    description: "atendimento psicológico gratuito pelo SUS",
+    href: undefined,
+  },
+  {
+    label: "CVV – ligue 188",
+    description: "apoio emocional gratuito, 24 horas",
+    href: "https://cvv.org.br/",
+  },
+] as const;
+
+/**
+ * Aviso de finalidade educativa e jogo responsável exibido em cada calculadora de apostas:
+ * deixa claro que não é recomendação de aposta, alerta para prejuízo financeiro e dependência,
+ * e indica canais de ajuda.
+ */
+export function BettingDisclaimer({ extra, plural = false }: { extra?: string; plural?: boolean }) {
+  const titleId = useId();
+
   return (
-    <p className="text-center text-xs leading-relaxed text-text-secondary">
-      Apostas envolvem risco financeiro. Esta calculadora é uma ferramenta matemática e não garante
-      lucros{extra ? `: ${extra}` : ""}. Jogue com responsabilidade. (18+)
-    </p>
+    <aside
+      aria-labelledby={titleId}
+      className="rounded-lg border border-system-warning/40 bg-system-warning/10 p-4 text-sm leading-relaxed text-text-secondary sm:p-5"
+    >
+      <h2 id={titleId} className="mb-2 text-base font-semibold text-system-warning">
+        🔞 Conteúdo educativo e jogo responsável
+      </h2>
+      <p>
+        {plural ? "As calculadoras desta seção são " : "Esta calculadora é uma "}
+        <strong className="text-text-primary">
+          {plural
+            ? "ferramentas matemáticas com fins educativos"
+            : "ferramenta matemática com fins educativos"}
+        </strong>
+        .{" "}
+        {plural
+          ? "Elas não são recomendação de aposta, não indicam casas de apostas e não garantem lucros"
+          : "Ela não é recomendação de aposta, não indica casas de apostas e não garante lucros"}
+        {extra ? `: ${extra}` : ""}.
+      </p>
+      <p className="mt-2">
+        Apostas são proibidas para menores de 18 anos e podem causar{" "}
+        <strong className="text-text-primary">prejuízos financeiros e dependência</strong>. Se as
+        apostas estão afetando suas finanças, seu trabalho ou suas relações, procure ajuda:
+      </p>
+      <ul className="mt-2 space-y-1">
+        {GAMBLING_HELP_LINKS.map((item) => (
+          <li key={item.label}>
+            •{" "}
+            {item.href ? (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary-blue-dark underline hover:text-primary-blue"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <strong className="text-text-primary">{item.label}</strong>
+            )}
+            : {item.description}
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 }

@@ -20,6 +20,7 @@ import {
   OddsInput,
 } from "~/components/ui";
 import { parseMaskedNumber } from "~/lib/utils";
+import { BettingDisclaimer } from "./betting-shared";
 
 // ---------------------------------------------------------------------------
 // Tipos
@@ -689,11 +690,7 @@ export function SurebetCalculator({
         {calculated && <ResultCard result={calculated.result} market={calculated.market} />}
       </div>
 
-      <p className="text-center text-xs leading-relaxed text-text-secondary">
-        Apostas envolvem risco financeiro. Esta calculadora é uma ferramenta matemática e não
-        garante lucros: odds podem mudar antes da confirmação e casas podem anular apostas ou
-        limitar contas. Jogue com responsabilidade. (18+)
-      </p>
+      <BettingDisclaimer extra="odds podem mudar antes da confirmação e casas podem anular apostas ou limitar contas" />
     </div>
   );
 }

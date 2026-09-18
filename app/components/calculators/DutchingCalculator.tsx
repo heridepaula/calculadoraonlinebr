@@ -11,6 +11,7 @@ import {
   OddsInput,
 } from "~/components/ui";
 import { parseMaskedNumber } from "~/lib/utils";
+import { BettingDisclaimer } from "./betting-shared";
 
 // ---------------------------------------------------------------------------
 // Tipos
@@ -611,11 +612,7 @@ export function DutchingCalculator({
         {calculated && <ResultCard result={calculated.result} investment={calculated.investment} />}
       </div>
 
-      <p className="text-center text-xs leading-relaxed text-text-secondary">
-        Apostas envolvem risco financeiro. Esta calculadora é uma ferramenta matemática e não
-        garante lucros: se nenhuma seleção vencer, todo o investimento é perdido. Jogue com
-        responsabilidade. (18+)
-      </p>
+      <BettingDisclaimer extra="se nenhuma seleção vencer, todo o investimento é perdido" />
     </div>
   );
 }
