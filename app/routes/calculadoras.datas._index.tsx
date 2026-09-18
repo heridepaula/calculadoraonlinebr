@@ -104,6 +104,7 @@ export const meta: MetaFunction = () => {
         "Calculadoras de Datas - Interface mostrando diversas ferramentas para cálculos temporais",
     },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
     },

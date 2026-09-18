@@ -43,6 +43,7 @@ export const meta: MetaFunction = () => {
     },
     { name: "bingbot", content: "index,follow" },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
     },
@@ -183,11 +184,6 @@ export const meta: MetaFunction = () => {
           name: "CalculadoraOnlineBR",
           url: "https://www.calculadoraonlinebr.com.br",
           description: "Calculadoras online gratuitas para facilitar seu dia a dia",
-          potentialAction: {
-            "@type": "SearchAction",
-            target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-            "query-input": "required name=search_term_string",
-          },
         },
         mainEntity: {
           "@type": "WebApplication",

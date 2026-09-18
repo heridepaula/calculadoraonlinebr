@@ -93,6 +93,7 @@ export const meta: MetaFunction = () => {
         "Calculadora de Signo Solar - Interface da calculadora mostrando os 12 signos do zodíaco",
     },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
     },
@@ -728,11 +729,6 @@ export default function CalculadoraSigno() {
                   description:
                     "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
                   inLanguage: "pt-BR",
-                  potentialAction: {
-                    "@type": "SearchAction",
-                    target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-                    "query-input": "required name=search_term_string",
-                  },
                 },
                 {
                   "@type": "WebPage",

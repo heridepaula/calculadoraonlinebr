@@ -27,6 +27,7 @@ export const meta: MetaFunction = () => {
       content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
     },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
     },

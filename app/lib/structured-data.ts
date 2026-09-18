@@ -53,14 +53,6 @@ export function generateWebsiteStructuredData() {
       },
     },
     sameAs: config.sameAs,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${config.url}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
     mainEntity: {
       "@type": "ItemList",
       name: "Calculadoras Online Gratuitas",
@@ -234,7 +226,7 @@ export type CategoryPageId =
 /**
  * Gera o grafo JSON-LD para uma página de categoria.
  * Substitui scripts inline em datas/astrologia/loterias com um @graph
- * contendo WebSite (com SearchAction), CollectionPage (com ItemList de
+ * contendo WebSite, CollectionPage (com ItemList de
  * SoftwareApplications registradas) e BreadcrumbList.
  */
 export function generateCategoryPageGraph(categoryId: CategoryPageId): object | null {
@@ -255,11 +247,6 @@ export function generateCategoryPageGraph(categoryId: CategoryPageId): object | 
         name: config.name,
         description: config.description,
         inLanguage: "pt-BR",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${APP_URL}/search?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
       },
       {
         "@type": "CollectionPage",

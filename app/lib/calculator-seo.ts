@@ -875,7 +875,7 @@ export function generateCalculatorMeta(calculatorId: string): ReturnType<MetaFun
     { name: "msapplication-TileColor", content: "#1e40af" },
     { name: "theme-color", content: "#1e40af" },
     { name: "format-detection", content: "telephone=no" },
-    { rel: "canonical", href: seoData.canonicalUrl },
+    { tagName: "link", rel: "canonical", href: seoData.canonicalUrl },
 
     // Structured Data
     ...(structuredData

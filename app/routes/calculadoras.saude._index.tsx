@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
+    { tagName: "link", rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
     { property: "og:title", content: "Calculadoras Saúde 2026 – Ferramentas Médicas" },
     {
       property: "og:description",

@@ -154,6 +154,7 @@ export const meta: MetaFunction = () => {
 
     // Canonical URL
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
     },
@@ -1372,11 +1373,6 @@ export default function CalculadoraAscendente() {
                   description:
                     "Calculadoras online gratuitas para matemática, finanças, saúde e astrologia",
                   inLanguage: "pt-BR",
-                  potentialAction: {
-                    "@type": "SearchAction",
-                    target: "https://www.calculadoraonlinebr.com.br/search?q={search_term_string}",
-                    "query-input": "required name=search_term_string",
-                  },
                 },
                 {
                   "@type": "WebPage",

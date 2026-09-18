@@ -176,7 +176,7 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       id: "diferenca-entre-datas",
       title: "📅 Calculadora Diferença entre Datas",
       description: "Calcule idade, dias úteis e intervalos entre datas.",
-      href: "/calculadoras/ferramentas/diferenca-entre-datas",
+      href: "/calculadoras/datas/diferenca-entre-datas",
       bgColor: "bg-system-info/10",
       textColor: "text-system-info",
       borderColor: "border-system-info/20",
@@ -186,15 +186,15 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
   ],
   astrologia: [
     {
-      id: "mapa-astral",
-      title: "🌌 Calculadora de Mapa Astral",
-      description: "Descubra seu mapa astral completo com posições planetárias detalhadas.",
-      href: "/calculadoras/astrologia/mapa-astral",
+      id: "ascendente",
+      title: "🌅 Calculadora de Ascendente",
+      description: "Descubra seu signo ascendente a partir da data, hora e local de nascimento.",
+      href: "/calculadoras/astrologia/ascendente",
       bgColor: "bg-math-purple/10",
       textColor: "text-math-purple",
       borderColor: "border-math-purple/20",
       buttonColor: "bg-math-purple",
-      buttonHoverColor: "hover:bg-math-purple-dark",
+      buttonHoverColor: "hover:brightness-110",
     },
     {
       id: "compatibilidade-signos",
@@ -310,7 +310,7 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       textColor: "text-math-purple",
       borderColor: "border-math-purple/20",
       buttonColor: "bg-math-purple",
-      buttonHoverColor: "hover:bg-math-purple-dark",
+      buttonHoverColor: "hover:brightness-110",
     },
     {
       id: "juros-compostos",
@@ -413,7 +413,7 @@ export function RelatedCalculators({
                 </div>
                 <div className="mt-auto">
                   <div
-                    className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${calculator.buttonColor} ${calculator.buttonHoverColor} rounded-lg px-3 py-2 text-white transition-all duration-300 group-hover:shadow-md font-medium min-h-[36px]`}
+                    className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${calculator.buttonColor} ${calculator.buttonHoverColor} rounded-lg px-3 py-2 text-gray-900 transition-all duration-300 group-hover:shadow-md font-medium min-h-[36px]`}
                   >
                     <span>Acessar</span>
                     <svg

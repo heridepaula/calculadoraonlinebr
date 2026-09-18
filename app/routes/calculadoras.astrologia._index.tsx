@@ -102,6 +102,7 @@ export const meta: MetaFunction = () => {
         "Calculadoras de Astrologia - Interface mostrando diversas ferramentas astrológicas para autoconhecimento",
     },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
     },

@@ -35,6 +35,7 @@ export const meta: MetaFunction = () => {
     },
     { name: "bingbot", content: "index,follow" },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/sorteador-online",
     },

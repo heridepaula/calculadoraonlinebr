@@ -24,7 +24,7 @@ export const meta: MetaFunction = () => {
     { name: "author", content: APP_NAME },
     { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
     { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { rel: "canonical", href: siteUrl },
+    { tagName: "link", rel: "canonical", href: siteUrl },
 
     {
       property: "og:title",

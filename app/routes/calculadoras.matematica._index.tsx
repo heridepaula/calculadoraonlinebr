@@ -26,7 +26,7 @@ export const meta: MetaFunction = () => {
     },
     { name: "author", content: "CalculadoraOnlineBR" },
     { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica" },
+    { tagName: "link", rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica" },
     { property: "og:title", content: "Calculadoras Matemáticas 2026 – Ferramenta Grátis" },
     {
       property: "og:description",

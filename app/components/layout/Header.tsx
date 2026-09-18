@@ -10,9 +10,9 @@ export const Header = () => {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500">
               <span className="text-sm font-bold text-white">C</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-100 sm:text-lg md:text-xl">
+            <span className="text-2xl font-bold text-gray-100 sm:text-lg md:text-xl">
               <span className="sm:hidden md:inline">{APP_NAME}</span>
-            </h1>
+            </span>
           </Link>
 
           <nav className="hidden items-center space-x-4 md:hidden md:space-x-2 lg:flex">

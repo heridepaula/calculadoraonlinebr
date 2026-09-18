@@ -208,7 +208,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
 
-        {/* JSON-LD: WebSite + SearchAction - global structured data */}
+        {/* JSON-LD: WebSite - global structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -228,15 +228,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   "@type": "ImageObject",
                   url: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
                 },
-              },
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://www.calculadoraonlinebr.com.br/calculadoras?q={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
               },
             }),
           }}
@@ -436,9 +427,9 @@ export default function App() {
                         height={20}
                       />
                     </div>
-                    <h1 className="text-2xl font-bold text-text-primary sm:text-lg md:text-xl">
+                    <span className="text-2xl font-bold text-text-primary sm:text-lg md:text-xl">
                       <span className="sm:hidden md:inline">CalculadoraOnlineBR</span>
-                    </h1>
+                    </span>
                   </Link>
 
                   <div className="flex items-center space-x-4">

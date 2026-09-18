@@ -104,6 +104,7 @@ export const meta: MetaFunction = () => {
         "Geradores de Loterias - Interface mostrando diversas ferramentas para gerar números de loterias",
     },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
     },

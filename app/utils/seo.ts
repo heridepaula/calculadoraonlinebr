@@ -43,7 +43,7 @@ export function generateSEOTags(seoData: SEOData): Array<Record<string, string>>
   }
 
   if (seoData.canonicalUrl) {
-    tags.push({ rel: "canonical", href: seoData.canonicalUrl });
+    tags.push({ tagName: "link", rel: "canonical", href: seoData.canonicalUrl });
   }
 
   // Open Graph tags

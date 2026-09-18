@@ -96,6 +96,7 @@ export const meta: MetaFunction = () => {
       content: "Gerador de Mega-Sena - Interface mostrando números gerados com estratégias",
     },
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena",
     },

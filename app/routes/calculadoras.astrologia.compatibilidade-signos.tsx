@@ -159,6 +159,7 @@ export const meta: MetaFunction = () => {
 
     // Canonical URL
     {
+      tagName: "link",
       rel: "canonical",
       href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
     },
