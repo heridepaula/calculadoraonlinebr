@@ -302,6 +302,17 @@ const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
       buttonHoverColor: "hover:bg-system-success-dark",
     },
     {
+      id: "valor-esperado",
+      title: "📈 Calculadora de Valor Esperado (EV+)",
+      description: "Descubra se a aposta tem valor: EV em R$ e %, odd justa e projeção da banca.",
+      href: "/calculadoras/apostas/valor-esperado",
+      bgColor: "bg-primary-blue/10",
+      textColor: "text-primary-blue",
+      borderColor: "border-primary-blue/20",
+      buttonColor: "bg-primary-blue",
+      buttonHoverColor: "hover:bg-primary-blue-dark",
+    },
+    {
       id: "porcentagem",
       title: "🔢 Calculadora de Porcentagem",
       description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",

@@ -139,7 +139,12 @@ export const meta: MetaFunction = () => [
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Início", item: `${APP_URL}/` },
         { "@type": "ListItem", position: 2, name: "Calculadoras", item: `${APP_URL}/calculadoras` },
-        { "@type": "ListItem", position: 3, name: "Apostas", item: `${APP_URL}/calculadoras/apostas` },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Apostas",
+          item: `${APP_URL}/calculadoras/apostas`,
+        },
         { "@type": "ListItem", position: 4, name: "Critério de Kelly", item: PAGE_URL },
       ],
     },
@@ -240,7 +245,9 @@ export default function CriterioDeKellyPage() {
                     </li>
                   </ul>
 
-                  <h4 className="mb-3 font-semibold text-system-warning">📝 Leitura do resultado</h4>
+                  <h4 className="mb-3 font-semibold text-system-warning">
+                    📝 Leitura do resultado
+                  </h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
                     <li>
                       • Probabilidade implícita da odd:{" "}
@@ -293,10 +300,15 @@ export default function CriterioDeKellyPage() {
                     📈 Aposta de valor (EV+) e probabilidade implícita
                   </h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Toda odd carrega uma probabilidade implícita, calculada por 1 ÷ odd. A aposta
-                    só tem valor quando a sua probabilidade estimada é maior que essa. Caso
-                    contrário, o Kelly dá zero ou negativo e a calculadora exibe o alerta{" "}
-                    <strong className="text-system-error">“NÃO APOSTE”</strong>.
+                    Toda odd carrega uma probabilidade implícita, calculada por 1 ÷ odd. A aposta só
+                    tem valor quando a sua probabilidade estimada é maior que essa. Caso contrário,
+                    o Kelly dá zero ou negativo e a calculadora exibe o alerta{" "}
+                    <strong className="text-system-error">“NÃO APOSTE”</strong>. Para ver o EV em
+                    reais e em %, use a{" "}
+                    <Link to="/calculadoras/apostas/valor-esperado" className={linkClass}>
+                      calculadora de valor esperado
+                    </Link>
+                    .
                   </p>
                 </div>
 
@@ -326,8 +338,8 @@ export default function CriterioDeKellyPage() {
         </CardHeader>
         <CardContent>
           <p className="mb-4 text-sm text-text-secondary">
-            Mesma aposta do exemplo (odd {odd.format(EXAMPLE.odds)}, probabilidade de 55%) com
-            banca de {brl.format(EXAMPLE.bankroll)}:
+            Mesma aposta do exemplo (odd {odd.format(EXAMPLE.odds)}, probabilidade de 55%) com banca
+            de {brl.format(EXAMPLE.bankroll)}:
           </p>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
@@ -346,7 +358,9 @@ export default function CriterioDeKellyPage() {
                   <tr
                     key={row.value}
                     className={
-                      index < EXAMPLE_ROWS.length - 1 ? "border-b border-neutral-surface-variant" : ""
+                      index < EXAMPLE_ROWS.length - 1
+                        ? "border-b border-neutral-surface-variant"
+                        : ""
                     }
                   >
                     <td className="p-3 font-medium">{row.label}</td>
@@ -437,8 +451,8 @@ export default function CriterioDeKellyPage() {
             </p>
             <p>
               <strong>Funcionalidades:</strong> stake ideal em reais e em porcentagem, Kelly Full,
-              Half e Quarter, alerta de valor esperado (EV+ / EV-), probabilidade implícita da odd
-              e limite de segurança de 10% da banca.
+              Half e Quarter, alerta de valor esperado (EV+ / EV-), probabilidade implícita da odd e
+              limite de segurança de 10% da banca.
             </p>
             <p>
               <strong className="text-system-warning">Jogo responsável:</strong> apostas são

@@ -591,6 +591,14 @@ export const CALCULATORS = [
     category: "apostas",
     path: "/calculadoras/apostas/criterio-de-kelly",
   },
+  {
+    id: "valor-esperado",
+    name: "Calculadora de Valor Esperado (EV+)",
+    description:
+      "Descubra se a aposta tem valor: EV em reais e em %, odd justa e projeção da banca no longo prazo",
+    category: "apostas",
+    path: "/calculadoras/apostas/valor-esperado",
+  },
 ];
 
 export const BREAKPOINTS = {

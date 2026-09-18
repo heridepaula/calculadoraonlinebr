@@ -745,6 +745,17 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.8,
     changeFreq: "monthly",
   },
+  "valor-esperado": {
+    id: "valor-esperado",
+    title: "Calculadora de Valor Esperado (EV+) – Odds de Valor Grátis 2026 | CalculadoraOnlineBR",
+    description:
+      "Calcule o valor esperado (EV) da sua aposta em reais e em %, descubra a odd justa e veja a projeção da banca em 100 apostas. Grátis e sem cadastro.",
+    keywords:
+      "calculadora valor esperado, calculadora ev apostas, ev+ apostas, valor esperado apostas, odd de valor, calculadora de valor apostas, aposta de valor, odd justa, probabilidade implícita, expected value",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/valor-esperado",
+    priority: 0.8,
+    changeFreq: "monthly",
+  },
 
   // Labor Calculators
   "rescisao-trabalhista": {

@@ -102,9 +102,7 @@ const BANKROLL_METHODS = [
 ];
 
 export default function ApostasIndex() {
-  const apostasCalculators = CALCULATORS.filter(
-    (calc: Calculator) => calc.category === "apostas"
-  );
+  const apostasCalculators = CALCULATORS.filter((calc: Calculator) => calc.category === "apostas");
 
   return (
     <div className="min-h-screen">
@@ -128,14 +126,23 @@ export default function ApostasIndex() {
         <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="mb-8 text-center sm:mb-12">
             <h2 className="text-xl font-bold text-text-primary sm:text-2xl lg:text-3xl">
-              🚀 Comece pela Gestão de Banca
+              🚀 Acesso Rápido
             </h2>
             <p className="mt-2 text-text-secondary">
-              Saiba exatamente quanto apostar antes de confirmar o palpite
+              Descubra se a aposta tem valor e quanto apostar antes de confirmar o palpite
             </p>
           </div>
 
-          <div className="mx-auto max-w-xl">
+          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+            <QuickAccessCard
+              title="Calculadora de Valor Esperado (EV+)"
+              description="Veja o EV em reais e em %, a odd justa e a projeção da banca em 100 apostas, com gráficos."
+              icon="📈"
+              href="/calculadoras/apostas/valor-esperado"
+              category="apostas"
+              isPopular={true}
+              complexity="basic"
+            />
             <QuickAccessCard
               title="Calculadora Critério de Kelly"
               description="Informe banca, odd e probabilidade estimada para receber a stake ideal, com Half Kelly e limite de segurança de 10%."
@@ -152,8 +159,18 @@ export default function ApostasIndex() {
       <CategoryStats
         category="apostas"
         stats={[
-          { icon: "📐", number: String(apostasCalculators.length), label: "Calculadoras", description: "E novas a caminho" },
-          { icon: "⚡", number: "<1s", label: "Resultado", description: "Stake ideal em um clique" },
+          {
+            icon: "📐",
+            number: String(apostasCalculators.length),
+            label: "Calculadoras",
+            description: "E novas a caminho",
+          },
+          {
+            icon: "⚡",
+            number: "<1s",
+            label: "Resultado",
+            description: "Resultado em um clique",
+          },
           { icon: "🛡️", number: "10%", label: "Limite de stake", description: "Teto de segurança" },
           { icon: "🔞", number: "18+", label: "Responsável", description: "Uso consciente" },
         ]}
@@ -189,14 +206,15 @@ export default function ApostasIndex() {
             <p>
               <strong className="text-text-primary">Gestão de banca</strong> é o conjunto de regras
               que define quanto do seu dinheiro reservado para apostas será arriscado em cada
-              palpite. Sem ela, poucas derrotas seguidas podem comprometer todo o saldo, mesmo
-              para quem escolhe bem as apostas.
+              palpite. Sem ela, poucas derrotas seguidas podem comprometer todo o saldo, mesmo para
+              quem escolhe bem as apostas.
             </p>
             <p>
-              A base de qualquer método é separar uma <strong className="text-text-primary">banca</strong>{" "}
-              (um valor que você pode perder sem afetar suas contas) e definir a{" "}
-              <strong className="text-text-primary">stake</strong>, que é o valor de cada aposta.
-              Os três métodos mais usados são:
+              A base de qualquer método é separar uma{" "}
+              <strong className="text-text-primary">banca</strong> (um valor que você pode perder
+              sem afetar suas contas) e definir a{" "}
+              <strong className="text-text-primary">stake</strong>, que é o valor de cada aposta. Os
+              três métodos mais usados são:
             </p>
           </div>
 
@@ -218,12 +236,19 @@ export default function ApostasIndex() {
           </div>
 
           <p className="mx-auto mt-8 max-w-3xl text-center text-base text-text-secondary-dark">
-            Quer saber quanto apostar com base na sua vantagem real?{" "}
+            Primeiro, confirme se a aposta tem valor com a{" "}
+            <Link
+              to="/calculadoras/apostas/valor-esperado"
+              className="font-semibold text-growth-green underline underline-offset-4 hover:text-growth-green-dark"
+            >
+              calculadora de valor esperado (EV+)
+            </Link>
+            . Depois, defina quanto apostar com a{" "}
             <Link
               to="/calculadoras/apostas/criterio-de-kelly"
               className="font-semibold text-growth-green underline underline-offset-4 hover:text-growth-green-dark"
             >
-              Use a calculadora do critério de Kelly
+              calculadora do critério de Kelly
             </Link>
             .
           </p>

@@ -83,6 +83,7 @@ const getCalculatorIcon = (calculatorId: string): string => {
     "gerador-quina": "🎲",
     // Apostas
     "criterio-de-kelly": "⚽",
+    "valor-esperado": "📈",
   };
 
   return iconMap[calculatorId] || "🧮";
@@ -155,6 +156,7 @@ const getCalculatorTags = (calculatorId: string): { primary: string; secondary: 
     "gerador-quina": { primary: "🎲 5 Números", secondary: "💰 Quina" },
     // Apostas
     "criterio-de-kelly": { primary: "📐 Stake Ideal", secondary: "⚽ Gestão de Banca" },
+    "valor-esperado": { primary: "📈 EV+ ou EV-", secondary: "📊 Gráficos" },
   };
 
   return tagMap[calculatorId] || { primary: "⚡ Rápido", secondary: "🎯 Confiável" };
