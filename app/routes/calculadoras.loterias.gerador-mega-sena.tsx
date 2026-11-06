@@ -13,6 +13,7 @@ import { APP_NAME } from "~/lib/constants";
 import { MEGASENA } from "~/lib/lottery/definitions";
 import { buildStatsFaq, formatDateBR, type LotteryStats } from "~/lib/lottery/stats";
 import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
+import { LatestResultCard, NextDrawBanner } from "~/components/calculators/LotteryResultInfo";
 import { getStats } from "~/services/lottery/statistics.server";
 
 // Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
@@ -73,10 +74,6 @@ export const meta: MetaFunction = () => {
 };
 
 const pad = (n: number) => n.toString().padStart(2, "0");
-const brl = (v: number) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-/** "R$ 55 milhões" para valores grandes; moeda completa para os demais. */
-const brlShort = (v: number) =>
-  v >= 1e6 ? `R$ ${(v / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 1 })} ${v >= 2e6 ? "milhões" : "milhão"}` : brl(v);
 
 /** Chances da aposta simples (6 dezenas): C(60,6) e faixas da Caixa. */
 const ODDS_FAQ = {
@@ -168,82 +165,13 @@ export default function GeradorMegaSena() {
             Gere números para <strong className="text-system-success-dark">Mega-Sena</strong> usando estratégias
             estatísticas, análise de frequência e filtros calculados com todos os concursos já sorteados.
           </p>
-          {latest?.proximo ? (
-            <div className="inline-block rounded-lg bg-system-success/10 px-4 py-3">
-              <p className="!mb-0 text-sm font-medium text-text-primary">
-                🎯 Próximo concurso <strong>{latest.proximo.concurso}</strong> em{" "}
-                <strong>{formatDateBR(latest.proximo.data)}</strong> · prêmio estimado{" "}
-                <strong className="text-system-success-dark">{brlShort(latest.proximo.estimativa)}</strong>
-              </p>
-            </div>
-          ) : (
-            <div className="inline-block rounded-lg bg-system-success/10 p-4">
-              <p className="!mb-0 text-sm font-medium text-text-primary">
-                🎯 <strong>Estratégias Inteligentes</strong> • 📊 <strong>Análise Estatística</strong> • 💾{" "}
-                <strong>Histórico Salvo</strong>
-              </p>
-            </div>
-          )}
+          <NextDrawBanner latest={latest} />
         </header>
 
         <LotteryGenerator stats={stats} />
 
         {/* Último resultado */}
-        {latest && (
-          <Card className="mx-auto max-w-4xl border-l-4 border-system-success">
-            <CardHeader>
-              <CardTitle>
-                🏆 Último resultado: concurso {latest.concurso} ({formatDateBR(latest.data)})
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex flex-wrap gap-2" aria-label="Dezenas sorteadas">
-                {latest.dezenas.map((n) => (
-                  <span
-                    key={n}
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-700 text-base font-bold text-white shadow"
-                  >
-                    {pad(n)}
-                  </span>
-                ))}
-                {latest.acumulou !== undefined && (
-                  <span
-                    className={`self-center rounded-full px-3 py-1 text-xs font-semibold ${
-                      latest.acumulou ? "bg-system-warning/20 text-system-warning-dark" : "bg-system-success/20 text-system-success-dark"
-                    }`}
-                  >
-                    {latest.acumulou ? "Acumulou!" : "Teve ganhador da sena"}
-                  </span>
-                )}
-              </div>
-              {latest.premiacoes && (
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[18rem] text-sm">
-                    <caption className="sr-only">Premiação do concurso {latest.concurso}</caption>
-                    <thead>
-                      <tr className="border-b border-neutral-surface-variant text-left text-text-secondary">
-                        <th scope="col" className="py-2 pr-3 font-medium">Faixa</th>
-                        <th scope="col" className="py-2 pr-3 text-right font-medium">Ganhadores</th>
-                        <th scope="col" className="py-2 text-right font-medium">Prêmio por ganhador</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {latest.premiacoes.map((f) => (
-                        <tr key={f.acertos} className="border-b border-neutral-surface-variant/50">
-                          <td className="py-2 pr-3 font-medium text-text-primary">
-                            {{ 6: "Sena", 5: "Quina", 4: "Quadra" }[f.acertos] ?? ""} ({f.acertos} acertos)
-                          </td>
-                          <td className="py-2 pr-3 text-right text-text-primary">{f.ganhadores.toLocaleString("pt-BR")}</td>
-                          <td className="py-2 text-right text-text-primary">{f.ganhadores > 0 ? brl(f.rateio) : "—"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
+        <LatestResultCard lottery="megasena" latest={latest} />
 
         {/* Informações Estatísticas (calculadas do banco; atualizam a cada novo sorteio) */}
         <Card className="mx-auto max-w-4xl border-l-4 border-system-info">

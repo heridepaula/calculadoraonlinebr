@@ -13,6 +13,7 @@ import { APP_NAME } from "~/lib/constants";
 import { LOTOFACIL } from "~/lib/lottery/definitions";
 import { buildStatsFaq, formatDateBR, type LotteryStats } from "~/lib/lottery/stats";
 import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
+import { LatestResultCard, NextDrawBanner } from "~/components/calculators/LotteryResultInfo";
 import { getStats } from "~/services/lottery/statistics.server";
 
 // Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
@@ -207,15 +208,13 @@ export default function GeradorLotofacil() {
             estratégias estatísticas avançadas, análise de frequência e filtros matemáticos
             inteligentes.
           </p>
-          <div className="inline-block rounded-lg bg-system-success/10 p-4 duration-300">
-            <p className="text-sm font-medium text-text-primary">
-              🎯 <strong>Estratégias Inteligentes</strong> • 📊 <strong>Análise Estatística</strong> •
-              💾 <strong>Histórico Salvo</strong>
-            </p>
-          </div>
+          <NextDrawBanner latest={stats.latest} />
         </header>
 
         <LotteryGenerator stats={stats} />
+
+        {/* Último resultado */}
+        <LatestResultCard lottery="lotofacil" latest={stats.latest} />
 
         {/* Informações Estatísticas (calculadas do banco; atualizam a cada novo sorteio) */}
         <Card className="mx-auto max-w-4xl border-l-4 border-system-info">
