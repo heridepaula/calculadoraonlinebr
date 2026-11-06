@@ -98,11 +98,19 @@ export function LiveGamesFeed({ lottery, pusher, initial }: Props) {
     lastTops.current = tops;
   }, [games, leaving]);
 
-  // Relógio do tempo de criação ("Agora" até 60 s, depois "X minutos atrás").
+  // Relógio do tempo de criação ("Agora" até 60 s, depois "X minutos atrás"): recalcula a cada
+  // segundo, então a troca acontece no segundo exato. Abas em segundo plano congelam timers, por
+  // isso também atualiza assim que a aba volta a ficar visível.
   useEffect(() => {
-    setNow(Date.now());
-    const t = setInterval(() => setNow(Date.now()), 10_000);
-    return () => clearInterval(t);
+    const tick = () => setNow(Date.now());
+    tick();
+    const t = setInterval(tick, 1000);
+    const onVisible = () => document.visibilityState === "visible" && tick();
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      clearInterval(t);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, []);
 
   // Jogo do próprio visitante: aparece na hora, com ou sem Pusher.
