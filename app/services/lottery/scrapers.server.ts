@@ -145,7 +145,10 @@ export async function scrapeGigaSena(def: LotteryDef): Promise<LotteryResult> {
 // --------------------------------------------------------------------------- //
 // APIs JSON (com premiação)
 // --------------------------------------------------------------------------- //
-/** Faixas no formato Caixa: faixa 1 = maior prêmio. Faixa ausente: não grava premiação parcial. */
+/**
+ * Faixas no formato Caixa: faixa 1 = maior prêmio. As `requiredTiers` primeiras são obrigatórias
+ * (sem elas não grava premiação parcial); as seguintes são omitidas quando a fonte não as tem.
+ */
 function mapPremiacoes(
   def: LotteryDef,
   lista: Array<{ faixa: number; ganhadores: number; valor: number }> | undefined
@@ -154,7 +157,10 @@ function mapPremiacoes(
   const out: LotteryPremiacao[] = [];
   for (const [i, acertos] of def.prizeTiers.entries()) {
     const f = lista.find((x) => x.faixa === i + 1);
-    if (!f) return undefined;
+    if (!f) {
+      if (i < def.requiredTiers) return undefined;
+      continue;
+    }
     out.push({ acertos, ganhadores: Number(f.ganhadores), rateio: Number(f.valor) });
   }
   return out;

@@ -170,7 +170,7 @@
   }
 }
 
-/* Cores por loteria (Tailwind: lot-*). Lotofácil = rosa (padrão), Mega-Sena = verde. */
+/* Cores por loteria (Tailwind: lot-*). Lotofácil = rosa (padrão), Mega-Sena = verde, Quina = roxo. */
 :root,
 .theme-lotofacil {
   --lot-50: 253 242 248;
@@ -196,4 +196,17 @@
   --lot-700: 6 95 70;
   --lot-800: 6 78 59;
   --lot-900: 2 44 34;
+}
+
+.theme-quina {
+  --lot-50: 245 243 255;
+  --lot-100: 237 233 254;
+  --lot-200: 221 214 254;
+  --lot-300: 196 181 253;
+  --lot-400: 167 139 250;
+  --lot-500: 139 92 246;
+  --lot-600: 109 40 217;
+  --lot-700: 91 33 182;
+  --lot-800: 76 29 149;
+  --lot-900: 46 16 101;
 }

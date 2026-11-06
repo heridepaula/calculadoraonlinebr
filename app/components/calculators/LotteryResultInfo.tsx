@@ -9,11 +9,6 @@ const brl = (v: number) => v.toLocaleString("pt-BR", { style: "currency", curren
 export const brlShort = (v: number) =>
   v >= 1e6 ? `R$ ${(v / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 1 })} ${v >= 2e6 ? "milhões" : "milhão"}` : brl(v);
 
-/** Nome tradicional da faixa (só a Mega-Sena tem). */
-const TIER_NAMES: Partial<Record<keyof typeof LOTTERIES, Record<number, string>>> = {
-  megasena: { 6: "Sena", 5: "Quina", 4: "Quadra" },
-};
-
 /** Faixa do cabeçalho: próximo concurso e prêmio estimado (ou os destaques, sem dados do próximo). */
 export function NextDrawBanner({ latest }: { latest?: LotteryLatest }) {
   if (!latest?.proximo) {
@@ -41,7 +36,7 @@ export function NextDrawBanner({ latest }: { latest?: LotteryLatest }) {
 export function LatestResultCard({ lottery, latest }: { lottery: keyof typeof LOTTERIES; latest?: LotteryLatest }) {
   if (!latest) return null;
   const def = LOTTERIES[lottery];
-  const names = TIER_NAMES[lottery];
+  const names = def.tierNames;
   const top = def.prizeTiers[0];
   const tierLabel = (acertos: number) => (names?.[acertos] ? `${names[acertos]} (${acertos} acertos)` : `${acertos} acertos`);
 

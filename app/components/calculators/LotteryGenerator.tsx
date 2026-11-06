@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, Checkbox } from "~/components/ui";
 import { useCalculatorScroll } from "~/components/calculators/betting-shared";
 import type { LotteryDef } from "~/lib/lottery/definitions";
@@ -71,7 +71,19 @@ function writeHistory(key: string, games: SavedGame[]) {
 // --------------------------------------------------------------------------- //
 // Peças da interface
 // --------------------------------------------------------------------------- //
-function Chip({ active, onClick, children, label, compact }: { compact?: boolean; active: boolean; onClick: () => void; children: React.ReactNode; label?: string }) {
+function Chip({
+  active,
+  onClick,
+  children,
+  label,
+  compact,
+}: {
+  compact?: boolean;
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  label?: string;
+}) {
   return (
     <button
       type="button"
@@ -81,7 +93,7 @@ function Chip({ active, onClick, children, label, compact }: { compact?: boolean
       className={`flex min-h-[44px] items-center gap-1 rounded-lg border ${compact ? "px-1.5 text-xs" : "px-2.5 text-sm"} py-1.5 font-medium transition-colors ${
         active
           ? "border-lot-400 bg-lot-500/20 text-lot-100 ring-1 ring-lot-400/60"
-          : "border-neutral-surface-variant bg-background-primary text-text-primary hover:border-lot-400"
+          : "bg-background-primary border-neutral-surface-variant text-text-primary hover:border-lot-400"
       }`}
     >
       {children}
@@ -110,7 +122,7 @@ function RangeSelect({
       aria-label={label}
       value={value}
       onChange={(e) => onChange(parseInt(e.target.value, 10))}
-      className="min-h-[44px] rounded-lg border border-neutral-surface-variant bg-background-primary px-2 text-sm text-text-primary"
+      className="bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-2 text-sm text-text-primary"
     >
       {Array.from({ length: max - min + 1 }, (_, i) => min + i).map((v) => (
         <option key={v} value={v}>
@@ -187,18 +199,55 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
 
   const p = stats.patterns;
   const filterChips = [
-    { key: "parity", name: "Pares", on: config.parity.enabled, range: `${config.parity.min}–${config.parity.max}`, toggle: () => update({ parity: { ...config.parity, enabled: !config.parity.enabled } }) },
-    { key: "primes", name: "Primos", on: config.primes.enabled, range: `${config.primes.min}–${config.primes.max}`, toggle: () => update({ primes: { ...config.primes, enabled: !config.primes.enabled } }) },
-    { key: "fibonacci", name: "Fibonacci", on: config.fibonacci.enabled, range: `${config.fibonacci.min}–${config.fibonacci.max}`, toggle: () => update({ fibonacci: { ...config.fibonacci, enabled: !config.fibonacci.enabled } }) },
-    { key: "consecutive", name: "Seguidos", on: config.consecutive.enabled, range: `≤${config.consecutive.max}`, toggle: () => update({ consecutive: { ...config.consecutive, enabled: !config.consecutive.enabled } }) },
-    { key: "rows", name: "Por linha", on: config.rows.enabled, range: `≤${config.rows.max}`, toggle: () => update({ rows: { ...config.rows, enabled: !config.rows.enabled } }) },
+    {
+      key: "parity",
+      name: "Pares",
+      on: config.parity.enabled,
+      range: `${config.parity.min}–${config.parity.max}`,
+      toggle: () => update({ parity: { ...config.parity, enabled: !config.parity.enabled } }),
+    },
+    {
+      key: "primes",
+      name: "Primos",
+      on: config.primes.enabled,
+      range: `${config.primes.min}–${config.primes.max}`,
+      toggle: () => update({ primes: { ...config.primes, enabled: !config.primes.enabled } }),
+    },
+    {
+      key: "fibonacci",
+      name: "Fibonacci",
+      on: config.fibonacci.enabled,
+      range: `${config.fibonacci.min}–${config.fibonacci.max}`,
+      toggle: () =>
+        update({ fibonacci: { ...config.fibonacci, enabled: !config.fibonacci.enabled } }),
+    },
+    {
+      key: "consecutive",
+      name: "Seguidos",
+      on: config.consecutive.enabled,
+      range: `≤${config.consecutive.max}`,
+      toggle: () =>
+        update({ consecutive: { ...config.consecutive, enabled: !config.consecutive.enabled } }),
+    },
+    {
+      key: "rows",
+      name: "Por linha",
+      on: config.rows.enabled,
+      range: `≤${config.rows.max}`,
+      toggle: () => update({ rows: { ...config.rows, enabled: !config.rows.enabled } }),
+    },
   ].filter((c) => def.filters.includes(c.key as (typeof def.filters)[number]));
   const evens = Math.floor(def.universe / 2);
-  const pairBounds: [number, number] = [Math.max(0, def.gameSize - (def.universe - evens)), Math.min(def.gameSize, evens)];
+  const pairBounds: [number, number] = [
+    Math.max(0, def.gameSize - (def.universe - evens)),
+    Math.min(def.gameSize, evens),
+  ];
   const conflicts = useMemo(() => findConflicts(config, stats), [config, stats]);
   const acceptance = useMemo(() => estimateAcceptance(config, stats), [config, stats]);
   const mix = normalizedMix(config.weights, stats);
-  const activeMix = MIX_PRESETS.find((m) => (Object.keys(m.weights) as MixKey[]).every((k) => m.weights[k] === config.weights[k]));
+  const activeMix = MIX_PRESETS.find((m) =>
+    (Object.keys(m.weights) as MixKey[]).every((k) => m.weights[k] === config.weights[k])
+  );
   const mixPresets = MIX_PRESETS.filter((m) => m.id !== "atrasados" || stats.overdue.length > 0);
   const resultNumbers = result?.kind === "game" ? result.game.numbers : [];
 
@@ -299,325 +348,445 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
     { mode: "high", label: "Alta" },
     { mode: "free", label: "Livre" },
   ];
-  const mixLabels: Record<MixKey, string> = { hot: "🔥 Quentes", cold: "🧊 Frios", overdue: "⏳ Atrasados", random: "🎲 Aleatório" };
+  const mixLabels: Record<MixKey, string> = {
+    hot: "🔥 Quentes",
+    cold: "🧊 Frios",
+    overdue: "⏳ Atrasados",
+    random: "🎲 Aleatório",
+  };
   const blocked = conflicts.length > 0;
+
+  // Barra fixa (celular): aparece enquanto o usuário está na estratégia/cartela e os botões
+  // de ação ainda estão abaixo da tela (cartelas altas, como a 10 × 8 da Quina).
+  const cardRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const check = () => {
+      const card = cardRef.current?.getBoundingClientRect();
+      const cta = ctaRef.current?.getBoundingClientRect();
+      if (!card || !cta) return;
+      setShowStickyCta(
+        window.innerWidth < 1024 && card.top < window.innerHeight && cta.top > window.innerHeight
+      );
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
   /** Volante com muitas colunas (Mega-Sena): células mais estreitas. */
   const dense = def.columns > 5;
 
   return (
     <div className={`${def.themeClass} space-y-8`}>
-      <Card padding="none" className="-mx-2 max-w-5xl p-2 sm:mx-auto sm:p-4 lg:p-5">
-        <CardHeader className="pb-2">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <span aria-hidden>🎰</span>
-            Gerador Inteligente
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 lg:grid lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-start lg:gap-6 lg:space-y-0">
-          {/* ===== Estratégia (acima da cartela; ao lado dela no desktop) ===== */}
-          <div ref={inputsRef} className="scroll-mt-4 space-y-3">
-            {/* 1. Origem dos números */}
-            <section aria-labelledby="mix-title">
-              <div className="mb-1.5 flex items-center justify-between gap-2">
-                <h3 id="mix-title" className="text-sm font-semibold">1. Origem dos números</h3>
-                <button type="button" onClick={() => setShowMix((v) => !v)} className="text-xs text-primary-blue hover:underline" aria-expanded={showMix}>
-                  {showMix ? "Ocultar %" : `Ajustar %${activeMix ? "" : " (personalizada)"}`}
-                </button>
-              </div>
-              <div className="flex flex-wrap !gap-1">
-                {mixPresets.map((m) => (
-                  <Chip key={m.id} compact active={activeMix?.id === m.id} onClick={() => update({ weights: { ...m.weights } })}>
-                    <span aria-hidden>{m.icon}</span> {m.label}
-                  </Chip>
-                ))}
-              </div>
-              {showMix && (
-                <div className="mt-2 grid grid-cols-1 gap-2 rounded-lg border border-neutral-surface-variant p-3 sm:grid-cols-2">
-                  {(Object.keys(mixLabels) as MixKey[])
-                    .filter((k) => k !== "overdue" || stats.overdue.length > 0)
-                    .map((k) => (
-                      <div key={k} className="block text-sm">
-                        <span className="flex justify-between">
-                          <span id={`mix-${k}-label`}>{mixLabels[k]}</span>
-                          <strong>{mix[k]}%</strong>
-                        </span>
-                        <input
-                          type="range"
-                          aria-labelledby={`mix-${k}-label`}
-                          aria-valuetext={`${mix[k]}%`}
-                          min={0}
-                          max={100}
-                          step={5}
-                          value={config.weights[k]}
-                          onChange={(e) => update({ weights: { ...config.weights, [k]: parseInt(e.target.value, 10) } })}
-                          className="mt-1 w-full accent-lot-500"
-                        />
-                      </div>
-                    ))}
-                  <p className="text-xs text-text-secondary sm:col-span-2">
-                    Pesos proporcionais: a porcentagem é a parte de cada origem no sorteio das dezenas.
-                  </p>
+      {/* wrapper só para medir a posição do card (Card não repassa ref) */}
+      <div ref={cardRef}>
+        <Card padding="none" className="-mx-2 max-w-5xl p-2 sm:mx-auto sm:p-4 lg:p-5">
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <span aria-hidden>🎰</span>
+              Gerador Inteligente
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 lg:grid lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-start lg:gap-6 lg:space-y-0">
+            {/* ===== Estratégia (acima da cartela; ao lado dela no desktop) ===== */}
+            <div ref={inputsRef} className="scroll-mt-4 space-y-3">
+              {/* 1. Origem dos números */}
+              <section aria-labelledby="mix-title">
+                <div className="mb-1.5 flex items-center justify-between gap-2">
+                  <h3 id="mix-title" className="text-sm font-semibold">
+                    1. Origem dos números
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setShowMix((v) => !v)}
+                    className="text-xs text-primary-blue hover:underline"
+                    aria-expanded={showMix}
+                  >
+                    {showMix ? "Ocultar %" : `Ajustar %${activeMix ? "" : " (personalizada)"}`}
+                  </button>
                 </div>
-              )}
-            </section>
-
-            {/* 2. Faixa de soma (exclusiva) */}
-            <section aria-labelledby="sum-title">
-              <h3 id="sum-title" className="mb-1.5 text-sm font-semibold">
-                2. Soma das {def.gameSize} dezenas{" "}
-                <span className="font-normal text-text-secondary">(média {p.sum.mean.toLocaleString("pt-BR")})</span>
-              </h3>
-              <div role="radiogroup" aria-labelledby="sum-title" className="grid grid-cols-4 !gap-1.5">
-                {sumModes.map(({ mode, label }) => {
-                  const range = sumRangeFor(mode, stats);
-                  const active = config.sumMode === mode;
-                  return (
-                    <button
-                      key={mode}
-                      type="button"
-                      role="radio"
-                      aria-checked={active}
-                      onClick={() => update({ sumMode: mode })}
-                      className={`min-h-[44px] rounded-lg border px-1 py-1 text-sm leading-tight transition-colors ${
-                        active
-                          ? "border-lot-400 bg-lot-500/20 text-lot-100 ring-1 ring-lot-400/60"
-                          : "border-neutral-surface-variant bg-background-primary text-text-primary hover:border-lot-400"
-                      }`}
+                <div className="flex flex-wrap !gap-1">
+                  {mixPresets.map((m) => (
+                    <Chip
+                      key={m.id}
+                      compact
+                      active={activeMix?.id === m.id}
+                      onClick={() => update({ weights: { ...m.weights } })}
                     >
-                      <span className="block font-semibold">{label}</span>
-                      <span className="block text-[11px] opacity-80">{range ? `${range[0]}–${range[1]}` : "qualquer"}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-
-            {/* 3. Filtros combináveis */}
-            <section aria-labelledby="filters-title">
-              <div className="flex items-center justify-between gap-2">
-                <h3 id="filters-title" className="text-sm font-semibold">
-                  3. Filtros
-                </h3>
-                <div className="flex gap-0.5 text-xs">
-                  <button
-                    type="button"
-                    onClick={() => setShowFilters((v) => !v)}
-                    aria-expanded={showFilters}
-                    aria-controls="filters-panel"
-                    className="min-h-[44px] px-2 text-primary-blue hover:underline"
-                  >
-                    ⚙ Faixas {showFilters ? "▴" : "▾"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => update({ ...defaultConfig(stats), fixed: config.fixed })}
-                    className="min-h-[44px] px-2 text-primary-blue hover:underline"
-                  >
-                    ↺ Padrão
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => update(pureRandomConfig(stats, config.fixed))}
-                    className="min-h-[44px] px-2 text-primary-blue hover:underline"
-                  >
-                    Sem filtros
-                  </button>
+                      <span aria-hidden>{m.icon}</span> {m.label}
+                    </Chip>
+                  ))}
                 </div>
-              </div>
-              <div className="flex flex-wrap !gap-1.5" role="group" aria-labelledby="filters-title">
-                {filterChips.map((c) => (
-                  <Chip key={c.key} compact active={c.on} onClick={c.toggle} label={`${c.name}: ${c.on ? "ligado, " : "desligado, "}${c.range}`}>
-                    <span aria-hidden>{c.on ? "✓" : "+"}</span> {c.name} <span className="font-normal opacity-80">{c.range}</span>
-                  </Chip>
-                ))}
-              </div>
-              {showFilters && (
-                <div id="filters-panel" className="mt-1 grid grid-cols-1 !gap-x-4 !gap-y-0 rounded-lg border border-neutral-surface-variant px-3 py-1 sm:grid-cols-2">
-                  {def.filters.includes("parity") && (
-                    <CountFilter
-                      id="parity"
-                      title="Pares"
-                      filter={config.parity}
-                      bounds={pairBounds}
-                      hint={`comum ${p.pairs.min}–${p.pairs.max}`}
-                      onChange={(parity) => update({ parity })}
-                    />
-                  )}
-                  {def.filters.includes("primes") && (
-                    <CountFilter
-                      id="primes"
-                      title="Primos"
-                      filter={config.primes}
-                      bounds={[0, Math.min(def.gameSize, stats.primes.length)]}
-                      hint={`comum ${p.primes.min}–${p.primes.max}`}
-                      onChange={(primes) => update({ primes })}
-                    />
-                  )}
-                  {def.filters.includes("fibonacci") && (
-                    <CountFilter
-                      id="fib"
-                      title="Fibonacci"
-                      filter={config.fibonacci}
-                      bounds={[0, Math.min(def.gameSize, stats.fibonacci.length)]}
-                      hint={`comum ${p.fibonacci.min}–${p.fibonacci.max}`}
-                      onChange={(fibonacci) => update({ fibonacci })}
-                    />
-                  )}
-                  {def.filters.includes("rows") && (
-                    <div className="flex min-h-[44px] flex-wrap items-center gap-x-2 gap-y-1">
-                      <Checkbox
-                        checked={config.rows.enabled}
-                        onChange={(e) => update({ rows: { ...config.rows, enabled: e.target.checked } })}
-                        label="Por linha até"
-                        labelClassName="font-medium"
-                      />
-                      {config.rows.enabled && (
-                        <RangeSelect
-                          id="rows-max"
-                          label="Máximo de dezenas na mesma linha do volante"
-                          value={config.rows.max}
-                          min={1}
-                          max={Math.min(def.columns, def.gameSize)}
-                          onChange={(max) => update({ rows: { ...config.rows, max } })}
-                        />
-                      )}
-                      <span className="text-xs text-text-secondary">comum até {p.rows.limit}</span>
-                    </div>
-                  )}
-                  <div className="flex min-h-[44px] flex-wrap items-center gap-x-2 gap-y-1">
-                    <Checkbox
-                      checked={config.consecutive.enabled}
-                      onChange={(e) => update({ consecutive: { ...config.consecutive, enabled: e.target.checked } })}
-                      label="Seguidos até"
-                      labelClassName="font-medium"
-                    />
-                    {config.consecutive.enabled && (
-                      <RangeSelect
-                        id="consecutive-max"
-                        label="Sequência máxima de números seguidos"
-                        value={config.consecutive.max}
-                        min={def.gameSize >= 10 ? 2 : 1}
-                        max={def.gameSize}
-                        onChange={(max) => update({ consecutive: { ...config.consecutive, max } })}
+                {showMix && (
+                  <div className="mt-2 grid grid-cols-1 gap-2 rounded-lg border border-neutral-surface-variant p-3 sm:grid-cols-2">
+                    {(Object.keys(mixLabels) as MixKey[])
+                      .filter((k) => k !== "overdue" || stats.overdue.length > 0)
+                      .map((k) => (
+                        <div key={k} className="block text-sm">
+                          <span className="flex justify-between">
+                            <span id={`mix-${k}-label`}>{mixLabels[k]}</span>
+                            <strong>{mix[k]}%</strong>
+                          </span>
+                          <input
+                            type="range"
+                            aria-labelledby={`mix-${k}-label`}
+                            aria-valuetext={`${mix[k]}%`}
+                            min={0}
+                            max={100}
+                            step={5}
+                            value={config.weights[k]}
+                            onChange={(e) =>
+                              update({
+                                weights: { ...config.weights, [k]: parseInt(e.target.value, 10) },
+                              })
+                            }
+                            className="mt-1 w-full accent-lot-500"
+                          />
+                        </div>
+                      ))}
+                    <p className="text-xs text-text-secondary sm:col-span-2">
+                      Pesos proporcionais: a porcentagem é a parte de cada origem no sorteio das
+                      dezenas.
+                    </p>
+                  </div>
+                )}
+              </section>
+
+              {/* 2. Faixa de soma (exclusiva) */}
+              <section aria-labelledby="sum-title">
+                <h3 id="sum-title" className="mb-1.5 text-sm font-semibold">
+                  2. Soma das {def.gameSize} dezenas{" "}
+                  <span className="font-normal text-text-secondary">
+                    (média {p.sum.mean.toLocaleString("pt-BR")})
+                  </span>
+                </h3>
+                <div
+                  role="radiogroup"
+                  aria-labelledby="sum-title"
+                  className="grid grid-cols-4 !gap-1.5"
+                >
+                  {sumModes.map(({ mode, label }) => {
+                    const range = sumRangeFor(mode, stats);
+                    const active = config.sumMode === mode;
+                    return (
+                      <button
+                        key={mode}
+                        type="button"
+                        role="radio"
+                        aria-checked={active}
+                        onClick={() => update({ sumMode: mode })}
+                        className={`min-h-[44px] rounded-lg border px-1 py-1 text-sm leading-tight transition-colors ${
+                          active
+                            ? "border-lot-400 bg-lot-500/20 text-lot-100 ring-1 ring-lot-400/60"
+                            : "bg-background-primary border-neutral-surface-variant text-text-primary hover:border-lot-400"
+                        }`}
+                      >
+                        <span className="block font-semibold">{label}</span>
+                        <span className="block text-[11px] opacity-80">
+                          {range ? `${range[0]}–${range[1]}` : "qualquer"}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* 3. Filtros combináveis */}
+              <section aria-labelledby="filters-title">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 id="filters-title" className="text-sm font-semibold">
+                    3. Filtros
+                  </h3>
+                  <div className="flex gap-0.5 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setShowFilters((v) => !v)}
+                      aria-expanded={showFilters}
+                      aria-controls="filters-panel"
+                      className="min-h-[44px] px-2 text-primary-blue hover:underline"
+                    >
+                      ⚙ Faixas {showFilters ? "▴" : "▾"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update({ ...defaultConfig(stats), fixed: config.fixed })}
+                      className="min-h-[44px] px-2 text-primary-blue hover:underline"
+                    >
+                      ↺ Padrão
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => update(pureRandomConfig(stats, config.fixed))}
+                      className="min-h-[44px] px-2 text-primary-blue hover:underline"
+                    >
+                      Sem filtros
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="flex flex-wrap !gap-1.5"
+                  role="group"
+                  aria-labelledby="filters-title"
+                >
+                  {filterChips.map((c) => (
+                    <Chip
+                      key={c.key}
+                      compact
+                      active={c.on}
+                      onClick={c.toggle}
+                      label={`${c.name}: ${c.on ? "ligado, " : "desligado, "}${c.range}`}
+                    >
+                      <span aria-hidden>{c.on ? "✓" : "+"}</span> {c.name}{" "}
+                      <span className="font-normal opacity-80">{c.range}</span>
+                    </Chip>
+                  ))}
+                </div>
+                {showFilters && (
+                  <div
+                    id="filters-panel"
+                    className="mt-1 grid grid-cols-1 !gap-x-4 !gap-y-0 rounded-lg border border-neutral-surface-variant px-3 py-1 sm:grid-cols-2"
+                  >
+                    {def.filters.includes("parity") && (
+                      <CountFilter
+                        id="parity"
+                        title="Pares"
+                        filter={config.parity}
+                        bounds={pairBounds}
+                        hint={`comum ${p.pairs.min}–${p.pairs.max}`}
+                        onChange={(parity) => update({ parity })}
                       />
                     )}
-                    <span className="text-xs text-text-secondary">comum até {p.maxConsecutive.limit}</span>
+                    {def.filters.includes("primes") && (
+                      <CountFilter
+                        id="primes"
+                        title="Primos"
+                        filter={config.primes}
+                        bounds={[0, Math.min(def.gameSize, stats.primes.length)]}
+                        hint={`comum ${p.primes.min}–${p.primes.max}`}
+                        onChange={(primes) => update({ primes })}
+                      />
+                    )}
+                    {def.filters.includes("fibonacci") && (
+                      <CountFilter
+                        id="fib"
+                        title="Fibonacci"
+                        filter={config.fibonacci}
+                        bounds={[0, Math.min(def.gameSize, stats.fibonacci.length)]}
+                        hint={`comum ${p.fibonacci.min}–${p.fibonacci.max}`}
+                        onChange={(fibonacci) => update({ fibonacci })}
+                      />
+                    )}
+                    {def.filters.includes("rows") && (
+                      <div className="flex min-h-[44px] flex-wrap items-center gap-x-2 gap-y-1">
+                        <Checkbox
+                          checked={config.rows.enabled}
+                          onChange={(e) =>
+                            update({ rows: { ...config.rows, enabled: e.target.checked } })
+                          }
+                          label="Por linha até"
+                          labelClassName="font-medium"
+                        />
+                        {config.rows.enabled && (
+                          <RangeSelect
+                            id="rows-max"
+                            label="Máximo de dezenas na mesma linha do volante"
+                            value={config.rows.max}
+                            min={1}
+                            max={Math.min(def.columns, def.gameSize)}
+                            onChange={(max) => update({ rows: { ...config.rows, max } })}
+                          />
+                        )}
+                        <span className="text-xs text-text-secondary">
+                          comum até {p.rows.limit}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex min-h-[44px] flex-wrap items-center gap-x-2 gap-y-1">
+                      <Checkbox
+                        checked={config.consecutive.enabled}
+                        onChange={(e) =>
+                          update({
+                            consecutive: { ...config.consecutive, enabled: e.target.checked },
+                          })
+                        }
+                        label="Seguidos até"
+                        labelClassName="font-medium"
+                      />
+                      {config.consecutive.enabled && (
+                        <RangeSelect
+                          id="consecutive-max"
+                          label="Sequência máxima de números seguidos"
+                          value={config.consecutive.max}
+                          min={def.gameSize >= 10 ? 2 : 1}
+                          max={def.gameSize}
+                          onChange={(max) =>
+                            update({ consecutive: { ...config.consecutive, max } })
+                          }
+                        />
+                      )}
+                      <span className="text-xs text-text-secondary">
+                        comum até {p.maxConsecutive.limit}
+                      </span>
+                    </div>
+                    <p className="!mb-0 pb-2 text-xs text-text-secondary sm:col-span-2">
+                      {def.filters.includes("fibonacci") && (
+                        <>Fibonacci: {stats.fibonacci.map(pad).join(", ")} · </>
+                      )}
+                      {def.filters.includes("rows") && (
+                        <>
+                          Linhas do volante: 01–{pad(def.columns)}, {def.columns + 1}–
+                          {def.columns * 2}… ·{" "}
+                        </>
+                      )}
+                      Seguidos: 07-08-09 = 3. &quot;Comum&quot; = faixa de pelo menos 75% dos
+                      concursos.
+                    </p>
                   </div>
-                  <p className="!mb-0 pb-2 text-xs text-text-secondary sm:col-span-2">
-                    {def.filters.includes("fibonacci") && <>Fibonacci: {stats.fibonacci.map(pad).join(", ")} · </>}
-                    {def.filters.includes("rows") && <>Linhas do volante: 01–{pad(def.columns)}, {def.columns + 1}–{def.columns * 2}… · </>}
-                    Seguidos: 07-08-09 = 3. &quot;Comum&quot; = faixa de pelo menos 75% dos concursos.
-                  </p>
-                </div>
-              )}
-            </section>
+                )}
+              </section>
 
-            {/* Resumo + viabilidade */}
-            <div
-              className={`rounded-lg border px-3 py-2 text-xs ${
-                blocked ? "border-system-error bg-system-error/10" : "border-neutral-surface-variant bg-background-secondary"
-              }`}
-              aria-live="polite"
-            >
-              <p className="!mb-0 text-text-primary">
-                <strong>Regras:</strong> {describeConfig(config, stats)}
-              </p>
-              {blocked ? (
-                <ul className="mt-1 list-disc space-y-0.5 pl-5 text-system-error-dark">
-                  {conflicts.map((c) => (
-                    <li key={c.message}>{c.message}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className={`!mb-0 mt-1 text-xs ${acceptance < 1 ? "text-system-warning-dark" : "text-text-secondary"}`}>
-                  {acceptance < 1
-                    ? "⚠️ Filtros muito restritos: poucas combinações atendem a todos. Se o Gerar jogo não encontrar um jogo, afrouxe algum filtro."
-                    : `≈ ${acceptance.toLocaleString("pt-BR", { maximumFractionDigits: acceptance < 10 ? 1 : 0 })}% das combinações sorteadas atendem a todas as regras.`}
+              {/* Resumo + viabilidade */}
+              <div
+                className={`rounded-lg border px-3 py-2 text-xs ${
+                  blocked
+                    ? "border-system-error bg-system-error/10"
+                    : "bg-background-secondary border-neutral-surface-variant"
+                }`}
+                aria-live="polite"
+              >
+                <p className="!mb-0 text-text-primary">
+                  <strong>Regras:</strong> {describeConfig(config, stats)}
+                </p>
+                {blocked ? (
+                  <ul className="mt-1 list-disc space-y-0.5 pl-5 text-system-error-dark">
+                    {conflicts.map((c) => (
+                      <li key={c.message}>{c.message}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p
+                    className={`!mb-0 mt-1 text-xs ${acceptance < 1 ? "text-system-warning-dark" : "text-text-secondary"}`}
+                  >
+                    {acceptance < 1
+                      ? "⚠️ Filtros muito restritos: poucas combinações atendem a todos. Se o Gerar jogo não encontrar um jogo, afrouxe algum filtro."
+                      : `≈ ${acceptance.toLocaleString("pt-BR", { maximumFractionDigits: acceptance < 10 ? 1 : 0 })}% das combinações sorteadas atendem a todas as regras.`}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* ===== Cartela ===== */}
+            <div>
+              <h3 className="mb-1.5 text-center text-base font-semibold">
+                {def.emoji} Cartela da {def.name}{" "}
+                <span className="text-xs font-normal text-text-secondary">
+                  · toque para <strong>fixar</strong> (opcional, até {def.maxFixed})
+                </span>
+              </h3>
+              <div className="mx-auto max-w-lg rounded-xl border-4 border-lot-600 bg-gradient-to-b from-white to-lot-50 p-2 shadow-2xl sm:p-4">
+                <div
+                  className={`mb-1.5 grid place-items-center rounded-lg bg-white shadow-inner ${dense ? "grid-cols-10 !gap-1 p-1.5 sm:p-2" : "grid-cols-5 !gap-1.5 p-2 sm:p-3"}`}
+                >
+                  {NUMBERS.map((n) => {
+                    const isFixed = config.fixed.includes(n);
+                    const inGame = resultNumbers.includes(n);
+                    return (
+                      <button
+                        key={n}
+                        type="button"
+                        onClick={() => toggleFixed(n)}
+                        aria-pressed={isFixed}
+                        aria-label={`Número ${pad(n)}${isFixed ? ", fixo" : ""}${inGame ? ", no jogo gerado" : ""}`}
+                        className={`relative h-11 min-h-0 w-full min-w-0 rounded-md border p-0 font-bold transition-colors ${dense ? "text-xs sm:text-sm" : "text-sm sm:h-12 sm:w-12 sm:border-2"} ${
+                          isFixed
+                            ? "border-lot-700 bg-lot-600 text-white shadow-md"
+                            : inGame
+                              ? "border-lot-500 bg-lot-100 text-lot-900"
+                              : "border-gray-300 bg-white text-gray-800 hover:border-lot-400 hover:bg-lot-50"
+                        }`}
+                      >
+                        {pad(n)}
+                        {isFixed && (
+                          <span
+                            className={`absolute right-0.5 top-0 ${dense ? "text-[8px]" : "text-[10px]"}`}
+                            aria-hidden
+                          >
+                            📌
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="flex items-center justify-between text-xs text-lot-800">
+                  <span>
+                    Fixos: <strong>{config.fixed.length}</strong>/{def.maxFixed}
+                  </span>
+                  {resultNumbers.length > 0 && <span>{def.lightColorLabel} = jogo gerado</span>}
+                </div>
+              </div>
+
+              <div ref={ctaRef} className="mt-2 flex items-stretch gap-2">
+                <button
+                  type="button"
+                  onClick={gerar}
+                  disabled={blocked}
+                  className="min-h-[52px] flex-[2] rounded-lg bg-lot-600 px-3 text-base font-bold text-white shadow-lg ring-2 ring-lot-300/40 transition-colors hover:bg-lot-700 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  ✨ Gerar jogo
+                </button>
+                <button
+                  type="button"
+                  onClick={surpresinha}
+                  className="min-h-[52px] flex-1 rounded-lg border border-lot-500 px-2 text-sm font-semibold text-lot-300 transition-colors hover:bg-lot-600/20"
+                >
+                  🎲 Surpresinha
+                </button>
+                <button
+                  type="button"
+                  onClick={limpar}
+                  className="hover:bg-background-secondary min-h-[52px] rounded-lg border border-neutral-surface-variant px-3 text-sm font-semibold text-text-primary"
+                >
+                  Limpar
+                </button>
+              </div>
+              {blocked && (
+                <p className="mt-2 text-center text-xs text-system-error-dark">
+                  Corrija as regras da estratégia para usar &quot;Gerar jogo&quot;. A Surpresinha
+                  continua disponível.
                 </p>
               )}
             </div>
-          </div>
-
-          {/* ===== Cartela ===== */}
-          <div>
-            <h3 className="mb-1.5 text-center text-base font-semibold">
-              {def.emoji} Cartela da {def.name}{" "}
-              <span className="text-xs font-normal text-text-secondary">
-                · toque para <strong>fixar</strong> (opcional, até {def.maxFixed})
-              </span>
-            </h3>
-            <div className="mx-auto max-w-lg rounded-xl border-4 border-lot-600 bg-gradient-to-b from-white to-lot-50 p-2 shadow-2xl sm:p-4">
-              <div className={`mb-1.5 grid place-items-center rounded-lg bg-white shadow-inner ${dense ? "grid-cols-10 !gap-1 p-1.5 sm:p-2" : "grid-cols-5 !gap-1.5 p-2 sm:p-3"}`}>
-                {NUMBERS.map((n) => {
-                  const isFixed = config.fixed.includes(n);
-                  const inGame = resultNumbers.includes(n);
-                  return (
-                    <button
-                      key={n}
-                      type="button"
-                      onClick={() => toggleFixed(n)}
-                      aria-pressed={isFixed}
-                      aria-label={`Número ${pad(n)}${isFixed ? ", fixo" : ""}${inGame ? ", no jogo gerado" : ""}`}
-                      className={`relative h-11 min-h-0 w-full min-w-0 rounded-md border p-0 font-bold transition-colors ${dense ? "text-xs sm:text-sm" : "text-sm sm:h-12 sm:w-12 sm:border-2"} ${
-                        isFixed
-                          ? "border-lot-700 bg-lot-600 text-white shadow-md"
-                          : inGame
-                            ? "border-lot-500 bg-lot-100 text-lot-900"
-                            : "border-gray-300 bg-white text-gray-800 hover:border-lot-400 hover:bg-lot-50"
-                      }`}
-                    >
-                      {pad(n)}
-                      {isFixed && <span className={`absolute right-0.5 top-0 ${dense ? "text-[8px]" : "text-[10px]"}`} aria-hidden>📌</span>}
-                    </button>
-                  );
-                })}
-              </div>
-              <div className="flex items-center justify-between text-xs text-lot-800">
-                <span>
-                  Fixos: <strong>{config.fixed.length}</strong>/{def.maxFixed}
-                </span>
-                {resultNumbers.length > 0 && <span>{def.lightColorLabel} = jogo gerado</span>}
-              </div>
-            </div>
-
-            <div className="mt-2 flex items-stretch gap-2">
-              <button
-                type="button"
-                onClick={gerar}
-                disabled={blocked}
-                className="min-h-[52px] flex-[2] rounded-lg bg-lot-600 px-3 text-base font-bold text-white shadow-lg ring-2 ring-lot-300/40 transition-colors hover:bg-lot-700 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                ✨ Gerar jogo
-              </button>
-              <button
-                type="button"
-                onClick={surpresinha}
-                className="min-h-[52px] flex-1 rounded-lg border border-lot-500 px-2 text-sm font-semibold text-lot-300 transition-colors hover:bg-lot-600/20"
-              >
-                🎲 Surpresinha
-              </button>
-              <button
-                type="button"
-                onClick={limpar}
-                className="min-h-[52px] rounded-lg border border-neutral-surface-variant px-3 text-sm font-semibold text-text-primary hover:bg-background-secondary"
-              >
-                Limpar
-              </button>
-            </div>
-            {blocked && <p className="mt-2 text-center text-xs text-system-error-dark">Corrija as regras da estratégia para usar &quot;Gerar jogo&quot;. A Surpresinha continua disponível.</p>}
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* ===== Resultado ===== */}
       <div ref={resultRef} className="mx-auto max-w-lg scroll-mt-4">
         {result?.kind === "error" && (
-          <div role="alert" className="rounded-xl border border-system-error bg-system-error/10 p-4 text-sm text-text-primary">
+          <div
+            role="alert"
+            className="rounded-xl border border-system-error bg-system-error/10 p-4 text-sm text-text-primary"
+          >
             <p className="font-semibold text-system-error-dark">Não foi possível gerar o jogo</p>
             <p className="mt-1">{result.message}</p>
           </div>
         )}
-        {result?.kind === "game" && <GameReceipt game={result.game} onCopy={copy} onPrint={printGame} onAgain={gerar} onSurprise={surpresinha} def={def} />}
+        {result?.kind === "game" && (
+          <GameReceipt
+            game={result.game}
+            onCopy={copy}
+            onPrint={printGame}
+            onAgain={gerar}
+            onSurprise={surpresinha}
+            def={def}
+          />
+        )}
       </div>
 
       {/* ===== Histórico ===== */}
@@ -626,25 +795,41 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
           <CardHeader>
             <div className="flex items-center justify-between gap-2">
               <CardTitle>💾 Histórico ({history.length})</CardTitle>
-              <button type="button" onClick={clearHistory} className="min-h-[44px] rounded-md px-3 text-sm text-system-error-dark hover:underline">
+              <button
+                type="button"
+                onClick={clearHistory}
+                className="min-h-[44px] rounded-md px-3 text-sm text-system-error-dark hover:underline"
+              >
                 Apagar tudo
               </button>
             </div>
           </CardHeader>
           <CardContent>
             <p className="mb-3 text-xs text-text-secondary">
-              Salvo só neste navegador (até {HISTORY_LIMIT} jogos). Cada novo jogo é escolhido para repetir o mínimo possível de dezenas dos jogos daqui. Passe o mouse (ou toque) nos badges para ver a estratégia.
+              Salvo só neste navegador (até {HISTORY_LIMIT} jogos). Cada novo jogo é escolhido para
+              repetir o mínimo possível de dezenas dos jogos daqui. Passe o mouse (ou toque) nos
+              badges para ver a estratégia.
             </p>
             <ul className="space-y-3">
               {history.slice(0, 10).map((g) => (
-                <li key={g.id} className="rounded-lg border border-neutral-surface-variant bg-background-primary p-3">
+                <li
+                  key={g.id}
+                  className="bg-background-primary rounded-lg border border-neutral-surface-variant p-3"
+                >
                   <div className="mb-2 flex flex-wrap items-start justify-between gap-2 text-xs text-text-secondary">
-                    {g.badges?.length ? <BadgeList badges={g.badges} /> : <span className="font-medium text-text-primary">{g.strategy}</span>}
+                    {g.badges?.length ? (
+                      <BadgeList badges={g.badges} />
+                    ) : (
+                      <span className="font-medium text-text-primary">{g.strategy}</span>
+                    )}
                     <span>{g.date}</span>
                   </div>
                   <div className="mb-2 flex flex-wrap gap-1">
                     {g.numbers.map((n) => (
-                      <span key={n} className="flex h-7 w-7 items-center justify-center rounded-full bg-lot-100 text-xs font-bold text-lot-900">
+                      <span
+                        key={n}
+                        className="flex h-7 w-7 items-center justify-center rounded-full bg-lot-100 text-xs font-bold text-lot-900"
+                      >
                         {pad(n)}
                       </span>
                     ))}
@@ -662,7 +847,11 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
                     </button>
                     <button
                       type="button"
-                      onClick={() => copy(`${def.name}: ${g.numbers.map(pad).join(", ")} — ${g.strategy} — ${g.date}`)}
+                      onClick={() =>
+                        copy(
+                          `${def.name}: ${g.numbers.map(pad).join(", ")} — ${g.strategy} — ${g.date}`
+                        )
+                      }
                       className="min-h-[44px] rounded border border-neutral-surface-variant px-2 text-text-primary hover:border-lot-400"
                     >
                       📋 Copiar
@@ -681,7 +870,16 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
             {history.length > 10 && (
               <button
                 type="button"
-                onClick={() => copy(history.map((g, i) => `${i + 1}. ${g.numbers.map(pad).join(", ")} — ${g.strategy} — ${g.date}`).join("\n"))}
+                onClick={() =>
+                  copy(
+                    history
+                      .map(
+                        (g, i) =>
+                          `${i + 1}. ${g.numbers.map(pad).join(", ")} — ${g.strategy} — ${g.date}`
+                      )
+                      .join("\n")
+                  )
+                }
                 className="mt-3 text-sm text-primary-blue hover:underline"
               >
                 📋 Copiar todos os {history.length} jogos
@@ -691,8 +889,36 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
         </Card>
       )}
 
+      {showStickyCta && (
+        <div
+          role="region"
+          aria-label="Ações do gerador"
+          className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-lot-500/30 bg-background-dark px-3 pt-2 shadow-2xl lg:hidden"
+          style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+        >
+          <button
+            type="button"
+            onClick={gerar}
+            disabled={blocked}
+            className="min-h-[48px] flex-[2] rounded-lg bg-lot-600 px-3 text-base font-bold text-white shadow-lg transition-colors hover:bg-lot-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            ✨ Gerar jogo
+          </button>
+          <button
+            type="button"
+            onClick={surpresinha}
+            className="min-h-[48px] flex-1 rounded-lg border border-lot-500 bg-neutral-surface px-2 text-sm font-semibold text-lot-200 transition-colors hover:bg-lot-600/20"
+          >
+            🎲 Surpresinha
+          </button>
+        </div>
+      )}
+
       {toast && (
-        <div role="status" className="fixed bottom-6 right-6 z-50 rounded-xl bg-lot-600 px-5 py-3 text-sm font-semibold text-white shadow-2xl">
+        <div
+          role="status"
+          className="fixed bottom-6 right-6 z-50 rounded-xl bg-lot-600 px-5 py-3 text-sm font-semibold text-white shadow-2xl"
+        >
           {toast}
         </div>
       )}
@@ -758,9 +984,11 @@ function GameReceipt({
     ["⏳ Atrasados", s.overdueNumbers],
   ];
   return (
-    <div className="overflow-hidden rounded-2xl border border-lot-500/30 bg-background-secondary shadow-xl">
+    <div className="bg-background-secondary overflow-hidden rounded-2xl border border-lot-500/30 shadow-xl">
       <div className="border-b border-lot-500/20 bg-lot-600/10 px-6 py-4 text-center">
-        <div className="text-xs font-bold uppercase tracking-widest text-lot-300">{def.emoji} {def.name} — Seu jogo</div>
+        <div className="text-xs font-bold uppercase tracking-widest text-lot-300">
+          {def.emoji} {def.name} — Seu jogo
+        </div>
         <div className="mt-1 text-xs text-text-secondary">{game.date}</div>
       </div>
 
@@ -777,13 +1005,20 @@ function GameReceipt({
           </div>
         ))}
       </div>
-      {!!game.fixed?.length && <p className="-mt-2 pb-3 text-center text-xs text-text-secondary">Contorno claro = número fixado por você</p>}
+      {!!game.fixed?.length && (
+        <p className="-mt-2 pb-3 text-center text-xs text-text-secondary">
+          Contorno claro = número fixado por você
+        </p>
+      )}
 
       <div className="grid grid-cols-3 gap-px border-t border-lot-500/20 bg-lot-500/10">
         {items
           .filter(([, v]) => v !== undefined)
           .map(([label, v]) => (
-            <div key={label} className="flex flex-col items-center bg-background-secondary px-2 py-3">
+            <div
+              key={label}
+              className="bg-background-secondary flex flex-col items-center px-2 py-3"
+            >
               <span className="text-base font-bold text-text-primary sm:text-lg">{v}</span>
               <span className="text-[11px] text-text-secondary sm:text-xs">{label}</span>
             </div>
@@ -791,7 +1026,10 @@ function GameReceipt({
       </div>
 
       {!!game.checks?.length && (
-        <ul className="flex flex-wrap justify-center gap-2 border-t border-lot-500/20 px-4 py-3 text-xs" aria-label="Regras aplicadas">
+        <ul
+          className="flex flex-wrap justify-center gap-2 border-t border-lot-500/20 px-4 py-3 text-xs"
+          aria-label="Regras aplicadas"
+        >
           {game.checks.map((c) => (
             <li
               key={c.key}
@@ -805,15 +1043,24 @@ function GameReceipt({
 
       <div className="border-t border-lot-500/20 px-6 py-3 text-center text-xs text-text-secondary">
         {game.overlap !== undefined && (
-          <p className="!mb-2">Máximo de <strong className="text-lot-300">{game.overlap}</strong> dezenas em comum com seus jogos anteriores.</p>
+          <p className="!mb-2">
+            Máximo de <strong className="text-lot-300">{game.overlap}</strong> dezenas em comum com
+            seus jogos anteriores.
+          </p>
         )}
         <span>Estratégia: </span>
         {game.badges?.length ? (
-          <div className="mt-1 flex justify-center"><BadgeList badges={game.badges} /></div>
+          <div className="mt-1 flex justify-center">
+            <BadgeList badges={game.badges} />
+          </div>
         ) : (
           <span className="font-semibold text-lot-300">{game.strategy}</span>
         )}
-        <div className="mt-1">Prêmios: {def.prizeTiers.slice(0, -1).join(", ")} e {def.prizeTiers[def.prizeTiers.length - 1]} acertos · <strong className="text-lot-300">Boa sorte! 🍀</strong></div>
+        <div className="mt-1">
+          Prêmios: {def.prizeTiers.slice(0, -1).join(", ")} e{" "}
+          {def.prizeTiers[def.prizeTiers.length - 1]} acertos ·{" "}
+          <strong className="text-lot-300">Boa sorte! 🍀</strong>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-2 border-t border-lot-500/20 p-4">
@@ -833,15 +1080,17 @@ function GameReceipt({
         </button>
         <button
           type="button"
-          onClick={() => onCopy(`${def.name}: ${game.numbers.map(pad).join(", ")} — ${game.strategy}`)}
-          className="min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary hover:bg-background-primary"
+          onClick={() =>
+            onCopy(`${def.name}: ${game.numbers.map(pad).join(", ")} — ${game.strategy}`)
+          }
+          className="hover:bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary"
         >
           📋 Copiar
         </button>
         <button
           type="button"
           onClick={() => onPrint(game)}
-          className="min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary hover:bg-background-primary"
+          className="hover:bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary"
         >
           🖨️ Imprimir
         </button>

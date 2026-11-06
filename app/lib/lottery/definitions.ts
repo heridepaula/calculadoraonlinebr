@@ -1,14 +1,14 @@
 /**
  * Definição de cada loteria suportada (seguro para o cliente: sem env nem I/O).
- * Tudo o que difere entre Lotofácil e Mega-Sena fica aqui; estatísticas, motor do gerador,
+ * Tudo o que difere entre Lotofácil, Mega-Sena e Quina fica aqui; estatísticas, motor do gerador,
  * coleta, cron e componente são genéricos e recebem esta definição.
  */
-export type LotteryId = "lotofacil" | "megasena";
+export type LotteryId = "lotofacil" | "megasena" | "quina";
 export type FilterKey = "parity" | "primes" | "fibonacci" | "consecutive" | "rows";
 
 export interface LotteryDef {
   id: LotteryId;
-  /** Nome de exibição ("Lotofácil", "Mega-Sena"). */
+  /** Nome de exibição ("Lotofácil", "Mega-Sena", "Quina"). */
   name: string;
   /** Dezenas de 1 a `universe`. */
   universe: number;
@@ -18,6 +18,13 @@ export interface LotteryDef {
   maxFixed: number;
   /** Faixas de prêmio por acertos, da maior para a menor (faixa 1 da Caixa = primeira). */
   prizeTiers: number[];
+  /**
+   * Quantas faixas (do topo) precisam vir na fonte para gravar a premiação. As demais são opcionais:
+   * na Quina o duque (2 acertos) só existe a partir do concurso 3677.
+   */
+  requiredTiers: number;
+  /** Nome tradicional de cada faixa, quando houver (ex.: 6 → "Sena"). */
+  tierNames?: Record<number, string>;
   /** Colunas do volante (linhas = universe / columns). */
   columns: number;
   /** Coleção no MongoDB. */
@@ -50,6 +57,7 @@ export const LOTOFACIL: LotteryDef = {
   gameSize: 15,
   maxFixed: 15,
   prizeTiers: [15, 14, 13, 12, 11],
+  requiredTiers: 5,
   columns: 5,
   collection: "lotofacil_resultados",
   historyKey: "lotofacil-history",
@@ -73,6 +81,8 @@ export const MEGASENA: LotteryDef = {
   gameSize: 6,
   maxFixed: 5,
   prizeTiers: [6, 5, 4],
+  requiredTiers: 3,
+  tierNames: { 6: "Sena", 5: "Quina", 4: "Quadra" },
   columns: 10,
   collection: "megasena_resultados",
   // mesma chave da página antiga: o histórico salvo pelos usuários continua aparecendo
@@ -91,10 +101,38 @@ export const MEGASENA: LotteryDef = {
   emoji: "💰",
 };
 
-export const LOTTERIES: Record<LotteryId, LotteryDef> = { lotofacil: LOTOFACIL, megasena: MEGASENA };
+export const QUINA: LotteryDef = {
+  id: "quina",
+  name: "Quina",
+  universe: 80,
+  gameSize: 5,
+  maxFixed: 4,
+  prizeTiers: [5, 4, 3, 2],
+  // concursos 1–3676 não tinham o duque (2 acertos)
+  requiredTiers: 3,
+  tierNames: { 5: "Quina", 4: "Quadra", 3: "Terno", 2: "Duque" },
+  columns: 10,
+  collection: "quina_resultados",
+  // mesma chave da página antiga: o histórico salvo pelos usuários continua aparecendo
+  historyKey: "quina-history",
+  sources: { gigaSena: "quina", caixa: "quina", loteriasApi: "quina" },
+  hotSize: 20,
+  coldSize: 12,
+  // cada dezena sai em média a cada 16 concursos: atrasada = 2x isso
+  overdueMinDelay: 32,
+  overdueMinCount: 5,
+  overdueMax: 10,
+  filters: ["parity", "primes", "consecutive", "rows"],
+  defaultFilters: ["parity", "consecutive", "rows"],
+  themeClass: "theme-quina",
+  lightColorLabel: "Lilás",
+  emoji: "🎲",
+};
+
+export const LOTTERIES: Record<LotteryId, LotteryDef> = { lotofacil: LOTOFACIL, megasena: MEGASENA, quina: QUINA };
 
 export function isLotteryId(v: string | undefined): v is LotteryId {
-  return v === "lotofacil" || v === "megasena";
+  return v !== undefined && Object.prototype.hasOwnProperty.call(LOTTERIES, v);
 }
 
 const isPrime = (n: number) => {

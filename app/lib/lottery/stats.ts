@@ -283,6 +283,33 @@ export const FALLBACK_STATS: Record<LotteryId, LotteryStats> = {
       repeatedFromPrevious: 0.6,
     },
   },
+  // concursos 1–7160
+  quina: {
+    lottery: "quina",
+    source: "fallback",
+    totalConcursos: 7160,
+    ultimoConcurso: 7160,
+    ultimaData: "2026-11-05",
+    frequency: [],
+    hot: [4, 5, 9, 14, 15, 16, 18, 26, 29, 31, 33, 39, 42, 44, 49, 52, 53, 56, 61, 66],
+    warm: [2, 6, 7, 8, 10, 11, 12, 13, 17, 19, 21, 22, 23, 24, 27, 28, 32, 34, 36, 37, 38, 40, 41, 43, 45, 46, 50, 51, 54, 55, 57, 59, 60, 62, 63, 64, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80],
+    cold: [1, 3, 20, 25, 30, 35, 47, 48, 58, 65, 67, 68],
+    overdue: [],
+    delays: [],
+    primes: primesUpTo(80),
+    fibonacci: fibonacciUpTo(80),
+    patterns: {
+      pairs: { min: 2, max: 4, coverage: 79.5 },
+      pairsMode: 3,
+      primes: { min: 0, max: 2, coverage: 87.6 },
+      primesMode: 1,
+      fibonacci: { min: 0, max: 1, coverage: 91.2 },
+      maxConsecutive: { limit: 1, coverage: 76.7 },
+      rows: { limit: 2, coverage: 90 },
+      sum: { mean: 202, ideal: [167, 237], common: [138, 267], wide: [120, 284] },
+      repeatedFromPrevious: 0.3,
+    },
+  },
 };
 
 // --------------------------------------------------------------------------- //
