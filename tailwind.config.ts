@@ -41,6 +41,19 @@ export default {
         inter: ["Manrope", "sans-serif"],
       },
       colors: {
+        // Cor da loteria atual (variáveis em colors.css: .theme-lotofacil, .theme-megasena)
+        lot: {
+          50: "rgb(var(--lot-50) / <alpha-value>)",
+          100: "rgb(var(--lot-100) / <alpha-value>)",
+          200: "rgb(var(--lot-200) / <alpha-value>)",
+          300: "rgb(var(--lot-300) / <alpha-value>)",
+          400: "rgb(var(--lot-400) / <alpha-value>)",
+          500: "rgb(var(--lot-500) / <alpha-value>)",
+          600: "rgb(var(--lot-600) / <alpha-value>)",
+          700: "rgb(var(--lot-700) / <alpha-value>)",
+          800: "rgb(var(--lot-800) / <alpha-value>)",
+          900: "rgb(var(--lot-900) / <alpha-value>)",
+        },
         // Dark Theme Only - Financial & Growth Palette
         "primary-blue": "#64B5F6",
         "primary-blue-light": "#1A2332",

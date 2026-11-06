@@ -12,7 +12,9 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { config } from "dotenv";
 import { MongoClient, type AnyBulkWriteOperation } from "mongodb";
-import type { FaixaAcertos, LotofacilPremiacao, LotofacilResult } from "../app/types/lotofacil";
+import type { LotteryPremiacao as LotofacilPremiacao, LotteryResult as LotofacilResult } from "../app/types/lottery";
+
+type FaixaAcertos = 11 | 12 | 13 | 14 | 15;
 
 config({ path: ".env.local" });
 config(); // .env

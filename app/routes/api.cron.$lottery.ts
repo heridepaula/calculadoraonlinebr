@@ -1,7 +1,8 @@
 import { timingSafeEqual } from "node:crypto";
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { saveLotofacilResult } from "~/repositories/lotofacil.repository.server";
-import { fetchLatestLotofacil } from "~/services/lotofacil/lotofacilService.server";
+import { LOTTERIES, isLotteryId } from "~/lib/lottery/definitions";
+import { saveResult } from "~/repositories/lottery.repository.server";
+import { fetchLatest } from "~/services/lottery/lotteryService.server";
 
 const HEADERS = {
   "Content-Type": "application/json",
@@ -9,8 +10,7 @@ const HEADERS = {
   "X-Robots-Tag": "noindex, nofollow",
 };
 
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: HEADERS });
+const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: HEADERS });
 
 function isAuthorized(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
@@ -20,15 +20,19 @@ function isAuthorized(request: Request): boolean {
   return expected.length === received.length && timingSafeEqual(expected, received);
 }
 
-// Vercel Cron dispara GET em /api/cron/lotofacil com `Authorization: Bearer $CRON_SECRET`.
-export async function loader({ request }: LoaderFunctionArgs) {
+// Vercel Cron dispara GET em /api/cron/<loteria> (lotofacil, megasena) com
+// `Authorization: Bearer $CRON_SECRET`.
+export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!isAuthorized(request)) return json({ success: false, error: "Unauthorized" }, 401);
+  if (!isLotteryId(params.lottery)) return json({ success: false, error: "Loteria desconhecida" }, 404);
+  const def = LOTTERIES[params.lottery];
 
   try {
-    const { result, source, provider, avisos } = await fetchLatestLotofacil();
-    const { created } = await saveLotofacilResult(result);
+    const { result, source, provider, avisos } = await fetchLatest(def);
+    const { created } = await saveResult(def, result);
     return json({
       success: true,
+      lottery: def.id,
       source,
       provider,
       avisos,
@@ -38,9 +42,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
       dezenas: result.dezenas,
       acumulou: result.acumulou ?? null,
       premiacoes: result.premiacoes ?? null,
+      proximo: result.proximo ?? null,
     });
   } catch (err) {
-    console.error("[cron/lotofacil] falha:", err);
+    console.error(`[cron/${def.id}] falha:`, err);
     return json({ success: false, error: "Falha ao obter/salvar resultado" }, 500);
   }
 }

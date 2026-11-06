@@ -10,14 +10,15 @@ import {
   createCalculatorBreadcrumb,
 } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { buildStatsFaq, formatDateBR, type LotofacilStats } from "~/lib/lotofacil-stats";
-import { LotofacilGenerator } from "~/components/calculators/LotofacilGenerator";
-import { getLotofacilStats } from "~/services/lotofacil/statistics.server";
+import { LOTOFACIL } from "~/lib/lottery/definitions";
+import { buildStatsFaq, formatDateBR, type LotteryStats } from "~/lib/lottery/stats";
+import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
+import { getStats } from "~/services/lottery/statistics.server";
 
 // Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
 // e revalida em segundo plano, então um concurso gravado pelo cron aparece em poucos minutos.
 export async function loader() {
-  const stats = await getLotofacilStats();
+  const stats = await getStats(LOTOFACIL);
   return json({ stats });
 }
 
@@ -121,7 +122,7 @@ export const meta: MetaFunction = () => {
 
 export default function GeradorLotofacil() {
   const { stats: loaded } = useLoaderData<typeof loader>();
-  const stats = loaded as LotofacilStats;
+  const stats = loaded as LotteryStats;
   const faqItems = useMemo(() => buildStatsFaq(stats), [stats]);
 
   return (
@@ -214,7 +215,7 @@ export default function GeradorLotofacil() {
           </div>
         </header>
 
-        <LotofacilGenerator stats={stats} />
+        <LotteryGenerator stats={stats} />
 
         {/* Informações Estatísticas (calculadas do banco; atualizam a cada novo sorteio) */}
         <Card className="mx-auto max-w-4xl border-l-4 border-system-info">
