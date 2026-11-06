@@ -179,3 +179,54 @@ export async function scrapeCaixa(concurso?: number): Promise<LotofacilResult> {
     premiacoes: mapPremiacoes(json.listaRateioPremio),
   });
 }
+
+interface LoteriasApiPayload {
+  concurso?: number;
+  data?: string; // dd/MM/yyyy
+  dezenas?: string[];
+  acumulou?: boolean;
+  premiacoes?: Array<{ faixa: number; ganhadores: number; valorPremio: number }>;
+}
+
+const LOTERIAS_API_URL =
+  process.env.LOTERIAS_API_LOTOFACIL_URL ?? "https://loteriascaixa-api.herokuapp.com/api/lotofacil";
+
+/**
+ * Alternativa à Caixa: API da comunidade (github.com/guto-alves/loterias-api), que espelha os
+ * dados oficiais com premiação. Serviço gratuito mantido por terceiros: usar só como contingência.
+ */
+export async function scrapeLoteriasApi(concurso?: number): Promise<LotofacilResult> {
+  const provider = "loterias-api";
+  const res = await fetch(`${LOTERIAS_API_URL}/${concurso ?? "latest"}`, {
+    headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
+    signal: AbortSignal.timeout(CAIXA_TIMEOUT_MS),
+  });
+  if (!res.ok) throw new ScraperHttpError(provider, res.status);
+
+  let json: LoteriasApiPayload;
+  try {
+    json = (await res.json()) as LoteriasApiPayload;
+  } catch {
+    throw new ScraperParseError(provider, "resposta não é JSON válido");
+  }
+
+  const m = json.data?.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (!json.concurso || !m || !Array.isArray(json.dezenas) || json.dezenas.length === 0) {
+    throw new ScraperParseError(provider, "payload sem concurso/data/dezenas");
+  }
+  // Faixa 1 = 15 acertos ... 5 = 11 acertos (mesmo formato da Caixa).
+  const premiacoes = mapPremiacoes(
+    json.premiacoes?.map((p) => ({
+      faixa: p.faixa,
+      numeroDeGanhadores: p.ganhadores,
+      valorPremio: p.valorPremio,
+    }))
+  );
+  return validate(provider, {
+    concurso: Number(json.concurso),
+    data_sorteio: new Date(Date.UTC(Number(m[3]), Number(m[2]) - 1, Number(m[1]))),
+    dezenas: json.dezenas.map(Number),
+    acumulou: typeof json.acumulou === "boolean" ? json.acumulou : undefined,
+    premiacoes,
+  });
+}

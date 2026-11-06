@@ -1,24 +1,37 @@
-import type { LotofacilFetchOutcome } from "~/types/lotofacil";
-import { scrapeCaixa, scrapeGigaSena } from "./scrapers.server";
+import type { LotofacilFetchOutcome, LotofacilResult } from "~/types/lotofacil";
+import { scrapeCaixa, scrapeGigaSena, scrapeLoteriasApi } from "./scrapers.server";
+
+type Provider = LotofacilFetchOutcome["provider"];
+
+/** Fontes com premiação, em ordem de preferência: Caixa (oficial) → API da comunidade. */
+const PRIZE_SOURCES: Array<{ name: Provider; fetch: (c?: number) => Promise<LotofacilResult> }> = [
+  { name: "caixa", fetch: scrapeCaixa },
+  { name: "loterias-api", fetch: scrapeLoteriasApi },
+];
 
 /**
- * Giga Sena (primary, timeout 7s) → API da Caixa (fallback, timeout 8s).
- * A premiação (`acumulou` + `premiacoes`) só vem da Caixa: quando o primary é quem entrega as dezenas,
- * tentamos enriquecer com a Caixa; se ela falhar ou devolver outro concurso, salvamos sem premiação.
+ * Giga Sena (primary, timeout 7s) → Caixa → API da comunidade.
+ * A premiação (`acumulou` + `premiacoes`) não vem do Giga Sena: quando ele entrega as dezenas,
+ * enriquecemos com a primeira fonte com premiação que responder; se todas falharem, salvamos só as dezenas.
  */
 export async function fetchLatestLotofacil(): Promise<LotofacilFetchOutcome> {
   const avisos: string[] = [];
+
   try {
     const result = await scrapeGigaSena();
-    try {
-      const caixa = await scrapeCaixa(result.concurso);
-      if (caixa.concurso === result.concurso && caixa.premiacoes) {
-        result.acumulou = caixa.acumulou;
-        result.premiacoes = caixa.premiacoes;
+    for (const src of PRIZE_SOURCES) {
+      try {
+        const p = await src.fetch(result.concurso);
+        if (p.concurso === result.concurso && p.premiacoes) {
+          result.acumulou = p.acumulou;
+          result.premiacoes = p.premiacoes;
+          break;
+        }
+        avisos.push(`premiacao(${src.name}): sem premiação para o concurso ${result.concurso}`);
+      } catch (err) {
+        console.error(`[lotofacil] premiação via ${src.name} indisponível:`, err);
+        avisos.push(`premiacao(${src.name}): ${describe(err)}`);
       }
-    } catch (err) {
-      console.error("[lotofacil] premiação (Caixa) indisponível, salvando só dezenas:", err);
-      avisos.push(`premiacao: ${describe(err)}`);
     }
     return { result, source: "primary", provider: "giga-sena", avisos };
   } catch (err) {
@@ -26,9 +39,18 @@ export async function fetchLatestLotofacil(): Promise<LotofacilFetchOutcome> {
     avisos.push(`primary: ${describe(err)}`);
   }
 
-  // Se o fallback também falhar, o erro propaga para a rota (500).
-  const result = await scrapeCaixa();
-  return { result, source: "fallback", provider: "caixa", avisos };
+  // Fallback completo (dezenas + premiação). Se todos falharem, o erro propaga para a rota (500).
+  let last: unknown;
+  for (const src of PRIZE_SOURCES) {
+    try {
+      return { result: await src.fetch(), source: "fallback", provider: src.name, avisos };
+    } catch (err) {
+      console.error(`[lotofacil] fallback ${src.name} falhou:`, err);
+      avisos.push(`fallback(${src.name}): ${describe(err)}`);
+      last = err;
+    }
+  }
+  throw last;
 }
 
 function describe(err: unknown): string {
