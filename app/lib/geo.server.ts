@@ -1,3 +1,14 @@
+/**
+ * IP do cliente para limite de uso (só vira hash, nunca é gravado). Na Vercel, `x-real-ip` e o
+ * primeiro item de `x-forwarded-for` são definidos pela própria plataforma.
+ */
+export function clientIp(headers: Headers): string {
+  const real = headers.get("x-real-ip")?.trim();
+  if (real) return real;
+  const fwd = headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return fwd || "unknown";
+}
+
 /** Rótulo usado quando a Vercel não informa a região (localhost, IP não mapeado). */
 export const UNKNOWN_LOCATION = "Brasil";
 

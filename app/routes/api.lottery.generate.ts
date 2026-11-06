@@ -1,10 +1,15 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { locationFromHeaders } from "~/lib/geo.server";
+import { clientIp, locationFromHeaders } from "~/lib/geo.server";
 import { strategyLabel, sanitizeBadgeIds } from "~/lib/lottery/badges";
 import { LOTTERIES, isLotteryId } from "~/lib/lottery/definitions";
 import { NEW_GAME_EVENT, liveGamesChannel } from "~/lib/lottery/live-games";
 import { triggerSafe } from "~/lib/pusher.server";
-import { insertGeneratedGame, toPublicGame } from "~/repositories/generatedGames.repository.server";
+import {
+  countGeneratedGames,
+  insertGeneratedGame,
+  toPublicGame,
+} from "~/repositories/generatedGames.repository.server";
+import { consumeRateLimit, hashIp } from "~/repositories/rateLimit.repository.server";
 import { parseNumbers, resolveConcursoTarget } from "~/services/lottery/generatedGames.server";
 
 const HEADERS = {
@@ -13,6 +18,10 @@ const HEADERS = {
   "X-Robots-Tag": "noindex, nofollow",
 };
 const MAX_BODY_BYTES = 2048;
+const GAMES_PER_IP_LIMIT = 100;
+const GAMES_PER_IP_WINDOW_MS = 30 * 60 * 1000;
+/** ~300 bytes por jogo: 200 mil jogos ≈ 60 MB, folga no plano gratuito (512 MB). */
+const MAX_STORED_GAMES = 200_000;
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: HEADERS });
@@ -67,6 +76,29 @@ export async function action({ request }: ActionFunctionArgs) {
   const badges = sanitizeBadgeIds(def, body.badges);
 
   try {
+    // Trava 1: até 100 jogos por loteria a cada 30 min por IP (o IP só entra como hash).
+    const rl = await consumeRateLimit(
+      `${def.id}:${hashIp(clientIp(request.headers))}`,
+      GAMES_PER_IP_LIMIT,
+      GAMES_PER_IP_WINDOW_MS
+    );
+    if (!rl.allowed) {
+      const retryAfter = Math.max(1, Math.ceil((rl.resetAt.getTime() - Date.now()) / 1000));
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: `Limite de ${rl.limit} jogos de ${def.name} a cada 30 minutos atingido.`,
+          limit: rl.limit,
+          resetAt: rl.resetAt.toISOString(),
+        }),
+        { status: 429, headers: { ...HEADERS, "Retry-After": String(retryAfter) } }
+      );
+    }
+
+    // Trava 2: teto global de armazenamento (plano gratuito do MongoDB), contra abuso distribuído.
+    if ((await countGeneratedGames()) >= MAX_STORED_GAMES)
+      return json({ success: false, error: "Registro de jogos temporariamente pausado" }, 503);
+
     const concursoTarget = await resolveConcursoTarget(def);
     if (!concursoTarget)
       return json({ success: false, error: "Próximo concurso indisponível" }, 503);

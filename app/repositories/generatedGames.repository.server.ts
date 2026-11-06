@@ -70,6 +70,11 @@ export async function insertGeneratedGame(
   return { ...doc, _id: insertedId as ObjectId };
 }
 
+/** Total aproximado de jogos guardados (metadado da coleção: custo zero). */
+export async function countGeneratedGames(): Promise<number> {
+  return (await collection()).estimatedDocumentCount();
+}
+
 /** Últimos jogos gerados de uma loteria (carga inicial do feed ao vivo). */
 export async function getRecentGeneratedGames(
   lottery: LotteryId,
@@ -147,7 +152,17 @@ export async function evaluateAndCleanGames(
     .aggregate<{
       _id: ObjectId;
       hits: number;
-    }>([{ $match: filter }, { $project: { generatedAt: 1, hits: { $size: { $setIntersection: ["$numbers", drawnNumbers] } } } }, { $sort: { hits: -1, generatedAt: 1, _id: 1 } }, { $limit: 1 }])
+    }>([
+      { $match: filter },
+      {
+        $project: {
+          generatedAt: 1,
+          hits: { $size: { $setIntersection: ["$numbers", drawnNumbers] } },
+        },
+      },
+      { $sort: { hits: -1, generatedAt: 1, _id: 1 } },
+      { $limit: 1 },
+    ])
     .toArray();
 
   await col.updateOne(

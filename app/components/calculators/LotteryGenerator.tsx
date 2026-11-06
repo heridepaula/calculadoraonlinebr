@@ -70,11 +70,38 @@ function writeHistory(key: string, games: SavedGame[]) {
   }
 }
 
+const limitKey = (lottery: LotteryDef["id"]) => `lottery-limit-${lottery}`;
+const hhmm = (ms: number) =>
+  new Date(ms).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+
+/** Fim do bloqueio por limite de jogos (ms), se ainda vigente. */
+function readLimitUntil(lottery: LotteryDef["id"]): number | null {
+  try {
+    const v = Number(localStorage.getItem(limitKey(lottery)));
+    return v > Date.now() ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeLimitUntil(lottery: LotteryDef["id"], until: number) {
+  try {
+    localStorage.setItem(limitKey(lottery), String(until));
+  } catch {
+    /* sem armazenamento: o bloqueio vale só nesta visita */
+  }
+}
+
 /**
- * Registra o jogo na comunidade (feed ao vivo e "melhor jogo" pós-sorteio). Não bloqueia nem
- * mostra erro: o jogo já está na tela e no histórico local, o registro é só um extra.
+ * Registra o jogo na comunidade (feed ao vivo e "melhor jogo" pós-sorteio). Erros comuns não
+ * aparecem: o jogo já está na tela e no histórico local. Só o limite por IP (429) é repassado,
+ * para o gerador avisar e pausar até a liberação.
  */
-function registerGame(lottery: LotteryDef["id"], game: SavedGame) {
+function registerGame(
+  lottery: LotteryDef["id"],
+  game: SavedGame,
+  onLimited: (resetAt: number) => void
+) {
   fetch("/api/lottery/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -85,10 +112,14 @@ function registerGame(lottery: LotteryDef["id"], game: SavedGame) {
     }),
     keepalive: true,
   })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((body: { game?: PublicGeneratedGame } | null) => {
+    .then((r) => (r.ok || r.status === 429 ? r.json() : null))
+    .then((body: { game?: PublicGeneratedGame; resetAt?: string } | null) => {
       if (body?.game)
         window.dispatchEvent(new CustomEvent(LOCAL_GAME_EVENT, { detail: body.game }));
+      else if (body?.resetAt) {
+        const until = new Date(body.resetAt).getTime();
+        if (until > Date.now()) onLimited(until);
+      }
     })
     .catch(() => {
       /* offline ou API fora do ar: segue só com o histórico local */
@@ -224,6 +255,15 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
 
   useEffect(() => setHistory(readHistory(def.historyKey)), [def.historyKey]);
 
+  // Limite de jogos por IP (servidor): enquanto vigente, o gerador fica pausado nesta loteria.
+  const [limitUntil, setLimitUntil] = useState<number | null>(null);
+  useEffect(() => setLimitUntil(readLimitUntil(def.id)), [def.id]);
+  const onLimited = (until: number) => {
+    writeLimitUntil(def.id, until);
+    setLimitUntil(until);
+    showToast(`Limite de jogos atingido. Libera às ${hhmm(until)}.`);
+  };
+
   const p = stats.patterns;
   const filterChips = [
     {
@@ -314,6 +354,14 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
 
   /** Gera um jogo com a estratégia dada. `surprise`: estratégia sorteada pela Surpresinha. */
   const run = (cfg: GeneratorConfig, surprise: boolean) => {
+    if (limitUntil && Date.now() < limitUntil) {
+      setResult({
+        kind: "error",
+        message: `Você atingiu o limite de 100 jogos de ${def.name} em 30 minutos. Novos jogos liberam às ${hhmm(limitUntil)}.`,
+      });
+      scrollTo(resultRef);
+      return;
+    }
     const avoid = new Set(history.map((g) => gameKey(g.numbers)));
     const r = generateGame(cfg, stats, { avoid, history: history.map((g) => g.numbers) });
     if (r.ok) {
@@ -330,7 +378,7 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
       };
       setResult({ kind: "game", game });
       saveGame(game);
-      registerGame(def.id, game);
+      registerGame(def.id, game, onLimited);
     } else {
       setResult({ kind: "error", message: r.error });
     }

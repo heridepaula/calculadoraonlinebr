@@ -26,11 +26,21 @@ export function userFrom(location: string): string {
   return `de ${location}`;
 }
 
-/** "agora", "há 3 min", "há 2 h" ou a data (dd/mm). */
+/** Segundos desde a criação (nunca negativo, mesmo com relógio do aparelho adiantado). */
+export const ageSeconds = (iso: string, now: number) =>
+  Math.max(0, Math.floor((now - new Date(iso).getTime()) / 1000));
+
+/** "Agora" (até 60 s), "X minutos atrás", "X horas atrás" ou a data (dd/mm) depois de 1 dia. */
 export function timeAgo(iso: string, now: number): string {
-  const s = Math.max(0, Math.round((now - new Date(iso).getTime()) / 1000));
-  if (s < 60) return "agora";
-  if (s < 3600) return `há ${Math.floor(s / 60)} min`;
-  if (s < 86400) return `há ${Math.floor(s / 3600)} h`;
+  const s = ageSeconds(iso, now);
+  if (s <= 60) return "Agora";
+  if (s < 3600) {
+    const m = Math.floor(s / 60);
+    return `${m} ${m === 1 ? "minuto" : "minutos"} atrás`;
+  }
+  if (s < 86400) {
+    const h = Math.floor(s / 3600);
+    return `${h} ${h === 1 ? "hora" : "horas"} atrás`;
+  }
   return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
 }

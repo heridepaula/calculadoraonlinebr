@@ -110,6 +110,10 @@ export default {
       animation: {
         "fade-in": "fadeIn 0.3s ease-in-out",
         "slide-up": "slideUp 0.3s ease-out",
+        "feed-in": "feedIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "ball-pop": "ballPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+        "feed-flash": "feedFlash 2.4s ease-out both",
+        "feed-out": "feedOut 0.45s ease-in both",
       },
       keyframes: {
         fadeIn: {
@@ -119,6 +123,24 @@ export default {
         slideUp: {
           "0%": { transform: "translateY(10px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        // Feed de jogos (fila): o novo entra por baixo, dezenas "estouram", brilho se apaga; o mais antigo sai por cima.
+        feedIn: {
+          "0%": { transform: "translateY(16px) scale(0.97)", opacity: "0" },
+          "100%": { transform: "translateY(0) scale(1)", opacity: "1" },
+        },
+        ballPop: {
+          "0%": { transform: "scale(0)", opacity: "0" },
+          "70%": { transform: "scale(1.18)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        feedFlash: {
+          "0%": { boxShadow: "0 0 0 2px rgb(var(--lot-500) / 0.9), 0 0 24px rgb(var(--lot-500) / 0.45)" },
+          "100%": { boxShadow: "0 0 0 1px rgb(var(--lot-500) / 0), 0 0 0 rgb(var(--lot-500) / 0)" },
+        },
+        feedOut: {
+          "0%": { transform: "translateY(0)", opacity: "1" },
+          "100%": { transform: "translateY(-14px) scale(0.96)", opacity: "0" },
         },
       },
     },
