@@ -204,3 +204,4 @@ TODO.md
 SEO_AUDIT.md
 patches/cdb-seo-optimization.diff
 TODOS.md
+.env*

@@ -26,4 +26,6 @@ export interface LotofacilFetchOutcome {
   result: LotofacilResult;
   source: LotofacilSource;
   provider: "giga-sena" | "caixa";
+  /** Falhas não fatais (ex.: premiação indisponível). */
+  avisos: string[];
 }

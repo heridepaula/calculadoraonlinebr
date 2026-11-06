@@ -25,12 +25,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!isAuthorized(request)) return json({ success: false, error: "Unauthorized" }, 401);
 
   try {
-    const { result, source, provider } = await fetchLatestLotofacil();
+    const { result, source, provider, avisos } = await fetchLatestLotofacil();
     const { created } = await saveLotofacilResult(result);
     return json({
       success: true,
       source,
       provider,
+      avisos,
       created,
       concurso: result.concurso,
       data_sorteio: result.data_sorteio.toISOString().slice(0, 10),
