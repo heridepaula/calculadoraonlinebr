@@ -18,7 +18,9 @@
     "og:generate": "node scripts/generate-og-image.mjs",
     "indexnow:config": "node scripts/indexnow-submit.js --config",
     "indexnow:main": "node scripts/indexnow-submit.js --all-main-pages",
-    "indexnow:submit": "node scripts/indexnow-submit.js"
+    "indexnow:submit": "node scripts/indexnow-submit.js",
+    "seed:lotofacil": "tsx scripts/seedLotofacil.ts",
+    "backfill:lotofacil": "tsx scripts/backfillLotofacil.ts"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "1.1.12",
@@ -29,9 +31,11 @@
     "@vercel/remix": "2.16.7",
     "@vercel/speed-insights": "^1.2.0",
     "chart.js": "^4.5.0",
+    "cheerio": "^1.2.0",
     "clsx": "2.1.1",
     "compression": "^1.8.1",
     "isbot": "4.1.0",
+    "mongodb": "^7.8.0",
     "node-fetch": "^3.3.2",
     "react": "18.2.0",
     "react-chartjs-2": "^5.3.0",
@@ -47,6 +51,7 @@
     "autoprefixer": "10.4.19",
     "cross-env": "^10.0.0",
     "cssnano": "^7.1.0",
+    "dotenv": "^18.0.9",
     "eslint": "8.38.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "^2.32.0",
@@ -59,6 +64,7 @@
     "sharp": "^0.34.5",
     "tailwindcss": "3.4.4",
     "terser": "5.43.1",
+    "tsx": "^4.23.15",
     "typescript": "5.1.6",
     "vite": "6.0.0",
     "vite-plugin-compression": "^0.5.1",
