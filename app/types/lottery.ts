@@ -42,6 +42,63 @@ export interface LotteryFetchOutcome {
   avisos: string[];
 }
 
+/** Jogo gerado por um visitante (coleção `lottery_generated_games`). */
+export interface GeneratedGame {
+  lotteryType: LotteryId;
+  /** Dezenas distintas, em ordem crescente. */
+  numbers: number[];
+  /** Resumo legível da estratégia (ex.: "Surpresinha · Quentes · Soma ideal · Primos"). */
+  strategy: string;
+  /** Ids dos badges de estratégia (ex.: ["mix-quentes", "sum-ideal", "primes"]). */
+  badges: string[];
+  /** Concurso para o qual o jogo foi gerado (o próximo sorteio no momento da geração). */
+  concursoTarget: number;
+  generatedAt: Date;
+  /** Acertos: preenchido pela auditoria após o sorteio. */
+  hits: number | null;
+  /** Melhor jogo do concurso (o único que sobra depois da limpeza). */
+  isBestGame: boolean;
+  /** Quantos jogos concorreram no concurso: preenchido só no melhor jogo. */
+  totalGamesCompeted: number | null;
+  /** "Cidade, UF", "UF", "Brasil" ou "Exterior". Nunca o IP. */
+  location: string;
+  /** Dezenas sorteadas no concurso: gravadas só no melhor jogo, para exibir sem outra consulta. */
+  drawnNumbers?: number[];
+}
+
+/** Jogo como sai para o navegador e para o Pusher. */
+export interface PublicGeneratedGame {
+  id: string;
+  lotteryType: LotteryId;
+  numbers: number[];
+  strategy: string;
+  badges: string[];
+  concursoTarget: number;
+  generatedAt: string;
+  location: string;
+}
+
+/** Melhor jogo de um concurso já auditado. */
+export interface PublicBestGame extends PublicGeneratedGame {
+  hits: number;
+  totalGamesCompeted: number;
+  drawnNumbers: number[];
+  /**
+   * Prêmio por ganhador da faixa acertada, pela premiação oficial do concurso (R$).
+   * `null` = faixa sem prêmio; `0` = faixa sem ganhadores (acumulou); ausente = premiação indisponível.
+   */
+  prize?: number | null;
+}
+
+/** Resultado da auditoria de um concurso (resposta do cron). */
+export interface GamesAuditOutcome {
+  concurso: number;
+  status: "audited" | "already-audited" | "no-games";
+  totalGames: number;
+  bestHits: number | null;
+  deleted: number;
+}
+
 /** Último concurso serializado para a página (datas em ISO yyyy-mm-dd). */
 export interface LotteryLatest {
   concurso: number;

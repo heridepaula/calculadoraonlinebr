@@ -15,12 +15,15 @@ import { buildStatsFaq, formatDateBR, type LotteryStats } from "~/lib/lottery/st
 import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
 import { LatestResultCard, NextDrawBanner } from "~/components/calculators/LotteryResultInfo";
 import { getStats } from "~/services/lottery/statistics.server";
+import { getCommunityGames } from "~/services/lottery/generatedGames.server";
+import { LiveGamesFeed } from "~/components/calculators/LiveGamesFeed";
+import { BestPastGame } from "~/components/calculators/BestPastGame";
 
 // Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
 // e revalida em segundo plano, então um concurso gravado pelo cron aparece em poucos minutos.
 export async function loader() {
-  const stats = await getStats(LOTOFACIL);
-  return json({ stats });
+  const [stats, community] = await Promise.all([getStats(LOTOFACIL), getCommunityGames(LOTOFACIL)]);
+  return json({ stats, community });
 }
 
 export function headers() {
@@ -122,7 +125,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function GeradorLotofacil() {
-  const { stats: loaded } = useLoaderData<typeof loader>();
+  const { stats: loaded, community } = useLoaderData<typeof loader>();
   const stats = loaded as LotteryStats;
   const faqItems = useMemo(() => buildStatsFaq(stats), [stats]);
 
@@ -211,7 +214,11 @@ export default function GeradorLotofacil() {
           <NextDrawBanner latest={stats.latest} />
         </header>
 
+        <BestPastGame lottery="lotofacil" best={community.best} />
+
         <LotteryGenerator stats={stats} />
+
+        <LiveGamesFeed lottery="lotofacil" pusher={community.pusher} initial={community.recent} />
 
         {/* Último resultado */}
         <LatestResultCard lottery="lotofacil" latest={stats.latest} />

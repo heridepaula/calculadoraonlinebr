@@ -2,7 +2,9 @@ import { timingSafeEqual } from "node:crypto";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { LOTTERIES, isLotteryId } from "~/lib/lottery/definitions";
 import { saveResult } from "~/repositories/lottery.repository.server";
+import { auditGeneratedGames } from "~/services/lottery/generatedGames.server";
 import { fetchLatest } from "~/services/lottery/lotteryService.server";
+import type { GamesAuditOutcome } from "~/types/lottery";
 
 const HEADERS = {
   "Content-Type": "application/json",
@@ -20,7 +22,7 @@ function isAuthorized(request: Request): boolean {
   return expected.length === received.length && timingSafeEqual(expected, received);
 }
 
-// Vercel Cron dispara GET em /api/cron/<loteria> (lotofacil, megasena) com
+// Vercel Cron dispara GET em /api/cron/<loteria> (lotofacil, megasena, quina) com
 // `Authorization: Bearer $CRON_SECRET`.
 export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!isAuthorized(request)) return json({ success: false, error: "Unauthorized" }, 401);
@@ -30,6 +32,16 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   try {
     const { result, source, provider, avisos } = await fetchLatest(def);
     const { created } = await saveResult(def, result);
+
+    // Auditoria dos jogos gerados pela comunidade: falha aqui não invalida o resultado já gravado.
+    let auditoria: GamesAuditOutcome[] | { error: string };
+    try {
+      auditoria = await auditGeneratedGames(def, result.concurso);
+    } catch (err) {
+      console.error(`[cron/${def.id}] auditoria dos jogos falhou:`, err);
+      auditoria = { error: "Falha na auditoria dos jogos gerados" };
+    }
+
     return json({
       success: true,
       lottery: def.id,
@@ -43,6 +55,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       acumulou: result.acumulou ?? null,
       premiacoes: result.premiacoes ?? null,
       proximo: result.proximo ?? null,
+      auditoria,
     });
   } catch (err) {
     console.error(`[cron/${def.id}] falha:`, err);

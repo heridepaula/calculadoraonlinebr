@@ -47,6 +47,21 @@ export async function getLatestResult(def: LotteryDef): Promise<LotteryResult | 
   return col.find({}, { projection: { _id: 0 } }).sort({ concurso: -1 }).limit(1).next();
 }
 
+/** Dezenas de vários concursos (auditoria dos jogos gerados). */
+export async function getDrawnNumbers(def: LotteryDef, concursos: number[]): Promise<Map<number, number[]>> {
+  if (!concursos.length) return new Map();
+  const col = await collection(def);
+  const docs = await col.find({ concurso: { $in: concursos } }, { projection: { _id: 0, concurso: 1, dezenas: 1 } }).toArray();
+  return new Map(docs.map((d) => [d.concurso, d.dezenas]));
+}
+
+/** Premiação oficial de um concurso (undefined se a fonte não trouxe). */
+export async function getPremiacoes(def: LotteryDef, concurso: number): Promise<LotteryResult["premiacoes"]> {
+  const col = await collection(def);
+  const doc = await col.findOne({ concurso }, { projection: { _id: 0, premiacoes: 1 } });
+  return doc?.premiacoes;
+}
+
 /** Histórico completo (só campos necessários) para cálculo de estatísticas. */
 export async function getAllDrawsForStats(def: LotteryDef): Promise<Pick<LotteryResult, "concurso" | "data_sorteio" | "dezenas">[]> {
   const col = await collection(def);

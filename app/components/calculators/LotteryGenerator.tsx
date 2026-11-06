@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, Checkbox } from "~/components/ui";
 import { useCalculatorScroll } from "~/components/calculators/betting-shared";
 import type { LotteryDef } from "~/lib/lottery/definitions";
+import { LOCAL_GAME_EVENT } from "~/lib/lottery/live-games";
+import type { PublicGeneratedGame } from "~/types/lottery";
 import type { LotteryStats } from "~/lib/lottery/stats";
 import {
   MIX_PRESETS,
@@ -66,6 +68,31 @@ function writeHistory(key: string, games: SavedGame[]) {
   } catch {
     /* armazenamento indisponível (aba anônima, cota): o histórico vale só nesta visita */
   }
+}
+
+/**
+ * Registra o jogo na comunidade (feed ao vivo e "melhor jogo" pós-sorteio). Não bloqueia nem
+ * mostra erro: o jogo já está na tela e no histórico local, o registro é só um extra.
+ */
+function registerGame(lottery: LotteryDef["id"], game: SavedGame) {
+  fetch("/api/lottery/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      lottery,
+      numbers: game.numbers,
+      badges: (game.badges ?? []).map((b) => b.id),
+    }),
+    keepalive: true,
+  })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((body: { game?: PublicGeneratedGame } | null) => {
+      if (body?.game)
+        window.dispatchEvent(new CustomEvent(LOCAL_GAME_EVENT, { detail: body.game }));
+    })
+    .catch(() => {
+      /* offline ou API fora do ar: segue só com o histórico local */
+    });
 }
 
 // --------------------------------------------------------------------------- //
@@ -303,6 +330,7 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
       };
       setResult({ kind: "game", game });
       saveGame(game);
+      registerGame(def.id, game);
     } else {
       setResult({ kind: "error", message: r.error });
     }

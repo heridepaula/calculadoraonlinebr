@@ -15,12 +15,15 @@ import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
 import { LatestResultCard, NextDrawBanner } from "~/components/calculators/LotteryResultInfo";
 import { LotteryStatsCard } from "~/components/calculators/LotteryStatsCard";
 import { getStats } from "~/services/lottery/statistics.server";
+import { getCommunityGames } from "~/services/lottery/generatedGames.server";
+import { LiveGamesFeed } from "~/components/calculators/LiveGamesFeed";
+import { BestPastGame } from "~/components/calculators/BestPastGame";
 
 // Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
 // e revalida em segundo plano, então um concurso gravado pelo cron aparece em poucos minutos.
 export async function loader() {
-  const stats = await getStats(MEGASENA);
-  return json({ stats });
+  const [stats, community] = await Promise.all([getStats(MEGASENA), getCommunityGames(MEGASENA)]);
+  return json({ stats, community });
 }
 
 export function headers() {
@@ -82,7 +85,7 @@ const ODDS_FAQ = {
 };
 
 export default function GeradorMegaSena() {
-  const { stats: loaded } = useLoaderData<typeof loader>();
+  const { stats: loaded, community } = useLoaderData<typeof loader>();
   const stats = loaded as LotteryStats;
   const faqItems = useMemo(() => {
     const items = buildStatsFaq(stats);
@@ -166,7 +169,11 @@ export default function GeradorMegaSena() {
           <NextDrawBanner latest={latest} />
         </header>
 
+        <BestPastGame lottery="megasena" best={community.best} />
+
         <LotteryGenerator stats={stats} />
+
+        <LiveGamesFeed lottery="megasena" pusher={community.pusher} initial={community.recent} />
 
         {/* Último resultado */}
         <LatestResultCard lottery="megasena" latest={latest} />
