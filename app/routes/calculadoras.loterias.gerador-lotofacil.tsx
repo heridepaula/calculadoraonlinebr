@@ -1,5 +1,7 @@
+import { json } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
-import { useState, useEffect } from "react";
+import { useLoaderData } from "@remix-run/react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button, Checkbox } from "~/components/ui";
 import {
   RelatedCalculators,
@@ -8,6 +10,25 @@ import {
   createCalculatorBreadcrumb,
 } from "~/components";
 import { APP_NAME } from "~/lib/constants";
+import {
+  buildPresets,
+  buildStatsFaq,
+  formatDateBR,
+  mergePresetsConfig,
+  type GenerationStrategy,
+} from "~/lib/lotofacil-stats";
+import { getLotofacilStats } from "~/services/lotofacil/statistics.server";
+
+// Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
+// e revalida em segundo plano, então um concurso gravado pelo cron aparece em poucos minutos.
+export async function loader() {
+  const stats = await getLotofacilStats();
+  return json({ stats });
+}
+
+export function headers() {
+  return { "Cache-Control": "public, max-age=0, s-maxage=300, stale-while-revalidate=3600" };
+}
 
 export const meta: MetaFunction = () => {
   return [
@@ -103,93 +124,6 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-// Dados estatísticos da Lotofácil baseados em análises históricas (atualizado 2026, ~3300 concursos)
-const LOTOFACIL_STATS = {
-  numbersFrequency: {
-    // Números mais sorteados — frequência acima da média histórica
-    hot: [20, 25, 10, 5, 14, 22, 4, 11, 2, 23, 13, 24],
-    // Números com frequência próxima da média
-    warm: [3, 12, 15, 16, 17, 18, 19, 21],
-    // Números menos sorteados — candidatos à revanche estatística
-    cold: [1, 6, 7, 8, 9],
-  },
-  primes: [2, 3, 5, 7, 11, 13, 17, 19, 23],
-  fibonacci: [1, 2, 3, 5, 8, 13, 21],
-  patterns: {
-    minPairs: 5,
-    maxPairs: 10,
-    idealPairs: [6, 7, 8],
-    minSum: 170,
-    maxSum: 220,
-    idealSum: [185, 205],
-    maxConsecutive: 3,
-  },
-};
-
-interface StrategyPreset {
-  name: string;
-  icon: string;
-  description: string;
-  config: GenerationStrategy;
-}
-
-const LOTOFACIL_PRESETS: StrategyPreset[] = [
-  {
-    name: "Equilibrado",
-    icon: "🍀",
-    description: "Mix de quentes e médios com filtros balanceados — recomendado",
-    config: { useFrequency: true, frequencyType: "balanced", controlParity: true, minPairs: 6, maxPairs: 8, controlSum: true, minSum: 185, maxSum: 205, avoidConsecutive: true, maxConsecutive: 2, includePrimes: true, minPrimes: 4, maxPrimes: 6 },
-  },
-  {
-    name: "Só Quentes",
-    icon: "🔥",
-    description: "Prioriza os números mais sorteados historicamente na Lotofácil",
-    config: { useFrequency: true, frequencyType: "hot", controlParity: true, minPairs: 6, maxPairs: 8, controlSum: true, minSum: 182, maxSum: 210, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-  {
-    name: "Revanche",
-    icon: "🧊",
-    description: "Números frios (1, 6, 7, 8, 9) — teoria da revanche estatística",
-    config: { useFrequency: true, frequencyType: "cold", controlParity: false, minPairs: 5, maxPairs: 10, controlSum: false, minSum: 120, maxSum: 250, avoidConsecutive: false, maxConsecutive: 4, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-  {
-    name: "Alta Soma",
-    icon: "⬆️",
-    description: "Concentra os 15 números na faixa alta (soma 208–225)",
-    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 6, maxPairs: 8, controlSum: true, minSum: 208, maxSum: 225, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-  {
-    name: "Baixa Soma",
-    icon: "⬇️",
-    description: "Concentra os 15 números na faixa baixa (soma 165–184)",
-    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 6, maxPairs: 8, controlSum: true, minSum: 165, maxSum: 184, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-  {
-    name: "Mais Ímpares",
-    icon: "1️⃣",
-    description: "Favorece ímpares no jogo (5–7 pares de 15 números)",
-    config: { useFrequency: true, frequencyType: "balanced", controlParity: true, minPairs: 5, maxPairs: 7, controlSum: true, minSum: 180, maxSum: 210, avoidConsecutive: true, maxConsecutive: 2, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-  {
-    name: "Máx. Primos",
-    icon: "🔢",
-    description: "Maximiza primos: 2, 3, 5, 7, 11, 13, 17, 19, 23 — 5 a 7 primos no jogo",
-    config: { useFrequency: true, frequencyType: "balanced", controlParity: false, minPairs: 5, maxPairs: 10, controlSum: true, minSum: 180, maxSum: 210, avoidConsecutive: true, maxConsecutive: 2, includePrimes: true, minPrimes: 5, maxPrimes: 7 },
-  },
-  {
-    name: "Fibonacci",
-    icon: "🌀",
-    description: "Inclui números da sequência de Fibonacci disponíveis (1, 2, 3, 5, 8, 13, 21)",
-    config: { useFrequency: false, frequencyType: "balanced", controlParity: true, minPairs: 6, maxPairs: 8, controlSum: true, minSum: 180, maxSum: 210, avoidConsecutive: true, maxConsecutive: 3, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-  {
-    name: "Puro Aleatório",
-    icon: "🎲",
-    description: "Sem filtros — seleção totalmente aleatória de 15 números entre 1 e 25",
-    config: { useFrequency: false, frequencyType: "balanced", controlParity: false, minPairs: 0, maxPairs: 15, controlSum: false, minSum: 120, maxSum: 250, avoidConsecutive: false, maxConsecutive: 15, includePrimes: false, minPrimes: 0, maxPrimes: 9 },
-  },
-];
-
 interface LotofacilGame {
   id: string;
   numbers: number[];
@@ -205,68 +139,14 @@ interface LotofacilGame {
   };
 }
 
-interface GenerationStrategy {
-  useFrequency: boolean;
-  frequencyType: "hot" | "balanced" | "cold";
-  controlParity: boolean;
-  minPairs: number;
-  maxPairs: number;
-  controlSum: boolean;
-  minSum: number;
-  maxSum: number;
-  avoidConsecutive: boolean;
-  maxConsecutive: number;
-  includePrimes: boolean;
-  minPrimes: number;
-  maxPrimes: number;
-}
-
-const defaultStrategy: GenerationStrategy = {
-  useFrequency: true,
-  frequencyType: "balanced",
-  controlParity: true,
-  minPairs: 6,
-  maxPairs: 8,
-  controlSum: true,
-  minSum: 180,
-  maxSum: 210,
-  avoidConsecutive: true,
-  maxConsecutive: 2,
-  includePrimes: true,
-  minPrimes: 4,
-  maxPrimes: 6,
-};
-
-function mergePresetsConfig(presetNames: string[], presets: StrategyPreset[]): GenerationStrategy {
-  const selected = presetNames
-    .map((name) => presets.find((p) => p.name === name)?.config)
-    .filter((c): c is GenerationStrategy => Boolean(c));
-  if (selected.length === 0) return defaultStrategy;
-  if (selected.length === 1) return selected[0];
-  return {
-    useFrequency: selected.some((c) => c.useFrequency),
-    frequencyType:
-      selected.find((c) => c.frequencyType === "hot")?.frequencyType ??
-      selected.find((c) => c.frequencyType === "cold")?.frequencyType ??
-      "balanced",
-    controlParity: selected.some((c) => c.controlParity),
-    minPairs: Math.max(...selected.map((c) => c.minPairs)),
-    maxPairs: Math.min(...selected.map((c) => c.maxPairs)),
-    controlSum: selected.some((c) => c.controlSum),
-    minSum: Math.max(...selected.map((c) => c.minSum)),
-    maxSum: Math.min(...selected.map((c) => c.maxSum)),
-    avoidConsecutive: selected.some((c) => c.avoidConsecutive),
-    maxConsecutive: Math.min(...selected.map((c) => c.maxConsecutive)),
-    includePrimes: selected.some((c) => c.includePrimes),
-    minPrimes: Math.max(...selected.map((c) => c.minPrimes)),
-    maxPrimes: Math.min(...selected.map((c) => c.maxPrimes)),
-  };
-}
-
 export default function GeradorLotofacil() {
+  const { stats } = useLoaderData<typeof loader>();
+  const presets = useMemo(() => buildPresets(stats), [stats]);
+  const defaultStrategy = presets[0].config;
+  const faqItems = useMemo(() => buildStatsFaq(stats), [stats]);
   const [generatedGames, setGeneratedGames] = useState<LotofacilGame[]>([]);
   const [currentNumbers, setCurrentNumbers] = useState<number[]>([]);
-  const [strategy, setStrategy] = useState<GenerationStrategy>(defaultStrategy);
+  const [strategy, setStrategy] = useState<GenerationStrategy>(presets[0].config);
   const [activePresets, setActivePresets] = useState<string[]>(["Equilibrado"]);
   const [copyToast, setCopyToast] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -315,10 +195,11 @@ export default function GeradorLotofacil() {
 
     // Aplicar filtros de frequência se habilitado
     if (strategy.useFrequency) {
+      // Cópia: o loop abaixo remove itens da lista e não pode alterar as estatísticas.
       const sourceNumbers =
-        strategy.frequencyType === "hot" ? LOTOFACIL_STATS.numbersFrequency.hot :
-        strategy.frequencyType === "cold" ? LOTOFACIL_STATS.numbersFrequency.cold :
-        [...LOTOFACIL_STATS.numbersFrequency.hot, ...LOTOFACIL_STATS.numbersFrequency.warm];
+        strategy.frequencyType === "hot" ? [...stats.hot] :
+        strategy.frequencyType === "cold" ? [...stats.cold] :
+        [...stats.hot, ...stats.warm];
 
       // Priorizar números da estratégia (70% de chance)
       while (numbers.length < 10 && sourceNumbers.length > 0) {
@@ -347,7 +228,8 @@ export default function GeradorLotofacil() {
   const validateGame = (numbers: number[]): boolean => {
     const pairs = numbers.filter(n => n % 2 === 0).length;
     const sum = numbers.reduce((a, b) => a + b, 0);
-    const primes = numbers.filter(n => LOTOFACIL_STATS.primes.includes(n)).length;
+    const primes = numbers.filter(n => stats.primes.includes(n)).length;
+    const fibs = numbers.filter(n => stats.fibonacci.includes(n)).length;
 
     // Verificar consecutivos
     let consecutive = 1;
@@ -365,7 +247,8 @@ export default function GeradorLotofacil() {
       (!strategy.controlParity || (pairs >= strategy.minPairs && pairs <= strategy.maxPairs)) &&
       (!strategy.controlSum || (sum >= strategy.minSum && sum <= strategy.maxSum)) &&
       (!strategy.avoidConsecutive || maxConsecutiveFound <= strategy.maxConsecutive) &&
-      (!strategy.includePrimes || (primes >= strategy.minPrimes && primes <= strategy.maxPrimes))
+      (!strategy.includePrimes || (primes >= strategy.minPrimes && primes <= strategy.maxPrimes)) &&
+      (!strategy.includeFibonacci || (fibs >= strategy.minFib && fibs <= strategy.maxFib))
     );
   };
 
@@ -374,9 +257,9 @@ export default function GeradorLotofacil() {
     const pairs = numbers.filter(n => n % 2 === 0).length;
     const odds = 15 - pairs;
     const sum = numbers.reduce((a, b) => a + b, 0);
-    const primes = numbers.filter(n => LOTOFACIL_STATS.primes.includes(n)).length;
-    const hotNumbers = numbers.filter(n => LOTOFACIL_STATS.numbersFrequency.hot.includes(n)).length;
-    const coldNumbers = numbers.filter(n => LOTOFACIL_STATS.numbersFrequency.cold.includes(n)).length;
+    const primes = numbers.filter(n => stats.primes.includes(n)).length;
+    const hotNumbers = numbers.filter(n => stats.hot.includes(n)).length;
+    const coldNumbers = numbers.filter(n => stats.cold.includes(n)).length;
 
     return { pairs, odds, sum, primes, hotNumbers, coldNumbers };
   };
@@ -447,7 +330,7 @@ export default function GeradorLotofacil() {
       newActive = [...activePresets.filter((p) => p !== "Puro Aleatório"), presetName];
     }
     setActivePresets(newActive);
-    setStrategy(mergePresetsConfig(newActive, LOTOFACIL_PRESETS));
+    setStrategy(mergePresetsConfig(newActive, presets, defaultStrategy));
   };
 
   const copyToClipboard = (text: string) => {
@@ -529,48 +412,11 @@ export default function GeradorLotofacil() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "Como funcionam as estratégias de números quentes e frios?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Números quentes são aqueles que foram sorteados com maior frequência nos últimos concursos. Números frios são os menos sorteados. Nossa análise é baseada em dados históricos reais da Lotofácil para identificar padrões estatísticos.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "O que significa controlar a paridade dos números?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Paridade refere-se ao equilíbrio entre números pares e ímpares. Estatisticamente, a maioria dos sorteios da Lotofácil tem entre 6-8 números pares e 7-9 ímpares. Controlar isso pode melhorar a qualidade estatística do jogo.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Por que a soma dos números é importante?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "A soma total dos 15 números de um jogo da Lotofácil geralmente fica entre 180-210. Valores muito baixos ou muito altos são estatisticamente menos prováveis, então controlar a soma pode ser uma estratégia interessante.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "O histórico de jogos fica salvo permanentemente?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "O histórico fica salvo no seu navegador (localStorage) e permanece até você limpar os dados do navegador. Recomendamos anotar ou imprimir os jogos importantes, pois eles podem ser perdidos se os dados do navegador forem apagados.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Essas estratégias garantem que vou ganhar?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Não! As loterias são jogos de sorte e nenhuma estratégia garante vitória. Nosso gerador apenas aplica filtros baseados em padrões estatísticos históricos para criar jogos mais equilibrados matematicamente, mas isso não aumenta as chances reais de ganhar.",
-                },
-              },
-            ],
+            mainEntity: faqItems.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: { "@type": "Answer", text: item.answer },
+            })),
           }),
         }}
       />
@@ -781,7 +627,7 @@ export default function GeradorLotofacil() {
                   )}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {LOTOFACIL_PRESETS.map((preset) => {
+                  {presets.map((preset) => {
                     const isActive = activePresets.includes(preset.name);
                     return (
                       <button
@@ -801,7 +647,7 @@ export default function GeradorLotofacil() {
                   })}
                 </div>
                 <div className="mt-3 space-y-1">
-                  {LOTOFACIL_PRESETS.filter((p) => activePresets.includes(p.name)).map((p) => (
+                  {presets.filter((p) => activePresets.includes(p.name)).map((p) => (
                     <p key={p.name} className="text-xs text-text-secondary">
                       <strong>{p.icon} {p.name}:</strong> {p.description}
                     </p>
@@ -1298,87 +1144,97 @@ export default function GeradorLotofacil() {
           </Card>
         )}
 
-        {/* Informações Estatísticas */}
+        {/* Informações Estatísticas (calculadas do banco; atualizam a cada novo sorteio) */}
         <Card className="mx-auto max-w-4xl border-l-4 border-system-info">
           <CardHeader>
             <CardTitle>📊 Análise Estatística da Lotofácil</CardTitle>
+            <p className="mt-1 text-sm text-text-secondary" data-testid="stats-updated">
+              {stats.source === "database" ? (
+                <>
+                  Base: <strong>{stats.totalConcursos.toLocaleString("pt-BR")} concursos</strong>
+                  {stats.ultimoConcurso && (
+                    <>
+                      {" "}
+                      (último: <strong>{stats.ultimoConcurso}</strong>
+                      {stats.ultimaData && <> em {formatDateBR(stats.ultimaData)}</>})
+                    </>
+                  )}
+                  . Atualizada automaticamente após cada sorteio.
+                </>
+              ) : (
+                <>Dados de referência (até o concurso {stats.ultimoConcurso}); a atualização automática está temporariamente indisponível.</>
+              )}
+            </p>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Números por Frequência */}
             <div>
               <h4 className="mb-3 font-semibold">Frequência Histórica de Números</h4>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div>
-                  <h5 className="mb-2 text-sm font-medium text-system-error">
-                    🔥 Números Quentes (mais sorteados)
-                  </h5>
-                  <div className="flex flex-wrap gap-1">
-                    {LOTOFACIL_STATS.numbersFrequency.hot.map((number) => (
-                      <div
-                        key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded bg-system-error/20 text-sm font-medium text-system-error-dark"
-                      >
-                        {number.toString().padStart(2, "0")}
-                      </div>
-                    ))}
+                {(
+                  [
+                    { key: "hot", title: "🔥 Números Quentes (mais sorteados)", titleClass: "text-system-error", ballClass: "rounded bg-system-error/20 text-system-error-dark", list: stats.hot },
+                    { key: "warm", title: "🌡️ Números Médios", titleClass: "text-system-warning", ballClass: "rounded-full bg-system-warning/20 text-system-warning-dark", list: stats.warm },
+                    { key: "cold", title: "🧊 Números Frios (menos sorteados)", titleClass: "text-primary-blue", ballClass: "rounded-full bg-primary-blue/20 text-primary-blue-dark", list: stats.cold },
+                  ] as const
+                ).map((group) => (
+                  <div key={group.key}>
+                    <h5 className={`mb-2 text-sm font-medium ${group.titleClass}`}>{group.title}</h5>
+                    <div className="flex flex-wrap gap-1">
+                      {group.list.map((number) => {
+                        const pct = stats.frequency.find((f) => f.numero === number)?.pct;
+                        return (
+                          <div
+                            key={number}
+                            title={pct !== undefined ? `${number.toString().padStart(2, "0")}: ${pct.toLocaleString("pt-BR")}% dos concursos` : undefined}
+                            className={`flex h-8 w-8 items-center justify-center text-sm font-medium ${group.ballClass}`}
+                          >
+                            {number.toString().padStart(2, "0")}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-
-                <div>
-                  <h5 className="mb-2 text-sm font-medium text-system-warning">
-                    🌡️ Números Médios
-                  </h5>
-                  <div className="flex flex-wrap gap-1">
-                    {LOTOFACIL_STATS.numbersFrequency.warm.map((number) => (
-                      <div
-                        key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-system-warning/20 text-sm font-medium text-system-warning-dark"
-                      >
-                        {number.toString().padStart(2, "0")}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h5 className="mb-2 text-sm font-medium text-primary-blue">
-                    🧊 Números Frios (menos sorteados)
-                  </h5>
-                  <div className="flex flex-wrap gap-1">
-                    {LOTOFACIL_STATS.numbersFrequency.cold.map((number) => (
-                      <div
-                        key={number}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-blue/20 text-sm font-medium text-primary-blue-dark"
-                      >
-                        {number.toString().padStart(2, "0")}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
+              {stats.frequency.length > 0 && (
+                <p className="mt-3 text-xs text-text-secondary">
+                  Cada dezena aparece em cerca de 60% dos concursos (esperado ao acaso). A variação real vai de{" "}
+                  {Math.min(...stats.frequency.map((f) => f.pct)).toLocaleString("pt-BR")}% a{" "}
+                  {Math.max(...stats.frequency.map((f) => f.pct)).toLocaleString("pt-BR")}%: a diferença é pequena e os sorteios são
+                  independentes, então quente/frio é só um critério de variação.
+                </p>
+              )}
             </div>
 
             {/* Padrões Matemáticos */}
             <div>
-              <h4 className="mb-3 font-semibold">Padrões Matemáticos Ideais</h4>
+              <h4 className="mb-3 font-semibold">Padrões Mais Comuns nos Sorteios</h4>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                 <div className="rounded bg-system-success/10 p-3 text-center">
-                  <div className="text-lg font-bold text-system-success-dark">6-8</div>
+                  <div className="text-lg font-bold text-system-success-dark">{stats.patterns.pairs.min}-{stats.patterns.pairs.max}</div>
                   <div className="text-sm text-text-secondary">Números Pares</div>
+                  <div className="text-xs text-text-secondary">{stats.patterns.pairs.coverage.toLocaleString("pt-BR")}% dos concursos</div>
                 </div>
                 <div className="rounded bg-system-info/10 p-3 text-center">
-                  <div className="text-lg font-bold text-system-info-dark">185-205</div>
+                  <div className="text-lg font-bold text-system-info-dark">{stats.patterns.sum.ideal[0]}-{stats.patterns.sum.ideal[1]}</div>
                   <div className="text-sm text-text-secondary">Soma Ideal</div>
+                  <div className="text-xs text-text-secondary">50% centrais · média {stats.patterns.sum.mean.toLocaleString("pt-BR")}</div>
                 </div>
                 <div className="rounded bg-math-purple/10 p-3 text-center">
-                  <div className="text-lg font-bold text-math-purple-dark">4-6</div>
+                  <div className="text-lg font-bold text-math-purple-dark">{stats.patterns.primes.min}-{stats.patterns.primes.max}</div>
                   <div className="text-sm text-text-secondary">Números Primos</div>
+                  <div className="text-xs text-text-secondary">{stats.patterns.primes.coverage.toLocaleString("pt-BR")}% dos concursos</div>
                 </div>
                 <div className="rounded bg-system-warning/10 p-3 text-center">
-                  <div className="text-lg font-bold text-system-warning-dark">≤2</div>
-                  <div className="text-sm text-text-secondary">Consecutivos</div>
+                  <div className="text-lg font-bold text-system-warning-dark">≤{stats.patterns.maxConsecutive.limit}</div>
+                  <div className="text-sm text-text-secondary">Seguidos (maior sequência)</div>
+                  <div className="text-xs text-text-secondary">{stats.patterns.maxConsecutive.coverage.toLocaleString("pt-BR")}% dos concursos</div>
                 </div>
               </div>
+              <p className="mt-3 text-xs text-text-secondary">
+                Em média, {stats.patterns.repeatedFromPrevious.toLocaleString("pt-BR")} das 15 dezenas se repetem do concurso anterior.
+              </p>
             </div>
 
             {/* Números de Fibonacci e contexto */}
@@ -1388,24 +1244,28 @@ export default function GeradorLotofacil() {
                 <div className="rounded-lg border border-neutral-surface-variant p-3">
                   <h5 className="mb-2 text-sm font-medium text-math-purple">🌀 Números de Fibonacci (1–25)</h5>
                   <div className="flex flex-wrap gap-1">
-                    {LOTOFACIL_STATS.fibonacci.map((n) => (
+                    {stats.fibonacci.map((n) => (
                       <div key={n} className="flex h-8 w-8 items-center justify-center rounded bg-math-purple/20 text-sm font-bold text-math-purple-dark">
                         {n.toString().padStart(2, "0")}
                       </div>
                     ))}
                   </div>
-                  <p className="mt-2 text-xs text-text-secondary">Aparecem em ~42% dos sorteios premiados da Lotofácil.</p>
+                  <p className="mt-2 text-xs text-text-secondary">
+                    Em {stats.patterns.fibonacci.coverage.toLocaleString("pt-BR")}% dos concursos saíram de {stats.patterns.fibonacci.min} a {stats.patterns.fibonacci.max} números de Fibonacci.
+                  </p>
                 </div>
                 <div className="rounded-lg border border-neutral-surface-variant p-3">
                   <h5 className="mb-2 text-sm font-medium text-system-info">🔢 Números Primos (1–25)</h5>
                   <div className="flex flex-wrap gap-1">
-                    {LOTOFACIL_STATS.primes.map((n) => (
+                    {stats.primes.map((n) => (
                       <div key={n} className="flex h-8 w-8 items-center justify-center rounded bg-system-info/20 text-sm font-bold text-system-info-dark">
                         {n.toString().padStart(2, "0")}
                       </div>
                     ))}
                   </div>
-                  <p className="mt-2 text-xs text-text-secondary">A maioria dos sorteios tem entre 4 e 6 números primos.</p>
+                  <p className="mt-2 text-xs text-text-secondary">
+                    Em {stats.patterns.primes.coverage.toLocaleString("pt-BR")}% dos concursos saíram de {stats.patterns.primes.min} a {stats.patterns.primes.max} números primos.
+                  </p>
                 </div>
               </div>
             </div>
@@ -1415,38 +1275,10 @@ export default function GeradorLotofacil() {
         {/* FAQ */}
         <FAQ
           title="Perguntas Frequentes - Gerador de Lotofácil"
-          items={[
-            {
-              question: "Como funcionam as estratégias de números quentes e frios?",
-              answer:
-                "Números quentes são aqueles que foram sorteados com maior frequência nos últimos concursos. Números frios são os menos sorteados. Nossa análise é baseada em dados históricos reais da Lotofácil para identificar padrões estatísticos.",
-              borderColor: "system-success",
-            },
-            {
-              question: "O que significa controlar a paridade dos números?",
-              answer:
-                "Paridade refere-se ao equilíbrio entre números pares e ímpares. Estatisticamente, a maioria dos sorteios da Lotofácil tem entre 6-8 números pares e 7-9 ímpares. Controlar isso pode melhorar a qualidade estatística do jogo.",
-              borderColor: "primary-blue",
-            },
-            {
-              question: "Por que a soma dos números é importante?",
-              answer:
-                "A soma total dos 15 números de um jogo da Lotofácil geralmente fica entre 180-210. Valores muito baixos ou muito altos são estatisticamente menos prováveis, então controlar a soma pode ser uma estratégia interessante.",
-              borderColor: "system-info",
-            },
-            {
-              question: "O histórico de jogos fica salvo permanentemente?",
-              answer:
-                "O histórico fica salvo no seu navegador (localStorage) e permanece até você limpar os dados do navegador. Recomendamos anotar ou imprimir os jogos importantes, pois eles podem ser perdidos se os dados do navegador forem apagados.",
-              borderColor: "system-warning",
-            },
-            {
-              question: "Essas estratégias garantem que vou ganhar?",
-              answer:
-                "Não! As loterias são jogos de sorte e nenhuma estratégia garante vitória. Nosso gerador apenas aplica filtros baseados em padrões estatísticos históricos para criar jogos mais 'equilibrados' matematicamente, mas isso não aumenta as chances reais de ganhar.",
-              borderColor: "system-error-dark",
-            },
-          ]}
+          items={faqItems.map((item, i) => ({
+            ...item,
+            borderColor: (["system-success", "primary-blue", "system-info", "system-warning", "system-error-dark"] as const)[i % 5],
+          }))}
           tipSection={{
             title: "Dica para Uso Responsável",
             content:
