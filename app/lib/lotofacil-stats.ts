@@ -10,6 +10,9 @@ const HOT_SIZE = 12;
 const COLD_SIZE = 5;
 /** Cobertura mínima (% dos concursos) usada para definir as faixas "típicas". */
 const RANGE_COVERAGE = 0.75;
+/** Atraso mínimo (sorteios seguidos sem sair) para uma dezena ser considerada atrasada. */
+const OVERDUE_MIN = 2;
+const OVERDUE_MIN_COUNT = 5;
 
 export interface DrawInput {
   concurso: number;
@@ -36,6 +39,10 @@ export interface LotofacilStats {
   hot: number[];
   warm: number[];
   cold: number[];
+  /** Dezenas atrasadas (sem sair nos últimos sorteios), da mais atrasada para a menos. */
+  overdue: number[];
+  /** Atraso atual (sorteios seguidos sem sair) e maior atraso histórico de cada dezena. Vazio no fallback. */
+  delays: Array<{ numero: number; atraso: number; maxAtraso: number }>;
   primes: number[];
   fibonacci: number[];
   patterns: {
@@ -113,10 +120,16 @@ export function computeLotofacilStats(draws: DrawInput[]): LotofacilStats {
   const runCnt = Array<number>(16).fill(0);
   const sums: number[] = [];
   let repeated = 0;
+  const lastSeen = Array<number>(26).fill(-1);
+  const maxGap = Array<number>(26).fill(0);
 
   ordered.forEach((d, i) => {
     const nums = sortedAsc(d.dezenas);
-    nums.forEach((n) => freq[n]++);
+    nums.forEach((n) => {
+      freq[n]++;
+      maxGap[n] = Math.max(maxGap[n], i - lastSeen[n] - 1);
+      lastSeen[n] = i;
+    });
     pairsCnt[nums.filter((n) => n % 2 === 0).length]++;
     primesCnt[nums.filter((n) => PRIMES.includes(n)).length]++;
     fibCnt[nums.filter((n) => FIBONACCI.includes(n)).length]++;
@@ -138,6 +151,15 @@ export function computeLotofacilStats(draws: DrawInput[]): LotofacilStats {
   const hot = sortedAsc(rank.slice(0, HOT_SIZE));
   const cold = sortedAsc(rank.slice(25 - COLD_SIZE));
   const warm = sortedAsc(rank.slice(HOT_SIZE, 25 - COLD_SIZE));
+
+  const delays = Array.from({ length: 25 }, (_, i) => {
+    const n = i + 1;
+    const atraso = total - 1 - lastSeen[n];
+    return { numero: n, atraso, maxAtraso: Math.max(maxGap[n], atraso) };
+  });
+  const byDelay = [...delays].sort((a, b) => b.atraso - a.atraso || a.numero - b.numero);
+  let overdue = byDelay.filter((d) => d.atraso >= OVERDUE_MIN).map((d) => d.numero);
+  if (overdue.length < OVERDUE_MIN_COUNT) overdue = byDelay.slice(0, OVERDUE_MIN_COUNT).map((d) => d.numero);
 
   // menor limite de sequência que cobre >= RANGE_COVERAGE dos concursos
   let acc = 0;
@@ -165,6 +187,8 @@ export function computeLotofacilStats(draws: DrawInput[]): LotofacilStats {
     hot,
     warm,
     cold,
+    overdue,
+    delays,
     primes: PRIMES,
     fibonacci: FIBONACCI,
     patterns: {
@@ -195,6 +219,8 @@ export const FALLBACK_STATS: LotofacilStats = {
   hot: [1, 3, 4, 5, 10, 11, 12, 13, 14, 20, 24, 25],
   warm: [2, 7, 9, 15, 18, 19, 21, 22],
   cold: [6, 8, 16, 17, 23],
+  overdue: [],
+  delays: [],
   primes: PRIMES,
   fibonacci: FIBONACCI,
   patterns: {
@@ -215,6 +241,8 @@ export const FALLBACK_STATS: LotofacilStats = {
 export interface GenerationStrategy {
   useFrequency: boolean;
   frequencyType: "hot" | "balanced" | "cold";
+  /** Inclui no jogo dezenas atrasadas (sem sair há mais sorteios), combinável com qualquer estratégia. */
+  prioritizeOverdue: boolean;
   controlParity: boolean;
   minPairs: number;
   maxPairs: number;
@@ -246,6 +274,7 @@ export function buildPresets(stats: LotofacilStats): StrategyPreset[] {
   const base: GenerationStrategy = {
     useFrequency: false,
     frequencyType: "balanced",
+    prioritizeOverdue: false,
     controlParity: true,
     minPairs: p.pairs.min,
     maxPairs: p.pairs.max,
@@ -294,6 +323,16 @@ export function buildPresets(stats: LotofacilStats): StrategyPreset[] {
         maxConsecutive: 15,
       },
     },
+    ...(stats.overdue.length > 0
+      ? [
+          {
+            name: "Atrasados",
+            icon: "⏳",
+            description: `Prioriza as dezenas que não saem há mais sorteios (${list(stats.overdue)})`,
+            config: { ...base, useFrequency: true, prioritizeOverdue: true, minSum: p.sum.common[0], maxSum: p.sum.common[1] },
+          },
+        ]
+      : []),
     {
       name: "Alta Soma",
       icon: "⬆️",
@@ -370,6 +409,7 @@ export function mergePresetsConfig(
       selected.find((c) => c.frequencyType === "hot")?.frequencyType ??
       selected.find((c) => c.frequencyType === "cold")?.frequencyType ??
       "balanced",
+    prioritizeOverdue: selected.some((c) => c.prioritizeOverdue),
     controlParity: selected.some((c) => c.controlParity),
     minPairs: Math.max(...selected.map((c) => c.minPairs)),
     maxPairs: Math.min(...selected.map((c) => c.maxPairs)),
@@ -407,6 +447,19 @@ export function buildStatsFaq(stats: LotofacilStats): Array<{ question: string; 
         `frios são os menos sorteados. Hoje os quentes são ${list(stats.hot)} e os frios ${list(stats.cold)}. ` +
         "A diferença entre eles é pequena e cada concurso é independente: use como critério de variação, não como previsão.",
     },
+    ...(stats.overdue.length > 0
+      ? [
+          {
+            question: "O que são números atrasados na Lotofácil?",
+            answer:
+              `Atrasado é o número que não sai há vários sorteios seguidos. Hoje os mais atrasados são ${stats.overdue
+                .slice(0, 6)
+                .map((n) => `${pad(n)} (${stats.delays.find((d) => d.numero === n)?.atraso} sorteios)`)
+                .join(", ")}. ` +
+              "Cada sorteio é independente: um número atrasado não tem mais chance de sair; use apenas como critério de variação.",
+          },
+        ]
+      : []),
     {
       question: "O que significa controlar a paridade dos números?",
       answer:

@@ -193,6 +193,15 @@ export default function GeradorLotofacil() {
     const numbers: number[] = [];
     const available = Array.from({ length: 25 }, (_, i) => i + 1);
 
+    // Priorizar dezenas atrasadas (cada uma entra com 80% de chance, até 6 por jogo)
+    if (strategy.prioritizeOverdue && stats.overdue.length > 0) {
+      const pool = [...stats.overdue];
+      while (pool.length > 0 && numbers.length < 6) {
+        const [n] = pool.splice(Math.floor(Math.random() * pool.length), 1);
+        if (Math.random() < 0.8) numbers.push(n);
+      }
+    }
+
     // Aplicar filtros de frequência se habilitado
     if (strategy.useFrequency) {
       // Cópia: o loop abaixo remove itens da lista e não pode alterar as estatísticas.
@@ -202,15 +211,12 @@ export default function GeradorLotofacil() {
         [...stats.hot, ...stats.warm];
 
       // Priorizar números da estratégia (70% de chance)
+      // Cada candidato é avaliado uma única vez (o laço antigo descartava candidatos por engano).
       while (numbers.length < 10 && sourceNumbers.length > 0) {
-        if (Math.random() < 0.7) {
-          const randomIndex = Math.floor(Math.random() * sourceNumbers.length);
-          const number = sourceNumbers[randomIndex];
-          if (!numbers.includes(number)) {
-            numbers.push(number);
-          }
+        const [number] = sourceNumbers.splice(Math.floor(Math.random() * sourceNumbers.length), 1);
+        if (Math.random() < 0.7 && !numbers.includes(number)) {
+          numbers.push(number);
         }
-        sourceNumbers.splice(sourceNumbers.findIndex(n => numbers.includes(n)), 1);
       }
     }
 
@@ -680,7 +686,7 @@ export default function GeradorLotofacil() {
                         onChange={(e) =>
                           setStrategy({
                             ...strategy,
-                            frequencyType: e.target.value as "hot" | "balanced" | "cold",
+                            frequencyType: e.target.value as GenerationStrategy["frequencyType"],
                           })
                         }
                         className="w-full rounded-lg border border-neutral-surface-variant bg-background-primary p-2"
@@ -692,6 +698,22 @@ export default function GeradorLotofacil() {
                     </div>
                   )}
                 </div>
+
+                {/* Priorizar Números Atrasados */}
+                {stats.overdue.length > 0 && (
+                  <div className="space-y-2">
+                    <Checkbox
+                      checked={strategy.prioritizeOverdue}
+                      onChange={(e) => setStrategy({ ...strategy, prioritizeOverdue: e.target.checked })}
+                      label="Priorizar Números Atrasados"
+                      labelClassName="font-medium"
+                    />
+                    <p className="ml-6 text-xs text-text-secondary">
+                      Inclui no jogo dezenas que não saem há mais sorteios ({stats.overdue.map((n) => n.toString().padStart(2, "0")).join(", ")}).
+                      Pode ser combinada com qualquer estratégia.
+                    </p>
+                  </div>
+                )}
 
                 {/* Controle de Paridade */}
                 <div className="space-y-3">
@@ -1206,6 +1228,32 @@ export default function GeradorLotofacil() {
                 </p>
               )}
             </div>
+
+            {/* Números Atrasados */}
+            {stats.overdue.length > 0 && (
+              <div>
+                <h4 className="mb-3 font-semibold">⏳ Números Atrasados</h4>
+                <p className="mb-3 text-sm text-text-secondary">
+                  Dezenas que não saem há mais sorteios seguidos (até o concurso {stats.ultimoConcurso}). O número abaixo de cada dezena é o atraso atual.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {stats.overdue.map((number) => {
+                    const d = stats.delays.find((x) => x.numero === number);
+                    return (
+                      <div key={number} className="flex flex-col items-center gap-1" title={d ? `${number.toString().padStart(2, "0")}: ${d.atraso} sorteios sem sair (maior atraso histórico: ${d.maxAtraso})` : undefined}>
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-system-warning/20 text-sm font-bold text-system-warning-dark">
+                          {number.toString().padStart(2, "0")}
+                        </div>
+                        {d && <span className="text-xs text-text-secondary">{d.atraso}x</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="mt-3 text-xs text-text-secondary">
+                  Atraso não aumenta a chance: cada sorteio é independente. O maior atraso já registrado foi de {Math.max(...stats.delays.map((d) => d.maxAtraso))} sorteios seguidos.
+                </p>
+              </div>
+            )}
 
             {/* Padrões Matemáticos */}
             <div>
