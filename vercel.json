@@ -105,5 +105,8 @@
       "path": "/api/cron/lotofacil",
       "schedule": "30 23 * * 1-6"
     }
+  ],
+  "regions": [
+    "gru1"
   ]
 }
