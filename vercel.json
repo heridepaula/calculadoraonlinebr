@@ -102,18 +102,6 @@
   ],
   "crons": [
     {
-      "path": "/api/cron/lotofacil",
-      "schedule": "30 23 * * 1-6"
-    },
-    {
-      "path": "/api/cron/megasena",
-      "schedule": "0 1 * * *"
-    },
-    {
-      "path": "/api/cron/quina",
-      "schedule": "30 1 * * *"
-    },
-    {
       "path": "/api/cron/indicadores",
       "schedule": "0 14 * * *"
     }
