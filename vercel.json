@@ -100,10 +100,5 @@
       "destination": "/robots.txt"
     }
   ],
-  "crons": [
-    {
-      "path": "/api/cron/indicadores",
-      "schedule": "0 14 * * *"
-    }
-  ]
+  "crons": []
 }
