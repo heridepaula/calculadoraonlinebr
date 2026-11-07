@@ -12,7 +12,8 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
+import { useLoaderData } from "@remix-run/react";
+import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
 export const meta: MetaFunction = () => {
@@ -190,12 +191,17 @@ interface ValidationErrors {
   fixedRate?: string;
 }
 
+export async function loader() {
+  return marketIndicatorsLoader();
+}
+
 export default function CdbCalculator() {
-  const defaultIPCA = ECONOMIC_INDICATORS.IPCA.rate.toLocaleString("pt-BR", {
+  const { indicators } = useLoaderData<typeof loader>();
+  const defaultIPCA = indicators.IPCA.rate.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-  const defaultCDI = ECONOMIC_INDICATORS.CDI.rate.toLocaleString("pt-BR", {
+  const defaultCDI = indicators.CDI.rate.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });

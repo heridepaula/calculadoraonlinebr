@@ -46,6 +46,14 @@ Adding a category also requires adding its id to the category union types duplic
 
 Note: route `meta` functions typically hardcode their title/description/canonical inline rather than calling `generateCalculatorMeta`, so SEO text can diverge between the route and `CALCULATOR_SEO_DATA` — update both.
 
+### Indicadores de mercado (SELIC, CDI, IPCA, INPC, TR, poupança, Tesouro Direto)
+
+- Nunca fixe taxas de mercado nas rotas. Cada calculadora de finanças tem `loader` que devolve `indicators` (via `marketIndicatorsLoader` em `services/market/loader.server.ts`, ou `getMarketIndicators`/`getTreasuryBonds` de `services/market/marketData.server.ts`) e usa `useLoaderData`.
+- Coleta: Vercel Cron `/api/cron/indicadores` (`vercel.json`, 14h UTC = 11h BRT, protegido por `CRON_SECRET`). Fontes: API SGS do Banco Central (séries em `lib/market/indicators.ts` → `SGS_SERIES`) e CSV do Tesouro Transparente (`lib/market/treasury.ts`, atalho por `last_modified`/ETag, arquivo inválido é recusado inteiro).
+- Mongo: `market_indicators`, `treasury_bonds` (janela de 365 dias), `treasury_sync`. Primeira carga ou teste manual: `npm run sync:market`.
+- Leitura: cache de 1 h por instância; sem banco, cai em `FALLBACK_INDICATORS` com `stale: true`. O endpoint JSON antigo do tesourodireto.com.br responde 410: não volte a usá-lo.
+- Nova série: acrescente em `IndicatorId`, `SGS_SERIES`, `RATE_BOUNDS`, `STALE_AFTER_DAYS` e `FALLBACK_INDICATORS`.
+
 ### Shared building blocks
 
 - `app/components/ui/` — base components exported from `index.ts` (Card, Button, Input, `MoneyInput`, `RateInput`, `SmartInput`, Select, Checkbox, Tabs, Breadcrumb, Chart). Prefer these over native inputs/checkboxes. Money fields use `MoneyInput` and percentage fields use `RateInput` (both emit pt-BR strings like `"1.234,56"`, and show `"0,00"` after being cleared). The shared `Input` generates a random id unless you pass `id` (use `useId()` to avoid SSR hydration mismatches). Decimal odds use `OddsInput`; parse any of these masked values with `parseMaskedNumber` (`app/lib/utils.ts`). `FieldFeedback` renders a field's error + hint and `HelpTooltip` the "?" help button; for a label with a tooltip, omit `label` and pass `id` to the masked input.

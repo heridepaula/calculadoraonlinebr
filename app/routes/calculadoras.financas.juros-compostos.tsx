@@ -12,7 +12,8 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
+import { useLoaderData } from "@remix-run/react";
+import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -267,7 +268,7 @@ export const meta: MetaFunction = () => {
             name: "Que taxa de juros devo usar na simulação?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Use taxas realistas baseadas em investimentos disponíveis: Renda Fixa (8-12% a.a.), Tesouro Direto (10-13% a.a.), fundos de investimento (6-15% a.a.). A SELIC atual é de 12,25% a.a.",
+              text: "Use taxas realistas baseadas em investimentos disponíveis: Renda Fixa (8-12% a.a.), Tesouro Direto (10-13% a.a.), fundos de investimento (6-15% a.a.). Compare sempre com a SELIC vigente, divulgada pelo Banco Central e exibida nesta calculadora.",
             },
           },
         ],
@@ -306,7 +307,12 @@ interface ValidationErrors {
   periods?: string;
 }
 
+export async function loader() {
+  return marketIndicatorsLoader();
+}
+
 export default function CompoundInterestCalculator() {
+  const { indicators } = useLoaderData<typeof loader>();
   const [principal, setPrincipal] = useState("");
   const [annualRate, setAnnualRate] = useState("");
   const [periods, setPeriods] = useState("");
@@ -325,7 +331,7 @@ export default function CompoundInterestCalculator() {
 
   // Função para calcular taxa padrão baseada na SELIC
   const getDefaultSelicRate = (type: PeriodType): string => {
-    const selicAnnualRate = ECONOMIC_INDICATORS.SELIC.rate; // 12,25% ao ano
+    const selicAnnualRate = indicators.SELIC.rate; 
     if (type === "months") {
       const monthlyRate = selicAnnualRate / 12; // Converte para mensal
       return monthlyRate.toFixed(2).replace(".", ",");
@@ -580,8 +586,8 @@ export default function CompoundInterestCalculator() {
                 <span className="ml-2 text-system-info">
                   (SELIC:{" "}
                   {periodType === "months"
-                    ? `${(ECONOMIC_INDICATORS.SELIC.rate / 12).toFixed(2)}% a.m.`
-                    : `${ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.`}
+                    ? `${(indicators.SELIC.rate / 12).toFixed(2)}% a.m.`
+                    : `${indicators.SELIC.rate.toFixed(2)}% a.a.`}
                   )
                 </span>
               </div>
@@ -1313,7 +1319,7 @@ export default function CompoundInterestCalculator() {
           {
             question: "Que taxa de juros devo usar na simulação?",
             answer:
-              "Use taxas realistas baseadas em investimentos disponíveis: Renda Fixa (8-12% a.a.), Tesouro Direto (10-13% a.a.), fundos de investimento (6-15% a.a.). A SELIC atual é de 12,25% a.a. Evite taxas muito altas para simulações realistas.",
+              `Use taxas realistas baseadas em investimentos disponíveis: Renda Fixa (8-12% a.a.), Tesouro Direto (10-13% a.a.), fundos de investimento (6-15% a.a.). A SELIC atual é de ${indicators.SELIC.rate.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}% a.a. Evite taxas muito altas para simulações realistas.`,
             borderColor: "system-error-dark",
           },
         ]}

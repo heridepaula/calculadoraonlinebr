@@ -12,7 +12,9 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
+import { useLoaderData } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { getMarketIndicators, getTreasuryBonds } from "~/services/market/marketData.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -374,13 +376,30 @@ interface ValidationErrors {
   period?: string;
 }
 
+export async function loader() {
+  const [indicators, treasury] = await Promise.all([getMarketIndicators(), getTreasuryBonds()]);
+  // Tesouro IPCA+: taxa nominal aproximada = (1 + IPCA) x (1 + taxa real do título longo) - 1.
+  const ipcaBonds = treasury.bonds.filter((bond) => bond.type === "tesouro_ipca");
+  const ref = ipcaBonds.find((bond) => bond.maturityDate.startsWith("2035")) ?? ipcaBonds.at(-1);
+  const tesouroIpca = ref
+    ? Math.round(((1 + indicators.IPCA.rate / 100) * (1 + ref.rate / 100) - 1) * 10000) / 100
+    : indicators.SELIC.rate;
+  return json(
+    { indicators, tesouroSelic: indicators.SELIC.rate, tesouroIpca },
+    { headers: { "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400" } }
+  );
+}
+
 export default function FixedIncomeComparison() {
+  const { indicators, tesouroSelic, tesouroIpca } = useLoaderData<typeof loader>();
+  const tesouroSelicDefault = tesouroSelic.toFixed(2);
+  const tesouroIpcaDefault = tesouroIpca.toFixed(2);
   const [investedAmount, setInvestedAmount] = useState("");
   const [period, setPeriod] = useState("");
   const [cdbRate, setCdbRate] = useState("100");
   const [lciLcaRate, setLciLcaRate] = useState("86");
-  const [tesouroSelicRate, setTesouroSelicRate] = useState("14.25");
-  const [tesouroIpcaRate, setTesouroIpcaRate] = useState("11.0");
+  const [tesouroSelicRate, setTesouroSelicRate] = useState(tesouroSelicDefault);
+  const [tesouroIpcaRate, setTesouroIpcaRate] = useState(tesouroIpcaDefault);
   const [result, setResult] = useState<FixedIncomeComparisonResult | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -411,14 +430,14 @@ export default function FixedIncomeComparison() {
     {
       id: "tesouro_selic",
       name: "Tesouro Selic",
-      rate: parseFloat(tesouroSelicRate.replace(",", ".")) || 14.25,
+      rate: parseFloat(tesouroSelicRate.replace(",", ".")) || tesouroSelic,
       rateType: "fixed_rate",
       hasIRExemption: false,
     },
     {
       id: "tesouro_ipca",
       name: "Tesouro IPCA+",
-      rate: parseFloat(tesouroIpcaRate.replace(",", ".")) || 11.0,
+      rate: parseFloat(tesouroIpcaRate.replace(",", ".")) || tesouroIpca,
       rateType: "fixed_rate",
       hasIRExemption: false,
     },
@@ -443,10 +462,10 @@ export default function FixedIncomeComparison() {
       setLciLcaRate("86");
     }
     if (!tesouroSelicRate) {
-      setTesouroSelicRate("14.25");
+      setTesouroSelicRate(tesouroSelicDefault);
     }
     if (!tesouroIpcaRate) {
-      setTesouroIpcaRate("11.0");
+      setTesouroIpcaRate(tesouroIpcaDefault);
     }
   }, []);
 
@@ -551,7 +570,7 @@ export default function FixedIncomeComparison() {
       const periodDays = parseInt(period, 10);
 
       // Taxa CDI atual (baseada na SELIC)
-      const currentCdiRate = ECONOMIC_INDICATORS.SELIC.rate / 100;
+      const currentCdiRate = indicators.CDI.rate / 100;
 
       // Calcular resultado para cada opção de investimento
       const investmentOptions = getInvestmentOptions();
@@ -589,8 +608,8 @@ export default function FixedIncomeComparison() {
     setPeriod("");
     setCdbRate("100");
     setLciLcaRate("86");
-    setTesouroSelicRate("14.25");
-    setTesouroIpcaRate("11.5");
+    setTesouroSelicRate(tesouroSelicDefault);
+    setTesouroIpcaRate(tesouroIpcaDefault);
     setResult(null);
     setErrors({});
     setCurrentPage(1);
@@ -668,7 +687,7 @@ export default function FixedIncomeComparison() {
               <div className="mt-1 text-xs text-text-secondary">
                 Prazo do investimento em dias corridos
                 <span className="ml-2 text-system-info">
-                  (CDI atual: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.)
+                  (CDI atual: {indicators.CDI.rate.toFixed(2)}% a.a.)
                 </span>
               </div>
             </div>
@@ -714,12 +733,12 @@ export default function FixedIncomeComparison() {
                   label="Tesouro Selic (% a.a.)"
                   value={tesouroSelicRate}
                   onChange={(e) => setTesouroSelicRate(e.target.value)}
-                  placeholder="14.25"
+                  placeholder={tesouroSelicDefault}
                   fullWidth
                   className="h-12 text-lg"
                 />
                 <div className="mt-1 text-xs text-text-secondary">
-                  Taxa anual do Tesouro Selic (atual: ~14,25%)
+                  Taxa anual do Tesouro Selic (atual: ~{tesouroSelicDefault.replace(".", ",")}%)
                 </div>
               </div>
               <div>
@@ -728,12 +747,12 @@ export default function FixedIncomeComparison() {
                   label="Tesouro IPCA+ (% a.a.)"
                   value={tesouroIpcaRate}
                   onChange={(e) => setTesouroIpcaRate(e.target.value)}
-                  placeholder="11.0"
+                  placeholder={tesouroIpcaDefault}
                   fullWidth
                   className="h-12 text-lg"
                 />
                 <div className="mt-1 text-xs text-text-secondary">
-                  Taxa anual do Tesouro IPCA+ (atual: ~11,0%)
+                  Taxa anual do Tesouro IPCA+ (atual: ~{tesouroIpcaDefault.replace(".", ",")}%, IPCA + taxa real do título)
                 </div>
               </div>
             </div>

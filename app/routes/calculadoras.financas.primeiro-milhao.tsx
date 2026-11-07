@@ -12,7 +12,8 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
+import { useLoaderData } from "@remix-run/react";
+import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -315,7 +316,12 @@ interface ValidationErrors {
   goalAmount?: string;
 }
 
+export async function loader() {
+  return marketIndicatorsLoader();
+}
+
 export default function FirstMillionCalculator() {
+  const { indicators } = useLoaderData<typeof loader>();
   const [principal, setPrincipal] = useState("");
   const [annualRate, setAnnualRate] = useState("");
   const [monthlyInvestment, setMonthlyInvestment] = useState("");
@@ -336,7 +342,7 @@ export default function FirstMillionCalculator() {
   // Inicializa a taxa com valor da SELIC na primeira renderização
   useEffect(() => {
     if (!annualRate) {
-      const selicRate = ECONOMIC_INDICATORS.SELIC.rate.toFixed(2).replace(".", ",");
+      const selicRate = indicators.SELIC.rate.toFixed(2).replace(".", ",");
       setAnnualRate(selicRate);
     }
   }, []);
@@ -545,7 +551,7 @@ export default function FirstMillionCalculator() {
 
   const handleReset = () => {
     setPrincipal("");
-    setAnnualRate(ECONOMIC_INDICATORS.SELIC.rate.toFixed(2).replace(".", ","));
+    setAnnualRate(indicators.SELIC.rate.toFixed(2).replace(".", ","));
     setMonthlyInvestment("");
     setTargetTimeMonths("");
     setGoalAmount("1.000.000");
@@ -671,7 +677,7 @@ export default function FirstMillionCalculator() {
                   label="Taxa de Juros (% a.a.)"
                   value={annualRate}
                   onChange={setAnnualRate}
-                  placeholder={ECONOMIC_INDICATORS.SELIC.rate.toFixed(2).replace(".", ",")}
+                  placeholder={indicators.SELIC.rate.toFixed(2).replace(".", ",")}
                   fullWidth
                   className="h-12 text-lg"
                 />
@@ -679,7 +685,7 @@ export default function FirstMillionCalculator() {
                 <div className="mt-1 text-xs text-text-secondary">
                   Taxa anual esperada dos investimentos
                   <span className="ml-2 text-system-info">
-                    (SELIC: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.)
+                    (SELIC: {indicators.SELIC.rate.toFixed(2)}% a.a.)
                   </span>
                 </div>
               </div>

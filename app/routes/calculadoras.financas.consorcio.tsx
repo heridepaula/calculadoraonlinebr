@@ -12,7 +12,8 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
+import { useLoaderData } from "@remix-run/react";
+import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
 export const meta: MetaFunction = () => {
@@ -286,8 +287,13 @@ interface ValidationErrors {
   membershipFeeRate?: string;
 }
 
+export async function loader() {
+  return marketIndicatorsLoader();
+}
+
 export default function ConsortiumCalculator() {
-  const defaultINPC = ECONOMIC_INDICATORS.INPC.rate.toLocaleString("pt-BR", {
+  const { indicators } = useLoaderData<typeof loader>();
+  const defaultINPC = indicators.INPC.rate.toLocaleString("pt-BR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
@@ -410,7 +416,7 @@ export default function ConsortiumCalculator() {
     const effectiveRate = (totalPaid / credit - 1) * 100;
 
     // Projeção de ajuste pelo INPC
-    const inpcRate = ECONOMIC_INDICATORS.INPC.rate / 100;
+    const inpcRate = indicators.INPC.rate / 100;
     const projectedAnnualAdjustment = inpcRate * 100;
     const adjustedMonthlyPaymentINPC = monthlyPayment * (1 + inpcRate);
 
@@ -732,7 +738,7 @@ export default function ConsortiumCalculator() {
                 </div>
               </div>
               <p className="mt-3 text-xs text-text-secondary">
-                * Projeção baseada no INPC atual ({percentBR(ECONOMIC_INDICATORS.INPC.rate, 2)}%
+                * Projeção baseada no INPC atual ({percentBR(indicators.INPC.rate, 2)}%
                 a.a.). Reajustes reais podem variar conforme índice oficial no período.
               </p>
             </div>

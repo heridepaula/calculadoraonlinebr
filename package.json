@@ -20,7 +20,8 @@
     "indexnow:main": "node scripts/indexnow-submit.js --all-main-pages",
     "indexnow:submit": "node scripts/indexnow-submit.js",
     "seed:lotofacil": "tsx scripts/seedLotofacil.ts",
-    "backfill:lotofacil": "tsx scripts/backfillLotofacil.ts"
+    "backfill:lotofacil": "tsx scripts/backfillLotofacil.ts",
+    "sync:market": "tsx --env-file=.env.local scripts/syncMarket.ts"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "1.1.12",

@@ -12,7 +12,8 @@ import {
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
+import { useLoaderData } from "@remix-run/react";
+import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -366,7 +367,12 @@ interface ValidationErrors {
   days?: string;
 }
 
+export async function loader() {
+  return marketIndicatorsLoader();
+}
+
 export default function LciLcaCalculator() {
+  const { indicators } = useLoaderData<typeof loader>();
   const [investedAmount, setInvestedAmount] = useState("");
   const [cdiPercentage, setCdiPercentage] = useState("");
   const [days, setDays] = useState("");
@@ -444,7 +450,7 @@ export default function LciLcaCalculator() {
       const numberOfDays = parseInt(days, 10);
 
       // Taxa CDI atual (baseada na SELIC)
-      const currentCdiRate = ECONOMIC_INDICATORS.SELIC.rate / 100; // CDI aproximadamente igual à SELIC
+      const currentCdiRate = indicators.CDI.rate / 100;
       const effectiveAnnualRate = currentCdiRate * cdiPercent;
 
       // Verificar se as taxas são válidas
@@ -581,7 +587,7 @@ export default function LciLcaCalculator() {
               <div className="mt-1 text-xs text-text-secondary">
                 Percentual do CDI oferecido pela LCI/LCA
                 <span className="ml-2 text-system-info">
-                  (CDI atual: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.)
+                  (CDI atual: {indicators.CDI.rate.toFixed(2)}% a.a.)
                 </span>
               </div>
             </div>
@@ -1097,7 +1103,7 @@ export default function LciLcaCalculator() {
                   <h4 className="mb-3 font-semibold text-system-info">📈 Como funciona</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Percentual do CDI (ex: 100% do CDI)</li>
-                    <li>• CDI atual: {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.</li>
+                    <li>• CDI atual: {indicators.CDI.rate.toFixed(2)}% a.a.</li>
                   </ul>
                 </div>
 
@@ -1317,7 +1323,7 @@ export default function LciLcaCalculator() {
             <p>
               <strong>Configurações disponíveis:</strong> Valor a investir, percentual do CDI
               oferecido e prazo em meses ou anos. A calculadora usa a taxa CDI atual (
-              {ECONOMIC_INDICATORS.SELIC.rate.toFixed(2)}% a.a.) como base para os cálculos.
+              {indicators.CDI.rate.toFixed(2)}% a.a.) como base para os cálculos.
             </p>
             <p>
               <strong className="text-system-warning">Importante:</strong> Esta ferramenta é para

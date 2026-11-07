@@ -17,14 +17,14 @@ import {
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { APP_NAME } from "~/lib/constants";
-import { getCachedTreasuryBonds, type ProcessedBond } from "~/services/treasuryBonds.server";
-import { getSchedulerStatus } from "~/services/scheduler.server";
+import type { ProcessedBond } from "~/lib/market/treasury";
+import { getMarketIndicators, getTreasuryBonds } from "~/services/market/marketData.server";
+import { formatIsoDate, formatRate } from "~/lib/market/indicators";
 import {
   calculateTreasuryDirect,
   type TreasuryDirectParams,
   type TreasuryDirectResult,
 } from "~/utils/calculations";
-import { ECONOMIC_INDICATORS } from "~/lib/economic-data";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 
 // Função para converter valores formatados no padrão brasileiro para número
@@ -43,39 +43,20 @@ const parseBrazilianPercentage = (value: string | number): number => {
   return parseFloat(value.toString().replace(",", ".")) || 0;
 };
 
-// Loader para buscar dados dos títulos do Tesouro Direto
-export async function loader({ request }: LoaderFunctionArgs) {
-  try {
-    const bonds = await getCachedTreasuryBonds();
-    const schedulerStatus = getSchedulerStatus();
-
-    return json({
-      bonds,
-      success: true,
-      lastUpdate: new Date().toISOString(),
-      scheduler: {
-        isRunning: schedulerStatus.isRunning,
-        nextExecution: schedulerStatus.nextExecution?.toISOString(),
-        cacheLastUpdate: schedulerStatus.cacheStatus.lastUpdate?.toISOString(),
-        cacheNextUpdate: schedulerStatus.cacheStatus.nextUpdate?.toISOString(),
-      },
-    });
-  } catch (error) {
-    console.error("Error loading treasury bonds:", error);
-
-    // Retorna dados vazios em caso de erro
-    return json({
-      bonds: [],
-      success: false,
-      error: "Falha ao carregar dados do Tesouro Direto",
-      scheduler: {
-        isRunning: false,
-        nextExecution: null,
-        cacheLastUpdate: null,
-        cacheNextUpdate: null,
-      },
-    });
-  }
+// Loader: títulos e indicadores vêm do banco (atualizados pelo cron /api/cron/indicadores)
+export async function loader(_args: LoaderFunctionArgs) {
+  const [treasury, indicators] = await Promise.all([getTreasuryBonds(), getMarketIndicators()]);
+  return json(
+    {
+      bonds: treasury.bonds,
+      success: treasury.bonds.length > 0,
+      error: treasury.bonds.length === 0 ? "Falha ao carregar dados do Tesouro Direto" : null,
+      baseDate: treasury.baseDate,
+      stale: treasury.stale,
+      indicators,
+    },
+    { headers: { "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400" } }
+  );
 }
 
 export const meta: MetaFunction = () => {
@@ -358,7 +339,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function TreasuryDirectCalculator() {
-  const { bonds, success, error: loadError, scheduler } = useLoaderData<typeof loader>();
+  const { bonds, success, error: loadError, baseDate, stale, indicators } = useLoaderData<typeof loader>();
 
   const [selectedBondCode, setSelectedBondCode] = useState("");
   const [selectedBond, setSelectedBond] = useState<ProcessedBond | null>(null);
@@ -370,9 +351,9 @@ export default function TreasuryDirectCalculator() {
   });
   const [purchaseRate, setPurchaseRate] = useState("10.5");
   const [currentSelicRate, setCurrentSelicRate] = useState(
-    ECONOMIC_INDICATORS.SELIC.rate.toString()
+    indicators.SELIC.rate.toString()
   );
-  const [currentIPCARate, setCurrentIPCARate] = useState(ECONOMIC_INDICATORS.IPCA.rate.toString());
+  const [currentIPCARate, setCurrentIPCARate] = useState(indicators.IPCA.rate.toString());
   const [couponRate, setCouponRate] = useState("10.0");
   const [monthlyInvestment, setMonthlyInvestment] = useState("0.00");
   const [result, setResult] = useState<TreasuryDirectResult | null>(null);
@@ -390,7 +371,7 @@ export default function TreasuryDirectCalculator() {
     return date.toISOString().split("T")[0];
   });
   const [marketRateAtRedemption, setMarketRateAtRedemption] = useState(
-    ECONOMIC_INDICATORS.SELIC.rate.toString()
+    indicators.SELIC.rate.toString()
   );
 
   // Paginação dos cupons
@@ -441,9 +422,9 @@ export default function TreasuryDirectCalculator() {
       const principalNum = parseBrazilianNumber(principal);
       const purchaseRateNum = parseBrazilianPercentage(purchaseRate);
       const currentSelicRateNum =
-        parseBrazilianPercentage(currentSelicRate) || ECONOMIC_INDICATORS.SELIC.rate;
+        parseBrazilianPercentage(currentSelicRate) || indicators.SELIC.rate;
       const currentIPCARateNum =
-        parseBrazilianPercentage(currentIPCARate) || ECONOMIC_INDICATORS.IPCA.rate;
+        parseBrazilianPercentage(currentIPCARate) || indicators.IPCA.rate;
       const couponRateNum = parseBrazilianPercentage(couponRate) || 10.0;
       const monthlyInvestmentNum = parseBrazilianNumber(monthlyInvestment);
 
@@ -583,16 +564,16 @@ export default function TreasuryDirectCalculator() {
               {loadError && (
                 <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-3">
                   <p className="text-sm text-system-warning">
-                    ⚠️ Usando dados padrão - API temporariamente indisponível
+                    ⚠️ Títulos indisponíveis no momento. Tente novamente mais tarde.
                   </p>
                 </div>
               )}
 
-              {success && bonds.length > 0 && scheduler.cacheLastUpdate && (
+              {success && bonds.length > 0 && baseDate && (
                 <div className="rounded-lg border border-system-success/20 bg-system-success/10 p-3">
                   <div className="text-center">
                     <p className="text-xs text-text-secondary">
-                      Atualizado: {new Date(scheduler.cacheLastUpdate).toLocaleString("pt-BR")}
+                      Taxas de fechamento de {formatIsoDate(baseDate)} (Tesouro Transparente){stale ? " · desatualizado" : ""}
                     </p>
                   </div>
                 </div>
@@ -765,9 +746,9 @@ export default function TreasuryDirectCalculator() {
                   />
                 </div>
                 <div className="mt-2 text-xs text-text-secondary">
-                  💡 Valores atuais: Selic {ECONOMIC_INDICATORS.SELIC.rate}% • IPCA{" "}
-                  {ECONOMIC_INDICATORS.IPCA.rate}% • Atualizado em{" "}
-                  {new Date(ECONOMIC_INDICATORS.SELIC.lastUpdate).toLocaleDateString("pt-BR")}
+                  💡 Valores atuais: Selic {formatRate(indicators.SELIC.rate)}% • IPCA{" "}
+                  {formatRate(indicators.IPCA.rate)}% • Fonte: Banco Central, ref.{" "}
+                  {formatIsoDate(indicators.SELIC.referenceDate)}
                 </div>
               </div>
 
