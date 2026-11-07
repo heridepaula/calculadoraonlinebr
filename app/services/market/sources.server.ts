@@ -12,8 +12,16 @@ import {
 } from "~/lib/market/indicators";
 import { parseTreasuryPackage } from "~/lib/market/treasury";
 
-const SGS = (n: number, last: number) =>
-  `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${n}/dados/ultimos/${last}?formato=json`;
+// Usamos intervalo de datas e não `/ultimos/N`: para algumas séries (TR 226, poupança 195) o
+// `/ultimos/N` responde 304 sem corpo de forma persistente; o intervalo responde sempre 200.
+const WINDOW_DAYS = 400;
+const brDate = (d: Date) =>
+  `${String(d.getUTCDate()).padStart(2, "0")}/${String(d.getUTCMonth() + 1).padStart(2, "0")}/${d.getUTCFullYear()}`;
+const SGS = (n: number) => {
+  const now = new Date();
+  const from = new Date(now.getTime() - WINDOW_DAYS * 86_400_000);
+  return `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${n}/dados?formato=json&dataInicial=${brDate(from)}&dataFinal=${brDate(now)}`;
+};
 const CATALOG_URL =
   "https://www.tesourotransparente.gov.br/ckan/api/3/action/package_show?id=df56aa42-484a-4a59-8184-7676580c81e3";
 
@@ -28,7 +36,7 @@ async function fetchSgs(series: number, last: number, attempt = 1): Promise<SgsP
 }
 
 async function fetchSgsOnce(series: number, last: number): Promise<SgsPoint[]> {
-  const res = await fetch(SGS(series, last), {
+  const res = await fetch(SGS(series), {
     headers: { Accept: "application/json", "Cache-Control": "no-cache" },
     signal: AbortSignal.timeout(15_000),
   });
@@ -36,7 +44,7 @@ async function fetchSgsOnce(series: number, last: number): Promise<SgsPoint[]> {
   // Algumas séries respondem 200 com corpo vazio ou 304; tratamos como falha para cair no fallback.
   const text = await res.text();
   if (!text) throw new Error(`SGS ${series} sem corpo`);
-  const points = parseSgsResponse(JSON.parse(text));
+  const points = parseSgsResponse(JSON.parse(text)).slice(-last);
   if (points.length === 0) throw new Error(`SGS ${series} sem pontos válidos`);
   return points;
 }
