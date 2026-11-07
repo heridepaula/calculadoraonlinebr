@@ -14,13 +14,27 @@ export const CRON_HEADERS = {
 export const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: CRON_HEADERS });
 
-/** `Authorization: Bearer $CRON_SECRET` (Vercel Cron e cron-job.org, via header customizado). */
+function safeEqual(expected: string, received: string): boolean {
+  const a = Buffer.from(expected);
+  const b = Buffer.from(received);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
+/**
+ * Aceita o header `Authorization` em dois formatos:
+ * - `Bearer $CRON_SECRET` (Vercel Cron);
+ * - `Basic base64("cron:$CRON_BASIC_PASSWORD")` (cron-job.org, campo de autenticação HTTP).
+ */
 export function isAuthorized(request: Request): boolean {
+  const received = request.headers.get("authorization") ?? "";
   const secret = process.env.CRON_SECRET;
-  if (!secret) return false;
-  const expected = Buffer.from(`Bearer ${secret}`);
-  const received = Buffer.from(request.headers.get("authorization") ?? "");
-  return expected.length === received.length && timingSafeEqual(expected, received);
+  const basicPassword = process.env.CRON_BASIC_PASSWORD;
+  if (secret && safeEqual(`Bearer ${secret}`, received)) return true;
+  if (basicPassword) {
+    const expected = `Basic ${Buffer.from(`cron:${basicPassword}`).toString("base64")}`;
+    return safeEqual(expected, received);
+  }
+  return false;
 }
 
 /** Busca o último resultado, grava (idempotente por concurso) e audita os jogos gerados. */
