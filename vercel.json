@@ -101,21 +101,12 @@
     }
   ],
   "crons": [
-    {
-      "path": "/api/cron/lotofacil",
-      "schedule": "30 23 * * 1-6"
-    },
-    {
-      "path": "/api/cron/megasena",
-      "schedule": "0 1 * * *"
-    },
-    {
-      "path": "/api/cron/quina",
-      "schedule": "30 1 * * *"
-    },
-    {
-      "path": "/api/cron/indicadores",
-      "schedule": "0 14 * * *"
-    }
+    { "path": "/api/cron/lotofacil", "schedule": "30 23 * * 1-6" },
+    { "path": "/api/cron/lotofacil", "schedule": "30 1 * * 2-0" },
+    { "path": "/api/cron/megasena", "schedule": "0 1 * * *" },
+    { "path": "/api/cron/megasena", "schedule": "30 2 * * *" },
+    { "path": "/api/cron/quina", "schedule": "30 1 * * *" },
+    { "path": "/api/cron/quina", "schedule": "0 3 * * *" },
+    { "path": "/api/cron/indicadores", "schedule": "0 14 * * *" }
   ]
 }
