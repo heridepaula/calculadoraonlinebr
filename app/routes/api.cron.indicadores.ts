@@ -1,5 +1,5 @@
-import { timingSafeEqual } from "node:crypto";
 import type { LoaderFunctionArgs } from "@remix-run/node";
+import { isAuthorized } from "~/services/lottery/cronRunner.server";
 import { syncIndicators, syncTreasury } from "~/services/market/sync.server";
 
 const HEADERS = {
@@ -10,17 +10,9 @@ const HEADERS = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: HEADERS });
 
-function isAuthorized(request: Request): boolean {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) return false;
-  const expected = Buffer.from(`Bearer ${secret}`);
-  const received = Buffer.from(request.headers.get("authorization") ?? "");
-  return expected.length === received.length && timingSafeEqual(expected, received);
-}
-
 const msg = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
-// Vercel Cron: GET /api/cron/indicadores com `Authorization: Bearer $CRON_SECRET`.
+// GET /api/cron/indicadores com `Authorization` Bearer (CRON_SECRET) ou Basic (cron:CRON_BASIC_PASSWORD).
 // As duas etapas são independentes: uma falha não impede a outra.
 export async function loader({ request }: LoaderFunctionArgs) {
   if (!isAuthorized(request)) return json({ success: false, error: "Unauthorized" }, 401);
