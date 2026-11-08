@@ -14,12 +14,19 @@ const PRIZE_SOURCES: Array<{ name: LotteryProvider; fetch: (def: LotteryDef, c?:
  * dezenas, enriquecemos com a primeira fonte com premiação que responder; se todas falharem,
  * salvamos só as dezenas.
  */
-export async function fetchLatest(def: LotteryDef): Promise<LotteryFetchOutcome> {
+export async function fetchLatest(
+  def: LotteryDef,
+  /** Último concurso já gravado com premiação: se a fonte principal não trouxer nada mais novo, pula o enriquecimento. */
+  saved?: { concurso: number; completo: boolean }
+): Promise<LotteryFetchOutcome> {
   const avisos: string[] = [];
   const tag = `[${def.id}]`;
 
   try {
     const result = await scrapeGigaSena(def);
+    if (saved?.completo && result.concurso <= saved.concurso) {
+      return { lottery: def.id, result, source: "primary", provider: "giga-sena", avisos };
+    }
     for (const src of PRIZE_SOURCES) {
       try {
         const p = await src.fetch(def, result.concurso);

@@ -1,6 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 import type { LotteryDef } from "~/lib/lottery/definitions";
-import { saveResult } from "~/repositories/lottery.repository.server";
+import { getLatestResult, saveResult } from "~/repositories/lottery.repository.server";
 import type { GamesAuditOutcome } from "~/types/lottery";
 import { auditGeneratedGames } from "./generatedGames.server";
 import { fetchLatest } from "./lotteryService.server";
@@ -37,9 +37,29 @@ export function isAuthorized(request: Request): boolean {
   return false;
 }
 
-/** Busca o último resultado, grava (idempotente por concurso) e audita os jogos gerados. */
+/**
+ * Busca o último resultado, grava (idempotente por concurso) e audita os jogos gerados.
+ * Se o banco já tem esse concurso completo (com premiação), não grava nem audita de novo
+ * (retries do cron-job.org após a atualização) e responde `skipped: true`.
+ */
 export async function runLotteryCron(def: LotteryDef) {
-  const { result, source, provider, avisos } = await fetchLatest(def);
+  const saved = await getLatestResult(def);
+  const known = saved ? { concurso: saved.concurso, completo: Boolean(saved.premiacoes) } : undefined;
+  const { result, source, provider, avisos } = await fetchLatest(def, known);
+
+  if (saved && known?.completo && result.concurso <= saved.concurso) {
+    return {
+      success: true as const,
+      skipped: true as const,
+      lottery: def.id,
+      source,
+      provider,
+      avisos,
+      concurso: saved.concurso,
+      motivo: result.concurso === saved.concurso ? "já atualizado" : "fonte ainda defasada",
+    };
+  }
+
   const { created } = await saveResult(def, result);
 
   // Falha na auditoria não invalida o resultado já gravado.
@@ -53,6 +73,7 @@ export async function runLotteryCron(def: LotteryDef) {
 
   return {
     success: true as const,
+    skipped: false as const,
     lottery: def.id,
     source,
     provider,
