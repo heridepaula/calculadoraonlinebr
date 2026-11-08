@@ -166,10 +166,11 @@ export default function GeradorMegaSena() {
             Gere números para <strong className="text-system-success-dark">Mega-Sena</strong> usando estratégias
             estatísticas, análise de frequência e filtros calculados com todos os concursos já sorteados.
           </p>
-          <NextDrawBanner latest={latest} />
+          <div className="flex flex-wrap justify-center gap-2">
+            <NextDrawBanner latest={latest} />
+            <BestPastGame lottery="megasena" best={community.best} />
+          </div>
         </header>
-
-        <BestPastGame lottery="megasena" best={community.best} />
 
         <LotteryGenerator stats={stats} />
 

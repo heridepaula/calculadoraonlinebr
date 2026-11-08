@@ -352,14 +352,17 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
       return next;
     });
 
-  /** Gera um jogo com a estratégia dada. `surprise`: estratégia sorteada pela Surpresinha. */
-  const run = (cfg: GeneratorConfig, surprise: boolean) => {
+  /**
+   * Gera um jogo com a estratégia dada. `surprise`: estratégia sorteada pela Surpresinha.
+   * `scroll`: rola até o resultado (desligado nos botões do próprio recibo, que já está na tela).
+   */
+  const run = (cfg: GeneratorConfig, surprise: boolean, scroll = true) => {
     if (limitUntil && Date.now() < limitUntil) {
       setResult({
         kind: "error",
         message: `Você atingiu o limite de 100 jogos de ${def.name} em 30 minutos. Novos jogos liberam às ${hhmm(limitUntil)}.`,
       });
-      scrollTo(resultRef);
+      if (scroll) scrollTo(resultRef);
       return;
     }
     const avoid = new Set(history.map((g) => gameKey(g.numbers)));
@@ -382,7 +385,7 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
     } else {
       setResult({ kind: "error", message: r.error });
     }
-    scrollTo(resultRef);
+    if (scroll) scrollTo(resultRef);
   };
 
   /** Gerar jogo: usa a estratégia escolhida acima. */
@@ -858,8 +861,8 @@ export function LotteryGenerator({ stats }: { stats: LotteryStats }) {
             game={result.game}
             onCopy={copy}
             onPrint={printGame}
-            onAgain={gerar}
-            onSurprise={surpresinha}
+            onAgain={() => run(config, false, false)}
+            onSurprise={() => run(randomStrategyConfig(stats, config.fixed), true, false)}
             def={def}
           />
         )}
@@ -1081,8 +1084,41 @@ function GameReceipt({
           </div>
         ))}
       </div>
+      {/* Ações logo abaixo das dezenas (altura fixa): não "andam" quando o bloco de regras muda de tamanho. */}
+      <div className="flex flex-wrap gap-2 border-t border-lot-500/20 px-4 py-3">
+        <button
+          type="button"
+          onClick={onAgain}
+          className="min-h-[44px] whitespace-nowrap flex-1 rounded-lg bg-lot-600 px-3 text-sm font-semibold text-white hover:bg-lot-700"
+        >
+          ✨ Outro jogo
+        </button>
+        <button
+          type="button"
+          onClick={onSurprise}
+          className="min-h-[44px] whitespace-nowrap flex-1 rounded-lg border border-lot-500 px-3 text-sm font-semibold text-lot-300 hover:bg-lot-600/20"
+        >
+          🎲 Surpresinha
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            onCopy(`${def.name}: ${game.numbers.map(pad).join(", ")} — ${game.strategy}`)
+          }
+          className="hover:bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary"
+        >
+          📋 Copiar
+        </button>
+        <button
+          type="button"
+          onClick={() => onPrint(game)}
+          className="hover:bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary"
+        >
+          🖨️ Imprimir
+        </button>
+      </div>
       {!!game.fixed?.length && (
-        <p className="-mt-2 pb-3 text-center text-xs text-text-secondary">
+        <p className="!mb-0 border-t border-lot-500/20 py-2 text-center text-xs text-text-secondary">
           Contorno claro = número fixado por você
         </p>
       )}
@@ -1139,38 +1175,6 @@ function GameReceipt({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-t border-lot-500/20 p-4">
-        <button
-          type="button"
-          onClick={onAgain}
-          className="min-h-[44px] flex-1 rounded-lg bg-lot-600 px-3 text-sm font-semibold text-white hover:bg-lot-700"
-        >
-          ✨ Outro jogo
-        </button>
-        <button
-          type="button"
-          onClick={onSurprise}
-          className="min-h-[44px] flex-1 rounded-lg border border-lot-500 px-3 text-sm font-semibold text-lot-300 hover:bg-lot-600/20"
-        >
-          🎲 Surpresinha
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            onCopy(`${def.name}: ${game.numbers.map(pad).join(", ")} — ${game.strategy}`)
-          }
-          className="hover:bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary"
-        >
-          📋 Copiar
-        </button>
-        <button
-          type="button"
-          onClick={() => onPrint(game)}
-          className="hover:bg-background-primary min-h-[44px] rounded-lg border border-neutral-surface-variant px-4 text-sm font-semibold text-text-primary"
-        >
-          🖨️ Imprimir
-        </button>
-      </div>
     </div>
   );
 }

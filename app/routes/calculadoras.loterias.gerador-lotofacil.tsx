@@ -211,10 +211,11 @@ export default function GeradorLotofacil() {
             estratégias estatísticas avançadas, análise de frequência e filtros matemáticos
             inteligentes.
           </p>
-          <NextDrawBanner latest={stats.latest} />
+          <div className="flex flex-wrap justify-center gap-2">
+            <NextDrawBanner latest={stats.latest} />
+            <BestPastGame lottery="lotofacil" best={community.best} />
+          </div>
         </header>
-
-        <BestPastGame lottery="lotofacil" best={community.best} />
 
         <LotteryGenerator stats={stats} />
 
