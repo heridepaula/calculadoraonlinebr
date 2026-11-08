@@ -7,9 +7,12 @@ import {
   upsertTreasuryRows,
 } from "~/repositories/market.repository.server";
 import { fetchIndicators, fetchTreasuryCatalog, fetchTreasuryCsv } from "./sources.server";
+import { getDb } from "~/lib/mongodb.server";
 import { invalidateMarketCache } from "./marketData.server";
 
 export async function syncIndicators() {
+  // Abre a conexão com o Mongo enquanto as séries do BCB são baixadas (o cliente é compartilhado).
+  void getDb().catch(() => undefined);
   const { values, errors } = await fetchIndicators();
   const saved = await saveIndicators(values);
   invalidateMarketCache();
@@ -28,9 +31,9 @@ const isoDaysAgo = (days: number, now: Date) =>
  * gravado lança erro sem alterar nada. Upsert idempotente por (título, vencimento, data-base).
  */
 export async function syncTreasury(now = new Date()): Promise<TreasurySyncResult> {
-  const state = await getTreasurySync();
   try {
-    const catalog = await fetchTreasuryCatalog();
+    // Estado no Mongo e catálogo HTTP são independentes: buscar juntos.
+    const [state, catalog] = await Promise.all([getTreasurySync(), fetchTreasuryCatalog()]);
     if (state?.lastBaseDate && state.lastModified === catalog.lastModified) {
       await setTreasurySync({ checkedAt: now, lastError: null });
       return { status: "not-modified", upserted: 0 };

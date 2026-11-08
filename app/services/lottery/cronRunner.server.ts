@@ -43,11 +43,13 @@ export function isAuthorized(request: Request): boolean {
  * (retries do cron-job.org após a atualização) e responde `skipped: true`.
  */
 export async function runLotteryCron(def: LotteryDef) {
-  const saved = await getLatestResult(def);
-  const known = saved ? { concurso: saved.concurso, completo: Boolean(saved.premiacoes) } : undefined;
+  // A leitura do banco corre junto com o scrape; se falhar, segue o fluxo completo (saveResult acusa o erro).
+  const savedP = getLatestResult(def).catch(() => null);
+  const known = savedP.then((s) => (s ? { concurso: s.concurso, completo: Boolean(s.premiacoes) } : undefined));
   const { result, source, provider, avisos } = await fetchLatest(def, known);
+  const saved = await savedP;
 
-  if (saved && known?.completo && result.concurso <= saved.concurso) {
+  if (saved?.premiacoes && result.concurso <= saved.concurso) {
     return {
       success: true as const,
       skipped: true as const,

@@ -17,14 +17,15 @@ const PRIZE_SOURCES: Array<{ name: LotteryProvider; fetch: (def: LotteryDef, c?:
 export async function fetchLatest(
   def: LotteryDef,
   /** Último concurso já gravado com premiação: se a fonte principal não trouxer nada mais novo, pula o enriquecimento. */
-  saved?: { concurso: number; completo: boolean }
+  saved?: Promise<{ concurso: number; completo: boolean } | undefined>
 ): Promise<LotteryFetchOutcome> {
   const avisos: string[] = [];
   const tag = `[${def.id}]`;
 
   try {
     const result = await scrapeGigaSena(def);
-    if (saved?.completo && result.concurso <= saved.concurso) {
+    const known = await saved;
+    if (known?.completo && result.concurso <= known.concurso) {
       return { lottery: def.id, result, source: "primary", provider: "giga-sena", avisos };
     }
     for (const src of PRIZE_SOURCES) {
