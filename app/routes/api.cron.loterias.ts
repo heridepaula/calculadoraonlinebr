@@ -4,6 +4,9 @@ import { isAuthorized, json, runLotteryCron } from "~/services/lottery/cronRunne
 
 // GET /api/cron/loterias[?only=lotofacil,megasena] — atualiza várias loterias de uma vez (para cron-job.org).
 // Responde 200 se todas deram certo e 502 se alguma falhou (cron-job.org marca a execução como falha).
+// @vercel/remix: três loterias em paralelo + fontes externas podem passar do limite padrão.
+export const config = { maxDuration: 60 };
+
 export async function loader({ request }: LoaderFunctionArgs) {
   if (!isAuthorized(request)) return json({ success: false, error: "Unauthorized" }, 401);
 
