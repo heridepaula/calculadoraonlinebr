@@ -47,7 +47,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-operacao-datas.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/operacao-datas.jpg",
     },
     {
       property: "og:image:alt",
@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-operacao-datas.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/operacao-datas.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -93,7 +93,7 @@ export const meta: MetaFunction = () => {
     { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Operações entre Datas Online",
@@ -196,10 +196,10 @@ export const meta: MetaFunction = () => {
           "Validação automática de dados inseridos",
           "Formatação brasileira de datas",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -236,7 +236,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

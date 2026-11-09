@@ -21,7 +21,7 @@ import { generateFAQStructuredData } from "~/lib/structured-data";
 
 const SEO = CALCULATOR_SEO_DATA["criterio-de-kelly"];
 const PAGE_URL = SEO.canonicalUrl;
-const OG_IMAGE = `${APP_URL}/og-image-1200x630.webp`;
+const OG_IMAGE = `${APP_URL}/og/criterio-de-kelly.jpg`;
 
 // Exemplo único usado em todo o conteúdo educativo, calculado pela mesma função da calculadora
 const EXAMPLE = { bankroll: 1000, odds: 2.1, probabilityPercent: 55 } as const;

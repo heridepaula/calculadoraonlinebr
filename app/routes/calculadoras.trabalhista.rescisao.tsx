@@ -57,10 +57,10 @@ export const meta: MetaFunction = () => {
     { property: "og:locale", content: "pt_BR" },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/rescisao-trabalhista.jpg",
     },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Calculadora de Rescisão Trabalhista - CalculadoraOnlineBR" },
     {
       tagName: "link",
@@ -80,7 +80,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/rescisao-trabalhista.jpg",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
@@ -93,7 +93,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Rescisão Trabalhista - Simulador CLT 2026",
@@ -185,10 +185,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -217,7 +217,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

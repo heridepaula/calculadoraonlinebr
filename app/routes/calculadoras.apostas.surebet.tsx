@@ -16,7 +16,7 @@ import { generateFAQStructuredData } from "~/lib/structured-data";
 
 const SEO = CALCULATOR_SEO_DATA["surebet"];
 const PAGE_URL = SEO.canonicalUrl;
-const OG_IMAGE = `${APP_URL}/og-image-1200x630.webp`;
+const OG_IMAGE = `${APP_URL}/og/surebet.jpg`;
 
 // Exemplos calculados pela mesma função da calculadora, com margens realistas (1% a 3%)
 const INVESTMENT = 1000;

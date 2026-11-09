@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/emprestimo-consignado.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/emprestimo-consignado.jpg",
     },
     {
       property: "og:image:alt",
@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/emprestimo-consignado.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/emprestimo-consignado.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -99,7 +99,7 @@ export const meta: MetaFunction = () => {
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Empréstimo Consignado - Simulador Completo 2026",
@@ -191,10 +191,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -247,7 +247,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

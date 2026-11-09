@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { APP_NAME } from "~/lib/constants";
+import { APP_NAME, APP_URL } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,7 +19,16 @@ export const meta: MetaFunction = () => {
       content: "Plataforma gratuita com calculadoras organizadas para facilitar seu dia a dia.",
     },
     { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "index, follow" },
+    { property: "og:url", content: `${APP_URL}/sobre` },
+    { property: "og:image", content: `${APP_URL}/og/default.jpg` },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:site_name", content: APP_NAME },
+    { property: "og:locale", content: "pt_BR" },
+    { tagName: "link", rel: "canonical", href: `${APP_URL}/sobre` },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:image", content: `${APP_URL}/og/default.jpg` },
     { name: "twitter:title", content: "Sobre - CalculadoraOnlineBR" },
     { name: "twitter:description", content: "Conheça nossa plataforma de calculadoras gratuitas." },
   ];

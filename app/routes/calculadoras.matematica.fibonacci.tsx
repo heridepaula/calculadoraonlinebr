@@ -54,7 +54,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fibonacci.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/fibonacci.jpg",
     },
     {
       property: "og:image:alt",
@@ -88,7 +88,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fibonacci.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/fibonacci.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -107,7 +107,7 @@ export const meta: MetaFunction = () => {
     { name: "language", content: "pt-BR" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Fibonacci - Sequência Dourada 2026",
@@ -199,10 +199,10 @@ export const meta: MetaFunction = () => {
           "Responsivo para dispositivos móveis",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: "Calculadora de Fibonacci Online",
@@ -223,10 +223,10 @@ export const meta: MetaFunction = () => {
           name: "CalculadoraOnlineBR",
           url: "https://www.calculadoraonlinebr.com.br"
         }
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -263,10 +263,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Fibonacci",
@@ -300,7 +300,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Fibonacci Online",
           },
         ],
-      }),
+      },
     },
   ];
 };

@@ -95,7 +95,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-ciclo-menstrual.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/ciclo-menstrual.jpg",
     },
     {
       property: "og:image:alt",
@@ -129,7 +129,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-ciclo-menstrual.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/ciclo-menstrual.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -147,7 +147,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Ciclo Menstrual - Acompanhe Período Fértil 2026",
@@ -244,10 +244,10 @@ export const meta: MetaFunction = () => {
           "Cálculos em tempo real sem armazenamento de dados pessoais",
           "Ferramenta educativa com base em conhecimento médico atualizado",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -284,7 +284,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

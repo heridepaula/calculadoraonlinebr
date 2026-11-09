@@ -104,7 +104,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/tesouro-direto.jpg",
     },
     {
       property: "og:image:alt",
@@ -138,7 +138,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/tesouro-direto.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -156,7 +156,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora Tesouro Direto - Simulador com Dados Oficiais 2026",
@@ -248,10 +248,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -288,16 +288,16 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como Calcular Rendimentos do Tesouro Direto",
         description:
           "Passo a passo para simular investimentos em títulos do Tesouro Direto com dados oficiais",
-        image: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+        image: "https://www.calculadoraonlinebr.com.br/og/tesouro-direto.jpg",
         totalTime: "PT3M",
         estimatedCost: {
           "@type": "MonetaryAmount",
@@ -315,7 +315,7 @@ export const meta: MetaFunction = () => {
             "@type": "HowToStep",
             name: "Selecionar tipo de título",
             text: "Escolha entre Tesouro Selic, Prefixado ou IPCA+ conforme seu objetivo",
-            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-tesouro-direto.webp",
+            image: "https://www.calculadoraonlinebr.com.br/og/tesouro-direto.jpg",
           },
           {
             "@type": "HowToStep",
@@ -333,7 +333,7 @@ export const meta: MetaFunction = () => {
             text: "Veja o resultado com IR, custódia e valor líquido final",
           },
         ],
-      }),
+      },
     },
   ];
 };

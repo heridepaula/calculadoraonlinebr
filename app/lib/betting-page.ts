@@ -21,8 +21,6 @@ interface BettingPageMetaOptions {
   faq: FAQEntry[];
 }
 
-const OG_IMAGE = `${APP_URL}/og-image-1200x630.webp`;
-
 /**
  * Meta tags e JSON-LD (WebApplication, BreadcrumbList e FAQPage) padrão das páginas de
  * calculadoras de apostas. O canonical usa `tagName: "link"`, sem o qual o Remix gera um
@@ -39,6 +37,8 @@ export function buildBettingPageMeta({
   faq,
 }: BettingPageMetaOptions): MetaDescriptor[] {
   const url = seo.canonicalUrl;
+  // Imagem gerada por `npm run og:pages` (public/og/<id>.jpg)
+  const ogImage = seo.ogImage ?? `${APP_URL}/og/${seo.id}.jpg`;
 
   return [
     { title: seo.title },
@@ -53,7 +53,7 @@ export function buildBettingPageMeta({
     { property: "og:description", content: seo.description },
     { property: "og:type", content: "website" },
     { property: "og:url", content: url },
-    { property: "og:image", content: OG_IMAGE },
+    { property: "og:image", content: ogImage },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: imageAlt },
@@ -62,7 +62,7 @@ export function buildBettingPageMeta({
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: twitterTitle },
     { name: "twitter:description", content: seo.description },
-    { name: "twitter:image", content: OG_IMAGE },
+    { name: "twitter:image", content: ogImage },
     { tagName: "link", rel: "canonical", href: url },
     {
       "script:ld+json": {

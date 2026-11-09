@@ -57,7 +57,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-cdb.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/cdb.jpg",
     },
     {
       property: "og:image:alt",
@@ -91,7 +91,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-cdb.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/cdb.jpg",
     },
     {
       name: "twitter:image:alt",

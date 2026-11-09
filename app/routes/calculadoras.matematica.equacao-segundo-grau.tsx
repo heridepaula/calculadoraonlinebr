@@ -52,7 +52,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
+        "https://www.calculadoraonlinebr.com.br/og/equacao-segundo-grau.jpg",
     },
     {
       property: "og:image:alt",
@@ -87,7 +87,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-equacao-segundo-grau.webp",
+        "https://www.calculadoraonlinebr.com.br/og/equacao-segundo-grau.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -106,7 +106,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Equação de Segundo Grau - Fórmula de Bhaskara 2026",
@@ -198,10 +198,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -238,10 +238,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Equação de Segundo Grau",
@@ -275,7 +275,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Equação de Segundo Grau Online",
           },
         ],
-      }),
+      },
     },
   ];
 };

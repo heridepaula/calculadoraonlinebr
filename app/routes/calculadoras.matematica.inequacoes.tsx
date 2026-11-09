@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-inequacoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/inequacoes.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-inequacoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/inequacoes.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -139,10 +139,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/inequacoes",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Inequações de 1º e 2º Grau Online 2026",
@@ -190,10 +190,10 @@ export const meta: MetaFunction = () => {
           "Análise de sinais",
           "Resultados em notação de intervalo",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: "Calculadora de Inequações de 1º e 2º Grau 2026",
@@ -269,10 +269,10 @@ export const meta: MetaFunction = () => {
             description: "Conjunto de valores que satisfazem uma inequação, representados em notação de intervalo",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -317,7 +317,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

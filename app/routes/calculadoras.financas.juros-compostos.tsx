@@ -88,7 +88,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-juros-compostos.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/juros-compostos.jpg",
     },
     {
       property: "og:image:alt",
@@ -122,7 +122,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-juros-compostos.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/juros-compostos.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -140,7 +140,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Juros Compostos - Simulador de Crescimento 2026",
@@ -216,11 +216,10 @@ export const meta: MetaFunction = () => {
           },
         },
         about: {
-          "@type": "MathematicalConcept",
+          "@type": "DefinedTerm",
           name: "Juros Compostos",
           description:
             "Sistema de capitalização onde os juros incidem sobre o capital inicial acrescido dos juros acumulados",
-          category: "Financial Mathematics",
         },
         featureList: [
           "Simulação de juros compostos com aportes mensais",
@@ -232,10 +231,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Resultados confiáveis em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -272,7 +271,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

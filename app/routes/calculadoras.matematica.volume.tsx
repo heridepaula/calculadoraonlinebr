@@ -50,7 +50,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-volume.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/volume.jpg",
     },
     {
       property: "og:image:alt",
@@ -83,7 +83,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-area-volume.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/volume.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -101,7 +101,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Área e Volume - Formas Geométricas 2026",
@@ -193,10 +193,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -233,10 +233,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Área e Volume",
@@ -270,7 +270,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Área e Volume Online",
           },
         ],
-      }),
+      },
     },
   ];
 };

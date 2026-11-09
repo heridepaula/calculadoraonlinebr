@@ -88,7 +88,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-primeiro-milhao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/primeiro-milhao.jpg",
     },
     {
       property: "og:image:alt",
@@ -122,7 +122,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-primeiro-milhao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/primeiro-milhao.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -140,7 +140,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora do Primeiro Milhão - Simulador de Independência Financeira 2026",
@@ -239,10 +239,10 @@ export const meta: MetaFunction = () => {
           description: "Especialistas em ferramentas financeiras educacionais",
           expertise: "Educação Financeira e Simuladores de Investimento",
         },
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -279,7 +279,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

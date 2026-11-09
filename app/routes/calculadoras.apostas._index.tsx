@@ -19,7 +19,7 @@ const PAGE_URL = `${APP_URL}/calculadoras/apostas`;
 const PAGE_TITLE = `Calculadoras de Apostas Esportivas: Gestão de Banca e Stake | ${APP_NAME}`;
 const PAGE_DESCRIPTION =
   "Calculadoras grátis para apostas esportivas: gestão de banca, critério de Kelly, valor esperado (EV+), surebet e dutching. Matemática para apostar com responsabilidade.";
-const OG_IMAGE = `${APP_URL}/og-image-1200x630.webp`;
+const OG_IMAGE = `${APP_URL}/og/categoria-apostas.jpg`;
 
 const FAQ_ITEMS = [
   {

@@ -56,7 +56,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/categoria-astrologia.jpg",
     },
     {
       property: "og:image:width",
@@ -94,7 +94,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/categoria-astrologia.jpg",
     },
     {
       name: "twitter:image:alt",

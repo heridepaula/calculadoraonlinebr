@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-simplificador-algebrico.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/simplificador-funcoes-algebricas.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-simplificador-algebrico.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/simplificador-funcoes-algebricas.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -139,10 +139,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/simplificador-funcoes-algebricas",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Simplificador de Expressões Algébricas Online 2026",
@@ -190,10 +190,10 @@ export const meta: MetaFunction = () => {
           "Detecção de fatores comuns",
           "Resultados em formato matemático",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: "Simplificador de Expressões Algébricas 2026",
@@ -269,10 +269,10 @@ export const meta: MetaFunction = () => {
             description: "Termos que possuem a mesma parte literal e podem ser somados ou subtraídos",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -317,10 +317,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -365,7 +365,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

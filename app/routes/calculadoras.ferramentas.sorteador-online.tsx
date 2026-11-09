@@ -50,7 +50,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/sorteador-online.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/sorteador-online.jpg",
     },
     {
       property: "og:image:alt",
@@ -85,7 +85,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/sorteador-online.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/sorteador-online.jpg",
     },
     {
       name: "twitter:image:alt",

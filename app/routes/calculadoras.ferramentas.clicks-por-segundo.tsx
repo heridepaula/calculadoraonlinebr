@@ -58,7 +58,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/cps-teste.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/clicks-por-segundo.jpg",
     },
     {
       property: "og:image:alt",
@@ -93,7 +93,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/cps-teste.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/clicks-por-segundo.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -120,7 +120,7 @@ export const meta: MetaFunction = () => {
     { name: "HandheldFriendly", content: "True" },
     { name: "MobileOptimized", content: "320" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Teste CPS - Clicks Por Segundo 2026",
@@ -169,10 +169,10 @@ export const meta: MetaFunction = () => {
           "Interface responsiva",
           "Histórico de performance",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
@@ -218,10 +218,10 @@ export const meta: MetaFunction = () => {
             },
           ],
         },
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -266,7 +266,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

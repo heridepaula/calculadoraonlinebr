@@ -94,7 +94,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-juros-simples.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/juros-simples.jpg",
     },
     {
       property: "og:image:alt",
@@ -128,7 +128,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-juros-simples.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/juros-simples.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -144,7 +144,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Juros Simples - Simulador Completo 2026",
@@ -220,11 +220,10 @@ export const meta: MetaFunction = () => {
           },
         },
         about: {
-          "@type": "MathematicalConcept",
+          "@type": "DefinedTerm",
           name: "Juros Simples",
           description:
             "Sistema de capitalização onde os juros incidem apenas sobre o capital inicial, sem acumulação de juros sobre juros",
-          category: "Financial Mathematics",
         },
         featureList: [
           "Simulação de juros simples com cálculo direto",
@@ -236,10 +235,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Resultados confiáveis em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -276,7 +275,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

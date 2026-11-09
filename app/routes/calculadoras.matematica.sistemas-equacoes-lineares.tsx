@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-sistemas-equacoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/sistemas-equacoes-lineares.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-sistemas-equacoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/sistemas-equacoes-lineares.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -139,10 +139,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/sistemas-equacoes-lineares",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Sistemas de Equações Lineares Online 2026",
@@ -187,10 +187,10 @@ export const meta: MetaFunction = () => {
           "Explicação detalhada",
           "Análise de determinantes",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: "Calculadora de Sistemas de Equações Lineares 2026",
@@ -263,10 +263,10 @@ export const meta: MetaFunction = () => {
             description: "Método matemático que utiliza determinantes para resolver sistemas de equações lineares",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -311,7 +311,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

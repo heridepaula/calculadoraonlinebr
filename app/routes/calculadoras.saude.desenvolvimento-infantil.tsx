@@ -65,7 +65,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+        "https://www.calculadoraonlinebr.com.br/og/desenvolvimento-infantil.jpg",
     },
     {
       property: "og:image:alt",
@@ -99,7 +99,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-desenvolvimento-infantil.webp",
+        "https://www.calculadoraonlinebr.com.br/og/desenvolvimento-infantil.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -116,7 +116,7 @@ export const meta: MetaFunction = () => {
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Desenvolvimento Infantil 2026",
@@ -220,10 +220,10 @@ export const meta: MetaFunction = () => {
           "Dados não armazenados garantindo privacidade",
           "Ferramenta educacional para pais e profissionais",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "MedicalWebPage",
         name: "Calculadora de Desenvolvimento Infantil - Percentis e Crescimento",
@@ -246,10 +246,10 @@ export const meta: MetaFunction = () => {
           "@type": "Organization",
           name: "CalculadoraOnlineBR - Equipe Médica",
         },
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -286,10 +286,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Desenvolvimento Infantil",
@@ -323,7 +323,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Desenvolvimento Infantil Online",
           },
         ],
-      }),
+      },
     },
   ];
 };

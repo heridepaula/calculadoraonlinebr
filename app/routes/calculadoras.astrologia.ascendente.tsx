@@ -82,15 +82,15 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-calculadora.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/og/ascendente-astrologico.jpg",
     },
     {
       property: "og:image:alt",
       content:
         "Interface da calculadora de ascendente astrológico com campos para data, hora e local de nascimento",
     },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     {
       property: "og:site_name",
       content: "CalculadoraOnlineBR",
@@ -116,7 +116,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/ascendente-calculadora.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/og/ascendente-astrologico.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -1462,7 +1462,7 @@ export default function CalculadoraAscendente() {
                     "Interface responsiva",
                   ],
                   screenshot:
-                    "https://www.calculadoraonlinebr.com.br/og-images/ascendente-astrologico.jpg",
+                    "https://www.calculadoraonlinebr.com.br/og/ascendente-astrologico.jpg",
                 },
                 {
                   "@type": "FAQPage",

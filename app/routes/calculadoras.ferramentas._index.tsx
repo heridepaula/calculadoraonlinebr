@@ -34,7 +34,7 @@ export const meta: MetaFunction = () => {
     { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas" },
     { property: "og:site_name", content: "CalculadoraOnlineBR" },
     { property: "og:locale", content: "pt_BR" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp" },
+    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-ferramentas.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Ferramentas Online - CalculadoraOnlineBR" },
@@ -49,7 +49,7 @@ export const meta: MetaFunction = () => {
       content:
         "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
     },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp" },
+    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-ferramentas.jpg" },
     {
       "script:ld+json": {
         "@context": "https://schema.org",
@@ -447,7 +447,7 @@ export default function FerramentasIndex() {
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <a
-              href="/calculadoras/ferramentas/diferenca-entre-datas"
+              href="/calculadoras/datas/diferenca-entre-datas"
               className="group inline-flex transform items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-system-info-dark shadow-lg transition-all duration-300 hover:-translate-y-2 hover:bg-gray-50 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-system-info-dark"
               aria-label="Começar com diferença entre datas"
             >

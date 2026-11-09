@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/gerador-cnpj.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gerador-cnpj.jpg",
     },
     {
       property: "og:image:alt",
@@ -89,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/gerador-cnpj.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gerador-cnpj.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -109,7 +109,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Gerador de CNPJ - Geração Válida com Formatação 2026",
@@ -200,10 +200,10 @@ export const meta: MetaFunction = () => {
           "Geração instantânea",
           "Ferramenta gratuita",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -232,7 +232,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

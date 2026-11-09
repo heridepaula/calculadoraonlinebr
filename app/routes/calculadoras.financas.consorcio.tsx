@@ -57,7 +57,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-consorcio.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/consorcio.jpg",
     },
     {
       property: "og:image:alt",
@@ -66,7 +66,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image:type",
-      content: "image/webp",
+      content: "image/jpeg",
     },
     {
       property: "og:image:width",
@@ -95,7 +95,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-cdb.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/consorcio.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -113,7 +113,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Consórcio - Simulador de Parcelas e Contemplação 2026",
@@ -204,7 +204,7 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
       "script:ld+json": {

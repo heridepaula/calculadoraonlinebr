@@ -7,7 +7,7 @@ import type { Category } from "~/types";
 
 export const meta: MetaFunction = () => {
   const siteUrl = "https://www.calculadoraonlinebr.com.br";
-  const ogImage = `${siteUrl}/og-image-1200x630.webp`;
+  const ogImage = `${siteUrl}/og/default.jpg`;
 
   return [
     { title: `Calculadoras Online Gratuitas - IMC, Juros Compostos, Rescisão | ${APP_NAME}` },

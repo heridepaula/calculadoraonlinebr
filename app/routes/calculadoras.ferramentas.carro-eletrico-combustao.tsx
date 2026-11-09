@@ -57,7 +57,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/carro-eletrico-combustao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/carro-eletrico-combustao.jpg",
     },
     {
       property: "og:image:alt",
@@ -91,7 +91,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/carro-eletrico-combustao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/carro-eletrico-combustao.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora Carro Elétrico vs Combustão - Análise Completa 2026",
@@ -204,10 +204,10 @@ export const meta: MetaFunction = () => {
           "Interface responsiva",
           "Ferramenta gratuita",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -236,7 +236,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

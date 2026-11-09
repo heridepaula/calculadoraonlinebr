@@ -60,7 +60,7 @@ export const meta: MetaFunction = () => {
     { property: "og:locale", content: "pt_BR" },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-horas-extras-clt.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/horas-extras.jpg",
     },
     {
       property: "og:image:alt",
@@ -82,7 +82,7 @@ export const meta: MetaFunction = () => {
     { name: "twitter:creator", content: "@CalculadoraBR" },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-horas-extras-clt.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/horas-extras.jpg",
     },
     { name: "format-detection", content: "telephone=no" },
     { name: "mobile-web-app-capable", content: "yes" },
@@ -94,7 +94,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Horas Extras CLT 2026 - Art. 59",
@@ -186,10 +186,10 @@ export const meta: MetaFunction = () => {
           "Resultados em tempo real",
           "Base legal detalhada",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -218,7 +218,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

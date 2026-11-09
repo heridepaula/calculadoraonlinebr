@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-imc.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/imc.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-imc.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/imc.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -139,10 +139,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de IMC com Taxa Metabólica 2026",
@@ -208,10 +208,10 @@ export const meta: MetaFunction = () => {
           "Análise de risco à saúde",
           "Recomendações personalizadas",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -248,10 +248,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de IMC com Taxa Metabólica",
@@ -285,32 +285,11 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de IMC com Taxa Metabólica Online",
           },
         ],
-      }),
-    },
-    // Medical Calculator Schema
-    {
-      "script:ld+json": JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "MedicalCalculator",
-        name: "Calculadora de IMC com Taxa Metabólica",
-        description:
-          "Ferramenta médica para cálculo de Índice de Massa Corporal, Taxa Metabólica Basal e percentual de gordura corporal estimado",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
-        medicalSpecialty: ["Endocrinology", "Nutrition", "GeneralMedicine"],
-        guideline: {
-          "@type": "MedicalGuideline",
-          name: "Classificação OMS para IMC",
-          description:
-            "Diretrizes da Organização Mundial da Saúde para classificação do Índice de Massa Corporal",
-        },
-        applicationCategory: "HealthApplication",
-        isAccessibleForFree: true,
-        inLanguage: "pt-BR",
-      }),
+      },
     },
     // Adicionar WebPage Schema separado para melhor estruturação
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
@@ -341,7 +320,7 @@ export const meta: MetaFunction = () => {
           "@type": "Audience",
           audienceType: "Pessoas interessadas em saúde e fitness",
         },
-      }),
+      },
     },
   ];
 };

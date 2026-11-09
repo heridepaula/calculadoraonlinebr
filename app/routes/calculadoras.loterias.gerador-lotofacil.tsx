@@ -74,15 +74,15 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gerador-lotofacil.jpg",
     },
     {
       property: "og:image:width",
-      content: "512",
+      content: "1200",
     },
     {
       property: "og:image:height",
-      content: "512",
+      content: "630",
     },
     {
       property: "og:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gerador-lotofacil.jpg",
     },
     {
       name: "twitter:image:alt",

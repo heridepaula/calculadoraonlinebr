@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/mmc-mdc.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-mmc-mdc.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/mmc-mdc.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -111,7 +111,7 @@ export const meta: MetaFunction = () => {
     { name: "distribution", content: "global" },
     { name: "revisit-after", content: "7 days" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum 2026",
@@ -203,10 +203,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -243,10 +243,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -275,10 +275,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de MMC e MDC",
@@ -312,7 +312,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora MMC e MDC Online Gratuita",
           },
         ],
-      }),
+      },
     },
   ];
 };

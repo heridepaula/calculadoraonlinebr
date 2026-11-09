@@ -52,7 +52,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-peso-gravidez.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/peso-gravidez.jpg",
     },
     {
       property: "og:image:alt",
@@ -85,7 +85,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-peso-gravidez.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/peso-gravidez.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -116,7 +116,7 @@ export const meta: MetaFunction = () => {
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     { rel: "dns-prefetch", href: "https://www.google-analytics.com" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -145,10 +145,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora Peso na Gravidez segundo OMS 2026",
@@ -214,10 +214,10 @@ export const meta: MetaFunction = () => {
           "Acompanhamento nutricional",
           "Classificação estado nutricional",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -254,10 +254,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Peso na Gravidez",
@@ -291,27 +291,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Peso na Gravidez segundo OMS",
           },
         ],
-      }),
-    },
-    {
-      "script:ld+json": JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "MedicalCalculator",
-        name: "Calculadora de Peso na Gravidez segundo OMS",
-        description:
-          "Ferramenta médica para monitoramento do ganho de peso gestacional baseada nas diretrizes da Organização Mundial da Saúde e Ministério da Saúde brasileiro",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
-        medicalSpecialty: ["Obstetrics", "Nutrition", "GeneralMedicine"],
-        guideline: {
-          "@type": "MedicalGuideline",
-          name: "Diretrizes OMS e Ministério da Saúde para Ganho de Peso Gestacional",
-          description:
-            "Recomendações atualizadas da Organização Mundial da Saúde e curvas brasileiras do Ministério da Saúde (2022) para monitoramento nutricional gestacional",
-        },
-        applicationCategory: "HealthApplication",
-        isAccessibleForFree: true,
-        inLanguage: "pt-BR",
-      }),
+      },
     },
   ];
 };

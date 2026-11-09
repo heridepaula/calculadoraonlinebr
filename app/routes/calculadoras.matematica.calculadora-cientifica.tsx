@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-cientifica.webp",
+        "https://www.calculadoraonlinebr.com.br/og/calculadora-cientifica.jpg",
     },
     {
       property: "og:image:alt",
@@ -90,7 +90,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/images/calculadora-cientifica.webp",
+        "https://www.calculadoraonlinebr.com.br/og/calculadora-cientifica.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -109,7 +109,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora Científica Online 2026",
@@ -203,10 +203,10 @@ export const meta: MetaFunction = () => {
           "Histórico de cálculos",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -243,10 +243,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora Científica Online",
@@ -280,7 +280,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora Científica Online",
           },
         ],
-      }),
+      },
     },
   ];
 };

@@ -16,7 +16,7 @@ import { generateFAQStructuredData } from "~/lib/structured-data";
 
 const SEO = CALCULATOR_SEO_DATA["dutching"];
 const PAGE_URL = SEO.canonicalUrl;
-const OG_IMAGE = `${APP_URL}/og-image-1200x630.webp`;
+const OG_IMAGE = `${APP_URL}/og/dutching.jpg`;
 
 // Exemplos calculados pela mesma função da calculadora
 const INVESTMENT = 100;

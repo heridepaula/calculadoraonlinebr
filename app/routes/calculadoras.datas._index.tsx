@@ -58,7 +58,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/categoria-datas.jpg",
     },
     {
       property: "og:image:width",
@@ -96,7 +96,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-image-1200x630.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/categoria-datas.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -162,7 +162,7 @@ export default function DatasIndex() {
               title="Calculadora de Idade"
               description="Descubra sua idade em anos, meses, dias, horas e minutos."
               icon="🎂"
-              href="/calculadoras/datas/idade"
+              href="/calculadoras/datas/idade-exata"
               category="datas"
               isPopular={true}
               complexity="basic"
@@ -472,7 +472,7 @@ export default function DatasIndex() {
             </a>
 
             <a
-              href="/calculadoras/datas/idade"
+              href="/calculadoras/datas/idade-exata"
               className="group inline-flex transform items-center justify-center rounded-xl border-2 border-white px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-2 hover:bg-white hover:text-system-info-dark hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-system-info-dark sm:px-8 sm:py-4 sm:text-base"
               aria-label="Calcular idade"
             >

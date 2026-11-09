@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gordura-corporal.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-gordura-corporal.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gordura-corporal.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -139,10 +139,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Gordura Corporal Online 2026",
@@ -208,10 +208,10 @@ export const meta: MetaFunction = () => {
           "Análise de risco à saúde",
           "Validação científica",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -248,10 +248,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Gordura Corporal",
@@ -285,11 +285,11 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Gordura Corporal Online",
           },
         ],
-      }),
+      },
     },
     // Adicionar WebPage Schema separado para melhor estruturação
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
@@ -320,7 +320,7 @@ export const meta: MetaFunction = () => {
           "@type": "Audience",
           audienceType: "Pessoas interessadas em saúde e fitness",
         },
-      }),
+      },
     },
   ];
 };

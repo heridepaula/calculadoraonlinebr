@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-dias-uteis.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/dias-uteis.jpg",
     },
     {
       property: "og:image:alt",
@@ -89,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-dias-uteis.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/dias-uteis.jpg",
     },
     {
       name: "twitter:image:alt",

@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/gerador-cartao-credito.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gerador-cartao-credito.jpg",
     },
     {
       property: "og:image:alt",
@@ -90,7 +90,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/gerador-cartao-credito.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/gerador-cartao-credito.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -110,7 +110,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Gerador de Cartão de Crédito - Números de Teste para Desenvolvimento 2026",
@@ -202,10 +202,10 @@ export const meta: MetaFunction = () => {
           "Ferramenta gratuita",
           "Validação matemática",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -234,7 +234,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

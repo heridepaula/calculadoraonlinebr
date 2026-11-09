@@ -18,6 +18,8 @@ npm run lint             # eslint (respects .gitignore)
 npm run format           # prettier --write (with prettier-plugin-tailwindcss)
 npm run og:generate      # Regenerate OG image (scripts/generate-og-image.mjs)
 npm run indexnow:submit  # Submit URLs to IndexNow (see docs/INDEXNOW.md)
+npm run og:pages         # Generate per-page OG images public/og/<id>.jpg from CALCULATORS/CATEGORIES (args: ids)
+npm run sitemap:lastmod  # Rewrite app/data/sitemap-lastmod.json from git history; commit it with content changes
 ```
 
 There is no test suite. Validate with `npm run typecheck && npm run lint` before committing. Both currently report many pre-existing errors in older files (≈270 tsc, ≈650 eslint), so check only the files you touched, e.g. `npx eslint <files>` and `npx tsc --noEmit | grep <file>`.
@@ -29,7 +31,7 @@ There is no test suite. Validate with `npm run typecheck && npm run lint` before
 - `calculadoras.<category>._index.tsx` — category landing page
 - `calculadoras.<category>.<calculator>.tsx` — one self-contained file per calculator (meta, JSON-LD, form, calculation logic, results, FAQ, educational content). Calculation logic usually lives inside the route file, not in `app/utils/calculations.ts`.
 - Categories: `saude`, `financas`, `matematica`, `trabalhista`, `ferramentas`, `astrologia`, `datas`, `loterias`, `apostas`
-- `sitemap[.]xml.tsx` — **dynamic** sitemap, generated from `CATEGORIES` + `CALCULATORS` in `constants.ts`, with priority/changefreq from `CALCULATOR_SEO_DATA`. There is no static sitemap file.
+- `sitemap[.]xml.tsx` — **dynamic** sitemap, generated from `CATEGORIES` + `CALCULATORS` in `constants.ts`, with priority/changefreq from `CALCULATOR_SEO_DATA` and `lastmod` from `app/data/sitemap-lastmod.json` (run `npm run sitemap:lastmod` after changing a page's content; never use `new Date()`). There is no static sitemap file.
 - `public/robots.txt` — static; references the sitemap URL.
 - `calculadoras.$slug.tsx` — 301 redirects from legacy slugs (e.g. `calculadora-imc`) via its own `ROUTE_REDIRECTS` map. `app/utils/redirects.ts` (`LEGACY_REDIRECTS`) is a separate map, only consumed by `admin.redirects.tsx`.
 - `api.*` — resource routes (astrology data, cities, IndexNow, healthz). `$.tsx` is the 404 page.
@@ -41,6 +43,12 @@ There is no test suite. Validate with `npm run typecheck && npm run lint` before
 3. `app/lib/structured-data.ts` → JSON-LD generators (`generateCalculatorStructuredData`, `generateCategoryPageGraph`, `generateBreadcrumbStructuredData`, `generateFAQStructuredData`). Category pages use `generateCategoryPageGraph(CategoryPageId)`; add to the `CategoryPageId` union when adding a category.
 
 Canonical links in `meta` must include `tagName: "link"` (`{ tagName: "link", rel: "canonical", href }`); without it Remix renders an invalid `<meta rel="canonical">` that search engines ignore. Do not add a JSON-LD `SearchAction`: the site has no search page.
+
+JSON-LD in `meta`: pass an **object** to `"script:ld+json"`, never `JSON.stringify(...)`. Remix stringifies it itself, so a string gets double-encoded and Google ignores it (this broke 54 pages until Nov 2026). Use only real schema.org types and never invent `aggregateRating`.
+
+`og:image` / `twitter:image`: `${APP_URL}/og/<calculator-id>.jpg` (category pages: `/og/categoria-<id>.jpg`, other pages: `/og/default.jpg`), 1200×630 JPG. For a new calculator, run `npm run og:pages -- <id>` after adding it to `CALCULATORS`. Never point to a file that is not in `public/`.
+
+The root `loader` 301-redirects uppercase and trailing-slash paths to the lowercase path without the slash, so internal links must use that form.
 
 Adding a category also requires adding its id to the category union types duplicated in `CalculatorCard`, `CategoryHero`, `CategoryStats`, `QuickAccessCard`, `RelatedCalculators` (plus its style maps and `DEFAULT_CALCULATORS` entry) and to `categoryMap` in `ResponsiveBreadcrumb`.
 

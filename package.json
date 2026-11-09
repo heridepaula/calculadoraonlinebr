@@ -16,6 +16,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "og:generate": "node scripts/generate-og-image.mjs",
+    "og:pages": "node scripts/generate-og-pages.mjs",
+    "sitemap:lastmod": "node scripts/generate-sitemap-lastmod.mjs",
     "indexnow:config": "node scripts/indexnow-submit.js --config",
     "indexnow:main": "node scripts/indexnow-submit.js --all-main-pages",
     "indexnow:submit": "node scripts/indexnow-submit.js",

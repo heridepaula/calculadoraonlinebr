@@ -124,7 +124,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-aposentadoria.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/aposentadoria.jpg",
     },
     {
       property: "og:image:alt",
@@ -158,7 +158,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-aposentadoria.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/aposentadoria.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -176,7 +176,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.region", content: "BR" },
     { name: "geo.country", content: "Brazil" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Aposentadoria INSS - Simulador de Modalidades 2026",
@@ -269,10 +269,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -301,7 +301,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

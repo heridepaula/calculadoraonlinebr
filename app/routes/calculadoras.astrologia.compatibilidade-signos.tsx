@@ -81,7 +81,7 @@ export const meta: MetaFunction = () => {
     {
       property: "og:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/og-images/compatibilidade-signos-calculadora.jpg",
+        "https://www.calculadoraonlinebr.com.br/og/compatibilidade-signos.jpg",
     },
     {
       property: "og:image:alt",
@@ -129,7 +129,7 @@ export const meta: MetaFunction = () => {
     {
       name: "twitter:image",
       content:
-        "https://www.calculadoraonlinebr.com.br/og-images/compatibilidade-signos-calculadora.jpg",
+        "https://www.calculadoraonlinebr.com.br/og/compatibilidade-signos.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -1441,7 +1441,7 @@ export default function CalculadoraCompatibilidadeSignos() {
                 url: "https://www.calculadoraonlinebr.com.br",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://www.calculadoraonlinebr.com.br/logo.png",
+                  url: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.png",
                 },
               },
               datePublished: "2025-09-15",

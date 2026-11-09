@@ -53,15 +53,15 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/signo-solar.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/og/signo.jpg",
     },
     {
       property: "og:image:alt",
       content:
         "Calculadora de Signo Solar - Interface da calculadora mostrando os 12 signos do zodíaco",
     },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     {
       property: "og:site_name",
       content: "CalculadoraOnlineBR",
@@ -85,7 +85,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og-images/signo-solar.jpg",
+      content: "https://www.calculadoraonlinebr.com.br/og/signo.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -817,7 +817,7 @@ export default function CalculadoraSigno() {
                     "Dicas de desenvolvimento pessoal",
                     "Interface responsiva",
                   ],
-                  screenshot: "https://www.calculadoraonlinebr.com.br/og-images/signo-solar.jpg",
+                  screenshot: "https://www.calculadoraonlinebr.com.br/og/signo.jpg",
                 },
                 {
                   "@type": "FAQPage",

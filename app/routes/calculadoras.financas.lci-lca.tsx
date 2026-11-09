@@ -58,12 +58,6 @@ export const meta: MetaFunction = () => {
       crossOrigin: "anonymous",
     },
     {
-      rel: "preload",
-      href: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
-      as: "image",
-      type: "image/webp",
-    },
-    {
       name: "description",
       content:
         "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
@@ -100,7 +94,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/lci-lca.jpg",
     },
     {
       property: "og:image:alt",
@@ -136,7 +130,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/lci-lca.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -154,7 +148,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de LCI e LCA - Simulador de Rendimentos 2026",
@@ -235,11 +229,10 @@ export const meta: MetaFunction = () => {
           },
         },
         about: {
-          "@type": "MathematicalConcept",
+          "@type": "DefinedTerm",
           name: "LCI e LCA",
           description:
             "Letras de Crédito Imobiliário e do Agronegócio - investimentos de renda fixa isentos de IR para pessoa física",
-          category: "Financial Mathematics",
         },
         featureList: [
           "Simulação de rendimentos LCI/LCA baseados no CDI",
@@ -251,10 +244,10 @@ export const meta: MetaFunction = () => {
           "Simulação por diferentes prazos em dias",
           "Interface otimizada para mobile",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -291,16 +284,16 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como Calcular Rendimentos de LCI e LCA",
         description:
           "Passo a passo para simular rendimentos de investimentos em LCI e LCA com base no CDI",
-        image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+        image: "https://www.calculadoraonlinebr.com.br/og/lci-lca.jpg",
         totalTime: "PT2M",
         estimatedCost: {
           "@type": "MonetaryAmount",
@@ -318,7 +311,7 @@ export const meta: MetaFunction = () => {
             "@type": "HowToStep",
             name: "Inserir valor a investir",
             text: "Digite o valor que deseja aplicar em LCI ou LCA",
-            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+            image: "https://www.calculadoraonlinebr.com.br/og/lci-lca.jpg",
           },
           {
             "@type": "HowToStep",
@@ -336,7 +329,7 @@ export const meta: MetaFunction = () => {
             text: "Clique em 'Calcular' para ver o resultado completo com evolução diária",
           },
         ],
-      }),
+      },
     },
   ];
 };

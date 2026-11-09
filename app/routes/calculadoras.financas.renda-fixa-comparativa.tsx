@@ -58,12 +58,6 @@ export const meta: MetaFunction = () => {
       crossOrigin: "anonymous",
     },
     {
-      rel: "preload",
-      href: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
-      as: "image",
-      type: "image/webp",
-    },
-    {
       name: "description",
       content:
         "Compare renda fixa 2026: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
@@ -101,7 +95,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/renda-fixa-comparativa.jpg",
     },
     {
       property: "og:image:alt",
@@ -138,7 +132,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/renda-fixa-comparativa.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -156,7 +150,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Comparador de Renda Fixa - Simulador de Investimentos 2026",
@@ -254,10 +248,10 @@ export const meta: MetaFunction = () => {
           "Simulação por diferentes prazos em dias",
           "Interface otimizada para mobile",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -294,16 +288,16 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como Comparar Investimentos em Renda Fixa",
         description:
           "Passo a passo para comparar CDB, LCI/LCA, Tesouro Direto e Poupança e encontrar o melhor investimento",
-        image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+        image: "https://www.calculadoraonlinebr.com.br/og/renda-fixa-comparativa.jpg",
         totalTime: "PT3M",
         estimatedCost: {
           "@type": "MonetaryAmount",
@@ -321,7 +315,7 @@ export const meta: MetaFunction = () => {
             "@type": "HowToStep",
             name: "Inserir valor a investir",
             text: "Digite o valor que deseja investir para comparar as opções",
-            image: "https://www.calculadoraonlinebr.com.br/images/calculadora-lci-lca.webp",
+            image: "https://www.calculadoraonlinebr.com.br/og/renda-fixa-comparativa.jpg",
           },
           {
             "@type": "HowToStep",
@@ -339,7 +333,7 @@ export const meta: MetaFunction = () => {
             text: "Clique em 'Calcular' para ver qual investimento oferece melhor rentabilidade líquida",
           },
         ],
-      }),
+      },
     },
   ];
 };

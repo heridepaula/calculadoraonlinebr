@@ -77,10 +77,10 @@ export const meta: MetaFunction = () => {
     { property: "og:locale", content: "pt_BR" },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/ferias-decimo-terceiro.jpg",
     },
-    { property: "og:image:width", content: "512" },
-    { property: "og:image:height", content: "512" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Calculadora de Férias e 13º Salário CLT 2026 - CalculadoraOnlineBR" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@calculadorabr" },
@@ -95,7 +95,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/ferias-decimo-terceiro.jpg",
     },
     { name: "twitter:creator", content: "@CalculadoraBR" },
     { name: "format-detection", content: "telephone=no" },
@@ -108,7 +108,7 @@ export const meta: MetaFunction = () => {
     { name: "geo.country", content: "Brazil" },
     { name: "next-head-count", content: "32" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Férias e 13º Salário - Simulador CLT 2026",
@@ -201,10 +201,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -233,7 +233,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

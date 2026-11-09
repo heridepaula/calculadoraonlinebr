@@ -53,7 +53,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-porcentagem.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/porcentagem.jpg",
     },
     {
       property: "og:image:alt",
@@ -86,7 +86,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-porcentagem.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/porcentagem.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -115,7 +115,7 @@ export const meta: MetaFunction = () => {
     { rel: "preconnect", href: "https://www.googletagmanager.com" },
     { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Porcentagem Online Gratuita - Cálculos Matemáticos 2026",
@@ -210,10 +210,10 @@ export const meta: MetaFunction = () => {
           "Explicação passo a passo",
           "Formatação brasileira",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -250,10 +250,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Porcentagem",
@@ -287,10 +287,10 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Porcentagem Online",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -319,10 +319,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebPage",
         name: "Calculadora de Porcentagem Online - Aumentos, Descontos e Diferenças",
@@ -369,7 +369,7 @@ export const meta: MetaFunction = () => {
             priceCurrency: "BRL",
           },
         },
-      }),
+      },
     },
   ];
 };

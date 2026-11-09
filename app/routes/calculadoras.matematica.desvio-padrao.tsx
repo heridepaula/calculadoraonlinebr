@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-desvio-padrao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/desvio-padrao.jpg",
     },
     {
       property: "og:image:alt",
@@ -89,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-desvio-padrao.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/desvio-padrao.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -108,7 +108,7 @@ export const meta: MetaFunction = () => {
     { name: "next-head-count", content: "32" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Desvio Padrão - Estatística Descritiva 2026",
@@ -200,11 +200,11 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva",
           "Resultados em tempo real",
         ],
-      }),
+      },
     },
     // FAQ Schema adicional para melhor SEO
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -233,7 +233,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-antecipacao-nubank.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/antecipacao-parcelas-nubank.jpg",
     },
     {
       property: "og:image:alt",
@@ -89,7 +89,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-antecipacao-nubank.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/antecipacao-parcelas-nubank.jpg",
     },
     {
       name: "twitter:image:alt",

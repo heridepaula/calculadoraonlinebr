@@ -94,7 +94,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-preco-medio-acoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/preco-medio.jpg",
     },
     {
       property: "og:image:alt",
@@ -128,7 +128,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-preco-medio-acoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/preco-medio.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -145,7 +145,7 @@ export const meta: MetaFunction = () => {
     { name: "msapplication-TileColor", content: "#64B5F6" },
     { name: "application-name", content: "CalculadoraOnlineBR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Preço Médio de Ações - Simulador 2026",
@@ -222,11 +222,10 @@ export const meta: MetaFunction = () => {
           },
         },
         about: {
-          "@type": "MathematicalConcept",
+          "@type": "DefinedTerm",
           name: "Preço Médio de Ações",
           description:
             "Método de cálculo do preço médio ponderado de ações considerando diferentes operações de compra e venda",
-          category: "Financial Mathematics",
         },
         featureList: [
           "Cálculo de preço médio ponderado de ações",
@@ -238,10 +237,10 @@ export const meta: MetaFunction = () => {
           "Interface móvel responsiva otimizada",
           "Resultados confiáveis em tempo real",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -278,7 +277,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

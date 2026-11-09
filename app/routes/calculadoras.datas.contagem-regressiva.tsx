@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-contagem-regressiva.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/contagem-regressiva.jpg",
     },
     {
       property: "og:image:alt",
@@ -76,7 +76,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-contagem-regressiva.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/contagem-regressiva.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -87,7 +87,7 @@ export const meta: MetaFunction = () => {
     { name: "theme-color", content: "#64B5F6" },
     { httpEquiv: "content-language", content: "pt-br" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Contador Regressivo Online - Calculadora de Contagem Regressiva",
@@ -149,10 +149,10 @@ export const meta: MetaFunction = () => {
           "@type": "Audience",
           audienceType: "Pessoas planejando eventos especiais",
         },
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -181,10 +181,10 @@ export const meta: MetaFunction = () => {
             item: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -245,7 +245,7 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
   ];
 };

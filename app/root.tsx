@@ -1,6 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, Link } from "@remix-run/react";
 import type { LinksFunction, MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { ThemeProvider } from "~/lib/theme-context";
 import { Analytics } from "@vercel/analytics/react";
@@ -21,29 +21,12 @@ import "./styles/globals.css";
 import "./styles/colors.css";
 
 export const links: LinksFunction = () => [
-  // CRITICAL CHAIN OPTIMIZATION - Preload WOFF2 directly to break 987ms chain
-  {
-    rel: "preload",
-    href: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.woff2",
-    as: "font",
-    type: "font/woff2",
-    crossOrigin: "anonymous"
-  },
-
   // Early DNS resolution for critical domains
   { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
   { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
 
-  // CSS will be deferred since critical CSS is inline
-  {
-    rel: "preload",
-    href: "/assets/root-D_Rv9tYd.css",
-    as: "style",
-    onLoad: "this.onload=null;this.rel='stylesheet'",
-    "data-defer": "true"
-  },
-
-  // Font CSS - completely non-blocking with fallback
+  // Font CSS - non-blocking: the inline script in <head> turns every
+  // link[data-defer] into a stylesheet after load (React drops string onLoad in SSR).
   // Manrope = body, Instrument Serif = display headings
   {
     rel: "preload",
@@ -74,6 +57,14 @@ export const links: LinksFunction = () => [
 
 // Loader with dark theme (always dark) and analytics configuration
 export async function loader({ request }: LoaderFunctionArgs) {
+  // URL canônica: sem barra final e em minúsculas (as rotas do Remix casam sem
+  // diferenciar maiúsculas, então /calculadoras/Saude/IMC/ respondia 200 duplicado)
+  const url = new URL(request.url);
+  const canonicalPath = url.pathname.replace(/\/+$/, "").toLowerCase() || "/";
+  if (canonicalPath !== url.pathname) {
+    throw redirect(`${canonicalPath}${url.search}`, 301);
+  }
+
   return json({
     resolvedTheme: "dark" as const,
     // Fornecer variáveis de ambiente para o cliente
@@ -271,11 +262,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   link.media='all';
                   if(link.getAttribute('as')==='style'){link.rel='stylesheet';}
                 }
-                var fontCSS=document.createElement('link');
-                fontCSS.rel='stylesheet';
-                fontCSS.href='https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap';
-                fontCSS.media='all';
-                document.head.appendChild(fontCSS);
               }
               function initLoad(){setTimeout(loadDeferredResources,16);}
               if(document.readyState==='complete'){initLoad();}

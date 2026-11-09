@@ -51,7 +51,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/fracoes.jpg",
     },
     {
       property: "og:image:alt",
@@ -84,7 +84,7 @@ export const meta: MetaFunction = () => {
     },
     {
       name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/images/calculadora-fracoes.webp",
+      content: "https://www.calculadoraonlinebr.com.br/og/fracoes.jpg",
     },
     {
       name: "twitter:image:alt",
@@ -109,7 +109,7 @@ export const meta: MetaFunction = () => {
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "language", content: "pt-BR" },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         name: "Calculadora de Frações Online Gratuita - Operações Matemáticas 2026",
@@ -204,10 +204,10 @@ export const meta: MetaFunction = () => {
           "Explicação passo a passo",
           "Cálculo de MMC e MDC",
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: [
@@ -244,10 +244,10 @@ export const meta: MetaFunction = () => {
             },
           },
         ],
-      }),
+      },
     },
     {
-      "script:ld+json": JSON.stringify({
+      "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Como usar a Calculadora de Frações",
@@ -281,7 +281,7 @@ export const meta: MetaFunction = () => {
             name: "Calculadora de Frações Online",
           },
         ],
-      }),
+      },
     },
   ];
 };
