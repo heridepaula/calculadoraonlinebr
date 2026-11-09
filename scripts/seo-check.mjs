@@ -13,6 +13,8 @@ import process from "node:process";
 const SITE = "https://www.calculadoraonlinebr.com.br";
 const base = (process.argv[2] ?? SITE).replace(/\/$/, "");
 const CONCURRENCY = 6;
+// Preview protegido da Vercel: SEO_CHECK_COOKIE="_vercel_jwt=..." (cookie do link _vercel_share)
+const HEADERS = process.env.SEO_CHECK_COOKIE ? { cookie: process.env.SEO_CHECK_COOKIE } : {};
 const MAX_TITLE = 60;
 const MAX_DESCRIPTION = 160;
 
@@ -56,7 +58,7 @@ function statusOf(url) {
   if (!statusCache.has(url)) {
     statusCache.set(
       url,
-      fetch(url, { redirect: "follow" })
+      fetch(url, { redirect: "follow", headers: HEADERS })
         .then(async (res) => {
           await res.arrayBuffer();
           return res.status;
@@ -139,7 +141,7 @@ function checkPage(url, html) {
 }
 
 async function main() {
-  const sitemapRes = await fetch(`${base}/sitemap.xml`);
+  const sitemapRes = await fetch(`${base}/sitemap.xml`, { headers: HEADERS });
   if (!sitemapRes.ok) throw new Error(`sitemap.xml respondeu ${sitemapRes.status}`);
   const urls = [...(await sitemapRes.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) =>
     m[1].trim()
@@ -148,7 +150,7 @@ async function main() {
 
   const pages = await pool(urls, async (url) => {
     try {
-      const res = await fetch(local(url), { redirect: "manual" });
+      const res = await fetch(local(url), { redirect: "manual", headers: HEADERS });
       if (res.status !== 200) {
         return { url, errors: [`status ${res.status}`], warnings: [], internalLinks: new Set() };
       }
