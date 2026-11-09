@@ -11,7 +11,6 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
 import {
@@ -25,96 +24,13 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Desenvolvimento Infantil 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Acompanhe desenvolvimento infantil com gráficos OMS. Calcule percentis de altura e peso, marcos do crescimento. Ferramenta grátis para pais.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora Desenvolvimento Infantil 2026 | CalculadoraOnlineBR",
-    },
-    {
-      property: "og:description",
-      content:
-        "Acompanhe o desenvolvimento da criança com gráficos de crescimento. Calcule percentis de altura e peso, marcos do desenvolvimento. Ferramenta gratuita para pais e pediatras.",
-    },
-    {
-      property: "og:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/og/desenvolvimento-infantil.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora de Desenvolvimento Infantil - Gráficos de Crescimento e Percentis",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora Desenvolvimento Infantil 2026 | CalculadoraOnlineBR",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Acompanhe o desenvolvimento da criança com gráficos de crescimento. Calcule percentis de altura e peso, marcos do desenvolvimento. Ferramenta gratuita para pais e pediatras.",
-    },
-    {
-      name: "twitter:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/og/desenvolvimento-infantil.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Desenvolvimento Infantil - Acompanhe o crescimento",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    ...buildCalculatorMeta("desenvolvimento-infantil"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

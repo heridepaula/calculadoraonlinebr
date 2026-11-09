@@ -13,89 +13,32 @@ import {
   Select,
   RateInput,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
+import { RelatedCalculators, FAQ, SourcesAndUpdate } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   calculateNetSalary,
   type NetSalaryParams,
   type NetSalaryResult,
 } from "~/utils/calculations";
+import { buildCalculatorMeta } from "~/lib/page-meta";
+import {
+  INSS_BRACKETS,
+  IRRF_DEPENDENT_DEDUCTION,
+  IRRF_REDUCTION,
+  IRRF_SIMPLIFIED_DISCOUNT,
+  LABOR_TAX_REVIEWED_AT,
+  LABOR_TAX_SOURCES,
+  LABOR_TAX_YEAR,
+} from "~/lib/labor/tax-tables";
+
+const brlTable = (value: number) =>
+  value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const pctTable = (value: number) =>
+  value.toLocaleString("pt-BR", { style: "percent", maximumFractionDigits: 2 });
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora de Salário Líquido 2026 | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "Calcule salário líquido 2026: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora salário líquido, INSS IRRF 2026, desconto salário, tabela INSS, imposto renda, CLT PJ",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "googlebot", content: "index,follow" },
-    { name: "bingbot", content: "index,follow" },
-    {
-      property: "og:title",
-      content: `Calculadora de Salário Líquido 2026 - Descontos INSS e IRRF - ${APP_NAME}`,
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule seu salário líquido facilmente usando as tabelas de INSS e IRRF atualizadas para 2026. Gratuita e completa!",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/salario-liquido.jpg",
-    },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Calculadora de Salário Líquido - INSS e IRRF 2026 - CalculadoraOnlineBR" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
-    },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    {
-      name: "twitter:title",
-      content: `Calculadora Salário Líquido Online - INSS e IRRF 2026 - ${APP_NAME}`,
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Ferramenta mais confiável para calcular salário líquido: INSS, IRRF, dependentes e todos os descontos trabalhistas.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/salario-liquido.jpg",
-    },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("salario-liquido"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",
@@ -108,7 +51,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-31",
+        dateModified: LABOR_TAX_REVIEWED_AT,
         offers: {
           "@type": "Offer",
           price: "0",
@@ -200,7 +143,7 @@ export const meta: MetaFunction = () => {
             name: "Como calcular salário líquido?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Use tabelas 2026: INSS até 8,14% e IRRF de 7,5% a 27,5% conforme faixa salarial.",
+              text: "Salário líquido = salário bruto - INSS - IRRF - outros descontos. Em 2026, o INSS vai de 7,5% a 14% por faixa, e o IRRF de 7,5% a 27,5%, com imposto zerado para quem ganha até R$ 5.000 (Lei 15.270/2025).",
             },
           },
           {
@@ -208,7 +151,7 @@ export const meta: MetaFunction = () => {
             name: "Qual a diferença entre CLT, PJ e MEI?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "CLT: descontos INSS e IRRF obrigatórios. PJ: tributac£ão variável por regime. MEI: taxa fixa mensal até R$ 81 mil/ano, sem INSS nem IRRF sobre receita.",
+              text: "CLT: descontos INSS e IRRF obrigatórios. PJ: tributação variável por regime. MEI: taxa fixa mensal até R$ 81 mil/ano, sem INSS nem IRRF sobre receita.",
             },
           },
           {
@@ -622,7 +565,8 @@ export default function NetSalaryCalculator() {
                       • <strong>INSS:</strong> Alíquotas de 7,5% a 14% (progressivo)
                     </p>
                     <p>
-                      • <strong>IRRF:</strong> Isento até R$ 3.036 (dois salários mínimos)
+                      • <strong>IRRF:</strong> zerado para quem ganha até R$ 5.000 (Lei
+                      15.270/2025)
                     </p>
                     <p>
                       • <strong>Dependentes:</strong> R$ 189,59 de dedução por dependente
@@ -986,20 +930,19 @@ export default function NetSalaryCalculator() {
                   </h3>
                   <div className="space-y-3">
                     <div className="rounded-lg bg-primary-blue-light p-3">
-                      <h4 className="mb-2 font-semibold text-primary-blue-dark">Faixas 2026:</h4>
+                      <h4 className="mb-2 font-semibold text-primary-blue-dark">
+                        Faixas {LABOR_TAX_YEAR}:
+                      </h4>
                       <div className="space-y-1 text-sm text-text-secondary">
-                        <div>
-                          • Até R$ 1.518: <strong>7,5%</strong>
-                        </div>
-                        <div>
-                          • R$ 1.518,01 a R$ 2.793,88: <strong>9%</strong>
-                        </div>
-                        <div>
-                          • R$ 2.793,89 a R$ 4.190,83: <strong>12%</strong>
-                        </div>
-                        <div>
-                          • R$ 4.190,84 a R$ 8.157,41: <strong>14%</strong>
-                        </div>
+                        {INSS_BRACKETS.map((bracket, i) => (
+                          <div key={bracket.upTo}>
+                            •{" "}
+                            {i === 0
+                              ? `Até ${brlTable(bracket.upTo)}`
+                              : `${brlTable(INSS_BRACKETS[i - 1].upTo + 0.01)} a ${brlTable(bracket.upTo)}`}
+                            : <strong>{pctTable(bracket.rate)}</strong>
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <p className="text-sm text-text-secondary">
@@ -1017,22 +960,33 @@ export default function NetSalaryCalculator() {
                   </h3>
                   <div className="space-y-3">
                     <div className="rounded-lg bg-growth-green-soft p-3">
-                      <h4 className="mb-2 font-semibold text-growth-green">Novidade 2026:</h4>
+                      <h4 className="mb-2 font-semibold text-growth-green">
+                        Regras {LABOR_TAX_YEAR}:
+                      </h4>
                       <div className="space-y-1 text-sm text-text-secondary">
                         <div>
-                          • <strong>Isento</strong> até R$ 3.036 (2 salários mínimos)
+                          • <strong>Imposto zerado</strong> para rendimentos até{" "}
+                          {brlTable(IRRF_REDUCTION.fullUpTo)}
                         </div>
                         <div>
-                          • Desconto simplificado: <strong>R$ 607,20</strong>
+                          • Redução parcial até {brlTable(IRRF_REDUCTION.phaseOutUpTo)}
                         </div>
                         <div>
-                          • Dedução por dependente: <strong>R$ 189,59</strong>
+                          • Desconto simplificado:{" "}
+                          <strong>{brlTable(IRRF_SIMPLIFIED_DISCOUNT)}</strong>
+                        </div>
+                        <div>
+                          • Dedução por dependente:{" "}
+                          <strong>{brlTable(IRRF_DEPENDENT_DEDUCTION)}</strong>
                         </div>
                       </div>
                     </div>
                     <p className="text-sm text-text-secondary">
-                      A partir de <strong>maio de 2026</strong>, quem ganha até R$ 3.036 ficou
-                      <strong className="text-growth-green"> isento do Imposto de Renda</strong>.
+                      Desde <strong>janeiro de 2026</strong>, a Lei 15.270/2025 zera o imposto de
+                      quem ganha até {brlTable(IRRF_REDUCTION.fullUpTo)} por mês. Acima disso, a
+                      tabela progressiva vai de 7,5% a 27,5%, e entre{" "}
+                      {brlTable(IRRF_REDUCTION.fullUpTo)} e {brlTable(IRRF_REDUCTION.phaseOutUpTo)}{" "}
+                      o desconto ainda é reduzido.
                     </p>
                   </div>
                 </div>
@@ -1137,19 +1091,19 @@ export default function NetSalaryCalculator() {
             {
               question: "Como calcular salário líquido a partir do bruto em 2026?",
               answer:
-                "<strong>Fórmula:</strong> Salário Líquido = Salário Bruto - INSS - IRRF - Outros Descontos. Use nossa calculadora para aplicar automaticamente as <strong>tabelas oficiais 2026</strong> facilmente total. O cálculo considera a progressão das alíquotas por faixa salarial.",
+                "<strong>Fórmula:</strong> Salário Líquido = Salário Bruto - INSS - IRRF - Outros Descontos. Use nossa calculadora para aplicar automaticamente as <strong>tabelas oficiais 2026</strong>. O cálculo considera a progressão das alíquotas por faixa salarial.",
               borderColor: "primary-blue",
             },
             {
               question: "Qual o desconto do INSS em 2026? Como funciona a tabela progressiva?",
               answer:
-                "O INSS 2026 varia de <strong>7,5% a 14%</strong> conforme a faixa salarial. É progressivo: <strong>até R$ 1.518 (7,5%)</strong>, de R$ 1.518 a R$ 2.793 (9%), de R$ 2.793 a R$ 4.190 (12%), <strong>acima de R$ 4.190 (14%)</strong>. O desconto máximo é limitado ao teto previdenciário.",
+                "O INSS 2026 varia de <strong>7,5% a 14%</strong> conforme a faixa salarial. É progressivo: <strong>até R$ 1.621 (7,5%)</strong>, de R$ 1.621,01 a R$ 2.902,84 (9%), de R$ 2.902,85 a R$ 4.354,27 (12%) e <strong>de R$ 4.354,28 até o teto de R$ 8.475,55 (14%)</strong>. O desconto máximo é de R$ 988,09.",
               borderColor: "growth-green",
             },
             {
               question: "Quem está isento do Imposto de Renda em 2026?",
               answer:
-                "A partir de <strong>maio de 2026</strong>, estão isentos os trabalhadores que recebem <strong>até R$ 3.036</strong> (dois salários mínimos). Antes era R$ 2.259. Esta mudança beneficia milhões de brasileiros e aumenta significativamente o salário líquido dessa faixa.",
+                "Desde <strong>janeiro de 2026</strong>, a Lei 15.270/2025 zera o Imposto de Renda de quem recebe <strong>até R$ 5.000</strong> por mês. Entre R$ 5.000,01 e R$ 7.350, o imposto é reduzido aos poucos. Acima de R$ 7.350 vale a tabela progressiva normal, de 7,5% a 27,5%.",
               borderColor: "system-info",
             },
             {
@@ -1230,6 +1184,12 @@ export default function NetSalaryCalculator() {
             </div>
           </CardContent>
         </Card>
+
+        <SourcesAndUpdate
+          updatedAt={LABOR_TAX_REVIEWED_AT}
+          reviewNote={`Tabelas de INSS e IRRF de ${LABOR_TAX_YEAR} conferidas com as fontes oficiais`}
+          sources={[LABOR_TAX_SOURCES.inss, LABOR_TAX_SOURCES.irrf, LABOR_TAX_SOURCES.lei15270]}
+        />
 
         <RelatedCalculators category="trabalhista" currentCalculatorId="salario-liquido" />
       </div>

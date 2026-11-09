@@ -11,104 +11,13 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Regra de Três 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calculadora regra de três simples e composta grátis. Resolva proporções com explicação passo a passo. Resultados confiáveis.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Regra de 3 Simples 2026 | CalculadoraOnlineBR",
-    },
-    {
-      property: "og:description",
-      content:
-        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados confiáveis!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/regra-de-tres.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora de Regra de Três - Proporções Matemáticas",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Regra de 3 Simples 2026 | CalculadoraOnlineBR",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "📏 Calculadora de regra de 3 simples e composta gratuita. Resolva proporções e problemas de regra de três com explicação passo a passo. Resultados confiáveis!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/regra-de-tres.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Regra de Três - Proporções Matemáticas",
-    },
-    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
-    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Regra de Três" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    {
-      name: "keywords",
-      content:
-        "calculadora regra de três, regra de 3 simples, proporção direta, proporção inversa, regra de três composta",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
+    ...buildCalculatorMeta("regra-de-tres"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

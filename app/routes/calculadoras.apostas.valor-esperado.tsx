@@ -18,10 +18,10 @@ import {
 import { APP_NAME, APP_URL } from "~/lib/constants";
 import { CALCULATOR_SEO_DATA } from "~/lib/calculator-seo";
 import { generateFAQStructuredData } from "~/lib/structured-data";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 const SEO = CALCULATOR_SEO_DATA["valor-esperado"];
 const PAGE_URL = SEO.canonicalUrl;
-const OG_IMAGE = `${APP_URL}/og/valor-esperado.jpg`;
 
 // Exemplo único usado em todo o conteúdo educativo, calculado pela mesma função da calculadora
 const EXAMPLE = { stake: 100, odds: 2.1, probabilityPercent: 55 } as const;
@@ -84,29 +84,7 @@ const FAQ_ITEMS = [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: SEO.title },
-  { name: "description", content: SEO.description },
-  { name: "keywords", content: SEO.keywords },
-  {
-    name: "robots",
-    content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-  },
-  { name: "author", content: APP_NAME },
-  { property: "og:title", content: "Calculadora de Valor Esperado (EV+) para Apostas" },
-  { property: "og:description", content: SEO.description },
-  { property: "og:type", content: "website" },
-  { property: "og:url", content: PAGE_URL },
-  { property: "og:image", content: OG_IMAGE },
-  { property: "og:image:width", content: "1200" },
-  { property: "og:image:height", content: "630" },
-  { property: "og:image:alt", content: "Calculadora de valor esperado (EV+) para apostas" },
-  { property: "og:site_name", content: APP_NAME },
-  { property: "og:locale", content: "pt_BR" },
-  { name: "twitter:card", content: "summary_large_image" },
-  { name: "twitter:title", content: "Calculadora de Valor Esperado (EV+) – Odd de Valor" },
-  { name: "twitter:description", content: SEO.description },
-  { name: "twitter:image", content: OG_IMAGE },
-  { tagName: "link", rel: "canonical", href: PAGE_URL },
+  ...buildCalculatorMeta("valor-esperado"),
   {
     "script:ld+json": {
       "@context": "https://schema.org",

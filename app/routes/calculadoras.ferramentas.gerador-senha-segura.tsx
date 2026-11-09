@@ -13,104 +13,12 @@ import {
   Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Gerador de Senhas Seguras 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "🔐 Gerador de senhas seguras GRATUITO! Crie senhas personalizáveis com análise de força, cópia automática e controle total de caracteres. Teste agora!",
-    },
-    {
-      name: "keywords",
-      content:
-        "gerador senha segura, criar senha forte, senha aleatória online, password generator brasileiro, análise força senha",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-senha-segura",
-    },
-    {
-      property: "og:title",
-      content: "Gerador de Senhas Seguras – Personalize Tamanho e Caracteres",
-    },
-    {
-      property: "og:description",
-      content:
-        "🔐 Gerador de senhas seguras GRATUITO! Crie senhas personalizáveis com análise de força, cópia automática e controle total de caracteres. Teste agora!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/gerador-senha-segura.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Gerador de Senhas Seguras - Crie senhas fortes com caracteres especiais e números",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-senha-segura",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Gerador de Senhas Seguras 2026 – Crie Senhas Fortes Personalizadas",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "🔐 Gerador de senhas seguras GRATUITO! Crie senhas personalizáveis com análise de força e cópia automática. Teste agora!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/gerador-senha-segura.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Gerador de Senhas Seguras - Crie senhas fortes personalizadas",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Gerador Senhas" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("gerador-senha-segura"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

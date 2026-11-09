@@ -12,86 +12,24 @@ import {
   BreadcrumbItem,
   Select,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
+import { RelatedCalculators, FAQ, SourcesAndUpdate } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
+import {
+  FAMILY_ALLOWANCE,
+  LABOR_TAX_REVIEWED_AT,
+  LABOR_TAX_SOURCES,
+  LABOR_TAX_YEAR,
+  UNEMPLOYMENT_BENEFIT,
+  calculateInss,
+  calculateIrrf,
+  unemploymentInstallment,
+  unemploymentInstallmentsFirstRequest,
+} from "~/lib/labor/tax-tables";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Rescisão Trabalhista 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule rescisão trabalhista 2026: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora rescisão trabalhista, demissão sem justa causa, acordo mútuo, FGTS multa, seguro desemprego, CLT",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "googlebot", content: "index,follow" },
-    { name: "bingbot", content: "index,follow" },
-    {
-      property: "og:title",
-      content: `Calculadora de Rescisão Trabalhista - Direitos Trabalhistas Completos - ${APP_NAME}`,
-    },
-    {
-      property: "og:description",
-      content:
-        "Calculadora mais completa do Brasil para rescisão trabalhista: demissão, FGTS, seguro desemprego, férias e 13º salário com base na CLT.",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/rescisao-trabalhista.jpg",
-    },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Calculadora de Rescisão Trabalhista - CalculadoraOnlineBR" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
-    },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    {
-      name: "twitter:title",
-      content: `Calculadora Rescisão Trabalhista Online - Direitos CLT - ${APP_NAME}`,
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Ferramenta mais completa para calcular rescisão: demissão, FGTS, seguro desemprego e todos os direitos trabalhistas.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/rescisao-trabalhista.jpg",
-    },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("rescisao-trabalhista"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",
@@ -104,7 +42,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-31",
+        dateModified: LABOR_TAX_REVIEWED_AT,
         offers: {
           "@type": "Offer",
           price: "0",
@@ -213,7 +151,7 @@ export const meta: MetaFunction = () => {
             name: "Quando tenho direito ao seguro desemprego?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Seguro desemprego: demissão sem justa causa ou acordo mútuo. Mínimo 12 meses trabalhados (primeira solicitação) ou 9 meses (solicitações seguintes).",
+              text: "Seguro desemprego: só na demissão sem justa causa (o acordo mútuo não dá direito). Mínimo de 12 meses trabalhados nos últimos 18 na primeira solicitação, 9 meses na segunda e 6 meses a partir da terceira.",
             },
           },
         ],
@@ -274,13 +212,22 @@ interface TerminationResult {
   };
 }
 
+/**
+ * Lê "AAAA-MM-DD" (valor do input date) como data local. new Date("2024-03-01") é meia-noite
+ * em UTC, que no fuso de Brasília vira 29/02 às 21h e tira um dia do saldo de salário.
+ */
+function parseLocalDate(value: string): Date {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  return match ? new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3])) : new Date(value);
+}
+
 function calculateDateDifference(startDate: string, endDate: string) {
   if (!startDate || !endDate) {
     return { years: 0, months: 0, days: 0 };
   }
 
-  const start = new Date(startDate);
-  const end = new Date(endDate);
+  const start = parseLocalDate(startDate);
+  const end = parseLocalDate(endDate);
 
   if (isNaN(start.getTime()) || isNaN(end.getTime())) {
     return { years: 0, months: 0, days: 0 };
@@ -318,8 +265,8 @@ function calculateTotalMonths(startDate: string, endDate: string): number {
     return 0;
   }
 
-  const start = new Date(startDate);
-  const end = new Date(endDate);
+  const start = parseLocalDate(startDate);
+  const end = parseLocalDate(endDate);
 
   if (isNaN(start.getTime()) || isNaN(end.getTime()) || end < start) {
     return 0;
@@ -353,9 +300,8 @@ function calculateTotalMonths(startDate: string, endDate: string): number {
 
 function calculateSalaryFamily(dependents: number, salary: number): number {
   // CLT Art. 65 - Salário família devido para filhos até 14 anos ou inválidos
-  // Valor 2026: R$ 62,04 para salários até R$ 1.906,04
-  const VALOR_SALARIO_FAMILIA = 62.04;
-  const LIMITE_SALARIO = 1906.04;
+  const VALOR_SALARIO_FAMILIA = FAMILY_ALLOWANCE.perChild;
+  const LIMITE_SALARIO = FAMILY_ALLOWANCE.salaryLimit;
 
   if (salary > LIMITE_SALARIO) {
     return 0;
@@ -364,58 +310,15 @@ function calculateSalaryFamily(dependents: number, salary: number): number {
   return dependents * VALOR_SALARIO_FAMILIA;
 }
 
-function calculateINSSRate(salary: number): number {
-  // Retorna apenas a alíquota efetiva do INSS para o salário - 2026
-  if (salary <= 1518.0) {
-    return 0.075; // 7,5%
-  } else if (salary <= 2862.4) {
-    return 0.09; // 9%
-  } else if (salary <= 4296.64) {
-    return 0.12; // 12%
-  } else {
-    return 0.14; // 14%
-  }
-}
-
-function calculateINSS(salary: number): number {
-  // Tabela INSS 2026 - Atualizada
-  let inss = 0;
-
-  if (salary <= 1518.0) {
-    inss = salary * 0.075; // 7,5%
-  } else if (salary <= 2862.4) {
-    inss = 113.85 + (salary - 1518.0) * 0.09; // 9%
-  } else if (salary <= 4296.64) {
-    inss = 234.84 + (salary - 2862.4) * 0.12; // 12%
-  } else if (salary <= 8365.13) {
-    inss = 407.05 + (salary - 4296.64) * 0.14; // 14%
-  } else {
-    inss = 976.64; // Teto máximo 2026
-  }
-
-  return Math.round(inss * 100) / 100;
-}
-
-function calculateIRRF(baseCalculoIRRF: number, dependents: number): number {
-  // Tabela IRRF 2026 - Atualizada
-  const deducaoPorDependente = 203.78;
-  const baseCalculo = baseCalculoIRRF - dependents * deducaoPorDependente;
-
-  let irrf = 0;
-
-  if (baseCalculo <= 2259.2) {
-    irrf = 0; // Isento
-  } else if (baseCalculo <= 2826.65) {
-    irrf = baseCalculo * 0.075 - 169.44; // 7,5%
-  } else if (baseCalculo <= 3751.05) {
-    irrf = baseCalculo * 0.15 - 381.44; // 15%
-  } else if (baseCalculo <= 4664.68) {
-    irrf = baseCalculo * 0.225 - 662.77; // 22,5%
-  } else {
-    irrf = baseCalculo * 0.275 - 896.0; // 27,5%
-  }
-
-  return Math.round(Math.max(0, irrf) * 100) / 100;
+/**
+ * INSS e IRRF de uma verba tributável (tabelas de ~/lib/labor/tax-tables, com a redução
+ * da Lei 15.270/2025). O saldo de salário e o 13º são calculados em separado.
+ */
+function calculateTaxes(taxableIncome: number, dependents: number): { inss: number; irrf: number } {
+  if (taxableIncome <= 0) return { inss: 0, irrf: 0 };
+  const inss = calculateInss(taxableIncome).contribution;
+  const irrf = calculateIrrf({ taxableIncome, inss, dependents }).tax;
+  return { inss, irrf };
 }
 
 function calculateNoticePeriod(startDate: string, endDate: string): number {
@@ -423,7 +326,7 @@ function calculateNoticePeriod(startDate: string, endDate: string): number {
   // Baseado na pesquisa: 30 dias + 3 dias por ano completo, limitado a 90 dias
   // Para ter direito ao proporcional, confiável ter pelo menos 1 ano de trabalho
   const timeDiff = calculateDateDifference(startDate, endDate);
-  const completeYears = timeDiff.anos;
+  const completeYears = timeDiff.years;
 
   const baseDays = 30;
   // Só adiciona dias proporcionais se trabalhou pelo menos 1 ano
@@ -436,18 +339,18 @@ function calculateNoticePeriod(startDate: string, endDate: string): number {
 
 function calculateProportional13thMonths(startDate: string, endDate: string): number {
   // CLT Art. 7º VIII - 13º salário proporcional aos meses trabalhados no ano da rescisão
-  const endDateObj = new Date(endDate);
+  const endDateObj = parseLocalDate(endDate);
   const currentYear = endDateObj.getFullYear();
   const yearStart = new Date(currentYear, 0, 1); // 1º de janeiro do ano da rescisão
 
   // Se o contrato começou no ano da rescisão, usar a data de início
-  const startDateObj = new Date(startDate);
+  const startDateObj = parseLocalDate(startDate);
   const referenceStartDate = startDateObj.getFullYear() === currentYear ? startDateObj : yearStart;
 
   // Calcular meses trabalhados no ano corrente
   let monthsWorked = 0;
   let currentDate = new Date(referenceStartDate);
-  const endDateLimit = new Date(endDate);
+  const endDateLimit = parseLocalDate(endDate);
 
   while (currentDate.getFullYear() === currentYear && currentDate <= endDateLimit) {
     const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -475,17 +378,17 @@ function calculateProportional13thMonths(startDate: string, endDate: string): nu
 
 function calculateProportionalVacationMonths(startDate: string, endDate: string): number {
   // CLT Art. 146 - Férias proporcionais ao período aquisitivo incompleto
-  const startDateObj = new Date(startDate);
-  const endDateObj = new Date(endDate);
+  const startDateObj = parseLocalDate(startDate);
+  const endDateObj = parseLocalDate(endDate);
 
   // Calcular o último período aquisitivo de férias (12 meses)
   const totalServiceTime = calculateDateDifference(startDate, endDate);
-  const totalMonths = totalServiceTime.anos * 12 + totalServiceTime.meses;
+  const totalMonths = totalServiceTime.years * 12 + totalServiceTime.months;
 
   // Se trabalhou menos de 12 meses, todo o período é aquisitivo
   if (totalMonths < 12) {
-    let monthsWorked = totalServiceTime.meses;
-    if (totalServiceTime.dias >= 15) {
+    let monthsWorked = totalServiceTime.months;
+    if (totalServiceTime.days >= 15) {
       monthsWorked += 1;
     }
     return monthsWorked;
@@ -529,17 +432,17 @@ function calculateProportionalVacationMonths(startDate: string, endDate: string)
 
 function calculateProportionalVacation(startDate: string, endDate: string, salary: number): number {
   // CLT Art. 146 - Férias proporcionais ao período aquisitivo incompleto
-  const startDateObj = new Date(startDate);
-  const endDateObj = new Date(endDate);
+  const startDateObj = parseLocalDate(startDate);
+  const endDateObj = parseLocalDate(endDate);
 
   // Calcular o último período aquisitivo de férias (12 meses)
   const totalServiceTime = calculateDateDifference(startDate, endDate);
-  const totalMonths = totalServiceTime.anos * 12 + totalServiceTime.meses;
+  const totalMonths = totalServiceTime.years * 12 + totalServiceTime.months;
 
   // Se trabalhou menos de 12 meses, todo o período é aquisitivo
   if (totalMonths < 12) {
-    let monthsWorked = totalServiceTime.meses;
-    if (totalServiceTime.dias >= 15) {
+    let monthsWorked = totalServiceTime.months;
+    if (totalServiceTime.days >= 15) {
       monthsWorked += 1;
     }
     return (monthsWorked / 12) * salary;
@@ -595,29 +498,15 @@ function calculateUnemploymentBenefit(
   salary: number,
   totalMonths: number
 ): { eligible: boolean; installments: number; totalValue: number } {
-  // Lei 7.998/90 - Seguro Desemprego
-  // Mínimo 12 meses para ter direito
-  if (totalMonths < 12) {
+  // Lei 7.998/90 e Lei 13.134/2015 - regras da 1ª solicitação; o salário informado
+  // representa a média dos três últimos salários
+  const installments = unemploymentInstallmentsFirstRequest(totalMonths);
+  if (installments === 0) {
     return { eligible: false, installments: 0, totalValue: 0 };
   }
 
-  let installments = 0;
-
-  if (totalMonths >= 24) {
-    installments = 5; // 24+ meses = 5 parcelas
-  } else if (totalMonths >= 18) {
-    installments = 4; // 18-23 meses = 4 parcelas
-  } else {
-    installments = 3; // 12-17 meses = 3 parcelas
-  }
-
-  // Valor: 80% do salário, limitado ao teto
-  const TETO_SEGURO = 2486.73; // 2026
-  const PISO_SEGURO = 1518.0; // Salário mínimo 2026
-
-  const baseValue = salary * 0.8;
-  const installmentValue = Math.max(PISO_SEGURO, Math.min(baseValue, TETO_SEGURO));
-  const totalValue = installmentValue * installments;
+  const installmentValue = unemploymentInstallment(salary);
+  const totalValue = Math.round(installmentValue * installments * 100) / 100;
 
   return { eligible: true, installments, totalValue };
 }
@@ -708,7 +597,7 @@ function calculateTermination(params: TerminationCalculation): TerminationResult
   };
 
   // 1. SALDO DE SALÁRIO - Dias trabalhados no mês da demissão
-  const dataFimObj = new Date(dataFim);
+  const dataFimObj = parseLocalDate(dataFim);
   const diasTrabalhadosNoMes = dataFimObj.getDate();
   const diasDoMes = new Date(dataFimObj.getFullYear(), dataFimObj.getMonth() + 1, 0).getDate();
   const salarioBruto = (diasTrabalhadosNoMes / diasDoMes) * salario;
@@ -844,25 +733,16 @@ function calculateTermination(params: TerminationCalculation): TerminationResult
       : 0;
 
   // 10. DESCONTOS
-  // Base de cálculo para INSS e IRRF
-  const baseInss =
-    (result.saldoSalario || 0) +
-    (result.avisoPrevio || 0) +
-    (result.decimoTerceiroProporional || 0);
-  result.inss = calculateINSS(baseInss);
-
-  // IRRF: base de cálculo inclui todas as verbas rescisórias - INSS
-  const baseIRRF =
-    (result.saldoSalario || 0) +
-    (result.avisoPrevio || 0) +
-    (result.feriasVencidas || 0) +
-    (result.feriasProporcionais || 0) +
-    (result.tercoFeriasVencidas || 0) +
-    (result.tercoFerias || 0) +
-    (result.decimoTerceiroProporional || 0) +
-    (result.decimoTerceiroIndenizado || 0) -
-    (result.inss || 0);
-  result.irrf = calculateIRRF(baseIRRF, possuiDependentes ? numeroDependentes || 0 : 0);
+  // Só o saldo de salário e o 13º sofrem INSS e IRRF, cada um calculado em separado.
+  // Férias indenizadas + 1/3 (Súmula 386 do STJ) e aviso prévio indenizado são isentos.
+  // (avisoPrevio só tem valor quando é indenizado; o trabalhado é pago como salário).
+  const dependentesIR = possuiDependentes ? numeroDependentes || 0 : 0;
+  const baseSalario = result.saldoSalario || 0;
+  const base13 = (result.decimoTerceiroProporional || 0) + (result.decimoTerceiroIndenizado || 0);
+  const impostosSalario = calculateTaxes(baseSalario, dependentesIR);
+  const impostos13 = calculateTaxes(base13, dependentesIR);
+  result.inss = Math.round((impostosSalario.inss + impostos13.inss) * 100) / 100;
+  result.irrf = Math.round((impostosSalario.irrf + impostos13.irrf) * 100) / 100;
 
   // 11. TOTAIS
   // Total a receber em dinheiro na rescisão (FGTS não é pago em dinheiro)
@@ -1022,7 +902,7 @@ export default function RescisaoTrabalhistaCalculator() {
   const handleCalculate = () => {
     // Validação mais robusta
     const salarioValido = salario > 0;
-    const datasValidas = dataInicio && dataFim && new Date(dataInicio) < new Date(dataFim);
+    const datasValidas = dataInicio && dataFim && parseLocalDate(dataInicio) < parseLocalDate(dataFim);
 
     if (salarioValido && datasValidas) {
       const params: TerminationCalculation = {
@@ -1289,7 +1169,7 @@ export default function RescisaoTrabalhistaCalculator() {
                     `${result.tempoServicoTotal.anos} ano${result.tempoServicoTotal.anos > 1 ? "s" : ""}`}
                   {result.tempoServicoTotal.anos > 0 && result.tempoServicoTotal.meses > 0 && ", "}
                   {result.tempoServicoTotal.meses > 0 &&
-                    `${result.tempoServicoTotal.meses} mês${result.tempoServicoTotal.meses > 1 ? "es" : ""}`}
+                    `${result.tempoServicoTotal.meses} ${result.tempoServicoTotal.meses > 1 ? "meses" : "mês"}`}
                   {(result.tempoServicoTotal.anos > 0 || result.tempoServicoTotal.meses > 0) &&
                     result.tempoServicoTotal.dias > 0 &&
                     ", "}
@@ -1297,8 +1177,8 @@ export default function RescisaoTrabalhistaCalculator() {
                     `${result.tempoServicoTotal.dias} dia${result.tempoServicoTotal.dias > 1 ? "s" : ""}`}
                 </p>
                 <p className="mt-1 text-sm text-slate-300">
-                  Período: {new Date(dataInicio).toLocaleDateString("pt-BR")} até{" "}
-                  {new Date(dataFim).toLocaleDateString("pt-BR")}
+                  Período: {parseLocalDate(dataInicio).toLocaleDateString("pt-BR")} até{" "}
+                  {parseLocalDate(dataFim).toLocaleDateString("pt-BR")}
                 </p>
               </div>
             </CardContent>
@@ -1526,7 +1406,7 @@ export default function RescisaoTrabalhistaCalculator() {
                         result.tempoServicoTotal.meses > 0 &&
                         ", "}
                       {result.tempoServicoTotal.meses > 0 &&
-                        `${result.tempoServicoTotal.meses} mês${result.tempoServicoTotal.meses > 1 ? "es" : ""}`}
+                        `${result.tempoServicoTotal.meses} ${result.tempoServicoTotal.meses > 1 ? "meses" : "mês"}`}
                       {(result.tempoServicoTotal.anos > 0 || result.tempoServicoTotal.meses > 0) &&
                         result.tempoServicoTotal.dias > 0 &&
                         ", "}
@@ -1745,8 +1625,10 @@ export default function RescisaoTrabalhistaCalculator() {
                       direito trabalhista
                     </p>
                     <p>
-                      • <strong>Tabelas 2026:</strong> INSS (R$ 1.518 - R$ 976,64), IRRF e salário
-                      família (R$ 62,04) atualizados
+                      • <strong>Tabelas {LABOR_TAX_YEAR}:</strong> INSS, IRRF (com a redução da Lei
+                      15.270/2025), seguro-desemprego (teto de R${" "}
+                      {UNEMPLOYMENT_BENEFIT.ceiling.toLocaleString("pt-BR")}) e salário-família (R${" "}
+                      {FAMILY_ALLOWANCE.perChild.toLocaleString("pt-BR")} por filho)
                     </p>
                     <p>
                       • <strong>Exemplos Práticos:</strong> Cálculos baseados em casos reais
@@ -1913,7 +1795,7 @@ export default function RescisaoTrabalhistaCalculator() {
                   <p>• 13º salário proporcional</p>
                   <p>• Férias vencidas e proporcionais + 1/3</p>
                   <p>• Saque de 80% do FGTS + multa de 20%</p>
-                  <p>• Seguro desemprego reduzido (quando elegível)</p>
+                  <p>• ❌ Sem seguro desemprego (art. 484-A, §4º da CLT)</p>
                 </div>
               </div>
             </div>
@@ -1945,7 +1827,7 @@ export default function RescisaoTrabalhistaCalculator() {
           {
             question: "Quais são os critérios do seguro desemprego?",
             answer:
-              "O <strong>seguro desemprego</strong> é regulamentado pela <strong>Lei 7.998/90</strong> para demitidos sem justa causa. <strong>Critérios:</strong> Mínimo 12 meses trabalhados nos últimos 18 meses. <strong>Parcelas:</strong> 12-17 meses = 3 parcelas, 18-23 meses = 4 parcelas, 24+ meses = 5 parcelas. Valor = 80% do salário (limitado ao teto).",
+              "O <strong>seguro desemprego</strong> é regulamentado pela <strong>Lei 7.998/90</strong> para demitidos sem justa causa. <strong>Critérios na 1ª solicitação:</strong> mínimo de 12 meses trabalhados nos últimos 18. <strong>Parcelas:</strong> 12 a 23 meses = 4 parcelas, 24 meses ou mais = 5 parcelas. <strong>Valor em 2026:</strong> 80% da média salarial até R$ 2.222,17; entre R$ 2.222,18 e R$ 3.703,99, R$ 1.777,74 mais 50% do que passar de R$ 2.222,17; acima disso, o teto de R$ 2.518,65. Nenhuma parcela é menor que o salário mínimo.",
             borderColor: "system-warning",
           },
           {
@@ -1957,7 +1839,7 @@ export default function RescisaoTrabalhistaCalculator() {
           {
             question: "Como funcionam os descontos na rescisão?",
             answer:
-              "Na rescisão incidem <strong>INSS e IRRF</strong> conforme tabelas vigentes: <strong>INSS:</strong> 7,5% a 14% (conforme salário). <strong>IRRF:</strong> 0% a 27,5% (tabela progressiva). <strong>Outros:</strong> descontos autorizados (vale-transporte, etc.) e desconto de faltas se aviso prévio trabalhado.",
+              "Na rescisão, <strong>INSS e IRRF</strong> incidem só sobre o saldo de salário e o 13º, cada um calculado em separado. <strong>Férias indenizadas + 1/3</strong> (Súmula 386 do STJ) e <strong>aviso prévio indenizado</strong> são isentos. O IR é zerado para valores de até R$ 5.000 (Lei 15.270/2025). <strong>Outros:</strong> descontos autorizados (vale-transporte, etc.) e desconto de faltas se aviso prévio trabalhado.",
             borderColor: "primary-blue",
           },
         ]}
@@ -1967,6 +1849,19 @@ export default function RescisaoTrabalhistaCalculator() {
             "<strong>Sempre confira seus direitos!</strong> Mantenha todos os documentos trabalhistas organizados e tire dúvidas com RH ou sindicato. Em caso de discordância, procure orientação jurídica especializada. A rescisão bem calculada garante seus direitos integralmente.",
         }}
         footerText="<strong>Baseado na CLT e legislação vigente:</strong> Cálculos seguem as regras da <strong>Consolidação das Leis do Trabalho</strong> e jurisprudência atual do TST."
+      />
+
+      <SourcesAndUpdate
+        updatedAt={LABOR_TAX_REVIEWED_AT}
+        reviewNote={`Tabelas de ${LABOR_TAX_YEAR} conferidas com as fontes oficiais`}
+        sources={[
+          LABOR_TAX_SOURCES.clt,
+          LABOR_TAX_SOURCES.inss,
+          LABOR_TAX_SOURCES.irrf,
+          LABOR_TAX_SOURCES.lei15270,
+          LABOR_TAX_SOURCES.seguroDesemprego,
+          LABOR_TAX_SOURCES.lei4090,
+        ]}
       />
 
       <RelatedCalculators

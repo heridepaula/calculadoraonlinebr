@@ -1,5 +1,10 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, Link } from "@remix-run/react";
-import type { LinksFunction, MetaFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import type {
+  HeadersFunction,
+  LinksFunction,
+  MetaFunction,
+  LoaderFunctionArgs,
+} from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { ThemeProvider } from "~/lib/theme-context";
@@ -13,6 +18,7 @@ import { useCloudflareAnalyticsSimple } from "~/hooks/useCloudflareAnalytics";
 import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytics";
 import { CookieConsent, CSSLoadingDetector } from "~/components";
 import { Footer } from "~/components/layout/Footer";
+import { Header } from "~/components/layout/Header";
 import { getCriticalCSSHTML, getDeferredCSSScript } from "~/lib/critical-css";
 import { usePrefetchOptimization } from "~/lib/prefetch-strategy";
 
@@ -26,13 +32,13 @@ export const links: LinksFunction = () => [
   { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
 
   // Font CSS - non-blocking: the inline script in <head> turns every
-  // link[data-defer] into a stylesheet after load (React drops string onLoad in SSR).
+  // link[data-defer] into a stylesheet after load. Don't add a string onLoad here:
+  // React attaches it on hydration and throws error #231 when the load event fires.
   // Manrope = body, Instrument Serif = display headings
   {
     rel: "preload",
     href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap",
     as: "style",
-    onLoad: "this.onload=null;this.rel='stylesheet'",
     "data-defer": "true"
   },
 
@@ -54,6 +60,15 @@ export const links: LinksFunction = () => [
   // Android Chrome Icons
   { rel: "shortcut icon", href: "/android-chrome-192x192.webp" },
 ];
+
+// Cache do HTML (e dos .data do single fetch) na CDN da Vercel: 1 h, servindo a versão
+// antiga enquanto revalida. O Remix usa o `headers` da rota mais profunda que o exporta,
+// então rotas com dados mais voláteis definem o próprio (ex.: loterias, 5 min).
+// Páginas de erro não são cacheadas.
+export const headers: HeadersFunction = ({ errorHeaders }) =>
+  errorHeaders
+    ? { "Cache-Control": "no-store" }
+    : { "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" };
 
 // Loader with dark theme (always dark) and analytics configuration
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -199,27 +214,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
 
-        {/* JSON-LD: WebSite - global structured data */}
+        {/* JSON-LD global: Organization e WebSite com @id estáveis, para as páginas referenciarem */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "CalculadoraOnlineBR",
-              description:
-                "Calculadoras online gratuitas para facilitar seu dia a dia - saúde, finanças e matemática",
-              url: "https://www.calculadoraonlinebr.com.br",
-              inLanguage: "pt-BR",
-              author: { "@type": "Organization", name: "CalculadoraOnlineBR" },
-              publisher: {
-                "@type": "Organization",
-                name: "CalculadoraOnlineBR",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.webp",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://www.calculadoraonlinebr.com.br/#organization",
+                  name: "CalculadoraOnlineBR",
+                  url: "https://www.calculadoraonlinebr.com.br",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://www.calculadoraonlinebr.com.br/android-chrome-512x512.png",
+                    width: 512,
+                    height: 512,
+                  },
+                  email: "contato@calculadoraonlinebr.com.br",
                 },
-              },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://www.calculadoraonlinebr.com.br/#website",
+                  name: "CalculadoraOnlineBR",
+                  description:
+                    "Calculadoras online gratuitas de saúde, finanças, matemática, trabalhista, datas e mais",
+                  url: "https://www.calculadoraonlinebr.com.br",
+                  inLanguage: "pt-BR",
+                  publisher: { "@id": "https://www.calculadoraonlinebr.com.br/#organization" },
+                },
+              ],
             }),
           }}
         />
@@ -397,33 +422,7 @@ export default function App() {
       <ThemeProvider>
         <AnalyticsProvider>
           <div className="flex min-h-screen flex-col">
-            <header className="shadow-default border-b border-light bg-background-dark-secondary">
-              <div className="mx-auto max-w-7xl px-8 sm:px-4 md:px-6">
-                <div className="flex h-16 items-center justify-between md:h-14">
-                  <Link
-                    to="/"
-                    className="group flex items-center space-x-2 transition-all duration-200 hover:opacity-90"
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-light bg-card-bg transition-transform group-hover:scale-110">
-                      <img
-                        src="/favicon-32x32.webp"
-                        alt="CalculadoraOnlineBR"
-                        className="h-5 w-5"
-                        width={20}
-                        height={20}
-                      />
-                    </div>
-                    <span className="text-2xl font-bold text-text-primary sm:text-lg md:text-xl">
-                      <span className="sm:hidden md:inline">CalculadoraOnlineBR</span>
-                    </span>
-                  </Link>
-
-                  <div className="flex items-center space-x-4">
-                    {/* Fixed dark theme - no theme toggle */}
-                  </div>
-                </div>
-              </div>
-            </header>
+            <Header />
 
             <main
               id="main-content"

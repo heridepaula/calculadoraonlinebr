@@ -1,34 +1,6 @@
 User-agent: *
 Allow: /
-
-# Sitemaps
-Sitemap: https://www.calculadoraonlinebr.com.br/sitemap.xml
-
-# DISALLOW - Block unnecessary routes
-# API endpoints and services
 Disallow: /api/
-Disallow: /api/*
-
-# Admin and development routes
 Disallow: /admin/
-Disallow: /admin/*
 
-# Build files and cache
-Disallow: /build/
-Disallow: /.cache/
-Disallow: /node_modules/
-
-# Internal files and configurations
-Disallow: /.well-known/
-Disallow: /.git/
-Disallow: /*.json$
-Disallow: /*.config.*$
-Disallow: /.env*
-
-# Temporary and system files
-Disallow: /tmp/
-Disallow: /temp/
-Disallow: /*~
-
-# Performance and crawling optimization
-Crawl-delay: 1
+Sitemap: https://www.calculadoraonlinebr.com.br/sitemap.xml

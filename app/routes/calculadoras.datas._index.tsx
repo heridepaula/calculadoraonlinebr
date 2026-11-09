@@ -8,106 +8,14 @@ import {
   createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
-import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadoras de Datas Grátis 2026 | Diferença entre Datas, Idade e Dias Úteis | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule diferenças entre datas, idade exata e intervalos temporais grátis. Ferramentas para planejamento com dias úteis e cálculos de tempo.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora data, diferença entre datas, calculadora tempo, dias úteis, idade, período tempo, intervalo datas, planejamento temporal, calculadora gratuita",
-    },
-    {
-      name: "robots",
-      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-    },
-    {
-      name: "author",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1.0",
-    },
-    {
-      property: "og:title",
-      content: "Calculadoras de Datas – Diferença entre Datas Grátis",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule diferenças entre datas, idade exata e intervalos temporais grátis. Ferramentas para planejamento com dias úteis e cálculos de tempo.",
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/categoria-datas.jpg",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadoras de Datas - Interface mostrando diversas ferramentas para cálculos temporais",
-    },
-    {
-      property: "og:site_name",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      property: "og:locale",
-      content: "pt_BR",
-    },
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      name: "twitter:title",
-      content: "Calculadoras de Datas Grátis 2026 | Cálculo de Tempo",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule diferenças entre datas, períodos e intervalos temporais GRÁTIS! Ferramentas confiáveis para planejamento.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/categoria-datas.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content:
-        "Calculadoras de Datas - Interface mostrando diversas ferramentas para cálculos temporais",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas",
-    },
+    ...buildCategoryMeta("datas"),
     { "script:ld+json": generateCategoryPageGraph("datas") },
   ];
 };

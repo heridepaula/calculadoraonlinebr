@@ -13,9 +13,16 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { RelatedCalculators } from "~/components/RelatedCalculators";
-import { FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
+import { FAQ, SourcesAndUpdate } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
+import {
+  INSS_CEILING,
+  LABOR_TAX_REVIEWED_AT,
+  LABOR_TAX_SOURCES,
+  LABOR_TAX_YEAR,
+  MINIMUM_WAGE,
+} from "~/lib/labor/tax-tables";
 
 // Função auxiliar para formatação de moeda
 function formatCurrency(value: number): string {
@@ -32,10 +39,8 @@ function formatDate(date: Date): string {
 
 // Constantes 2026
 const CONSTANTS_2026 = {
-  SALARIO_MINIMO: 1518.0,
-  TETO_INSS: 8157.41,
-  EXPECTATIVA_VIDA: 76.4,
-  FATOR_ATUARIAL: 0.31,
+  SALARIO_MINIMO: MINIMUM_WAGE,
+  TETO_INSS: INSS_CEILING,
 };
 
 // Interfaces para tipagem
@@ -84,97 +89,7 @@ interface RetirementResult {
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Aposentadoria INSS 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Simule aposentadoria INSS 2026: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção de aposentadoria.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora aposentadoria inss, simulador inss, pedágio 50 100, regra transição, pontos aposentadoria",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Aposentadoria INSS 2026 – Todas as Modalidades",
-    },
-    {
-      property: "og:description",
-      content:
-        "Simule aposentadoria INSS 2026: idade, pontos, pedágio 50% e 100%, regras de transição. Compare modalidades e descubra a melhor opção.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/aposentadoria.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Aposentadoria INSS - Simule todas as modalidades: idade, pontos, pedágio 50% e 100%",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Aposentadoria INSS 2026 – Todas as Modalidades",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Simule aposentadoria INSS: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/aposentadoria.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Aposentadoria INSS - Simule modalidades e compare opções",
-    },
-    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
-    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Aposentadoria INSS" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
+    ...buildCalculatorMeta("aposentadoria"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",
@@ -187,7 +102,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-31",
+        dateModified: LABOR_TAX_REVIEWED_AT,
         offers: {
           "@type": "Offer",
           price: "0",
@@ -289,7 +204,7 @@ export const meta: MetaFunction = () => {
             name: "Qual a melhor modalidade de aposentadoria?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A melhor modalidade depende da sua situação: aposentadoria por idade (65H/62M), por pontos (96H/86M), pedágio 50% ou 100%. Nossa calculadora compara todas e mostra a mais vantajosa.",
+              text: "A melhor modalidade depende da sua situação: aposentadoria por idade (65H/62M), por pontos (103 para homens e 93 para mulheres em 2026), idade progressiva (64,5 e 59,5 anos em 2026), pedágio 50% ou 100%. Nossa calculadora compara todas e mostra a mais vantajosa.",
             },
           },
           {
@@ -350,6 +265,18 @@ function calculateTimeRemaining(
   return { years, months, days };
 }
 
+/** Pontos da regra de transição (art. 15 da EC 103/2019): 96 (H) e 86 (M) em 2019, +1 por ano. */
+function transitionPoints(sexo: "masculino" | "feminino", year: number): number {
+  const elapsed = Math.max(0, year - 2019);
+  return sexo === "masculino" ? Math.min(96 + elapsed, 105) : Math.min(86 + elapsed, 100);
+}
+
+/** Idade da regra progressiva (art. 16 da EC 103/2019): 61 (H) e 56 (M) em 2019, +6 meses por ano. */
+function transitionProgressiveAge(sexo: "masculino" | "feminino", year: number): number {
+  const elapsed = Math.max(0, year - 2019);
+  return sexo === "masculino" ? Math.min(61 + elapsed / 2, 65) : Math.min(56 + elapsed / 2, 62);
+}
+
 function calculateBenefit(
   averageSalary: number,
   contributionTimeMonths: number,
@@ -377,17 +304,8 @@ function calculateBenefit(
 
   percentage = Math.min(percentage, 1.0);
 
-  // Aplicar fator previdenciário se for regra de transição por idade progressiva
-  if (modality === "idade-progressiva") {
-    const age = calculateAge(birthDate).years;
-    const expectancy = CONSTANTS_2026.EXPECTATIVA_VIDA;
-    const factor =
-      (contributionYears * CONSTANTS_2026.FATOR_ATUARIAL * (1 + age + contributionYears)) /
-      (expectancy * 100);
-    const appliedFactor = Math.min(factor, 1.0);
-    percentage *= appliedFactor;
-  }
-
+  // Idade, pontos e idade progressiva usam 60% + 2% por ano (art. 26 da EC 103/2019),
+  // sem fator previdenciário
   return Math.max(limitedSalary * percentage, CONSTANTS_2026.SALARIO_MINIMO);
 }
 
@@ -446,21 +364,24 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
   };
   modalidades.push(idadeMod);
 
-  // 2. Regra de transição por pontos
-  const pontosNecessarios2026 = params.sexo === "masculino" ? 102 : 92;
+  // Regras de transição de pontos e idade progressiva exigem 35 (H) / 30 (M) anos de contribuição
+  const tempoMinimoTransicao = params.sexo === "masculino" ? 35 * 12 : 30 * 12;
+
+  // 2. Regra de transição por pontos (art. 15 da EC 103/2019)
+  const pontosNecessarios2026 = transitionPoints(params.sexo, LABOR_TAX_YEAR);
   const pontosMod: RetirementModality = {
     id: "por-pontos",
     name: "Regra de Transição por Pontos",
     description: `${pontosNecessarios2026} pontos necessários (idade + tempo de contribuição)`,
     isEligible:
-      currentPoints >= pontosNecessarios2026 && params.tempoContribuicao >= tempoMinimoIdade,
+      currentPoints >= pontosNecessarios2026 && params.tempoContribuicao >= tempoMinimoTransicao,
     timeRemaining: {
       years: Math.max(0, Math.floor((pontosNecessarios2026 - currentPoints) / 1)),
       months: 0,
       days: 0,
     },
     requiredPoints: pontosNecessarios2026,
-    minimumContribution: tempoMinimoIdade,
+    minimumContribution: tempoMinimoTransicao,
     estimatedBenefit: calculateBenefit(
       params.mediaSalarial,
       params.tempoContribuicao,
@@ -472,34 +393,37 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
       Date.now() + Math.max(0, pontosNecessarios2026 - currentPoints) * 365.25 * 24 * 60 * 60 * 1000
     ),
     rules: [
-      `${pontosNecessarios2026} pontos em 2026`,
+      `${pontosNecessarios2026} pontos em ${LABOR_TAX_YEAR}`,
       "Soma idade + tempo de contribuição",
-      "Aumenta 1 ponto por ano até 2033 (H) / 2031 (M)",
+      `Mínimo de ${tempoMinimoTransicao / 12} anos de contribuição`,
+      "Aumenta 1 ponto por ano até 105 (H, em 2028) / 100 (M, em 2033)",
     ],
     advantages: [
       "Sem idade mínima",
-      "Benefício integral",
+      "60% da média + 2% por ano de contribuição acima do mínimo",
       "Flexibilidade na combinação idade/tempo",
     ],
     disadvantages: ["Pontuação alta", "Aumenta todo ano", "Exige muito tempo de contribuição"],
   };
   modalidades.push(pontosMod);
 
-  // 3. Regra idade progressiva (com fator previdenciário)
-  const idadeProgressiva2026 = params.sexo === "masculino" ? 64 : 59;
+  // 3. Regra idade progressiva (art. 16 da EC 103/2019)
+  const idadeProgressiva2026 = transitionProgressiveAge(params.sexo, LABOR_TAX_YEAR);
+  const idadeProgressivaTexto = idadeProgressiva2026.toLocaleString("pt-BR");
   const progressivaMod: RetirementModality = {
     id: "idade-progressiva",
     name: "Regra Idade Progressiva",
-    description: `${idadeProgressiva2026} anos + fator previdenciário`,
-    isEligible: currentAge >= idadeProgressiva2026 && params.tempoContribuicao >= tempoMinimoIdade,
+    description: `${idadeProgressivaTexto} anos de idade + ${tempoMinimoTransicao / 12} anos de contribuição`,
+    isEligible:
+      currentAge >= idadeProgressiva2026 && params.tempoContribuicao >= tempoMinimoTransicao,
     timeRemaining: calculateTimeRemaining(
       currentAge,
       idadeProgressiva2026,
       params.tempoContribuicao,
-      tempoMinimoIdade
+      tempoMinimoTransicao
     ),
     minimumAge: idadeProgressiva2026,
-    minimumContribution: tempoMinimoIdade,
+    minimumContribution: tempoMinimoTransicao,
     estimatedBenefit: calculateBenefit(
       params.mediaSalarial,
       params.tempoContribuicao,
@@ -513,7 +437,7 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
           currentAge,
           idadeProgressiva2026,
           params.tempoContribuicao,
-          tempoMinimoIdade
+          tempoMinimoTransicao
         ).years *
           365.25 *
           24 *
@@ -522,18 +446,18 @@ function calculateRetirementModalites(params: RetirementCalculation): Retirement
           1000
     ),
     rules: [
-      `${idadeProgressiva2026} anos em 2026`,
-      "Aumenta 6 meses por ano",
-      "Aplica fator previdenciário",
+      `${idadeProgressivaTexto} anos de idade em ${LABOR_TAX_YEAR}`,
+      `Mínimo de ${tempoMinimoTransicao / 12} anos de contribuição`,
+      "Idade sobe 6 meses por ano até 65 (H) / 62 (M)",
     ],
     advantages: [
-      "Idade mais baixa que por idade",
-      "Para quem começou a contribuir antes da reforma",
+      "Idade mais baixa que na aposentadoria por idade",
+      "Para quem já contribuía antes da reforma de 2019",
     ],
     disadvantages: [
-      "Fator previdenciário reduz benefício",
+      "Exige muito tempo de contribuição",
       "Idade aumenta todo ano",
-      "Benefício menor",
+      "60% da média + 2% por ano acima do mínimo",
     ],
   };
   modalidades.push(progressivaMod);
@@ -1508,7 +1432,7 @@ Consulte sempre um especialista para análise detalhada.
                         • <strong>Máximo:</strong> 100% aos 40 anos de contribuição
                       </li>
                       <li>
-                        • <strong>Piso:</strong> 1 salário mínimo (R$ 1.518,00)
+                        • <strong>Piso:</strong> 1 salário mínimo (R$ 1.621,00)
                       </li>
                     </ul>
                   </div>
@@ -1639,7 +1563,7 @@ Consulte sempre um especialista para análise detalhada.
                   INSS
                 </p>
                 <p>
-                  • <strong>Dados 2026:</strong> Salário mínimo R$ 1.518,00, Teto R$ 8.157,41
+                  • <strong>Dados 2026:</strong> Salário mínimo R$ 1.621,00, Teto R$ 8.475,55
                 </p>
                 <p>
                   • <strong>Consultoria:</strong> Para análise detalhada, consulte um advogado
@@ -1723,7 +1647,7 @@ Consulte sempre um especialista para análise detalhada.
           {
             question: "Como calcular minha aposentadoria pelo INSS de forma confiável?",
             answer:
-              "Para calcular sua aposentadoria INSS, considere: <strong>idade atual</strong>, <strong>tempo de contribuição</strong>, <strong>média salarial</strong> e <strong>modalidade escolhida</strong>. Nossa calculadora aplica as <strong>regras 2026</strong>: benefício base de 60% + 2% por ano acima do mínimo (15 anos mulheres/20 anos homens). O valor final é limitado ao <strong>teto INSS de R$ 8.157,41</strong>.",
+              "Para calcular sua aposentadoria INSS, considere: <strong>idade atual</strong>, <strong>tempo de contribuição</strong>, <strong>média salarial</strong> e <strong>modalidade escolhida</strong>. Nossa calculadora aplica as <strong>regras 2026</strong>: benefício base de 60% + 2% por ano acima do mínimo (15 anos mulheres/20 anos homens). O valor final é limitado ao <strong>teto INSS de R$ 8.475,55</strong>.",
             borderColor: "primary-blue",
           },
           {
@@ -1747,7 +1671,7 @@ Consulte sempre um especialista para análise detalhada.
           {
             question: "Como calcular o valor da aposentadoria em 2026?",
             answer:
-              "Fórmula 2026: <strong>60% da média salarial + 2% por ano acima do mínimo</strong>. Exemplo: mulher com 25 anos contribuição = 60% + (25-15) × 2% = 80%. <strong>Salário mínimo:</strong> R$ 1.518,00. <strong>Teto:</strong> R$ 8.157,41. <strong>Média salarial:</strong> calculada sobre todos os salários desde julho/1994, corrigidos monetariamente.",
+              "Fórmula 2026: <strong>60% da média salarial + 2% por ano acima do mínimo</strong>. Exemplo: mulher com 25 anos contribuição = 60% + (25-15) × 2% = 80%. <strong>Salário mínimo:</strong> R$ 1.621,00. <strong>Teto:</strong> R$ 8.475,55. <strong>Média salarial:</strong> calculada sobre todos os salários desde julho/1994, corrigidos monetariamente.",
             borderColor: "system-error-dark",
           },
           {
@@ -1775,6 +1699,16 @@ Consulte sempre um especialista para análise detalhada.
             "Para <strong>maximizar seu benefício</strong>, considere continuar contribuindo se estiver próximo de completar <strong>40 anos</strong> (benefício integral). Acompanhe seu <strong>CNIS no Meu INSS</strong> regularmente e corrija inconsistências. Se nasceu antes de 1962 (homens) ou 1967 (mulheres), pode ter <strong>direito adquirido</strong> às regras anteriores à reforma.",
         }}
         footerText="<strong>Necessita planejar sua aposentadoria?</strong> Nossa calculadora analisa todas as modalidades INSS e indica a melhor opção para seu perfil específico."
+      />
+
+      <SourcesAndUpdate
+        updatedAt={LABOR_TAX_REVIEWED_AT}
+        reviewNote={`Tabelas de ${LABOR_TAX_YEAR} conferidas com as fontes oficiais`}
+        sources={[
+          LABOR_TAX_SOURCES.inss,
+          LABOR_TAX_SOURCES.lei8213,
+          LABOR_TAX_SOURCES.ec103,
+        ]}
       />
 
       <RelatedCalculators category="trabalhista" currentCalculatorId="aposentadoria" />

@@ -13,8 +13,7 @@ import {
   Select,
   Checkbox,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
+import { RelatedCalculators, FAQ, SourcesAndUpdate } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   calculateVacation,
@@ -24,89 +23,27 @@ import {
   type ThirteenthSalaryParams,
   type ThirteenthSalaryResult,
 } from "~/utils/calculations";
+import { buildCalculatorMeta } from "~/lib/page-meta";
+import {
+  INSS_BRACKETS,
+  INSS_CEILING,
+  IRRF_BRACKETS,
+  IRRF_DEPENDENT_DEDUCTION,
+  IRRF_REDUCTION,
+  LABOR_TAX_REVIEWED_AT,
+  LABOR_TAX_SOURCES,
+  LABOR_TAX_YEAR,
+  calculateInss,
+} from "~/lib/labor/tax-tables";
+
+const brlTable = (value: number) =>
+  value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const pctTable = (value: number) =>
+  value.toLocaleString("pt-BR", { style: "percent", maximumFractionDigits: 2 });
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Férias e 13º Salário 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule férias e 13º salário 2026: valores líquidos, INSS, IRRF e abono pecuniário. Calculadora atualizada conforme CLT brasileira.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora férias 13 salário, décimo terceiro, abono pecuniário, terço constitucional, CLT, direitos trabalhistas",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
-    },
-    { name: "googlebot", content: "index,follow" },
-    { name: "bingbot", content: "index,follow" },
-    {
-      property: "og:title",
-      content: "Calculadora de Férias e 13º Salário 2026 – CLT Atualizada",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule férias e 13º salário 2026 facilmente: valores líquidos, INSS, IRRF, abono pecuniário e adiantamentos. Atualizada conforme CLT.",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/ferias-decimo-terceiro",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/ferias-decimo-terceiro.jpg",
-    },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Calculadora de Férias e 13º Salário CLT 2026 - CalculadoraOnlineBR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    {
-      name: "twitter:title",
-      content: `Calculadora de Férias e 13º Salário CLT 2026 - ${APP_NAME}`,
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Descubra quanto você vai receber de férias e décimo terceiro! Cálculo completo com todas as tabelas oficiais 2026.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/ferias-decimo-terceiro.jpg",
-    },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("ferias-decimo-terceiro"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",
@@ -119,7 +56,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-31",
+        dateModified: LABOR_TAX_REVIEWED_AT,
         offers: {
           "@type": "Offer",
           price: "0",
@@ -693,11 +630,14 @@ export default function VacationAndThirteenthCalculator() {
                     📊 Tabelas Oficiais 2026
                   </h4>
                   <p className="text-sm text-text-secondary">
-                    💼 <strong>INSS:</strong> 7.5% até R$ 1.518 | 9% até R$ 2.794 | 12% até R$ 4.191
-                    | 14% até R$ 8.157
+                    💼 <strong>INSS:</strong>{" "}
+                    {INSS_BRACKETS.map(
+                      (b) => `${pctTable(b.rate)} até ${brlTable(b.upTo)}`
+                    ).join(" | ")}
                     <br />
-                    💰 <strong>IRRF:</strong> Isento até R$ 2.259 | 7.5% até R$ 2.827 | 15% até R$
-                    3.751 | 22.5% até R$ 4.665 | 27.5% acima
+                    💰 <strong>IRRF:</strong> imposto zerado até{" "}
+                    {brlTable(IRRF_REDUCTION.fullUpTo)} (Lei 15.270/2025) | 7,5% a 27,5% acima
+                    disso
                     <br />
                     👶 <strong>Dependentes:</strong> R$ 189,59 de dedução para cada dependente
                   </p>
@@ -1146,7 +1086,9 @@ export default function VacationAndThirteenthCalculator() {
                       <p>
                         <strong>4. Descontos:</strong>
                       </p>
-                      <p className="ml-4">• INSS e IRRF sobre férias + 1/3 + abono</p>
+                      <p className="ml-4">
+                        • INSS e IRRF sobre férias + 1/3 (o abono pecuniário é isento)
+                      </p>
                     </div>
                   </div>
                   <div className="rounded-lg border border-growth-green/20 bg-growth-green/10 p-4">
@@ -1165,7 +1107,7 @@ export default function VacationAndThirteenthCalculator() {
                       <p>
                         <strong>3. Segunda parcela:</strong>
                       </p>
-                      <p className="ml-4">• 50% restante - INSS - IRRF</p>
+                      <p className="ml-4">• 50% restante - INSS - IRRF (calculados sobre o 13º inteiro)</p>
                       <p>
                         <strong>4. Proporcionalidade:</strong>
                       </p>
@@ -1182,60 +1124,57 @@ export default function VacationAndThirteenthCalculator() {
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="rounded-lg border border-system-info/20 bg-system-info/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-info">🏛️ Tabela INSS 2026</h4>
+                    <h4 className="mb-2 font-semibold text-system-info">
+                      🏛️ Tabela INSS {LABOR_TAX_YEAR}
+                    </h4>
                     <div className="space-y-1 text-sm">
-                      <div className="flex justify-between">
-                        <span>Até R$ 1.518,00:</span>
-                        <span className="font-semibold">7,5%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>R$ 1.518,01 a R$ 2.793,88:</span>
-                        <span className="font-semibold">9,0%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>R$ 2.793,89 a R$ 4.190,83:</span>
-                        <span className="font-semibold">12,0%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>R$ 4.190,84 a R$ 8.157,41:</span>
-                        <span className="font-semibold">14,0%</span>
-                      </div>
+                      {INSS_BRACKETS.map((bracket, i) => (
+                        <div key={bracket.upTo} className="flex justify-between gap-2">
+                          <span>
+                            {i === 0
+                              ? `Até ${brlTable(bracket.upTo)}:`
+                              : `${brlTable(INSS_BRACKETS[i - 1].upTo + 0.01)} a ${brlTable(bracket.upTo)}:`}
+                          </span>
+                          <span className="font-semibold">{pctTable(bracket.rate)}</span>
+                        </div>
+                      ))}
                       <div className="mt-2 border-t border-system-info/20 pt-2">
                         <div className="flex justify-between font-semibold">
-                          <span>Teto INSS:</span>
-                          <span>R$ 1.142,04</span>
+                          <span>Desconto máximo:</span>
+                          <span>{brlTable(calculateInss(INSS_CEILING).contribution)}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="rounded-lg border border-system-warning/20 bg-system-warning/10 p-4">
-                    <h4 className="mb-2 font-semibold text-system-warning">💰 Tabela IRRF 2026</h4>
+                    <h4 className="mb-2 font-semibold text-system-warning">
+                      💰 Tabela IRRF {LABOR_TAX_YEAR}
+                    </h4>
                     <div className="space-y-1 text-sm">
-                      <div className="flex justify-between">
-                        <span>Até R$ 2.259,20:</span>
-                        <span className="font-semibold">Isento</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>R$ 2.259,21 a R$ 2.826,65:</span>
-                        <span className="font-semibold">7,5%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>R$ 2.826,66 a R$ 3.751,05:</span>
-                        <span className="font-semibold">15,0%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>R$ 3.751,06 a R$ 4.664,68:</span>
-                        <span className="font-semibold">22,5%</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Acima de R$ 4.664,68:</span>
-                        <span className="font-semibold">27,5%</span>
-                      </div>
+                      {IRRF_BRACKETS.map((bracket, i) => (
+                        <div key={bracket.upTo} className="flex justify-between gap-2">
+                          <span>
+                            {i === 0
+                              ? `Até ${brlTable(bracket.upTo)}:`
+                              : bracket.upTo === Infinity
+                                ? `Acima de ${brlTable(IRRF_BRACKETS[i - 1].upTo)}:`
+                                : `${brlTable(IRRF_BRACKETS[i - 1].upTo + 0.01)} a ${brlTable(bracket.upTo)}:`}
+                          </span>
+                          <span className="font-semibold">
+                            {bracket.rate === 0 ? "Isento" : pctTable(bracket.rate)}
+                          </span>
+                        </div>
+                      ))}
                       <div className="mt-2 border-t border-system-warning/20 pt-2">
                         <div className="flex justify-between font-semibold">
                           <span>Dedução por dependente:</span>
-                          <span>R$ 189,59</span>
+                          <span>{brlTable(IRRF_DEPENDENT_DEDUCTION)}</span>
                         </div>
+                        <p className="mt-2 text-xs">
+                          Imposto zerado para rendimentos até {brlTable(IRRF_REDUCTION.fullUpTo)}{" "}
+                          e reduzido até {brlTable(IRRF_REDUCTION.phaseOutUpTo)} (Lei
+                          15.270/2025).
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1348,6 +1287,18 @@ export default function VacationAndThirteenthCalculator() {
               "<strong>Guarde todos os comprovantes</strong> de pagamentos e comunicações da empresa sobre férias e 13º salário. Documenteção organizada é sua melhor proteção legal!",
           }}
           footerText="<strong>Necessita calcular outros direitos?</strong> Explore nossas calculadoras trabalhistas e garanta que todos os seus direitos sejam respeitados!"
+        />
+
+        <SourcesAndUpdate
+          updatedAt={LABOR_TAX_REVIEWED_AT}
+          reviewNote={`Tabelas de INSS e IRRF de ${LABOR_TAX_YEAR} conferidas com as fontes oficiais`}
+          sources={[
+            LABOR_TAX_SOURCES.inss,
+            LABOR_TAX_SOURCES.irrf,
+            LABOR_TAX_SOURCES.lei15270,
+            LABOR_TAX_SOURCES.lei4090,
+            LABOR_TAX_SOURCES.lei4749,
+          ]}
         />
 
         <RelatedCalculators category="trabalhista" currentCalculatorId="ferias-decimo-terceiro" />

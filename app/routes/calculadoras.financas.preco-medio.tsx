@@ -11,7 +11,6 @@ import {
 } from "~/components/ui";
 import { MoneyInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -24,6 +23,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 ChartJS.register(
   CategoryScale,
@@ -38,112 +38,7 @@ ChartJS.register(
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Preço Médio Ações 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.googleapis.com",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.gstatic.com",
-      crossOrigin: "anonymous",
-    },
-    {
-      name: "description",
-      content:
-        "Calcule preço médio ponderado de ações grátis. Adicione compras/vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "keywords",
-      content:
-        "preço médio ações, calculadora ações, preço médio ponderado, investimentos, bovespa",
-    },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
-    },
-    { httpEquiv: "content-language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "referrer", content: "strict-origin-when-cross-origin" },
-    {
-      property: "og:title",
-      content: "Preço Médio Ações 2026 – Simulador Grátis",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule preço médio ponderado de ações grátis. Adicione compras/vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores brasileiros.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/preco-medio.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Interface da calculadora de preço médio de ações mostrando campos de entrada e resultados com lucro/prejuízo em tempo real",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Preço Médio Ações 2026 – Simulador Grátis",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule o preço médio de ações facilmente. Adicione compras e vendas, visualize evolução do preço médio e quantidade total. Ferramenta gratuita para investidores.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/preco-medio.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Preço Médio - Calcule preço médio de ações",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "X-UA-Compatible", content: "IE=edge" },
-    { name: "msapplication-TileColor", content: "#64B5F6" },
-    { name: "application-name", content: "CalculadoraOnlineBR" },
+    ...buildCalculatorMeta("preco-medio"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

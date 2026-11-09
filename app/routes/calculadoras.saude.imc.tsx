@@ -11,104 +11,13 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de IMC 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calculadora IMC grátis com taxa metabólica e percentual gordura. Classificação por idade, sexo e análise corporal completa OMS.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de IMC 2026 com Taxa Metabólica | CalculadoraOnlineBR",
-    },
-    {
-      property: "og:description",
-      content:
-        "📏 Calculadora de IMC gratuita com taxa metabólica e percentual de gordura. Classificação por idade, sexo e análise corporal completa!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/imc.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora de IMC com Taxa Metabólica - Análise Corporal Completa",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de IMC 2026 com Taxa Metabólica | CalculadoraOnlineBR",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "📏 Calculadora de IMC gratuita com taxa metabólica e percentual de gordura. Classificação por idade, sexo e análise corporal completa!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/imc.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de IMC com Taxa Metabólica - Análise Corporal Completa",
-    },
-    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
-    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Calculadora IMC" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    {
-      name: "keywords",
-      content:
-        "calculadora imc, índice massa corporal, taxa metabólica basal, bmi calculator, peso ideal, metabolismo",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
+    ...buildCalculatorMeta("imc"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

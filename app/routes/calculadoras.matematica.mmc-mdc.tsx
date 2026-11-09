@@ -11,105 +11,13 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de MMC e MDC 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule MMC e MDC rápido e confiável. Fatoração completa com explicação passo a passo. Mínimo Múltiplo Comum e Máximo Divisor Comum grátis.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora MMC e MDC Online 2026 – Mínimo Múltiplo Comum e Máximo Divisor Comum",
-    },
-    {
-      property: "og:description",
-      content:
-        "Ferramenta online gratuita para calcular MMC e MDC com fatoração completa. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com explicação passo a passo.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/mmc-mdc.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora MMC e MDC - Mínimo Múltiplo Comum e Máximo Divisor Comum",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora MMC e MDC Online 2026 – Mínimo Múltiplo Comum",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calculadora online para MMC e MDC. Encontre o Mínimo Múltiplo Comum e Máximo Divisor Comum com fatoração completa. Gratuito!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/mmc-mdc.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora MMC e MDC - Operações Matemáticas",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    {
-      name: "keywords",
-      content:
-        "MMC, MDC, mínimo múltiplo comum, máximo divisor comum, fatoração prima, algoritmo euclides, matemática, calculadora",
-    },
-    { name: "rating", content: "general" },
-    { name: "distribution", content: "global" },
-    { name: "revisit-after", content: "7 days" },
+    ...buildCalculatorMeta("mmc-mdc"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

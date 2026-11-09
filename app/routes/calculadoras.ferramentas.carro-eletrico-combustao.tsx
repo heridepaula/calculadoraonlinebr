@@ -12,104 +12,12 @@ import {
   Label,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Calculadora: Carro Elétrico vs Combustão 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "🚗⚡ Compare custos completos entre carros elétricos e combustão! Análise de payback, economia por perfil de uso, equivalência de litros e impacto ambiental. Calcule já!",
-    },
-    {
-      name: "keywords",
-      content:
-        "carro elétrico vs combustão, calculadora economia carro elétrico, quanto economiza carro elétrico, custo benefício veículo elétrico, payback carro elétrico, motorista uber economia, calculadora consumo kwh litro gasolina",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/carro-eletrico-combustao",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora Carro Elétrico vs Combustão – Análise Completa de Custos 2026",
-    },
-    {
-      property: "og:description",
-      content:
-        "🚗⚡ Compare custos completos entre carros elétricos e combustão! Análise de payback, economia por perfil de uso e impacto ambiental. Calcule já!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/carro-eletrico-combustao.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Comparação Carro Elétrico vs Combustão - Análise completa de custos e economia",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/carro-eletrico-combustao",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora Carro Elétrico vs Combustão 2026 – Análise Completa",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "🚗⚡ Compare custos completos entre carros elétricos e combustão! Análise de payback, economia e impacto ambiental.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/carro-eletrico-combustao.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Comparação Carro Elétrico vs Combustão",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Carro Elétrico vs Combustão" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("carro-eletrico-combustao"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

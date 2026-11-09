@@ -13,9 +13,16 @@ import {
   BreadcrumbItem,
   Checkbox,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
+import { RelatedCalculators, FAQ, SourcesAndUpdate } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
+import {
+  INSS_CEILING,
+  LABOR_TAX_REVIEWED_AT,
+  LABOR_TAX_SOURCES,
+  LABOR_TAX_YEAR,
+  MINIMUM_WAGE,
+} from "~/lib/labor/tax-tables";
 
 // Função auxiliar para formatação de moeda
 function formatCurrency(value: number): string {
@@ -27,8 +34,8 @@ function formatCurrency(value: number): string {
 
 // Constantes 2026
 const CONSTANTS_2026 = {
-  SALARIO_MINIMO: 1518.0,
-  TETO_INSS: 8157.41,
+  SALARIO_MINIMO: MINIMUM_WAGE,
+  TETO_INSS: INSS_CEILING,
   CARENCIA_MINIMA: 12,
   PERCENTUAL_BENEFICIO: 0.91, // 91%
 };
@@ -84,98 +91,7 @@ interface AuxilioDoencaResult {
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Auxílio-Doença INSS 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule auxílio-doença INSS 2026: valor do benefício, verificação carência e isenções. Regras atualizadas e resultado instantâneo.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora auxílio doença inss, benefício incapacidade, carência auxílio, isenção carência, simulador inss, benefício incapacidade temporária",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Auxílio-Doença INSS 2026 – Cálculo Completo",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule auxílio-doença INSS 2026 facilmente: valor do benefício, verificação de carência e isenções. Regras atualizadas e resultado instantâneo.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/auxilio-doenca.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Auxílio-Doença INSS - Calcule benefício por incapacidade com verificação de carência",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Auxílio-Doença INSS 2026 – Cálculo Completo",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule auxílio-doença INSS: valor do benefício, carência e isenções. Resultado confiável e instantâneo.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/auxilio-doenca.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Auxílio-Doença INSS - Cálculo completo de benefício",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Auxílio-Doença" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("auxilio-doenca"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",
@@ -188,7 +104,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-08-31",
+        dateModified: LABOR_TAX_REVIEWED_AT,
         offers: {
           "@type": "Offer",
           price: "0",
@@ -296,7 +212,7 @@ export const meta: MetaFunction = () => {
             name: "Qual o valor do auxílio-doença em 2026?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "O auxílio-doença é calculado como 91% da média salarial, limitado ao teto INSS (R$ 8.157,41) e não pode ser inferior ao salário mínimo (R$ 1.518,00).",
+              text: "O auxílio-doença é calculado como 91% da média salarial, limitado ao teto INSS (R$ 8.475,55) e não pode ser inferior ao salário mínimo (R$ 1.621,00).",
             },
           },
         ],
@@ -754,10 +670,10 @@ export default function CalculadoraAuxilioDoenca() {
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     <Button
-                      onClick={() => handlePreencherComMesmoValor(1518)}
+                      onClick={() => handlePreencherComMesmoValor(MINIMUM_WAGE)}
                       className="rounded-md border border-blue-500/30 bg-blue-500/15 px-3 py-1 text-xs text-blue-400 transition-all hover:bg-blue-500/25"
                     >
-                      Salário Mínimo (R$ 1.518)
+                      Salário Mínimo (R$ 1.621)
                     </Button>
                     <Button
                       onClick={() => handlePreencherComMesmoValor(3000)}
@@ -772,10 +688,10 @@ export default function CalculadoraAuxilioDoenca() {
                       R$ 5.000
                     </Button>
                     <Button
-                      onClick={() => handlePreencherComMesmoValor(8157.41)}
+                      onClick={() => handlePreencherComMesmoValor(INSS_CEILING)}
                       className="rounded-md border border-blue-500/30 bg-blue-500/15 px-3 py-1 text-xs text-blue-400 transition-all hover:bg-blue-500/25"
                     >
-                      Teto INSS (R$ 8.157)
+                      Teto INSS (R$ 8.475)
                     </Button>
                   </div>
                   <p className="mt-2 text-xs text-blue-600">
@@ -1232,8 +1148,8 @@ export default function CalculadoraAuxilioDoenca() {
                     <p>
                       <strong className="text-system-warning">3. Limites:</strong>
                     </p>
-                    <p className="ml-4">• Mínimo: R$ 1.518,00 (salário mínimo)</p>
-                    <p className="ml-4">• Máximo: R$ 8.157,41 (teto INSS)</p>
+                    <p className="ml-4">• Mínimo: R$ 1.621,00 (salário mínimo)</p>
+                    <p className="ml-4">• Máximo: R$ 8.475,55 (teto INSS)</p>
                   </div>
                 </div>
               </div>
@@ -1324,7 +1240,7 @@ export default function CalculadoraAuxilioDoenca() {
                 </p>
                 <p className="flex items-start gap-2">
                   <span className="min-w-fit font-bold text-amber-800">• Dados 2026:</span>
-                  <span>Salário mínimo R$ 1.518,00, Teto R$ 8.157,41</span>
+                  <span>Salário mínimo R$ 1.621,00, Teto R$ 8.475,55</span>
                 </p>
                 <p className="flex items-start gap-2">
                   <span className="min-w-fit font-bold text-amber-800">• Consultoria:</span>
@@ -1394,6 +1310,15 @@ export default function CalculadoraAuxilioDoenca() {
             "Para aumentar as chances de aprovação, <strong>organize toda documentação médica</strong> antes da perícia: laudos, exames, receitas, relatórios. Quanto mais completo o histórico, melhor!",
         }}
         footerText="<strong>Necessita calcular outros benefícios?</strong> Explore nossas calculadoras trabalhistas e garanta seus direitos previdenciários com segurança!"
+      />
+
+      <SourcesAndUpdate
+        updatedAt={LABOR_TAX_REVIEWED_AT}
+        reviewNote={`Tabelas de ${LABOR_TAX_YEAR} conferidas com as fontes oficiais`}
+        sources={[
+          LABOR_TAX_SOURCES.inss,
+          LABOR_TAX_SOURCES.lei8213,
+        ]}
       />
 
       <RelatedCalculators category="trabalhista" currentCalculatorId="auxilio-doenca" />

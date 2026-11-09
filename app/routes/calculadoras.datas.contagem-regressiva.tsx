@@ -7,85 +7,12 @@ import {
   ResponsiveBreadcrumb,
   createCalculatorBreadcrumb,
 } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Contagem Regressiva Online Grátis | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "⏰ Contador regressivo online GRÁTIS para eventos! Anos, meses, dias, horas, minutos e segundos em tempo real. Crie sua contagem regressiva personalizada agora mesmo.",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
-    },
-    {
-      property: "og:title",
-      content: "Contador Regressivo Online Grátis | CalculadoraOnlineBR",
-    },
-    {
-      property: "og:description",
-      content:
-        "⏰ Contador regressivo online GRÁTIS para eventos! Anos, meses, dias, horas, minutos e segundos em tempo real. Crie sua contagem regressiva personalizada agora mesmo.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/contagem-regressiva.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Interface da calculadora de contagem regressiva mostrando contador de tempo para eventos especiais",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Contador Regressivo Online Grátis - Eventos e Celebrações",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "⏰ Crie contadores regressivos para eventos especiais com anos, meses, dias, horas, minutos e segundos em tempo real. 100% grátis e sem cadastro!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/contagem-regressiva.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de contagem regressiva online para eventos especiais",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
+    ...buildCalculatorMeta("contagem-regressiva"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

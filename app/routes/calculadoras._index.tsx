@@ -1,44 +1,17 @@
 import type { MetaFunction } from "@remix-run/node";
 import { CategoryCard } from "~/components/CategoryCard";
-import { APP_NAME, APP_URL, CATEGORIES } from "~/lib/constants";
+import { CATEGORIES } from "~/lib/constants";
 import type { Category } from "~/types";
+import { buildPageMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Online por Categoria - ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "Explore nossas calculadoras organizadas por categoria: Saúde, Finanças, Matemática, Trabalhista, Ferramentas, Astrologia e Datas. Ferramentas gratuitas para facilitar seu dia a dia.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadoras online, categorias, saúde, finanças, matemática, trabalhista, ferramentas, astrologia, datas, calcular",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { property: "og:title", content: `Calculadoras por Categoria - ${APP_NAME}` },
-    {
-      property: "og:description",
-      content:
-        "Acesse calculadoras organizadas por categoria. Saúde, finanças, matemática, trabalhista, ferramentas, astrologia e datas em um só lugar.",
-    },
-    { property: "og:type", content: "website" },
-    { name: "robots", content: "index, follow" },
-    { property: "og:url", content: `${APP_URL}/calculadoras` },
-    { property: "og:image", content: `${APP_URL}/og/default.jpg` },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { tagName: "link", rel: "canonical", href: `${APP_URL}/calculadoras` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: `${APP_URL}/og/default.jpg` },
-    { name: "twitter:title", content: `Calculadoras por Categoria - ${APP_NAME}` },
-    {
-      name: "twitter:description",
-      content: "Explore calculadoras organizadas por categoria para facilitar seus cálculos.",
-    },
+    ...buildPageMeta({
+      title: "Calculadoras Online por Categoria",
+      description:
+        "Todas as calculadoras online grátis por categoria: saúde, finanças, matemática, trabalhista, datas, ferramentas, astrologia, loterias e apostas.",
+      path: "/calculadoras",
+    }),
   ];
 };
 

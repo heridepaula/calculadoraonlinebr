@@ -12,104 +12,12 @@ import {
 import { Input } from "~/components/ui";
 import { Select } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Conversor de Unidades Online | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Conversor de unidades completo com 17 categorias: comprimento, massa, volume, área, temperatura, tempo, velocidade, dados, energia, pressão, força, potência e mais. Conversão instantânea e precisa.",
-    },
-    {
-      name: "keywords",
-      content:
-        "conversor unidades, converter medidas, metros para quilômetros, celsius fahrenheit, quilogramas libras, litros galões, conversor temperatura, conversor peso",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/conversor-unidades",
-    },
-    {
-      property: "og:title",
-      content: "Conversor de Unidades – 17 Categorias com Conversão Instantânea",
-    },
-    {
-      property: "og:description",
-      content:
-        "Conversor de unidades completo com 17 categorias: comprimento, massa, volume, área, temperatura, tempo, velocidade, dados, energia, pressão, força, potência e mais. Conversão instantânea e precisa.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/conversor-unidades.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Conversor de Unidades - 17 categorias de conversão com interface moderna e intuitiva",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/conversor-unidades",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Conversor de Unidades 2026 – 17 Categorias de Conversão",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Conversor completo com 17 categorias: comprimento, massa, volume, temperatura e mais. Conversão instantânea e precisa.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/conversor-unidades.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Conversor de Unidades - 17 categorias de conversão",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Conversor Unidades" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("conversor-unidades"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

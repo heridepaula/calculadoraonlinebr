@@ -11,103 +11,12 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Validar CPF Online | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Valide CPF grátis com ou sem pontuação. Ferramenta para verificar se CPF é válido com algoritmo da Receita Federal. Validação instantânea e confiável.",
-    },
-    {
-      name: "keywords",
-      content:
-        "validador CPF, validar CPF, CPF válido, verificar CPF, algoritmo CPF, validação CPF, conferir CPF, teste CPF, checar CPF, consulta CPF, verificador CPF, CPF correto",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cpf",
-    },
-    {
-      property: "og:title",
-      content: "Validador CPF – Valide CPF com ou sem Pontuação",
-    },
-    {
-      property: "og:description",
-      content:
-        "Valide CPF grátis com ou sem pontuação. Ferramenta para verificar se CPF é válido com algoritmo da Receita Federal. Validação instantânea e confiável.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/validar-cpf.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Validador de CPF - Valide CPFs com ou sem pontuação usando algoritmo oficial",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cpf",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Validador de CPF 2026 – Validação Rápida e Precisa",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Validador de CPF gratuito com algoritmo oficial da Receita Federal. Validação instantânea com ou sem pontuação.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/validar-cpf.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Validador de CPF - Valide CPFs com precisão",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Validar CPF" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("validar-cpf"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

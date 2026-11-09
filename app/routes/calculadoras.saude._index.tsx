@@ -9,46 +9,13 @@ import {
   createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
-import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras de Saúde 2026 | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "Calculadoras saúde grátis: IMC, peso ideal, ciclo menstrual e mais. Ferramentas confiáveis baseadas em padrões médicos reconhecidos pela OMS.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora saúde, IMC, índice massa corporal, peso ideal, saúde online, calculadora médica, bem-estar",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { tagName: "link", rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
-    { property: "og:title", content: "Calculadoras Saúde 2026 – Ferramentas Médicas" },
-    {
-      property: "og:description",
-      content: "Monitore sua saúde com nossas calculadoras médicas gratuitas e confiáveis.",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
-    { property: "og:site_name", content: "CalculadoraOnlineBR" },
-    { property: "og:locale", content: "pt_BR" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-saude.jpg" },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Calculadoras de Saúde - CalculadoraOnlineBR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: "Calculadoras Saúde 2026 – Ferramentas Médicas" },
-    {
-      name: "twitter:description",
-      content: "Ferramentas de saúde gratuitas para monitorar seu bem-estar.",
-    },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-saude.jpg" },
+    ...buildCategoryMeta("saude"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

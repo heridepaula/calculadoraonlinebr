@@ -11,103 +11,14 @@ import {
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useLoaderData } from "@remix-run/react";
 import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de CDB | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora CDB, simulador CDB, rendimento CDB, CDB pós-fixado, CDB prefixado, CDB IPCA+, IR regressivo, IOF",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/cdb",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora CDB – Simule Rendimento e Compare Taxa",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/cdb.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de CDB - Simule rendimentos de CDB pós-fixado, prefixado e IPCA+ com IR e IOF",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/cdb",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora CDB – Simule Rendimento e Compare Taxa",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/cdb.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de CDB - Simule rendimentos com IR e IOF",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("cdb"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

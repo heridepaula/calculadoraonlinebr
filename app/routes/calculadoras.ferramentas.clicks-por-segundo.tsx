@@ -10,115 +10,12 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Teste CPS 2026: Clicks Por Segundo Grátis | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Teste sua velocidade de clique com CPS (Clicks Por Segundo) 2026. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!",
-    },
-    {
-      name: "keywords",
-      content:
-        "teste cps, clicks por segundo, velocidade clique, click speed test, cps calculator, jitter click, butterfly click",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "last-modified", content: "2025-01-27" },
-    { name: "article:modified_time", content: "2025-01-27T00:00:00+00:00" },
-    { name: "article:published_time", content: "2025-01-27T00:00:00+00:00" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
-    },
-    {
-      property: "og:title",
-      content: "Teste CPS 2026: Clicks Por Segundo Grátis",
-    },
-    {
-      property: "og:description",
-      content:
-        "Teste sua velocidade de clique com CPS 2026. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/clicks-por-segundo.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Teste CPS - Clicks Por Segundo com análise de velocidade e padrões",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/clicks-por-segundo",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Teste CPS 2026: Clicks Por Segundo Grátis",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Teste sua velocidade de clique com CPS 2026. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/clicks-por-segundo.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Teste CPS - Clicks Por Segundo",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Teste CPS" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "rating", content: "general" },
-    { name: "distribution", content: "global" },
-    { name: "revisit-after", content: "7 days" },
-    { name: "language", content: "Portuguese" },
-    { name: "coverage", content: "Worldwide" },
-    { name: "target", content: "all" },
-    { name: "HandheldFriendly", content: "True" },
-    { name: "MobileOptimized", content: "320" },
+    ...buildCalculatorMeta("clicks-por-segundo"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

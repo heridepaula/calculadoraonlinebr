@@ -11,107 +11,14 @@ import {
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useLoaderData } from "@remix-run/react";
 import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Consórcio 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule parcelas de consórcio de imóveis e carros. Simule taxa de administração, contemplação e lance para escolher o melhor grupo.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora consórcio, simulador consórcio, consórcio imóvel, consórcio veículo, parcelas consórcio, contemplação consórcio, taxa administração",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora Consórcio 2026 – Simulador Gratuito",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule parcelas de consórcio de imóveis e carros. Simule taxa de administração, contemplação e lance para escolher o melhor grupo.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/consorcio.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Consórcio - Simule parcelas e contemplação de consórcio imóvel e veículo",
-    },
-    {
-      property: "og:image:type",
-      content: "image/jpeg",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Consórcio 2026 – Simulador de Parcelas e Contemplação",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Simule parcelas de consórcio de imóveis e veículos. Calcule taxa de administração, valor das parcelas e probabilidade de contemplação.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/consorcio.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Consórcio - Simule parcelas e contemplação",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("consorcio"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

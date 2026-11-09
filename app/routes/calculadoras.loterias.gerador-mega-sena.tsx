@@ -8,7 +8,6 @@ import {
   ResponsiveBreadcrumb,
   createCalculatorBreadcrumb,
 } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { MEGASENA } from "~/lib/lottery/definitions";
 import { buildStatsFaq, type LotteryStats } from "~/lib/lottery/stats";
 import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
@@ -18,6 +17,7 @@ import { getStats } from "~/services/lottery/statistics.server";
 import { getCommunityGames } from "~/services/lottery/generatedGames.server";
 import { LiveGamesFeed } from "~/components/calculators/LiveGamesFeed";
 import { BestPastGame } from "~/components/calculators/BestPastGame";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 // Estatísticas vêm do MongoDB e mudam a cada sorteio novo. O CDN serve a página por até 5 min
 // e revalida em segundo plano, então um concurso gravado pelo cron aparece em poucos minutos.
@@ -32,47 +32,7 @@ export function headers() {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Gerador de Mega-Sena Grátis com Estratégias | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "Gerador gratuito de Mega-Sena com estratégias inteligentes: análise de frequência, filtros de paridade, soma e consecutivos. Gere jogos equilibrados e salve no histórico.",
-    },
-    {
-      name: "keywords",
-      content:
-        "gerador mega-sena, números mega sena, estratégias mega-sena, análise estatística mega sena, números quentes frios mega sena, sorteio mega sena, jogo mega sena online",
-    },
-    {
-      name: "robots",
-      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-    { property: "og:title", content: "Gerador de Mega-Sena com Estratégias Inteligentes" },
-    {
-      property: "og:description",
-      content:
-        "Gerador gratuito de Mega-Sena com estratégias inteligentes: análise de frequência, filtros de paridade, soma e consecutivos. Gere jogos equilibrados e salve no histórico.",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og/gerador-mega-sena.jpg" },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Gerador de Mega-Sena - Interface mostrando números gerados com estratégias" },
-    { property: "og:site_name", content: "CalculadoraOnlineBR" },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: "Gerador de Mega-Sena Grátis 2026 | Estratégias Inteligentes" },
-    { name: "twitter:description", content: "Gere números da Mega-Sena GRÁTIS com análise estatística e estratégias avançadas!" },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og/gerador-mega-sena.jpg" },
-    { name: "twitter:image:alt", content: "Gerador de Mega-Sena - Interface mostrando números gerados com estratégias" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-mega-sena",
-    },
+    ...buildCalculatorMeta("gerador-mega-sena"),
   ];
 };
 

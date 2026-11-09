@@ -11,7 +11,6 @@ import {
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useLoaderData } from "@remix-run/react";
 import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
@@ -27,6 +26,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Line, Pie } from "react-chartjs-2";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 ChartJS.register(
   CategoryScale,
@@ -41,112 +41,7 @@ ChartJS.register(
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de LCI e LCA 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1, viewport-fit=cover",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.googleapis.com",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.gstatic.com",
-      crossOrigin: "anonymous",
-    },
-    {
-      name: "description",
-      content:
-        "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "publisher", content: "CalculadoraOnlineBR" },
-    { name: "article:modified_time", content: "2025-08-25T00:00:00-03:00" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      name: "keywords",
-      content: "LCI, LCA, calculadora, investimentos, CDI, renda fixa, isento IR, Brasil",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
-    },
-    {
-      property: "og:title",
-      content: "LCI e LCA 2026 – Simulador Isenção IR",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/lci-lca.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de LCI e LCA - Simule rendimentos de investimentos isentos de IR baseados no CDI",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { property: "og:article:modified_time", content: "2025-08-25T00:00:00-03:00" },
-    { property: "og:article:publisher", content: "https://www.facebook.com/CalculadoraOnlineBR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "LCI e LCA 2026 – Simulador Isenção IR",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/lci-lca.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de LCI e LCA - Simule rendimentos isentos de IR",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("lci-lca"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

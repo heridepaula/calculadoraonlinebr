@@ -11,15 +11,10 @@ import {
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { BettingDisclaimer } from "~/components/calculators/betting-shared";
-import { APP_NAME, APP_URL, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import { generateCategoryPageGraph, generateFAQStructuredData } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
-
-const PAGE_URL = `${APP_URL}/calculadoras/apostas`;
-const PAGE_TITLE = `Calculadoras de Apostas Esportivas: Gestão de Banca e Stake | ${APP_NAME}`;
-const PAGE_DESCRIPTION =
-  "Calculadoras grátis para apostas esportivas: gestão de banca, critério de Kelly, valor esperado (EV+), surebet e dutching. Matemática para apostar com responsabilidade.";
-const OG_IMAGE = `${APP_URL}/og/categoria-apostas.jpg`;
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 const FAQ_ITEMS = [
   {
@@ -50,33 +45,7 @@ const FAQ_ITEMS = [
 ];
 
 export const meta: MetaFunction = () => [
-  { title: PAGE_TITLE },
-  { name: "description", content: PAGE_DESCRIPTION },
-  {
-    name: "keywords",
-    content:
-      "calculadora de apostas, gestão de banca, calculadora gestão de banca, critério de kelly, stake apostas, quanto apostar, valor esperado apostas, calculadora surebet, calculadora dutching, apostas esportivas",
-  },
-  {
-    name: "robots",
-    content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-  },
-  { name: "author", content: APP_NAME },
-  { property: "og:title", content: "Calculadoras de Apostas Esportivas – Gestão de Banca e Stake" },
-  { property: "og:description", content: PAGE_DESCRIPTION },
-  { property: "og:type", content: "website" },
-  { property: "og:url", content: PAGE_URL },
-  { property: "og:image", content: OG_IMAGE },
-  { property: "og:image:width", content: "1200" },
-  { property: "og:image:height", content: "630" },
-  { property: "og:image:alt", content: "Calculadoras de apostas esportivas e gestão de banca" },
-  { property: "og:site_name", content: APP_NAME },
-  { property: "og:locale", content: "pt_BR" },
-  { name: "twitter:card", content: "summary_large_image" },
-  { name: "twitter:title", content: "Calculadoras de Apostas: Gestão de Banca e Stake" },
-  { name: "twitter:description", content: PAGE_DESCRIPTION },
-  { name: "twitter:image", content: OG_IMAGE },
-  { tagName: "link", rel: "canonical", href: PAGE_URL },
+  ...buildCategoryMeta("apostas"),
   { "script:ld+json": generateCategoryPageGraph("apostas") },
   { "script:ld+json": generateFAQStructuredData(FAQ_ITEMS) },
 ];

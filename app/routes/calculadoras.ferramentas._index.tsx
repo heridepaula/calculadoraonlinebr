@@ -2,54 +2,13 @@ import type { MetaFunction } from "@remix-run/node";
 import { Breadcrumb, BreadcrumbItem } from "~/components/ui";
 import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
-import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Ferramentas Grátis: CPF, CNPJ, UUID, Datas e Conversões Online | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
-    },
-    {
-      name: "keywords",
-      content:
-        "gerador CPF, gerador CNPJ, gerador UUID, validador CPF, validador CNPJ, contador caracteres, gerador cartão crédito, ferramentas desenvolvedor",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { tagName: "link", rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas" },
-    {
-      property: "og:title",
-      content: "Ferramentas Grátis: CPF, CNPJ, UUID, Datas e Conversões Online",
-    },
-    {
-      property: "og:description",
-      content:
-        "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas" },
-    { property: "og:site_name", content: "CalculadoraOnlineBR" },
-    { property: "og:locale", content: "pt_BR" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-ferramentas.jpg" },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Ferramentas Online - CalculadoraOnlineBR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    {
-      name: "twitter:title",
-      content: "Ferramentas Grátis: CPF, CNPJ, UUID, Datas e Conversões Online",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
-    },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-ferramentas.jpg" },
+    ...buildCategoryMeta("ferramentas"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

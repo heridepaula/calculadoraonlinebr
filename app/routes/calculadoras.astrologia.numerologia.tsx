@@ -10,103 +10,11 @@ import {
 } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import numerologyData from "~/data/astrology/numerologia/numerologia-interpretacoes.json";
-import { APP_NAME } from "~/lib/constants";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Numerologia Online Grátis | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "🔮 Calculadora de Numerologia Pitagórica GRÁTIS! Descubra seu número da vida, destino, personalidade e alma. Mapa numerológico completo com nome e data de nascimento. Teste agora!",
-    },
-    {
-      name: "keywords",
-      content:
-        "numerologia pitagórica, calculadora numerologia grátis, mapa numerológico, número da vida, número do destino, número da alma, número da personalidade, numerologia do nome completo, autoconhecimento numerológico, tabela pitagórica, significado números, numerologia online grátis",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora Numerologia Pitagórica Grátis 2026 | Mapa Numerológico Completo",
-    },
-    {
-      property: "og:description",
-      content:
-        "🔮 Calculadora de Numerologia Pitagórica GRÁTIS! Descubra seu número da vida, destino, personalidade e alma. Mapa numerológico completo com interpretações detalhadas.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/numerologia.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Numerologia - Interface moderna mostrando cálculos numerológicos e interpretações",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
-    },
-    { property: "og:site_name", content: "CalculadoraOnlineBR" },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora Numerologia Pitagórica Grátis 2026 🔮 Mapa Completo",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "🔮 Numerologia Pitagórica GRÁTIS! Descubra número da vida, destino, alma e personalidade. Mapa numerológico completo baseado no seu nome e data de nascimento.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/numerologia.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Numerologia - Análise completa dos números da vida",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#BA68C8" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Numerologia BR" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("numerologia"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

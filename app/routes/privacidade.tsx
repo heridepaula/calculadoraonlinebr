@@ -1,36 +1,14 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
-import { APP_NAME, APP_URL } from "~/lib/constants";
+import { buildPageMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Política de Privacidade | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
+    ...buildPageMeta({
+      title: "Política de Privacidade",
+      description:
         "Política de privacidade do CalculadoraOnlineBR: como protegemos seus dados e garantimos sua privacidade. LGPD e segurança garantida.",
-    },
-    {
-      name: "keywords",
-      content: "política de privacidade, proteção de dados, CalculadoraOnlineBR, lgpd",
-    },
-    { property: "og:title", content: "Política de Privacidade - CalculadoraOnlineBR" },
-    {
-      property: "og:description",
-      content: "Conheça nossa política de privacidade e como protegemos seus dados.",
-    },
-    { property: "og:type", content: "website" },
-    { name: "robots", content: "index, follow" },
-    { property: "og:url", content: `${APP_URL}/privacidade` },
-    { property: "og:image", content: `${APP_URL}/og/default.jpg` },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { tagName: "link", rel: "canonical", href: `${APP_URL}/privacidade` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: `${APP_URL}/og/default.jpg` },
-    { name: "twitter:title", content: "Política de Privacidade - CalculadoraOnlineBR" },
-    { name: "twitter:description", content: "Nossa política de privacidade e proteção de dados." },
+      path: "/privacidade",
+    }),
   ];
 };
 

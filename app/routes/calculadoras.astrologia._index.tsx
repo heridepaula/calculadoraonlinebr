@@ -8,104 +8,14 @@ import {
   createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
-import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadora Astrológica Grátis 2026 - Mapa Astral Online | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "🔮 Calculadoras Astrológicas GRÁTIS! Mapa astral, ascendente, compatibilidade de signos e numerologia. Autoconhecimento com análise detalhada dos astros - Brasil 2026.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora astrológica grátis, mapa astral online brasil, ascendente astrológico hora nascimento, compatibilidade signos amor, numerologia pitagórica, autoconhecimento zodíaco, horóscopo personalizado 2026, astrologia brasileira",
-    },
-    {
-      name: "robots",
-      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-    },
-    {
-      name: "author",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1.0",
-    },
-    {
-      property: "og:title",
-      content: "🔮 Calculadoras Astrológicas Grátis 2026 - Mapa Astral Online",
-    },
-    {
-      property: "og:description",
-      content:
-        "Ferramentas astrológicas GRÁTIS! Calcule ascendente, compatibilidade de signos, numerologia e mapa astral. Autoconhecimento completo com análise dos astros.",
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/categoria-astrologia.jpg",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadoras de Astrologia - Interface mostrando diversas ferramentas astrológicas para autoconhecimento",
-    },
-    {
-      property: "og:site_name",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      property: "og:locale",
-      content: "pt_BR",
-    },
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      name: "twitter:title",
-      content: "🔮 Calculadora Astrológica Grátis - Mapa Astral Online Brasil",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Descubra GRÁTIS: Ascendente, compatibilidade signos, numerologia e mapa astral completo. Autoconhecimento pelos astros!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/categoria-astrologia.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content:
-        "Calculadoras de Astrologia - Interface mostrando diversas ferramentas astrológicas para autoconhecimento",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia",
-    },
+    ...buildCategoryMeta("astrologia"),
     { "script:ld+json": generateCategoryPageGraph("astrologia") },
   ];
 };

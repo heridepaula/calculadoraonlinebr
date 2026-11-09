@@ -1,4 +1,12 @@
 import type { IMCResult, PercentageCalculation, InterestCalculation } from "~/types";
+import {
+  IRRF_DEPENDENT_DEDUCTION,
+  IRRF_REDUCTION,
+  MINIMUM_WAGE,
+  calculateInss,
+  calculateIrrf,
+  roundCents,
+} from "~/lib/labor/tax-tables";
 
 export interface HydrationParams {
   weight: number;
@@ -6606,49 +6614,20 @@ export interface NetSalaryResult {
   recommendations: string[];
 }
 
-// Tabela INSS 2025 - Faixas progressivas
-const INSS_2025_TABLE = [
-  { min: 0, max: 1518.0, rate: 0.075, deduction: 0 },
-  { min: 1518.01, max: 2793.88, rate: 0.09, deduction: 22.77 },
-  { min: 2793.89, max: 4190.83, rate: 0.12, deduction: 106.57 },
-  { min: 4190.84, max: 8157.41, rate: 0.14, deduction: 190.4 },
-];
+// Tabelas de INSS e IRRF: fonte única em ~/lib/labor/tax-tables
 
-// Tabela IRRF 2025 - Vigente a partir de maio de 2025
-const IRRF_2025_TABLE = [
-  { min: 0, max: 3036.0, rate: 0, deduction: 607.2 },
-  { min: 3036.01, max: 3751.05, rate: 0.075, deduction: 120.15 },
-  { min: 3751.06, max: 4664.68, rate: 0.15, rate2: 0.225, deduction: 402.75 },
-  { min: 4664.69, max: Infinity, rate: 0.275, deduction: 896.67 },
-];
-
-const DEPENDENT_DEDUCTION_2025 = 189.59; // Por dependente por mês
-const MINIMUM_WAGE_2025 = 1518.0;
-
+/** INSS progressivo. `rate` é a alíquota da última faixa atingida. */
 export function calculateINSS(salary: number): { value: number; rate: number; baseValue: number } {
-  const cappedSalary = Math.min(salary, 8157.41); // Teto do INSS
-
-  for (const bracket of INSS_2025_TABLE) {
-    if (cappedSalary >= bracket.min && cappedSalary <= bracket.max) {
-      const value = cappedSalary * bracket.rate - bracket.deduction;
-      return {
-        value: Math.max(value, 0),
-        rate: bracket.rate,
-        baseValue: cappedSalary,
-      };
-    }
-  }
-
-  // Se não encontrar na tabela, usar última faixa
-  const lastBracket = INSS_2025_TABLE[INSS_2025_TABLE.length - 1];
-  const value = cappedSalary * lastBracket.rate - lastBracket.deduction;
+  const inss = calculateInss(salary);
+  const lastBracket = [...inss.brackets].reverse().find((b) => b.taxedAmount > 0);
   return {
-    value: Math.max(value, 0),
-    rate: lastBracket.rate,
-    baseValue: cappedSalary,
+    value: inss.contribution,
+    rate: lastBracket?.rate ?? 0,
+    baseValue: inss.base,
   };
 }
 
+/** IRRF mensal com desconto simplificado e a redução da Lei 15.270/2025. */
 export function calculateIRRF(
   salary: number,
   inssDeduction: number,
@@ -6661,58 +6640,23 @@ export function calculateIRRF(
   isExempt: boolean;
   exemptReason?: string;
 } {
-  const taxableIncome = salary - inssDeduction;
-  const dependentsDeduction = dependents * DEPENDENT_DEDUCTION_2025;
-  const baseForTax = Math.max(taxableIncome - dependentsDeduction, 0);
-
-  // Verifica isenção para valores até R$ 3.036 (dois salários mínimos)
-  if (salary <= 3036.0) {
-    return {
-      value: 0,
-      rate: 0,
-      baseValue: baseForTax,
-      dependentsDeduction,
-      isExempt: true,
-      exemptReason: "Isento - Salário até R$ 3.036,00 (dois salários mínimos)",
-    };
+  const irrf = calculateIrrf({ taxableIncome: salary, inss: inssDeduction, dependents });
+  const isExempt = irrf.tax === 0;
+  let exemptReason: string | undefined;
+  if (isExempt) {
+    exemptReason =
+      irrf.taxBeforeReduction > 0
+        ? `Isento - Redução da Lei 15.270/2025 para rendimentos até R$ ${IRRF_REDUCTION.fullUpTo.toLocaleString("pt-BR")},00`
+        : "Isento - Base de cálculo dentro da faixa de isenção";
   }
 
-  // Aplicar desconto simplificado de R$ 607,20 para quem recebe até R$ 3.036
-  const adjustedBase = baseForTax - 607.2;
-
-  if (adjustedBase <= 0) {
-    return {
-      value: 0,
-      rate: 0,
-      baseValue: baseForTax,
-      dependentsDeduction,
-      isExempt: true,
-      exemptReason: "Isento - Após desconto simplificado de R$ 607,20",
-    };
-  }
-
-  for (const bracket of IRRF_2025_TABLE) {
-    if (adjustedBase >= bracket.min && adjustedBase <= bracket.max) {
-      const value = adjustedBase * bracket.rate - bracket.deduction;
-      return {
-        value: Math.max(value, 0),
-        rate: bracket.rate,
-        baseValue: baseForTax,
-        dependentsDeduction,
-        isExempt: false,
-      };
-    }
-  }
-
-  // Se não encontrar na tabela, usar última faixa
-  const lastBracket = IRRF_2025_TABLE[IRRF_2025_TABLE.length - 1];
-  const value = adjustedBase * lastBracket.rate - lastBracket.deduction;
   return {
-    value: Math.max(value, 0),
-    rate: lastBracket.rate,
-    baseValue: baseForTax,
-    dependentsDeduction,
-    isExempt: false,
+    value: irrf.tax,
+    rate: irrf.rate,
+    baseValue: irrf.base,
+    dependentsDeduction: roundCents(dependents * IRRF_DEPENDENT_DEDUCTION),
+    isExempt,
+    exemptReason,
   };
 }
 
@@ -6747,8 +6691,8 @@ export function calculateNetSalary(params: NetSalaryParams): NetSalaryResult {
       summary: {
         effectiveRate: otherDeductions / grossTotal,
         takeHomePercentage: (netSalary / grossTotal) * 100,
-        isMinimumWage: grossSalary <= MINIMUM_WAGE_2025,
-        isAboveIrrfExempt: grossSalary > 3036.0,
+        isMinimumWage: grossSalary <= MINIMUM_WAGE,
+        isAboveIrrfExempt: false,
       },
       recommendations: [
         "Como PJ, você deve fazer sua própria contribuição previdenciária",
@@ -6768,7 +6712,7 @@ export function calculateNetSalary(params: NetSalaryParams): NetSalaryResult {
 
   const recommendations: string[] = [];
 
-  if (grossSalary <= MINIMUM_WAGE_2025) {
+  if (grossSalary <= MINIMUM_WAGE) {
     recommendations.push("Você recebe o salário mínimo nacional");
   }
 
@@ -6778,7 +6722,7 @@ export function calculateNetSalary(params: NetSalaryParams): NetSalaryResult {
 
   if (dependents > 0) {
     recommendations.push(
-      `Dedução de R$ ${(dependents * DEPENDENT_DEDUCTION_2025).toFixed(2)} por seus ${dependents} dependente(s)`
+      `Dedução de R$ ${(dependents * IRRF_DEPENDENT_DEDUCTION).toFixed(2)} por seus ${dependents} dependente(s)`
     );
   }
 
@@ -6810,8 +6754,8 @@ export function calculateNetSalary(params: NetSalaryParams): NetSalaryResult {
     summary: {
       effectiveRate,
       takeHomePercentage: (netSalary / grossTotal) * 100,
-      isMinimumWage: grossSalary <= MINIMUM_WAGE_2025,
-      isAboveIrrfExempt: grossTotal > 3036.0,
+      isMinimumWage: grossSalary <= MINIMUM_WAGE,
+      isAboveIrrfExempt: !irrf.isExempt,
     },
     recommendations,
   };
@@ -7117,61 +7061,14 @@ export interface ThirteenthSalaryResult {
   };
 }
 
-// Tabelas Oficiais 2025
-const INSS_TABLE_2025 = [
-  { min: 0, max: 1518.0, rate: 7.5 },
-  { min: 1518.01, max: 2793.88, rate: 9.0 },
-  { min: 2793.89, max: 4190.83, rate: 12.0 },
-  { min: 4190.84, max: 8157.41, rate: 14.0 },
-];
-
-const IRRF_TABLE_2025 = [
-  { min: 0, max: 2259.2, rate: 0, deduction: 0 },
-  { min: 2259.21, max: 2826.65, rate: 7.5, deduction: 169.44 },
-  { min: 2826.66, max: 3751.05, rate: 15.0, deduction: 381.44 },
-  { min: 3751.06, max: 4664.68, rate: 22.5, deduction: 662.77 },
-  { min: 4664.69, max: Infinity, rate: 27.5, deduction: 896.0 },
-];
-
-// Função para calcular INSS progressivo (específica para férias/13º)
+// INSS e IRRF de férias e 13º: calculados separados do salário do mês, com as
+// tabelas de ~/lib/labor/tax-tables (inclui a redução da Lei 15.270/2025)
 function calculateVacationINSS(grossValue: number): number {
-  let inssValue = 0;
-  let remainingValue = grossValue;
-
-  for (const bracket of INSS_TABLE_2025) {
-    if (remainingValue <= 0) break;
-
-    const bracketMax =
-      bracket.max === Infinity ? remainingValue : Math.min(bracket.max, grossValue);
-    const bracketMin = bracket.min;
-    const taxableInBracket = Math.min(
-      remainingValue,
-      bracketMax - bracketMin + (bracket.min === 0 ? 0 : 0.01)
-    );
-
-    if (taxableInBracket > 0) {
-      inssValue += taxableInBracket * (bracket.rate / 100);
-      remainingValue -= taxableInBracket;
-    }
-  }
-
-  return Math.min(inssValue, 8157.41 * 0.14); // Teto do INSS
+  return calculateInss(grossValue).contribution;
 }
 
-// Função para calcular IRRF progressivo (específica para férias/13º)
 function calculateVacationIRRF(grossValue: number, inssValue: number, dependents: number): number {
-  const taxableBase = grossValue - inssValue - dependents * DEPENDENT_DEDUCTION_2025;
-
-  if (taxableBase <= 0) return 0;
-
-  for (const bracket of IRRF_TABLE_2025) {
-    if (taxableBase >= bracket.min && taxableBase <= bracket.max) {
-      const irrfValue = taxableBase * (bracket.rate / 100) - bracket.deduction;
-      return Math.max(0, irrfValue);
-    }
-  }
-
-  return 0;
+  return calculateIrrf({ taxableIncome: grossValue, inss: inssValue, dependents }).tax;
 }
 
 // Calculadora de Férias
@@ -7220,8 +7117,9 @@ export function calculateVacation(params: VacationParams): VacationResult {
   // Total bruto
   const totalGross = vacationValue + constitutionalThird + pecuniaryBonusAmount + advance13thAmount;
 
-  // Descontos (INSS e IRRF apenas sobre férias + 1/3, não sobre abono e adiantamento)
-  const taxableBase = vacationValue + constitutionalThird + pecuniaryBonusAmount;
+  // Descontos só sobre férias + 1/3: o abono pecuniário (e o 1/3 dele) é isento de INSS e
+  // de IR, e o adiantamento do 13º é tributado só em dezembro
+  const taxableBase = vacationValue + constitutionalThird;
   const inssDeduction = calculateVacationINSS(taxableBase);
   const irrfDeduction = calculateVacationIRRF(taxableBase, inssDeduction, dependents);
 
@@ -7295,10 +7193,10 @@ export function calculateThirteenthSalary(params: ThirteenthSalaryParams): Thirt
       break;
 
     case "second":
-      // Segunda parcela: 50% com descontos
+      // Segunda parcela: a outra metade, menos INSS e IR calculados sobre o 13º inteiro
       taxableValue = grossValue * 0.5;
-      inssDeduction = calculateVacationINSS(taxableValue);
-      irrfDeduction = calculateVacationIRRF(taxableValue, inssDeduction, dependents);
+      inssDeduction = calculateVacationINSS(grossValue);
+      irrfDeduction = calculateVacationIRRF(grossValue, inssDeduction, dependents);
       break;
 
     case "single":

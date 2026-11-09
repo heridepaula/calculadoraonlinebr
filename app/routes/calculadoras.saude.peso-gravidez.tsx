@@ -12,109 +12,13 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Peso na Gravidez 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calculadora peso gravidez grátis segundo OMS. Monitore ganho gestacional por trimestre com análise completa e diretrizes médicas atualizadas.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
-    },
-    {
-      property: "og:title",
-      content: "Peso na Gravidez 2026 segundo OMS | CalculadoraOnlineBR",
-    },
-    {
-      property: "og:description",
-      content:
-        "🤰 Monitore ganho peso gestacional segundo OMS. Análise completa por trimestre com diretrizes médicas atualizadas e personalizadas.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/peso-gravidez.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora de Peso na Gravidez segundo OMS - Monitoramento Gestacional",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Peso na Gravidez 2026 segundo OMS | CalculadoraOnlineBR",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "🤰 Monitore ganho peso gestacional segundo OMS. Análise completa por trimestre com diretrizes médicas atualizadas e personalizadas.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/peso-gravidez.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Peso na Gravidez segundo OMS - Monitoramento Gestacional",
-    },
-    { name: "twitter:site", content: "@CalculadoraOnlineBR" },
-    { name: "twitter:creator", content: "@CalculadoraOnlineBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#E91E63" },
-    { name: "msapplication-TileColor", content: "#E91E63" },
-    { name: "apple-mobile-web-app-title", content: "Peso Gravidez" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    {
-      name: "keywords",
-      content:
-        "calculadora peso gravidez, ganho peso gestacional, IMC gravidez, peso ideal gravidez, OMS gravidez, trimestre gestacional",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { httpEquiv: "X-UA-Compatible", content: "IE=edge" },
-    { name: "referrer", content: "origin-when-cross-origin" },
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-    { rel: "dns-prefetch", href: "https://www.google-analytics.com" },
+    ...buildCalculatorMeta("peso-gravidez"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

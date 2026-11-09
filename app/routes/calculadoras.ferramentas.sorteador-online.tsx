@@ -10,90 +10,12 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Sorteador Online Profissional | Múltiplos Resultados | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Sorteador online com algoritmo aleatório garantido. Sorteie múltiplos resultados, nomes, objetos e listas com animação profissional. 100% gratuito e confiável.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/sorteador-online",
-    },
-    {
-      property: "og:title",
-      content: "Sorteador Online Profissional | Múltiplos Resultados",
-    },
-    {
-      property: "og:description",
-      content:
-        "Sorteador online com algoritmo aleatório garantido. Sorteie múltiplos resultados, nomes, objetos e listas com animação profissional. 100% gratuito e confiável.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/sorteador-online.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Interface do Sorteador Online Profissional - Ferramenta para sortear múltiplos resultados com algoritmo aleatório garantido",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/sorteador-online",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Sorteador Online Profissional | Múltiplos Resultados",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Sorteador online com algoritmo aleatório garantido. Sorteie múltiplos resultados com animação profissional. 100% gratuito.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/sorteador-online.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Sorteador Online Profissional - Interface para múltiplos sorteios",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
+    ...buildCalculatorMeta("sorteador-online"),
     {
       "script:ld+json": [
         {

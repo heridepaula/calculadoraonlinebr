@@ -1,36 +1,16 @@
 import type { MetaFunction } from "@remix-run/node";
-import { APP_NAME, APP_URL } from "~/lib/constants";
+import { Link } from "@remix-run/react";
+import { CALCULATORS, CATEGORIES } from "~/lib/constants";
+import { buildPageMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Sobre | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "CalculadoraOnlineBR: plataforma grátis com calculadoras saúde, finanças e matemática. Design moderno, fácil e confiável para todos.",
-    },
-    {
-      name: "keywords",
-      content: "sobre, CalculadoraOnlineBR, ferramentas gratuitas, saúde, finanças, matemática",
-    },
-    { property: "og:title", content: "Sobre - CalculadoraOnlineBR" },
-    {
-      property: "og:description",
-      content: "Plataforma gratuita com calculadoras organizadas para facilitar seu dia a dia.",
-    },
-    { property: "og:type", content: "website" },
-    { name: "robots", content: "index, follow" },
-    { property: "og:url", content: `${APP_URL}/sobre` },
-    { property: "og:image", content: `${APP_URL}/og/default.jpg` },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { tagName: "link", rel: "canonical", href: `${APP_URL}/sobre` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: `${APP_URL}/og/default.jpg` },
-    { name: "twitter:title", content: "Sobre - CalculadoraOnlineBR" },
-    { name: "twitter:description", content: "Conheça nossa plataforma de calculadoras gratuitas." },
+    ...buildPageMeta({
+      title: "Sobre",
+      description:
+        "Conheça a CalculadoraOnlineBR: calculadoras grátis de finanças, direitos trabalhistas, saúde e matemática, com metodologia e fontes oficiais citadas.",
+      path: "/sobre",
+    }),
   ];
 };
 
@@ -58,55 +38,89 @@ export default function Sobre() {
 
       <section className="space-y-6">
         <h2 className="text-2xl font-bold text-text-primary-dark">O que Oferecemos</h2>
+        <p className="text-text-secondary-dark">
+          São {CALCULATORS.length} calculadoras gratuitas, organizadas em {CATEGORIES.length}{" "}
+          categorias:
+        </p>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-lg bg-primary-blue-light p-6">
-            <div className="mb-4 text-center">
-              <span className="text-4xl" role="img" aria-label="Saúde">
-                🏥
-              </span>
-            </div>
-            <h3 className="mb-3 text-xl font-semibold text-text-primary-dark">
-              Calculadoras de Saúde
-            </h3>
-            <ul className="space-y-2 text-sm text-text-secondary-dark">
-              <li>• Cálculo de IMC (Índice de Massa Corporal)</li>
-              <li>• Percentual de Gordura Corporal</li>
-              <li>• Ferramentas para acompanhamento da saúde</li>
-            </ul>
-          </div>
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((category) => {
+            const count = CALCULATORS.filter((c) => c.category === category.id).length;
+            return (
+              <li key={category.id}>
+                <Link
+                  to={category.path}
+                  className="flex h-full gap-3 rounded-lg border border-neutral-surface-variant bg-background-dark-secondary p-4 transition-colors hover:border-primary-blue"
+                >
+                  <span className="text-3xl" aria-hidden="true">
+                    {category.icon}
+                  </span>
+                  <span>
+                    <span className="block font-semibold text-text-primary">
+                      {category.name}{" "}
+                      <span className="text-sm font-normal text-text-secondary">({count})</span>
+                    </span>
+                    <span className="mt-1 block text-sm text-text-secondary">
+                      {category.description}
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
-          <div className="bg-growth-green-light rounded-lg p-6">
-            <div className="mb-4 text-center">
-              <span className="text-4xl" role="img" aria-label="Finanças">
-                💰
-              </span>
-            </div>
-            <h3 className="mb-3 text-xl font-semibold text-text-primary-dark">
-              Calculadoras Financeiras
-            </h3>
-            <ul className="space-y-2 text-sm text-text-secondary-dark">
-              <li>• Cálculo de Juros Simples e Compostos</li>
-              <li>• Simulador do Primeiro Milhão</li>
-              <li>• Planejamento financeiro pessoal</li>
-            </ul>
-          </div>
-
-          <div className="bg-system-info-light rounded-lg p-6">
-            <div className="mb-4 text-center">
-              <span className="text-4xl" role="img" aria-label="Matemática">
-                🔢
-              </span>
-            </div>
-            <h3 className="mb-3 text-xl font-semibold text-text-primary-dark">
-              Calculadoras Matemáticas
-            </h3>
-            <ul className="space-y-2 text-sm text-text-secondary-dark">
-              <li>• Cálculo de Porcentagem</li>
-              <li>• Operações matemáticas básicas</li>
-              <li>• Ferramentas para estudos e trabalho</li>
-            </ul>
-          </div>
+      <section id="metodologia" className="scroll-mt-24 rounded-lg bg-neutral-surface p-8">
+        <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">
+          Metodologia: Como Calculamos e Revisamos
+        </h2>
+        <div className="space-y-4 text-text-secondary-dark">
+          <p>
+            Cada calculadora parte de uma fonte primária: a lei ou norma que define a regra (CLT,
+            leis do 13º salário e do FGTS, legislação do INSS e do Imposto de Renda), as tabelas
+            publicadas pela Receita Federal e pelo INSS, os dados do Banco Central e do Tesouro
+            Nacional, ou as referências de órgãos de saúde, como a Organização Mundial da Saúde.
+          </p>
+          <ul className="ml-4 list-disc space-y-2">
+            <li>
+              <strong className="text-text-primary-dark">Fontes citadas na página:</strong> as
+              calculadoras trabalhistas e financeiras mostram a legislação usada no bloco
+              &ldquo;Fontes e Atualização&rdquo;, com links para o texto oficial.
+            </li>
+            <li>
+              <strong className="text-text-primary-dark">Tabelas anuais:</strong> INSS, Imposto de
+              Renda e salário mínimo mudam todo ano. As tabelas são revisadas em janeiro, ou quando
+              uma nova lei muda a regra no meio do ano.
+            </li>
+            <li>
+              <strong className="text-text-primary-dark">Indicadores de mercado:</strong> Selic,
+              CDI, IPCA, poupança e títulos do Tesouro Direto são atualizados automaticamente uma
+              vez por dia, a partir do Banco Central e do Tesouro Transparente.
+            </li>
+            <li>
+              <strong className="text-text-primary-dark">Conferência dos resultados:</strong> ao
+              criar ou atualizar uma calculadora, comparamos os resultados com os exemplos e os
+              valores-limite publicados pelos órgãos oficiais, como o teto do INSS e as faixas do
+              Imposto de Renda.
+            </li>
+            <li>
+              <strong className="text-text-primary-dark">Data de atualização:</strong> as páginas
+              revisadas mostram quando o conteúdo e as tabelas foram conferidos pela última vez.
+            </li>
+          </ul>
+          <p>
+            Encontrou um valor diferente do seu holerite, do extrato ou de uma fonte oficial?
+            Escreva para{" "}
+            <a
+              href="mailto:contato@calculadoraonlinebr.com.br"
+              className="font-medium text-primary-blue underline hover:text-primary-blue-dark"
+            >
+              contato@calculadoraonlinebr.com.br
+            </a>{" "}
+            com o exemplo. As correções são feitas na própria calculadora, e a data de atualização
+            da página muda.
+          </p>
         </div>
       </section>
 
@@ -149,7 +163,7 @@ export default function Sobre() {
               <div>
                 <h3 className="font-semibold text-text-primary-dark">Resultados Confiáveis</h3>
                 <p className="text-sm text-text-secondary-dark">
-                  Algoritmos confiáveis que garantem cálculos confiáveis e resultados instantâneos.
+                  Cálculos baseados na legislação e em tabelas oficiais, com as fontes citadas.
                 </p>
               </div>
             </div>
@@ -210,7 +224,7 @@ export default function Sobre() {
         <h2 className="mb-6 text-2xl font-bold text-text-primary-dark">Entre em Contato</h2>
         <div className="space-y-4">
           <p className="text-text-secondary-dark">
-            Tem alguma dúvida, sugestão ou confiável de ajuda com nossas calculadoras? Entre em
+            Tem alguma dúvida, sugestão ou precisa de ajuda com nossas calculadoras? Entre em
             contato conosco!
           </p>
 
@@ -292,8 +306,8 @@ export default function Sobre() {
               pelas calculadoras.
             </li>
             <li>
-              <strong>Detalhamento dos Dados:</strong> A detalhamento dos resultados depende da
-              veracidade e exatidão dos dados inseridos pelo usuário.
+              <strong>Exatidão dos Dados:</strong> A exatidão dos resultados depende da veracidade e
+              exatidão dos dados inseridos pelo usuário.
             </li>
           </ul>
 

@@ -11,94 +11,12 @@ import {
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Financiamento Imobiliário 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Simule financiamento imobiliário SAC e PRICE. Calcule parcelas, amortização e juros totais para compra da casa própria.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
-    },
-    {
-      property: "og:title",
-      content: "Financiamento Imobiliário 2026 – Simulador SAC e PRICE",
-    },
-    {
-      property: "og:description",
-      content:
-        "Simule financiamento imobiliário SAC e PRICE. Calcule parcelas, amortização e juros totais para compra da casa própria.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/financiamento-imobiliario.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Financiamento Imobiliário - Simule parcelas SAC e PRICE para compra da casa própria",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/financas/financiamento-imobiliario",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Financiamento Imobiliário 2026 – Simulador SAC e PRICE",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Simule financiamento imobiliário com SAC e PRICE. Descubra parcelas, amortização e juros totais.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/financiamento-imobiliario.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Financiamento Imobiliário - Simule parcelas SAC e PRICE",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-    { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
+    ...buildCalculatorMeta("financiamento-imobiliario"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

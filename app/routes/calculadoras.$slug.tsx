@@ -40,6 +40,8 @@ const ROUTE_REDIRECTS: Record<string, string> = {
   "calculadora-salario-liquido": "/calculadoras/trabalhista/salario-liquido",
   "calculadora-ferias-decimo-terceiro": "/calculadoras/trabalhista/ferias-decimo-terceiro",
   "calculadora-ferias-13": "/calculadoras/trabalhista/ferias-decimo-terceiro",
+  "decimo-terceiro": "/calculadoras/trabalhista/decimo-terceiro",
+  "13-salario": "/calculadoras/trabalhista/decimo-terceiro",
 };
 
 export const loader: LoaderFunction = async ({ params }) => {

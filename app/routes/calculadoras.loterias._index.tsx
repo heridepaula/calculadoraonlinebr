@@ -8,106 +8,14 @@ import {
   createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
-import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Geradores de Jogos de Loterias Grátis 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Gere números da sorte para Mega-Sena, Lotofácil, Quina e outras loterias grátis. Estratégias inteligentes e análises estatísticas para aumentar suas chances.",
-    },
-    {
-      name: "keywords",
-      content:
-        "gerador números loteria, mega-sena online, lotofácil gerador, quina números, jogos loteria, números da sorte, estratégias loteria, análise estatística loteria",
-    },
-    {
-      name: "robots",
-      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-    },
-    {
-      name: "author",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1.0",
-    },
-    {
-      property: "og:title",
-      content: "Geradores de Loterias Grátis – Mega-Sena, Lotofácil, Quina",
-    },
-    {
-      property: "og:description",
-      content:
-        "Gere números da sorte para Mega-Sena, Lotofácil, Quina e outras loterias grátis. Estratégias inteligentes e análises estatísticas para aumentar suas chances.",
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/categoria-loterias.jpg",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Geradores de Loterias - Interface mostrando diversas ferramentas para gerar números de loterias",
-    },
-    {
-      property: "og:site_name",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      property: "og:locale",
-      content: "pt_BR",
-    },
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      name: "twitter:title",
-      content: "Geradores de Loterias Grátis 2026 | Números da Sorte",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Gere números da sorte GRÁTIS! Mega-Sena, Lotofácil, Quina com estratégias inteligentes.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/categoria-loterias.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content:
-        "Geradores de Loterias - Interface mostrando diversas ferramentas para gerar números de loterias",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias",
-    },
+    ...buildCategoryMeta("loterias"),
     { "script:ld+json": generateCategoryPageGraph("loterias") },
   ];
 };

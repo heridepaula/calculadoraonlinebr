@@ -3,6 +3,13 @@ export const APP_DESCRIPTION = "Calculadoras online gratuitas para facilitar seu
 export const APP_URL = "https://www.calculadoraonlinebr.com.br";
 export const APP_AUTHOR = "CalculadoraOnlineBR";
 
+/**
+ * Ano exibido nos títulos e descrições de SEO (CALCULATOR_SEO_DATA / CATEGORY_SEO_DATA).
+ * Atualize em janeiro, junto com as tabelas anuais (INSS, IRRF, salário mínimo),
+ * para o título não prometer um ano cujo cálculo ainda não foi atualizado.
+ */
+export const SEO_YEAR = 2026;
+
 export const CATEGORIES = [
   {
     id: "saude",
@@ -179,7 +186,7 @@ export const CALCULATORS = [
     id: "consorcio",
     name: "Calculadora de Consórcio",
     description:
-      "Simule consórcios de veículos, imóveis e motos. Compare com financiamento, calcule taxas e veja todas as vantagens com guia completo 2025",
+      "Simule consórcios de veículos, imóveis e motos. Compare com financiamento, calcule taxas e veja todas as vantagens com guia completo",
     category: "financas",
     path: "/calculadoras/financas/consorcio",
   },
@@ -187,7 +194,7 @@ export const CALCULATORS = [
     id: "renda-fixa-comparativa",
     name: "Calculadora Comparativa de Renda Fixa",
     description:
-      "Compare CDB, LCI, LCA, Tesouro Direto e Poupança lado a lado. Ranking automático, taxas reais 2025 e análise completa de rendimentos",
+      "Compare CDB, LCI, LCA, Tesouro Direto e Poupança lado a lado. Ranking automático, taxas reais atualizadas e análise completa de rendimentos",
     category: "financas",
     path: "/calculadoras/financas/renda-fixa-comparativa",
   },
@@ -354,7 +361,7 @@ export const CALCULATORS = [
     id: "auxilio-doenca",
     name: "Calculadora de Auxílio-Doença",
     description:
-      "Calcule o valor do auxílio-doença INSS. Verifica carência automaticamente, aplica isenções para doenças graves e acidentes, e calcula o benefício conforme a legislação 2025",
+      "Calcule o valor do auxílio-doença INSS. Verifica carência automaticamente, aplica isenções para doenças graves e acidentes, e calcula o benefício conforme a legislação vigente",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/auxilio-doenca",
   },
@@ -362,7 +369,7 @@ export const CALCULATORS = [
     id: "salario-liquido",
     name: "Calculadora de Salário Líquido",
     description:
-      "Calcule seu salário líquido usando as tabelas de INSS e IRRF 2025. Suporte a CLT, PJ, dependentes e horas extras com cálculo em tempo real",
+      "Calcule seu salário líquido com as tabelas de INSS e IRRF atualizadas e a isenção de IR até R$ 5 mil. Suporte a CLT, PJ, dependentes e horas extras com cálculo em tempo real",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/salario-liquido",
   },
@@ -370,9 +377,17 @@ export const CALCULATORS = [
     id: "ferias-decimo-terceiro",
     name: "Calculadora de Férias e 13º Salário",
     description:
-      "Calcule férias e décimo terceiro salário com tabelas oficiais 2025. Inclui INSS, IRRF, abono pecuniário, adiantamentos e todas as regras da CLT",
+      "Calcule férias e décimo terceiro salário com tabelas oficiais atualizadas. Inclui INSS, IRRF, abono pecuniário, adiantamentos e todas as regras da CLT",
     category: "trabalhista",
     path: "/calculadoras/trabalhista/ferias-decimo-terceiro",
+  },
+  {
+    id: "decimo-terceiro",
+    name: "Calculadora de 13º Salário",
+    description:
+      "Calcule o 13º salário líquido: valor da 1ª e da 2ª parcela, proporcional aos meses trabalhados, com INSS, IRRF e a nova isenção de IR até R$ 5 mil",
+    category: "trabalhista",
+    path: "/calculadoras/trabalhista/decimo-terceiro",
   },
   {
     id: "horas-extras",
@@ -414,7 +429,7 @@ export const CALCULATORS = [
   {
     id: "dias-uteis",
     name: "Calculadora de Dias Úteis",
-    description: "Calcule dias úteis entre datas considerando feriados nacionais brasileiros, Carnaval, Páscoa e emendas. Algoritmo preciso com calendário 2025",
+    description: "Calcule dias úteis entre datas considerando feriados nacionais brasileiros, Carnaval, Páscoa e emendas. Feriados calculados para qualquer ano",
     category: "datas",
     path: "/calculadoras/datas/dias-uteis",
   },

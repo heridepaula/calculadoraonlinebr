@@ -11,102 +11,12 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Desvio Padrão 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule desvio padrão e variância grátis. Medidas de dispersão estatística com explicações passo a passo e fórmulas detalhadas.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora desvio padrão, variância populacional amostral, dispersão estatística, sigma, correção Bessel, distribuição normal, medidas variabilidade, estatística descritiva, análise dados, N-1, regra empírica 68-95-99.7",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora Desvio Padrão 2026 – Variância Estatística",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calculadora gratuita de desvio padrão e variância. Calcule medidas de dispersão estatística com explicações passo a passo e análise completa dos dados.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/desvio-padrao.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Desvio Padrão - Calcule dispersão estatística com explicações detalhadas",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora Desvio Padrão 2026 – Variância Estatística",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calculadora gratuita de desvio padrão e variância com explicações passo a passo e análise estatística completa.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/desvio-padrao.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Desvio Padrão - Medidas de dispersão estatística",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    ...buildCalculatorMeta("desvio-padrao"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

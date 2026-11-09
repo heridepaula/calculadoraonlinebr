@@ -20,6 +20,7 @@ npm run og:generate      # Regenerate OG image (scripts/generate-og-image.mjs)
 npm run indexnow:submit  # Submit URLs to IndexNow (see docs/INDEXNOW.md)
 npm run og:pages         # Generate per-page OG images public/og/<id>.jpg from CALCULATORS/CATEGORIES (args: ids)
 npm run sitemap:lastmod  # Rewrite app/data/sitemap-lastmod.json from git history; commit it with content changes
+npm run seo:check        # Crawl sitemap: title/description length, canonical, og:image 200, JSON-LD object, one h1, broken internal links (arg: base URL, default production)
 ```
 
 There is no test suite. Validate with `npm run typecheck && npm run lint` before committing. Both currently report many pre-existing errors in older files (≈270 tsc, ≈650 eslint), so check only the files you touched, e.g. `npx eslint <files>` and `npx tsc --noEmit | grep <file>`.
@@ -39,8 +40,10 @@ There is no test suite. Validate with `npm run typecheck && npm run lint` before
 ### Central registries — a new calculator must be wired into these
 
 1. `app/lib/constants.ts` → `CALCULATORS` array (`id`, `name`, `description`, `category`, `path`). Category landing pages render their cards by filtering `CALCULATORS` by category, and the sitemap is built from it — so this entry is what makes the calculator appear in category cards and `sitemap.xml`.
-2. `app/lib/calculator-seo.ts` → `CALCULATOR_SEO_DATA[id]` (title, description, keywords, canonical, sitemap priority/changeFreq).
+2. `app/lib/calculator-seo.ts` → `CALCULATOR_SEO_DATA[id]` (title, description, keywords, canonical, sitemap priority/changeFreq). This is the **single source** of the page's title and description: `title` is the core without the brand (≤ 60 chars; ` | CalculadoraOnlineBR` is appended only when it still fits), `description` ≤ 160 chars, and a year goes in as `${SEO_YEAR}` (`constants.ts`, bumped each January together with the yearly tables). Category pages use `CATEGORY_SEO_DATA[id]`.
 3. `app/lib/structured-data.ts` → JSON-LD generators (`generateCalculatorStructuredData`, `generateCategoryPageGraph`, `generateBreadcrumbStructuredData`, `generateFAQStructuredData`). Category pages use `generateCategoryPageGraph(CategoryPageId)`; add to the `CategoryPageId` union when adding a category.
+
+Route `meta` = head tags from `app/lib/page-meta.ts` plus the route's own JSON-LD: `[...buildCalculatorMeta("<id>"), { "script:ld+json": {...} }]` (categories: `buildCategoryMeta`, other pages: `buildPageMeta({ title, description, path })`, betting pages: `buildBettingPageMeta`). The helpers emit title, description, robots, canonical, Open Graph and Twitter; don't add `viewport`, `keywords`, `googlebot` or other head tags by hand (`viewport` is in `root.tsx`).
 
 Canonical links in `meta` must include `tagName: "link"` (`{ tagName: "link", rel: "canonical", href }`); without it Remix renders an invalid `<meta rel="canonical">` that search engines ignore. Do not add a JSON-LD `SearchAction`: the site has no search page.
 
@@ -50,17 +53,32 @@ JSON-LD in `meta`: pass an **object** to `"script:ld+json"`, never `JSON.stringi
 
 The root `loader` 301-redirects uppercase and trailing-slash paths to the lowercase path without the slash, so internal links must use that form.
 
-Adding a category also requires adding its id to the category union types duplicated in `CalculatorCard`, `CategoryHero`, `CategoryStats`, `QuickAccessCard`, `RelatedCalculators` (plus its style maps and `DEFAULT_CALCULATORS` entry) and to `categoryMap` in `ResponsiveBreadcrumb`.
+Adding a category also requires adding its id to the category union types duplicated in `CalculatorCard`, `CategoryHero`, `CategoryStats`, `QuickAccessCard`, `RelatedCalculators` (plus `CATEGORY_STYLES`, `CATEGORY_TITLES` and `CATEGORY_TIPS`), to `categoryMap` in `ResponsiveBreadcrumb`, and an entry in `CATEGORY_SEO_DATA`. The header menu and footer (`components/layout/Header.tsx`, `Footer.tsx`) list `CATEGORIES` automatically.
 
-Note: route `meta` functions typically hardcode their title/description/canonical inline rather than calling `generateCalculatorMeta`, so SEO text can diverge between the route and `CALCULATOR_SEO_DATA` — update both.
+`RelatedCalculators` picks its links from `CALCULATORS` (the next calculators of the same category, wrapping around, plus `CROSS_LINKS`) and detects the current page by URL, so a new calculator gets related links without editing the component.
+
+HTML is cached on the Vercel CDN for 1 h (`headers` in `root.tsx`, `s-maxage=3600, stale-while-revalidate`); a route with more volatile data exports its own `headers` (lotteries: 5 min).
 
 ### Indicadores de mercado (SELIC, CDI, IPCA, INPC, TR, poupança, Tesouro Direto)
 
 - Nunca fixe taxas de mercado nas rotas. Cada calculadora de finanças tem `loader` que devolve `indicators` (via `marketIndicatorsLoader` em `services/market/loader.server.ts`, ou `getMarketIndicators`/`getTreasuryBonds` de `services/market/marketData.server.ts`) e usa `useLoaderData`.
-- Coleta: Vercel Cron `/api/cron/indicadores` (`vercel.json`, 14h UTC = 11h BRT, protegido por `CRON_SECRET`). Fontes: API SGS do Banco Central (séries em `lib/market/indicators.ts` → `SGS_SERIES`) e CSV do Tesouro Transparente (`lib/market/treasury.ts`, atalho por `last_modified`/ETag, arquivo inválido é recusado inteiro).
+- Coleta: `/api/cron/indicadores`, chamado uma vez por dia pelo cron-job.org (os crons da Vercel foram removidos do `vercel.json` no commit `12f18c8`), protegido por `CRON_SECRET`. Fontes: API SGS do Banco Central (séries em `lib/market/indicators.ts` → `SGS_SERIES`) e CSV do Tesouro Transparente (`lib/market/treasury.ts`, atalho por `last_modified`/ETag, arquivo inválido é recusado inteiro).
 - Mongo: `market_indicators`, `treasury_bonds` (janela de 365 dias), `treasury_sync`. Primeira carga ou teste manual: `npm run sync:market`.
 - Leitura: cache de 1 h por instância; sem banco, cai em `FALLBACK_INDICATORS` com `stale: true`. O endpoint JSON antigo do tesourodireto.com.br responde 410: não volte a usá-lo.
 - Nova série: acrescente em `IndicatorId`, `SGS_SERIES`, `RATE_BOUNDS`, `STALE_AFTER_DAYS` e `FALLBACK_INDICATORS`.
+
+### Tabelas trabalhistas (INSS, IRRF, salário mínimo)
+
+- `app/lib/labor/tax-tables.ts` é a fonte única de salário mínimo, INSS, IRRF (com a redução da Lei 15.270/2025), seguro-desemprego e salário-família (`calculateInss`, `calculateIrrf`, `unemploymentInstallment`, `LABOR_TAX_SOURCES`). Todas as calculadoras trabalhistas leem dele, inclusive `utils/calculations.ts`; nunca escreva valores dessas tabelas nas rotas, nem no texto (gere a partir das constantes).
+- Em janeiro: atualize as tabelas, `MINIMUM_WAGE`, `UNEMPLOYMENT_BENEFIT`, `FAMILY_ALLOWANCE`, `LABOR_TAX_REVIEWED_AT` e `SEO_YEAR`. Os pontos e a idade progressiva da aposentadoria são calculados pelo ano.
+- Regras já tratadas: INSS e IR de férias e 13º calculados separados do salário; abono pecuniário, férias indenizadas + 1/3 e aviso prévio indenizado são isentos; 2ª parcela do 13º desconta INSS/IR do 13º inteiro.
+- Páginas de temas sensíveis mostram fontes e data com `SourcesAndUpdate` (`app/components`), que linka `/sobre#metodologia`.
+
+### SSR
+
+- `entry.server.tsx` remove bytes 0x00 do HTML: o streaming do React 18 os insere quando um caractere acentuado ou emoji cai na fronteira do buffer (12 páginas afetadas em nov/2026). `npm run seo:check` acusa se voltar.
+- Não passe `onLoad` em string em `links` ou JSX: o React liga como listener na hidratação e lança o erro #231.
+- Datas de `<input type="date">` ("AAAA-MM-DD") devem ser lidas como data local (`new Date(a, m - 1, d)`); `new Date("2024-03-01")` é UTC e vira o dia anterior no fuso de Brasília.
 
 ### Shared building blocks
 

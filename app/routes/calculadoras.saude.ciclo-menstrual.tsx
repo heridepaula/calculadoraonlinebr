@@ -11,7 +11,6 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import {
   Chart as ChartJS,
@@ -25,6 +24,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 ChartJS.register(
   CategoryScale,
@@ -39,113 +39,7 @@ ChartJS.register(
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora Ciclo Menstrual 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1, viewport-fit=cover",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.googleapis.com",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.gstatic.com",
-      crossOrigin: "anonymous",
-    },
-    {
-      rel: "preload",
-      href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-      as: "style",
-    },
-    {
-      name: "description",
-      content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual com previsões confiáveis. Ferramenta grátis para saúde feminina.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR - Ferramentas Educacionais" },
-    {
-      name: "keywords",
-      content: "ciclo menstrual, período fértil, ovulação, calendário menstrual, saúde feminina",
-    },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Ciclo Menstrual 2026 | CalculadoraOnlineBR",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões confiáveis. Ferramenta gratuita para saúde feminina.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/ciclo-menstrual.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Ciclo Menstrual - Acompanhe período fértil, ovulação e próximas menstruações",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Ciclo Menstrual 2026 | CalculadoraOnlineBR",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual interativo com previsões confiáveis. Ferramenta gratuita para saúde feminina.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/ciclo-menstrual.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Ciclo Menstrual - Acompanhe seu ciclo menstrual",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("ciclo-menstrual"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

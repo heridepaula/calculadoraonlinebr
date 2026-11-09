@@ -11,7 +11,6 @@ import {
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useLoaderData } from "@remix-run/react";
 import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
@@ -27,6 +26,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Line, Pie } from "react-chartjs-2";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 ChartJS.register(
   CategoryScale,
@@ -41,108 +41,7 @@ ChartJS.register(
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Juros Simples 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1, viewport-fit=cover",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.googleapis.com",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.gstatic.com",
-      crossOrigin: "anonymous",
-    },
-    {
-      rel: "preload",
-      href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-      as: "style",
-      onload: "this.onload=null;this.rel='stylesheet'",
-    },
-    {
-      name: "description",
-      content:
-        "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
-    },
-    {
-      property: "og:title",
-      content: "Juros Simples 2026 – Calculadora Online Gratuita",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/juros-simples.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Juros Simples - Simule crescimento linear do capital de forma simples e confiável",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt-BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Juros Simples 2026 – Calculadora Online Gratuita",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/juros-simples.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Juros Simples - Simule crescimento linear do capital",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-BR" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
+    ...buildCalculatorMeta("juros-simples"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

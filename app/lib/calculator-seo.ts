@@ -1,9 +1,10 @@
-import { APP_URL, CALCULATORS, CATEGORIES } from "~/lib/constants";
+import { APP_URL, CALCULATORS, CATEGORIES, SEO_YEAR } from "~/lib/constants";
 import type { MetaFunction } from "@remix-run/node";
 import { generateStructuredData } from "~/utils/seo";
 
 export interface CalculatorSEOData {
   id: string;
+  /** Título sem a marca; buildCalculatorMeta anexa " | CalculadoraOnlineBR" quando cabe em 60 caracteres. */
   title: string;
   description: string;
   keywords: string;
@@ -19,9 +20,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Health Calculators
   imc: {
     id: "imc",
-    title: "Calculadora de IMC 2025 - Índice de Massa Corporal - CalculadoraOnlineBR",
+    title: `Calculadora de IMC ${SEO_YEAR}`,
     description:
-      "★ Calculadora IMC GRATUITA e atualizada! Calcule seu Índice de Massa Corporal, veja classificações da OMS e receba dicas personalizadas para uma vida mais saudável.",
+      "Calculadora IMC grátis com taxa metabólica e percentual gordura. Classificação por idade, sexo e análise corporal completa OMS.",
     keywords:
       "calculadora imc, indice massa corporal, calcular imc, peso ideal, obesidade, sobrepeso, imc adulto, imc infantil, tabela imc oms, saude peso",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/imc",
@@ -30,9 +31,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "gordura-corporal": {
     id: "gordura-corporal",
-    title: "Calculadora de Gordura Corporal 2025 - Métodos Científicos - CalculadoraOnlineBR",
+    title: `Calculadora de Gordura Corporal ${SEO_YEAR} CalculadoraOnlineBR`,
     description:
-      "★ Calculadora de gordura corporal com métodos científicos validados! Use fórmulas de Jackson-Pollock, Navy, YMCA e bioimpedância para análise completa da composição corporal.",
+      "Calculadora gordura corporal grátis. Calcule percentual de gordura, massa magra e análise corporal completa. Método científico com fórmulas.",
     keywords:
       "calculadora gordura corporal, percentual gordura, bioimpedancia, dobras cutaneas, composicao corporal, massa magra, jackson pollock, navy formula, ymca",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/gordura-corporal",
@@ -41,9 +42,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "ciclo-menstrual": {
     id: "ciclo-menstrual",
-    title: "Calculadora de Ciclo Menstrual 2025 - Período Fértil e Ovulação - CalculadoraOnlineBR",
+    title: `Calculadora Ciclo Menstrual ${SEO_YEAR}`,
     description:
-      "★ Calculadora de ciclo menstrual GRATUITA! Calcule período fértil, ovulação, próxima menstruação e janela de fertilidade. Acompanhe sua saúde reprodutiva facilmente.",
+      "Calcule ciclo menstrual, período fértil e ovulação. Calendário visual com previsões confiáveis. Ferramenta grátis para saúde feminina.",
     keywords:
       "calculadora ciclo menstrual, periodo fertil, ovulacao, proxima menstruacao, fertilidade, tabelinha, calendario menstrual, saude feminina, engravidar",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/ciclo-menstrual",
@@ -52,9 +53,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "desenvolvimento-infantil": {
     id: "desenvolvimento-infantil",
-    title: "Calculadora de Desenvolvimento Infantil 2025 - Marcos do Bebê - CalculadoraOnlineBR",
+    title: `Calculadora de Desenvolvimento Infantil ${SEO_YEAR}`,
     description:
-      "★ Acompanhe o desenvolvimento do seu bebê com marcos personalizados! Calculadora baseada em diretrizes pediátricas para motor, cognitivo, social e linguagem.",
+      "Acompanhe desenvolvimento infantil com gráficos OMS. Calcule percentis de altura e peso, marcos do crescimento. Ferramenta grátis para pais.",
     keywords:
       "desenvolvimento infantil, marcos do bebe, crescimento infantil, pediatria, desenvolvimento motor, cognitivo, social, linguagem, primeiros passos, primeiras palavras",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/desenvolvimento-infantil",
@@ -63,9 +64,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   hidratacao: {
     id: "hidratacao",
-    title: "Calculadora de Hidratação 2025 - Necessidade Diária de Água - CalculadoraOnlineBR",
+    title: `Calculadora de Hidratação Diária ${SEO_YEAR}`,
     description:
-      "★ Calcule sua necessidade diária de água personalizada! Considera atividade física, clima, peso, idade e condições especiais. Mantenha-se hidratado adequadamente.",
+      "Calculadora hidratação diária grátis. Calcule quantidade ideal de água, necessidades hídricas personalizadas. Método científico.",
     keywords:
       "calculadora hidratacao, necessidade agua, quantos litros agua beber, desidratacao, balance hidrico, agua diaria, sede, hidratacao exercicio, clima quente",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/hidratacao",
@@ -75,9 +76,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "peso-gravidez": {
     id: "peso-gravidez",
     title:
-      "Calculadora de Peso na Gravidez 2025 - Ganho Gestacional pela OMS - CalculadoraOnlineBR",
+      `Peso na Gravidez ${SEO_YEAR}`,
     description:
-      "★ Calculadora de peso na gravidez GRATUITA! Monitore o ganho de peso gestacional com base nas diretrizes da OMS, análise trimestral personalizada e faixas saudáveis por IMC pré-gestacional.",
+      "Calculadora peso gravidez grátis segundo OMS. Monitore ganho gestacional por trimestre com análise completa e diretrizes médicas atualizadas.",
     keywords:
       "calculadora peso gravidez, ganho peso gestacional, peso gestante, OMS gravidez, peso ideal gestante, IMC pré gestacional, peso trimestre, ganho peso saudável, monitoramento peso gravidez, pré-natal peso",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/saude/peso-gravidez",
@@ -89,9 +90,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "juros-compostos": {
     id: "juros-compostos",
     title:
-      "Calculadora de Juros Compostos 2025 - Simulador Completo com Aportes - CalculadoraOnlineBR",
+      "Calculadora de Juros Compostos",
     description:
-      "★ Calculadora de juros compostos GRATUITA com aportes mensais e gráficos detalhados. Simule investimentos, entenda o poder dos juros sobre juros e descubra como multiplicar seu dinheiro.",
+      "Calcule juros compostos e potencialize seus investimentos. Simule aportes mensais, tempo e rentabilidade com gráficos interativos educativos.",
     keywords:
       "calculadora juros compostos, juros sobre juros, aportes mensais, investimento longo prazo, simulador financeiro, crescimento exponencial, planejamento aposentadoria, como calcular juros compostos, fórmula juros compostos, CDI, tesouro direto, fundos investimento",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-compostos",
@@ -100,9 +101,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "primeiro-milhao": {
     id: "primeiro-milhao",
-    title: "Calculadora do Primeiro Milhão 2025 - Como Ficar Milionário - CalculadoraOnlineBR",
+    title: "Calculadora Primeiro Milhão",
     description:
-      "★ Calculadora do Primeiro Milhão GRATUITA! Descubra em quanto tempo você pode se tornar milionário ou quanto investir mensalmente. Simulações realistas com juros compostos e estratégias comprovadas.",
+      "Descubra quanto investir para ter 1 milhão. Simule aportes mensais, rentabilidade e prazo necessário para alcançar independência financeira.",
     keywords:
       "calculadora primeiro milhão, como ficar milionário, quanto tempo para ser milionário, investir para ser milionário, planejamento financeiro milionário, simulação primeiro milhão, independência financeira, juros compostos primeiro milhão",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/primeiro-milhao",
@@ -111,9 +112,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   cdb: {
     id: "cdb",
-    title: "Calculadora CDB 2025 - Simulador Completo com Tributação - CalculadoraOnlineBR",
+    title: "Calculadora de CDB",
     description:
-      "★ Calculadora CDB GRATUITA com simulação completa de tributação. Calcule rendimentos, imposto de renda, IOF e compare com LCI/LCA e Poupança. Ferramenta completa para investimentos em renda fixa.",
+      "Calcule rendimento CDB pré e pós-fixado. Compare taxas, simule investimentos com diferentes prazos e descubra a melhor opção para seu perfil.",
     keywords:
       "calculadora cdb, certificado depósito bancário, cdb tributação, imposto renda cdb, cdb vs lci lca, cdb aportes mensais, rendimento cdb, taxa cdb, cdb pré fixado, cdb pós fixado, cdb ipca",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/cdb",
@@ -122,9 +123,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "tesouro-direto": {
     id: "tesouro-direto",
-    title: "Calculadora Tesouro Direto 2025 - Simulador Completo com Cupons - CalculadoraOnlineBR",
+    title: `Calculadora de Tesouro Direto ${SEO_YEAR}`,
     description:
-      "★ Calculadora Tesouro Direto GRATUITA com simulação completa! Calcule rendimentos, cupons semestrais, impostos e compare todos os títulos: Selic, Prefixado, IPCA+. Indexadores reais atualizados.",
+      "Simule Tesouro Direto com dados reais. Compare Selic, IPCA+ e Prefixado. Calcule rentabilidade, imposto de renda e taxa de custódia.",
     keywords:
       "calculadora tesouro direto, tesouro selic, tesouro prefixado, tesouro ipca, cupons semestrais, simulador títulos públicos, rendimento tesouro direto, imposto renda tesouro, taxa selic atual, ipca atual",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
@@ -134,9 +135,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "antecipacao-parcelas-nubank": {
     id: "antecipacao-parcelas-nubank",
     title:
-      "Calculadora Antecipação Nubank 2025 - Descontos e Economia de Parcelas - CalculadoraOnlineBR",
+      "Calculadora de Antecipação Parcelas Nubank",
     description:
-      "★ Calculadora de antecipação Nubank GRATUITA! Calcule quanto você economiza antecipando parcelas. Veja descontos por número de parcelas, análise completa e tome a melhor decisão financeira.",
+      "Simule antecipação de parcelas do cartão Nubank. Calcule desconto, juros e economia ao antecipar faturas parceladas com análise detalhada.",
     keywords:
       "calculadora antecipacao nubank, antecipar parcelas nubank, desconto antecipacao, quitar emprestimo nubank, economia antecipacao, simulador nubank, parcelas nubank, calculadora nubank",
     canonicalUrl:
@@ -146,9 +147,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "lci-lca": {
     id: "lci-lca",
-    title: "Calculadora LCI e LCA 2025 - Simulador Completo de Investimentos - CalculadoraOnlineBR",
+    title: `Calculadora de LCI e LCA ${SEO_YEAR}`,
     description:
-      "★ Calculadora LCI e LCA GRATUITA com simulações completas. Compare rendimentos, veja vantagens fiscais, calcule carência e descubra se vale mais que CDB e Poupança.",
+      "Calcule rendimentos LCI e LCA isentos de IR. Simule investimentos baseados no CDI e compare rentabilidade. Grátis e atualizada.",
     keywords:
       "calculadora LCI, calculadora LCA, letra de crédito imobiliário, letra de crédito agronegócio, investimento LCI LCA, rendimento LCI LCA, carência LCI LCA, isenção imposto renda, CDI LCI LCA",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/lci-lca",
@@ -158,9 +159,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "emprestimo-consignado": {
     id: "emprestimo-consignado",
     title:
-      "Calculadora Empréstimo Consignado 2025 - Simulador CLT, Servidor e Aposentado - CalculadoraOnlineBR",
+      `Calculadora de Empréstimo Consignado ${SEO_YEAR}`,
     description:
-      "★ Calculadora de empréstimo consignado COMPLETA e GRATUITA para CLT, servidores públicos e aposentados. Simule parcelas, analise margem consignável, compare taxas e descubra o melhor consignado.",
+      "Simule empréstimo consignado: calcule parcelas, CET e IOF. Descubra valor líquido e total de juros para aposentados e servidores.",
     keywords:
       "calculadora empréstimo consignado, consignado CLT, consignado servidor público, consignado aposentado, margem consignável, simulador consignado, taxa empréstimo consignado, parcela consignado",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/emprestimo-consignado",
@@ -170,9 +171,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "financiamento-imobiliario": {
     id: "financiamento-imobiliario",
     title:
-      "Calculadora de Financiamento Imobiliário 2025 - SAC e PRICE - Simulação Completa - CalculadoraOnlineBR",
+      `Calculadora de Financiamento Imobiliário ${SEO_YEAR}`,
     description:
-      "★ Simulador de financiamento imobiliário COMPLETO e GRATUITO com sistemas SAC e PRICE. Calcule prestações, juros, amortização e análise de affordability. Compare cenários e simule antecipações.",
+      "Simule financiamento imobiliário SAC e PRICE. Calcule parcelas, amortização e juros totais para compra da casa própria.",
     keywords:
       "calculadora financiamento imobiliário, simulador financiamento casa, SAC vs PRICE, tabela price, sistema SAC, prestação financiamento, juros financiamento imóvel, amortização constante, affordability imóvel",
     canonicalUrl:
@@ -182,9 +183,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "juros-simples": {
     id: "juros-simples",
-    title: "Calculadora de Juros Simples 2025 - Fácil e Rápida - CalculadoraOnlineBR",
+    title: `Calculadora de Juros Simples ${SEO_YEAR}`,
     description:
-      "★ Calculadora de Juros Simples GRATUITA e fácil de usar. Calcule juros, capital, taxa ou tempo com fórmulas detalhadas. Ideal para empréstimos, financiamentos e aplicações de curto prazo.",
+      "Calcule juros simples online grátis. Simule crescimento linear do capital com gráficos interativos. Fórmula: M = C + (C × i × t).",
     keywords:
       "calculadora juros simples, como calcular juros simples, fórmula juros simples, juros lineares, empréstimo curto prazo, desconto duplicata, calculadora financeira, matemática financeira",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/juros-simples",
@@ -193,9 +194,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "preco-medio": {
     id: "preco-medio",
-    title: "Calculadora de Preço Médio 2025 - Ações e Investimentos - CalculadoraOnlineBR",
+    title: `Calculadora de Preço Médio Ações ${SEO_YEAR}`,
     description:
-      "★ Calculadora de preço médio GRATUITA para ações e investimentos. Controle ganhos/perdas com múltiplos métodos, acompanhe dividend yield e otimize sua carteira de investimentos.",
+      "Calcule preço médio ponderado de ações grátis. Adicione compras/vendas, veja lucro/prejuízo em tempo real. Ferramenta completa para investidores.",
     keywords:
       "calculadora preço médio, preço médio ações, investimento ações, bolsa valores, dividend yield, carteira investimentos, ganhos perdas ações, estrategia investimento, buy and hold",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/preco-medio",
@@ -204,9 +205,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   consorcio: {
     id: "consorcio",
-    title: "Calculadora Consórcio 2025 – Simule Parcelas e Contemplação | CalculadoraOnlineBR",
+    title: `Calculadora de Consórcio ${SEO_YEAR}`,
     description:
-      "★ Calculadora de consórcio GRATUITA e completa! Simule parcelas de consórcio de imóveis, veículos e motos. Calcule taxa de administração, contemplação e compare grupos. Ferramenta essencial para decidir seu consórcio.",
+      "Calcule parcelas de consórcio de imóveis e carros. Simule taxa de administração, contemplação e lance para escolher o melhor grupo.",
     keywords:
       "calculadora consórcio, simulador consórcio, consórcio imóvel, consórcio veículo, consórcio moto, parcelas consórcio, contemplação consórcio, taxa administração, grupos consórcio, lance consórcio, sorteio consórcio",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/consorcio",
@@ -216,9 +217,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "renda-fixa-comparativa": {
     id: "renda-fixa-comparativa",
     title:
-      "Calculadora Comparativa de Renda Fixa 2025 - CDB, LCI, LCA, Tesouro e Poupança - CalculadoraOnlineBR",
+      `Comparador Renda Fixa ${SEO_YEAR}`,
     description:
-      "★ Compare CDB, LCI, LCA, Tesouro Direto e Poupança GRATUITAMENTE lado a lado! Ranking automático com taxas reais 2025, descontos de IR e IOF, e análise completa de rendimentos líquidos.",
+      `Compare renda fixa ${SEO_YEAR}: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.`,
     keywords:
       "renda fixa comparativa, comparar investimentos, CDB vs LCI, CDB vs poupança, tesouro direto vs CDB, simulador renda fixa, ranking renda fixa, melhor investimento renda fixa, IR renda fixa, IOF renda fixa, rendimento líquido, taxa CDI",
     canonicalUrl:
@@ -230,9 +231,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Mathematical Calculators
   porcentagem: {
     id: "porcentagem",
-    title: "Calculadora de Porcentagem 2025 - Rápida e Fácil - CalculadoraOnlineBR",
+    title: `Calculadora de Porcentagem ${SEO_YEAR}`,
     description:
-      "★ Calculadora de porcentagem GRATUITA e fácil! Calcule porcentagens, aumentos, descontos, diferença percentual e muito mais. Ideal para compras, negócios e estudos.",
+      "Calcule porcentagem online: aumentos, descontos e diferenças percentuais. Grátis, confiável e com explicação passo a passo.",
     keywords:
       "calculadora porcentagem, calcular porcentagem, aumento percentual, desconto percentual, diferença percentual, regra de três, matemática básica, porcentagem simples",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
@@ -241,9 +242,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "regra-de-tres": {
     id: "regra-de-tres",
-    title: "Calculadora de Regra de Três 2025 - Simples e Composta - CalculadoraOnlineBR",
+    title: `Calculadora de Regra de Três ${SEO_YEAR}`,
     description:
-      "★ Calculadora de regra de três GRATUITA! Resolva regra de três simples e inversa com explicações passo a passo. Para estudos e aplicações práticas do dia a dia.",
+      "Calculadora regra de três simples e composta grátis. Resolva proporções com explicação passo a passo. Resultados confiáveis.",
     keywords:
       "calculadora regra de três, regra de três simples, regra de três inversa, proporção, matemática básica, regra de três composta, exercicios regra três, como fazer regra três",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/regra-de-tres",
@@ -252,9 +253,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "equacao-segundo-grau": {
     id: "equacao-segundo-grau",
-    title: "Calculadora de Equação do 2º Grau 2025 - Fórmula de Bhaskara - CalculadoraOnlineBR",
+    title: `Calculadora de Equação 2º Grau ${SEO_YEAR}`,
     description:
-      "★ Resolva equações quadráticas usando a fórmula de Bhaskara com resolução passo a passo, análise do discriminante e propriedades da parábola. Ideal para estudos de matemática.",
+      "Resolva equações 2º grau com Bhaskara. Calcule delta, raízes reais e complexas grátis. Ferramenta ideal para estudantes.",
     keywords:
       "calculadora equacao segundo grau, formula bhaskara, equacao quadratica, discriminante, parabola, raizes equacao, delta bhaskara, matematica ensino medio, algebra",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/equacao-segundo-grau",
@@ -264,9 +265,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "mmc-mdc": {
     id: "mmc-mdc",
     title:
-      "Calculadora de MMC e MDC 2025 - Mínimo Múltiplo Comum e Máximo Divisor - CalculadoraOnlineBR",
+      `Calculadora de MMC e MDC ${SEO_YEAR}`,
     description:
-      "★ Calcule MMC e MDC com decomposição em fatores primos, métodos passo a passo e aplicações práticas. Ideal para estudos de matemática básica e frações.",
+      "Calcule MMC e MDC rápido e confiável. Fatoração completa com explicação passo a passo. Mínimo Múltiplo Comum e Máximo Divisor Comum grátis.",
     keywords:
       "calculadora mmc mdc, minimo multiplo comum, maximo divisor comum, fatores primos, decomposicao fatores, matematica basica, fracao, divisibilidade, algoritmo euclides",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/mmc-mdc",
@@ -275,9 +276,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "area-perimetro": {
     id: "area-perimetro",
-    title: "Calculadora de Área e Perímetro 2025 - Formas Geométricas - CalculadoraOnlineBR",
+    title: `Calculadora de Área e Perímetro ${SEO_YEAR}`,
     description:
-      "★ Calcule área e perímetro de formas geométricas com explicações passo a passo, fórmulas detalhadas e aplicações práticas para arquitetura, engenharia e construção.",
+      "Calcule área e perímetro de formas geométricas: retângulo, círculo, triângulo, quadrado. Fórmulas confiáveis para estudos e trabalhos.",
     keywords:
       "calculadora area perimetro, geometria, formas geometricas, triangulo, quadrado, retangulo, circulo, losango, trapezio, matematica geometria, arquitetura, engenharia",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/area-perimetro",
@@ -286,9 +287,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   volume: {
     id: "volume",
-    title: "Calculadora de Volume 2025 - Sólidos Geométricos 3D - CalculadoraOnlineBR",
+    title: `Calculadora de Volume ${SEO_YEAR}`,
     description:
-      "★ Calcule volume e área superficial de sólidos 3D como cubo, esfera, cilindro, cone e pirâmide com fórmulas passo a passo e aplicações práticas para engenharia e arquitetura.",
+      "Calcule volume de formas geométricas: cubo, esfera, cilindro, cone. Fórmulas confiáveis 3D para estudos matemáticos e trabalhos.",
     keywords:
       "calculadora volume, solidos geometricos, geometria espacial, cubo, esfera, cilindro, cone, piramide, prisma, area superficial, matematica 3d, engenharia, arquitetura",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/volume",
@@ -297,9 +298,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "teorema-pitagoras": {
     id: "teorema-pitagoras",
-    title: "Calculadora do Teorema de Pitágoras 2025 - Triângulos Retângulos - CalculadoraOnlineBR",
+    title: `Calculadora Teorema Pitágoras ${SEO_YEAR} CalculadoraOnlineBR`,
     description:
-      "★ Calcule hipotenusa, catetos e ângulos em triângulos retângulos com o Teorema de Pitágoras. Verificação de triângulos, trigonometria e triângulos famosos com explicações passo a passo.",
+      "Calcule hipotenusa e catetos de triângulos retângulos com Teorema Pitágoras. Fórmulas confiáveis e resultados instantâneos para estudos.",
     keywords:
       "calculadora teorema pitagoras, triangulo retangulo, hipotenusa, catetos, pitagoras, trigonometria, matematica geometria, triangulo 3 4 5, angulos triangulo",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/teorema-pitagoras",
@@ -309,9 +310,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   fracoes: {
     id: "fracoes",
     title:
-      "Calculadora de Frações 2025 - Somar, Subtrair, Multiplicar e Dividir Frações - CalculadoraOnlineBR",
+      `Calculadora de Frações ${SEO_YEAR}`,
     description:
-      "★ Calculadora de frações GRATUITA e completa! Some, subtraia, multiplique e divida frações com explicações passo a passo. Converta entre frações, decimais e números mistos. Simplifique frações automaticamente com métodos educativos.",
+      "Calculadora frações grátis: soma, subtração, multiplicação e divisão. Simplificação automática com resultados instantâneos.",
     keywords:
       "calculadora frações, somar frações, subtrair frações, multiplicar frações, dividir frações, simplificar frações, converter decimal fração, números mistos, matemática frações, educação matemática, frações equivalentes, denominador comum, numerador",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
@@ -320,9 +321,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   moda: {
     id: "moda",
-    title: "Calculadora de Moda 2025 - Cálculo Estatístico com Frequência - CalculadoraOnlineBR",
+    title: `Calculadora de Moda Estatística ${SEO_YEAR}`,
     description:
-      "★ Calculadora de moda estatística GRATUITA! Calcule amodal, bimodal, multimodal com tabela de frequências. Análise completa de tendência central com explicações passo a passo.",
+      "Calculadora moda estatística grátis. Calcule moda de números, identifique amodal, bimodal e multimodal com explicações passo a passo.",
     keywords:
       "calculadora moda, moda estatística, calcular moda, amodal bimodal multimodal, frequência dados, tendência central, estatística básica, medidas posição, análise dados",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/moda",
@@ -332,9 +333,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   media: {
     id: "media",
     title:
-      "Calculadora de Média Estatística 2025 - Aritmética, Geométrica e Harmônica - CalculadoraOnlineBR",
+      `Calculadora de Média Estatística ${SEO_YEAR}`,
     description:
-      "★ Calculadora de média estatística GRATUITA! Calcule média aritmética, geométrica e harmônica com análise completa. Desvio padrão, variância e medidas de tendência central com explicações detalhadas.",
+      "Calcule média aritmética, geométrica e harmônica com análise completa. Identifique tendência central e desvio padrão com explicações passo a passo.",
     keywords:
       "calculadora média, média aritmética, média geométrica, média harmônica, tendência central, desvio padrão, variância, estatística descritiva, análise dados, estatística básica, matemática estatística",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/media",
@@ -344,9 +345,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "desvio-padrao": {
     id: "desvio-padrao",
     title:
-      "Calculadora de Desvio Padrão 2025 - Populacional e Amostral com Variância - CalculadoraOnlineBR",
+      `Calculadora de Desvio Padrão ${SEO_YEAR}`,
     description:
-      "★ Calculadora de desvio padrão GRATUITA! Calcule desvio padrão populacional e amostral com variância. Análise de dispersão estatística completa com explicações passo a passo e interpretação dos resultados.",
+      "Calcule desvio padrão e variância grátis. Medidas de dispersão estatística com explicações passo a passo e fórmulas detalhadas.",
     keywords:
       "calculadora desvio padrão, desvio padrão populacional, desvio padrão amostral, variância, dispersão estatística, medidas variabilidade, correção Bessel, análise dados, estatística descritiva, sigma, estatística matemática, distribuição normal",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/desvio-padrao",
@@ -355,9 +356,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   fibonacci: {
     id: "fibonacci",
-    title: "Calculadora de Fibonacci 2025 - Sequência Dourada e Proporção Áurea - CalculadoraOnlineBR",
+    title: `Calculadora de Fibonacci ${SEO_YEAR} - Sequência Dourada`,
     description:
-      "★ Calculadora de Fibonacci GRATUITA! Explore a famosa sequência matemática, calcule termos específicos, visualize propriedades da proporção áurea e descubra a matemática presente na natureza.",
+      "Calculadora de Fibonacci grátis: gere a sequência, calcule qualquer termo e veja a proporção áurea na natureza, com explicação passo a passo.",
     keywords:
       "calculadora fibonacci, sequencia fibonacci, proporção aurea, razao aurea, fibonacci natureza, matematica fibonacci, sequencia dourada, espiral dourada, phi fibonacci, numeros fibonacci, leonardo fibonacci, matematica na natureza",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fibonacci",
@@ -367,9 +368,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "calculadora-cientifica": {
     id: "calculadora-cientifica",
     title:
-      "Calculadora Científica Online 2025 - Funções Avançadas e Trigonometria - CalculadoraOnlineBR",
+      `Calculadora Científica Online ${SEO_YEAR}`,
     description:
-      "★ Calculadora científica online GRATUITA! Funções trigonométricas (sin, cos, tan), logaritmos, exponenciais, raízes, fatorial, constantes (π, e) e operações com graus/radianos. Ideal para ENEM, vestibular e engenharia.",
+      "Calculadora científica online grátis com trigonometria, logaritmos, exponenciais, raízes e fatorial. Prática para estudantes e engenheiros.",
     keywords:
       "calculadora científica, calculadora científica online, trigonometria, seno cosseno tangente, logaritmo, exponencial, fatorial, raiz quadrada, calculadora ENEM, calculadora vestibular, pi, número de euler, radianos graus",
     canonicalUrl:
@@ -380,9 +381,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "sistemas-equacoes-lineares": {
     id: "sistemas-equacoes-lineares",
     title:
-      "Calculadora de Sistemas de Equações Lineares 2025 - Método de Gauss e Cramer - CalculadoraOnlineBR",
+      `Calculadora de Sistemas de Equações Lineares ${SEO_YEAR}`,
     description:
-      "★ Resolva sistemas de equações lineares GRATUITAMENTE! Métodos de Gauss, Cramer e substituição com passo a passo. Sistemas 2x2, 3x3 e n x n com matriz aumentada e interpretação geométrica.",
+      "Resolva sistemas de equações lineares 2x2 e 3x3 grátis pelos métodos de Gauss, Cramer e matriz inversa, com a solução passo a passo.",
     keywords:
       "sistema equações lineares, sistemas lineares, método Gauss, regra de Cramer, matriz aumentada, álgebra linear, sistema 2x2, sistema 3x3, substituição, escalonamento matrizes, determinante, ensino médio matemática",
     canonicalUrl:
@@ -393,9 +394,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   inequacoes: {
     id: "inequacoes",
     title:
-      "Calculadora de Inequações 2025 - 1º e 2º Grau com Resolução Passo a Passo - CalculadoraOnlineBR",
+      `Calculadora de Inequações 1º e 2º Grau ${SEO_YEAR}`,
     description:
-      "★ Resolva inequações de 1º e 2º grau GRATUITAMENTE! Estudo do sinal, intervalo solução, representação na reta numérica e em notação de conjunto. Ideal para ENEM e vestibulares.",
+      "✅ Resolva inequações de 1º e 2º grau GRÁTIS! Encontre intervalos e soluções com explicação passo a passo profissional.",
     keywords:
       "calculadora inequações, inequação primeiro grau, inequação segundo grau, estudo do sinal, intervalo solução, reta numérica, notação de conjunto, matemática ENEM, álgebra inequações, desigualdade",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/inequacoes",
@@ -405,9 +406,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "simplificador-funcoes-algebricas": {
     id: "simplificador-funcoes-algebricas",
     title:
-      "Simplificador de Funções Algébricas 2025 - Polinômios e Expressões - CalculadoraOnlineBR",
+      `Simplificador de Expressões Algébricas e Fatoração ${SEO_YEAR}`,
     description:
-      "★ Simplificador de expressões algébricas GRATUITO! Fatore, expanda e simplifique polinômios, frações algébricas e expressões com variáveis. Mostra passo a passo educativo.",
+      "✅ Simplifique expressões algébricas GRÁTIS! Fatoração automática, termos semelhantes e explicação passo a passo. Teste agora!",
     keywords:
       "simplificador algébrico, simplificar expressões, fatoração polinômios, expansão polinomial, fração algébrica, polinômios, álgebra, simplificar variáveis, matemática ENEM, expressão literal",
     canonicalUrl:
@@ -419,9 +420,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Astrology Calculators
   "ascendente-astrologico": {
     id: "ascendente-astrologico",
-    title: "Calculadora de Ascendente Astrológico 2025 - Mapa Astral - CalculadoraOnlineBR",
+    title: "Calcular Ascendente Grátis: Hora Nascimento + Mapa Astral",
     description:
-      "★ Descubra seu signo ascendente GRATUITAMENTE! Calcule seu ascendente astrológico usando data, hora e local de nascimento. Entenda como você se apresenta ao mundo na astrologia natal.",
+      "Calcule seu ascendente grátis com data, hora exata e local de nascimento. Descubra seu signo ascendente e o que ele revela no seu mapa astral.",
     keywords:
       "calculadora ascendente, ascendente astrológico, signo ascendente, mapa astral, astrologia natal, ascendente capricórnio, ascendente leão, calcular ascendente, hora nascimento, astrologia",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/ascendente",
@@ -430,9 +431,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   signo: {
     id: "signo",
-    title: "Descubra Seu Signo 2025 - Signo do Zodíaco por Data de Nascimento - CalculadoraOnlineBR",
+    title: `Descobrir Meu Signo Grátis: Qual Signo Zodiacal ${SEO_YEAR}`,
     description:
-      "★ Descubra seu signo zodiacal GRATUITAMENTE! Identifique seu signo solar pela data de nascimento e conheça características, elementos e personalidade na astrologia.",
+      "🌟 Descubra seu Signo Solar GRÁTIS! Qual meu signo do zodíaco? Análise completa de personalidade, amor, carreira e compatibilidade - só com data nascimento.",
     keywords:
       "calculadora signo, descobrir signo, signo do zodíaco, signo data nascimento, áries, touro, gêmeos, câncer, leão, virgem, libra, escorpião, sagitário, capricórnio, aquário, peixes, signo solar",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
@@ -441,9 +442,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "compatibilidade-signos": {
     id: "compatibilidade-signos",
-    title: "Compatibilidade de Signos 2025 - Teste Astrológico para Amor - CalculadoraOnlineBR",
+    title: `Compatibilidade Signos Amor: Teste Grátis Sinastria ${SEO_YEAR}`,
     description:
-      "★ Teste a compatibilidade entre signos GRATUITAMENTE! Análise astrológica completa para amor, amizade e trabalho. Descubra a química entre você e seu par com dicas personalizadas.",
+      `🔮 Teste Compatibilidade Signos GRÁTIS! Descubra sinastria amorosa, signos que combinam no amor e amizade. Análise percentual completa - Brasil ${SEO_YEAR}.`,
     keywords:
       "compatibilidade signos, teste compatibilidade amor, sinastria, signos compatíveis, sinastria amorosa, compatibilidade astrológica, par perfeito, química signos, relacionamento astrologia",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/compatibilidade-signos",
@@ -452,9 +453,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   numerologia: {
     id: "numerologia",
-    title: "Calculadora de Numerologia 2025 - Número da Vida e Destino - CalculadoraOnlineBR",
+    title: "Numerologia Online Grátis",
     description:
-      "★ Calculadora de numerologia GRATUITA! Descubra seus números da vida, personalidade, destino e alma com interpretações detalhadas baseadas em nome completo e data de nascimento.",
+      "Calculadora de numerologia pitagórica grátis: descubra seus números da vida, destino, personalidade e alma pelo nome e pela data de nascimento.",
     keywords:
       "calculadora numerologia, numero da vida, numero destino, numerologia cabalística, numerologia nome, numerologia data nascimento, numero pessoal, numero alma, mapa numerológico",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/numerologia",
@@ -465,9 +466,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Date Calculators
   "diferenca-entre-datas": {
     id: "diferenca-entre-datas",
-    title: "Calculadora de Diferença entre Datas 2025 - Idade e Dias Úteis - CalculadoraOnlineBR",
+    title: "Calculadora de Diferença entre Datas",
     description:
-      "★ Calculadora de diferença entre datas GRATUITA! Calcule diferença em anos, meses, dias, horas e minutos. Inclui contagem de dias úteis, feriados e cálculo de idade.",
+      "Calcule diferenças entre datas em anos, meses e dias. Descubra sua idade exata, dias úteis e intervalos temporais com nossa calculadora grátis.",
     keywords:
       "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade",
     canonicalUrl:
@@ -477,9 +478,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "contagem-regressiva": {
     id: "contagem-regressiva",
-    title: "Calculadora de Contagem Regressiva 2025 - Contador Personalizado - CalculadoraOnlineBR",
+    title: "Contagem Regressiva Online Grátis",
     description:
-      "★ Contagem regressiva GRATUITA para eventos especiais! Contador personalizado em anos, meses, dias, horas, minutos e segundos. Para aniversários, casamentos, viagens e mais.",
+      "Contador regressivo online grátis para eventos: anos, meses, dias, horas, minutos e segundos em tempo real. Crie sua contagem regressiva agora.",
     keywords:
       "contagem regressiva, contador regressivo, contador eventos, contagem dias, contador aniversário, contador casamento, tempo até evento, calculadora dias, countdown timer",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/contagem-regressiva",
@@ -488,9 +489,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "operacao-datas": {
     id: "operacao-datas",
-    title: "Calculadora de Operações entre Datas 2025 - Somar e Subtrair Datas - CalculadoraOnlineBR",
+    title: "Somar dias em datas",
     description:
-      "★ Some ou subtraia anos, meses e dias de qualquer data GRATUITAMENTE! Descubra datas futuras e passadas com precisão. Útil para prazos, vencimentos e planejamento.",
+      "➕➖ Some ou subtraia anos, meses e dias de qualquer data! Calcule datas futuras e passadas com precisão. Ferramenta gratuita e fácil de usar.",
     keywords:
       "calculadora operação datas, somar datas, subtrair datas, adicionar dias, calcular data futura, data passada, prazos, vencimento data, planejamento datas",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/operacao-datas",
@@ -499,9 +500,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "idade-exata": {
     id: "idade-exata",
-    title: "Calculadora de Idade Exata 2025 - Anos, Meses, Dias e Tempo Real - CalculadoraOnlineBR",
+    title: "Calculadora de Idade Online",
     description:
-      "★ Calculadora de idade exata GRATUITA! Calcule sua idade em anos, meses, dias com contador em tempo real. Descubra quantos dias você viveu e quando será seu próximo aniversário.",
+      "🎂 Calcule sua idade exata em anos, meses e dias! Com contador em tempo real de horas, minutos e segundos. Calculadora de idade gratuita e precisa.",
     keywords:
       "calculadora idade, idade exata, calcular idade, idade em dias, idade em meses, próximo aniversário, contador idade, idade tempo real, anos meses dias",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/idade-exata",
@@ -510,9 +511,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "dias-uteis": {
     id: "dias-uteis",
-    title: "Calculadora de Dias Úteis 2025 - Feriados Nacionais Incluídos - CalculadoraOnlineBR",
+    title: `Calculadora de Dias Úteis ${SEO_YEAR}`,
     description:
-      "★ Calculadora de dias úteis GRATUITA! Conte dias úteis entre datas considerando feriados nacionais brasileiros, Carnaval, Páscoa e emendas. Calendário 2025 atualizado.",
+      `Calcule dias úteis entre datas com feriados nacionais brasileiros! Inclui Carnaval, Páscoa, emendas e pontes. Algoritmo Gauss preciso ${SEO_YEAR}.`,
     keywords:
       "calculadora dias úteis, dias úteis entre datas, feriados nacionais 2025, contar dias úteis, calendário trabalhista, carnaval feriado, páscoa feriado, dias úteis prazo",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/dias-uteis",
@@ -524,9 +525,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "gerador-cpf": {
     id: "gerador-cpf",
     title:
-      "Gerador de CPF 2025 - Válido com/sem Pontuação + Cópia Automática - CalculadoraOnlineBR",
+      "Gerador de CPF Online",
     description:
-      "★ Gerador de CPF GRATUITO e válido para testes e desenvolvimento! Gere CPFs com ou sem pontuação, cópia automática para área de transferência. Algoritmo da Receita Federal com validação matemática completa.",
+      "Gere CPF válido grátis com ou sem pontuação. Ferramenta para testes e desenvolvimento com cópia automática. Geração instantânea e confiável.",
     keywords:
       "gerador CPF, CPF válido, CPF teste, CPF desenvolvimento, CPF sem pontuação, CPF formatado, validador CPF, algoritmo CPF, dígitos verificadores, CPF falso, teste sistema, Receita Federal, CPF brasileiro, ferramenta CPF",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cpf",
@@ -536,9 +537,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "gerador-cnpj": {
     id: "gerador-cnpj",
     title:
-      "Gerador de CNPJ 2025 - Válido com/sem Pontuação + Cópia Automática - CalculadoraOnlineBR",
+      "Gerador de CNPJ Online",
     description:
-      "★ Gerador de CNPJ GRATUITO e válido para testes! Gere CNPJs com ou sem máscara, dígitos verificadores corretos pelo algoritmo da Receita Federal. Ideal para QA, desenvolvimento e homologação.",
+      "Gere CNPJ válido grátis com ou sem pontuação. Ferramenta para testes e desenvolvimento com cópia automática. Geração instantânea e confiável.",
     keywords:
       "gerador CNPJ, CNPJ válido, CNPJ teste, CNPJ desenvolvimento, CNPJ sem pontuação, CNPJ formatado, validador CNPJ, algoritmo CNPJ, dígitos verificadores CNPJ, CNPJ falso, teste sistema, Receita Federal, CNPJ brasileiro, ferramenta CNPJ",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cnpj",
@@ -547,9 +548,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "validar-cpf": {
     id: "validar-cpf",
-    title: "Validador de CPF 2025 - Verificação Online Instantânea - CalculadoraOnlineBR",
+    title: "Validar CPF Online",
     description:
-      "★ Validador de CPF GRATUITO e instantâneo! Verifique se um CPF é matematicamente válido com base nos dígitos verificadores da Receita Federal. Identifica CPFs inválidos e sequências repetidas.",
+      "Valide CPF grátis com ou sem pontuação. Ferramenta para verificar se CPF é válido com algoritmo da Receita Federal. Validação instantânea e confiável.",
     keywords:
       "validador CPF, validar CPF, verificar CPF, CPF válido, CPF inválido, dígito verificador CPF, algoritmo CPF, conferir CPF, checar CPF, Receita Federal, autenticidade CPF, ferramenta validação",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cpf",
@@ -558,9 +559,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "validar-cnpj": {
     id: "validar-cnpj",
-    title: "Validador de CNPJ 2025 - Verificação Online Instantânea - CalculadoraOnlineBR",
+    title: "Validar CNPJ Online",
     description:
-      "★ Validador de CNPJ GRATUITO e instantâneo! Verifique se um CNPJ é matematicamente válido pelos dígitos verificadores da Receita Federal. Detecta CNPJs inválidos e sequências repetidas.",
+      "Valide CNPJ grátis com ou sem pontuação. Ferramenta para verificar se CNPJ é válido com algoritmo da Receita Federal. Validação instantânea e confiável.",
     keywords:
       "validador CNPJ, validar CNPJ, verificar CNPJ, CNPJ válido, CNPJ inválido, dígito verificador CNPJ, algoritmo CNPJ, conferir CNPJ, checar CNPJ, Receita Federal, autenticidade CNPJ, ferramenta validação",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
@@ -570,9 +571,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "contador-caracteres": {
     id: "contador-caracteres",
     title:
-      "Contador de Caracteres, Palavras e Linhas 2025 - Online Gratuito - CalculadoraOnlineBR",
+      "Contador de Caracteres Online",
     description:
-      "★ Contador de caracteres GRATUITO e em tempo real! Conte caracteres com e sem espaços, palavras, frases, linhas e parágrafos. Ideal para Twitter, redações, SEO, meta descriptions e textos acadêmicos.",
+      "Contador de caracteres gratuito com análise detalhada. Conte letras, palavras, frases e veja estatísticas avançadas. Opções para ignorar espaços e pontuação.",
     keywords:
       "contador caracteres, contar caracteres, contar palavras, contador palavras, contador linhas, contador frases, contador parágrafos, caracteres twitter, redação enem, meta description, SEO texto, contador online",
     canonicalUrl:
@@ -583,9 +584,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "gerador-cartao-credito": {
     id: "gerador-cartao-credito",
     title:
-      "Gerador de Cartão de Crédito Válido 2025 - Visa, Master, Amex (Teste) - CalculadoraOnlineBR",
+      "Gerador Cartão de Crédito Online",
     description:
-      "★ Gerador de números de cartão de crédito GRATUITO para testes! Visa, MasterCard, Amex, Elo, Hipercard. Números válidos pelo algoritmo de Luhn — apenas para QA, desenvolvimento e homologação.",
+      "Gere números de cartão de crédito válidos para testes de software: Visa, Mastercard, American Express e outras bandeiras. Uso só educacional.",
     keywords:
       "gerador cartão crédito, número cartão válido, cartão teste, cartão desenvolvimento, algoritmo Luhn, visa teste, mastercard teste, amex teste, elo teste, hipercard teste, BIN cartão, número falso cartão, QA pagamento",
     canonicalUrl:
@@ -595,9 +596,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "gerador-uuid-guid": {
     id: "gerador-uuid-guid",
-    title: "Gerador de UUID / GUID v4 2025 - Identificadores Únicos - CalculadoraOnlineBR",
+    title: "Gerador de UUID GUID Online",
     description:
-      "★ Gerador de UUID/GUID GRATUITO! Crie identificadores únicos universais v4 (RFC 4122) em lote, com ou sem hífens. Ideal para chaves primárias, tokens, banco de dados e integrações.",
+      "Gerador de UUID/GUID grátis: versões v1, v4 e v5, lotes de até 1000 e saída em JS, SQL, MongoDB, Python e Base64, com cópia em um clique.",
     keywords:
       "gerador UUID, gerador GUID, UUID v4, GUID v4, identificador único, RFC 4122, UUID online, GUID online, chave primária, token único, hash aleatório, UUID lote, GUID lote",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-uuid-guid",
@@ -607,9 +608,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "sorteador-online": {
     id: "sorteador-online",
     title:
-      "Sorteador Online Grátis 2025 - Números, Nomes, Listas e Times - CalculadoraOnlineBR",
+      "Sorteador Online Profissional | Múltiplos Resultados",
     description:
-      "★ Sorteador online GRATUITO e imparcial! Sorteie números aleatórios, nomes, listas e times. Ideal para rifas, brincadeiras, lives, sorteios no Instagram e divisão de equipes.",
+      "Sorteador online com algoritmo aleatório garantido. Sorteie múltiplos resultados, nomes, objetos e listas com animação profissional. 100% gratuito e confiável.",
     keywords:
       "sorteador online, sorteio números, sorteio nomes, sorteio listas, sorteador times, sorteador grátis, sorteio aleatório, rifa online, sorteio instagram, sorteio live, gerador números aleatórios",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/sorteador-online",
@@ -619,9 +620,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "gerador-senha-segura": {
     id: "gerador-senha-segura",
     title:
-      "Gerador de Senha Segura 2025 - Criação de Senhas Fortes Online - CalculadoraOnlineBR",
+      `Gerador de Senhas Seguras ${SEO_YEAR}`,
     description:
-      "★ Gerador de senhas fortes GRATUITO! Crie senhas seguras com letras, números, símbolos e tamanho personalizável. Avalia entropia, força e exibe medidor visual em tempo real.",
+      "🔐 Gerador de senhas seguras GRATUITO! Crie senhas personalizáveis com análise de força, cópia automática e controle total de caracteres. Teste agora!",
     keywords:
       "gerador senha, senha segura, senha forte, gerador senha aleatória, criar senha, senha online, força senha, entropia senha, senha caracteres especiais, password generator, segurança digital, senha banco",
     canonicalUrl:
@@ -631,9 +632,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "clicks-por-segundo": {
     id: "clicks-por-segundo",
-    title: "Teste de Clicks por Segundo (CPS) 2025 - Velocidade do Mouse - CalculadoraOnlineBR",
+    title: `Teste CPS ${SEO_YEAR}: Clicks Por Segundo Grátis`,
     description:
-      "★ Teste de Clicks por Segundo (CPS) GRATUITO! Meça quantos clicks você faz em 1, 5, 10, 30 e 60 segundos. Ideal para gamers, Minecraft PvP, Fortnite e treinos de velocidade.",
+      `Teste sua velocidade de clique com CPS (Clicks Por Segundo) ${SEO_YEAR}. Análise avançada, rankings dinâmicos e métricas detalhadas. Teste grátis agora!`,
     keywords:
       "clicks por segundo, CPS test, teste cps, velocidade mouse, click test, jitter click, butterfly click, drag click, cps minecraft, gamer cps, contador clicks, teste velocidade clique",
     canonicalUrl:
@@ -644,9 +645,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "carro-eletrico-combustao": {
     id: "carro-eletrico-combustao",
     title:
-      "Carro Elétrico vs Combustão 2025 - Comparativo Econômico Anual - CalculadoraOnlineBR",
+      `Calculadora: Carro Elétrico vs Combustão ${SEO_YEAR}`,
     description:
-      "★ Calculadora carro elétrico vs combustão GRATUITA! Compare custo por km, manutenção, IPVA e consumo anual entre veículos elétricos, híbridos, gasolina e etanol. Descubra qual vale mais a pena.",
+      "Compare o custo de um carro elétrico com um a combustão: payback, economia por perfil de uso, equivalência em litros e impacto ambiental.",
     keywords:
       "carro elétrico vs combustão, comparativo carro elétrico, custo carro elétrico, economia carro elétrico, gasolina vs elétrico, consumo veículo, custo por km, manutenção carro, IPVA elétrico, mobilidade sustentável",
     canonicalUrl:
@@ -657,9 +658,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "economia-energia-eletrica": {
     id: "economia-energia-eletrica",
     title:
-      "Calculadora de Economia de Energia Elétrica 2025 - Reduza sua Conta - CalculadoraOnlineBR",
+      `Calculadora de Economia de Energia Elétrica ${SEO_YEAR}`,
     description:
-      "★ Calculadora de economia de energia elétrica GRATUITA! Simule trocas de aparelhos por modelos mais eficientes (LED, inverter, A++) e descubra quanto pode economizar por mês e por ano na conta de luz.",
+      "Calcule quanto dá para economizar na conta de luz: consumo por aparelho, troca para LED, bandeiras tarifárias e energia solar. Simulação grátis.",
     keywords:
       "economia energia elétrica, reduzir conta luz, aparelho eficiente, lâmpada LED economia, geladeira inverter, ar condicionado A++, simulador economia energia, eficiência energética, ANEEL, kWh economia",
     canonicalUrl:
@@ -670,9 +671,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "consumo-energia-eletrica": {
     id: "consumo-energia-eletrica",
     title:
-      "Calculadora de Consumo de Energia Elétrica 2025 - kWh, Watts e Conta de Luz - CalculadoraOnlineBR",
+      `Calculadora de Consumo de Energia Elétrica ${SEO_YEAR}`,
     description:
-      "★ Calculadora de consumo de energia elétrica GRATUITA! Calcule kWh consumidos por aparelho, custo mensal na conta de luz e estime sua conta com base na tarifa local (ANEEL).",
+      "Calcule o consumo de cada aparelho em kWh/mês e quanto ele pesa na conta de luz, com simulação de standby e mais de 50 aparelhos cadastrados.",
     keywords:
       "calculadora consumo energia, kwh aparelho, consumo elétrico, conta de luz, watts hora, tarifa ANEEL, custo eletrodoméstico, geladeira consumo, chuveiro consumo, ar condicionado consumo, conta luz mensal",
     canonicalUrl:
@@ -683,9 +684,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "conversor-unidades": {
     id: "conversor-unidades",
     title:
-      "Conversor de Unidades 2025 - Comprimento, Peso, Volume, Temperatura - CalculadoraOnlineBR",
+      "Conversor de Unidades Online",
     description:
-      "★ Conversor de unidades GRATUITO e completo! Converta comprimento, peso, volume, temperatura, área, velocidade e mais. Sistema métrico e imperial, com precisão decimal personalizável.",
+      "Conversor de unidades com 17 categorias: comprimento, massa, volume, área, temperatura, velocidade, dados, energia, pressão e mais. Na hora.",
     keywords:
       "conversor unidades, conversão medidas, metro pés, kg lb, litros galões, celsius fahrenheit, km milha, m2 ft2, conversor temperatura, conversor peso, conversor volume, sistema métrico, sistema imperial",
     canonicalUrl:
@@ -698,9 +699,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "gerador-mega-sena": {
     id: "gerador-mega-sena",
     title:
-      "Gerador de Mega-Sena 2025 - Jogos Aleatórios com Estatísticas - CalculadoraOnlineBR",
+      "Gerador de Mega-Sena Grátis com Estratégias",
     description:
-      "★ Gerador de Mega-Sena GRATUITO! Gere jogos aleatórios de 6 a 15 dezenas com análise estatística, números mais e menos sorteados, ímpares/pares e probabilidade de acerto.",
+      "Gerador de jogos da Mega-Sena grátis com estratégias de frequência, paridade, soma e consecutivos. Gere jogos equilibrados e salve no histórico.",
     keywords:
       "gerador mega sena, jogos mega sena, números aleatórios mega sena, dezenas mega sena, gerador loteria, surpresinha, probabilidade mega sena, números quentes mega sena, números frios mega sena, Caixa loterias",
     canonicalUrl:
@@ -711,9 +712,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "gerador-lotofacil": {
     id: "gerador-lotofacil",
     title:
-      "Gerador de Lotofácil 2025 - Jogos Inteligentes com Estatísticas - CalculadoraOnlineBR",
+      "Gerador de Lotofácil Grátis com Estratégias",
     description:
-      "★ Gerador de Lotofácil GRATUITO! Crie jogos de 15 a 20 dezenas com estatísticas, números repetidos do concurso anterior, ímpares/pares e moldura/miolo para aumentar suas chances.",
+      "Gerador de jogos da Lotofácil grátis com estratégias de frequência, paridade e filtros estatísticos. Gere 15 números equilibrados em um clique.",
     keywords:
       "gerador lotofácil, jogos lotofácil, números aleatórios lotofácil, dezenas lotofácil, gerador loteria, surpresinha lotofácil, probabilidade lotofácil, moldura miolo lotofácil, números quentes lotofácil, Caixa loterias",
     canonicalUrl:
@@ -723,9 +724,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "gerador-quina": {
     id: "gerador-quina",
-    title: "Gerador de Quina 2025 - Jogos Aleatórios com Estatísticas - CalculadoraOnlineBR",
+    title: "Gerador de Quina Grátis com Estratégias",
     description:
-      "★ Gerador de Quina GRATUITO! Gere jogos de 5 a 15 dezenas com análise estatística de números quentes e frios, ímpares/pares e probabilidade de acerto na Quina da Caixa.",
+      "Gerador de jogos da Quina grátis com estratégias de frequência, paridade e filtros matemáticos. Gere 5 números equilibrados e salve no histórico.",
     keywords:
       "gerador quina, jogos quina, números aleatórios quina, dezenas quina, gerador loteria, surpresinha quina, probabilidade quina, números quentes quina, números frios quina, Caixa loterias",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/loterias/gerador-quina",
@@ -736,7 +737,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Betting Calculators
   "criterio-de-kelly": {
     id: "criterio-de-kelly",
-    title: "Calculadora de Gestão de Banca (Critério de Kelly) – Grátis 2026 | CalculadoraOnlineBR",
+    title: `Calculadora do Critério de Kelly para Apostas ${SEO_YEAR}`,
     description:
       "Descubra quanto apostar com a calculadora de Kelly: stake ideal, Half e Quarter Kelly, valor esperado (EV+) e limite de segurança. Grátis e sem cadastro.",
     keywords:
@@ -747,7 +748,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "valor-esperado": {
     id: "valor-esperado",
-    title: "Calculadora de Valor Esperado (EV+) – Odds de Valor Grátis 2026 | CalculadoraOnlineBR",
+    title: `Calculadora de Valor Esperado (EV+) para Apostas ${SEO_YEAR}`,
     description:
       "Calcule o valor esperado (EV) da sua aposta em reais e em %, descubra a odd justa e veja a projeção da banca em 100 apostas. Grátis e sem cadastro.",
     keywords:
@@ -758,7 +759,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   surebet: {
     id: "surebet",
-    title: "Calculadora de Surebet (Arbitragem) – Apostas Seguras 2 e 3 Vias 2026 | CalculadoraOnlineBR",
+    title: `Calculadora de Surebet (Arbitragem) 2 e 3 Vias ${SEO_YEAR}`,
     description:
       "Calcule surebets de 2 e 3 resultados: margem de arbitragem, lucro garantido, ROI e quanto apostar em cada casa. Com dica de stakes arredondadas. Grátis.",
     keywords:
@@ -769,9 +770,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   dutching: {
     id: "dutching",
-    title: "Calculadora de Dutching – Lucro Igual em Várias Seleções Grátis 2026 | CalculadoraOnlineBR",
+    title: `Calculadora de Dutching ${SEO_YEAR}: Lucro Igual em Várias Seleções`,
     description:
-      "Calcule o dutching: quanto apostar em cada seleção para ter o mesmo lucro qualquer que seja a vencedora. Até 10 seleções, ROI, cobertura e alerta de prejuízo. Grátis.",
+      "Calcule quanto apostar em cada seleção no dutching para ter o mesmo lucro, seja qual for a vencedora. Até 10 seleções, com ROI e alerta de prejuízo.",
     keywords:
       "calculadora dutching, dutching apostas, como fazer dutching, calculadora de dutching, dutching placar exato, retornos iguais apostas, dividir aposta em várias seleções, odd equivalente, dutching calculator",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/dutching",
@@ -783,9 +784,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "rescisao-trabalhista": {
     id: "rescisao-trabalhista",
     title:
-      "Calculadora de Rescisão Trabalhista 2025 - Direitos Trabalhistas Completos - CalculadoraOnlineBR",
+      `Calculadora de Rescisão Trabalhista ${SEO_YEAR}`,
     description:
-      "★ Calculadora de rescisão trabalhista GRATUITA e completa! Calcule valores de demissão sem justa causa, com justa causa, pedido de demissão e acordo mútuo. Inclui FGTS, seguro desemprego, férias, 13º e todos os direitos trabalhistas.",
+      `Calcule rescisão trabalhista ${SEO_YEAR}: demissão, acordo mútuo, FGTS, seguro desemprego e direitos CLT. Valores atualizados.`,
     keywords:
       "calculadora rescisão trabalhista, demissão sem justa causa, demissão com justa causa, acordo mútuo, pedido demissão, direitos trabalhistas, FGTS multa 40%, seguro desemprego, aviso prévio, férias proporcionais, 13º salário proporcional, cálculo rescisão, trabalhista CLT",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/rescisao",
@@ -794,9 +795,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   aposentadoria: {
     id: "aposentadoria",
-    title: "Calculadora de Aposentadoria 2025 - INSS + Previdência Privada - CalculadoraOnlineBR",
+    title: `Calculadora de Aposentadoria INSS ${SEO_YEAR}`,
     description:
-      "★ Simulador de aposentadoria GRATUITO e completo! Planeje INSS + previdência privada, calcule tempo para aposentar, valores de benefício e estratégias otimizadas. Ferramenta essencial para seu planejamento previdenciário com cenários personalizados.",
+      `Simule aposentadoria INSS ${SEO_YEAR}: idade, pontos, pedágio 50% e 100%. Compare modalidades e descubra a melhor opção de aposentadoria.`,
     keywords:
       "calculadora aposentadoria, simulador aposentadoria inss, previdencia privada, tempo para aposentar, beneficio inss, planejamento previdenciario, aposentadoria idade, aposentadoria tempo contribuicao, factor previdenciario, regras transicao, PGBL, VGBL, reforma previdencia",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/aposentadoria",
@@ -806,9 +807,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "auxilio-doenca": {
     id: "auxilio-doenca",
     title:
-      "Calculadora de Auxílio-Doença INSS 2025 - Valor do Benefício e Carência - CalculadoraOnlineBR",
+      `Calculadora de Auxílio-Doença INSS ${SEO_YEAR}`,
     description:
-      "★ Calculadora de auxílio-doença INSS GRATUITA! Calcule o valor do benefício, verifique carência automaticamente, aplica isenções para doenças graves e acidentes conforme legislação 2025.",
+      `Calcule auxílio-doença INSS ${SEO_YEAR}: valor do benefício, verificação carência e isenções. Regras atualizadas e resultado instantâneo.`,
     keywords:
       "calculadora auxilio doenca, auxilio doenca inss, valor auxilio doenca, carencia auxilio doenca, beneficio inss doenca, afastamento trabalho, incapacidade temporaria, doenças graves isenção, acidente trabalho, legislação 2025 inss, pericia medica, auxilio incapacidade",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/auxilio-doenca",
@@ -818,9 +819,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "salario-liquido": {
     id: "salario-liquido",
     title:
-      "Calculadora de Salário Líquido 2025 - INSS, IRRF, CLT e PJ - CalculadoraOnlineBR",
+      `Calculadora de Salário Líquido ${SEO_YEAR}`,
     description:
-      "★ Calculadora de salário líquido 2025 GRATUITA! Use tabelas oficiais de INSS e IRRF, suporta CLT, PJ, dependentes, horas extras e descontos personalizados. Cálculo em tempo real.",
+      `Calcule salário líquido ${SEO_YEAR}: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo.`,
     keywords:
       "calculadora salário líquido, salário líquido 2025, INSS 2025, IRRF 2025, tabela INSS, tabela IRRF, salário CLT, salário PJ, dependentes IR, desconto INSS, simulador salário, contracheque, holerite",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
@@ -830,9 +831,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "ferias-decimo-terceiro": {
     id: "ferias-decimo-terceiro",
     title:
-      "Calculadora de Férias e 13º Salário 2025 - INSS, IRRF e Abono - CalculadoraOnlineBR",
+      `Calculadora de Férias e 13º Salário ${SEO_YEAR}`,
     description:
-      "★ Calculadora de férias e décimo terceiro salário GRATUITA com tabelas oficiais 2025! Inclui INSS, IRRF, abono pecuniário (1/3), adiantamento e regras da CLT.",
+      `Calcule férias e 13º salário ${SEO_YEAR}: valores líquidos, INSS, IRRF e abono pecuniário. Calculadora atualizada conforme CLT brasileira.`,
     keywords:
       "calculadora férias, calculadora décimo terceiro, 13º salário 2025, férias proporcionais, abono pecuniário, terço constitucional férias, adiantamento 13, primeira parcela 13, segunda parcela 13, INSS férias, IRRF férias, CLT férias",
     canonicalUrl:
@@ -840,12 +841,22 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.9,
     changeFreq: "monthly",
   },
+  "decimo-terceiro": {
+    id: "decimo-terceiro",
+    title: `Calculadora de 13º Salário ${SEO_YEAR}: Líquido e Parcelas`,
+    description: `Calcule o 13º salário ${SEO_YEAR} líquido: 1ª parcela até 30/11, 2ª até 20/12, proporcional aos meses, com INSS, IRRF e isenção de IR até R$ 5 mil.`,
+    keywords:
+      "calculadora 13º salário, décimo terceiro, 13º proporcional, primeira parcela 13º, segunda parcela 13º, desconto INSS 13º, IR 13º salário",
+    canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/decimo-terceiro",
+    priority: 0.9,
+    changeFreq: "monthly",
+  },
   "horas-extras": {
     id: "horas-extras",
     title:
-      "Calculadora de Horas Extras CLT 2025 - 50%, 100% e Adicional Noturno - CalculadoraOnlineBR",
+      `Calculadora de Horas Extras CLT ${SEO_YEAR}`,
     description:
-      "★ Calculadora de horas extras CLT GRATUITA! Calcule adicional de 50% (dia útil), 100% (domingo/feriado) e 20% noturno conforme CLT Art. 59. Reflexos em DSR, férias e 13º.",
+      `Calcule horas extras CLT ${SEO_YEAR}: adicional 50% dias úteis, 100% domingos/feriados, 20% noturno. Resultado instantâneo e educativo.`,
     keywords:
       "calculadora horas extras, horas extras CLT, adicional 50%, adicional 100%, adicional noturno 20%, CLT Art 59, hora extra domingo, hora extra feriado, DSR sobre hora extra, jornada trabalho, banco de horas",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/horas-extras",
@@ -854,7 +865,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   multipla: {
     id: "multipla",
-    title: "Calculadora de Apostas Múltiplas (Acumulada) – Odd Combinada Grátis 2026 | CalculadoraOnlineBR",
+    title: `Calculadora de Apostas Múltiplas (Acumulada) ${SEO_YEAR}`,
     description:
       "Calcule a odd combinada, o retorno e a chance de acertar sua aposta múltipla de até 20 seleções. Veja como a margem da casa se acumula. Grátis e sem cadastro.",
     keywords:
@@ -865,7 +876,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "gestao-de-banca": {
     id: "gestao-de-banca",
-    title: "Calculadora de Gestão de Banca por Unidades – Stake Fixa e Percentual 2026 | CalculadoraOnlineBR",
+    title: `Gestão de Banca para Apostas: Stake Fixa e Percentual ${SEO_YEAR}`,
     description:
       "Calcule o valor da unidade e quanto apostar por jogo conforme seu perfil de risco. Simule sequências de derrotas e compare stake fixa e percentual. Grátis.",
     keywords:
@@ -876,7 +887,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "conversor-de-odds": {
     id: "conversor-de-odds",
-    title: "Conversor de Odds – Decimal, Fracionária, Americana e Probabilidade Grátis 2026 | CalculadoraOnlineBR",
+    title: `Conversor de Odds: Decimal, Fracionária e Americana ${SEO_YEAR}`,
     description:
       "Converta odds decimais, fracionárias e americanas e descubra a probabilidade implícita. Inclui tabela de conversão das odds mais comuns. Grátis e sem cadastro.",
     keywords:
@@ -887,7 +898,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   hedge: {
     id: "hedge",
-    title: "Calculadora de Hedge e Cash Out – Proteja sua Aposta Grátis 2026 | CalculadoraOnlineBR",
+    title: `Calculadora de Hedge e Cash Out para Apostas ${SEO_YEAR}`,
     description:
       "Calcule quanto apostar no resultado contrário para garantir lucro ou recuperar sua aposta, e compare o hedge com o cash out oferecido pela casa. Grátis.",
     keywords:
@@ -898,14 +909,63 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   poisson: {
     id: "poisson",
-    title: "Calculadora de Poisson para Futebol – Probabilidade de Placar Grátis 2026 | CalculadoraOnlineBR",
+    title: `Calculadora de Poisson para Futebol: Placar Exato ${SEO_YEAR}`,
     description:
-      "Calcule a probabilidade de cada placar, do 1X2, de mais/menos gols e de ambos marcam com a distribuição de Poisson, e veja as odds justas para comparar com o mercado. Grátis.",
+      "Calcule pela distribuição de Poisson a probabilidade de cada placar, do 1X2, de mais/menos gols e de ambos marcam, com a odd justa de cada mercado.",
     keywords:
       "calculadora poisson, poisson futebol, distribuição de poisson futebol, probabilidade de placar, calculadora placar exato, odd justa, probabilidade 1x2, over 2.5 probabilidade, ambos marcam probabilidade, modelo de poisson apostas",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/apostas/poisson",
     priority: 0.8,
     changeFreq: "monthly",
+  },
+};
+
+/** Título (sem a marca) e descrição das páginas de categoria, usados por buildCategoryMeta. */
+export const CATEGORY_SEO_DATA: Record<string, { title: string; description: string }> = {
+  ferramentas: {
+    title: "Ferramentas Online Grátis: CPF, CNPJ, UUID e Conversores",
+    description:
+      "Ferramentas práticas gratuitas para desenvolvedores e uso diário. Gere CPF, CNPJ, UUID/GUID, validadores, contador de caracteres e cálculos de datas.",
+  },
+  trabalhista: {
+    title: `Calculadoras Trabalhistas ${SEO_YEAR}`,
+    description:
+      `Calculadoras trabalhistas grátis: rescisão, férias, 13º salário, auxílio-doença e aposentadoria. Ferramentas baseadas na CLT atualizada ${SEO_YEAR}.`,
+  },
+  astrologia: {
+    title: `Calculadora Astrológica Grátis ${SEO_YEAR} - Mapa Astral Online`,
+    description:
+      "Calculadoras astrológicas grátis: mapa astral, ascendente, compatibilidade de signos e numerologia, com análise detalhada para o autoconhecimento.",
+  },
+  matematica: {
+    title: `Calculadoras Matemáticas ${SEO_YEAR}`,
+    description:
+      "Calculadoras matemáticas grátis: porcentagem, regra de três, frações, área e muito mais. Resolva cálculos rápido e fácil com explicações.",
+  },
+  financas: {
+    title: `Calculadoras Financeiras ${SEO_YEAR}`,
+    description:
+      "Calculadoras financeiras grátis para investimentos e planejamento. Juros compostos, simples, primeiro milhão, CDB e Tesouro Direto em um só lugar.",
+  },
+  loterias: {
+    title: `Geradores de Jogos de Loterias Grátis ${SEO_YEAR}`,
+    description:
+      "Gere números da sorte para Mega-Sena, Lotofácil, Quina e outras loterias grátis. Estratégias inteligentes e análises estatísticas para aumentar suas chances.",
+  },
+  apostas: {
+    title: "Calculadoras de Apostas Esportivas: Gestão de Banca e Stake",
+    description:
+      "Calculadoras grátis para apostas esportivas: gestão de banca, critério de Kelly, valor esperado (EV+), surebet e dutching. Aposte com responsabilidade.",
+  },
+  datas: {
+    title: `Calculadoras de Datas ${SEO_YEAR}: Diferença, Idade e Dias Úteis`,
+    description:
+      "Calcule diferenças entre datas, idade exata e intervalos temporais grátis. Ferramentas para planejamento com dias úteis e cálculos de tempo.",
+  },
+  saude: {
+    title: `Calculadoras de Saúde ${SEO_YEAR}`,
+    description:
+      "Calculadoras saúde grátis: IMC, peso ideal, ciclo menstrual e mais. Ferramentas confiáveis baseadas em padrões médicos reconhecidos pela OMS.",
   },
 };
 

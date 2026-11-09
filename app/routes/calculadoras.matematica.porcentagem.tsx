@@ -11,109 +11,13 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Porcentagem 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calcule porcentagem online: aumentos, descontos e diferenças percentuais. Grátis, confiável e com explicação passo a passo.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "generator", content: "Remix" },
-    { name: "application-name", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Porcentagem Online Gratuita - Cálculos Confiáveis 2026",
-    },
-    {
-      property: "og:description",
-      content:
-        "Ferramenta online confiável para cálculos de porcentagem: aumentos, descontos, diferenças percentuais e regra de três. Gratuita para estudantes!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/porcentagem.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora de Porcentagem - Cálculos Matemáticos com Porcentagem",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/porcentagem",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Porcentagem Online Gratuita - Resultados Confiáveis",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Ferramenta educacional gratuita para cálculos de porcentagem. Aumentos, descontos, diferenças percentuais e regra de três instantânea. Ideal para estudos!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/porcentagem.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Porcentagem - Cálculos Matemáticos",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Calculadora Porcentagem" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    {
-      name: "keywords",
-      content:
-        "calculadora porcentagem, porcentagem online, aumento percentual, desconto percentual, regra três, diferenca percentual, calculo porcentagem",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
-    { rel: "preconnect", href: "https://www.google-analytics.com" },
-    { rel: "preconnect", href: "https://www.googletagmanager.com" },
-    { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
+    ...buildCalculatorMeta("porcentagem"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

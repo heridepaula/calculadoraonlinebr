@@ -227,7 +227,27 @@ Esforço: **P** = até 2 h, **M** = de meio dia a 1 dia, **G** = de 2 a 5 dias.
 
 ### Status (2026-11-08)
 
-Fases 0 e 1 implementadas no código, ainda não commitadas nem publicadas:
+**Fases 0 e 1 publicadas** (commit `a277061`), com o redirect do domínio sem www em 308 feito pela CLI da Vercel. O crawler em produção não encontrou problemas nas 89 páginas.
+
+**Fase 2 implementada:**
+
+- **2.3 concluído**: `app/lib/page-meta.ts`, com `buildCalculatorMeta`, `buildCategoryMeta` e `buildPageMeta`. As 89 rotas migradas mantêm só o próprio JSON-LD, o que removeu cerca de 6.900 linhas de tags duplicadas e lixo (`next-head-count`, `viewport`, `googlebot` etc.).
+- **2.4 concluído**: 13 títulos e 21 descrições reescritos. Agora todos têm no máximo 60 e 160 caracteres, sem duplicatas. A canibalização entre Kelly e gestão de banca foi resolvida.
+- **2.5 concluído**: `SEO_YEAR` em `constants.ts`, a atualizar em janeiro.
+- **2.6 concluído**: o HTML fica 1 h na CDN, com `stale-while-revalidate`. As loterias mantêm 5 min.
+- **2.1 e 2.2 concluídos**: menu de categorias no cabeçalho e rodapé com categorias e calculadoras mais usadas. Os links relacionados passaram a vir de `CALCULATORS`, 6 por página.
+- **2.7 concluído**: `Organization` e `WebSite` com `@id` no JSON-LD global. O `sameAs` aguarda os perfis oficiais.
+
+**Fases 3 e 4, em andamento (2026-11-09):**
+
+- **3.1 concluído**: `/calculadoras/trabalhista/decimo-terceiro`, com 1ª e 2ª parcela, 13º proporcional, INSS faixa a faixa e IR com a redução da Lei 15.270/2025 (o §3º do art. 3º-A da Lei 9.250 a estende ao 13º). As tabelas de 2026 ficam em `app/lib/labor/tax-tables.ts`.
+- **3.3 parcial**: bloco `SourcesAndUpdate` (fontes legais e data de atualização), usado na página do 13º, e seção "Metodologia" em `/sobre#metodologia`. Falta aplicar o bloco às outras páginas trabalhistas e financeiras.
+- **3.4 antecipado**: salário líquido, férias, rescisão, auxílio-doença e aposentadoria agora usam `tax-tables.ts` (tabelas de 2026 e redução da Lei 15.270), com fontes e data de revisão na página. A migração também corrigiu erros de regra: desconto simplificado somado às deduções, INSS/IR sobre abono pecuniário, férias indenizadas e aviso prévio indenizado, 2ª parcela do 13º calculada sobre metade do valor, seguro-desemprego com 3 parcelas e 80% fixo, aviso prévio proporcional que nunca passava de 30 dias, datas da rescisão com um dia a menos, e pontos, idade progressiva e tempo mínimo da aposentadoria. **Falta revisar**: o fator previdenciário do pedágio de 50% (exige a tábua de sobrevida do IBGE) e o limite do auxílio-doença à média dos últimos 12 salários.
+- **Correções de SSR encontradas na verificação**: bytes nulos no HTML de 12 páginas em produção (bug do streaming do React 18; agora removidos no `entry.server.tsx` e checados pelo `seo:check`) e erro #231 do React em todas as páginas, causado pelo `onLoad` em string do preload de fontes no `root.tsx`.
+- **4.1 concluído**: `npm run seo:check` (`scripts/seo-check.mjs`). Contra o build local: 90 páginas, 0 erros. Contra a produção (só com as Fases 0 e 1): 58 erros de título e descrição, que a Fase 2 corrige.
+- **4.4 concluído**: `_redirects` e `_headers` removidos (os redirects já estão no `vercel.json`), `robots.txt` enxuto, sem `Crawl-delay`, e `site.webmanifest` com nome e cores.
+
+Detalhe do que foi feito nas Fases 0 e 1:
 
 - **0.2 e 0.3 concluídos**: o preload de CSS com 404 e o da fonte Inter foram removidos, e o Google Fonts agora carrega uma vez só. Os 3 links quebrados foram corrigidos.
 - **1.1 e 1.2 concluídos**: os 152 blocos de JSON-LD agora são objetos. Os blocos `MedicalCalculator` (duplicados e com tipo inválido) foram removidos, e `MathematicalConcept` foi trocado por `DefinedTerm`.
@@ -235,7 +255,7 @@ Fases 0 e 1 implementadas no código, ainda não commitadas nem publicadas:
 - **1.4 concluído**: `/calculadoras`, `/sobre`, `/termos-de-uso` e `/privacidade` ganharam canonical, tags OG e Twitter e robots.
 - **1.5 concluído**: o `lastmod` vem de `app/data/sitemap-lastmod.json` (`npm run sitemap:lastmod`).
 - **1.6 concluído**: o loader raiz faz 301 de URLs com maiúsculas ou barra final.
-- **0.1 pendente**: falta mudar o redirect do domínio sem www para 308 na Vercel. A alteração via API foi bloqueada pelo modo automático e precisa ser feita manualmente.
+- **0.1 concluído**: o redirect do domínio sem www agora é 308, alterado pela CLI da Vercel.
 
 Depois do deploy: validar páginas no Rich Results Test e no depurador do Facebook, pedir nova indexação no Search Console e acompanhar o relatório "Breadcrumbs".
 

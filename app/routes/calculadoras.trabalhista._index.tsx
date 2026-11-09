@@ -8,48 +8,13 @@ import {
   createCategoryBreadcrumb,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
-import { APP_NAME, CALCULATORS } from "~/lib/constants";
+import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
+import { buildCategoryMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Calculadoras Trabalhistas 2026 | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "Calculadoras trabalhistas grátis: rescisão, férias, 13º salário, auxílio-doença e aposentadoria. Ferramentas baseadas na CLT atualizada 2026.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora trabalhista, rescisão trabalhista, direitos trabalhistas, CLT, demissão sem justa causa, aviso prévio, FGTS, seguro desemprego, férias proporcionais, 13º salário, acordo mútuo, pedido demissão, cálculo trabalhista, direito do trabalho",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { tagName: "link", rel: "canonical", href: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
-    { property: "og:title", content: "Calculadoras Trabalhistas 2026 – Direitos CLT" },
-    {
-      property: "og:description",
-      content:
-        "Conheça seus direitos trabalhistas com nossas calculadoras especializadas. Grátis e baseado na legislação brasileira.",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
-    { property: "og:site_name", content: "CalculadoraOnlineBR" },
-    { property: "og:locale", content: "pt_BR" },
-    { property: "og:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-trabalhista.jpg" },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Calculadoras Trabalhistas - CalculadoraOnlineBR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: "Calculadoras Trabalhistas 2026 – Direitos CLT" },
-    {
-      name: "twitter:description",
-      content:
-        "Ferramentas trabalhistas gratuitas para calcular rescisão, direitos e benefícios conforme a CLT.",
-    },
-    { name: "twitter:image", content: "https://www.calculadoraonlinebr.com.br/og/categoria-trabalhista.jpg" },
+    ...buildCategoryMeta("trabalhista"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

@@ -1,30 +1,14 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
-import { APP_NAME, APP_URL } from "~/lib/constants";
+import { buildPageMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Termos de Uso | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
+    ...buildPageMeta({
+      title: "Termos de Uso",
+      description:
         "Termos de uso do CalculadoraOnlineBR: condições para usar nossas calculadoras grátis. Regras claras e transparentes para todos.",
-    },
-    { name: "keywords", content: "termos de uso, CalculadoraOnlineBR, condições de uso, acordo" },
-    { property: "og:title", content: "Termos de Uso - CalculadoraOnlineBR" },
-    { property: "og:description", content: "Termos e condições de uso da nossa plataforma." },
-    { property: "og:type", content: "website" },
-    { name: "robots", content: "index, follow" },
-    { property: "og:url", content: `${APP_URL}/termos-de-uso` },
-    { property: "og:image", content: `${APP_URL}/og/default.jpg` },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { tagName: "link", rel: "canonical", href: `${APP_URL}/termos-de-uso` },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: `${APP_URL}/og/default.jpg` },
-    { name: "twitter:title", content: "Termos de Uso - CalculadoraOnlineBR" },
-    { name: "twitter:description", content: "Conheça nossos termos de uso e condições." },
+      path: "/termos-de-uso",
+    }),
   ];
 };
 

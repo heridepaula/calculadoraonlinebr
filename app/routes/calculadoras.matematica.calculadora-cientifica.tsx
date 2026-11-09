@@ -10,104 +10,13 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora Científica Online 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calculadora científica online gratuita com trigonometria, logaritmos, exponenciais, raízes e fatorial. Interface intuitiva para estudantes, professores e engenheiros. Use agora!",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "keywords",
-      content: "calculadora científica, trigonometria, logaritmo, exponencial, raiz quadrada, fatorial, calculadora online, matemática, engenharia"
-    },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/calculadora-cientifica",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora Científica Online 2026 – Funções Completas",
-    },
-    {
-      property: "og:description",
-      content:
-        "Calculadora científica online gratuita com trigonometria, logaritmos, exponenciais, raízes e fatorial. Interface intuitiva para estudantes, professores e engenheiros. Use agora!",
-    },
-    {
-      property: "og:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/og/calculadora-cientifica.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora Científica Online - Funções Trigonométricas e Logarítmicas",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/calculadora-cientifica",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora Científica Online 2026 – Funções Completas",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Calculadora científica online gratuita com trigonometria, logaritmos, exponenciais, raízes e fatorial. Interface intuitiva para estudantes e engenheiros. Use agora!",
-    },
-    {
-      name: "twitter:image",
-      content:
-        "https://www.calculadoraonlinebr.com.br/og/calculadora-cientifica.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora Científica Online - Funções Trigonométricas",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
+    ...buildCalculatorMeta("calculadora-cientifica"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

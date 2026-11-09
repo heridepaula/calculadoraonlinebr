@@ -11,103 +11,13 @@ import {
 } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Frações 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Calculadora frações grátis: soma, subtração, multiplicação e divisão. Simplificação automática com resultados instantâneos.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Frações Online Gratuita - Operações Confiáveis 2026",
-    },
-    {
-      property: "og:description",
-      content:
-        "Ferramenta online confiável para operações com frações: soma, subtração, multiplicação, divisão e simplificação automática. Gratuita para estudantes!",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/fracoes.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content: "Calculadora de Frações - Operações Matemáticas com Frações",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica/fracoes",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Frações Online Gratuita - Resultados Confiáveis",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Ferramenta educacional gratuita para operações com frações. Soma, subtração, multiplicação, divisão e simplificação instantânea. Ideal para estudos!",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/fracoes.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Frações - Operações Matemáticas",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#64B5F6" },
-    { name: "apple-mobile-web-app-title", content: "Calculadora Frações" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    {
-      name: "keywords",
-      content: "calculadora frações, soma frações, divisão frações, simplificar frações, MMC, MDC",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "language", content: "pt-BR" },
+    ...buildCalculatorMeta("fracoes"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

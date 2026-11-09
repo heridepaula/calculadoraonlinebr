@@ -7,96 +7,11 @@ import {
   ResponsiveBreadcrumb,
   createCalculatorBreadcrumb,
 } from "~/components";
-import { APP_NAME } from "~/lib/constants";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Descobrir Meu Signo Grátis: Qual Signo Zodiacal 2026 | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "🌟 Descubra seu Signo Solar GRÁTIS! Qual meu signo do zodíaco? Análise completa de personalidade, amor, carreira e compatibilidade - só com data nascimento.",
-    },
-    {
-      name: "keywords",
-      content:
-        "descobrir meu signo grátis, qual meu signo zodiacal, características signo solar, personalidade astrológica, signo solar data nascimento, zodiac signo brasileiro, astrologia personalidade, autoconhecimento signo",
-    },
-    {
-      name: "robots",
-      content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
-    },
-    {
-      name: "author",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1.0",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Signo Solar – Descubra Grátis",
-    },
-    {
-      property: "og:description",
-      content:
-        "Descubra seu signo solar grátis com apenas a data de nascimento. Análise completa de personalidade, amor, carreira e compatibilidade zodiacal.",
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/signo.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Signo Solar - Interface da calculadora mostrando os 12 signos do zodíaco",
-    },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    {
-      property: "og:site_name",
-      content: "CalculadoraOnlineBR",
-    },
-    {
-      property: "og:locale",
-      content: "pt_BR",
-    },
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Signo Solar Grátis 2026 | Descubra seu Signo",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Descubra seu signo solar GRÁTIS! Cálculo rápido com apenas sua data de nascimento. Análise completa da personalidade, amor e carreira.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/signo.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content:
-        "Calculadora de Signo Solar - Interface da calculadora mostrando os 12 signos do zodíaco",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
-    },
+    ...buildCalculatorMeta("signo"),
   ];
 };
 

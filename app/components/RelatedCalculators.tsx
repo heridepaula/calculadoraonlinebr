@@ -1,4 +1,6 @@
+import { Link, useLocation } from "@remix-run/react";
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui";
+import { CALCULATORS } from "~/lib/constants";
 
 interface RelatedCalculator {
   id: string;
@@ -12,417 +14,181 @@ interface RelatedCalculator {
   buttonHoverColor: string;
 }
 
+type CategoryId =
+  | "trabalhista"
+  | "financas"
+  | "saude"
+  | "matematica"
+  | "ferramentas"
+  | "astrologia"
+  | "datas"
+  | "loterias"
+  | "apostas";
+
 interface RelatedCalculatorsProps {
-  category?: "trabalhista" | "financas" | "saude" | "matematica" | "ferramentas" | "astrologia" | "datas" | "loterias" | "apostas";
+  category?: CategoryId;
+  /** Opcional: a calculadora atual também é detectada pela URL. */
   currentCalculatorId?: string;
+  /** Lista manual; quando passada, substitui a seleção automática. */
   customCalculators?: RelatedCalculator[];
 }
 
-const DEFAULT_CALCULATORS: Record<string, RelatedCalculator[]> = {
-  trabalhista: [
-    {
-      id: "rescisao",
-      title: "⚖️ Calculadora Rescisão Trabalhista",
-      description:
-        "Calcule todos os valores de demissão: FGTS, aviso prévio, férias e 13º salário.",
-      href: "/calculadoras/trabalhista/rescisao",
-      bgColor: "bg-primary-blue-light",
-      textColor: "text-primary-blue-dark",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-    {
-      id: "aposentadoria",
-      title: "🏛️ Calculadora Aposentadoria INSS",
-      description: "Simule 5 modalidades de aposentadoria e planeje sua previdência.",
-      href: "/calculadoras/trabalhista/aposentadoria",
-      bgColor: "bg-growth-green-soft",
-      textColor: "text-growth-green",
-      borderColor: "border-growth-green/20",
-      buttonColor: "bg-growth-green",
-      buttonHoverColor: "hover:bg-growth-green-dark",
-    },
-    {
-      id: "auxilio-doenca",
-      title: "🏥 Calculadora Auxílio-Doença",
-      description: "Calcule benefício por incapacidade com verificação de carência e isenções.",
-      href: "/calculadoras/trabalhista/auxilio-doenca",
-      bgColor: "bg-system-info/10",
-      textColor: "text-system-info",
-      borderColor: "border-system-info/20",
-      buttonColor: "bg-system-info",
-      buttonHoverColor: "hover:bg-system-info-dark",
-    },
-    {
-      id: "salario-liquido",
-      title: "💰 Calculadora Salário Líquido",
-      description: "Calcule seu salário líquido com INSS e IRRF 2025. CLT, PJ e dependentes.",
-      href: "/calculadoras/trabalhista/salario-liquido",
-      bgColor: "bg-system-success/10",
-      textColor: "text-system-success",
-      borderColor: "border-system-success/20",
-      buttonColor: "bg-system-success",
-      buttonHoverColor: "hover:bg-system-success-dark",
-    },
-  ],
-  financas: [
-    {
-      id: "juros-compostos",
-      title: "📈 Calculadora Juros Compostos",
-      description: "Simule investimentos com aportes mensais e visualize o crescimento.",
-      href: "/calculadoras/financas/juros-compostos",
-      bgColor: "bg-growth-green-soft",
-      textColor: "text-growth-green",
-      borderColor: "border-growth-green/20",
-      buttonColor: "bg-growth-green",
-      buttonHoverColor: "hover:bg-growth-green-dark",
-    },
-    {
-      id: "primeiro-milhao",
-      title: "🎯 Calculadora Primeiro Milhão",
-      description: "Descubra como chegar ao primeiro milhão com planejamento.",
-      href: "/calculadoras/financas/primeiro-milhao",
-      bgColor: "bg-system-warning/10",
-      textColor: "text-system-warning",
-      borderColor: "border-system-warning/20",
-      buttonColor: "bg-system-warning",
-      buttonHoverColor: "hover:bg-system-warning-dark",
-    },
-    {
-      id: "tesouro-direto",
-      title: "🏛️ Calculadora Tesouro Direto",
-      description: "Simule investimentos em títulos públicos com cupons e impostos.",
-      href: "/calculadoras/financas/tesouro-direto",
-      bgColor: "bg-primary-blue-light",
-      textColor: "text-primary-blue-dark",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-  ],
-  saude: [
-    {
-      id: "imc",
-      title: "⚖️ Calculadora de IMC",
-      description: "Calcule seu Índice de Massa Corporal com classificações da OMS.",
-      href: "/calculadoras/saude/imc",
-      bgColor: "bg-primary-blue-light",
-      textColor: "text-primary-blue-dark",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-    {
-      id: "gordura-corporal",
-      title: "🏃 Calculadora Gordura Corporal",
-      description: "Métodos científicos para análise da composição corporal.",
-      href: "/calculadoras/saude/gordura-corporal",
-      bgColor: "bg-growth-green-soft",
-      textColor: "text-growth-green",
-      borderColor: "border-growth-green/20",
-      buttonColor: "bg-growth-green",
-      buttonHoverColor: "hover:bg-growth-green-dark",
-    },
-    {
-      id: "hidratacao",
-      title: "💧 Calculadora de Hidratação",
-      description: "Calcule sua necessidade diária de água personalizada.",
-      href: "/calculadoras/saude/hidratacao",
-      bgColor: "bg-system-info/10",
-      textColor: "text-system-info",
-      borderColor: "border-system-info/20",
-      buttonColor: "bg-system-info",
-      buttonHoverColor: "hover:bg-system-info-dark",
-    },
-  ],
-  matematica: [
-    {
-      id: "porcentagem",
-      title: "📊 Calculadora de Porcentagem",
-      description: "Calcule porcentagens, aumentos e descontos rapidamente.",
-      href: "/calculadoras/matematica/porcentagem",
-      bgColor: "bg-primary-blue-light",
-      textColor: "text-primary-blue-dark",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-    {
-      id: "regra-de-tres",
-      title: "🔢 Calculadora Regra de Três",
-      description: "Resolva regra de três simples e inversa com explicações.",
-      href: "/calculadoras/matematica/regra-de-tres",
-      bgColor: "bg-growth-green-soft",
-      textColor: "text-growth-green",
-      borderColor: "border-growth-green/20",
-      buttonColor: "bg-growth-green",
-      buttonHoverColor: "hover:bg-growth-green-dark",
-    },
-    {
-      id: "fracoes",
-      title: "🔤 Calculadora de Frações",
-      description: "Some, subtraia, multiplique e divida frações facilmente.",
-      href: "/calculadoras/matematica/fracoes",
-      bgColor: "bg-system-warning/10",
-      textColor: "text-system-warning",
-      borderColor: "border-system-warning/20",
-      buttonColor: "bg-system-warning",
-      buttonHoverColor: "hover:bg-system-warning-dark",
-    },
-  ],
-  ferramentas: [
-    {
-      id: "diferenca-entre-datas",
-      title: "📅 Calculadora Diferença entre Datas",
-      description: "Calcule idade, dias úteis e intervalos entre datas.",
-      href: "/calculadoras/datas/diferenca-entre-datas",
-      bgColor: "bg-system-info/10",
-      textColor: "text-system-info",
-      borderColor: "border-system-info/20",
-      buttonColor: "bg-system-info",
-      buttonHoverColor: "hover:bg-system-info-dark",
-    },
-  ],
-  astrologia: [
-    {
-      id: "ascendente",
-      title: "🌅 Calculadora de Ascendente",
-      description: "Descubra seu signo ascendente a partir da data, hora e local de nascimento.",
-      href: "/calculadoras/astrologia/ascendente",
-      bgColor: "bg-math-purple/10",
-      textColor: "text-math-purple",
-      borderColor: "border-math-purple/20",
-      buttonColor: "bg-math-purple",
-      buttonHoverColor: "hover:brightness-110",
-    },
-    {
-      id: "compatibilidade-signos",
-      title: "💕 Compatibilidade de Signos",
-      description: "Analise a compatibilidade astrológica entre diferentes signos do zodíaco.",
-      href: "/calculadoras/astrologia/compatibilidade-signos",
-      bgColor: "bg-health-red/10",
-      textColor: "text-health-red",
-      borderColor: "border-health-red/20",
-      buttonColor: "bg-health-red",
-      buttonHoverColor: "hover:bg-health-red-dark",
-    },
-    {
-      id: "numerologia",
-      title: "🔢 Calculadora de Numerologia",
-      description: "Explore os números da sua vida e descubra seus significados ocultos.",
-      href: "/calculadoras/astrologia/numerologia",
-      bgColor: "bg-finance-gold/10",
-      textColor: "text-finance-gold",
-      borderColor: "border-finance-gold/20",
-      buttonColor: "bg-finance-gold",
-      buttonHoverColor: "hover:bg-finance-gold-dark",
-    },
-  ],
-  datas: [
-    {
-      id: "diferenca-entre-datas",
-      title: "📅 Diferença entre Datas",
-      description: "Calcule períodos, intervalos e diferenças entre duas datas.",
-      href: "/calculadoras/datas/diferenca-entre-datas",
-      bgColor: "bg-system-info/10",
-      textColor: "text-system-info",
-      borderColor: "border-system-info/20",
-      buttonColor: "bg-system-info",
-      buttonHoverColor: "hover:bg-system-info-dark",
-    },
-    {
-      id: "idade-exata",
-      title: "🎂 Calculadora de Idade",
-      description: "Descubra sua idade em anos, meses, dias, horas e minutos.",
-      href: "/calculadoras/datas/idade-exata",
-      bgColor: "bg-primary-blue/10",
-      textColor: "text-primary-blue",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-    {
-      id: "dias-uteis",
-      title: "💼 Dias Úteis",
-      description: "Calcule períodos de trabalho excluindo fins de semana e feriados.",
-      href: "/calculadoras/datas/dias-uteis",
-      bgColor: "bg-system-success/10",
-      textColor: "text-system-success",
-      borderColor: "border-system-success/20",
-      buttonColor: "bg-system-success",
-      buttonHoverColor: "hover:bg-system-success-dark",
-    },
-  ],
-  loterias: [
-    {
-      id: "gerador-mega-sena",
-      title: "🍀 Gerador Mega-Sena",
-      description: "Gere números aleatórios para jogos da Mega-Sena com estatísticas.",
-      href: "/calculadoras/loterias/gerador-mega-sena",
-      bgColor: "bg-finance-gold/10",
-      textColor: "text-finance-gold",
-      borderColor: "border-finance-gold/20",
-      buttonColor: "bg-finance-gold",
-      buttonHoverColor: "hover:bg-finance-gold-dark",
-    },
-    {
-      id: "gerador-lotofacil",
-      title: "🍀 Gerador Lotofácil",
-      description: "Gere números para Lotofácil com estratégias inteligentes.",
-      href: "/calculadoras/loterias/gerador-lotofacil",
-      bgColor: "bg-system-success/10",
-      textColor: "text-system-success",
-      borderColor: "border-system-success/20",
-      buttonColor: "bg-system-success",
-      buttonHoverColor: "hover:bg-system-success-dark",
-    },
-    {
-      id: "gerador-quina",
-      title: "🎲 Gerador Quina",
-      description: "Gere números para Quina com análise de frequência.",
-      href: "/calculadoras/loterias/gerador-quina",
-      bgColor: "bg-primary-blue/10",
-      textColor: "text-primary-blue",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-  ],
-  apostas: [
-    {
-      id: "criterio-de-kelly",
-      title: "⚽ Calculadora Critério de Kelly",
-      description: "Descubra quanto apostar: stake ideal, Half Kelly e valor esperado (EV+).",
-      href: "/calculadoras/apostas/criterio-de-kelly",
-      bgColor: "bg-system-success/10",
-      textColor: "text-system-success",
-      borderColor: "border-system-success/20",
-      buttonColor: "bg-system-success",
-      buttonHoverColor: "hover:bg-system-success-dark",
-    },
-    {
-      id: "valor-esperado",
-      title: "📈 Calculadora de Valor Esperado (EV+)",
-      description: "Descubra se a aposta tem valor: EV em R$ e %, odd justa e projeção da banca.",
-      href: "/calculadoras/apostas/valor-esperado",
-      bgColor: "bg-primary-blue/10",
-      textColor: "text-primary-blue",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-    {
-      id: "surebet",
-      title: "⚖️ Calculadora de Surebet",
-      description: "Encontre apostas seguras de 2 e 3 resultados e quanto apostar em cada casa.",
-      href: "/calculadoras/apostas/surebet",
-      bgColor: "bg-finance-gold/10",
-      textColor: "text-finance-gold",
-      borderColor: "border-finance-gold/20",
-      buttonColor: "bg-finance-gold",
-      buttonHoverColor: "hover:bg-finance-gold-dark",
-    },
-    {
-      id: "dutching",
-      title: "🎯 Calculadora de Dutching",
-      description: "Divida o valor entre várias seleções com o mesmo lucro em qualquer vencedora.",
-      href: "/calculadoras/apostas/dutching",
-      bgColor: "bg-math-purple/10",
-      textColor: "text-math-purple",
-      borderColor: "border-math-purple/20",
-      buttonColor: "bg-math-purple",
-      buttonHoverColor: "hover:brightness-110",
-    },
-    {
-      id: "multipla",
-      title: "🎟️ Calculadora de Apostas Múltiplas",
-      description: "Calcule odd combinada, retorno e chance de acerto da sua acumulada.",
-      href: "/calculadoras/apostas/multipla",
-      bgColor: "bg-system-info/10",
-      textColor: "text-system-info",
-      borderColor: "border-system-info/20",
-      buttonColor: "bg-system-info",
-      buttonHoverColor: "hover:bg-system-info-dark",
-    },
-    {
-      id: "gestao-de-banca",
-      title: "💼 Calculadora de Gestão de Banca",
-      description: "Valor da unidade por perfil de risco e simulação de sequência de derrotas.",
-      href: "/calculadoras/apostas/gestao-de-banca",
-      bgColor: "bg-growth-green/10",
-      textColor: "text-growth-green",
-      borderColor: "border-growth-green/20",
-      buttonColor: "bg-growth-green",
-      buttonHoverColor: "hover:bg-growth-green-dark",
-    },
-    {
-      id: "conversor-de-odds",
-      title: "🔄 Conversor de Odds",
-      description: "Converta odds entre decimal, fracionária, americana e probabilidade.",
-      href: "/calculadoras/apostas/conversor-de-odds",
-      bgColor: "bg-system-warning/10",
-      textColor: "text-system-warning",
-      borderColor: "border-system-warning/20",
-      buttonColor: "bg-system-warning",
-      buttonHoverColor: "hover:bg-system-warning-dark",
-    },
-    {
-      id: "hedge",
-      title: "🛡️ Calculadora de Hedge (Cash Out)",
-      description: "Proteja uma aposta já feita e compare o hedge com o cash out da casa.",
-      href: "/calculadoras/apostas/hedge",
-      bgColor: "bg-health-red/10",
-      textColor: "text-health-red",
-      borderColor: "border-health-red/20",
-      buttonColor: "bg-health-red",
-      buttonHoverColor: "hover:bg-health-red-dark",
-    },
-    {
-      id: "poisson",
-      title: "⚽ Calculadora de Poisson (Placar)",
-      description: "Probabilidade de cada placar, 1X2, gols e ambos marcam, com odds justas.",
-      href: "/calculadoras/apostas/poisson",
-      bgColor: "bg-primary-blue/10",
-      textColor: "text-primary-blue",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-    {
-      id: "porcentagem",
-      title: "🔢 Calculadora de Porcentagem",
-      description: "Calcule rapidamente qual porcentagem da banca cada aposta representa.",
-      href: "/calculadoras/matematica/porcentagem",
-      bgColor: "bg-math-purple/10",
-      textColor: "text-math-purple",
-      borderColor: "border-math-purple/20",
-      buttonColor: "bg-math-purple",
-      buttonHoverColor: "hover:brightness-110",
-    },
-    {
-      id: "juros-compostos",
-      title: "📈 Calculadora de Juros Compostos",
-      description: "Entenda o crescimento composto, a mesma lógica que o Kelly otimiza na banca.",
-      href: "/calculadoras/financas/juros-compostos",
-      bgColor: "bg-finance-gold/10",
-      textColor: "text-finance-gold",
-      borderColor: "border-finance-gold/20",
-      buttonColor: "bg-finance-gold",
-      buttonHoverColor: "hover:bg-finance-gold-dark",
-    },
-    {
-      id: "desvio-padrao",
-      title: "📊 Calculadora de Desvio Padrão",
-      description: "Meça a variância dos seus resultados e entenda sequências de perdas.",
-      href: "/calculadoras/matematica/desvio-padrao",
-      bgColor: "bg-primary-blue/10",
-      textColor: "text-primary-blue",
-      borderColor: "border-primary-blue/20",
-      buttonColor: "bg-primary-blue",
-      buttonHoverColor: "hover:bg-primary-blue-dark",
-    },
-  ],
+/** Quantos cards exibir: 6 links internos por página (eram 3, e só de uma lista fixa). */
+const MAX_ITEMS = 6;
+
+type CardStyle = Pick<
+  RelatedCalculator,
+  "bgColor" | "textColor" | "borderColor" | "buttonColor" | "buttonHoverColor"
+>;
+
+// Classes completas e literais para o Tailwind encontrá-las no build
+const CATEGORY_STYLES: Record<CategoryId, CardStyle> = {
+  trabalhista: {
+    bgColor: "bg-primary-blue-light",
+    textColor: "text-primary-blue-dark",
+    borderColor: "border-primary-blue/20",
+    buttonColor: "bg-primary-blue",
+    buttonHoverColor: "hover:bg-primary-blue-dark",
+  },
+  financas: {
+    bgColor: "bg-growth-green-soft",
+    textColor: "text-growth-green",
+    borderColor: "border-growth-green/20",
+    buttonColor: "bg-growth-green",
+    buttonHoverColor: "hover:bg-growth-green-dark",
+  },
+  saude: {
+    bgColor: "bg-primary-blue-light",
+    textColor: "text-primary-blue-dark",
+    borderColor: "border-primary-blue/20",
+    buttonColor: "bg-primary-blue",
+    buttonHoverColor: "hover:bg-primary-blue-dark",
+  },
+  matematica: {
+    bgColor: "bg-primary-blue-light",
+    textColor: "text-primary-blue-dark",
+    borderColor: "border-primary-blue/20",
+    buttonColor: "bg-primary-blue",
+    buttonHoverColor: "hover:bg-primary-blue-dark",
+  },
+  ferramentas: {
+    bgColor: "bg-system-info/10",
+    textColor: "text-system-info",
+    borderColor: "border-system-info/20",
+    buttonColor: "bg-system-info",
+    buttonHoverColor: "hover:bg-system-info-dark",
+  },
+  astrologia: {
+    bgColor: "bg-math-purple/10",
+    textColor: "text-math-purple",
+    borderColor: "border-math-purple/20",
+    buttonColor: "bg-math-purple",
+    buttonHoverColor: "hover:brightness-110",
+  },
+  datas: {
+    bgColor: "bg-system-info/10",
+    textColor: "text-system-info",
+    borderColor: "border-system-info/20",
+    buttonColor: "bg-system-info",
+    buttonHoverColor: "hover:bg-system-info-dark",
+  },
+  loterias: {
+    bgColor: "bg-finance-gold/10",
+    textColor: "text-finance-gold",
+    borderColor: "border-finance-gold/20",
+    buttonColor: "bg-finance-gold",
+    buttonHoverColor: "hover:bg-finance-gold-dark",
+  },
+  apostas: {
+    bgColor: "bg-primary-blue/10",
+    textColor: "text-primary-blue",
+    borderColor: "border-primary-blue/20",
+    buttonColor: "bg-primary-blue",
+    buttonHoverColor: "hover:bg-primary-blue-dark",
+  },
+};
+
+/**
+ * Ligações entre categorias quando o tema é claramente vizinho. Entram antes das
+ * calculadoras da mesma categoria.
+ */
+const CROSS_LINKS: Record<string, string[]> = {
+  porcentagem: ["juros-simples"],
+  "juros-simples": ["porcentagem"],
+  "regra-de-tres": ["conversor-unidades"],
+  "conversor-unidades": ["regra-de-tres"],
+  "salario-liquido": ["emprestimo-consignado"],
+  "emprestimo-consignado": ["salario-liquido"],
+  aposentadoria: ["primeiro-milhao"],
+  "primeiro-milhao": ["aposentadoria"],
+  "ferias-decimo-terceiro": ["dias-uteis", "decimo-terceiro"],
+  "decimo-terceiro": ["salario-liquido", "ferias-decimo-terceiro"],
+  "dias-uteis": ["ferias-decimo-terceiro"],
+  "idade-exata": ["signo"],
+  signo: ["idade-exata"],
+  "sorteador-online": ["gerador-mega-sena"],
+  "gerador-mega-sena": ["sorteador-online"],
+  "gerador-lotofacil": ["sorteador-online"],
+  "gerador-quina": ["sorteador-online"],
+};
+
+type Calculator = (typeof CALCULATORS)[number];
+
+const toCard = (calc: Calculator): RelatedCalculator => ({
+  id: calc.id,
+  title: calc.name,
+  description: calc.description,
+  href: calc.path,
+  ...CATEGORY_STYLES[calc.category as CategoryId],
+});
+
+/**
+ * Seleção automática: links entre categorias da calculadora atual e, em seguida, as
+ * próximas calculadoras da mesma categoria (em rodízio a partir da atual), para que
+ * cada calculadora receba links das vizinhas e nenhuma fique sem link interno.
+ */
+function pickRelated(category: CategoryId, current: Calculator | undefined): RelatedCalculator[] {
+  const sameCategory = CALCULATORS.filter((c) => c.category === category);
+  const start = current ? sameCategory.findIndex((c) => c.id === current.id) + 1 : 0;
+  const rotated = [...sameCategory.slice(start), ...sameCategory.slice(0, start)];
+
+  const cross = (current ? CROSS_LINKS[current.id] ?? [] : [])
+    .map((id) => CALCULATORS.find((c) => c.id === id))
+    .filter((c): c is Calculator => Boolean(c));
+
+  const seen = new Set<string>(current ? [current.id] : []);
+  const picked: RelatedCalculator[] = [];
+  for (const calc of [...cross, ...rotated]) {
+    if (seen.has(calc.id)) continue;
+    seen.add(calc.id);
+    picked.push(toCard(calc));
+    if (picked.length === MAX_ITEMS) break;
+  }
+  return picked;
+}
+
+const CATEGORY_TITLES: Record<string, string> = {
+  trabalhista: "🔗 Calculadoras Trabalhistas Relacionadas",
+  financas: "🔗 Calculadoras Financeiras Relacionadas",
+  saude: "🔗 Calculadoras de Saúde Relacionadas",
+  matematica: "🔗 Calculadoras Matemáticas Relacionadas",
+  ferramentas: "🔗 Ferramentas Relacionadas",
+  astrologia: "🔗 Calculadoras de Astrologia Relacionadas",
+  datas: "🔗 Calculadoras de Datas Relacionadas",
+  loterias: "🔗 Geradores de Loterias Relacionados",
+  apostas: "🔗 Calculadoras de Apostas Relacionadas",
+};
+
+const CATEGORY_TIPS: Record<string, string> = {
+  trabalhista: "Use essas calculadoras para um planejamento trabalhista e previdenciário completo",
+  financas: "Combine essas ferramentas para otimizar seu planejamento financeiro",
+  saude: "Monitore sua saúde com essas calculadoras especializadas",
+  matematica: "Resolva problemas matemáticos com facilidade usando essas ferramentas",
+  ferramentas: "Simplifique seu dia a dia com essas ferramentas práticas",
+  astrologia: "Explore diferentes aspectos da astrologia para um autoconhecimento mais profundo",
+  datas: "Organize seu tempo e planeje eventos com essas calculadoras temporais",
+  loterias: "Teste sua sorte com diferentes tipos de jogos e estratégias inteligentes",
+  apostas: "Combine matemática e gestão de risco para apostar com responsabilidade",
 };
 
 export function RelatedCalculators({
@@ -430,62 +196,35 @@ export function RelatedCalculators({
   currentCalculatorId,
   customCalculators,
 }: RelatedCalculatorsProps) {
-  // Use calculadoras customizadas ou padrão da categoria
-  const calculators =
-    customCalculators || DEFAULT_CALCULATORS[category] || DEFAULT_CALCULATORS.trabalhista;
+  const { pathname } = useLocation();
+  const current =
+    CALCULATORS.find((c) => c.path === pathname) ??
+    CALCULATORS.find((c) => c.id === currentCalculatorId);
+  // A categoria real da calculadora prevalece sobre a prop
+  const activeCategory = (current?.category as CategoryId | undefined) ?? category;
 
-  // Filtra a calculadora atual se especificada
-  const filteredCalculators = currentCalculatorId
-    ? calculators.filter((calc) => calc.id !== currentCalculatorId)
-    : calculators;
+  const displayCalculators = customCalculators
+    ? customCalculators
+        .filter((calc) => calc.href !== pathname && calc.id !== currentCalculatorId)
+        .slice(0, MAX_ITEMS)
+    : pickRelated(activeCategory, current);
 
-  // Limita a 3 calculadoras para layout otimizado
-  const displayCalculators = filteredCalculators.slice(0, 3);
-
-  const getCategoryTitle = (cat: string) => {
-    const titles: Record<string, string> = {
-      trabalhista: "🔗 Calculadoras Trabalhistas Relacionadas",
-      financas: "🔗 Calculadoras Financeiras Relacionadas",
-      saude: "🔗 Calculadoras de Saúde Relacionadas",
-      matematica: "🔗 Calculadoras Matemáticas Relacionadas",
-      ferramentas: "🔗 Ferramentas Relacionadas",
-      astrologia: "🔗 Calculadoras de Astrologia Relacionadas",
-      datas: "🔗 Calculadoras de Datas Relacionadas",
-      loterias: "🔗 Geradores de Loterias Relacionados",
-      apostas: "🔗 Calculadoras de Apostas Relacionadas",
-    };
-    return titles[cat] || "🔗 Calculadoras Relacionadas";
-  };
-
-  const getCategoryTip = (cat: string) => {
-    const tips: Record<string, string> = {
-      trabalhista:
-        "Use essas calculadoras para um planejamento trabalhista e previdenciário completo",
-      financas: "Combine essas ferramentas para otimizar seu planejamento financeiro",
-      saude: "Monitore sua saúde com essas calculadoras especializadas",
-      matematica: "Resolva problemas matemáticos com facilidade usando essas ferramentas",
-      ferramentas: "Simplifique seu dia a dia com essas ferramentas práticas",
-      astrologia: "Explore diferentes aspectos da astrologia para um autoconhecimento mais profundo",
-      datas: "Organize seu tempo e planeje eventos com essas calculadoras temporais",
-      loterias: "Teste sua sorte com diferentes tipos de jogos e estratégias inteligentes",
-      apostas: "Combine matemática e gestão de risco para apostar com responsabilidade",
-    };
-    return tips[cat] || "Explore outras calculadoras úteis para suas necessidades";
-  };
+  if (displayCalculators.length === 0) return null;
 
   return (
     <Card className="border-l-4 border-primary-blue bg-primary-blue-light/50 backdrop-blur-sm">
       <CardHeader className="pb-3 sm:pb-4">
         <CardTitle as="h2" className="text-lg sm:text-xl font-bold text-primary-blue-dark">
-          {getCategoryTitle(category)}
+          {CATEGORY_TITLES[activeCategory] ??"🔗 Calculadoras Relacionadas"}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {displayCalculators.map((calculator) => (
-            <a
+            <Link
               key={calculator.id}
-              href={calculator.href}
+              to={calculator.href}
+              prefetch="intent"
               className={`group block ${calculator.bgColor} rounded-xl border p-4 sm:p-5 ${calculator.borderColor} transition-all duration-300 hover:border-primary-blue hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1`}
             >
               <div className="flex flex-col h-full">
@@ -510,6 +249,7 @@ export function RelatedCalculators({
                       viewBox="0 0 24 24"
                       stroke="currentColor"
                       strokeWidth={2}
+                      aria-hidden="true"
                     >
                       <path
                         strokeLinecap="round"
@@ -520,13 +260,13 @@ export function RelatedCalculators({
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
 
-        <div className="mt-5 sm:mt-6 rounded-xl border border-primary-blue/30 bg-gradient-to-r from-white/80 to-primary-blue-light/20 p-3 sm:p-4 backdrop-blur-sm">
-          <p className="text-center text-xs sm:text-sm text-primary-blue-dark">
-            💡 <strong>Dica:</strong> {getCategoryTip(category)}
+        <div className="mt-5 sm:mt-6 rounded-xl border border-primary-blue/30 bg-primary-blue/10 p-3 sm:p-4">
+          <p className="mb-0 text-center text-xs sm:text-sm text-primary-blue-dark">
+            💡 <strong>Dica:</strong> {CATEGORY_TIPS[activeCategory] ?? "Explore outras calculadoras úteis para suas necessidades"}
           </p>
         </div>
       </CardContent>

@@ -10,105 +10,12 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    { name: "viewport", content: "width=device-width,initial-scale=1" },
-    {
-      title: `Gerador Cartão de Crédito Online | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "Gere números de cartão de crédito válidos para testes e desenvolvimento. Suporte para Visa, Mastercard, American Express e outras bandeiras. Apenas para fins educacionais.",
-    },
-    {
-      name: "keywords",
-      content:
-        "gerador cartão crédito, números teste, Visa, Mastercard, American Express, desenvolvimento, teste cartão, cartão fictício, cartão falso para teste",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
-    },
-    {
-      property: "og:title",
-      content: "Gerador Cartão de Crédito – Gere Números de Teste para Desenvolvimento",
-    },
-    {
-      property: "og:description",
-      content:
-        "Gere números de cartão de crédito válidos para testes e desenvolvimento. Suporte para Visa, Mastercard, American Express e outras bandeiras. Apenas para fins educacionais.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/gerador-cartao-credito.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Gerador de Cartão de Crédito - Gere números válidos de teste para desenvolvimento e educação",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cartao-credito",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Gerador Cartão de Crédito 2026 – Números de Teste Válidos",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Gerador de números de cartão de crédito para testes e desenvolvimento. Suporte para todas as principais bandeiras.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/gerador-cartao-credito.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Gerador de Cartão de Crédito - Números de teste válidos",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { name: "msapplication-TileColor", content: "#1f2937" },
-    { name: "apple-mobile-web-app-title", content: "Gerador Cartão" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("gerador-cartao-credito"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

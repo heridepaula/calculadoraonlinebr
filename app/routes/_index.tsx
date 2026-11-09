@@ -4,59 +4,18 @@ import { useEffect, useState } from "react";
 import { CategoryCard } from "~/components/CategoryCard";
 import { APP_NAME, CATEGORIES, CALCULATORS } from "~/lib/constants";
 import type { Category } from "~/types";
+import { buildPageMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   const siteUrl = "https://www.calculadoraonlinebr.com.br";
-  const ogImage = `${siteUrl}/og/default.jpg`;
 
   return [
-    { title: `Calculadoras Online Gratuitas - IMC, Juros Compostos, Rescisão | ${APP_NAME}` },
-    {
-      name: "description",
-      content:
-        "66+ calculadoras online gratuitas: IMC, juros compostos, porcentagem, rescisão trabalhista e mais. Interface moderna, resultados instantâneos, sem cadastro. Mobile otimizado!",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora online gratis, IMC calculadora, juros compostos, porcentagem, rescisao trabalhista, calculadora financeira, calculadora saude, matematica, tesouro direto, aposentadoria INSS",
-    },
-    { name: "author", content: APP_NAME },
-    { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-    { tagName: "link", rel: "canonical", href: siteUrl },
-
-    {
-      property: "og:title",
-      content: `Calculadoras Online Gratuitas - 66+ Ferramentas | ${APP_NAME}`,
-    },
-    {
-      property: "og:description",
-      content:
-        "Calculadoras online gratuitas para saúde, finanças, matemática e direitos trabalhistas. Interface moderna, resultados confiáveis, sem cadastro necessário.",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:locale", content: "pt_BR" },
-    { property: "og:url", content: siteUrl },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:image", content: ogImage },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "CalculadoraOnlineBR - Calculadoras Online Gratuitas" },
-
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: "@calculadorabr" },
-    { name: "twitter:title", content: `Calculadoras Online Gratuitas - ${APP_NAME}` },
-    {
-      name: "twitter:description",
-      content:
-        "66+ calculadoras gratuitas: IMC, juros compostos, rescisão trabalhista e muito mais. Use sem cadastro!",
-    },
-    { name: "twitter:image", content: ogImage },
-
-    { name: "application-name", content: APP_NAME },
-    { name: "apple-mobile-web-app-title", content: APP_NAME },
-
+    ...buildPageMeta({
+      title: "Calculadoras Online Gratuitas: IMC, Juros, Rescisão e Mais",
+      description:
+        "Mais de 70 calculadoras online gratuitas: IMC, juros compostos, porcentagem, rescisão trabalhista e mais. Resultados na hora e sem cadastro.",
+      path: "/",
+    }),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

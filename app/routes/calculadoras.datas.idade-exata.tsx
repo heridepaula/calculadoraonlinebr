@@ -12,102 +12,12 @@ import {
   Checkbox,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Calculadora de Idade Online | ${APP_NAME}`,
-    },
-    {
-      name: "description",
-      content:
-        "🎂 Calcule sua idade exata em anos, meses e dias! Com contador em tempo real de horas, minutos e segundos. Calculadora de idade gratuita e precisa.",
-    },
-    {
-      name: "keywords",
-      content:
-        "calculadora idade, calcular idade exata, contador idade tempo real, idade anos meses dias, quando nasci",
-    },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/idade-exata",
-    },
-    {
-      property: "og:title",
-      content: "Calculadora de Idade Exata Online – Descubra Anos, Meses e Dias",
-    },
-    {
-      property: "og:description",
-      content:
-        "🎂 Calcule sua idade exata em anos, meses e dias! Com contador em tempo real de horas, minutos e segundos. Calculadora de idade gratuita e precisa.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/idade-exata.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Calculadora de Idade - Interface mostrando cálculo de idade exata com contador em tempo real",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content: "https://www.calculadoraonlinebr.com.br/calculadoras/datas/idade-exata",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Calculadora de Idade Exata 2026 – Contador em Tempo Real",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "🎂 Descubra sua idade exata em anos, meses e dias! Contador em tempo real com horas, minutos e segundos. 100% gratuito e preciso.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/idade-exata.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Calculadora de Idade - Contador de idade em tempo real",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("idade-exata"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",

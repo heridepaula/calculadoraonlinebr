@@ -11,7 +11,6 @@ import {
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
-import { APP_NAME } from "~/lib/constants";
 import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { getMarketIndicators, getTreasuryBonds } from "~/services/market/marketData.server";
@@ -27,6 +26,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import { buildCalculatorMeta } from "~/lib/page-meta";
 
 ChartJS.register(
   CategoryScale,
@@ -41,114 +41,7 @@ ChartJS.register(
 
 export const meta: MetaFunction = () => {
   return [
-    {
-      title: `Comparador Renda Fixa 2026 | ${APP_NAME}`,
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1, viewport-fit=cover",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.googleapis.com",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.gstatic.com",
-      crossOrigin: "anonymous",
-    },
-    {
-      name: "description",
-      content:
-        "Compare renda fixa 2026: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
-    },
-    { name: "author", content: "CalculadoraOnlineBR" },
-    { name: "publisher", content: "CalculadoraOnlineBR" },
-    { name: "article:modified_time", content: "2025-08-25T00:00:00-03:00" },
-    {
-      name: "robots",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    {
-      name: "googlebot",
-      content: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-    },
-    { name: "bingbot", content: "index,follow" },
-    {
-      name: "keywords",
-      content:
-        "renda fixa, comparador investimentos, CDB, LCI, LCA, Tesouro Direto, poupança, simulador, Brasil",
-    },
-    {
-      tagName: "link",
-      rel: "canonical",
-      href: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
-    },
-    {
-      property: "og:title",
-      content: "Comparador Renda Fixa 2026 – Compare Investimentos",
-    },
-    {
-      property: "og:description",
-      content:
-        "Compare renda fixa 2026: CDB vs LCI/LCA vs Tesouro vs Poupança. Compare rentabilidade líquida com IR e descubra o melhor investimento.",
-    },
-    {
-      property: "og:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/renda-fixa-comparativa.jpg",
-    },
-    {
-      property: "og:image:alt",
-      content:
-        "Comparador de Renda Fixa - Compare CDB, LCI, LCA, Tesouro Direto e Poupança com impostos",
-    },
-    {
-      property: "og:image:width",
-      content: "1200",
-    },
-    {
-      property: "og:image:height",
-      content: "630",
-    },
-    { property: "og:type", content: "website" },
-    {
-      property: "og:url",
-      content:
-        "https://www.calculadoraonlinebr.com.br/calculadoras/financas/renda-fixa-comparativa",
-    },
-    { property: "og:site_name", content: APP_NAME },
-    { property: "og:locale", content: "pt_BR" },
-    { property: "og:article:modified_time", content: "2025-08-25T00:00:00-03:00" },
-    { property: "og:article:publisher", content: "https://www.facebook.com/CalculadoraOnlineBR" },
-    { name: "twitter:card", content: "summary_large_image" },
-    {
-      name: "twitter:title",
-      content: "Comparador Renda Fixa 2026 – Compare Investimentos",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Compare CDB, LCI/LCA, Tesouro e Poupança com cálculos reais de IR. Descubra qual investimento oferece melhor rentabilidade líquida.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://www.calculadoraonlinebr.com.br/og/renda-fixa-comparativa.jpg",
-    },
-    {
-      name: "twitter:image:alt",
-      content: "Comparador Renda Fixa - Compare investimentos e impostos",
-    },
-    { name: "twitter:site", content: "@CalculadoraBR" },
-    { name: "twitter:creator", content: "@CalculadoraBR" },
-    { name: "format-detection", content: "telephone=no" },
-    { name: "mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-capable", content: "yes" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-    { name: "theme-color", content: "#64B5F6" },
-    { httpEquiv: "content-language", content: "pt-br" },
-    { name: "geo.region", content: "BR" },
-    { name: "geo.country", content: "Brazil" },
-    { name: "next-head-count", content: "32" },
+    ...buildCalculatorMeta("renda-fixa-comparativa"),
     {
       "script:ld+json": {
         "@context": "https://schema.org",
