@@ -10,7 +10,7 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { Input } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { useIndexNow } from "~/hooks/useIndexNow";
 import { buildCalculatorMeta } from "~/lib/page-meta";
@@ -519,6 +519,11 @@ export default function MMCMDCCalculator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="O que são MMC e MDC e como calcular">
+        <p>O MMC (mínimo múltiplo comum) é o menor número que é múltiplo de todos os números dados; o MDC (máximo divisor comum) é o maior número que divide todos eles sem deixar resto.</p>
+        <p>Pela fatoração em primos: o MMC é o produto de todos os fatores primos, comuns e não comuns, com o maior expoente; o MDC é o produto só dos fatores comuns, com o menor expoente. Exemplo: 12 = 2² × 3 e 18 = 2 × 3², então MMC = 2² × 3² = 36 e MDC = 2 × 3 = 6. Para dois números, MMC × MDC = a × b.</p>
+      </DirectAnswer>
 
       <Card>
         <CardHeader>

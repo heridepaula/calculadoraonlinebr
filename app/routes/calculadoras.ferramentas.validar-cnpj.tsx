@@ -10,7 +10,7 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { Input } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -170,17 +170,24 @@ export default function CnpjValidator() {
   });
   useFormTracking("validar-cnpj");
 
-  // Remove formatação do CNPJ
+  // Remove formatação do CNPJ. Desde julho de 2026 (IN RFB 2.229/2024) as 12 primeiras
+  // posições podem ter letras (CNPJ alfanumérico); os 2 dígitos verificadores são numéricos.
   const cleanCnpj = (cnpj: string): string => {
-    return cnpj.replace(/\D/g, "");
+    return cnpj.toUpperCase().replace(/[^A-Z0-9]/g, "");
   };
 
   // Formatar CNPJ com pontuação
   const formatCnpj = (cnpj: string): string => {
     const cleanedCnpj = cleanCnpj(cnpj);
     if (cleanedCnpj.length !== 14) return cnpj;
-    return cleanedCnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+    return cleanedCnpj.replace(
+      /([A-Z0-9]{2})([A-Z0-9]{3})([A-Z0-9]{3})([A-Z0-9]{4})(\d{2})/,
+      "$1.$2.$3/$4-$5"
+    );
   };
+
+  // Valor de cada caractere no módulo 11: código ASCII − 48 ("0" a "9" valem 0 a 9, "A" vale 17)
+  const charValue = (char: string): number => char.charCodeAt(0) - 48;
 
   // Verifica CNPJs com sequências inválidas
   const hasInvalidSequence = (cnpj: string): boolean => {
@@ -203,7 +210,7 @@ export default function CnpjValidator() {
   const calculateFirstDigit = (cnpjDigits: string): number => {
     const weights = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
     const sum = cnpjDigits.split("").reduce((acc, digit, index) => {
-      return acc + parseInt(digit) * weights[index];
+      return acc + charValue(digit) * weights[index];
     }, 0);
     const remainder = sum % 11;
     return remainder < 2 ? 0 : 11 - remainder;
@@ -214,7 +221,7 @@ export default function CnpjValidator() {
     const weights = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
     const digitsWithFirst = cnpjDigits + firstDigit;
     const sum = digitsWithFirst.split("").reduce((acc, digit, index) => {
-      return acc + parseInt(digit) * weights[index];
+      return acc + charValue(digit) * weights[index];
     }, 0);
     const remainder = sum % 11;
     return remainder < 2 ? 0 : 11 - remainder;
@@ -224,9 +231,15 @@ export default function CnpjValidator() {
   const validateCnpj = (cnpj: string): { isValid: boolean; errorMessage?: string } => {
     const cleanedCnpj = cleanCnpj(cnpj);
 
-    // Verifica se tem 14 dígitos
+    // Verifica se tem 14 caracteres: 12 letras ou números e 2 dígitos verificadores
     if (cleanedCnpj.length !== 14) {
-      return { isValid: false, errorMessage: "CNPJ deve ter 14 dígitos" };
+      return { isValid: false, errorMessage: "CNPJ deve ter 14 caracteres" };
+    }
+    if (!/^[A-Z0-9]{12}\d{2}$/.test(cleanedCnpj)) {
+      return {
+        isValid: false,
+        errorMessage: "Os dois últimos caracteres (dígitos verificadores) devem ser números",
+      };
     }
 
     // Verifica sequências inválidas
@@ -302,8 +315,8 @@ export default function CnpjValidator() {
   };
 
   const handleInputChange = (value: string) => {
-    // Permite apenas números e formatação básica
-    const formatted = value.replace(/\D/g, "").substring(0, 14);
+    // Letras e números (CNPJ alfanumérico); a pontuação é descartada
+    const formatted = cleanCnpj(value).substring(0, 14);
     setCnpjInput(formatted);
 
     // Limpa resultado anterior se houver
@@ -340,6 +353,11 @@ export default function CnpjValidator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="Como saber se um CNPJ é válido">
+        <p>O CNPJ tem 14 caracteres: 8 da raiz da empresa, 4 da filial (0001 indica a matriz) e 2 dígitos verificadores calculados pelo módulo 11, com pesos de 5 a 2 e de 9 a 2 para o 1º dígito e de 6 a 2 e de 9 a 2 para o 2º.</p>
+        <p>Desde julho de 2026, os novos CNPJs podem ter letras nas 12 primeiras posições (CNPJ alfanumérico, Instrução Normativa RFB 2.229/2024). Nesse caso, cada caractere entra na conta com o valor do seu código ASCII menos 48, e os dois dígitos finais continuam numéricos. Este validador aceita os dois formatos. A validação não confirma se a empresa existe ou está ativa.</p>
+      </DirectAnswer>
 
       <Card>
         <CardHeader>

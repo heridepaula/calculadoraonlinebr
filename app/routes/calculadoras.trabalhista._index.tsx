@@ -6,35 +6,20 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("trabalhista"),
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Calculadoras Trabalhistas",
-        description: "Calculadoras trabalhistas gratuitas: rescisão, aposentadoria, auxílio-doença e mais conforme a CLT",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista",
-        inLanguage: "pt-BR",
-        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
-            { "@type": "ListItem", position: 2, name: "Trabalhista", item: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista" },
-          ],
-        },
-      },
-    },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("trabalhista"),
+  { "script:ld+json": generateCategoryPageGraph("trabalhista") },
+  { "script:ld+json": categoryFaqStructuredData("trabalhista") },
+];
 
 export default function TrabalhistaIndex() {
   const trabalhistaCalculators = CALCULATORS.filter(
@@ -419,6 +404,8 @@ export default function TrabalhistaIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="trabalhista" />
 
       <RelatedCalculators category="trabalhista" />
     </div>

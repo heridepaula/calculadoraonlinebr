@@ -6,6 +6,8 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
@@ -13,12 +15,11 @@ import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("loterias"),
-    { "script:ld+json": generateCategoryPageGraph("loterias") },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("loterias"),
+  { "script:ld+json": generateCategoryPageGraph("loterias") },
+  { "script:ld+json": categoryFaqStructuredData("loterias") },
+];
 
 export default function LoteriasIndex() {
   const loteriasCalculators = CALCULATORS.filter(
@@ -442,6 +443,8 @@ export default function LoteriasIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="loterias" />
 
       <RelatedCalculators category="loterias" />
     </div>

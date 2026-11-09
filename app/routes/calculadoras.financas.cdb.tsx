@@ -10,7 +10,7 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useLoaderData } from "@remix-run/react";
 import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
@@ -323,6 +323,11 @@ export default function CdbCalculator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="Como calcular o rendimento de um CDB">
+        <p>O CDB é um título emitido por bancos que pode render um percentual do CDI (pós-fixado), uma taxa fixa (prefixado) ou a inflação mais uma taxa (IPCA+). Um CDB de 100% do CDI rende aproximadamente a taxa CDI do período.</p>
+        <p>Do lucro sai o Imposto de Renda regressivo: 22,5% até 180 dias, 20% de 181 a 360 dias, 17,5% de 361 a 720 dias e 15% acima disso, além de IOF nos resgates em menos de 30 dias. O CDB tem garantia do FGC de até R$ 250 mil por CPF em cada instituição.</p>
+      </DirectAnswer>
 
       <Card>
         <CardHeader>

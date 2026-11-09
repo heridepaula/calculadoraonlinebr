@@ -15,7 +15,7 @@ import {
   BreadcrumbItem,
   Checkbox,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import type { ProcessedBond } from "~/lib/market/treasury";
 import { getMarketIndicators, getTreasuryBonds } from "~/services/market/marketData.server";
 import { formatIsoDate, formatRate } from "~/lib/market/indicators";
@@ -458,6 +458,11 @@ export default function TreasuryDirectCalculator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="Como funciona o Tesouro Direto">
+        <p>O Tesouro Direto é o programa do Tesouro Nacional para comprar títulos públicos pela internet, com aplicação mínima a partir de cerca de R$ 30. Há três tipos: Tesouro Selic, que acompanha a taxa Selic e é indicado para a reserva de emergência; Tesouro Prefixado, com taxa fixa definida na compra; e Tesouro IPCA+, que paga a inflação mais uma taxa fixa.</p>
+        <p>O lucro tem Imposto de Renda regressivo, de 22,5% em até 180 dias a 15% acima de 2 anos, e IOF nos resgates em menos de 30 dias. A B3 cobra taxa de custódia de 0,20% ao ano, com isenção para os primeiros R$ 10 mil no Tesouro Selic. Vender antes do vencimento pode dar ganho ou perda no Prefixado e no IPCA+, por causa da marcação a mercado.</p>
+      </DirectAnswer>
 
       {/* Calculator Section */}
       <div className="space-y-6">

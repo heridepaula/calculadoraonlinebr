@@ -12,7 +12,7 @@ import {
   Label,
   Checkbox,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -486,6 +486,11 @@ export default function ConsumoEnergiaEletrica() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="Como calcular o consumo de energia de um aparelho">
+        <p>Consumo (kWh) = potência em watts × horas de uso por dia × dias de uso no mês ÷ 1.000. Depois, multiplique o consumo pela tarifa da sua distribuidora, em R$ por kWh, já com impostos e bandeira tarifária, para saber o custo na conta de luz.</p>
+        <p>Exemplo: um chuveiro de 5.500 W usado 30 minutos por dia gasta 5.500 × 0,5 × 30 ÷ 1.000 = 82,5 kWh por mês. A potência vem na etiqueta do aparelho ou no selo Procel; aparelhos com motor, como geladeira e ar-condicionado, não ficam ligados na potência máxima o tempo todo.</p>
+      </DirectAnswer>
 
       {/* Seleção Rápida de Aparelhos */}
       <Card>

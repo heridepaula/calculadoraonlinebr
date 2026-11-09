@@ -6,35 +6,20 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("financas"),
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Calculadoras Financeiras",
-        description: "Calculadoras financeiras gratuitas: juros compostos, tesouro direto, CDB, financiamento imobiliário e mais",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/financas",
-        inLanguage: "pt-BR",
-        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
-            { "@type": "ListItem", position: 2, name: "Finanças", item: "https://www.calculadoraonlinebr.com.br/calculadoras/financas" },
-          ],
-        },
-      },
-    },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("financas"),
+  { "script:ld+json": generateCategoryPageGraph("financas") },
+  { "script:ld+json": categoryFaqStructuredData("financas") },
+];
 
 export default function FinancasIndex() {
   const financasCalculators = CALCULATORS.filter(
@@ -432,6 +417,8 @@ export default function FinancasIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="financas" />
 
       <RelatedCalculators category="financas" />
     </div>

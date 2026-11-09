@@ -7,35 +7,20 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("saude"),
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Calculadoras de Saúde",
-        description: "Calculadoras de saúde gratuitas: IMC, gordura corporal, ciclo menstrual e mais",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/saude",
-        inLanguage: "pt-BR",
-        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
-            { "@type": "ListItem", position: 2, name: "Saúde", item: "https://www.calculadoraonlinebr.com.br/calculadoras/saude" },
-          ],
-        },
-      },
-    },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("saude"),
+  { "script:ld+json": generateCategoryPageGraph("saude") },
+  { "script:ld+json": categoryFaqStructuredData("saude") },
+];
 
 export default function SaudeIndex() {
   const saudeCalculators = CALCULATORS.filter((calc: Calculator) => calc.category === "saude");
@@ -332,6 +317,8 @@ export default function SaudeIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="saude" />
 
       <RelatedCalculators category="saude" />
     </div>

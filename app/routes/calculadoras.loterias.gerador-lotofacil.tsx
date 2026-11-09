@@ -3,12 +3,10 @@ import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui";
-import {
-  RelatedCalculators,
+import { RelatedCalculators,
   FAQ,
   ResponsiveBreadcrumb,
-  createCalculatorBreadcrumb,
-} from "~/components";
+  createCalculatorBreadcrumb, DirectAnswer } from "~/components";
 import { LOTOFACIL } from "~/lib/lottery/definitions";
 import { buildStatsFaq, formatDateBR, type LotteryStats } from "~/lib/lottery/stats";
 import { LotteryGenerator } from "~/components/calculators/LotteryGenerator";
@@ -128,6 +126,11 @@ export default function GeradorLotofacil() {
             <BestPastGame lottery="lotofacil" best={community.best} />
           </div>
         </header>
+
+        <DirectAnswer title="Como funciona a Lotofácil">
+          <p>A Lotofácil sorteia 15 dezenas entre 25. A aposta mínima marca 15 números, e há prêmio para quem acerta 11, 12, 13, 14 ou 15. Com um jogo simples, a chance de acertar os 15 números é de 1 em 3.268.760, e a de ganhar algum prêmio é de cerca de 1 em 11.</p>
+          <p>Nenhuma estratégia aumenta a chance de acerto, porque todas as combinações têm a mesma probabilidade. O gerador ajuda a montar jogos variados e a evitar combinações muito comuns, o que reduz a chance de dividir o prêmio.</p>
+        </DirectAnswer>
 
         <LotteryGenerator stats={stats} />
 

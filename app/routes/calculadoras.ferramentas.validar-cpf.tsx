@@ -10,7 +10,7 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { Input } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -340,6 +340,11 @@ export default function CpfValidator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="Como saber se um CPF é válido">
+        <p>O CPF tem 11 dígitos: os 9 primeiros identificam o contribuinte e os 2 últimos são dígitos verificadores, calculados pelo módulo 11. Para o 1º dígito, multiplique os 9 primeiros pelos pesos de 10 a 2, some e calcule o resto da divisão por 11: se o resto for menor que 2, o dígito é 0; senão, é 11 menos o resto. O 2º dígito repete a conta com os 10 primeiros e pesos de 11 a 2.</p>
+        <p>A validação confirma só a matemática do número. Ela não mostra se o CPF existe, a quem pertence ou se está regular na Receita Federal; para isso, use a consulta de situação cadastral no site da Receita.</p>
+      </DirectAnswer>
 
       <Card>
         <CardHeader>

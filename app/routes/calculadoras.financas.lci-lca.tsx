@@ -10,7 +10,7 @@ import {
   BreadcrumbItem,
 } from "~/components/ui";
 import { MoneyInput, RateInput, Input } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useLoaderData } from "@remix-run/react";
 import { marketIndicatorsLoader } from "~/services/market/loader.server";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
@@ -435,6 +435,11 @@ export default function LciLcaCalculator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="Como funcionam a LCI e a LCA">
+        <p>LCI (Letra de Crédito Imobiliário) e LCA (Letra de Crédito do Agronegócio) são títulos emitidos por bancos para financiar os setores imobiliário e agrícola. Para pessoa física, o rendimento é isento de Imposto de Renda, e ambas têm garantia do FGC de até R$ 250 mil por CPF em cada instituição.</p>
+        <p>Para comparar com um CDB, calcule a taxa equivalente: divida a taxa da LCI ou LCA por (1 − alíquota do IR). Uma LCA de 90% do CDI equivale a um CDB de cerca de 106% do CDI em aplicações de mais de 2 anos (90 ÷ 0,85). Elas têm prazo mínimo de carência definido pelo Conselho Monetário Nacional, então o dinheiro não fica disponível a qualquer momento.</p>
+      </DirectAnswer>
 
       <Card>
         <CardHeader>

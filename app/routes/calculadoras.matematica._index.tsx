@@ -6,35 +6,20 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("matematica"),
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Calculadoras Matemáticas",
-        description: "Calculadoras matemáticas gratuitas: porcentagem, regra de três, frações, equações e mais",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica",
-        inLanguage: "pt-BR",
-        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
-            { "@type": "ListItem", position: 2, name: "Matemática", item: "https://www.calculadoraonlinebr.com.br/calculadoras/matematica" },
-          ],
-        },
-      },
-    },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("matematica"),
+  { "script:ld+json": generateCategoryPageGraph("matematica") },
+  { "script:ld+json": categoryFaqStructuredData("matematica") },
+];
 
 export default function MatematicaIndex() {
   const matematicaCalculators = CALCULATORS.filter(
@@ -421,6 +406,8 @@ export default function MatematicaIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="matematica" />
 
       <RelatedCalculators category="matematica" />
     </div>

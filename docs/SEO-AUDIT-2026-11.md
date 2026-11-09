@@ -247,6 +247,15 @@ Esforço: **P** = até 2 h, **M** = de meio dia a 1 dia, **G** = de 2 a 5 dias.
 - **4.1 concluído**: `npm run seo:check` (`scripts/seo-check.mjs`). Contra o build local: 90 páginas, 0 erros. Contra a produção (só com as Fases 0 e 1): 58 erros de título e descrição, que a Fase 2 corrige.
 - **4.4 concluído**: `_redirects` e `_headers` removidos (os redirects já estão no `vercel.json`), `robots.txt` enxuto, sem `Crawl-delay`, e `site.webmanifest` com nome e cores.
 
+**Fases 3 e 4, continuação (2026-11-09, branch `seo/fase-3-conteudo`):**
+
+- **3.2 concluído**: as 8 categorias sem FAQ ganharam introdução, guia "qual calculadora usar" (link para cada calculadora) e FAQ com JSON-LD, a partir de `app/data/category-guides.ts` e do componente `CategoryGuide`. Todas passaram a usar `generateCategoryPageGraph`. `/calculadoras` ganhou introdução, lista de todas as calculadoras e FAQ.
+- **3.7 concluído para as páginas mais visitadas** (Vercel Analytics, 30 dias): bloco `DirectAnswer` em antecipação Nubank, MMC e MDC, ascendente, validar CPF e CNPJ, Tesouro Direto, consumo de energia, CDB, LCI/LCA, horas extras e Lotofácil.
+- **3.5 concluído**: antecipação Nubank (página mais visitada) reescrita com passo a passo do app, tabela de descontos, comparação com o CDI do dia e FAQ sem afirmações sem fonte; compatibilidade de signos e contagem regressiva ganharam resposta direta.
+- **4.2 concluído**: o `manualChunks` do Vite punha todas as bibliotecas em um `vendor-libs` de 269 KB carregado em todas as páginas. Agora só React e Remix ficam em blocos fixos: o JS por página caiu de cerca de 660 KB para 395 KB, e o chart.js (177 KB) só carrega nas páginas com gráfico.
+- **Bugs corrigidos na revisão**: o validador de CNPJ recusava o CNPJ alfanumérico (emitido desde julho de 2026); a calculadora de dias úteis tratava a Quarta-feira de Cinzas como feriado e ignorava a segunda de Carnaval; o botão de copiar da compatibilidade de signos lançava `ReferenceError`.
+- **3.6 pendente**: novas calculadoras dependem de dados de busca (Search Console ou Keyword Planner) para escolher quais construir.
+
 Detalhe do que foi feito nas Fases 0 e 1:
 
 - **0.2 e 0.3 concluídos**: o preload de CSS com 404 e o da fonte Inter foram removidos, e o Google Fonts agora carrega uma vez só. Os 3 links quebrados foram corrigidos.

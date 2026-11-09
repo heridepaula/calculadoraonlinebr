@@ -161,10 +161,10 @@ export default function WorkdaysCalculator() {
 
     // Feriados móveis baseados na Páscoa
     const carnival1 = new Date(easter);
-    carnival1.setDate(easter.getDate() - 47); // Segunda-feira de Carnaval
+    carnival1.setDate(easter.getDate() - 48); // Segunda-feira de Carnaval
 
     const carnival2 = new Date(easter);
-    carnival2.setDate(easter.getDate() - 46); // Terça-feira de Carnaval
+    carnival2.setDate(easter.getDate() - 47); // Terça-feira de Carnaval (−46 é a Quarta de Cinzas)
 
     const goodFriday = new Date(easter);
     goodFriday.setDate(easter.getDate() - 2); // Sexta-feira Santa

@@ -1,12 +1,10 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useEffect, useRef } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
-import {
-  RelatedCalculators,
+import { RelatedCalculators,
   FAQ,
   ResponsiveBreadcrumb,
-  createCalculatorBreadcrumb,
-} from "~/components";
+  createCalculatorBreadcrumb, DirectAnswer } from "~/components";
 import { calculateSolarSign, fetchAscendantDescription } from "~/utils/astrology";
 import type { AscendantDescription } from "~/types";
 import { buildCalculatorMeta } from "~/lib/page-meta";
@@ -1374,6 +1372,11 @@ export default function CalculadoraAscendente() {
             </p>
           </div>
         </header>
+
+        <DirectAnswer title="O que é o ascendente e como ele é calculado">
+          <p>O ascendente é o signo que estava surgindo no horizonte leste no momento e no local exatos do seu nascimento. Na astrologia, ele é associado à forma como a pessoa se apresenta e é vista pelos outros.</p>
+          <p>Para calculá-lo são necessárias a data, a hora e a cidade de nascimento: com elas se obtém o tempo sideral local e o grau do zodíaco que cruzava o horizonte. Como o ascendente muda, em média, a cada duas horas, poucos minutos de diferença podem mudar o resultado. Astrologia não tem comprovação científica; use o resultado como entretenimento.</p>
+        </DirectAnswer>
 
         {/* Formulário */}
         <Card className="mx-auto max-w-2xl">

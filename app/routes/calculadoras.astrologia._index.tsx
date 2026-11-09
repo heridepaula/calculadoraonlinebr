@@ -6,6 +6,8 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
@@ -13,12 +15,11 @@ import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("astrologia"),
-    { "script:ld+json": generateCategoryPageGraph("astrologia") },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("astrologia"),
+  { "script:ld+json": generateCategoryPageGraph("astrologia") },
+  { "script:ld+json": categoryFaqStructuredData("astrologia") },
+];
 
 export default function AstrologiaIndex() {
   const astrologiaCalculators = CALCULATORS.filter(
@@ -437,6 +438,8 @@ export default function AstrologiaIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="astrologia" />
 
       <RelatedCalculators category="astrologia" />
     </div>

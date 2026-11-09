@@ -12,7 +12,7 @@ import {
   BreadcrumbItem,
   Select,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -409,6 +409,11 @@ export default function OvertimeCalculator() {
             </p>
           </div>
         </header>
+
+        <DirectAnswer title="Como calcular hora extra">
+          <p>Valor da hora normal = salário ÷ horas mensais (220 para jornada de 44 horas semanais). A hora extra vale pelo menos 50% a mais em dias úteis (Constituição, art. 7º, XVI, e CLT, art. 59) e o dobro no domingo ou feriado trabalhado sem folga compensatória (Súmula 146 do TST). Convenções coletivas podem prever percentuais maiores.</p>
+          <p>Exemplo: com salário de R$ 2.200 e jornada de 220 horas, a hora normal vale R$ 10 e a hora extra a 50% vale R$ 15. As horas extras habituais também geram reflexo no descanso semanal remunerado (DSR), nas férias, no 13º e no FGTS.</p>
+        </DirectAnswer>
 
         {/* Formulário */}
         <Card className="w-full">

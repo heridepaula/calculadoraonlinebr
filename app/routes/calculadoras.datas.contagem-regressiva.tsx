@@ -1,12 +1,10 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useRef, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button, Input } from "~/components/ui";
-import {
-  RelatedCalculators,
+import { RelatedCalculators,
   FAQ,
   ResponsiveBreadcrumb,
-  createCalculatorBreadcrumb,
-} from "~/components";
+  createCalculatorBreadcrumb, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -471,6 +469,11 @@ export default function CountdownCalculator() {
               </p>
             </div>
           </header>
+
+          <DirectAnswer title="Como calcular quantos dias faltam para uma data">
+            <p>Subtraia a data de hoje da data do evento, contando os dias reais de cada mês e os anos bissextos. A contagem regressiva mostra o resultado em dias, horas, minutos e segundos e se atualiza sozinha enquanto a página está aberta.</p>
+            <p>Por convenção, o dia de hoje não entra na conta: de 1º a 31 de dezembro faltam 30 dias. Se você quer saber quantos dias úteis faltam, por exemplo para um prazo de trabalho, use a calculadora de dias úteis, que desconta fins de semana e feriados nacionais.</p>
+          </DirectAnswer>
 
           <main className="space-y-8">
             <section aria-labelledby="calculator-section">

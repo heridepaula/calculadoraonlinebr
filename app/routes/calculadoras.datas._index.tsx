@@ -6,6 +6,8 @@ import {
   QuickAccessCard,
   ResponsiveBreadcrumb,
   createCategoryBreadcrumb,
+  CategoryGuide,
+  categoryFaqStructuredData,
 } from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
@@ -13,12 +15,11 @@ import { generateCategoryPageGraph } from "~/lib/structured-data";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("datas"),
-    { "script:ld+json": generateCategoryPageGraph("datas") },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("datas"),
+  { "script:ld+json": generateCategoryPageGraph("datas") },
+  { "script:ld+json": categoryFaqStructuredData("datas") },
+];
 
 export default function DatasIndex() {
   const datasCalculators = CALCULATORS.filter((calc: Calculator) => calc.category === "datas");
@@ -439,6 +440,8 @@ export default function DatasIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="datas" />
 
       <RelatedCalculators category="datas" />
     </div>

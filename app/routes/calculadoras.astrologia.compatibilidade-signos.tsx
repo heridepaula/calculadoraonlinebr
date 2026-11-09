@@ -1,12 +1,10 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
 import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, Button } from "~/components/ui";
-import {
-  RelatedCalculators,
+import { RelatedCalculators,
   FAQ,
   ResponsiveBreadcrumb,
-  createCalculatorBreadcrumb,
-} from "~/components";
+  createCalculatorBreadcrumb, DirectAnswer } from "~/components";
 import { trackEvent } from "~/lib/google-analytics";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -307,10 +305,12 @@ const CompatibilityResults = ({
   result,
   signo1,
   signo2,
+  showCopyToast,
 }: {
   result: CompatibilityResult;
   signo1: string;
   signo2: string;
+  showCopyToast: (message: string) => void;
 }) => {
   const getSigno = (id: string) => SIGNOS.find((s) => s.id === id);
   const s1 = getSigno(signo1);
@@ -1410,6 +1410,11 @@ export default function CalculadoraCompatibilidadeSignos() {
           </div>
         </header>
 
+        <DirectAnswer title="Como a astrologia avalia a compatibilidade entre signos">
+          <p>A compatibilidade parte dos elementos de cada signo. Fogo (Áries, Leão e Sagitário) e Ar (Gêmeos, Libra e Aquário) se complementam, assim como Terra (Touro, Virgem e Capricórnio) e Água (Câncer, Escorpião e Peixes). Signos do mesmo elemento tendem a ter afinidade natural, e combinações como Fogo com Água ou Terra com Ar costumam pedir mais esforço de adaptação.</p>
+          <p>A calculadora parte dessa combinação de elementos para descrever a afinidade no amor, na amizade e no trabalho, com pontos fortes e desafios de cada par. Uma análise astrológica completa considera também ascendente, Lua e Vênus. Astrologia não tem comprovação científica: use o resultado como diversão, não para decidir um relacionamento.</p>
+        </DirectAnswer>
+
         {/* Formulário */}
         <Card className="mx-auto max-w-4xl">
           <CardHeader>
@@ -1465,7 +1470,12 @@ export default function CalculadoraCompatibilidadeSignos() {
         {/* Resultado */}
         {result && signo1 && signo2 && (
           <div className="mx-auto max-w-4xl">
-            <CompatibilityResults result={result} signo1={signo1} signo2={signo2} />
+            <CompatibilityResults
+              result={result}
+              signo1={signo1}
+              signo2={signo2}
+              showCopyToast={showCopyToast}
+            />
           </div>
         )}
 

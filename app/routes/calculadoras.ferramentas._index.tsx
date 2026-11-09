@@ -1,34 +1,24 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Breadcrumb, BreadcrumbItem } from "~/components/ui";
-import { RelatedCalculators, CategoryHero, CategoryStats, QuickAccessCard } from "~/components";
+import {
+  RelatedCalculators,
+  CategoryHero,
+  CategoryStats,
+  QuickAccessCard,
+  CategoryGuide,
+  categoryFaqStructuredData,
+} from "~/components";
 import { CalculatorCard } from "~/components/CalculatorCard";
 import { CALCULATORS } from "~/lib/constants";
 import type { Calculator } from "~/types";
 import { buildCategoryMeta } from "~/lib/page-meta";
+import { generateCategoryPageGraph } from "~/lib/structured-data";
 
-export const meta: MetaFunction = () => {
-  return [
-    ...buildCategoryMeta("ferramentas"),
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Ferramentas Online Gratuitas",
-        description: "Ferramentas gratuitas: gerador de CPF, CNPJ, UUID, validadores e mais",
-        url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas",
-        inLanguage: "pt-BR",
-        isPartOf: { "@type": "WebSite", name: "CalculadoraOnlineBR", url: "https://www.calculadoraonlinebr.com.br" },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Início", item: "https://www.calculadoraonlinebr.com.br" },
-            { "@type": "ListItem", position: 2, name: "Ferramentas", item: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas" },
-          ],
-        },
-      },
-    },
-  ];
-};
+export const meta: MetaFunction = () => [
+  ...buildCategoryMeta("ferramentas"),
+  { "script:ld+json": generateCategoryPageGraph("ferramentas") },
+  { "script:ld+json": categoryFaqStructuredData("ferramentas") },
+];
 
 export default function FerramentasIndex() {
   const ferramentasCalculators = CALCULATORS.filter(
@@ -479,6 +469,8 @@ export default function FerramentasIndex() {
           </div>
         </div>
       </section>
+
+      <CategoryGuide categoryId="ferramentas" />
 
       <RelatedCalculators category="ferramentas" />
     </div>

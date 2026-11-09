@@ -54,15 +54,21 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
+        // Só React e Remix, usados em todas as páginas, ficam em blocos fixos. As demais
+        // bibliotecas (chart.js etc.) ficam com a divisão automática do Rollup e só são
+        // baixadas pelas páginas que as importam; um bloco "vendor-libs" único as carregava
+        // em todas as páginas (269 KB em nov/2026).
         manualChunks(id) {
-          if (id.includes("node_modules")) {
-            if (id.includes("react") || id.includes("react-dom")) {
-              return "vendor-react";
-            }
-            if (id.includes("@remix-run")) {
-              return "vendor-remix";
-            }
-            return "vendor-libs";
+          const normalized = id.replace(/\\/g, "/");
+          if (/\/node_modules\/(react|react-dom|scheduler)\//.test(normalized)) {
+            return "vendor-react";
+          }
+          if (
+            /\/node_modules\/(@remix-run|react-router|react-router-dom|@remix-run\/router)\//.test(
+              normalized
+            )
+          ) {
+            return "vendor-remix";
           }
         },
         chunkFileNames: "assets/[name]-[hash].js",
