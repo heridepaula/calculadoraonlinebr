@@ -136,7 +136,12 @@ const CROSS_LINKS: Record<string, string[]> = {
   "equivalencia-km-kwh-km-l": [
     "carro-eletrico-combustao",
     "consumo-energia-eletrica",
-    "economia-energia-eletrica",
+    "custo-misto-phev",
+  ],
+  "custo-misto-phev": [
+    "equivalencia-km-kwh-km-l",
+    "carro-eletrico-combustao",
+    "consumo-energia-eletrica",
   ],
   "validar-cnpj": ["gerador-cnpj", "validar-cpf"],
   "gerador-cnpj": ["validar-cnpj", "validar-cpf"],

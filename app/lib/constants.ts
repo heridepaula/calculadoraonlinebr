@@ -530,6 +530,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/equivalencia-km-kwh-km-l",
   },
   {
+    id: "custo-misto-phev",
+    name: "Calculadora de Custo de Viagem para Híbrido Plug-in (PHEV)",
+    description:
+      "Calcule o custo de um trajeto com híbrido plug-in: quanto gasta na tomada e no posto, os km rodados no modo elétrico e híbrido e o rendimento equivalente em km/L",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/custo-misto-phev",
+  },
+  {
     id: "economia-energia-eletrica",
     name: "Calculadora de Economia de Energia Elétrica",
     description:

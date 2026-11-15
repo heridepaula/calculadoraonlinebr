@@ -12,6 +12,8 @@ export interface MoneyInputProps {
   fullWidth?: boolean;
   readOnly?: boolean;
   min?: string;
+  /** Símbolo exibido à esquerda do campo (padrão "R$"); use "" para valores que não são dinheiro. */
+  prefix?: string;
 }
 
 export const MoneyInput: React.FC<MoneyInputProps> = ({
@@ -25,6 +27,7 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
   fullWidth = false,
   readOnly = false,
   min,
+  prefix = "R$",
 }) => {
   const [displayValue, setDisplayValue] = useState("");
   const [numericValue, setNumericValue] = useState(0);
@@ -227,9 +230,11 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
         </label>
       )}
       <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 transform select-none text-text-secondary">
-          R$
-        </span>
+        {prefix && (
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 transform select-none text-text-secondary">
+            {prefix}
+          </span>
+        )}
         <input
           ref={inputRef}
           id={id}
@@ -240,7 +245,7 @@ export const MoneyInput: React.FC<MoneyInputProps> = ({
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
           placeholder={placeholder}
-          className={`${baseClasses} pl-12`}
+          className={`${baseClasses} ${prefix ? "pl-12" : "pl-3"}`}
           readOnly={readOnly}
           style={{ caretColor: readOnly ? "transparent" : "auto" }}
         />

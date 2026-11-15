@@ -385,6 +385,10 @@ export const CATEGORY_GUIDES: Record<string, CategoryGuide> = {
         when: "para saber quantos km/L o seu carro elétrico equivale em custo por km",
       },
       {
+        calculatorId: "custo-misto-phev",
+        when: "para calcular o custo de uma viagem com um híbrido plug-in (PHEV)",
+      },
+      {
         calculatorId: "clicks-por-segundo",
         when: "para testar quantos cliques por segundo você consegue dar",
       },

@@ -666,6 +666,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.7,
     changeFreq: "monthly",
   },
+  "custo-misto-phev": {
+    id: "custo-misto-phev",
+    title: "Calculadora Custo PHEV: Gasto de Híbridos Plug-in",
+    description:
+      "Calcule o custo real de viagens e rotina diária com carros híbridos plug-in (PHEV). Veja quanto gasta na tomada vs. no posto e a média de km/L combinada.",
+    keywords:
+      "calculadora PHEV, custo híbrido plug-in, consumo PHEV, quanto gasta um híbrido plug-in, km/L híbrido plug-in, custo por km PHEV, híbrido plug-in vale a pena, custo viagem híbrido, recarregar PHEV",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/custo-misto-phev",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
   "economia-energia-eletrica": {
     id: "economia-energia-eletrica",
     title:
