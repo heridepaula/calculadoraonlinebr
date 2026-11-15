@@ -345,8 +345,8 @@ export const CATEGORY_GUIDES: Record<string, CategoryGuide> = {
         calculatorId: "validar-cpf",
         when: "para conferir se um CPF tem dígitos verificadores corretos",
       },
-      { calculatorId: "gerador-cnpj", when: "para gerar CNPJs válidos e fictícios para testes" },
-      { calculatorId: "validar-cnpj", when: "para conferir os dígitos verificadores de um CNPJ" },
+      { calculatorId: "gerador-cnpj", when: "para gerar CNPJs válidos e fictícios, numéricos ou alfanuméricos, para testes" },
+      { calculatorId: "validar-cnpj", when: "para conferir os dígitos verificadores de um CNPJ numérico ou alfanumérico" },
       {
         calculatorId: "gerador-cartao-credito",
         when: "para números de cartão de teste que passam no algoritmo de Luhn",

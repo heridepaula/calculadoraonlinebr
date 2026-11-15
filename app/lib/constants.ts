@@ -445,7 +445,7 @@ export const CALCULATORS = [
     id: "gerador-cnpj",
     name: "Gerador de CNPJ",
     description:
-      "Gere CNPJs válidos para testes e desenvolvimento com opção de formatação. Cópia automática para área de transferência, algoritmo da Receita Federal",
+      "Gere CNPJs numéricos ou alfanuméricos válidos para testes e desenvolvimento, com ordem/filial editável e opção de formatação. Cópia automática para área de transferência",
     category: "ferramentas",
     path: "/calculadoras/ferramentas/gerador-cnpj",
   },
@@ -461,7 +461,7 @@ export const CALCULATORS = [
     id: "validar-cnpj",
     name: "Validador de CNPJ",
     description:
-      "Valide CNPJs com ou sem pontuação usando algoritmo oficial da Receita Federal. Validação instantânea e precisa para verificar se CNPJ é válido",
+      "Valide CNPJs numéricos e alfanuméricos (com letras), com ou sem pontuação, pelo algoritmo módulo 11 da Receita Federal. Validação instantânea e precisa",
     category: "ferramentas",
     path: "/calculadoras/ferramentas/validar-cnpj",
   },

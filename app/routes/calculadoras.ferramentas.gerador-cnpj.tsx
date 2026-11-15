@@ -8,10 +8,12 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
+  Input,
 } from "~/components/ui";
 import { RelatedCalculators, FAQ } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
+import { formatCnpj, generateCnpj, sanitizeCnpj, validateBranch } from "~/lib/cnpj";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,7 +30,7 @@ export const meta: MetaFunction = () => {
         operatingSystem: "Web Browser",
         isAccessibleForFree: true,
         inLanguage: "pt-BR",
-        dateModified: "2025-09-07",
+        dateModified: "2026-11-15",
         offers: {
           "@type": "Offer",
           price: "0",
@@ -99,7 +101,8 @@ export const meta: MetaFunction = () => {
           category: "GovernmentService",
         },
         featureList: [
-          "Geração de CNPJ válido",
+          "Geração de CNPJ numérico e alfanumérico (IN RFB 2.229/2024)",
+          "Ordem/filial editável (padrão 0001)",
           "Formatação com ou sem pontuação",
           "Cópia automática para área de transferência",
           "Validação de dígitos verificadores",
@@ -117,10 +120,18 @@ export const meta: MetaFunction = () => {
         mainEntity: [
           {
             "@type": "Question",
+            name: "O gerador cria CNPJ alfanumérico?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Sim. O padrão é o CNPJ alfanumérico (IN RFB 2.229/2024, em vigor desde julho de 2026), com letras e números nas 12 primeiras posições e 2 dígitos verificadores numéricos. Também é possível gerar o formato numérico tradicional.",
+            },
+          },
+          {
+            "@type": "Question",
             name: "O que é um CNPJ?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 dígitos com formatação XX.XXX.XXX/XXXX-XX.",
+              text: "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 caracteres com formatação XX.XXX.XXX/XXXX-XX.",
             },
           },
           {
@@ -149,15 +160,20 @@ interface CnpjResult {
   cnpj: string;
   cnpjFormatted: string;
   isValid: boolean;
+  alphanumeric: boolean;
   generatedAt: Date;
 }
 
 interface ValidationErrors {
   generation?: string;
+  branch?: string;
 }
 
 export default function CnpjGenerator() {
   const [withFormatting, setWithFormatting] = useState(true);
+  const [alphanumeric, setAlphanumeric] = useState(true);
+  const [branch, setBranch] = useState("0001");
+  const [branchNotice, setBranchNotice] = useState<string | null>(null);
   const [result, setResult] = useState<CnpjResult | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [copySuccess, setCopySuccess] = useState(false);
@@ -168,41 +184,6 @@ export default function CnpjGenerator() {
     category: "ferramentas",
   });
   useFormTracking("gerador-cnpj");
-
-  // Gera 12 dígitos aleatórios para o CNPJ (8 dígitos + 4 dígitos da filial)
-  const generateRandomDigits = (): string => {
-    const baseDigits = Math.floor(Math.random() * 100000000)
-      .toString()
-      .padStart(8, "0");
-    const filialDigits = "0001"; // Matriz (filial 0001)
-    return baseDigits + filialDigits;
-  };
-
-  // Calcula o primeiro dígito verificador
-  const calculateFirstDigit = (cnpjDigits: string): number => {
-    const weights = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-    const sum = cnpjDigits.split("").reduce((acc, digit, index) => {
-      return acc + parseInt(digit) * weights[index];
-    }, 0);
-    const remainder = sum % 11;
-    return remainder < 2 ? 0 : 11 - remainder;
-  };
-
-  // Calcula o segundo dígito verificador
-  const calculateSecondDigit = (cnpjDigits: string, firstDigit: number): number => {
-    const weights = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-    const digitsWithFirst = cnpjDigits + firstDigit;
-    const sum = digitsWithFirst.split("").reduce((acc, digit, index) => {
-      return acc + parseInt(digit) * weights[index];
-    }, 0);
-    const remainder = sum % 11;
-    return remainder < 2 ? 0 : 11 - remainder;
-  };
-
-  // Formatar CNPJ com pontuação
-  const formatCnpj = (cnpj: string): string => {
-    return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
-  };
 
   // Função para copiar para clipboard
   const copyToClipboard = async (text: string): Promise<boolean> => {
@@ -230,31 +211,41 @@ export default function CnpjGenerator() {
     }
   };
 
-  const validateGeneration = (): boolean => {
-    const newErrors: ValidationErrors = {};
-    setErrors(newErrors);
-    return true;
+  const handleBranchChange = (value: string) => {
+    const cleaned = sanitizeCnpj(value).slice(0, 4);
+    setBranch(alphanumeric ? cleaned : cleaned.replace(/[^0-9]/g, ""));
+    setErrors({});
+    setBranchNotice(null);
+  };
+
+  const handleTypeChange = (nextAlphanumeric: boolean) => {
+    setAlphanumeric(nextAlphanumeric);
+    setErrors({});
+    setBranchNotice(null);
+    if (!nextAlphanumeric && /[^0-9]/.test(branch)) {
+      setBranch("0001");
+      setBranchNotice("A ordem voltou para 0001: no CNPJ numérico ela só aceita números.");
+    }
   };
 
   // Gerar CNPJ válido
   const generateValidCnpj = (): CnpjResult => {
-    const randomDigits = generateRandomDigits();
-    const firstDigit = calculateFirstDigit(randomDigits);
-    const secondDigit = calculateSecondDigit(randomDigits, firstDigit);
-
-    const cnpj = randomDigits + firstDigit + secondDigit;
-    const cnpjFormatted = formatCnpj(cnpj);
-
+    const cnpj = generateCnpj({ alphanumeric, branch });
     return {
       cnpj,
-      cnpjFormatted,
+      cnpjFormatted: formatCnpj(cnpj),
       isValid: true,
+      alphanumeric,
       generatedAt: new Date(),
     };
   };
 
   const handleGenerate = async () => {
-    if (!validateGeneration()) return;
+    const branchError = validateBranch(branch, alphanumeric);
+    if (branchError) {
+      setErrors({ branch: branchError });
+      return;
+    }
     startCalculation();
     setCopySuccess(false);
 
@@ -286,6 +277,9 @@ export default function CnpjGenerator() {
 
   const handleReset = () => {
     setWithFormatting(true);
+    setAlphanumeric(true);
+    setBranch("0001");
+    setBranchNotice(null);
     setResult(null);
     setErrors({});
     setCopySuccess(false);
@@ -336,6 +330,76 @@ export default function CnpjGenerator() {
           <CardTitle as="h2">⚙️ Configurações do Gerador de CNPJ</CardTitle>
         </CardHeader>
         <CardContent>
+          {/* Tipo de CNPJ */}
+          <div className="mb-6">
+            <div
+              className="mb-2 text-center text-sm font-medium text-text-primary"
+              id="cnpj-type-label"
+            >
+              Tipo de CNPJ
+            </div>
+            <div className="flex justify-center">
+              <div
+                role="radiogroup"
+                aria-labelledby="cnpj-type-label"
+                className="flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-neutral-surface-variant sm:flex-row"
+              >
+                {[
+                  { value: true, label: "Alfanumérico (novo)" },
+                  { value: false, label: "Numérico" },
+                ].map((option) => (
+                  <button
+                    key={option.label}
+                    type="button"
+                    role="radio"
+                    aria-checked={alphanumeric === option.value}
+                    onClick={() => handleTypeChange(option.value)}
+                    className={`min-h-[44px] flex-1 px-4 py-3 text-center text-base font-medium transition ${
+                      alphanumeric === option.value
+                        ? "bg-primary-blue text-gray-900"
+                        : "bg-neutral-surface text-text-secondary hover:bg-primary-blue/10"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="mt-2 text-center text-xs text-text-secondary">
+              {alphanumeric
+                ? "Raiz com letras e números (IN RFB 2.229/2024); os 2 dígitos verificadores são numéricos."
+                : "Formato tradicional, somente números."}
+            </p>
+          </div>
+
+          {/* Ordem / filial */}
+          <div className="mx-auto mb-6 max-w-md">
+            <label
+              htmlFor="cnpj-branch"
+              className="mb-2 block text-sm font-medium text-text-primary"
+            >
+              Ordem / filial (4 caracteres)
+            </label>
+            <Input
+              id="cnpj-branch"
+              type="text"
+              value={branch}
+              onChange={(e) => handleBranchChange(e.target.value)}
+              maxLength={4}
+              inputMode="text"
+              autoCapitalize="characters"
+              autoComplete="off"
+              spellCheck={false}
+              className="font-mono text-lg"
+            />
+            <ErrorMessage error={errors.branch} />
+            {branchNotice && <p className="mt-1 text-sm text-system-warning">{branchNotice}</p>}
+            <p className="mt-1 text-xs text-text-secondary">
+              0001 representa a matriz; filiais usam 0002, 0003...
+              {alphanumeric ? " No alfanumérico a ordem também pode ter letras." : ""}
+            </p>
+          </div>
+
           {/* Opção de formatação mobile first */}
           <div className="mb-6 flex justify-center">
             <div className="flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-neutral-surface-variant sm:flex-row">
@@ -452,6 +516,9 @@ export default function CnpjGenerator() {
                     <code className="rounded bg-gray-800 px-1">{result.cnpjFormatted}</code>
                   </li>
                   <li>
+                    <strong>Tipo:</strong> {result.alphanumeric ? "Alfanumérico" : "Numérico"}
+                  </li>
+                  <li>
                     <strong>Status:</strong> <span className="text-growth-green">Válido ✓</span>
                   </li>
                   <li>
@@ -490,13 +557,14 @@ export default function CnpjGenerator() {
                   <p className="mb-4 text-sm text-text-secondary">
                     CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o registro de identificação do
                     contribuinte pessoa jurídica na Receita Federal brasileira, composto por 14
-                    dígitos numéricos.
+                    caracteres. Desde julho de 2026 a raiz e a ordem também podem ter letras (CNPJ
+                    alfanumérico, IN RFB 2.229/2024); os 2 dígitos verificadores seguem numéricos.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Formato</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
                     <li>• Formato: XX.XXX.XXX/XXXX-XX</li>
-                    <li>• 12 dígitos + 2 dígitos verificadores</li>
+                    <li>• 12 caracteres (0-9 e A-Z) + 2 dígitos verificadores</li>
                     <li>• Único para cada pessoa jurídica</li>
                   </ul>
                 </div>
@@ -529,13 +597,14 @@ export default function CnpjGenerator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-primary-blue-dark">🎯 Primeiro Dígito</h4>
                   <p className="mb-4 text-sm text-text-secondary">
-                    Multiplica-se cada um dos primeiros 12 dígitos por uma sequência específica
+                    Converte-se cada um dos primeiros 12 caracteres em número (código ASCII − 48:
+                    A=17 ... Z=42) e multiplica-se por uma sequência específica
                     (5,4,3,2,9,8,7,6,5,4,3,2) e calcula-se o resto da divisão por 11.
                   </p>
 
                   <h4 className="mb-3 font-semibold text-system-info">📊 Cálculo</h4>
                   <ul className="mb-4 space-y-1 text-sm text-text-secondary">
-                    <li>• Soma = d₁×5 + d₂×4 + ... + d₁₂×2</li>
+                    <li>• Soma = v₁×5 + v₂×4 + ... + v₁₂×2 (v = valor do caractere)</li>
                     <li>• Resto = Soma % 11</li>
                     <li>• Se resto {"<"} 2, DV1 = 0, senão DV1 = 11 - resto</li>
                   </ul>
@@ -550,7 +619,7 @@ export default function CnpjGenerator() {
 
                   <h4 className="mb-3 font-semibold text-system-success">✅ Validação</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• Soma = d₁×6 + d₂×5 + ... + DV1×2</li>
+                    <li>• Soma = v₁×6 + v₂×5 + ... + DV1×2</li>
                     <li>• Resto = Soma % 11</li>
                     <li>• Se resto {"<"} 2, DV2 = 0, senão DV2 = 11 - resto</li>
                   </ul>
@@ -598,9 +667,15 @@ export default function CnpjGenerator() {
         title="Perguntas Frequentes - Gerador de CNPJ"
         items={[
           {
+            question: "O gerador cria CNPJ alfanumérico?",
+            answer:
+              "Sim. O padrão é o CNPJ alfanumérico (IN RFB 2.229/2024, em vigor desde julho de 2026): letras de A a Z e números nas 12 primeiras posições, com os 2 dígitos verificadores numéricos calculados pelo módulo 11. Você pode trocar para o formato numérico tradicional.",
+            borderColor: "primary-blue",
+          },
+          {
             question: "O que é um CNPJ?",
             answer:
-              "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 dígitos com formatação XX.XXX.XXX/XXXX-XX. É obrigatório para empresas e organizações.",
+              "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 caracteres com formatação XX.XXX.XXX/XXXX-XX. É obrigatório para empresas e organizações.",
             borderColor: "primary-blue",
           },
           {
@@ -624,7 +699,7 @@ export default function CnpjGenerator() {
           {
             question: "Qual a diferença entre com e sem pontuação?",
             answer:
-              "Com pontuação: 12.345.678/0001-90 (formato padrão para documentos). Sem pontuação: 12345678000190 (formato usado em sistemas e bases de dados). Você pode alternar entre os formatos a qualquer momento.",
+              "Com pontuação: 12.345.678/0001-95 (formato padrão para documentos). Sem pontuação: 12345678000195 (formato usado em sistemas e bases de dados). O mesmo vale para o alfanumérico, como 12.ABC.345/0001-88. Você pode alternar entre os formatos a qualquer momento.",
             borderColor: "system-info",
           },
           {
@@ -636,7 +711,7 @@ export default function CnpjGenerator() {
           {
             question: "O que significa a filial '0001'?",
             answer:
-              "Todos os CNPJs gerados usam '0001' como código da filial, que representa a matriz da empresa. É o padrão usado para a sede principal de qualquer pessoa jurídica no Brasil.",
+              "'0001' é o código da matriz e é o valor padrão do gerador. Você pode editar o campo Ordem/filial (por exemplo 0002 para uma filial). No CNPJ alfanumérico a ordem também aceita letras; '0000' não é aceito.",
             borderColor: "primary-blue",
           },
         ]}
@@ -664,8 +739,9 @@ export default function CnpjGenerator() {
               validações matemáticas, mas são fictícios.
             </p>
             <p>
-              <strong>Funcionalidades:</strong> Geração com ou sem pontuação, cópia automática para
-              área de transferência, interface responsiva e geração instantânea com um clique.
+              <strong>Funcionalidades:</strong> Geração numérica ou alfanumérica, ordem/filial
+              editável, com ou sem pontuação, cópia automática para área de transferência, interface
+              responsiva e geração instantânea com um clique.
             </p>
             <p>
               <strong className="text-system-error">Aviso Legal:</strong> Esta ferramenta é

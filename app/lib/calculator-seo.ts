@@ -536,12 +536,11 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "gerador-cnpj": {
     id: "gerador-cnpj",
-    title:
-      "Gerador de CNPJ Online",
+    title: "Gerador de CNPJ Alfanumérico Online",
     description:
-      "Gere CNPJ válido grátis com ou sem pontuação. Ferramenta para testes e desenvolvimento com cópia automática. Geração instantânea e confiável.",
+      "Gere CNPJ alfanumérico ou numérico válido, com ou sem pontuação, e ordem/filial editável. Para testes e desenvolvimento, com cópia automática.",
     keywords:
-      "gerador CNPJ, CNPJ válido, CNPJ teste, CNPJ desenvolvimento, CNPJ sem pontuação, CNPJ formatado, validador CNPJ, algoritmo CNPJ, dígitos verificadores CNPJ, CNPJ falso, teste sistema, Receita Federal, CNPJ brasileiro, ferramenta CNPJ",
+      "gerador CNPJ, gerador CNPJ alfanumérico, CNPJ alfanumérico, novo CNPJ com letras, IN RFB 2.229, CNPJ válido, CNPJ teste, CNPJ desenvolvimento, CNPJ sem pontuação, CNPJ formatado, validador CNPJ, algoritmo CNPJ, dígitos verificadores CNPJ, CNPJ falso, teste sistema, Receita Federal, CNPJ brasileiro, ferramenta CNPJ",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cnpj",
     priority: 0.8,
     changeFreq: "monthly",
@@ -559,11 +558,11 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "validar-cnpj": {
     id: "validar-cnpj",
-    title: "Validar CNPJ Online",
+    title: "Validar CNPJ Alfanumérico e Numérico",
     description:
-      "Valide CNPJ grátis com ou sem pontuação. Ferramenta para verificar se CNPJ é válido com algoritmo da Receita Federal. Validação instantânea e confiável.",
+      "Valide CNPJ numérico e alfanumérico (com letras) com ou sem pontuação. Confere os dígitos verificadores pelo módulo 11, conforme a IN RFB 2.229/2024.",
     keywords:
-      "validador CNPJ, validar CNPJ, verificar CNPJ, CNPJ válido, CNPJ inválido, dígito verificador CNPJ, algoritmo CNPJ, conferir CNPJ, checar CNPJ, Receita Federal, autenticidade CNPJ, ferramenta validação",
+      "validador CNPJ, validar CNPJ alfanumérico, CNPJ alfanumérico, novo CNPJ com letras, IN RFB 2.229, validar CNPJ, verificar CNPJ, CNPJ válido, CNPJ inválido, dígito verificador CNPJ, algoritmo CNPJ, conferir CNPJ, checar CNPJ, Receita Federal, autenticidade CNPJ, ferramenta validação",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
     priority: 0.8,
     changeFreq: "monthly",
