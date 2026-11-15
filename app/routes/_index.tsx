@@ -43,17 +43,18 @@ export const meta: MetaFunction = () => {
 
 const TOTAL_CALCULATORS = CALCULATORS.length;
 
-// Top 3 per category — curated highlights surfaced as podium on each category card.
+// Top 3 por categoria, ordenado por cliques no Search Console (30 dias até 2026-11-15;
+// slugs antigos somados às URLs atuais). Onde não há dados suficientes, mantém a curadoria.
 const TOP_BY_CATEGORY: Record<string, string[]> = {
-  saude: ["imc", "gordura-corporal", "ciclo-menstrual"],
-  financas: ["tesouro-direto", "financiamento-imobiliario", "cdb"],
-  matematica: ["porcentagem", "calculadora-cientifica", "regra-de-tres"],
-  trabalhista: ["rescisao-trabalhista", "salario-liquido", "aposentadoria"],
-  ferramentas: ["gerador-cpf", "gerador-senha-segura", "conversor-unidades"],
-  astrologia: ["signo", "ascendente-astrologico", "numerologia"],
+  saude: ["gordura-corporal", "desenvolvimento-infantil", "imc"],
+  financas: ["antecipacao-parcelas-nubank", "cdb", "tesouro-direto"],
+  matematica: ["mmc-mdc", "equacao-segundo-grau", "calculadora-cientifica"],
+  trabalhista: ["salario-liquido", "ferias-decimo-terceiro", "auxilio-doenca"],
+  ferramentas: ["validar-cpf", "validar-cnpj", "consumo-energia-eletrica"],
+  astrologia: ["ascendente-astrologico", "compatibilidade-signos", "signo"],
   datas: ["diferenca-entre-datas", "idade-exata", "dias-uteis"],
   loterias: ["gerador-mega-sena", "gerador-lotofacil", "gerador-quina"],
-  apostas: ["valor-esperado", "criterio-de-kelly", "surebet"],
+  apostas: ["multipla", "valor-esperado", "criterio-de-kelly"],
 };
 
 function getCalculator(id: string) {
@@ -250,36 +251,36 @@ export default function Index() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
-                to: "/calculadoras/financas/tesouro-direto",
-                title: "Tesouro Direto",
-                sub: "Títulos Públicos",
-                icon: "🏛️",
+                to: "/calculadoras/financas/antecipacao-parcelas-nubank",
+                title: "Antecipação Nubank",
+                sub: "Simule o desconto",
+                icon: "💳",
                 card: "border-finance-gold/15 bg-gradient-to-br from-finance-gold/[0.06] to-finance-gold/[0.02] hover:border-finance-gold/40 hover:shadow-finance-gold/10",
                 iconBg: "bg-finance-gold",
               },
               {
-                to: "/calculadoras/financas/financiamento-imobiliario",
-                title: "Financiamento",
-                sub: "Imobiliário",
-                icon: "🏠",
+                to: "/calculadoras/matematica/mmc-mdc",
+                title: "MMC e MDC",
+                sub: "Passo a passo",
+                icon: "🔢",
+                card: "border-math-purple/15 bg-gradient-to-br from-math-purple/[0.06] to-math-purple/[0.02] hover:border-math-purple/40 hover:shadow-math-purple/10",
+                iconBg: "bg-math-purple",
+              },
+              {
+                to: "/calculadoras/ferramentas/validar-cpf",
+                title: "Validar CPF",
+                sub: "Verificação de dígitos",
+                icon: "🪪",
                 card: "border-primary-blue/15 bg-gradient-to-br from-primary-blue/[0.06] to-primary-blue/[0.02] hover:border-primary-blue/40 hover:shadow-primary-blue/10",
                 iconBg: "bg-primary-blue",
               },
               {
-                to: "/calculadoras/financas/cdb",
-                title: "CDB",
-                sub: "Certificado de Depósito",
-                icon: "💰",
+                to: "/calculadoras/astrologia/ascendente",
+                title: "Ascendente",
+                sub: "Mapa astral",
+                icon: "🌅",
                 card: "border-system-success/15 bg-gradient-to-br from-system-success/[0.06] to-system-success/[0.02] hover:border-system-success/40 hover:shadow-system-success/10",
                 iconBg: "bg-system-success",
-              },
-              {
-                to: "/calculadoras/financas/juros-compostos",
-                title: "Juros Compostos",
-                sub: "Investimentos",
-                icon: "📈",
-                card: "border-math-purple/15 bg-gradient-to-br from-math-purple/[0.06] to-math-purple/[0.02] hover:border-math-purple/40 hover:shadow-math-purple/10",
-                iconBg: "bg-math-purple",
               },
             ].map((c) => (
               <Link

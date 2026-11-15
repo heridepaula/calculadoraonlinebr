@@ -1,21 +1,21 @@
 import { Link } from "@remix-run/react";
 import { APP_NAME, CALCULATORS, CATEGORIES } from "~/lib/constants";
 
-/** Calculadoras de maior procura, linkadas em todas as páginas pelo rodapé. */
+/** Calculadoras mais acessadas (cliques no Search Console, 30 dias até 2026-11-15), linkadas em todas as páginas. */
 const POPULAR_IDS = [
-  "imc",
-  "juros-compostos",
-  "porcentagem",
-  "rescisao-trabalhista",
-  "salario-liquido",
-  "decimo-terceiro",
-  "ferias-decimo-terceiro",
-  "regra-de-tres",
-  "idade-exata",
-  "dias-uteis",
-  "financiamento-imobiliario",
-  "gerador-cpf",
-  "gerador-mega-sena",
+  "antecipacao-parcelas-nubank",
+  "mmc-mdc",
+  "validar-cpf",
+  "ascendente-astrologico",
+  "compatibilidade-signos",
+  "cdb",
+  "tesouro-direto",
+  "validar-cnpj",
+  "gordura-corporal",
+  "consumo-energia-eletrica",
+  "equacao-segundo-grau",
+  "signo",
+  "diferenca-entre-datas",
 ];
 
 const POPULAR = POPULAR_IDS.map((id) => CALCULATORS.find((c) => c.id === id)).filter(
