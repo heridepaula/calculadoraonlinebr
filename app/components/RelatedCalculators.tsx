@@ -31,6 +31,8 @@ interface RelatedCalculatorsProps {
   currentCalculatorId?: string;
   /** Lista manual; quando passada, substitui a seleção automática. */
   customCalculators?: RelatedCalculator[];
+  /** Opcional: limita os cards exibidos (padrão: 6), para páginas com poucos vizinhos relevantes. */
+  maxItems?: number;
 }
 
 /** Quantos cards exibir: 6 links internos por página (eram 3, e só de uma lista fixa). */
@@ -130,6 +132,12 @@ const CROSS_LINKS: Record<string, string[]> = {
   "gerador-mega-sena": ["sorteador-online"],
   "gerador-lotofacil": ["sorteador-online"],
   "gerador-quina": ["sorteador-online"],
+  "carro-eletrico-combustao": ["equivalencia-km-kwh-km-l"],
+  "equivalencia-km-kwh-km-l": [
+    "carro-eletrico-combustao",
+    "consumo-energia-eletrica",
+    "economia-energia-eletrica",
+  ],
   "validar-cnpj": ["gerador-cnpj", "validar-cpf"],
   "gerador-cnpj": ["validar-cnpj", "validar-cpf"],
 };
@@ -149,12 +157,16 @@ const toCard = (calc: Calculator): RelatedCalculator => ({
  * próximas calculadoras da mesma categoria (em rodízio a partir da atual), para que
  * cada calculadora receba links das vizinhas e nenhuma fique sem link interno.
  */
-function pickRelated(category: CategoryId, current: Calculator | undefined): RelatedCalculator[] {
+function pickRelated(
+  category: CategoryId,
+  current: Calculator | undefined,
+  limit: number
+): RelatedCalculator[] {
   const sameCategory = CALCULATORS.filter((c) => c.category === category);
   const start = current ? sameCategory.findIndex((c) => c.id === current.id) + 1 : 0;
   const rotated = [...sameCategory.slice(start), ...sameCategory.slice(0, start)];
 
-  const cross = (current ? CROSS_LINKS[current.id] ?? [] : [])
+  const cross = (current ? (CROSS_LINKS[current.id] ?? []) : [])
     .map((id) => CALCULATORS.find((c) => c.id === id))
     .filter((c): c is Calculator => Boolean(c));
 
@@ -164,7 +176,7 @@ function pickRelated(category: CategoryId, current: Calculator | undefined): Rel
     if (seen.has(calc.id)) continue;
     seen.add(calc.id);
     picked.push(toCard(calc));
-    if (picked.length === MAX_ITEMS) break;
+    if (picked.length === limit) break;
   }
   return picked;
 }
@@ -197,6 +209,7 @@ export function RelatedCalculators({
   category = "trabalhista",
   currentCalculatorId,
   customCalculators,
+  maxItems = MAX_ITEMS,
 }: RelatedCalculatorsProps) {
   const { pathname } = useLocation();
   const current =
@@ -208,16 +221,16 @@ export function RelatedCalculators({
   const displayCalculators = customCalculators
     ? customCalculators
         .filter((calc) => calc.href !== pathname && calc.id !== currentCalculatorId)
-        .slice(0, MAX_ITEMS)
-    : pickRelated(activeCategory, current);
+        .slice(0, maxItems)
+    : pickRelated(activeCategory, current, maxItems);
 
   if (displayCalculators.length === 0) return null;
 
   return (
     <Card className="border-l-4 border-primary-blue bg-primary-blue-light/50 backdrop-blur-sm">
       <CardHeader className="pb-3 sm:pb-4">
-        <CardTitle as="h2" className="text-lg sm:text-xl font-bold text-primary-blue-dark">
-          {CATEGORY_TITLES[activeCategory] ??"🔗 Calculadoras Relacionadas"}
+        <CardTitle as="h2" className="text-lg font-bold text-primary-blue-dark sm:text-xl">
+          {CATEGORY_TITLES[activeCategory] ?? "🔗 Calculadoras Relacionadas"}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -227,22 +240,22 @@ export function RelatedCalculators({
               key={calculator.id}
               to={calculator.href}
               prefetch="intent"
-              className={`group block ${calculator.bgColor} rounded-xl border p-4 sm:p-5 ${calculator.borderColor} transition-all duration-300 hover:border-primary-blue hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1`}
+              className={`group block ${calculator.bgColor} rounded-xl border p-4 sm:p-5 ${calculator.borderColor} transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:border-primary-blue hover:shadow-lg`}
             >
-              <div className="flex flex-col h-full">
-                <div className="flex-1 mb-3">
+              <div className="flex h-full flex-col">
+                <div className="mb-3 flex-1">
                   <h3
-                    className={`font-semibold ${calculator.textColor} mb-2 text-sm sm:text-base leading-tight line-clamp-2`}
+                    className={`font-semibold ${calculator.textColor} mb-2 line-clamp-2 text-sm leading-tight sm:text-base`}
                   >
                     {calculator.title}
                   </h3>
-                  <p className="text-xs sm:text-sm leading-relaxed text-text-secondary-dark line-clamp-3">
+                  <p className="line-clamp-3 text-xs leading-relaxed text-text-secondary-dark sm:text-sm">
                     {calculator.description}
                   </p>
                 </div>
                 <div className="mt-auto">
                   <div
-                    className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${calculator.buttonColor} ${calculator.buttonHoverColor} rounded-lg px-3 py-2 text-gray-900 transition-all duration-300 group-hover:shadow-md font-medium min-h-[36px]`}
+                    className={`inline-flex items-center gap-1.5 text-xs sm:text-sm ${calculator.buttonColor} ${calculator.buttonHoverColor} min-h-[36px] rounded-lg px-3 py-2 font-medium text-gray-900 transition-all duration-300 group-hover:shadow-md`}
                   >
                     <span>Acessar</span>
                     <svg
@@ -266,9 +279,11 @@ export function RelatedCalculators({
           ))}
         </div>
 
-        <div className="mt-5 sm:mt-6 rounded-xl border border-primary-blue/30 bg-primary-blue/10 p-3 sm:p-4">
-          <p className="mb-0 text-center text-xs sm:text-sm text-primary-blue-dark">
-            💡 <strong>Dica:</strong> {CATEGORY_TIPS[activeCategory] ?? "Explore outras calculadoras úteis para suas necessidades"}
+        <div className="mt-5 rounded-xl border border-primary-blue/30 bg-primary-blue/10 p-3 sm:mt-6 sm:p-4">
+          <p className="mb-0 text-center text-xs text-primary-blue-dark sm:text-sm">
+            💡 <strong>Dica:</strong>{" "}
+            {CATEGORY_TIPS[activeCategory] ??
+              "Explore outras calculadoras úteis para suas necessidades"}
           </p>
         </div>
       </CardContent>

@@ -654,6 +654,18 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
     priority: 0.7,
     changeFreq: "monthly",
   },
+  "equivalencia-km-kwh-km-l": {
+    id: "equivalencia-km-kwh-km-l",
+    title: "Calculadora de Equivalência EV: Converta km/kWh em km/L",
+    description:
+      "Descubra quanto seu carro elétrico faz em km/L equivalentes com base no custo da energia e da gasolina ou etanol. Calcule o custo real por km rodado.",
+    keywords:
+      "km/kWh para km/L, equivalência carro elétrico km/L, kWh/100 km para km/kWh, consumo carro elétrico, custo por km carro elétrico, carro elétrico gasolina equivalente, calculadora carro elétrico, quanto faz um carro elétrico por litro, carro elétrico km/L etanol, equivalência elétrico gasolina etanol",
+    canonicalUrl:
+      "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/equivalencia-km-kwh-km-l",
+    priority: 0.7,
+    changeFreq: "monthly",
+  },
   "economia-energia-eletrica": {
     id: "economia-energia-eletrica",
     title:

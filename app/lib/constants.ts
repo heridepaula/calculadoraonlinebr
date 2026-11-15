@@ -522,6 +522,14 @@ export const CALCULATORS = [
     path: "/calculadoras/ferramentas/carro-eletrico-combustao",
   },
   {
+    id: "equivalencia-km-kwh-km-l",
+    name: "Calculadora de Equivalência EV: km/kWh para km/L",
+    description:
+      "Converta o consumo do carro elétrico (km/kWh ou kWh/100 km) em km/L equivalentes, com o custo por km e o comparativo de 100 km contra um carro a combustão",
+    category: "ferramentas",
+    path: "/calculadoras/ferramentas/equivalencia-km-kwh-km-l",
+  },
+  {
     id: "economia-energia-eletrica",
     name: "Calculadora de Economia de Energia Elétrica",
     description:

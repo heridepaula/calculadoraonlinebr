@@ -381,6 +381,10 @@ export const CATEGORY_GUIDES: Record<string, CategoryGuide> = {
         when: "para comparar o custo de um carro elétrico com um a combustão",
       },
       {
+        calculatorId: "equivalencia-km-kwh-km-l",
+        when: "para saber quantos km/L o seu carro elétrico equivale em custo por km",
+      },
+      {
         calculatorId: "clicks-por-segundo",
         when: "para testar quantos cliques por segundo você consegue dar",
       },
