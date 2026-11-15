@@ -1,5 +1,5 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
-import { useRef, useState } from "react";
+import { useRef, useState, type ComponentProps } from "react";
 import {
   Card,
   CardHeader,
@@ -10,10 +10,65 @@ import {
   BreadcrumbItem,
   Input,
 } from "~/components/ui";
-import { RelatedCalculators, FAQ } from "~/components";
+import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
+import { SEO_YEAR } from "~/lib/constants";
 import { formatCnpj, generateCnpj, sanitizeCnpj, validateBranch } from "~/lib/cnpj";
+
+type FaqItems = ComponentProps<typeof FAQ>["items"];
+
+// Fonte única: a mesma lista alimenta o FAQ visível e o JSON-LD FAQPage
+const FAQ_ITEMS: FaqItems = [
+  {
+    question: "O gerador cria CNPJ alfanumérico?",
+    answer:
+      "Sim. O padrão é o CNPJ alfanumérico (IN RFB 2.229/2024, em vigor desde julho de 2026): letras de A a Z e números nas 12 primeiras posições, com os 2 dígitos verificadores numéricos calculados pelo módulo 11. Você pode trocar para o formato numérico tradicional.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "O que é um CNPJ?",
+    answer:
+      "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 caracteres com formatação XX.XXX.XXX/XXXX-XX. É obrigatório para empresas e organizações.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "Como funciona o algoritmo de validação do CNPJ?",
+    answer:
+      "O CNPJ possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 12 dígitos. O primeiro dígito usa multiplicadores específicos, e o segundo inclui o primeiro dígito, validando matematicamente o número.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "Posso usar CNPJs gerados para cadastros reais?",
+    answer:
+      "Não. CNPJs gerados por esta ferramenta são exclusivamente para testes, desenvolvimento de sistemas e validação de algoritmos. Usar CNPJ falso em documentos oficiais é crime previsto em lei e pode resultar em multa e prisão.",
+    borderColor: "system-error-dark",
+  },
+  {
+    question: "Como é feita a cópia automática?",
+    answer:
+      "Ao gerar um CNPJ, ele é automaticamente copiado para sua área de transferência (clipboard) usando a API do navegador. Você pode colar (Ctrl+V) em qualquer lugar. Se não funcionar, use o botão 'Copiar Novamente'.",
+    borderColor: "growth-green",
+  },
+  {
+    question: "Qual a diferença entre com e sem pontuação?",
+    answer:
+      "Com pontuação: 12.345.678/0001-95 (formato padrão para documentos). Sem pontuação: 12345678000195 (formato usado em sistemas e bases de dados). O mesmo vale para o alfanumérico, como 12.ABC.345/0001-88. Você pode alternar entre os formatos a qualquer momento.",
+    borderColor: "system-info",
+  },
+  {
+    question: "Os CNPJs gerados são realmente válidos?",
+    answer:
+      "Sim, matematicamente válidos. Os dígitos verificadores são calculados corretamente conforme o algoritmo da Receita Federal. Porém, não existem como registros reais no sistema da Receita Federal.",
+    borderColor: "system-warning",
+  },
+  {
+    question: "O que significa a filial '0001'?",
+    answer:
+      "'0001' é o código da matriz e é o valor padrão do gerador. Você pode editar o campo Ordem/filial (por exemplo 0002 para uma filial). No CNPJ alfanumérico a ordem também aceita letras; '0000' não é aceito.",
+    borderColor: "primary-blue",
+  },
+];
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,9 +77,9 @@ export const meta: MetaFunction = () => {
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Gerador de CNPJ - Geração Válida com Formatação 2026",
+        name: `Gerador de CNPJ Alfanumérico e Numérico ${SEO_YEAR}`,
         description:
-          "Ferramenta gratuita para gerar CNPJs válidos com ou sem pontuação. Ideal para testes, desenvolvimento e validação de sistemas. Cópia automática para área de transferência.",
+          "Ferramenta gratuita para gerar CNPJs alfanuméricos (IN RFB 2.229/2024) ou numéricos válidos, com ou sem pontuação e ordem/filial editável. Ideal para testes e desenvolvimento, com cópia automática.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cnpj",
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Web Browser",
@@ -54,9 +109,9 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/gerador-cnpj",
-          name: "Gerador de CNPJ 2026 - Geração Rápida com e sem Pontuação",
+          name: `Gerador de CNPJ Alfanumérico e Numérico ${SEO_YEAR}`,
           description:
-            "Gerador de CNPJ válido e gratuito com opção de formatação. Gere CNPJs com ou sem pontuação, cópia automática para área de transferência.",
+            "Gerador de CNPJ alfanumérico e numérico, válido e gratuito. Gere com ou sem pontuação, edite a ordem/filial e copie automaticamente.",
           inLanguage: "pt-BR",
           isPartOf: {
             "@type": "WebSite",
@@ -117,40 +172,11 @@ export const meta: MetaFunction = () => {
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "O gerador cria CNPJ alfanumérico?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Sim. O padrão é o CNPJ alfanumérico (IN RFB 2.229/2024, em vigor desde julho de 2026), com letras e números nas 12 primeiras posições e 2 dígitos verificadores numéricos. Também é possível gerar o formato numérico tradicional.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "O que é um CNPJ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 caracteres com formatação XX.XXX.XXX/XXXX-XX.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Como funciona o algoritmo de validação do CNPJ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "O CNPJ possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 12 dígitos, validando o número.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Posso usar CNPJs gerados para cadastros reais?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Não. CNPJs gerados são apenas para testes, desenvolvimento de sistemas e validação. Usar CNPJ falso em documentos oficiais é crime.",
-            },
-          },
-        ],
+        mainEntity: FAQ_ITEMS.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
       },
     },
   ];
@@ -310,7 +336,7 @@ export default function CnpjGenerator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Gerador de CNPJ 2026 – Geração Rápida com e sem Pontuação
+          Gerador de CNPJ Alfanumérico e Numérico {SEO_YEAR}
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Gere <strong className="text-primary-blue-dark">CNPJs válidos</strong> com ou sem
@@ -324,6 +350,20 @@ export default function CnpjGenerator() {
           </p>
         </div>
       </header>
+
+      <DirectAnswer title="O que é o CNPJ alfanumérico e como gerar um válido">
+        <p>
+          O CNPJ tem 14 caracteres: 8 da raiz, 4 de ordem/filial (0001 é a matriz) e 2 dígitos
+          verificadores calculados pelo módulo 11. Desde julho de 2026 (Instrução Normativa RFB
+          2.229/2024), as 12 primeiras posições podem ter letras de A a Z, e cada caractere entra na
+          conta com o valor do seu código ASCII menos 48 (A=17, Z=42). Os dois dígitos finais
+          continuam numéricos.
+        </p>
+        <p>
+          Este gerador cria CNPJs alfanuméricos (padrão) ou numéricos matematicamente válidos, mas
+          fictícios, só para testes e desenvolvimento.
+        </p>
+      </DirectAnswer>
 
       <Card>
         <CardHeader>
@@ -665,56 +705,7 @@ export default function CnpjGenerator() {
 
       <FAQ
         title="Perguntas Frequentes - Gerador de CNPJ"
-        items={[
-          {
-            question: "O gerador cria CNPJ alfanumérico?",
-            answer:
-              "Sim. O padrão é o CNPJ alfanumérico (IN RFB 2.229/2024, em vigor desde julho de 2026): letras de A a Z e números nas 12 primeiras posições, com os 2 dígitos verificadores numéricos calculados pelo módulo 11. Você pode trocar para o formato numérico tradicional.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "O que é um CNPJ?",
-            answer:
-              "CNPJ (Cadastro Nacional de Pessoas Jurídicas) é o documento de identificação fiscal de pessoa jurídica no Brasil, composto por 14 caracteres com formatação XX.XXX.XXX/XXXX-XX. É obrigatório para empresas e organizações.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Como funciona o algoritmo de validação do CNPJ?",
-            answer:
-              "O CNPJ possui dois dígitos verificadores calculados através de operações matemáticas específicas com os primeiros 12 dígitos. O primeiro dígito usa multiplicadores específicos, e o segundo inclui o primeiro dígito, validando matematicamente o número.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Posso usar CNPJs gerados para cadastros reais?",
-            answer:
-              "Não. CNPJs gerados por esta ferramenta são exclusivamente para testes, desenvolvimento de sistemas e validação de algoritmos. Usar CNPJ falso em documentos oficiais é crime previsto em lei e pode resultar em multa e prisão.",
-            borderColor: "system-error-dark",
-          },
-          {
-            question: "Como é feita a cópia automática?",
-            answer:
-              "Ao gerar um CNPJ, ele é automaticamente copiado para sua área de transferência (clipboard) usando a API do navegador. Você pode colar (Ctrl+V) em qualquer lugar. Se não funcionar, use o botão 'Copiar Novamente'.",
-            borderColor: "growth-green",
-          },
-          {
-            question: "Qual a diferença entre com e sem pontuação?",
-            answer:
-              "Com pontuação: 12.345.678/0001-95 (formato padrão para documentos). Sem pontuação: 12345678000195 (formato usado em sistemas e bases de dados). O mesmo vale para o alfanumérico, como 12.ABC.345/0001-88. Você pode alternar entre os formatos a qualquer momento.",
-            borderColor: "system-info",
-          },
-          {
-            question: "Os CNPJs gerados são realmente válidos?",
-            answer:
-              "Sim, matematicamente válidos. Os dígitos verificadores são calculados corretamente conforme o algoritmo da Receita Federal. Porém, não existem como registros reais no sistema da Receita Federal.",
-            borderColor: "system-warning",
-          },
-          {
-            question: "O que significa a filial '0001'?",
-            answer:
-              "'0001' é o código da matriz e é o valor padrão do gerador. Você pode editar o campo Ordem/filial (por exemplo 0002 para uma filial). No CNPJ alfanumérico a ordem também aceita letras; '0000' não é aceito.",
-            borderColor: "primary-blue",
-          },
-        ]}
+        items={FAQ_ITEMS}
         tipSection={{
           title: "Dica Importante sobre CNPJ",
           content:

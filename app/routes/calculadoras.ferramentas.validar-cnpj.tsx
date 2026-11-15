@@ -1,5 +1,5 @@
 ﻿import type { MetaFunction } from "@remix-run/node";
-import { useRef, useState } from "react";
+import { useRef, useState, type ComponentProps } from "react";
 import {
   Card,
   CardHeader,
@@ -13,7 +13,68 @@ import { Input } from "~/components/ui";
 import { RelatedCalculators, FAQ, DirectAnswer } from "~/components";
 import { useAutoCalculatorTracking, useFormTracking } from "~/hooks/useAutoCalculatorTracking";
 import { buildCalculatorMeta } from "~/lib/page-meta";
+import { SEO_YEAR } from "~/lib/constants";
 import { formatCnpj, isAlphanumericCnpj, sanitizeCnpj, validateCnpj } from "~/lib/cnpj";
+
+type FaqItems = ComponentProps<typeof FAQ>["items"];
+
+// Fonte única: a mesma lista alimenta o FAQ visível e o JSON-LD FAQPage
+const FAQ_ITEMS: FaqItems = [
+  {
+    question: "O que é o CNPJ alfanumérico e quando começa?",
+    answer:
+      "É o novo formato do CNPJ, instituído pela Instrução Normativa RFB 2.229/2024 e em vigor desde julho de 2026. As 12 primeiras posições (raiz e ordem) podem ter letras de A a Z além de números; os 2 dígitos verificadores continuam numéricos. Os CNPJs numéricos já existentes continuam válidos e não mudam.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "O validador aceita letras minúsculas?",
+    answer:
+      "Sim. O validador ignora pontuação e espaços e converte as letras para maiúsculas antes de calcular. Por isso 12abc3450001-88 e 12.ABC.345/0001-88 dão o mesmo resultado.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "Como funciona o validador de CNPJ?",
+    answer:
+      "O validador usa o algoritmo oficial da Receita Federal para verificar os dígitos verificadores do CNPJ. Ele calcula matematicamente se os dois últimos dígitos estão corretos conforme as regras estabelecidas pela Receita Federal do Brasil.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "Posso validar CNPJ com ou sem pontuação?",
+    answer:
+      "Sim. O validador aceita CNPJ nos dois formatos: com pontuação (12.345.678/0001-95) ou sem pontuação (12345678000195). O sistema remove automaticamente a formatação para fazer a validação e depois exibe o resultado formatado.",
+    borderColor: "primary-blue",
+  },
+  {
+    question: "O que significa CNPJ inválido?",
+    answer:
+      "CNPJ inválido significa que os dígitos verificadores não batem com o cálculo matemático oficial, ou que é um CNPJ conhecido como inválido (como 11.111.111/1111-11, sequências iguais ou com menos de 14 dígitos).",
+    borderColor: "system-error-dark",
+  },
+  {
+    question: "Por que CNPJs com sequência igual são inválidos?",
+    answer:
+      "CNPJs como 11.111.111/1111-11 ou 00.000.000/0000-00 são automaticamente considerados inválidos pela Receita Federal, mesmo que passem no cálculo dos dígitos verificadores. Isso é uma regra específica do sistema.",
+    borderColor: "system-warning",
+  },
+  {
+    question: "Este validador é 100% preciso?",
+    answer:
+      "Sim. O validador usa exatamente o mesmo algoritmo oficial da Receita Federal para calcular e verificar os dígitos verificadores. Se um CNPJ passar na validação, ele está matematicamente correto segundo as regras oficiais.",
+    borderColor: "growth-green",
+  },
+  {
+    question: "O que significa o código da filial no CNPJ?",
+    answer:
+      "Os dígitos 9º ao 12º do CNPJ representam o código da filial. A matriz sempre usa '0001'. Cada filial da empresa recebe um número sequencial (0002, 0003, etc.). Isso permite que uma empresa tenha múltiplos CNPJs para diferentes estabelecimentos.",
+    borderColor: "system-info",
+  },
+  {
+    question: "Posso usar este validador em meu sistema?",
+    answer:
+      "Esta ferramenta é para uso manual. Para integrar validação de CNPJ em sistemas, recomendamos implementar o algoritmo diretamente ou usar bibliotecas específicas da sua linguagem de programação.",
+    borderColor: "primary-blue",
+  },
+];
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,7 +83,7 @@ export const meta: MetaFunction = () => {
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        name: "Validador de CNPJ - Validação Oficial com Algoritmo da Receita Federal 2026",
+        name: `Validador de CNPJ Alfanumérico e Numérico - Algoritmo Oficial ${SEO_YEAR}`,
         description:
           "Ferramenta gratuita para validar CNPJs com ou sem pontuação. Usa algoritmo oficial da Receita Federal para verificar se CNPJ é válido. Validação instantânea e precisa.",
         url: "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
@@ -54,7 +115,7 @@ export const meta: MetaFunction = () => {
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": "https://www.calculadoraonlinebr.com.br/calculadoras/ferramentas/validar-cnpj",
-          name: "Validador de CNPJ 2026 - Validação Rápida e Precisa",
+          name: `Validador de CNPJ Alfanumérico e Numérico ${SEO_YEAR}`,
           description:
             "Validador de CNPJ gratuito com algoritmo oficial da Receita Federal. Valide CNPJs com ou sem pontuação, validação instantânea e precisa.",
           inLanguage: "pt-BR",
@@ -116,48 +177,11 @@ export const meta: MetaFunction = () => {
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "O que é o CNPJ alfanumérico e quando começa?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "É o novo formato do CNPJ, instituído pela Instrução Normativa RFB 2.229/2024 e em vigor desde julho de 2026. As 12 primeiras posições (raiz e ordem) podem ter letras de A a Z além de números; os 2 dígitos verificadores continuam numéricos. Os CNPJs numéricos já existentes continuam válidos e não mudam.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "O validador aceita letras minúsculas?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Sim. O validador ignora pontuação e espaços e converte as letras para maiúsculas antes de calcular. Por isso 12abc3450001-88 e 12.ABC.345/0001-88 dão o mesmo resultado.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Como funciona o validador de CNPJ?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "O validador usa o algoritmo oficial da Receita Federal para verificar os dígitos verificadores do CNPJ. Ele calcula matematicamente se os dois últimos dígitos estão corretos conforme as regras estabelecidas.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Posso validar CNPJ com ou sem pontuação?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Sim. O validador aceita CNPJ nos dois formatos: com pontuação (12.345.678/0001-95) ou sem pontuação (12345678000195). O sistema remove automaticamente a formatação para fazer a validação.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "O que significa CNPJ inválido?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "CNPJ inválido significa que os dígitos verificadores não batem com o cálculo matemático oficial, ou que é um CNPJ conhecido como inválido (como sequências iguais).",
-            },
-          },
-        ],
+        mainEntity: FAQ_ITEMS.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
       },
     },
   ];
@@ -262,7 +286,7 @@ export default function CnpjValidator() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Validador de CNPJ 2026 – Validação Rápida e Precisa
+          Validador de CNPJ Alfanumérico e Numérico {SEO_YEAR}
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Valide <strong className="text-primary-blue-dark">CNPJs</strong> com ou sem pontuação
@@ -495,9 +519,11 @@ export default function CnpjValidator() {
                 <div>
                   <h4 className="mb-3 font-semibold text-system-info">📋 Outras Invalidações</h4>
                   <ul className="space-y-1 text-sm text-text-secondary">
-                    <li>• CNPJ com menos de 14 dígitos</li>
+                    <li>• CNPJ com menos ou mais de 14 caracteres</li>
                     <li>• Dígitos verificadores incorretos</li>
-                    <li>• Caracteres não numéricos (exceto formatação)</li>
+                    <li>
+                      • Letras nas duas últimas posições (os dígitos verificadores são numéricos)
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -539,62 +565,7 @@ export default function CnpjValidator() {
 
       <FAQ
         title="Perguntas Frequentes - Validador de CNPJ"
-        items={[
-          {
-            question: "O que é o CNPJ alfanumérico e quando começa?",
-            answer:
-              "É o novo formato do CNPJ, instituído pela Instrução Normativa RFB 2.229/2024 e em vigor desde julho de 2026. As 12 primeiras posições (raiz e ordem) podem ter letras de A a Z além de números; os 2 dígitos verificadores continuam numéricos. Os CNPJs numéricos já existentes continuam válidos e não mudam.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "O validador aceita letras minúsculas?",
-            answer:
-              "Sim. O validador ignora pontuação e espaços e converte as letras para maiúsculas antes de calcular. Por isso 12abc3450001-88 e 12.ABC.345/0001-88 dão o mesmo resultado.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Como funciona o validador de CNPJ?",
-            answer:
-              "O validador usa o algoritmo oficial da Receita Federal para verificar os dígitos verificadores do CNPJ. Ele calcula matematicamente se os dois últimos dígitos estão corretos conforme as regras estabelecidas pela Receita Federal do Brasil.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "Posso validar CNPJ com ou sem pontuação?",
-            answer:
-              "Sim. O validador aceita CNPJ nos dois formatos: com pontuação (12.345.678/0001-95) ou sem pontuação (12345678000195). O sistema remove automaticamente a formatação para fazer a validação e depois exibe o resultado formatado.",
-            borderColor: "primary-blue",
-          },
-          {
-            question: "O que significa CNPJ inválido?",
-            answer:
-              "CNPJ inválido significa que os dígitos verificadores não batem com o cálculo matemático oficial, ou que é um CNPJ conhecido como inválido (como 11.111.111/1111-11, sequências iguais ou com menos de 14 dígitos).",
-            borderColor: "system-error-dark",
-          },
-          {
-            question: "Por que CNPJs com sequência igual são inválidos?",
-            answer:
-              "CNPJs como 11.111.111/1111-11 ou 00.000.000/0000-00 são automaticamente considerados inválidos pela Receita Federal, mesmo que passem no cálculo dos dígitos verificadores. Isso é uma regra específica do sistema.",
-            borderColor: "system-warning",
-          },
-          {
-            question: "Este validador é 100% preciso?",
-            answer:
-              "Sim. O validador usa exatamente o mesmo algoritmo oficial da Receita Federal para calcular e verificar os dígitos verificadores. Se um CNPJ passar na validação, ele está matematicamente correto segundo as regras oficiais.",
-            borderColor: "growth-green",
-          },
-          {
-            question: "O que significa o código da filial no CNPJ?",
-            answer:
-              "Os dígitos 9º ao 12º do CNPJ representam o código da filial. A matriz sempre usa '0001'. Cada filial da empresa recebe um número sequencial (0002, 0003, etc.). Isso permite que uma empresa tenha múltiplos CNPJs para diferentes estabelecimentos.",
-            borderColor: "system-info",
-          },
-          {
-            question: "Posso usar este validador em meu sistema?",
-            answer:
-              "Esta ferramenta é para uso manual. Para integrar validação de CNPJ em sistemas, recomendamos implementar o algoritmo diretamente ou usar bibliotecas específicas da sua linguagem de programação.",
-            borderColor: "primary-blue",
-          },
-        ]}
+        items={FAQ_ITEMS}
         tipSection={{
           title: "Dica Importante sobre Validação",
           content:

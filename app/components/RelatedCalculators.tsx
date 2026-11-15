@@ -130,6 +130,8 @@ const CROSS_LINKS: Record<string, string[]> = {
   "gerador-mega-sena": ["sorteador-online"],
   "gerador-lotofacil": ["sorteador-online"],
   "gerador-quina": ["sorteador-online"],
+  "validar-cnpj": ["gerador-cnpj", "validar-cpf"],
+  "gerador-cnpj": ["validar-cnpj", "validar-cpf"],
 };
 
 type Calculator = (typeof CALCULATORS)[number];
