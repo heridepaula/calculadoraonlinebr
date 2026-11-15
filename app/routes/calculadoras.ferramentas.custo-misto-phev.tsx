@@ -13,6 +13,11 @@ import { PhevTripCostCalculator } from "~/components/calculators/PhevTripCostCal
 import { APP_NAME, APP_URL } from "~/lib/constants";
 import { CALCULATOR_SEO_DATA } from "~/lib/calculator-seo";
 import { calculatePhevTripCost } from "~/lib/phev-trip-cost";
+import {
+  FUEL_REFERENCE,
+  VEHICLE_SOURCES,
+  VEHICLE_SOURCES_REVIEWED_AT,
+} from "~/lib/vehicle-sources";
 import { generateFAQStructuredData } from "~/lib/structured-data";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -34,34 +39,6 @@ const EXAMPLE_NO_CHARGE = calculatePhevTripCost({
   totalDistanceKm: 120,
 });
 const TRIP_SAVING = EXAMPLE_NO_CHARGE.totalCost - EXAMPLE.totalCost;
-
-// Preços de referência da ANP (Síntese Semanal de Preços, edição 45/2026): conferidos nesta data.
-// Atualize junto com a revisão da página; o exemplo da calculadora continua ilustrativo.
-const SOURCES_REVIEWED_AT = "2026-11-15";
-const FUEL_REFERENCE = {
-  week: "01/11/2026 a 07/11/2026",
-  gasoline: 6.47,
-  ethanol: 4.15,
-} as const;
-
-const PAGE_SOURCES = [
-  {
-    label: "Inmetro: tabelas do PBE Veicular (consumo e autonomia dos híbridos plug-in)",
-    href: "https://www.gov.br/inmetro/pt-br/assuntos/avaliacao-da-conformidade/programa-brasileiro-de-etiquetagem/tabelas-de-eficiencia-energetica/veiculos-automotivos-pbe-veicular",
-  },
-  {
-    label: "ANP: Síntese Semanal de Preços dos Combustíveis, edição 45/2026",
-    href: "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/arq-sintese-semanal/2026/sintese-precos-45.pdf",
-  },
-  {
-    label: "ANEEL: tarifas de energia elétrica",
-    href: "https://www.gov.br/aneel/pt-br/assuntos/tarifas",
-  },
-  {
-    label: "ANEEL: bandeiras tarifárias",
-    href: "https://www.gov.br/aneel/pt-br/assuntos/tarifas/bandeiras-tarifarias",
-  },
-] as const;
 
 // Custo por km de cada modo e a tarifa em que a recarga deixa de compensar
 const EV_COST_PER_KM = CAR.energyCostPerKwh / CAR.evEfficiencyKmPerKwh;
@@ -418,10 +395,10 @@ export default function CustoMistoPhevPage() {
       </Card>
 
       <SourcesAndUpdate
-        updatedAt={SOURCES_REVIEWED_AT}
+        updatedAt={VEHICLE_SOURCES_REVIEWED_AT}
         reviewNote={`Preços de combustíveis conferidos na Síntese Semanal da ANP (${FUEL_REFERENCE.week})`}
         sourcesIntro="Os dados de referência vêm das fontes oficiais abaixo"
-        sources={PAGE_SOURCES}
+        sources={VEHICLE_SOURCES}
       />
 
       <RelatedCalculators

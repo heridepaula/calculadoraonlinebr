@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
-import { DirectAnswer, FAQ, RelatedCalculators } from "~/components";
+import { DirectAnswer, FAQ, RelatedCalculators, SourcesAndUpdate } from "~/components";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,6 +13,11 @@ import { EvEquivalenceCalculator } from "~/components/calculators/EvEquivalenceC
 import { APP_NAME, APP_URL } from "~/lib/constants";
 import { CALCULATOR_SEO_DATA } from "~/lib/calculator-seo";
 import { calculateEVEquivalence } from "~/lib/ev-equivalence";
+import {
+  FUEL_REFERENCE,
+  VEHICLE_SOURCES,
+  VEHICLE_SOURCES_REVIEWED_AT,
+} from "~/lib/vehicle-sources";
 import { generateFAQStructuredData } from "~/lib/structured-data";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -64,12 +69,12 @@ const FAQ_ITEMS = [
   {
     question: "Como comparar o carro elétrico com um carro a etanol?",
     answer:
-      "Informe o preço do litro do etanol no campo de combustível e o rendimento do carro com etanol no campo de consumo a combustão. Como o etanol rende cerca de 70% do que a gasolina rende no mesmo carro, o km/L equivalente do elétrico em relação ao etanol é menor, e a vantagem de custo também diminui.",
+      "Informe o preço do litro do etanol no campo de combustível e o rendimento do carro com etanol no campo de consumo a combustão. O mesmo carro faz menos km/L com etanol do que com gasolina, então informe o rendimento dele com etanol (a tabela do PBE Veicular, do Inmetro, traz os dois). O etanol é mais barato por litro, mas rende menos, por isso a vantagem de custo do elétrico costuma diminuir.",
   },
   {
     question: "Qual é um bom consumo para um carro elétrico em km/kWh?",
     answer:
-      "Em uso misto, modelos compactos e médios costumam ficar entre 5 e 7 km/kWh (cerca de 14 a 20 kWh/100 km). SUVs maiores, velocidade alta na estrada e ar-condicionado ligado reduzem esse número. Use o consumo real do painel do carro, não só o valor do catálogo.",
+      "Depende do modelo e do uso. Velocidade alta na estrada, ar-condicionado ligado e carro mais pesado reduzem o km/kWh. O mais fiel é a média do painel do carro. A tabela do PBE Veicular, do Inmetro, informa o consumo energético dos elétricos em MJ/km, e como 1 kWh equivale a 3,6 MJ, dividir 3,6 por esse valor dá uma estimativa em km/kWh.",
   },
   {
     question: "Qual tarifa de energia devo usar no cálculo?",
@@ -79,7 +84,7 @@ const FAQ_ITEMS = [
   {
     question: "O km/L equivalente considera perdas no carregamento?",
     answer:
-      "Só se você já considerar as perdas no consumo informado. Parte da energia que sai da tomada se perde no carregador e na bateria, em geral entre 5% e 15%. Por isso, prefira o consumo medido pela energia que entrou na tomada (como o wallbox ou medidor mostram) em vez do valor teórico do motor.",
+      "Só se você já considerar as perdas no consumo informado. Parte da energia que sai da tomada se perde no carregador e na bateria, então o consumo medido na tomada é maior que o mostrado pelo painel. Por isso, prefira o consumo medido pela energia que entrou na tomada (como o wallbox ou medidor mostram) em vez do valor teórico do motor.",
   },
   {
     question: "Essa comparação inclui IPVA, manutenção e seguro?",
@@ -310,7 +315,9 @@ export default function EquivalenciaKmKwhKmLPage() {
             Mesmo carro do exemplo ({num1.format(EXAMPLE.evEfficiency)} km/kWh) com gasolina a{" "}
             {brl.format(EXAMPLE.fuelPrice)}/L e comparação com um carro de{" "}
             {EXAMPLE.referenceKmPerLiter} km/L. As tarifas são valores ilustrativos; use a do seu
-            caso na calculadora.
+            caso na calculadora. Como referência, na semana de {FUEL_REFERENCE.week} a ANP registrou
+            a gasolina comum a {brl.format(FUEL_REFERENCE.gasoline)}/L e o etanol a{" "}
+            {brl.format(FUEL_REFERENCE.ethanol)}/L, em média no Brasil.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
@@ -425,6 +432,13 @@ export default function EquivalenciaKmKwhKmLPage() {
           </div>
         </CardContent>
       </Card>
+
+      <SourcesAndUpdate
+        updatedAt={VEHICLE_SOURCES_REVIEWED_AT}
+        reviewNote={`Preços de combustíveis conferidos na Síntese Semanal da ANP (${FUEL_REFERENCE.week})`}
+        sourcesIntro="Os dados de referência vêm das fontes oficiais abaixo"
+        sources={VEHICLE_SOURCES}
+      />
 
       <RelatedCalculators
         category="ferramentas"
