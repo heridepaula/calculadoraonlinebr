@@ -14,8 +14,6 @@ import { AnalyticsProvider } from "~/lib/analytics-provider";
 import { GlobalErrorBoundary } from "~/components/ErrorBoundary";
 import { useGoogleAnalytics } from "~/hooks/useGoogleAnalytics";
 import { isGAEnabled, GA_TRACKING_ID } from "~/lib/google-analytics";
-import { useCloudflareAnalyticsSimple } from "~/hooks/useCloudflareAnalytics";
-import { isCloudflareEnabled, CLOUDFLARE_TOKEN } from "~/lib/cloudflare-analytics";
 import { CookieConsent, CSSLoadingDetector } from "~/components";
 import { Footer } from "~/components/layout/Footer";
 import { Header } from "~/components/layout/Header";
@@ -79,7 +77,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     // Fornecer variáveis de ambiente para o cliente
     ENV: {
       VITE_GA_ID: process.env.VITE_GA_ID,
-      VITE_CLOUDFLARE_TOKEN: process.env.VITE_CLOUDFLARE_TOKEN,
       VITE_ADSENSE_CLIENT: process.env.VITE_ADSENSE_CLIENT || "ca-pub-1778632581161801",
       NODE_ENV: process.env.NODE_ENV,
     },
@@ -181,14 +178,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
             )}
 
-            {/* Cloudflare Analytics DNS Prefetch */}
-            {(data?.ENV?.VITE_CLOUDFLARE_TOKEN || CLOUDFLARE_TOKEN) && (
-              <>
-                <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-              </>
-            )}
-
-            {/* Microsoft Clarity DNS Prefetch */}
+                        {/* Microsoft Clarity DNS Prefetch */}
             <link rel="dns-prefetch" href="https://www.clarity.ms" />
           </>
         )}
@@ -350,19 +340,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               />
             )}
 
-            {/* Cloudflare Web Analytics */}
-            {(data?.ENV?.VITE_CLOUDFLARE_TOKEN || CLOUDFLARE_TOKEN) && (
-              <script
-                defer
-                src="https://static.cloudflareinsights.com/beacon.min.js"
-                data-cf-beacon={JSON.stringify({
-                  token: data?.ENV?.VITE_CLOUDFLARE_TOKEN || CLOUDFLARE_TOKEN,
-                  spa: true,
-                })}
-              />
-            )}
-
-            {/* Microsoft Clarity */}
+                        {/* Microsoft Clarity */}
             <script
               dangerouslySetInnerHTML={{
                 __html: `
@@ -397,10 +375,7 @@ export default function App() {
   // Ativar tracking automático de page views do Google Analytics
   useGoogleAnalytics();
 
-  // Ativar Cloudflare Web Analytics como fallback/complemento
-  useCloudflareAnalyticsSimple();
-
-  // Ativar prefetch inteligente para cache de longo prazo
+    // Ativar prefetch inteligente para cache de longo prazo
   usePrefetchOptimization();
 
   return (

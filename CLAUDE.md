@@ -87,7 +87,7 @@ HTML is cached on the Vercel CDN for 1 h (`headers` in `root.tsx`, `s-maxage=360
 - Bundle: `vite.config.ts` keeps only React and Remix in fixed vendor chunks. Don't reintroduce a catch-all `vendor-libs` chunk: it shipped chart.js and every other library to all pages.
 - `app/components/calculators/` — shared geometry visualizations, plus the betting calculators (`KellyCriterionCalculator`, `ExpectedValueCalculator`, `SurebetCalculator`, `DutchingCalculator`, `MultiplaCalculator`, `GestaoBancaCalculator`, `ConversorOddsCalculator`, `HedgeCalculator`, `PoissonCalculator`), which export their pure calculation functions for the route's educational content. New betting calculators reuse `components/calculators/betting-shared.tsx` (formatters, `useCalculatorScroll`, `CalculatorActions`, `MetricBox`, `OptionCards`, `BettingDisclaimer`) and `lib/betting-page.ts` (`buildBettingPageMeta` for meta + JSON-LD, `withFaqColors`). Betting calculator pages follow `calculadoras.apostas.criterio-de-kelly.tsx`: results only after clicking Calcular (scroll to result), Limpar scrolls back to the form.
 - Hooks used by calculator pages: `useAutoCalculatorTracking` / `useFormTracking` (analytics), `useIndexNow`, `useSmartValidation`.
-- Analytics: GA4 + Cloudflare + Vercel Analytics, wired via `app/lib/analytics-provider.tsx` (docs in `docs/`).
+- Analytics: GA4 + Vercel Analytics (o beacon da Cloudflare foi removido em 2026-11), wired via `app/lib/analytics-provider.tsx` (docs in `docs/`).
 - Charts: `chart.js` + `react-chartjs-2`.
 - Server-side data: `app/services/*.server.ts` (Tesouro Direto bonds, scheduler), `app/lib/economic-data.ts`.
 
