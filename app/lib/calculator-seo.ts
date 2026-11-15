@@ -668,7 +668,7 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "custo-misto-phev": {
     id: "custo-misto-phev",
-    title: "Calculadora Custo PHEV: Gasto de Híbridos Plug-in",
+    title: "Calculadora PHEV: Custo de Viagem de Híbrido Plug-in",
     description:
       "Calcule o custo real de viagens e rotina diária com carros híbridos plug-in (PHEV). Veja quanto gasta na tomada vs. no posto e a média de km/L combinada.",
     keywords:

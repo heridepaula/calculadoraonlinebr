@@ -13,6 +13,8 @@ interface SourcesAndUpdateProps {
   updatedAt: string;
   /** Frase curta sobre o que foi conferido, ex.: "Tabelas de INSS e IRRF de 2026" */
   reviewNote?: string;
+  /** Frase que apresenta a lista de fontes (padrão: "Os cálculos seguem a legislação abaixo"). */
+  sourcesIntro?: string;
 }
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -26,7 +28,12 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
  * Bloco "Fontes e atualização" das calculadoras de temas sensíveis (trabalhista, finanças,
  * saúde): lista a legislação usada, mostra a data da última revisão e aponta a metodologia.
  */
-export function SourcesAndUpdate({ sources, updatedAt, reviewNote }: SourcesAndUpdateProps) {
+export function SourcesAndUpdate({
+  sources,
+  updatedAt,
+  reviewNote,
+  sourcesIntro = "Os cálculos seguem a legislação abaixo",
+}: SourcesAndUpdateProps) {
   return (
     <Card className="border border-neutral-surface-variant bg-background-dark-secondary">
       <CardHeader>
@@ -40,7 +47,7 @@ export function SourcesAndUpdate({ sources, updatedAt, reviewNote }: SourcesAndU
           <time dateTime={updatedAt} className="font-semibold text-text-primary">
             {dateFormatter.format(new Date(`${updatedAt}T00:00:00Z`))}
           </time>
-          {reviewNote ? `. ${reviewNote}.` : "."} Os cálculos seguem a legislação abaixo; veja
+          {reviewNote ? `. ${reviewNote}.` : "."} {sourcesIntro}; veja
           também{" "}
           <Link
             to="/sobre#metodologia"

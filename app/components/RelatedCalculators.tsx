@@ -138,6 +138,8 @@ const CROSS_LINKS: Record<string, string[]> = {
     "consumo-energia-eletrica",
     "custo-misto-phev",
   ],
+  "consumo-energia-eletrica": ["custo-misto-phev"],
+  "economia-energia-eletrica": ["custo-misto-phev"],
   "custo-misto-phev": [
     "equivalencia-km-kwh-km-l",
     "carro-eletrico-combustao",

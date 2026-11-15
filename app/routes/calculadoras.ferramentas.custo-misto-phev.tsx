@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
-import { DirectAnswer, FAQ, RelatedCalculators } from "~/components";
+import { DirectAnswer, FAQ, RelatedCalculators, SourcesAndUpdate } from "~/components";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -35,6 +35,34 @@ const EXAMPLE_NO_CHARGE = calculatePhevTripCost({
 });
 const TRIP_SAVING = EXAMPLE_NO_CHARGE.totalCost - EXAMPLE.totalCost;
 
+// Preços de referência da ANP (Síntese Semanal de Preços, edição 45/2026): conferidos nesta data.
+// Atualize junto com a revisão da página; o exemplo da calculadora continua ilustrativo.
+const SOURCES_REVIEWED_AT = "2026-11-15";
+const FUEL_REFERENCE = {
+  week: "01/11/2026 a 07/11/2026",
+  gasoline: 6.47,
+  ethanol: 4.15,
+} as const;
+
+const PAGE_SOURCES = [
+  {
+    label: "Inmetro: tabelas do PBE Veicular (consumo e autonomia dos híbridos plug-in)",
+    href: "https://www.gov.br/inmetro/pt-br/assuntos/avaliacao-da-conformidade/programa-brasileiro-de-etiquetagem/tabelas-de-eficiencia-energetica/veiculos-automotivos-pbe-veicular",
+  },
+  {
+    label: "ANP: Síntese Semanal de Preços dos Combustíveis, edição 45/2026",
+    href: "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/arq-sintese-semanal/2026/sintese-precos-45.pdf",
+  },
+  {
+    label: "ANEEL: tarifas de energia elétrica",
+    href: "https://www.gov.br/aneel/pt-br/assuntos/tarifas",
+  },
+  {
+    label: "ANEEL: bandeiras tarifárias",
+    href: "https://www.gov.br/aneel/pt-br/assuntos/tarifas/bandeiras-tarifarias",
+  },
+] as const;
+
 // Custo por km de cada modo e a tarifa em que a recarga deixa de compensar
 const EV_COST_PER_KM = CAR.energyCostPerKwh / CAR.evEfficiencyKmPerKwh;
 const HYBRID_COST_PER_KM = CAR.fuelPricePerLiter / CAR.hybridEfficiencyKmPerLiter;
@@ -66,12 +94,16 @@ const FAQ_ITEMS = [
   {
     question: "Qual autonomia elétrica devo informar?",
     answer:
-      "Informe quanto a bateria cobre no momento em que você sai, conforme o painel. Se ela estiver vazia, use 0. O valor de catálogo costuma ser otimista: velocidade alta, ar-condicionado e subidas reduzem a autonomia real.",
+      "Informe quanto a bateria cobre no momento em que você sai, conforme o painel. Se ela estiver vazia, use 0. A tabela do PBE Veicular, do Inmetro, traz a autonomia em modo elétrico (em km) de cada híbrido plug-in à venda, mas é um valor de referência: velocidade alta, ar-condicionado e subidas costumam reduzir a autonomia no dia a dia.",
   },
   {
     question: "Qual consumo devo informar no modo híbrido?",
     answer:
-      "Use a média que o painel mostra rodando com a bateria descarregada, em km/L. Ela costuma ser diferente da média anunciada pelo fabricante, que mistura bateria e combustão. Quanto mais próximo do seu uso real, mais fiel o custo do trecho feito no posto.",
+      "Use a média que o painel mostra rodando com a bateria descarregada, em km/L. A tabela do PBE Veicular, do Inmetro, também traz o consumo dos plug-ins em km/L, separado em cidade e estrada. Para o modo elétrico, porém, ela usa km/L equivalente e MJ/km, e não km/kWh: por isso, para o campo de km/kWh, prefira a média do painel do carro.",
+  },
+  {
+    question: "Qual tarifa de energia e qual preço do combustível devo usar?",
+    answer: `Use o que você paga de fato. Para a energia, o valor do kWh na sua conta de luz (a tarifa varia por distribuidora, e a ANEEL divulga as tarifas e as bandeiras tarifárias) ou o preço do kWh no eletroposto. Para o combustível, o preço do seu posto. Como referência, a ANP registrou na semana de ${FUEL_REFERENCE.week} a gasolina comum a ${brl.format(FUEL_REFERENCE.gasoline)}/L e o etanol hidratado a ${brl.format(FUEL_REFERENCE.ethanol)}/L, em média no Brasil. O exemplo desta página usa ${brl.format(CAR.fuelPricePerLiter)}/L, um valor ilustrativo.`,
   },
   {
     question: "A calculadora considera manutenção, IPVA e a compra do carro?",
@@ -152,7 +184,7 @@ export default function CustoMistoPhevPage() {
 
       <header className="space-y-4 text-center">
         <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl">
-          Calculadora de Custo PHEV: Gasto de Carros Híbridos Plug-in
+          Calculadora de Custo de Viagem PHEV: Gasto de Híbridos Plug-in
         </h1>
         <p className="mx-auto max-w-3xl text-lg text-text-secondary-dark">
           Descubra <strong className="text-growth-green">quanto custa cada viagem</strong> com um
@@ -266,7 +298,11 @@ export default function CustoMistoPhevPage() {
             Mesmo carro do exemplo ({CAR.evBatteryRangeKm} km de bateria, {CAR.evEfficiencyKmPerKwh}{" "}
             km/kWh, {CAR.hybridEfficiencyKmPerLiter} km/L no híbrido), energia a{" "}
             {brl.format(CAR.energyCostPerKwh)}/kWh e combustível a{" "}
-            {brl.format(CAR.fuelPricePerLiter)}/L:
+            {brl.format(CAR.fuelPricePerLiter)}/L. Os valores do exemplo são ilustrativos; na semana
+            de {FUEL_REFERENCE.week}, a ANP registrou a gasolina comum a{" "}
+            {brl.format(FUEL_REFERENCE.gasoline)}/L e o etanol a{" "}
+            {brl.format(FUEL_REFERENCE.ethanol)}
+            /L, em média no Brasil:
           </p>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
@@ -380,6 +416,13 @@ export default function CustoMistoPhevPage() {
           </div>
         </CardContent>
       </Card>
+
+      <SourcesAndUpdate
+        updatedAt={SOURCES_REVIEWED_AT}
+        reviewNote={`Preços de combustíveis conferidos na Síntese Semanal da ANP (${FUEL_REFERENCE.week})`}
+        sourcesIntro="Os dados de referência vêm das fontes oficiais abaixo"
+        sources={PAGE_SOURCES}
+      />
 
       <RelatedCalculators
         category="ferramentas"
