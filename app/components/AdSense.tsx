@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdSenseProps {
   adSlot: string;
@@ -21,8 +21,14 @@ export const AdSense: React.FC<AdSenseProps> = ({
   className = '',
   responsive = true,
 }) => {
+  const insRef = useRef<HTMLModElement>(null);
+
   useEffect(() => {
     try {
+      // Só empurra se o <ins> existe e ainda não foi preenchido: um push sem
+      // <ins> livre lança "no_div" no console (Lighthouse errors-in-console).
+      const ins = insRef.current;
+      if (!ins || ins.dataset.adsbygoogleStatus) return;
       // Only run in production and if AdSense is available
       if (typeof window !== 'undefined' && window.adsbygoogle && process.env.NODE_ENV === 'production') {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -49,6 +55,7 @@ export const AdSense: React.FC<AdSenseProps> = ({
   return (
     <div className={className}>
       <ins
+        ref={insRef}
         className="adsbygoogle"
         style={adStyle}
         data-ad-client="ca-pub-1778632581161801"
