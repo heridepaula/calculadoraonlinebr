@@ -123,9 +123,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   "tesouro-direto": {
     id: "tesouro-direto",
-    title: `Calculadora de Tesouro Direto ${SEO_YEAR}`,
+    title: "Simulador de Tesouro Direto: Selic, IPCA+ e Prefixado",
     description:
-      "Simule Tesouro Direto com dados reais. Compare Selic, IPCA+ e Prefixado. Calcule rentabilidade, imposto de renda e taxa de custódia.",
+      "Simule o Tesouro Direto com taxas atualizadas: compare Selic, IPCA+ e Prefixado e veja rendimento líquido, IR e taxa de custódia. Grátis.",
     keywords:
       "calculadora tesouro direto, tesouro selic, tesouro prefixado, tesouro ipca, cupons semestrais, simulador títulos públicos, rendimento tesouro direto, imposto renda tesouro, taxa selic atual, ipca atual",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/financas/tesouro-direto",
@@ -431,9 +431,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   },
   signo: {
     id: "signo",
-    title: `Descobrir Meu Signo Grátis: Qual Signo Zodiacal ${SEO_YEAR}`,
+    title: "Descobrir Meu Signo: Calculadora de Signo Grátis",
     description:
-      "🌟 Descubra seu Signo Solar GRÁTIS! Qual meu signo do zodíaco? Análise completa de personalidade, amor, carreira e compatibilidade - só com data nascimento.",
+      "Descubra qual é o seu signo só com a data de nascimento e veja características, elemento e compatibilidade. Grátis e sem cadastro.",
     keywords:
       "calculadora signo, descobrir signo, signo do zodíaco, signo data nascimento, áries, touro, gêmeos, câncer, leão, virgem, libra, escorpião, sagitário, capricórnio, aquário, peixes, signo solar",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/astrologia/signo",
@@ -819,9 +819,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "salario-liquido": {
     id: "salario-liquido",
     title:
-      `Calculadora de Salário Líquido ${SEO_YEAR}`,
+      `Calculadora de Salário Líquido ${SEO_YEAR}: INSS e IRRF`,
     description:
-      `Calcule salário líquido ${SEO_YEAR}: descontos INSS e IRRF atualizados. Inclui dependentes, CLT e PJ. Resultado instantâneo.`,
+      `Calcule o salário líquido ${SEO_YEAR} com INSS, IRRF e dependentes, já com a redução do IR da Lei 15.270. Grátis e na hora.`,
     keywords:
       "calculadora salário líquido, salário líquido 2025, INSS 2025, IRRF 2025, tabela INSS, tabela IRRF, salário CLT, salário PJ, dependentes IR, desconto INSS, simulador salário, contracheque, holerite",
     canonicalUrl: "https://www.calculadoraonlinebr.com.br/calculadoras/trabalhista/salario-liquido",
