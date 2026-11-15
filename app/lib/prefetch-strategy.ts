@@ -26,12 +26,10 @@ const PREFETCH_ROUTES = [
 /**
  * Recursos terceiros para cache estendido
  */
-const THIRD_PARTY_RESOURCES = [
-  'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-  'https://scripts.clarity.ms/clarity.js',
-  'https://static.cloudflareinsights.com/beacon.min.js',
-  'https://www.googletagmanager.com/gtag/js'
-];
+// Vazio de propósito: o prefetch cross-origin desses scripts gerava erros de CORS
+// no console (Lighthouse "errors-in-console") e o cache não é compartilhado com o
+// carregamento real dos scripts. Cada tag já é carregada pelo próprio provedor.
+const THIRD_PARTY_RESOURCES: string[] = [];
 
 /**
  * Detecta padrões de navegação do usuário

@@ -466,9 +466,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   // Date Calculators
   "diferenca-entre-datas": {
     id: "diferenca-entre-datas",
-    title: "Calculadora de Diferença entre Datas",
+    title: "Diferença entre Datas: Calcule Dias, Meses e Anos",
     description:
-      "Calcule diferenças entre datas em anos, meses e dias. Descubra sua idade exata, dias úteis e intervalos temporais com nossa calculadora grátis.",
+      "Calcule quantos dias, meses e anos existem entre duas datas, com dias úteis e idade exata. Grátis, resultado na hora e sem cadastro.",
     keywords:
       "calculadora diferença datas, diferença entre datas, calcular idade, dias entre datas, contagem dias, dias úteis, feriados, tempo decorrido, intervalo tempo, idade",
     canonicalUrl:
@@ -671,9 +671,9 @@ export const CALCULATOR_SEO_DATA: Record<string, CalculatorSEOData> = {
   "consumo-energia-eletrica": {
     id: "consumo-energia-eletrica",
     title:
-      `Calculadora de Consumo de Energia Elétrica ${SEO_YEAR}`,
+      "Calculadora de Consumo de Energia: kWh e Custo",
     description:
-      "Calcule o consumo de cada aparelho em kWh/mês e quanto ele pesa na conta de luz, com simulação de standby e mais de 50 aparelhos cadastrados.",
+      "Calcule o consumo em kWh/mês e o custo de ar-condicionado, geladeira, chuveiro e mais de 50 aparelhos na conta de luz. Grátis e sem cadastro.",
     keywords:
       "calculadora consumo energia, kwh aparelho, consumo elétrico, conta de luz, watts hora, tarifa ANEEL, custo eletrodoméstico, geladeira consumo, chuveiro consumo, ar condicionado consumo, conta luz mensal",
     canonicalUrl:

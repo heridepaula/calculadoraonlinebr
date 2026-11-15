@@ -178,7 +178,7 @@ export default function Index() {
             >
               <Link
                 to="/calculadoras"
-                className="inline-flex items-center justify-center rounded-xl bg-primary-blue px-7 py-4 text-base font-semibold text-white shadow-lg shadow-primary-blue/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-blue/30 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-background-dark"
+                className="inline-flex items-center justify-center rounded-xl bg-primary-blue px-7 py-4 text-base font-semibold text-gray-900 shadow-lg shadow-primary-blue/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-blue/30 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-background-dark"
               >
                 Ver todas as {TOTAL_CALCULATORS} calculadoras →
               </Link>
@@ -319,7 +319,7 @@ export default function Index() {
         />
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="text-xs uppercase tracking-[0.3em] text-math-purple-dark mb-2">
+            <div className="text-xs uppercase tracking-[0.3em] text-math-purple mb-2">
               Pódio
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
@@ -446,7 +446,6 @@ export default function Index() {
             <Link
               to="/calculadoras"
               className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-background-dark shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-blue-dark"
-              aria-label="Ver todas as calculadoras"
             >
               Ver todas as {TOTAL_CALCULATORS} calculadoras
             </Link>

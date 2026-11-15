@@ -27,10 +27,6 @@ import "./styles/globals.css";
 import "./styles/colors.css";
 
 export const links: LinksFunction = () => [
-  // Early DNS resolution for critical domains
-  { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
-  { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
-
   // Font CSS - non-blocking: the inline script in <head> turns every
   // link[data-defer] into a stylesheet after load. Don't add a string onLoad here:
   // React attaches it on hydration and throws error #231 when the load event fires.
@@ -43,8 +39,6 @@ export const links: LinksFunction = () => [
   },
 
   // AdSense Performance Optimization
-  { rel: "preconnect", href: "https://pagead2.googlesyndication.com" },
-  { rel: "preconnect", href: "https://googleads.g.doubleclick.net" },
   { rel: "dns-prefetch", href: "https://pagead2.googlesyndication.com" },
   { rel: "dns-prefetch", href: "https://googleads.g.doubleclick.net" },
 
@@ -178,8 +172,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Performance and DNS */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
         {/* Analytics DNS Prefetch - apenas em produção */}
         {data?.ENV?.NODE_ENV === "production" && (
@@ -193,17 +185,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {(data?.ENV?.VITE_CLOUDFLARE_TOKEN || CLOUDFLARE_TOKEN) && (
               <>
                 <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-                <link
-                  rel="preconnect"
-                  href="https://static.cloudflareinsights.com"
-                  crossOrigin="anonymous"
-                />
               </>
             )}
 
             {/* Microsoft Clarity DNS Prefetch */}
             <link rel="dns-prefetch" href="https://www.clarity.ms" />
-            <link rel="preconnect" href="https://www.clarity.ms" crossOrigin="anonymous" />
           </>
         )}
 

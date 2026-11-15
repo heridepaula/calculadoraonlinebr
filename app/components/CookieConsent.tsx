@@ -62,7 +62,7 @@ export function CookieConsent({ onAccept, onDecline }: CookieConsentProps) {
           <Button 
             size="sm"
             onClick={handleAccept}
-            className="bg-primary-blue-dark hover:bg-primary-blue text-white"
+            className="bg-primary-blue-dark hover:bg-primary-blue text-gray-900"
           >
             Aceitar Todos
           </Button>
