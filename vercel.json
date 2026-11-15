@@ -4,19 +4,6 @@
   "devCommand": "npm run dev",
   "headers": [
     {
-      "source": "/build/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
-        },
-        {
-          "key": "Content-Encoding",
-          "value": "identity"
-        }
-      ]
-    },
-    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -39,7 +26,7 @@
       ]
     },
     {
-      "source": "/((?!build).)*",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "X-Frame-Options",
@@ -50,10 +37,6 @@
           "value": "nosniff"
         },
         {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
@@ -62,8 +45,8 @@
           "value": "camera=(), microphone=(), geolocation=()"
         },
         {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://www.googletagmanager.com https://www.clarity.ms https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com; img-src 'self' data: https:; frame-src 'none';"
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.clarity.ms https://scripts.clarity.ms https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://tpc.googlesyndication.com https://www.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.clarity.ms https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google; img-src 'self' data: https:; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://ep2.adtrafficquality.google https://www.google.com; object-src 'none'; base-uri 'self'"
         }
       ]
     }
@@ -90,15 +73,8 @@
       "permanent": true
     }
   ],
-  "rewrites": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "/sitemap.xml"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/robots.txt"
-    }
-  ],
-  "crons": []
+  "crons": [],
+  "regions": [
+    "gru1"
+  ]
 }
