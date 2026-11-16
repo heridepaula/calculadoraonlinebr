@@ -27,6 +27,7 @@
     "seed:lotofacil": "tsx scripts/seedLotofacil.ts",
     "backfill:lotofacil": "tsx scripts/backfillLotofacil.ts",
     "sync:market": "tsx --env-file=.env.local scripts/syncMarket.ts",
+    "sync:fuel": "tsx --env-file=.env.local scripts/syncFuel.ts",
     "seo:check": "node scripts/seo-check.mjs"
   },
   "dependencies": {
@@ -41,6 +42,7 @@
     "cheerio": "^1.2.0",
     "clsx": "2.1.1",
     "compression": "^1.8.1",
+    "fflate": "^0.8.3",
     "isbot": "4.1.0",
     "mongodb": "^7.8.0",
     "node-fetch": "^3.3.2",

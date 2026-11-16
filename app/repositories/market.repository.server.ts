@@ -6,6 +6,7 @@ import { treasuryRowId, type TreasuryRow } from "~/lib/market/treasury";
 export const INDICATORS_COLLECTION = "market_indicators";
 export const TREASURY_COLLECTION = "treasury_bonds";
 export const TREASURY_SYNC_COLLECTION = "treasury_sync";
+export const FUEL_COLLECTION = "fuel_prices";
 
 export interface IndicatorDoc extends IndicatorValue {
   _id: IndicatorId;
@@ -113,6 +114,31 @@ export async function getTreasurySync(): Promise<TreasurySyncDoc | null> {
 export async function setTreasurySync(patch: Partial<Omit<TreasurySyncDoc, "_id">>) {
   const { sync } = await cols();
   await sync.updateOne({ _id: SYNC_ID }, { $set: patch }, { upsert: true });
+}
+
+/** Um único documento com a semana inteira: gasolina e etanol nunca vêm de semanas diferentes. */
+export interface FuelDoc {
+  _id: "BRASIL";
+  weekStart: string;
+  weekEnd: string;
+  gasoline: number;
+  ethanol: number;
+  gasolineStations: number;
+  ethanolStations: number;
+  sourceUrl: string;
+  fetchedAt: Date;
+}
+
+export async function getFuelDoc(): Promise<FuelDoc | null> {
+  const db = await getDb();
+  return db.collection<FuelDoc>(FUEL_COLLECTION).findOne({ _id: "BRASIL" });
+}
+
+export async function saveFuelDoc(doc: Omit<FuelDoc, "_id">) {
+  const db = await getDb();
+  await db
+    .collection<FuelDoc>(FUEL_COLLECTION)
+    .updateOne({ _id: "BRASIL" }, { $set: doc }, { upsert: true });
 }
 
 export type { Collection };

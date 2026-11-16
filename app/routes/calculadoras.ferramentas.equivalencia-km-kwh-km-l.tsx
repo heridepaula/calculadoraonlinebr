@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { DirectAnswer, FAQ, RelatedCalculators, SourcesAndUpdate } from "~/components";
 import {
   Breadcrumb,
@@ -13,11 +13,9 @@ import { EvEquivalenceCalculator } from "~/components/calculators/EvEquivalenceC
 import { APP_NAME, APP_URL } from "~/lib/constants";
 import { CALCULATOR_SEO_DATA } from "~/lib/calculator-seo";
 import { calculateEVEquivalence } from "~/lib/ev-equivalence";
-import {
-  FUEL_REFERENCE,
-  VEHICLE_SOURCES,
-  VEHICLE_SOURCES_REVIEWED_AT,
-} from "~/lib/vehicle-sources";
+import { formatWeekRange } from "~/lib/market/fuel";
+import { fuelPricesLoader } from "~/services/market/loader.server";
+import { VEHICLE_SOURCES, VEHICLE_SOURCES_REVIEWED_AT } from "~/lib/vehicle-sources";
 import { generateFAQStructuredData } from "~/lib/structured-data";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -93,7 +91,11 @@ const FAQ_ITEMS = [
   },
 ];
 
-export const meta: MetaFunction = () => [
+export async function loader() {
+  return fuelPricesLoader();
+}
+
+export const meta: MetaFunction<typeof loader> = () => [
   ...buildCalculatorMeta("equivalencia-km-kwh-km-l"),
   {
     "script:ld+json": {
@@ -151,6 +153,7 @@ const FAQ_BORDER_COLORS = [
 const linkClass = "font-medium text-primary-blue-dark underline hover:text-primary-blue";
 
 export default function EquivalenciaKmKwhKmLPage() {
+  const { fuel } = useLoaderData<typeof loader>();
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
@@ -315,9 +318,9 @@ export default function EquivalenciaKmKwhKmLPage() {
             Mesmo carro do exemplo ({num1.format(EXAMPLE.evEfficiency)} km/kWh) com gasolina a{" "}
             {brl.format(EXAMPLE.fuelPrice)}/L e comparação com um carro de{" "}
             {EXAMPLE.referenceKmPerLiter} km/L. As tarifas são valores ilustrativos; use a do seu
-            caso na calculadora. Como referência, na semana de {FUEL_REFERENCE.week} a ANP registrou
-            a gasolina comum a {brl.format(FUEL_REFERENCE.gasoline)}/L e o etanol a{" "}
-            {brl.format(FUEL_REFERENCE.ethanol)}/L, em média no Brasil.
+            caso na calculadora. Como referência, na semana de {formatWeekRange(fuel)} a ANP
+            registrou a gasolina comum a {brl.format(fuel.gasoline)}/L e o etanol a{" "}
+            {brl.format(fuel.ethanol)}/L, em média no Brasil.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
@@ -435,7 +438,7 @@ export default function EquivalenciaKmKwhKmLPage() {
 
       <SourcesAndUpdate
         updatedAt={VEHICLE_SOURCES_REVIEWED_AT}
-        reviewNote={`Preços de combustíveis conferidos na Síntese Semanal da ANP (${FUEL_REFERENCE.week})`}
+        reviewNote={`Preços de combustíveis conferidos no Levantamento de Preços da ANP (semana de ${formatWeekRange(fuel)})`}
         sourcesIntro="Os dados de referência vêm das fontes oficiais abaixo"
         sources={VEHICLE_SOURCES}
       />

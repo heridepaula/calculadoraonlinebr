@@ -66,6 +66,7 @@ HTML is cached on the Vercel CDN for 1 h (`headers` in `root.tsx`, `s-maxage=360
 - Mongo: `market_indicators`, `treasury_bonds` (janela de 365 dias), `treasury_sync`. Primeira carga ou teste manual: `npm run sync:market`.
 - Leitura: cache de 1 h por instância; sem banco, cai em `FALLBACK_INDICATORS` com `stale: true`. O endpoint JSON antigo do tesourodireto.com.br responde 410: não volte a usá-lo.
 - Nova série: acrescente em `IndicatorId`, `SGS_SERIES`, `RATE_BOUNDS`, `STALE_AFTER_DAYS` e `FALLBACK_INDICATORS`.
+- Combustíveis (gasolina comum e etanol hidratado, média Brasil, R$/L): `lib/market/fuel.ts` (parser puro e fallback), `services/market/fuel.server.ts` (download) e `syncFuel` em `sync.server.ts`. Fonte: planilha semanal `resumo_semanal_lpc_AAAA_MM_DD-AAAA_MM_DD.xlsx` da ANP (aba `BRASIL`, domingo a sábado; só as ~5 últimas semanas ficam no caminho calculado, com plano B pelos links da página de listagem). Mongo: `fuel_prices`, um documento `_id: "BRASIL"` por vez. Roda dentro de `/api/cron/indicadores` (sem `only`, `only=indicadores` ou `only=combustiveis`; falha dele só vira HTTP 500 com `only=combustiveis`) e não baixa nada se a semana gravada já é a última encerrada. `npm run sync:fuel` roda só esta etapa; `npm run sync:market` roda tudo. As páginas de carro elétrico/PHEV leem por `fuelPricesLoader` e nunca fixam o preço no código. Verificação do parser: `npx tsx scripts/checkFuelParser.ts <pasta com os .xlsx>`.
 
 ### Tabelas trabalhistas (INSS, IRRF, salário mínimo)
 

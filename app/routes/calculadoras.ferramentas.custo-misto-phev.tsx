@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { DirectAnswer, FAQ, RelatedCalculators, SourcesAndUpdate } from "~/components";
 import {
   Breadcrumb,
@@ -13,11 +13,9 @@ import { PhevTripCostCalculator } from "~/components/calculators/PhevTripCostCal
 import { APP_NAME, APP_URL } from "~/lib/constants";
 import { CALCULATOR_SEO_DATA } from "~/lib/calculator-seo";
 import { calculatePhevTripCost } from "~/lib/phev-trip-cost";
-import {
-  FUEL_REFERENCE,
-  VEHICLE_SOURCES,
-  VEHICLE_SOURCES_REVIEWED_AT,
-} from "~/lib/vehicle-sources";
+import { FALLBACK_FUEL_PRICES, formatWeekRange, type FuelPrices } from "~/lib/market/fuel";
+import { fuelPricesLoader } from "~/services/market/loader.server";
+import { VEHICLE_SOURCES, VEHICLE_SOURCES_REVIEWED_AT } from "~/lib/vehicle-sources";
 import { generateFAQStructuredData } from "~/lib/structured-data";
 import { buildCalculatorMeta } from "~/lib/page-meta";
 
@@ -54,7 +52,7 @@ const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" 
 const num1 = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const num0 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
 
-const FAQ_ITEMS = [
+const buildFaqItems = (fuel: FuelPrices) => [
   {
     question: "Como calcular o consumo real de um carro híbrido plug-in (PHEV)?",
     answer: `Divida o trajeto em duas partes: os km rodados com a bateria e os km rodados com o motor a combustão. Some o gasto de cada parte (km ÷ km/kWh × tarifa e km ÷ km/L × preço do litro) e divida pelo total de km. Exemplo: em 120 km com 50 km de autonomia elétrica, o custo é ${brl.format(EXAMPLE.totalCost)}, ou ${brl.format(EXAMPLE.costPerKm)} por km, o que equivale a ${num1.format(EXAMPLE.equivalentKmPerLiter)} km/L.`,
@@ -80,7 +78,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Qual tarifa de energia e qual preço do combustível devo usar?",
-    answer: `Use o que você paga de fato. Para a energia, o valor do kWh na sua conta de luz (a tarifa varia por distribuidora, e a ANEEL divulga as tarifas e as bandeiras tarifárias) ou o preço do kWh no eletroposto. Para o combustível, o preço do seu posto. Como referência, a ANP registrou na semana de ${FUEL_REFERENCE.week} a gasolina comum a ${brl.format(FUEL_REFERENCE.gasoline)}/L e o etanol hidratado a ${brl.format(FUEL_REFERENCE.ethanol)}/L, em média no Brasil. O exemplo desta página usa ${brl.format(CAR.fuelPricePerLiter)}/L, um valor ilustrativo.`,
+    answer: `Use o que você paga de fato. Para a energia, o valor do kWh na sua conta de luz (a tarifa varia por distribuidora, e a ANEEL divulga as tarifas e as bandeiras tarifárias) ou o preço do kWh no eletroposto. Para o combustível, o preço do seu posto. Como referência, a ANP registrou na semana de ${formatWeekRange(fuel)} a gasolina comum a ${brl.format(fuel.gasoline)}/L e o etanol hidratado a ${brl.format(fuel.ethanol)}/L, em média no Brasil. O exemplo desta página usa ${brl.format(CAR.fuelPricePerLiter)}/L, um valor ilustrativo.`,
   },
   {
     question: "A calculadora considera manutenção, IPVA e a compra do carro?",
@@ -89,7 +87,11 @@ const FAQ_ITEMS = [
   },
 ];
 
-export const meta: MetaFunction = () => [
+export async function loader() {
+  return fuelPricesLoader();
+}
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => [
   ...buildCalculatorMeta("custo-misto-phev"),
   {
     "script:ld+json": {
@@ -135,7 +137,9 @@ export const meta: MetaFunction = () => [
       ],
     },
   },
-  { "script:ld+json": generateFAQStructuredData(FAQ_ITEMS) },
+  {
+    "script:ld+json": generateFAQStructuredData(buildFaqItems(data?.fuel ?? FALLBACK_FUEL_PRICES)),
+  },
 ];
 
 const FAQ_BORDER_COLORS = [
@@ -150,6 +154,8 @@ const FAQ_BORDER_COLORS = [
 const linkClass = "font-medium text-primary-blue-dark underline hover:text-primary-blue";
 
 export default function CustoMistoPhevPage() {
+  const { fuel } = useLoaderData<typeof loader>();
+  const faqItems = buildFaqItems(fuel);
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 md:max-w-4xl lg:max-w-6xl" lang="pt-BR">
       <Breadcrumb>
@@ -276,9 +282,8 @@ export default function CustoMistoPhevPage() {
             km/kWh, {CAR.hybridEfficiencyKmPerLiter} km/L no híbrido), energia a{" "}
             {brl.format(CAR.energyCostPerKwh)}/kWh e combustível a{" "}
             {brl.format(CAR.fuelPricePerLiter)}/L. Os valores do exemplo são ilustrativos; na semana
-            de {FUEL_REFERENCE.week}, a ANP registrou a gasolina comum a{" "}
-            {brl.format(FUEL_REFERENCE.gasoline)}/L e o etanol a{" "}
-            {brl.format(FUEL_REFERENCE.ethanol)}
+            de {formatWeekRange(fuel)}, a ANP registrou a gasolina comum a{" "}
+            {brl.format(fuel.gasoline)}/L e o etanol a {brl.format(fuel.ethanol)}
             /L, em média no Brasil:
           </p>
           <div className="overflow-x-auto">
@@ -354,7 +359,7 @@ export default function CustoMistoPhevPage() {
 
       <FAQ
         title="Perguntas Frequentes - Custo do Híbrido Plug-in (PHEV)"
-        items={FAQ_ITEMS.map((item, index) => ({
+        items={faqItems.map((item, index) => ({
           ...item,
           borderColor: FAQ_BORDER_COLORS[index % FAQ_BORDER_COLORS.length],
         }))}
@@ -396,7 +401,7 @@ export default function CustoMistoPhevPage() {
 
       <SourcesAndUpdate
         updatedAt={VEHICLE_SOURCES_REVIEWED_AT}
-        reviewNote={`Preços de combustíveis conferidos na Síntese Semanal da ANP (${FUEL_REFERENCE.week})`}
+        reviewNote={`Preços de combustíveis conferidos no Levantamento de Preços da ANP (semana de ${formatWeekRange(fuel)})`}
         sourcesIntro="Os dados de referência vêm das fontes oficiais abaixo"
         sources={VEHICLE_SOURCES}
       />

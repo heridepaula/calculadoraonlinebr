@@ -1,11 +1,15 @@
+import { lastCompletedWeekStart, parseAnpWeeklyXlsx, weekEndOf } from "~/lib/market/fuel";
 import { HISTORY_DAYS, parseTreasuryCsv } from "~/lib/market/treasury";
 import {
   deleteTreasuryBefore,
+  getFuelDoc,
   getTreasurySync,
+  saveFuelDoc,
   saveIndicators,
   setTreasurySync,
   upsertTreasuryRows,
 } from "~/repositories/market.repository.server";
+import { fetchLatestAnpWeek } from "./fuel.server";
 import { fetchIndicators, fetchTreasuryCatalog, fetchTreasuryCsv } from "./sources.server";
 import { getDb } from "~/lib/mongodb.server";
 import { invalidateMarketCache } from "./marketData.server";
@@ -71,4 +75,49 @@ export async function syncTreasury(now = new Date()): Promise<TreasurySyncResult
     }).catch(() => undefined);
     throw err;
   }
+}
+
+export type FuelSyncResult =
+  | { status: "up-to-date"; weekEnd: string | null }
+  | { status: "updated"; weekStart: string; weekEnd: string; gasoline: number; ethanol: number };
+
+/**
+ * Grava a média Brasil de gasolina e etanol da semana mais nova da ANP. Se a semana gravada já é
+ * a última encerrada, nem faz requisição; se a ANP ainda não publicou a nova, é sucesso
+ * ("up-to-date"). Arquivo inválido lança erro sem alterar nada, e a semana só avança.
+ */
+export async function syncFuel(now = new Date()): Promise<FuelSyncResult> {
+  void getDb().catch(() => undefined);
+  const stored = await getFuelDoc();
+  if (stored && stored.weekEnd >= weekEndOf(lastCompletedWeekStart(now))) {
+    return { status: "up-to-date", weekEnd: stored.weekEnd };
+  }
+  const file = await fetchLatestAnpWeek(stored?.weekEnd ?? null, now);
+  if (!file) return { status: "up-to-date", weekEnd: stored?.weekEnd ?? null };
+
+  const week = parseAnpWeeklyXlsx(file.data);
+  if (week.weekStart !== file.weekStart) {
+    throw new Error(`Planilha de ${file.weekStart} traz a semana ${week.weekStart}: recusada`);
+  }
+  if (stored && week.weekEnd <= stored.weekEnd) {
+    return { status: "up-to-date", weekEnd: stored.weekEnd };
+  }
+  await saveFuelDoc({
+    weekStart: week.weekStart,
+    weekEnd: week.weekEnd,
+    gasoline: week.gasoline,
+    ethanol: week.ethanol,
+    gasolineStations: week.gasolineStations,
+    ethanolStations: week.ethanolStations,
+    sourceUrl: file.url,
+    fetchedAt: now,
+  });
+  invalidateMarketCache();
+  return {
+    status: "updated",
+    weekStart: week.weekStart,
+    weekEnd: week.weekEnd,
+    gasoline: week.gasoline,
+    ethanol: week.ethanol,
+  };
 }
